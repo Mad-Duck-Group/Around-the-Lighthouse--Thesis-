@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b3fb52947c6b2854abb5ec108fb81228
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 252960
+  packageName: "PrimeTween \xB7 High-Performance Animations and Sequences"
+  packageVersion: 1.3.3
+  assetPath: Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween-1.3.3.tgz
+  uploadId: 779043
