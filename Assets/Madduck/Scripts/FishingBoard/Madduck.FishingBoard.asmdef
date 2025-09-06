@@ -1,0 +1,27 @@
+{
+    "name": "Madduck.FishingBoard",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9a8e98c85254a0446b05479cd383a29b",
+        "GUID:5ecb2f6dbf140e440bfa9b64e27a2d48",
+        "GUID:59060aab475fe74459dbf17bf4e78b81",
+        "GUID:80ecb87cae9c44d19824e70ea7229748",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:250e7721b72357f41bf7522b8b7e2f98",
+        "GUID:77221876cc6b8244180b96e320b1bcd4",
+        "GUID:73907d139b13f8a43b7e3e95c329d30a",
+        "GUID:5b07139c813055a45b749292fa7fbcdd",
+        "GUID:0c752da273b17c547ae705acf0f2adf2",
+        "GUID:20ee76f6d94ae4b0595f3ceb1c5359a7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{900f657e-9926-47be-9c05-d632c2e8914b}">
+		<property name="assetPath">
+			<value>SFX/SFX_UI_Hover.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.1306122448979592</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d0370551-250a-46b4-8fe4-9471cc918246}</destination>
+		</relationship>
+	</object>
+</objects>

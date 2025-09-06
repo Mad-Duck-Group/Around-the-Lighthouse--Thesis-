@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1696973067715501210}
   - component: {fileID: 1622934563777929058}
+  - component: {fileID: 3980020800613831494}
   m_Layer: 0
   m_Name: ProjectLifetimeScope
   m_TagString: Untagged
@@ -53,6 +54,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 9b74cd10328d8d64a98ce1b7f8705086, type: 2}
+    - {fileID: 3980020800613831494}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -64,7 +66,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 1|Madduck.Scripts.Audio.AudioManagerInstaller, Madduck.Audio
@@ -75,8 +77,29 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 2|Madduck.Scripts.Input.PlayerInputHandlerInstaller, Madduck.Input
+    - Name: playerInputHandler
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
+--- !u!114 &3980020800613831494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9182539120361643109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1948b4ae8df313940b2e6d8a4e329be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Madduck.Input::Madduck.Scripts.Input.PlayerInputHandler

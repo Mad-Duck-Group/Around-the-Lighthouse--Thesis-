@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1eee0a5fee7d3c42aaaa08a913b5464, type: 3}
+  m_Name: TestRodStats
+  m_EditorClassIdentifier: 
+  <ThrowingDistanceRange>k__BackingField: {x: 1, y: 5}
+  <Power>k__BackingField: 8
+  <FishingLineDurability>k__BackingField: 10
+  <FishingLineRegenFactor>k__BackingField: 14
+  <FishingRodDurability>k__BackingField: 2
+  <ReelingSpeed>k__BackingField: 25

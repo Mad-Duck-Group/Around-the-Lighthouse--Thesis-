@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a5f5ea7babc8264a8be61994ba02323, type: 3}
+  m_Name: Crawling Stone
+  m_EditorClassIdentifier: 
+  <Guid>k__BackingField: 0e99b6c4640f2543ba0eea33cca0f582
+  <ItemType>k__BackingField: 0
+  <CanPutInContainer>k__BackingField: 1
+  <CanPlaceOnGround>k__BackingField: 0
+  <IsStackable>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 2
+  <FishBehaviorData>k__BackingField: {fileID: 11400000, guid: d8b849174e666a74ea7379f53e1a91f1, type: 2}
+  <FishName>k__BackingField: Crawling Stone
+  <FishSprite>k__BackingField: {fileID: -1261935879811520411, guid: b87f30f5751aac94cabe3c1bcb4a9463, type: 3}

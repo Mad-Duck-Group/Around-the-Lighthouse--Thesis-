@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ed58405c7587b4286d05cfaea24aff, type: 3}
+  m_Name: FishingZone1
+  m_EditorClassIdentifier: 
+  fishProbabilities:
+  - fishData: {fileID: 11400000, guid: 0369377454aa07a4181e2aeccae60320, type: 2}
+    weight: 1
+    probability: 0.5
+  - fishData: {fileID: 11400000, guid: 826ca38ca0eeb7e4fa2e023df6f586a0, type: 2}
+    weight: 1
+    probability: 0.5

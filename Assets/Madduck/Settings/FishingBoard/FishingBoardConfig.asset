@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19948f8ca49d40d4a695c5061f0081ef, type: 3}
+  m_Name: FishingBoardConfig
+  m_EditorClassIdentifier: Madduck.UI::Madduck.Scripts.UI.FishingBoard.FishingBoardConfig
+  <MouseSensitivity>k__BackingField: 50
+  <Inertia>k__BackingField: 100
+  <MaxFatigueLevel>k__BackingField: 100
+  <FishingLineTensionSfx>k__BackingField:
+    Guid:
+      Data1: -280414044
+      Data2: 1279955792
+      Data3: 53463223
+      Data4: 2043922664
+    Path: event:/SFX/FishingLineTension
