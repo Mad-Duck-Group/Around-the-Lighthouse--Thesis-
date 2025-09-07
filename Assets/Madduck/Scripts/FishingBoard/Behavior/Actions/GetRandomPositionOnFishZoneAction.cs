@@ -18,7 +18,7 @@ public partial class GetRandomPositionOnFishZoneAction : Action
     protected override Status OnStart()
     {
         _fishingBoardController ??= FishingBoard.Value.Container.Resolve<FishingBoardController>();
-        TargetPosition.Value = _fishingBoardController.GetRandomPositionOnFishZone((int)FishZone.Value);
+        TargetPosition.Value = _fishingBoardController.GetRandomPositionOnFishZone(FishZone.Value);
         return Status.Running;
     }
 

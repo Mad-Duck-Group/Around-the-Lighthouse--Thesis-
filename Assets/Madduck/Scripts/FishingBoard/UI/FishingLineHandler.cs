@@ -1,3 +1,4 @@
+using PrimeTween;
 using Shapes2D;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -16,15 +17,16 @@ namespace Madduck.Scripts.FishingBoard.UI
         #region Inspector
         [Title("Settings")]
         [SerializeField] private Shape[] shapes;
+        [SerializeField] private Color32 noTensionColor = Color.white;
         [SerializeField] private Color32 lowTensionColor;
         [SerializeField] private Color32 mediumTensionColor;
         [SerializeField] private Color32 highTensionColor;
-        [SerializeField] private float colorLerpSpeed = 2f; // Speed of color transition
+        [SerializeField] private float colorLerpSpeed = 2f;
         [SerializeField] private Vector2 offset;
         
         [Title("Debug")]
         [DisplayAsString]
-        [ShowInInspector] public FishLineTension FishLineTension { get; set; } = FishLineTension.Normal;
+        [ShowInInspector] private FishLineTension _fishlineTension = FishLineTension.Normal;
         [ReadOnly]
         [ShowInInspector] private Vector3[] _fishLine;
         [ReadOnly]
@@ -33,18 +35,17 @@ namespace Madduck.Scripts.FishingBoard.UI
 
         #region Fields
         private Color _currentColor;
-        private Color _targetColor;
-        private FishLineTension _previousTension;
+        private Tween _colorTween;
+        private FishLineTension _previousTension = FishLineTension.Normal;
         private float _width, _height, _unitWidth, _unitHeight;
         #endregion
 
-        private void Start()
-        {
-            _currentColor = Color.white; // Default color
-            _targetColor = _currentColor;
-            _previousTension = FishLineTension;
-        }
-
+        /// <summary>
+        /// Set the points of the fishing line.
+        /// </summary>
+        /// <param name="hook"></param>
+        /// <param name="center"></param>
+        /// <param name="fish"></param>
         public void SetPoints(Transform hook, Transform center, Transform fish)
         {
             var directionHook = (hook.position - center.position).normalized;
@@ -75,6 +76,9 @@ namespace Madduck.Scripts.FishingBoard.UI
             SetVertexPosition();
         }
         
+        /// <summary>
+        /// Set the vertex positions of the fishing line shapes.
+        /// </summary>
         private void SetVertexPosition()
         {
             foreach (var shape in shapes)
@@ -84,52 +88,68 @@ namespace Madduck.Scripts.FishingBoard.UI
             }
             shapes[0].SetPolygonWorldVertices(_fishLine);
             shapes[1].SetPolygonWorldVertices(_hookLine);
-            foreach (var s in shapes)
-            {
-                s.settings.fillColor = _currentColor;
-            }
         }
         
+        /// <summary>
+        /// Get the width and height of the fishing line area.
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         public void GetWidthHeight(float width, float height)
         {
             _width = width;
             _height = height;
         }
 
-        private void Update()
+        /// <summary>
+        /// Handle the tension of the fishing line based on durability percentage.
+        /// </summary>
+        /// <param name="durabilityPercent"></param>
+        public void HandleTension(float durabilityPercent)
         {
-            if (_previousTension != FishLineTension)
+            switch (durabilityPercent)
             {
-                HandleTension(); // Call only when tension changes
-                _previousTension = FishLineTension; // Update last known state
+                case <= 0.3f:
+                    _fishlineTension = FishLineTension.High;
+                    break;
+                case <= 0.5f:
+                    _fishlineTension = FishLineTension.Medium;
+                    break;
+                case <= 0.7f:
+                    _fishlineTension = FishLineTension.Low;
+                    break;
+                default:
+                    _fishlineTension = FishLineTension.Normal;
+                    break;
             }
-            _currentColor = Color.Lerp(_currentColor, _targetColor, Time.deltaTime * colorLerpSpeed);
-            
-        }
-
-        public void SetColor(Color color)
-        {
-            _targetColor = color;
-            
-        }
-        
-        private void HandleTension()
-        {
-            switch (FishLineTension)
+            if (_fishlineTension == _previousTension) return;
+            var targetColor = noTensionColor;
+            switch (_fishlineTension)
             {
                 case FishLineTension.Normal:
-                    SetColor(Color.white); // Example color
+                    targetColor = noTensionColor;
                     break;
                 case FishLineTension.Low:
-                    SetColor(lowTensionColor);
+                    targetColor = lowTensionColor;
                     break;
                 case FishLineTension.Medium:
-                    SetColor(mediumTensionColor);
+                    targetColor = mediumTensionColor;
                     break;
                 case FishLineTension.High:
-                    SetColor(highTensionColor);
+                    targetColor = highTensionColor;
                     break;
             }
+            _previousTension = _fishlineTension;
+            var currentColor = _currentColor;
+            _colorTween.Stop();
+            _colorTween = Tween.Custom(currentColor, targetColor, colorLerpSpeed, color =>
+            {
+                _currentColor = color;
+                foreach (var s in shapes)
+                {
+                    s.settings.fillColor = color;
+                }
+            });
         }
     
     }

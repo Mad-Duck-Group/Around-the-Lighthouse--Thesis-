@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Madduck.Scripts.FishingBoard.UI.ViewModel;
+using MadDuck.Scripts.Utils.Inspectors;
 using PrimeTween;
 using R3;
 using Sherbert.Framework.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 using VContainer;
 
 namespace Madduck.Scripts.FishingBoard.UI.View
@@ -12,19 +17,37 @@ namespace Madduck.Scripts.FishingBoard.UI.View
     public class FishingBoardView : MonoBehaviour
     {
         [Title("References")] 
+        [Required]
         [SerializeField] private CanvasGroup canvasGroup;
-        [field:SerializeField] public RectTransform HookObject { get; private set; }
+        [Required]
+        [SerializeField] private RectTransform hookObject;
+        [Required]
         [SerializeField] private RectTransform hookIcon;
-        [field: SerializeField] public RectTransform FishObject { get; private set; }
+        [Required]
+        [SerializeField] private RectTransform fishObject;
+        [Required]
         [SerializeField] private RectTransform fishIcon;
+        [Required]
         [SerializeField] private FishingLineHandler fishingLineHandler;
-        [field: SerializeField] public SerializableDictionary<FishZone, CircleBoard> CircleBoards { get; private set; } = new();
+        [Required]
+        [SerializeField] private SerializableDictionary<FishZone, CircleBoard> circleBoards = new();
+        [Required]
+        [SerializeField] private Slider fatigueSlider;
+        [Required]
+        [SerializeField] private Image fishFatigueImage;
+        [Required]
+        [SerializeField] private SerializableDictionary<Sprite, PercentageMultiplier> fatigueImageDictionary = new();
+        [Required]
+        [SerializeField] private Slider reelingSlider;
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings<Vector3> fishingBoardScaleTweenSettings;
         [SerializeField] private TweenSettings<float> fishingBoardAlphaTweenSettings;
         [SerializeField] private ShakeSettings shakeTweenSettings;
-
+        [SerializeField] private ShakeSettings reelingSliderShakeSettings;
+        
+        private Tween _reelingSliderShakeTween;
+        private List<KeyValuePair<Sprite, PercentageMultiplier>> _sortedFatigueImageList = new();
         private FishingBoardViewModel _fishingBoardViewModel;
         private IDisposable _isActiveBinding;
         private IDisposable _bindings;
@@ -40,48 +63,49 @@ namespace Madduck.Scripts.FishingBoard.UI.View
             _isActiveBinding = 
                 _fishingBoardViewModel.IsActive
                     .Subscribe(SetActive);
+            UpdateCircleBoardStates();
             Bind();
         }
         
         private void Bind()
         {
             _bindings?.Dispose();
-            var fishPositionBinding = 
-                _fishingBoardViewModel.FishPosition
+            var disposableBuilder = Disposable.CreateBuilder();
+            _fishingBoardViewModel.FishPosition
                 .Subscribe(x =>
                 {
-                    FishObject.localPosition = x;
-                    ClampPosition(FishObject);
+                    fishObject.localPosition = x;
+                    ClampPosition(fishObject);
                     DrawFishLine();
-                });
-            var fishRotationBinding = 
-                _fishingBoardViewModel.FishRotation
-                .Subscribe(x => FishObject.localRotation = x);
-            var hookPositionBinding = 
-                _fishingBoardViewModel.HookPosition
+                })
+                .AddTo(ref disposableBuilder);
+            _fishingBoardViewModel.FishRotation
+                .Subscribe(x => fishObject.localRotation = x)
+                .AddTo(ref disposableBuilder);
+            _fishingBoardViewModel.HookPosition
                 .Subscribe(x =>
                 {
-                    HookObject.localPosition = x;
-                    ClampPosition(HookObject);
+                    hookObject.localPosition = x;
+                    ClampPosition(hookObject);
                     DrawFishLine();
-                });
-            var hookRotationBinding = 
-                _fishingBoardViewModel.HookRotation
-                .Subscribe(x => HookObject.localRotation = x);
-            var durabilityBinding = 
-                _fishingBoardViewModel.FishLineDurabilityPercent
+                })
+                .AddTo(ref disposableBuilder);
+            _fishingBoardViewModel.HookRotation
+                .Subscribe(x => hookObject.localRotation = x)
+                .AddTo(ref disposableBuilder);
+            _fishingBoardViewModel.FishLineDurabilityPercent
                 .Subscribe(x =>
                 {
                     ShakeHook(x);
                     ShakeFish(x);
-                    SetTension(x);
-                });
-            _bindings = Disposable.Combine(
-                fishPositionBinding, 
-                fishRotationBinding, 
-                hookPositionBinding, 
-                hookRotationBinding, 
-                durabilityBinding);
+                    ShakeReelingSlider(x);
+                    fishingLineHandler.HandleTension(x);
+                })
+                .AddTo(ref disposableBuilder);
+            _fishingBoardViewModel.FatigueLevelPercent
+                .Subscribe(SetFatigue)
+                .AddTo(ref disposableBuilder);
+            _bindings = disposableBuilder.Build();
         }
         #endregion
 
@@ -89,6 +113,7 @@ namespace Madduck.Scripts.FishingBoard.UI.View
         private void Start()
         {
             InitializeFishingBoard();
+            UpdateCircleBoardStates();
             DrawFishLine();
         }
         
@@ -98,24 +123,50 @@ namespace Madduck.Scripts.FishingBoard.UI.View
             _bindings?.Dispose();
             _fishingBoardViewModel.Dispose();
         }
+        #endregion
         
+        #region Initialization
+        /// <summary>
+        /// Initialize the fishing board UI elements.
+        /// </summary>
         private void InitializeFishingBoard()
         {
-            foreach (var board in CircleBoards)
+            fatigueSlider.minValue = 0;
+            fatigueSlider.maxValue = 1;
+            fatigueSlider.value = 0;
+            reelingSlider.minValue = 0;
+            reelingSlider.maxValue = 1;
+            reelingSlider.value = 0;
+            var sortedDictionary = fatigueImageDictionary.OrderByDescending(pair => pair.Value.percentage).ToList();
+            _sortedFatigueImageList = sortedDictionary;
+            foreach (var board in circleBoards)
             {
                 var rectTransform = board.Value.Circle;
                 rectTransform.sizeDelta = new Vector2(board.Value.Radius * 2 , board.Value.Radius * 2 );
             }
-            //Set Hook
-            if (HookObject == null)
+            hookObject.localPosition = circleBoards[FishZone.Red].Circle.localPosition;
+        }
+        
+        /// <summary>
+        /// Update the states of all circle boards and notify the ViewModel.
+        /// </summary>
+        private void UpdateCircleBoardStates()
+        {
+            var circleBoardStates = new Dictionary<FishZone, CircleBoardState>();
+            foreach (var board in circleBoards)
             {
-                return;
+                var state = new CircleBoardState(board.Value);
+                circleBoardStates.Add(board.Key, state);
             }
-            HookObject.localPosition = CircleBoards[FishZone.Red].Circle.localPosition;
+            _fishingBoardViewModel.OnCircleBoardUpdated.Execute(circleBoardStates);
         }
         #endregion
         
         #region UI
+        /// <summary>
+        /// Set the active state of the fishing board UI.
+        /// </summary>
+        /// <param name="active"></param>
         private void SetActive(bool active)
         {
             if (active)
@@ -137,61 +188,85 @@ namespace Madduck.Scripts.FishingBoard.UI.View
                     if (!active) canvasGroup.gameObject.SetActive(false);
                 });
         }
+        
+        /// <summary>
+        /// Draw the fishing line.
+        /// </summary>
         private void DrawFishLine()
         {
-            var center = CircleBoards[FishZone.Red].Circle;
-            fishingLineHandler.GetWidthHeight( CircleBoards[FishZone.Red].Radius * 2, CircleBoards[FishZone.Red].Radius * 2);
-            fishingLineHandler.SetPoints(HookObject.transform, center.transform, FishObject.transform);
+            var center = circleBoards[FishZone.Red].Circle;
+            fishingLineHandler.GetWidthHeight( circleBoards[FishZone.Red].Radius * 2, circleBoards[FishZone.Red].Radius * 2);
+            fishingLineHandler.SetPoints(hookObject.transform, center.transform, fishObject.transform);
         }
         
-        private void ShakeHook(float durability)
+        /// <summary>
+        /// Shake the hook icon based on fishing line durability.
+        /// </summary>
+        /// <param name="durabilityPercent"></param>
+        private void ShakeHook(float durabilityPercent)
         {
             if (_hookShakeTween.isAlive) return;
             var copy = shakeTweenSettings;
-            copy.strength = shakeTweenSettings.strength * (1 - durability);
-            copy.frequency = shakeTweenSettings.frequency * (1 - durability);
+            copy.strength = shakeTweenSettings.strength * (1 - durabilityPercent);
+            copy.frequency = shakeTweenSettings.frequency * (1 - durabilityPercent);
             if (copy.strength.magnitude <= 0) return;
             _hookShakeTween = Tween.ShakeLocalPosition(hookIcon.transform, copy);
         }
         
-        private void ShakeFish(float durability)
+        /// <summary>
+        /// Shake the fish icon based on fishing line durability.
+        /// </summary>
+        /// <param name="durabilityPercent"></param>
+        private void ShakeFish(float durabilityPercent)
         {
             if (_fishShakeTween.isAlive) return;
             var copy = shakeTweenSettings;
-            copy.strength = shakeTweenSettings.strength * (1 - durability);
-            copy.frequency = shakeTweenSettings.frequency * (1 - durability);
+            copy.strength = shakeTweenSettings.strength * (1 - durabilityPercent);
+            copy.frequency = shakeTweenSettings.frequency * (1 - durabilityPercent);
             if (copy.strength.magnitude <= 0) return;
             _fishShakeTween = Tween.ShakeLocalPosition(fishIcon.transform, copy);
         }
         
+        /// <summary>
+        /// Clamp the position of the target transform within the circle board.
+        /// </summary>
+        /// <param name="target"></param>
         private void ClampPosition(Transform target)
         {
-            var redBoard = CircleBoards[FishZone.Red];
+            var redBoard = circleBoards[FishZone.Red];
             var centerToPosition = (redBoard.Circle.localPosition - target.localPosition).normalized;
             var maxMagnitude = redBoard.Radius * centerToPosition.magnitude;
             target.localPosition = Vector3.ClampMagnitude(target.localPosition, maxMagnitude);
         }
         
-        private void SetTension(float percentDurability)
+        /// <summary>
+        /// Set the fatigue level UI.
+        /// </summary>
+        /// <param name="fatiguePercent"></param>
+        private void SetFatigue(float fatiguePercent)
         {
-            if (percentDurability <= 0.3)
+            fatigueSlider.value = fatiguePercent;
+            foreach (var pair in _sortedFatigueImageList)
             {
-                fishingLineHandler.FishLineTension = FishLineTension.High;
-            }
-            else if (percentDurability <= 0.5)
-            {
-                fishingLineHandler.FishLineTension = FishLineTension.Medium;
-            }
-            else if (percentDurability <= 0.7)
-            {
-                fishingLineHandler.FishLineTension = FishLineTension.Low;
-            }
-            else
-            {
-                fishingLineHandler.FishLineTension = FishLineTension.Normal;
+                if (fatiguePercent < pair.Value.percentage) continue;
+                fishFatigueImage.sprite = pair.Key;
+                break;
             }
         }
-        
+
+        /// <summary>
+        /// Shake the reeling slider based on fishing line durability.
+        /// </summary>
+        /// <param name="durabilityPercent"></param>
+        private void ShakeReelingSlider(float durabilityPercent)
+        {
+            if (_reelingSliderShakeTween.isAlive) _reelingSliderShakeTween.Complete();
+            var copy = reelingSliderShakeSettings;
+            copy.strength = reelingSliderShakeSettings.strength * (1 - durabilityPercent);
+            copy.frequency = reelingSliderShakeSettings.frequency * (1 - durabilityPercent);
+            if (copy.strength.magnitude <= 0f) return;
+            _reelingSliderShakeTween = Tween.ShakeLocalPosition(reelingSlider.transform, copy);
+        }
         #endregion
     }
 }

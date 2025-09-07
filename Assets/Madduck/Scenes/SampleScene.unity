@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2027505202}
+  m_Material: {fileID: 651335120}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 516269255}
+  m_Material: {fileID: 2074178657}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -838,101 +838,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &516269255
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Shapes2D Material
-  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - FILL_SOLID_COLOR
-  - POLYGON_8
-  m_InvalidKeywords:
-  - _EMISSION
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _BumpScale: 1
-    - _ColorMask: 15
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _GlossyReflections: 1
-    - _Metallic: 0
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _Shapes2D_DstAlpha: 1
-    - _Shapes2D_DstBlend: 10
-    - _Shapes2D_SrcAlpha: 1
-    - _Shapes2D_SrcBlend: 1
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UVSec: 0
-    - _ZWrite: 1
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,6 +1140,101 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &651335120
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shapes2D Material
+  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - FILL_SOLID_COLOR
+  - POLYGON_8
+  m_InvalidKeywords:
+  - _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BumpScale: 1
+    - _ColorMask: 15
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _Shapes2D_DstAlpha: 1
+    - _Shapes2D_DstBlend: 10
+    - _Shapes2D_SrcAlpha: 1
+    - _Shapes2D_SrcBlend: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &721347074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,12 +1509,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.UI::Madduck.Scripts.UI.FishingBoard.View.FishingBoardView
   canvasGroup: {fileID: 938476395}
-  <HookObject>k__BackingField: {fileID: 721347075}
+  hookObject: {fileID: 721347075}
   hookIcon: {fileID: 905020958}
-  <FishObject>k__BackingField: {fileID: 2077989109}
+  fishObject: {fileID: 2077989109}
   fishIcon: {fileID: 454425762}
   fishingLineHandler: {fileID: 1644604637}
-  <CircleBoards>k__BackingField:
+  circleBoards:
     keys: 000000000100000002000000
     values:
     - <Circle>k__BackingField: {fileID: 1303462126}
@@ -1526,6 +1526,18 @@ MonoBehaviour:
     - <Circle>k__BackingField: {fileID: 253694639}
       <Radius>k__BackingField: 150
       <MultiplierRange>k__BackingField: {x: 1.5, y: 2}
+  fatigueSlider: {fileID: 1661912613}
+  fishFatigueImage: {fileID: 819956082}
+  fatigueImageDictionary:
+    keys:
+    - {fileID: 21300000, guid: 5478fa3b338fad14da1a816586c93553, type: 3}
+    - {fileID: 21300000, guid: 5af5950b972a1144a96b28542db07c93, type: 3}
+    - {fileID: 21300000, guid: db07f6c36a4805b4b8b5e65e129eb706, type: 3}
+    values:
+    - percentage: 0
+    - percentage: 1
+    - percentage: 0.75
+  reelingSlider: {fileID: 1104649598}
   fishingBoardScaleTweenSettings:
     startFromCurrent: 0
     startValue: {x: 0, y: 0, z: 0}
@@ -1581,6 +1593,26 @@ MonoBehaviour:
     asymmetry: 0
     easeBetweenShakes: 0
     cycles: 1
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  reelingSliderShakeSettings:
+    strength: {x: 0, y: 0, z: 0}
+    duration: 0
+    frequency: 0
+    enableFalloff: 0
+    falloffEase: 0
+    strengthOverTime:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    asymmetry: 0
+    easeBetweenShakes: 0
+    cycles: 0
     startDelay: 0
     endDelay: 0
     useUnscaledTime: 0
@@ -1890,6 +1922,9 @@ MonoBehaviour:
   shapes:
   - {fileID: 293347760}
   - {fileID: 196928266}
+  noTensionColor:
+    serializedVersion: 2
+    rgba: 4294967295
   lowTensionColor:
     serializedVersion: 2
     rgba: 4288717055
@@ -2260,48 +2295,8 @@ MonoBehaviour:
   behaviorGraphAgent: {fileID: 1911591240}
   fishingBoardView: {fileID: 938476393}
   fishingBoardConfig: {fileID: 11400000, guid: 90e87faf2bab23245aa2bc8363a15ed4, type: 2}
-  fishingBoardMinigameReference:
-    rid: 8180553577711010192
   fishItemData: {fileID: 11400000, guid: 09e05137d53d8d74882aa881f15e2984, type: 2}
   fishingRodItemData: {fileID: 11400000, guid: e2eb69998c820924bb850e118fe4f8e3, type: 2}
-  references:
-    version: 2
-    RefIds:
-    - rid: 8180553577711010192
-      type: {class: FishingBoardMinigameReference, ns: Madduck.Scripts.FishingBoard.UI, asm: Madduck.FishingBoard}
-      data:
-        fatigueSlider: {fileID: 1661912613}
-        fishFatigueImage: {fileID: 819956082}
-        fatigueImageDictionary:
-          keys:
-          - {fileID: 21300000, guid: 5478fa3b338fad14da1a816586c93553, type: 3}
-          - {fileID: 21300000, guid: 5af5950b972a1144a96b28542db07c93, type: 3}
-          - {fileID: 21300000, guid: db07f6c36a4805b4b8b5e65e129eb706, type: 3}
-          values:
-          - percentage: 0
-          - percentage: 1
-          - percentage: 0.75
-        reelingSlider: {fileID: 1104649598}
-        reelingSliderShakeSettings:
-          strength: {x: 0, y: 0, z: 0}
-          duration: 0
-          frequency: 0
-          enableFalloff: 0
-          falloffEase: 0
-          strengthOverTime:
-            serializedVersion: 2
-            m_Curve: []
-            m_PreInfinity: 2
-            m_PostInfinity: 2
-            m_RotationOrder: 4
-          asymmetry: 0
-          easeBetweenShakes: 0
-          cycles: 0
-          startDelay: 0
-          endDelay: 0
-          useUnscaledTime: 0
-          _useFixedUpdate: 0
-          _updateType: 0
 --- !u!114 &1911591240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2339,7 +2334,7 @@ MonoBehaviour:
           m_Value1: 9109711563005456775
         Name: Fishing Board Lifetime Scope
         m_Value: {fileID: 1911591239}
---- !u!21 &2027505202
+--- !u!21 &2074178657
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0

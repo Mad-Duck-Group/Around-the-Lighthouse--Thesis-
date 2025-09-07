@@ -18,14 +18,16 @@ namespace Madduck.Scripts.FishingBoard
         [SerializeField] private BehaviorGraphAgent behaviorGraphAgent;
         [SerializeField] private FishingBoardView fishingBoardView;
         [SerializeField] private FishingBoardConfig fishingBoardConfig;
-        [SerializeReference] private FishingBoardMinigameReference fishingBoardMinigameReference = new();
         [SerializeField] private FishItemData fishItemData;
         [SerializeField] private FishingRodItemData fishingRodItemData;
         
         [Title("Debug")]
-        [ShowInInspector, HideInEditorMode] private FishingBoardState _fishingBoardState;
-        [ShowInInspector, HideInEditorMode] private FishingBoardViewModel _fishingBoardViewModel;
-        [ShowInInspector, HideInEditorMode] private FishingBoardController _fishingBoardController;
+        [HideInEditorMode]
+        [ShowInInspector] private FishingBoardState _fishingBoardState;
+        [HideInEditorMode]
+        [ShowInInspector] private FishingBoardViewModel _fishingBoardViewModel;
+        [HideInEditorMode]
+        [ShowInInspector] private FishingBoardController _fishingBoardController;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -34,7 +36,6 @@ namespace Madduck.Scripts.FishingBoard
             builder.RegisterInstance(fishingBoardConfig).AsSelf();
             builder.RegisterInstance(new FishItemInstance(fishItemData)).AsSelf();
             builder.RegisterInstance(new FishingRodItemInstance(fishingRodItemData)).AsSelf();
-            builder.RegisterInstance(fishingBoardMinigameReference).AsSelf();
             builder.Register<FishingBoardController>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingBoardModel>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingBoardViewModel>(Lifetime.Scoped).AsSelf();

@@ -17,6 +17,9 @@ namespace Madduck.Scripts.FishingBoard
         Red
     }
     
+    /// <summary>
+    /// Controller for the Fishing Board mini-game. Handles non-UI input and AI logic.
+    /// </summary>
     public class FishingBoardController : IDisposable
     {
         #region Inspector
@@ -39,21 +42,21 @@ namespace Madduck.Scripts.FishingBoard
         [ShowInInspector] public float HookPowerMultiplier { get; private set; }
         #endregion
         
-        private readonly FishingBoardView _view;
+        #region Fields
         private readonly FishingBoardModel _model;
         private readonly PlayerInputHandler _playerInput;
         private readonly FishingBoardConfig _config;
         private IDisposable _bindings;
         private Tween _fishPositionTween;
+        #endregion
 
         #region Injection
         [Inject]
-        public FishingBoardController(FishingBoardView view, 
+        public FishingBoardController(
             FishingBoardModel model, 
             PlayerInputHandler playerInput,
             FishingBoardConfig config)
         {
-            _view = view;
             _model = model;
             _playerInput = playerInput;
             _config = config;
@@ -65,32 +68,41 @@ namespace Madduck.Scripts.FishingBoard
         private void Bind()
         {
             _bindings?.Dispose();
-            var fishPositionBinding =
-                _model.FishPosition
+            var disposableBuilder = Disposable.CreateBuilder();
+            _model.FishPosition
                     .Subscribe(x =>
                     {
                         FindFishAngle();
                         FishUnitCirclePosition = GetUnitCircle(x);
                         FishZone = GetFishZone(FishUnitCirclePosition.magnitude);
                         FishPowerMultiplier = GetPowerMultiplier(FishUnitCirclePosition);
-                    });
-            var hookPositionBinding =
-                _model.HookPosition
+                    })
+                    .AddTo(ref disposableBuilder);
+            _model.HookPosition
                     .Subscribe(x =>
                     {
                         FindFishAngle();
                         HookUnitCirclePosition = GetUnitCircle(x);
                         HookZone = GetFishZone(HookUnitCirclePosition.magnitude);
                         HookPowerMultiplier = GetPowerMultiplier(HookUnitCirclePosition);
-                    });
-            var mouseDeltaBinding =
-                _playerInput.MouseDelta
-                    .Subscribe(MoveHook);
-            _bindings = Disposable.Combine(fishPositionBinding, hookPositionBinding, mouseDeltaBinding);
+                    })
+                    .AddTo(ref disposableBuilder);
+            _playerInput.MouseDelta
+                    .Subscribe(MoveHook)
+                    .AddTo(ref disposableBuilder);
+            _bindings = disposableBuilder.Build();
         }
         #endregion
         
         #region Lifecycle
+        public void Dispose()
+        {
+            _bindings.Dispose();
+            _model.Dispose();
+        }
+        #endregion
+        
+        #region Activation
         public void SetActive(bool active)
         {
             if (active)
@@ -106,29 +118,18 @@ namespace Madduck.Scripts.FishingBoard
                 _bindings?.Dispose();
             }
         }
-        
-        public void Dispose()
-        {
-            _bindings.Dispose();
-            _model.Dispose();
-        }
         #endregion
         
-        #region Updates
-        private void FindFishAngle()
-        {
-            Vector2 circleCenter = _view.CircleBoards[FishZone.Red].Circle.localPosition;
-            Vector2 pullDirection = _model.HookPosition.Value - circleCenter;
-            Vector2 fishDirection = _model.FishPosition.Value - circleCenter;
-            AngleDifference = Vector2.Angle(pullDirection, fishDirection);
-            PullPercent = AngleDifference / 180f;
-        }
-        
+        #region Input
+        /// <summary>
+        /// Move the hook based on mouse delta input.
+        /// </summary>
+        /// <param name="delta">Mouse delta input.</param>
         private void MoveHook(Vector2 delta)
         {
-            var redBoard = _view.CircleBoards[FishZone.Red];
+            var redBoard = _model.CircleBoardState[FishZone.Red];
             var mouseDelta = delta * _config.MouseSensitivity;
-            var circleCenter = (Vector2)redBoard.Circle.localPosition;
+            var circleCenter = redBoard.Center;
             var hookToCenter = (circleCenter - _model.HookPosition.Value).normalized;
             var inertiaForce = (1 - _model.FishingLineDurabilityPercent.CurrentValue) * _config.Inertia;
             _model.HookPosition.Value += hookToCenter * (inertiaForce * Time.deltaTime);
@@ -140,54 +141,84 @@ namespace Madduck.Scripts.FishingBoard
         }
         #endregion
         
-        #region Utils
-
-        private FishZone GetFishZone(float magnitude)
+        #region AI Logic
+        /// <summary>
+        /// Find the angle difference between the fish and the hook relative to the center of the circle board.
+        /// </summary>
+        private void FindFishAngle()
         {
-            var greenThreshold = _view.CircleBoards[FishZone.Green].Radius / _view.CircleBoards[FishZone.Red].Radius;
-            var yellowThreshold = _view.CircleBoards[FishZone.Yellow].Radius / _view.CircleBoards[FishZone.Red].Radius;
-            var redThreshold = _view.CircleBoards[FishZone.Red].Radius / _view.CircleBoards[FishZone.Red].Radius;
-            if (magnitude <= greenThreshold)
+            Vector2 circleCenter = _model.CircleBoardState[FishZone.Red].Center;
+            Vector2 pullDirection = _model.HookPosition.Value - circleCenter;
+            Vector2 fishDirection = _model.FishPosition.Value - circleCenter;
+            AngleDifference = Vector2.Angle(pullDirection, fishDirection);
+            PullPercent = AngleDifference / 180f;
+        }
+
+        /// <summary>
+        /// Get the fish zone based on the magnitude of the unit circle position.
+        /// </summary>
+        /// <param name="unitCircleMagnitude">Magnitude of the unit circle position (0 to 1).</param>
+        /// <returns>Fish zone.</returns>
+        private FishZone GetFishZone(float unitCircleMagnitude)
+        {
+            var greenThreshold = _model.CircleBoardState[FishZone.Green].Radius / _model.CircleBoardState[FishZone.Red].Radius;
+            var yellowThreshold = _model.CircleBoardState[FishZone.Yellow].Radius / _model.CircleBoardState[FishZone.Red].Radius;
+            var redThreshold = _model.CircleBoardState[FishZone.Red].Radius / _model.CircleBoardState[FishZone.Red].Radius;
+            if (unitCircleMagnitude <= greenThreshold)
             {
                 return FishZone.Green;
             }
-            if (magnitude<= yellowThreshold)
+            if (unitCircleMagnitude <= yellowThreshold)
             {
                 return FishZone.Yellow;
             }
-            if (magnitude <= redThreshold)
+            if (unitCircleMagnitude <= redThreshold)
             {
                 return FishZone.Red;
             }
             return FishZone.Green;
         }
         
+        /// <summary>
+        /// Get the unit circle position from the object position.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns>Unit circle position.</returns>
         private Vector2 GetUnitCircle(Vector2 position)
         {
-            return position / _view.CircleBoards[FishZone.Red].Radius;
+            return position / _model.CircleBoardState[FishZone.Red].Radius;
         }
 
+        /// <summary>
+        /// Get the power multiplier based on the unit circle position.
+        /// </summary>
+        /// <param name="unitCircle">Unit circle position.</param>
+        /// <returns>Power multiplier.</returns>
         public float GetPowerMultiplier(Vector2 unitCircle)
         {
             var fishZone = GetFishZone(unitCircle.magnitude);
             var index = (int)fishZone;
             var previousIndex = Mathf.Max(0, index - 1);
-            var previousBoard = _view.CircleBoards[(FishZone)previousIndex];
-            var previousThreshold = previousIndex == index ? 0 : previousBoard.Radius / _view.CircleBoards[FishZone.Red].Radius;
-            var currentBoard = _view.CircleBoards[fishZone];
+            var previousBoard = _model.CircleBoardState[(FishZone)previousIndex];
+            var previousThreshold = previousIndex == index ? 0 : previousBoard.Radius / _model.CircleBoardState[FishZone.Red].Radius;
+            var currentBoard = _model.CircleBoardState[fishZone];
             var lowerBound = currentBoard.MultiplierRange.x;
             var upperBound = currentBoard.MultiplierRange.y;
-            var currentThreshold = currentBoard.Radius / _view.CircleBoards[FishZone.Red].Radius;
+            var currentThreshold = currentBoard.Radius / _model.CircleBoardState[FishZone.Red].Radius;
             var relativePercent = (unitCircle.magnitude - previousThreshold) / (currentThreshold - previousThreshold);
             var multiplier = Mathf.Lerp(lowerBound, upperBound, relativePercent);
             return multiplier;
         }
         
+        /// <summary>
+        /// Set the hook position based on the unit circle position.
+        /// </summary>
+        /// <param name="unitCircle">Unit circle position.</param>
         public void SetHookPosition(Vector2 unitCircle)
         {
-            var redBoard = _view.CircleBoards[FishZone.Red];
-            var circleCenter = (Vector2)redBoard.Circle.localPosition;
-            Vector2 position = unitCircle * redBoard.Radius;
+            var redBoard = _model.CircleBoardState[FishZone.Red];
+            var circleCenter = redBoard.Center;
+            var position = unitCircle * redBoard.Radius;
             _model.HookPosition.Value = position;
             //rotate facing the center
             var centerToHook = (circleCenter - _model.HookPosition.Value).normalized;
@@ -195,10 +226,14 @@ namespace Madduck.Scripts.FishingBoard
             _model.HookRotation.Value = Quaternion.Euler(0, 0, angle);
         }
         
+        /// <summary>
+        /// Set the fish position based on the unit circle position.
+        /// </summary>
+        /// <param name="unitCircle">Unit circle position.</param>
         public void SetFishPosition(Vector2 unitCircle)
         {
-            var redBoard = _view.CircleBoards[FishZone.Red];
-            var circleCenter = (Vector2)redBoard.Circle.localPosition;
+            var redBoard = _model.CircleBoardState[FishZone.Red];
+            var circleCenter = redBoard.Center;
             var fishToCenter = (circleCenter - _model.FishPosition.Value).normalized;
             Vector2 position = unitCircle * redBoard.Radius;
             _model.FishPosition.Value = position;
@@ -208,6 +243,11 @@ namespace Madduck.Scripts.FishingBoard
             _model.FishRotation.Value = Quaternion.Euler(0, 0, angle);
         }
         
+        /// <summary>
+        /// Move the fish to the target unit circle position over a duration.
+        /// </summary>
+        /// <param name="unitCircle">Target unit circle position.</param>
+        /// <param name="duration">Duration of the movement in seconds.</param>
         public void MoveFishTimeBased(Vector2 unitCircle, float duration)
         {
             if (_fishPositionTween.isAlive) _fishPositionTween.Stop();
@@ -217,6 +257,11 @@ namespace Madduck.Scripts.FishingBoard
                 SetFishPosition);
         }
         
+        /// <summary>
+        /// Move the fish to the target unit circle position based on speed (units per second).
+        /// </summary>
+        /// <param name="unitCircle">Target unit circle position.</param>
+        /// <param name="speed">Speed of the movement in units per second.</param>
         public void MoveFishSpeedBased(Vector2 unitCircle, float speed)
         {
             if (_fishPositionTween.isAlive) _fishPositionTween.Stop();
@@ -228,30 +273,49 @@ namespace Madduck.Scripts.FishingBoard
                 SetFishPosition);
         }
 
+        /// <summary>
+        /// Get a random position within the unit circle.
+        /// </summary>
+        /// <returns>Random position within the unit circle.</returns>
         public Vector2 GetRandomPosition()
         {
             var randomPosition = UnityEngine.Random.insideUnitCircle.normalized;
             return randomPosition;
         }
 
+        /// <summary>
+        /// Get a random position within the specified fish zone.
+        /// </summary>
+        /// <param name="fishZone">The fish zone to get the random position from.</param>
+        /// <returns>Random position within the specified fish zone.</returns>
         public Vector2 GetRandomPositionOnFishZone(FishZone fishZone)
         {
             var index = (int)fishZone;
             var previousIndex = Mathf.Max(0, index - 1);
-            var currentBoard = _view.CircleBoards[fishZone];
-            var previousBoard = _view.CircleBoards[(FishZone)previousIndex];
-            var currentThreshold = currentBoard.Radius / _view.CircleBoards[FishZone.Red].Radius;
-            var previousThreshold = previousIndex == index ? 0 : previousBoard.Radius / _view.CircleBoards[FishZone.Red].Radius;
+            var currentBoard = _model.CircleBoardState[fishZone];
+            var previousBoard = _model.CircleBoardState[(FishZone)previousIndex];
+            var currentThreshold = currentBoard.Radius / _model.CircleBoardState[FishZone.Red].Radius;
+            var previousThreshold = previousIndex == index ? 0 : previousBoard.Radius / _model.CircleBoardState[FishZone.Red].Radius;
             var threshold = UnityEngine.Random.Range(previousThreshold, currentThreshold);
             var randomPosition = UnityEngine.Random.insideUnitCircle.normalized * threshold;
             return randomPosition;
         }
         
-        public Vector2 GetRandomPositionOnFishZone(int fishZone)
+        /// <summary>
+        /// Get a random position within the specified fish zone by casting from BackboardFishZone to FishZone.
+        /// </summary>
+        /// <param name="backboardFishZone">The fish zone to get the random position from.</param>
+        /// <returns>Random position within the specified fish zone.</returns>
+        public Vector2 GetRandomPositionOnFishZone(BackboardFishZone backboardFishZone)
         {
-            return GetRandomPositionOnFishZone((FishZone)fishZone);
+            return GetRandomPositionOnFishZone((FishZone)backboardFishZone);
         }
         
+        /// <summary>
+        /// Get the unit circle position from a target angle in degrees.
+        /// </summary>
+        /// <param name="angle">Target angle in degrees.</param>
+        /// <returns>Unit circle position.</returns>
         public Vector2 GetUnitCircleFromTargetAngle(float angle)
         {
             var radian = angle * Mathf.Deg2Rad;
@@ -260,6 +324,11 @@ namespace Madduck.Scripts.FishingBoard
             return new Vector2(x, y).normalized;
         }
         
+        /// <summary>
+        /// Get a random position within the specified unit circle by scaling the unit circle position with a random multiplier between 0 and 1.
+        /// </summary>
+        /// <param name="unitCircle">The unit circle position to scale.</param>
+        /// <returns>Random position within the specified unit circle.</returns>
         public Vector2 GetRandomPositionFromUnitCircle(Vector2 unitCircle)
         {
             var multiplier = UnityEngine.Random.Range(0f, 1f);

@@ -1,6 +1,5 @@
 ﻿using System;
 using Madduck.Scripts.Audio;
-using Madduck.Scripts.FishingBoard.UI;
 using Madduck.Scripts.FishingBoard.UI.Model;
 using R3;
 using Sirenix.OdinInspector;
@@ -10,13 +9,13 @@ using VContainer.Unity;
 
 namespace Madduck.Scripts.FishingBoard
 {
+    /// <summary>
+    /// State of the Fishing Board mini-game.
+    /// </summary>
     [Serializable]
     public class FishingBoardState : IStartable, IDisposable
     {
         #region Inspector
-        [Title("Debug")] 
-        [DisplayAsString]
-        [ShowInInspector] private float _currentFatigueLevel;
         [Button("Test Start")]
         public void TestStart() => StartFishingBoard();
         #endregion
@@ -27,7 +26,6 @@ namespace Madduck.Scripts.FishingBoard
         private readonly BehaviorGraphAgent _behaviorGraphAgent;
         private readonly AudioManager _audioManager;
         private readonly FishingBoardModel _model;
-        private readonly FishingBoardMinigameReference _fishingBoardMinigameReference;
         private IDisposable _updateSubscription;
         
         #region Blackboard Variables
@@ -48,19 +46,17 @@ namespace Madduck.Scripts.FishingBoard
             FishingBoardController fishingBoardController, 
             BehaviorGraphAgent behaviorGraphAgent, 
             AudioManager audioManager,
-            FishingBoardModel model,
-            FishingBoardMinigameReference fishingBoardMinigameReferences)
+            FishingBoardModel model)
         {
             _fishingBoardConfig = fishingBoardConfig;
             _fishingBoardController = fishingBoardController;
             _behaviorGraphAgent = behaviorGraphAgent;
             _audioManager = audioManager;
             _model = model;
-            _fishingBoardMinigameReference = fishingBoardMinigameReferences;
         }
         #endregion
 
-        #region Life Cycle
+        #region Lifecycle
         public void Start()
         {
             _fishingBoardController.SetActive(false);
@@ -71,18 +67,26 @@ namespace Madduck.Scripts.FishingBoard
             _updateSubscription?.Dispose();
             _updateSubscription = null;
         }
+        #endregion
 
+        #region Activation
+        /// <summary>
+        /// Start the fishing board mini-game.
+        /// </summary>
         private void StartFishingBoard()
         {
             if (_updateSubscription != null) return;
             _fishingBoardController.SetActive(true);
-            _fishingBoardMinigameReference.Initialize();
             ResetFatigueLevel();
             InitializeBehaviorGraph();
+            _model.MaxFatigueLevel.Value = _fishingBoardConfig.MaxFatigueLevel;
             _fishingLineTensionAudioReference = _audioManager.PlayAudio(_fishingBoardConfig.FishingLineTensionSfx, Vector3.zero);
             _updateSubscription = Observable.EveryUpdate(UnityFrameProvider.Update).Subscribe(_ => Update());
         }
 
+        /// <summary>
+        /// Update the fishing board state. Called every frame until the mini-game ends.
+        /// </summary>
         public void Update()
         {
             UpdateFatigueLevel();
@@ -90,20 +94,25 @@ namespace Madduck.Scripts.FishingBoard
             UpdateBehaviourGraphVariables();
         }
 
+        /// <summary>
+        /// Stop the fishing board mini-game.
+        /// </summary>
         public void StopFishingBoard()
         {
             _updateSubscription?.Dispose();
             _updateSubscription = null;
             ShutdownBehaviorGraph();
             _behaviorGraphAgent.enabled = false;
-            _currentFatigueLevel = _fishingBoardConfig.MaxFatigueLevel / 2;
+            _model.CurrentFatigueLevel.Value = _fishingBoardConfig.MaxFatigueLevel / 2;
             _audioManager.StopAudio(_fishingLineTensionAudioReference);
             _fishingBoardController.SetActive(false);
         }
         #endregion
 
         #region Fishing Board
-
+        /// <summary>
+        /// Initialize the behavior graph for fish behavior.
+        /// </summary>
         private void InitializeBehaviorGraph()
         {
             _behaviorGraphAgent.enabled = true;
@@ -119,6 +128,9 @@ namespace Madduck.Scripts.FishingBoard
             _behaviorGraphAgent.Start();
         }
 
+        /// <summary>
+        /// Update the behavior graph variables with the current state of the fishing board.
+        /// </summary>
         private void UpdateBehaviourGraphVariables()
         {
             _fishZone.Value = (BackboardFishZone)(int)_fishingBoardController.FishZone;
@@ -126,20 +138,29 @@ namespace Madduck.Scripts.FishingBoard
             _fishUnitCirclePosition.Value = _fishingBoardController.FishUnitCirclePosition;
             _hookUnitCirclePosition.Value = _fishingBoardController.HookUnitCirclePosition;
             _angleDifference.Value = _fishingBoardController.AngleDifference;
-            _fatiguePercent.Value = _currentFatigueLevel / _fishingBoardConfig.MaxFatigueLevel;
+            _fatiguePercent.Value = _model.FatigueLevelPercent.CurrentValue;
         }
 
+        /// <summary>
+        /// Shutdown the behavior graph when the mini-game ends.
+        /// </summary>
         private void ShutdownBehaviorGraph()
         {
             _behaviorGraphAgent.End();
             _behaviorGraphAgent.enabled = false;
         }
 
+        /// <summary>
+        /// Reset the fatigue level to half of the maximum.
+        /// </summary>
         private void ResetFatigueLevel()
         {
-            _currentFatigueLevel = _fishingBoardConfig.MaxFatigueLevel / 2;
+            _model.CurrentFatigueLevel.Value = _fishingBoardConfig.MaxFatigueLevel / 2;
         }
 
+        /// <summary>
+        /// Update the fatigue level based on the fishing rod and fish power.
+        /// </summary>
         private void UpdateFatigueLevel()
         {
             var fishPower = _model.FishItemInstance.FishItemData.FishBehaviorData.Power;
@@ -148,20 +169,22 @@ namespace Madduck.Scripts.FishingBoard
             var hookMultiplier = _fishingBoardController.HookPowerMultiplier;
             var pullPercent = _fishingBoardController.PullPercent;
             var fatigue = (rodPower * hookMultiplier * pullPercent) - (fishPower * fishMultiplier);
-            _currentFatigueLevel += fatigue * Time.deltaTime;
-            _currentFatigueLevel = Mathf.Clamp(_currentFatigueLevel, 0, _fishingBoardConfig.MaxFatigueLevel);
-            _fishingBoardMinigameReference.SetFatigue(_currentFatigueLevel / _fishingBoardConfig.MaxFatigueLevel);
-            if (_currentFatigueLevel <= 0)
+            _model.CurrentFatigueLevel.Value += fatigue * Time.deltaTime;
+            _model.CurrentFatigueLevel.Value = Mathf.Clamp(_model.CurrentFatigueLevel.Value, 0, _fishingBoardConfig.MaxFatigueLevel);
+            if (_model.CurrentFatigueLevel.Value <= 0)
             {
                 LoseFishingBoard();  
             }
 
-            if (_currentFatigueLevel >= _fishingBoardConfig.MaxFatigueLevel)
+            if (_model.CurrentFatigueLevel.Value >= _fishingBoardConfig.MaxFatigueLevel)
             {
                 WinFishingBoard();
             }
         }
 
+        /// <summary>
+        /// Update the fishing line durability based on the tension from the fish and rod.
+        /// </summary>
         private void UpdateFishingLineDurability()
         {
             var currentRod = _model.FishingRodItemInstance;
@@ -176,43 +199,41 @@ namespace Madduck.Scripts.FishingBoard
             currentRod.CurrentFishingLineDurability += final * Time.deltaTime;
             currentRod.CurrentFishingLineDurability = Mathf.Clamp(currentRod.CurrentFishingLineDurability,
                 0, currentRod.BaseStats.FishingLineDurability);
-            var currentPercentDurability = currentRod.CurrentFishingLineDurability /
-                                           currentRod.BaseStats.FishingLineDurability;
-            PlayTensionSound(currentPercentDurability);
-            var shakePercent = 1 - currentPercentDurability;
-            _fishingBoardMinigameReference.ShakeReelingSlider(shakePercent);
+            PlayTensionSound(_model.FishingLineDurabilityPercent.CurrentValue);
             if (currentRod.CurrentFishingLineDurability <= 0)
             {
                 LoseFishingBoard();
             }
         }
-
-
-        private void PlayTensionSound(float currentPercentDurability)
+        
+        /// <summary>
+        /// Play the fishing line tension sound based on the durability percentage.
+        /// </summary>
+        /// <param name="durabilityPercent">The current durability percentage of the fishing line.</param>
+        private void PlayTensionSound(float durabilityPercent)
         {
-            _fishingLineTensionAudioReference.eventInstance.setParameterByName("Tension", 1 - currentPercentDurability);
+            _fishingLineTensionAudioReference.eventInstance.setParameterByName("Tension", 1 - durabilityPercent);
         }
 
+        /// <summary>
+        /// Called when the player loses the fishing board mini-game.
+        /// </summary>
         private void LoseFishingBoard()
         {
             Debug.Log("Lose Fishing Board");
             StopFishingBoard();
         }
 
+        /// <summary>
+        /// Called when the player wins the fishing board mini-game.
+        /// </summary>
         private void WinFishingBoard()
         {
             Debug.Log("Win Fishing Board");
             _fishingBoardController.MoveFishTimeBased(Vector2.zero, 1f);
-            var currentFishingRod = _model.FishingRodItemInstance;
-            currentFishingRod.CurrentFishingLineDurability = currentFishingRod.BaseStats.FishingLineDurability;
-            var currentPercentDurability = currentFishingRod.CurrentFishingLineDurability /
-                                           currentFishingRod.BaseStats.FishingLineDurability;
-            PlayTensionSound(currentPercentDurability);
-            var shakePercent = 1 - currentPercentDurability;
-            _fishingBoardMinigameReference.ShakeReelingSlider(shakePercent);
+            PlayTensionSound(_model.FishingLineDurabilityPercent.CurrentValue);
             StopFishingBoard();
         }
-
         #endregion
     }
 }

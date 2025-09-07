@@ -96,6 +96,7 @@ namespace Madduck.Scripts.Input
             Action0Button.Value = new InputButton(_playerInputAction.Player.Action0);
             Action1Button.Value = new InputButton(_playerInputAction.Player.Action1);
             ReelingButton.Value = new InputButton(_playerInputAction.Player.Reeling);
+            PauseGameButton.Value = new InputButton(_playerInputAction.Player.PauseGame);
             JerkBindings = _playerInputAction.Player.JerkBait.bindings.ToArray();
         }
         #endregion
