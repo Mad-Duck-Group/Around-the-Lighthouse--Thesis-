@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using Madduck.Scripts.FishingBoard.Editor;
+﻿using System;
+using System.Collections.Generic;
 using Madduck.Scripts.FishingBoard.UI;
 using Madduck.Scripts.FishingBoard.UI.Model;
 using Madduck.Scripts.FishingBoard.UI.View;
 using Madduck.Scripts.FishingBoard.UI.ViewModel;
 using MadDuck.Scripts.Items.Data;
 using MadDuck.Scripts.Items.Instance;
+using Madduck.Scripts.Utils.Editor;
 using Sirenix.OdinInspector;
 using Unity.Behavior;
 using UnityEngine;
@@ -14,6 +15,26 @@ using VContainer.Unity;
 
 namespace Madduck.Scripts.FishingBoard
 {
+    [Serializable]
+    public record FishingBoardDebugData : IDebugData
+    {
+        [field: SerializeField] public bool ConstantUpdate { get; private set; }
+        [ShowInInspector] private FishingBoardState _fishingBoardState;
+        [ShowInInspector] private FishingBoardModel _fishingBoardModel;
+        [ShowInInspector] private FishingBoardController _fishingBoardController;
+        
+        public FishingBoardDebugData(
+            FishingBoardState fishingBoardState, 
+            FishingBoardModel fishingBoardModel, 
+            FishingBoardController fishingBoardController)
+        {
+            _fishingBoardState = fishingBoardState;
+            _fishingBoardModel = fishingBoardModel;
+            _fishingBoardController = fishingBoardController;
+            ConstantUpdate = false;
+        }
+    }
+    
     public class FishingBoardLifetimeScope : LifetimeScope
     {
         [Title("References")]
@@ -32,7 +53,7 @@ namespace Madduck.Scripts.FishingBoard
         [Button("Open Debug Window")]
         private void OpenDebugWindow()
         {
-            _debugWindow = FishingBoardDebugEditorWindow.Inspect(_fishingBoardDebugData);
+            _debugWindow = DebugEditorWindow.Inspect(_fishingBoardDebugData);
         }
         
         protected override void OnDestroy()
@@ -44,7 +65,7 @@ namespace Madduck.Scripts.FishingBoard
             }
         }
         
-        private FishingBoardDebugEditorWindow _debugWindow;
+        private DebugEditorWindow _debugWindow;
         private FishingBoardDebugData _fishingBoardDebugData;
 #endif
         

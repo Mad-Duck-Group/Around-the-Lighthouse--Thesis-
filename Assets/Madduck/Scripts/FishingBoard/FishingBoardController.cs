@@ -90,6 +90,9 @@ namespace Madduck.Scripts.FishingBoard
             _playerInput.MouseDelta
                     .Subscribe(MoveHook)
                     .AddTo(ref disposableBuilder);
+            _playerInput.GamepadHookControl
+                    .Subscribe(MoveHook)
+                    .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
         #endregion

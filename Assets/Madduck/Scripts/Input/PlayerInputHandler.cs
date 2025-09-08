@@ -43,6 +43,7 @@ namespace Madduck.Scripts.Input
         [field: ShowInInspector, ReadOnly] public bool AnyButtonPressed { get; private set; }
         [field: ShowInInspector, ReadOnly] public Vector2 MovementInput { get; private set; }
         [field: ShowInInspector, ReadOnly] public SerializableReactiveProperty<Vector2> MouseDelta { get; private set; } = new();
+        [field: ShowInInspector, ReadOnly] public SerializableReactiveProperty<Vector2> GamepadHookControl { get; private set; } = new();
         [field: ShowInInspector, ReadOnly] public float BoatInput { get; private set; }
         
 
@@ -133,6 +134,7 @@ namespace Madduck.Scripts.Input
         {
             MovementInput = context.ReadValue<Vector2>();
         }
+
         public void OnControlBoat(InputAction.CallbackContext context)
         {
             if (context.performed) 
@@ -181,7 +183,11 @@ namespace Madduck.Scripts.Input
         {
             MouseDelta.Value = context.ReadValue<Vector2>();
         }
-
+        
+        public void OnGamepadHookControl(InputAction.CallbackContext context)
+        {
+            GamepadHookControl.Value = context.ReadValue<Vector2>();
+        }
         #endregion
 
         #region Button

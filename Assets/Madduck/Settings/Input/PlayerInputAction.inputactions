@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerInputAction",
     "maps": [
         {
@@ -69,6 +70,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "GamepadHookControl",
+                    "type": "Value",
+                    "id": "65703e99-9c16-405b-af75-9fa928f14e97",
+                    "expectedControlType": "",
+                    "processors": "StickDeadzone",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "ControlBoat",
                     "type": "Value",
                     "id": "03a0d180-db3a-4626-9c14-62c715a05a32",
@@ -105,7 +115,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -116,7 +126,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -127,7 +137,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -138,7 +148,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -149,7 +159,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -160,7 +170,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "JerkBait",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -171,7 +181,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "JerkBait",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -182,7 +192,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "JerkBait",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -193,7 +203,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "JerkBait",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -204,7 +214,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "Hold",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "Action0",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -215,7 +225,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "Action1",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -226,7 +236,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "Hold",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "Reeling",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -237,7 +247,18 @@
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
+                    "action": "MouseDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "65c01ee7-5c31-468c-a24b-856f7aeadf9a",
+                    "path": "<Touchscreen>/primaryTouch/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Touchscreen",
                     "action": "MouseDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -281,8 +302,19 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";PC",
+                    "groups": "Mouse & Keyboard",
                     "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ba3ab0e-e0b7-4778-8682-50b491672c8a",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "NormalizeVector2",
+                    "groups": ";Gamepad",
+                    "action": "GamepadHookControl",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -291,8 +323,8 @@
     ],
     "controlSchemes": [
         {
-            "name": "PC",
-            "bindingGroup": "PC",
+            "name": "Mouse & Keyboard",
+            "bindingGroup": "Mouse & Keyboard",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
@@ -301,6 +333,28 @@
                 },
                 {
                     "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Touchscreen",
+            "bindingGroup": "Touchscreen",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
                     "isOptional": false,
                     "isOR": false
                 }

@@ -158,6 +158,15 @@ namespace Madduck.Scripts.Input
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""GamepadHookControl"",
+                    ""type"": ""Value"",
+                    ""id"": ""65703e99-9c16-405b-af75-9fa928f14e97"",
+                    ""expectedControlType"": """",
+                    ""processors"": ""StickDeadzone"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""ControlBoat"",
                     ""type"": ""Value"",
                     ""id"": ""03a0d180-db3a-4626-9c14-62c715a05a32"",
@@ -194,7 +203,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -205,7 +214,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -216,7 +225,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -227,7 +236,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -238,7 +247,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -249,7 +258,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""JerkBait"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -260,7 +269,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""JerkBait"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -271,7 +280,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""JerkBait"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -282,7 +291,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""JerkBait"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -293,7 +302,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Hold"",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""Action0"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -304,7 +313,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""Action1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -315,7 +324,7 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": ""Hold"",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""Reeling"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -326,7 +335,18 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
+                    ""action"": ""MouseDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65c01ee7-5c31-468c-a24b-856f7aeadf9a"",
+                    ""path"": ""<Touchscreen>/primaryTouch/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Touchscreen"",
                     ""action"": ""MouseDelta"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -370,8 +390,19 @@ namespace Madduck.Scripts.Input
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";PC"",
+                    ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ba3ab0e-e0b7-4778-8682-50b491672c8a"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""NormalizeVector2"",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""GamepadHookControl"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -380,8 +411,8 @@ namespace Madduck.Scripts.Input
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""PC"",
-            ""bindingGroup"": ""PC"",
+            ""name"": ""Mouse & Keyboard"",
+            ""bindingGroup"": ""Mouse & Keyboard"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
@@ -390,6 +421,28 @@ namespace Madduck.Scripts.Input
                 },
                 {
                     ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Touchscreen"",
+            ""bindingGroup"": ""Touchscreen"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Touchscreen>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -406,6 +459,7 @@ namespace Madduck.Scripts.Input
             m_Player_Action1 = m_Player.FindAction("Action1", throwIfNotFound: true);
             m_Player_Reeling = m_Player.FindAction("Reeling", throwIfNotFound: true);
             m_Player_MouseDelta = m_Player.FindAction("MouseDelta", throwIfNotFound: true);
+            m_Player_GamepadHookControl = m_Player.FindAction("GamepadHookControl", throwIfNotFound: true);
             m_Player_ControlBoat = m_Player.FindAction("ControlBoat", throwIfNotFound: true);
             m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
         }
@@ -495,6 +549,7 @@ namespace Madduck.Scripts.Input
         private readonly InputAction m_Player_Action1;
         private readonly InputAction m_Player_Reeling;
         private readonly InputAction m_Player_MouseDelta;
+        private readonly InputAction m_Player_GamepadHookControl;
         private readonly InputAction m_Player_ControlBoat;
         private readonly InputAction m_Player_PauseGame;
         /// <summary>
@@ -536,6 +591,10 @@ namespace Madduck.Scripts.Input
             /// Provides access to the underlying input action "Player/MouseDelta".
             /// </summary>
             public InputAction @MouseDelta => m_Wrapper.m_Player_MouseDelta;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/GamepadHookControl".
+            /// </summary>
+            public InputAction @GamepadHookControl => m_Wrapper.m_Player_GamepadHookControl;
             /// <summary>
             /// Provides access to the underlying input action "Player/ControlBoat".
             /// </summary>
@@ -591,6 +650,9 @@ namespace Madduck.Scripts.Input
                 @MouseDelta.started += instance.OnMouseDelta;
                 @MouseDelta.performed += instance.OnMouseDelta;
                 @MouseDelta.canceled += instance.OnMouseDelta;
+                @GamepadHookControl.started += instance.OnGamepadHookControl;
+                @GamepadHookControl.performed += instance.OnGamepadHookControl;
+                @GamepadHookControl.canceled += instance.OnGamepadHookControl;
                 @ControlBoat.started += instance.OnControlBoat;
                 @ControlBoat.performed += instance.OnControlBoat;
                 @ControlBoat.canceled += instance.OnControlBoat;
@@ -629,6 +691,9 @@ namespace Madduck.Scripts.Input
                 @MouseDelta.started -= instance.OnMouseDelta;
                 @MouseDelta.performed -= instance.OnMouseDelta;
                 @MouseDelta.canceled -= instance.OnMouseDelta;
+                @GamepadHookControl.started -= instance.OnGamepadHookControl;
+                @GamepadHookControl.performed -= instance.OnGamepadHookControl;
+                @GamepadHookControl.canceled -= instance.OnGamepadHookControl;
                 @ControlBoat.started -= instance.OnControlBoat;
                 @ControlBoat.performed -= instance.OnControlBoat;
                 @ControlBoat.canceled -= instance.OnControlBoat;
@@ -668,17 +733,43 @@ namespace Madduck.Scripts.Input
         /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
         /// </summary>
         public PlayerActions @Player => new PlayerActions(this);
-        private int m_PCSchemeIndex = -1;
+        private int m_MouseKeyboardSchemeIndex = -1;
         /// <summary>
         /// Provides access to the input control scheme.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
-        public InputControlScheme PCScheme
+        public InputControlScheme MouseKeyboardScheme
         {
             get
             {
-                if (m_PCSchemeIndex == -1) m_PCSchemeIndex = asset.FindControlSchemeIndex("PC");
-                return asset.controlSchemes[m_PCSchemeIndex];
+                if (m_MouseKeyboardSchemeIndex == -1) m_MouseKeyboardSchemeIndex = asset.FindControlSchemeIndex("Mouse & Keyboard");
+                return asset.controlSchemes[m_MouseKeyboardSchemeIndex];
+            }
+        }
+        private int m_TouchscreenSchemeIndex = -1;
+        /// <summary>
+        /// Provides access to the input control scheme.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+        public InputControlScheme TouchscreenScheme
+        {
+            get
+            {
+                if (m_TouchscreenSchemeIndex == -1) m_TouchscreenSchemeIndex = asset.FindControlSchemeIndex("Touchscreen");
+                return asset.controlSchemes[m_TouchscreenSchemeIndex];
+            }
+        }
+        private int m_GamepadSchemeIndex = -1;
+        /// <summary>
+        /// Provides access to the input control scheme.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+        public InputControlScheme GamepadScheme
+        {
+            get
+            {
+                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+                return asset.controlSchemes[m_GamepadSchemeIndex];
             }
         }
         /// <summary>
@@ -737,6 +828,13 @@ namespace Madduck.Scripts.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnMouseDelta(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "GamepadHookControl" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnGamepadHookControl(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "ControlBoat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
