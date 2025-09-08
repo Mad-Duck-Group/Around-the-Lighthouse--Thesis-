@@ -11,7 +11,7 @@ using VContainer;
 public partial class GetRandomPositionOnFishZoneAction : Action
 {
     [SerializeReference] public BlackboardVariable<Vector2> TargetPosition;
-    [SerializeReference] public BlackboardVariable<BackboardFishZone> FishZone;
+    [SerializeReference] public BlackboardVariable<BlackboardFishZone> FishZone;
     [SerializeReference] public BlackboardVariable<FishingBoardLifetimeScope> FishingBoard;
     private FishingBoardController _fishingBoardController;
 

@@ -64,6 +64,17 @@ namespace Madduck.Scripts.FishingBoard.UI.Model
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
+
+        public void Reset()
+        {
+            IsActive.Value = false;
+            FishPosition.Value = Vector2.zero;
+            HookPosition.Value = Vector2.zero;
+            FishRotation.Value = Quaternion.identity;
+            HookRotation.Value = Quaternion.identity;
+            CurrentFatigueLevel.Value = 0f;
+            MaxFatigueLevel.Value = 100f;
+        }
         
         public void Dispose()
         {

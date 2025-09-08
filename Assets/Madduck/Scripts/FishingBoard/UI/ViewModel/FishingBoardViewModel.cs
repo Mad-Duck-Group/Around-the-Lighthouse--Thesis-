@@ -21,7 +21,7 @@ namespace Madduck.Scripts.FishingBoard.UI.ViewModel
         public ReactiveCommand<Dictionary<FishZone, CircleBoardState>> OnCircleBoardUpdated { get; private set; }
         
         #region Fields
-        [ShowInInspector, ReadOnly] private readonly FishingBoardModel _fishingBoardModel;
+        private readonly FishingBoardModel _fishingBoardModel;
         private IDisposable _bindings;
         #endregion
 

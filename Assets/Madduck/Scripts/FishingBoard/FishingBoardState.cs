@@ -29,8 +29,8 @@ namespace Madduck.Scripts.FishingBoard
         private IDisposable _updateSubscription;
         
         #region Blackboard Variables
-        private BlackboardVariable<BackboardFishZone> _fishZone;
-        private BlackboardVariable<BackboardFishZone> _hookZone;
+        private BlackboardVariable<BlackboardFishZone> _fishZone;
+        private BlackboardVariable<BlackboardFishZone> _hookZone;
         private BlackboardVariable<Vector2> _fishUnitCirclePosition;
         private BlackboardVariable<Vector2> _hookUnitCirclePosition;
         private BlackboardVariable<float> _angleDifference;
@@ -133,8 +133,8 @@ namespace Madduck.Scripts.FishingBoard
         /// </summary>
         private void UpdateBehaviourGraphVariables()
         {
-            _fishZone.Value = (BackboardFishZone)(int)_fishingBoardController.FishZone;
-            _hookZone.Value = (BackboardFishZone)(int)_fishingBoardController.HookZone;
+            _fishZone.Value = (BlackboardFishZone)(int)_fishingBoardController.FishZone;
+            _hookZone.Value = (BlackboardFishZone)(int)_fishingBoardController.HookZone;
             _fishUnitCirclePosition.Value = _fishingBoardController.FishUnitCirclePosition;
             _hookUnitCirclePosition.Value = _fishingBoardController.HookUnitCirclePosition;
             _angleDifference.Value = _fishingBoardController.AngleDifference;

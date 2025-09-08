@@ -2,7 +2,7 @@ using System;
 using Unity.Behavior;
 
 [BlackboardEnum]
-public enum BackboardFishZone
+public enum BlackboardFishZone
 {
     Green,
 	Yellow,

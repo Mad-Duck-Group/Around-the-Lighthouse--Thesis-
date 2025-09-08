@@ -114,7 +114,7 @@ namespace Madduck.Scripts.FishingBoard
             }
             else
             {
-                _model.IsActive.Value = false;
+                _model.Reset();
                 _bindings?.Dispose();
             }
         }
@@ -132,12 +132,26 @@ namespace Madduck.Scripts.FishingBoard
             var circleCenter = redBoard.Center;
             var hookToCenter = (circleCenter - _model.HookPosition.Value).normalized;
             var inertiaForce = (1 - _model.FishingLineDurabilityPercent.CurrentValue) * _config.Inertia;
-            _model.HookPosition.Value += hookToCenter * (inertiaForce * Time.deltaTime);
-            _model.HookPosition.Value += new Vector2(mouseDelta.x, mouseDelta.y) * Time.deltaTime;
+            var hookPosition = _model.HookPosition.Value;
+            hookPosition += hookToCenter * (inertiaForce * Time.deltaTime);
+            hookPosition += mouseDelta * Time.deltaTime;
+            _model.HookPosition.Value = ClampPosition(hookPosition);
             //rotate toward the center
             var centerToHook = (circleCenter - _model.HookPosition.Value).normalized;
             var angle = Mathf.Atan2(centerToHook.y, centerToHook.x) * Mathf.Rad2Deg + 90f;
             _model.HookRotation.Value = Quaternion.Euler(0, 0, angle);
+        }
+        
+        /// <summary>
+        /// Clamp the position of the target within the circle board.
+        /// </summary>
+        /// <param name="target"></param>
+        private Vector2 ClampPosition(Vector2 target)
+        {
+            var redBoard = _model.CircleBoardState[FishZone.Red];
+            var centerToPosition = (redBoard.Center - target).normalized;
+            var maxMagnitude = redBoard.Radius * centerToPosition.magnitude;
+            return Vector2.ClampMagnitude(target, maxMagnitude);
         }
         #endregion
         
@@ -302,13 +316,13 @@ namespace Madduck.Scripts.FishingBoard
         }
         
         /// <summary>
-        /// Get a random position within the specified fish zone by casting from BackboardFishZone to FishZone.
+        /// Get a random position within the specified fish zone by casting from BlackboardFishZone to FishZone.
         /// </summary>
-        /// <param name="backboardFishZone">The fish zone to get the random position from.</param>
+        /// <param name="blackboardFishZone">The fish zone to get the random position from.</param>
         /// <returns>Random position within the specified fish zone.</returns>
-        public Vector2 GetRandomPositionOnFishZone(BackboardFishZone backboardFishZone)
+        public Vector2 GetRandomPositionOnFishZone(BlackboardFishZone blackboardFishZone)
         {
-            return GetRandomPositionOnFishZone((FishZone)backboardFishZone);
+            return GetRandomPositionOnFishZone((FishZone)blackboardFishZone);
         }
         
         /// <summary>

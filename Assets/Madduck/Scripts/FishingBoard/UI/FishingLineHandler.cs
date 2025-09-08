@@ -40,6 +40,18 @@ namespace Madduck.Scripts.FishingBoard.UI
         private float _width, _height, _unitWidth, _unitHeight;
         #endregion
 
+        public void Reset()
+        {
+            _currentColor = noTensionColor;
+            foreach (var s in shapes)
+            {
+                s.settings.fillColor = noTensionColor;
+            }
+            _fishlineTension = FishLineTension.Normal;
+            _previousTension = FishLineTension.Normal;
+            _colorTween.Stop();
+        }
+
         /// <summary>
         /// Set the points of the fishing line.
         /// </summary>

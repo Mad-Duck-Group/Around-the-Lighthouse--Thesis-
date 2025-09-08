@@ -1,4 +1,6 @@
-﻿using Madduck.Scripts.FishingBoard.UI;
+﻿using System.Collections.Generic;
+using Madduck.Scripts.FishingBoard.Editor;
+using Madduck.Scripts.FishingBoard.UI;
 using Madduck.Scripts.FishingBoard.UI.Model;
 using Madduck.Scripts.FishingBoard.UI.View;
 using Madduck.Scripts.FishingBoard.UI.ViewModel;
@@ -17,17 +19,35 @@ namespace Madduck.Scripts.FishingBoard
         [Title("References")]
         [SerializeField] private BehaviorGraphAgent behaviorGraphAgent;
         [SerializeField] private FishingBoardView fishingBoardView;
+        [InlineEditor]
         [SerializeField] private FishingBoardConfig fishingBoardConfig;
+        [InlineEditor]
         [SerializeField] private FishItemData fishItemData;
+        [InlineEditor]
         [SerializeField] private FishingRodItemData fishingRodItemData;
-        
+
+#if UNITY_EDITOR
         [Title("Debug")]
         [HideInEditorMode]
-        [ShowInInspector] private FishingBoardState _fishingBoardState;
-        [HideInEditorMode]
-        [ShowInInspector] private FishingBoardViewModel _fishingBoardViewModel;
-        [HideInEditorMode]
-        [ShowInInspector] private FishingBoardController _fishingBoardController;
+        [Button("Open Debug Window")]
+        private void OpenDebugWindow()
+        {
+            _debugWindow = FishingBoardDebugEditorWindow.Inspect(_fishingBoardDebugData);
+        }
+        
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (_debugWindow)
+            {
+                _debugWindow.Close();
+            }
+        }
+        
+        private FishingBoardDebugEditorWindow _debugWindow;
+        private FishingBoardDebugData _fishingBoardDebugData;
+#endif
+        
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -43,9 +63,13 @@ namespace Madduck.Scripts.FishingBoard
 #if UNITY_EDITOR
             builder.RegisterBuildCallback(x =>
             {
-                _fishingBoardState = x.Resolve<FishingBoardState>();
-                _fishingBoardViewModel = x.Resolve<FishingBoardViewModel>();
-                _fishingBoardController = x.Resolve<FishingBoardController>();
+                var fishingBoardState = x.Resolve<FishingBoardState>();
+                var fishingBoardModel= x.Resolve<FishingBoardModel>();
+                var fishingBoardController = x.Resolve<FishingBoardController>();
+                _fishingBoardDebugData = new FishingBoardDebugData(
+                    fishingBoardState, 
+                    fishingBoardModel, 
+                    fishingBoardController);
             });
 #endif
         }

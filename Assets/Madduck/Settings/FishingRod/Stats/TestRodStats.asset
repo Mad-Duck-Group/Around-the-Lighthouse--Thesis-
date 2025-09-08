@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestRodStats
   m_EditorClassIdentifier: 
   <ThrowingDistanceRange>k__BackingField: {x: 1, y: 5}
-  <Power>k__BackingField: 8
+  <Power>k__BackingField: 6
   <FishingLineDurability>k__BackingField: 10
   <FishingLineRegenFactor>k__BackingField: 14
   <FishingRodDurability>k__BackingField: 2

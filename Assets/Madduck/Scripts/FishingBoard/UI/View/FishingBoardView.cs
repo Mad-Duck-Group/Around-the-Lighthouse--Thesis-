@@ -75,7 +75,6 @@ namespace Madduck.Scripts.FishingBoard.UI.View
                 .Subscribe(x =>
                 {
                     fishObject.localPosition = x;
-                    ClampPosition(fishObject);
                     DrawFishLine();
                 })
                 .AddTo(ref disposableBuilder);
@@ -86,7 +85,6 @@ namespace Madduck.Scripts.FishingBoard.UI.View
                 .Subscribe(x =>
                 {
                     hookObject.localPosition = x;
-                    ClampPosition(hookObject);
                     DrawFishLine();
                 })
                 .AddTo(ref disposableBuilder);
@@ -162,7 +160,7 @@ namespace Madduck.Scripts.FishingBoard.UI.View
         }
         #endregion
         
-        #region UI
+        #region Activation
         /// <summary>
         /// Set the active state of the fishing board UI.
         /// </summary>
@@ -176,6 +174,7 @@ namespace Madduck.Scripts.FishingBoard.UI.View
             }
             else
             {
+                fishingLineHandler.Reset();
                 _bindings?.Dispose();
             }
             Cursor.lockState = active ? CursorLockMode.Locked : CursorLockMode.None;
@@ -188,7 +187,9 @@ namespace Madduck.Scripts.FishingBoard.UI.View
                     if (!active) canvasGroup.gameObject.SetActive(false);
                 });
         }
+        #endregion
         
+        #region UI
         /// <summary>
         /// Draw the fishing line.
         /// </summary>
@@ -225,18 +226,6 @@ namespace Madduck.Scripts.FishingBoard.UI.View
             copy.frequency = shakeTweenSettings.frequency * (1 - durabilityPercent);
             if (copy.strength.magnitude <= 0) return;
             _fishShakeTween = Tween.ShakeLocalPosition(fishIcon.transform, copy);
-        }
-        
-        /// <summary>
-        /// Clamp the position of the target transform within the circle board.
-        /// </summary>
-        /// <param name="target"></param>
-        private void ClampPosition(Transform target)
-        {
-            var redBoard = circleBoards[FishZone.Red];
-            var centerToPosition = (redBoard.Circle.localPosition - target.localPosition).normalized;
-            var maxMagnitude = redBoard.Radius * centerToPosition.magnitude;
-            target.localPosition = Vector3.ClampMagnitude(target.localPosition, maxMagnitude);
         }
         
         /// <summary>
