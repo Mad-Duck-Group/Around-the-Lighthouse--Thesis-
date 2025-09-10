@@ -4,11 +4,11 @@ using System.Linq;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+using Madduck.Scripts.Utils.Others;
 using Redcode.Extensions;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using Debug = UnityEngine.Debug;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Madduck.Scripts.Audio
@@ -109,7 +109,7 @@ namespace Madduck.Scripts.Audio
             if (_audioManagerConfig.LimitAudioCount && _wildAudioReferenceData.Count + 
                 _indexedAudioReferenceData.Values.Sum(references => references.Count) >= _audioManagerConfig.MaxAudioCount)
             {
-                Debug.LogWarning("Max audio count reached, not playing new audio.");
+                DebugUtils.LogWarning("Max audio count reached, not playing new audio.");
                 return null;
             }
             EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
@@ -263,7 +263,7 @@ namespace Madduck.Scripts.Audio
         {
             if (!_audioManagerConfig.AudioSettings.BusData.TryGetValue(busType, out busData))
             {
-                Debug.LogError($"Bus {busType} not found in bus dictionary.");
+                DebugUtils.LogError($"Bus {busType} not found in bus dictionary.");
                 return false;
             }
             if (!busData.Bus.isValid()) return false;

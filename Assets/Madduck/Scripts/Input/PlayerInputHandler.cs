@@ -62,6 +62,8 @@ namespace Madduck.Scripts.Input
         [field: ShowInInspector, ReadOnly] 
         public SerializableReactiveProperty<InputButton> Action1Button { get; private set; } = new();
         [field: ShowInInspector, ReadOnly] 
+        public SerializableReactiveProperty<InputButton> ThrowHookButton { get; private set; } = new();
+        [field: ShowInInspector, ReadOnly] 
         public SerializableReactiveProperty<InputButton> ReelingButton { get; private set; } = new();
         [field: ShowInInspector, ReadOnly]
         public SerializableReactiveProperty<InputButton> PauseGameButton { get; private set; } = new();
@@ -96,6 +98,7 @@ namespace Madduck.Scripts.Input
             JerkBaitButton.Value = new InputButton(_playerInputAction.Player.JerkBait);
             Action0Button.Value = new InputButton(_playerInputAction.Player.Action0);
             Action1Button.Value = new InputButton(_playerInputAction.Player.Action1);
+            ThrowHookButton.Value = new InputButton(_playerInputAction.Player.ThrowHook);
             ReelingButton.Value = new InputButton(_playerInputAction.Player.Reeling);
             PauseGameButton.Value = new InputButton(_playerInputAction.Player.PauseGame);
             JerkBindings = _playerInputAction.Player.JerkBait.bindings.ToArray();
@@ -172,6 +175,11 @@ namespace Madduck.Scripts.Input
         public void OnAction1(InputAction.CallbackContext context)
         {
             BindPressButton(Action1Button, context);
+        }
+        
+        public void OnThrowHook(InputAction.CallbackContext context)
+        {
+            BindHoldButton(ThrowHookButton, context);
         }
         
         public void OnReeling(InputAction.CallbackContext context)

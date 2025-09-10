@@ -1,6 +1,7 @@
 ﻿using System;
 using FMOD.Studio;
 using FMODUnity;
+using Madduck.Scripts.Utils.Others;
 using Sherbert.Framework.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -53,7 +54,7 @@ namespace Madduck.Scripts.Audio
             var bus = RuntimeManager.GetBus(Path);
             if (!bus.isValid())
             {
-                Debug.LogError($"Bus with path {Path} not found. Please check the FMOD settings.");
+                DebugUtils.LogError($"Bus with path {Path} not found. Please check the FMOD settings.");
                 return;
             }
             SetVolume(LinearVolume);

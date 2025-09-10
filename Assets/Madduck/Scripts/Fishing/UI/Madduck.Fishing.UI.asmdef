@@ -1,0 +1,23 @@
+{
+    "name": "Madduck.Fishing.UI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:59060aab475fe74459dbf17bf4e78b81",
+        "GUID:5ecb2f6dbf140e440bfa9b64e27a2d48",
+        "GUID:794304285db2db44aaa4a207962aed74",
+        "GUID:77221876cc6b8244180b96e320b1bcd4",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:80ecb87cae9c44d19824e70ea7229748",
+        "GUID:250e7721b72357f41bf7522b8b7e2f98",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

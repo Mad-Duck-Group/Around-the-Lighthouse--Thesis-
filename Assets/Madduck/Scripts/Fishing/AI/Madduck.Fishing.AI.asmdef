@@ -1,0 +1,19 @@
+{
+    "name": "Madduck.Fishing.AI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:bf74f178f3d8c18438a20645b24d9706",
+        "GUID:9a3fe41121b358245b5d751bb8429719",
+        "GUID:73907d139b13f8a43b7e3e95c329d30a",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,23 @@
+{
+    "name": "Madduck.Fishing.DI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:59060aab475fe74459dbf17bf4e78b81",
+        "GUID:5ecb2f6dbf140e440bfa9b64e27a2d48",
+        "GUID:bf74f178f3d8c18438a20645b24d9706",
+        "GUID:6dac6af94e069e648ba4ada5bda6edce",
+        "GUID:f5861d702c6df954c975df8fa5641e81",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:73907d139b13f8a43b7e3e95c329d30a",
+        "GUID:794304285db2db44aaa4a207962aed74"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

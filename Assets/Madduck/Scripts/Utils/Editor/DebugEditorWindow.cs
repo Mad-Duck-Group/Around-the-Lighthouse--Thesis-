@@ -11,12 +11,12 @@ namespace Madduck.Scripts.Utils.Editor
     public class DebugEditorWindow : OdinEditorWindow
     {
         private IDebugData _debugData;
-        public static DebugEditorWindow Inspect(IDebugData debugData)
+        public static DebugEditorWindow Inspect(IDebugData debugData, string title = "Debug")
         {
             var window = GetWindow<DebugEditorWindow>();
             window._debugData = debugData;
             var inspectWindow = InspectObject(window, debugData);
-            inspectWindow.titleContent = new GUIContent("Fishing Board Debug");
+            inspectWindow.titleContent = new GUIContent(title);
             return window;
         }
 

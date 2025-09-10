@@ -131,6 +131,15 @@ namespace Madduck.Scripts.Input
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ThrowHook"",
+                    ""type"": ""Button"",
+                    ""id"": ""0470eb13-3324-4803-9ebf-21b4ee6f6c9e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Action1"",
                     ""type"": ""Button"",
                     ""id"": ""69b68153-44ee-41fe-9a31-7b576f0c7bf1"",
@@ -309,6 +318,17 @@ namespace Madduck.Scripts.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9c0d378f-6faf-4957-ac9e-a8132b254098"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Mouse & Keyboard"",
+                    ""action"": ""ThrowHook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""dc88cd7f-7b7e-4ca3-b9b2-23c60af1934a"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": ""Press"",
@@ -456,6 +476,7 @@ namespace Madduck.Scripts.Input
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_JerkBait = m_Player.FindAction("JerkBait", throwIfNotFound: true);
             m_Player_Action0 = m_Player.FindAction("Action0", throwIfNotFound: true);
+            m_Player_ThrowHook = m_Player.FindAction("ThrowHook", throwIfNotFound: true);
             m_Player_Action1 = m_Player.FindAction("Action1", throwIfNotFound: true);
             m_Player_Reeling = m_Player.FindAction("Reeling", throwIfNotFound: true);
             m_Player_MouseDelta = m_Player.FindAction("MouseDelta", throwIfNotFound: true);
@@ -546,6 +567,7 @@ namespace Madduck.Scripts.Input
         private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_JerkBait;
         private readonly InputAction m_Player_Action0;
+        private readonly InputAction m_Player_ThrowHook;
         private readonly InputAction m_Player_Action1;
         private readonly InputAction m_Player_Reeling;
         private readonly InputAction m_Player_MouseDelta;
@@ -579,6 +601,10 @@ namespace Madduck.Scripts.Input
             /// Provides access to the underlying input action "Player/Action0".
             /// </summary>
             public InputAction @Action0 => m_Wrapper.m_Player_Action0;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/ThrowHook".
+            /// </summary>
+            public InputAction @ThrowHook => m_Wrapper.m_Player_ThrowHook;
             /// <summary>
             /// Provides access to the underlying input action "Player/Action1".
             /// </summary>
@@ -641,6 +667,9 @@ namespace Madduck.Scripts.Input
                 @Action0.started += instance.OnAction0;
                 @Action0.performed += instance.OnAction0;
                 @Action0.canceled += instance.OnAction0;
+                @ThrowHook.started += instance.OnThrowHook;
+                @ThrowHook.performed += instance.OnThrowHook;
+                @ThrowHook.canceled += instance.OnThrowHook;
                 @Action1.started += instance.OnAction1;
                 @Action1.performed += instance.OnAction1;
                 @Action1.canceled += instance.OnAction1;
@@ -682,6 +711,9 @@ namespace Madduck.Scripts.Input
                 @Action0.started -= instance.OnAction0;
                 @Action0.performed -= instance.OnAction0;
                 @Action0.canceled -= instance.OnAction0;
+                @ThrowHook.started -= instance.OnThrowHook;
+                @ThrowHook.performed -= instance.OnThrowHook;
+                @ThrowHook.canceled -= instance.OnThrowHook;
                 @Action1.started -= instance.OnAction1;
                 @Action1.performed -= instance.OnAction1;
                 @Action1.canceled -= instance.OnAction1;
@@ -807,6 +839,13 @@ namespace Madduck.Scripts.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnAction0(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "ThrowHook" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnThrowHook(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Action1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

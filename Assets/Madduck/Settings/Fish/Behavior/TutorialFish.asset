@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03e55b45a9684017b710ddcd75efa6c5, type: 3}
   m_Name: TutorialFish
   m_EditorClassIdentifier: 
-  <BehaviorGraph>k__BackingField: {fileID: 181791733265959476, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  <BehaviorGraph>k__BackingField: {fileID: -7089213909470340906, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   <MaxNibbleAttempts>k__BackingField: 3
   <NibbleIntervalRange>k__BackingField: {x: 20, y: 30}
   <NibbleTimeFrameRange>k__BackingField: {x: 1, y: 3}
