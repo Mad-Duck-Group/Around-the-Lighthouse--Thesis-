@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using Madduck.Scripts.Fishing.StateMachine;
 using Madduck.Scripts.Fishing.StateMachine.None;
+using Madduck.Scripts.Fishing.UI.ThrowHook;
+using MadDuck.Scripts.Items.Data;
+using MadDuck.Scripts.Items.Instance;
 using Madduck.Scripts.Utils.Editor;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -27,6 +30,18 @@ namespace Madduck.Scripts.Fishing.DI.StateMachine
     [ShowOdinSerializedPropertiesInInspector]
     public class FishingStateMachineLifetimeScope : LifetimeScope, ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
+        [Title("References")]
+        [InlineEditor]
+        [Required]
+        [SerializeField] private FishItemData fishItemData;
+        [InlineEditor]
+        [Required]
+        [SerializeField] private FishingRodItemData fishingRodItemData;
+        [Required, AssetsOnly]
+        [SerializeField] private ThrowHookProjectile throwHookProjectilePrefab;
+        [Required]
+        [SerializeField] private Transform throwHookSpawnPoint;
+        
 #if UNITY_EDITOR
         [Title("Debug")]
         [HideInEditorMode]
@@ -51,6 +66,11 @@ namespace Madduck.Scripts.Fishing.DI.StateMachine
         
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.RegisterInstance(throwHookProjectilePrefab).AsSelf();
+            builder.RegisterInstance(throwHookSpawnPoint).Keyed("ProjectileParent").AsSelf();
+            builder.Register<ThrowHookProjectileFactory>(Lifetime.Singleton).AsSelf();
+            builder.RegisterInstance(new FishItemInstance(fishItemData)).AsSelf();
+            builder.RegisterInstance(new FishingRodItemInstance(fishingRodItemData)).AsSelf();
             builder.Register<FishingNoneState>(Lifetime.Scoped).AsSelf();
             builder.RegisterEntryPoint<FishingStateMachine>().AsSelf();
             builder.RegisterBuildCallback(x =>

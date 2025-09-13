@@ -137,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Madduck.Fishing.UI::Madduck.Scripts.Fishing.UI.ThrowHook.ThrowHookProjectile
   hookIcon: {fileID: 7241767426394046689}
   throwTweenX:
-    duration: 0.5
+    duration: 1.5
     ease: 1
     customEase:
       serializedVersion: 2
@@ -157,7 +157,7 @@ MonoBehaviour:
     startValue: 0
     endValue: 3
     settings:
-      duration: 0.5
+      duration: 1.5
       ease: -1
       customEase:
         serializedVersion: 2
@@ -165,12 +165,12 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 0
           value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
+          inSlope: 1.8153887
+          outSlope: 2.0079048
+          tangentMode: 65
           weightedMode: 0
           inWeight: 0
-          outWeight: 0.19032602
+          outWeight: 0.11850488
         - serializedVersion: 3
           time: 0.49815655
           value: 1.0002509
@@ -183,9 +183,9 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 1
           value: 0
-          inSlope: 0
+          inSlope: -1.9931533
           outSlope: 0
-          tangentMode: 0
+          tangentMode: 5
           weightedMode: 0
           inWeight: 0
           outWeight: 0

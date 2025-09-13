@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Scripts.Input;
 using Madduck.Scripts.Utils.Others;
 using R3;
 using Sirenix.OdinInspector;
@@ -32,11 +33,6 @@ namespace Madduck.Scripts.Fishing.UI.ThrowHook
                 .Subscribe(SetActive);
             Bind();
         }
-
-        // private void Start()
-        // {
-        //     SetActive(false);
-        // }
         
         private void Bind()
         {
@@ -46,18 +42,17 @@ namespace Madduck.Scripts.Fishing.UI.ThrowHook
                 .AddTo(ref disposableBuilder);
             throwHookButton.OnHold
                 .AsObservable()
-                .Subscribe(_ => _commander.ThrowHookHeldCommand.Execute(Unit.Default))
+                .Subscribe(_ => _commander.ThrowHookHeldCommand.Execute(InputType.UI))
                 .AddTo(ref disposableBuilder);
             throwHookButton.OnRelease
                 .AsObservable()
-                .Subscribe(_ => _commander.ThrowHookReleaseCommand.Execute(Unit.Default))
+                .Subscribe(_ => _commander.ThrowHookReleaseCommand.Execute(InputType.UI))
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
 
         private void SetActive(bool active)
         {
-            DebugUtils.Log("ThrowHookView SetActive: " + active);
             _bindings?.Dispose();
             if (active)
             {

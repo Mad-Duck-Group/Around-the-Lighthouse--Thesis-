@@ -12,7 +12,7 @@ namespace Madduck.Scripts.Fishing.StateMachine
     {
         None = 0,
         ThrowHook = 1,
-        PullHook = 2,
+        Nibble = 2,
         FishingBoard = 3,
         Reeling = 4,
     }
@@ -27,6 +27,8 @@ namespace Madduck.Scripts.Fishing.StateMachine
         [ShowInInspector] private Dictionary<FishingStateType, FishingState> _states = new();
         [Button("Test Next State")]
         private void TestNextState() => NextState();
+        [Button("Test Previous State")]
+        private void TestPreviousState() => PreviousState();
 
         public void Start()
         {

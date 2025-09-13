@@ -1,6 +1,7 @@
 ﻿using System;
 using Madduck.Scripts.Fishing.Config.FishingBoard;
 using Madduck.Scripts.Fishing.Controller.FishingBoard;
+using Madduck.Scripts.Fishing.StateMachine;
 using Madduck.Scripts.Fishing.StateMachine.FishingBoard;
 using Madduck.Scripts.Fishing.UI.FishingBoard;
 using MadDuck.Scripts.Items.Data;
@@ -41,10 +42,6 @@ namespace Madduck.Scripts.Fishing.DI.FishingBoard
         [SerializeField] private FishingBoardView fishingBoardView;
         [InlineEditor]
         [SerializeField] private FishingBoardConfig fishingBoardConfig;
-        [InlineEditor]
-        [SerializeField] private FishItemData fishItemData;
-        [InlineEditor]
-        [SerializeField] private FishingRodItemData fishingRodItemData;
 
 #if UNITY_EDITOR
         [Title("Debug")]
@@ -52,7 +49,7 @@ namespace Madduck.Scripts.Fishing.DI.FishingBoard
         [Button("Open Debug Window")]
         private void OpenDebugWindow()
         {
-            _debugWindow = DebugEditorWindow.Inspect(_fishingBoardDebugData);
+            _debugWindow = DebugEditorWindow.Inspect(_fishingBoardDebugData, "Fishing Board Debug");
         }
         
         protected override void OnDestroy()
@@ -68,30 +65,30 @@ namespace Madduck.Scripts.Fishing.DI.FishingBoard
         private FishingBoardDebugData _fishingBoardDebugData;
 #endif
         
-        
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(behaviorGraphAgent).AsSelf();
             builder.RegisterComponent(fishingBoardView).AsSelf();
             builder.RegisterInstance(fishingBoardConfig).AsSelf();
-            builder.RegisterInstance(new FishItemInstance(fishItemData)).AsSelf();
-            builder.RegisterInstance(new FishingRodItemInstance(fishingRodItemData)).AsSelf();
             builder.Register<FishingBoardController>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingBoardModel>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingBoardViewModel>(Lifetime.Scoped).AsSelf();
-            builder.RegisterEntryPoint<FishingBoardState>().AsSelf();
-#if UNITY_EDITOR
+            builder.Register<FishingBoardState>(Lifetime.Scoped).AsSelf();
             builder.RegisterBuildCallback(x =>
             {
                 var fishingBoardState = x.Resolve<FishingBoardState>();
+                var stateMachine = x.Resolve<FishingStateMachine>();
+                stateMachine.AddState(FishingStateType.FishingBoard, fishingBoardState);
+#if UNITY_EDITOR
                 var fishingBoardModel= x.Resolve<FishingBoardModel>();
                 var fishingBoardController = x.Resolve<FishingBoardController>();
                 _fishingBoardDebugData = new FishingBoardDebugData(
                     fishingBoardState, 
                     fishingBoardModel, 
                     fishingBoardController);
-            });
 #endif
+            });
+
         }
     }
 }

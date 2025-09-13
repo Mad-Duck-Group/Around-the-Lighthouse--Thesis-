@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Madduck.Scripts.Fishing.Config.ThrowHook;
 using Madduck.Scripts.Fishing.UI.ThrowHook;
@@ -38,14 +40,22 @@ namespace Madduck.Scripts.Fishing.Controller.ThrowHook
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            Observable.EveryUpdate()
-                .Where(_ => _inputHandler.ThrowHookButton.Value.isHeld)
+            _inputHandler.ThrowHookButton.IsHeld
+                .IgnoreFirstValueWhenSubscribe()
+                .DistinctUntilChanged()
+                .EveryUpdateWhen(x => x && !_model.HookThrown.Value)
                 .Subscribe(_ => OnHookHeld())
                 .AddTo(ref disposableBuilder);
-            _inputHandler.ThrowHookButton
-                .Subscribe(OnHookRelease)
+            _inputHandler.ThrowHookButton.IsUpAfterHeld
+                .IgnoreFirstValueWhenSubscribe()
+                .DistinctUntilChanged()
+                .Where(x => x)
+                .Subscribe(_ => OnHookRelease())
                 .AddTo(ref disposableBuilder);
-            _model.HookThrown.Subscribe(OnHookThrown)
+            _model.HookThrown
+                .DistinctUntilChanged()
+                .Where(x => x)
+                .SubscribeAwait((_,_) => OnHookThrown(), AwaitOperation.Drop)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -67,31 +77,29 @@ namespace Madduck.Scripts.Fishing.Controller.ThrowHook
 
         private void OnHookHeld()
         {
-            _commander.ThrowHookHeldCommand.Execute(Unit.Default);
+            _commander.ThrowHookHeldCommand.Execute(InputType.NonUI);
         }
         
-        private void OnHookRelease(PlayerInputHandler.InputButton button)
+        private void OnHookRelease()
         {
-            if (!button.isUpAfterHeld) return;
-            _commander.ThrowHookReleaseCommand.Execute(Unit.Default);
+            _commander.ThrowHookReleaseCommand.Execute(InputType.NonUI);
         }
 
-        private void OnHookThrown(bool thrown)
+        private async UniTask OnHookThrown()
         {
-            if (!thrown) return;
             var projectile = _factory.Create();
             var throwPercent = _model.ThrowHookPercent.CurrentValue;
             var distance = Mathf.Lerp(
                 _config.ThrowRange.x,
                 _config.ThrowRange.y, 
                 throwPercent);
-            projectile.Throw(distance)
-                .ContinueWith(() => OnHookHitWater?.Invoke());
+            await projectile.Throw(distance);
+            OnHookHitWater?.Invoke();
         }
         
         public void Dispose()
         {
-            _bindings.Dispose();
+            _bindings?.Dispose();
         }
     }
 }

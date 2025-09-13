@@ -8,6 +8,10 @@ namespace Madduck.Scripts.Utils.Editor
     {
         public bool ConstantUpdate { get; }
     }
+    
+    /// <summary>
+    /// Debug window for inspecting IDebugData objects.
+    /// </summary>
     public class DebugEditorWindow : OdinEditorWindow
     {
         private IDebugData _debugData;

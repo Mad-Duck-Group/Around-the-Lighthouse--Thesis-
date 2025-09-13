@@ -16,14 +16,11 @@ namespace Madduck.Scripts.Fishing.UI.FishingBoard
         public ReadOnlyReactiveProperty<Quaternion> HookRotation { get; private set; }
         public ReadOnlyReactiveProperty<float> FishLineDurabilityPercent { get; private set; }
         public ReadOnlyReactiveProperty<float> FatigueLevelPercent { get; private set; }
-        public ReactiveCommand<Dictionary<FishZone, CircleBoardState>> OnCircleBoardUpdated { get; private set; }
+        public ReactiveCommand<Dictionary<FishZone, CircleBoardState>> UpdateCircleBoardCommand { get; private set; }
         
-        #region Fields
         private readonly FishingBoardModel _fishingBoardModel;
         private IDisposable _bindings;
-        #endregion
-
-        #region Life Cycle
+        
         [Inject]
         public FishingBoardViewModel(FishingBoardModel fishingBoardModel)
         {
@@ -48,7 +45,7 @@ namespace Madduck.Scripts.Fishing.UI.FishingBoard
                 .AddTo(ref disposableBuilder);
             FatigueLevelPercent = _fishingBoardModel.FatigueLevelPercent.ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
-            OnCircleBoardUpdated = 
+            UpdateCircleBoardCommand = 
                 new ReactiveCommand<Dictionary<FishZone, CircleBoardState>>(x =>
                 {
                     _fishingBoardModel.CircleBoardState = x;
@@ -61,6 +58,5 @@ namespace Madduck.Scripts.Fishing.UI.FishingBoard
         {
             _bindings.Dispose();
         }
-        #endregion
     }
 }

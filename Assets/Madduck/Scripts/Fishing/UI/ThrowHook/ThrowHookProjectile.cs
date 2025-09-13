@@ -29,6 +29,10 @@ namespace Madduck.Scripts.Fishing.UI.ThrowHook
             _startPosition = transform.localPosition;
         }
 
+        /// <summary>
+        /// Throws the hook to the specified distance.
+        /// </summary>
+        /// <param name="distance"></param>
         public async UniTask Throw(float distance)
         {
             if (_isThrown) return;
@@ -40,6 +44,9 @@ namespace Madduck.Scripts.Fishing.UI.ThrowHook
             await _throwSequence.ToYieldInstruction().ToUniTask();
         }
 
+        /// <summary>
+        /// Returns the hook to the starting position.
+        /// </summary>
         public async UniTask Return()
         {
             if (!_isThrown) return;
@@ -51,12 +58,21 @@ namespace Madduck.Scripts.Fishing.UI.ThrowHook
             await _throwSequence.ToYieldInstruction().ToUniTask();
         }
 
+        /// <summary>
+        /// Animates the nibble effect on the hook icon.
+        /// </summary>
+        /// <param name="cycle">Set to -1 for infinite cycles.</param>
         public async UniTask Nibble(int? cycle)
         {
             var finalCycle = cycle ?? 1;
             _nibbleSequence = Sequence.Create(finalCycle, CycleMode.Yoyo)
                 .Group(Tween.LocalPosition(hookIcon, nibbleTween.ToVector3().ToRelative(hookIcon.localPosition)));
             await _nibbleSequence.ToYieldInstruction().ToUniTask();
+        }
+
+        public void StopNibble()
+        {
+            _nibbleSequence.Complete();
         }
     }
 
@@ -80,6 +96,13 @@ namespace Madduck.Scripts.Fishing.UI.ThrowHook
             if (CurrentHook) return CurrentHook;
             CurrentHook = Object.Instantiate(_prefab, _parent.position, Quaternion.identity, _parent);
             return CurrentHook;
+        }
+        
+        public void DestroyHook()
+        {
+            if (!CurrentHook) return;
+            Object.Destroy(CurrentHook.gameObject);
+            CurrentHook = null;
         }
     }
 }

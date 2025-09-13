@@ -67,13 +67,13 @@ namespace Madduck.Scripts.Fishing.UI.FishingBoard
 
         public void Reset()
         {
-            IsActive.Value = false;
             FishPosition.Value = Vector2.zero;
             HookPosition.Value = Vector2.zero;
             FishRotation.Value = Quaternion.identity;
             HookRotation.Value = Quaternion.identity;
             CurrentFatigueLevel.Value = 0f;
             MaxFatigueLevel.Value = 100f;
+            FishingRodItemInstance.CurrentFishingLineDurability = FishingRodItemInstance.BaseStats.FishingLineDurability;
         }
         
         public void Dispose()

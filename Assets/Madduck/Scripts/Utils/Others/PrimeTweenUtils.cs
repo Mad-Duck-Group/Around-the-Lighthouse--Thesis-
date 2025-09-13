@@ -6,6 +6,12 @@ namespace Madduck.Scripts.Utils.Others
 {
     public static class PrimeTweenUtils
     {
+        /// <summary>
+        /// Play the sequence in a specific direction.
+        /// </summary>
+        /// <param name="seq"></param>
+        /// <param name="isForwardDirection"></param>
+        /// <returns></returns>
         public static Sequence ApplyDirection(this Sequence seq, bool isForwardDirection) 
         {
             Assert.IsTrue(seq.isAlive);

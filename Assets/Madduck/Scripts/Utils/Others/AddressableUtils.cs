@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Madduck.Scripts.Utils
+namespace Madduck.Scripts.Utils.Others
 {
     public static class AddressableUtils
     {

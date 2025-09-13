@@ -33,7 +33,7 @@ namespace Madduck.Scripts.Fishing.StateMachine.ThrowHook
         
         private void OnHookHitWater()
         {
-            DebugUtils.Log("Hook hit water, transitioning to WaitingForFishState");
+            DebugUtils.Log("Hook hit water, transitioning to NibbleState");
             stateMachine.NextState();
         }
 

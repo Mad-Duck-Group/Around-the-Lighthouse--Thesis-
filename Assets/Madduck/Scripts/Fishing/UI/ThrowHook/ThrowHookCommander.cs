@@ -1,20 +1,25 @@
 ﻿using System;
+using System.Linq;
 using Madduck.Scripts.Fishing.Config.ThrowHook;
+using Madduck.Scripts.Input;
 using Madduck.Scripts.Utils.Others;
 using R3;
 using UnityEngine;
+using VContainer;
 
 namespace Madduck.Scripts.Fishing.UI.ThrowHook
 {
     public class ThrowHookCommander : IDisposable
     {
-        public ReactiveCommand ThrowHookHeldCommand { get; private set; }
-        public ReactiveCommand ThrowHookReleaseCommand { get; private set; }
+        public ReactiveCommand<InputType> ThrowHookHeldCommand { get; private set; }
+        public ReactiveCommand<InputType> ThrowHookReleaseCommand { get; private set; }
         private readonly ThrowHookModel _model;
         private readonly ThrowHookConfig _config;
+        private InputType _activeInputType;
         private Sign _throwHookSliderDirection = Sign.Positive;
         private IDisposable _bindings;
         
+        [Inject]
         public ThrowHookCommander(
             ThrowHookModel model, 
             ThrowHookConfig config)
@@ -27,9 +32,19 @@ namespace Madduck.Scripts.Fishing.UI.ThrowHook
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            ThrowHookHeldCommand = new ReactiveCommand(_ => OnThrowHookHeld())
+            ThrowHookHeldCommand = new ReactiveCommand<InputType>();
+            ThrowHookHeldCommand
+                .ResolveInputType()
+                .Subscribe(x => _activeInputType = x)
                 .AddTo(ref disposableBuilder);
-            ThrowHookReleaseCommand = new ReactiveCommand(_ => OnThrowHookReleased())
+            ThrowHookHeldCommand
+                .Where(x=> x == _activeInputType && !_model.HookThrown.Value)
+                .Subscribe(_ => OnThrowHookHeld())
+                .AddTo(ref disposableBuilder);
+            ThrowHookReleaseCommand = new ReactiveCommand<InputType>();
+            ThrowHookReleaseCommand
+                .Where(x => x == _activeInputType && !_model.HookThrown.Value)
+                .Subscribe(_ => OnThrowHookReleased())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }

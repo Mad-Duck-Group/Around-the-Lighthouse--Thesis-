@@ -7,7 +7,7 @@ namespace Madduck.Scripts.Fishing.Config.FishingBoard
     /// <summary>
     /// Configuration for the Fishing Board mini-game.
     /// </summary>
-    [CreateAssetMenu(fileName = "FishingBoardConfig", menuName = "Madduck/FishingBoard/Config")]
+    [CreateAssetMenu(fileName = "FishingBoardConfig", menuName = "Madduck/Fishing/FishingBoardConfig", order = 3)]
     public class FishingBoardConfig : ScriptableObject
     {
         [Title("Settings")]

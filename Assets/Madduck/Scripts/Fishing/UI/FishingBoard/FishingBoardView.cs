@@ -20,6 +20,7 @@ namespace Madduck.Scripts.Fishing.UI.FishingBoard
     }
     public class FishingBoardView : MonoBehaviour
     {
+        #region Inspector
         [Title("References")] 
         [Required]
         [SerializeField] private CanvasGroup canvasGroup;
@@ -49,7 +50,9 @@ namespace Madduck.Scripts.Fishing.UI.FishingBoard
         [SerializeField] private TweenSettings<float> fishingBoardAlphaTweenSettings;
         [SerializeField] private ShakeSettings shakeTweenSettings;
         [SerializeField] private ShakeSettings reelingSliderShakeSettings;
+        #endregion
         
+        #region Fields
         private Tween _reelingSliderShakeTween;
         private List<KeyValuePair<Sprite, PercentageMultiplier>> _sortedFatigueImageList = new();
         private FishingBoardViewModel _fishingBoardViewModel;
@@ -58,6 +61,7 @@ namespace Madduck.Scripts.Fishing.UI.FishingBoard
         private Sequence _fishingBoardActivationSequence;
         private Tween _hookShakeTween;
         private Tween _fishShakeTween;
+        #endregion
 
         #region Bindings
         [Inject]
@@ -160,7 +164,7 @@ namespace Madduck.Scripts.Fishing.UI.FishingBoard
                 var state = new CircleBoardState(board.Value);
                 circleBoardStates.Add(board.Key, state);
             }
-            _fishingBoardViewModel.OnCircleBoardUpdated.Execute(circleBoardStates);
+            _fishingBoardViewModel.UpdateCircleBoardCommand.Execute(circleBoardStates);
         }
         #endregion
         

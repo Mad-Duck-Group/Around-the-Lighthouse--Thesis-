@@ -28,14 +28,9 @@ namespace Madduck.Scripts.Fishing.DI.ThrowHook
         }
     }
     
-    [Serializable]
     public class ThrowHookLifetimeScope : LifetimeScope
     {
         [Title("References")]
-        [Required]
-        [SerializeField] private ThrowHookProjectile throwHookProjectilePrefab;
-        [Required]
-        [SerializeField] private Transform throwHookSpawnPoint;
         [Required]
         [SerializeField] private ThrowHookConfig throwHookConfig;
         [Required]
@@ -65,11 +60,8 @@ namespace Madduck.Scripts.Fishing.DI.ThrowHook
         
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterInstance(throwHookProjectilePrefab).AsSelf();
-            builder.RegisterInstance(throwHookSpawnPoint).Keyed("ProjectileParent").AsSelf();
             builder.RegisterInstance(throwHookConfig).AsSelf();
             builder.RegisterComponent(throwHookView).AsSelf();
-            builder.Register<ThrowHookProjectileFactory>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookController>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookCommander>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookViewModel>(Lifetime.Scoped).AsSelf();
