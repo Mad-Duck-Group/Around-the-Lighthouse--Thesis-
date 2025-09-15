@@ -4,7 +4,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Madduck.Scripts.Input
+namespace Madduck.Input
 {
     [Serializable]
     public class PlayerInputHandlerInstaller : IInstaller

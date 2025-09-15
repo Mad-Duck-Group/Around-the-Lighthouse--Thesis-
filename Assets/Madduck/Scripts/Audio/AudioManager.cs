@@ -4,14 +4,14 @@ using System.Linq;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
-using Madduck.Scripts.Utils.Others;
+using Madduck.Utils;
 using Redcode.Extensions;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
-namespace Madduck.Scripts.Audio
+namespace Madduck.Audio
 {
     #region Data Structures
     public interface IAudioIdentifier

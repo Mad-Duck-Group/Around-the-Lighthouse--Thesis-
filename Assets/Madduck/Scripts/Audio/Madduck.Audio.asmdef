@@ -1,6 +1,6 @@
 {
     "name": "Madduck.Audio",
-    "rootNamespace": "",
+    "rootNamespace": "Madduck.Audio",
     "references": [
         "GUID:5ecb2f6dbf140e440bfa9b64e27a2d48",
         "GUID:0c752da273b17c547ae705acf0f2adf2",

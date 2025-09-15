@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Numerics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
-namespace Madduck.Scripts.Utils.Others
+namespace Madduck.Utils
 {
     public static class EnumUtils
     {

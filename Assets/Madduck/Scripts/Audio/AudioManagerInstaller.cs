@@ -4,7 +4,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Madduck.Scripts.Audio
+namespace Madduck.Audio
 {
     [Serializable]
     public class AudioManagerInstaller : IInstaller

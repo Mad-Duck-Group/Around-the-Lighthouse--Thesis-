@@ -2,14 +2,14 @@
 /// ©2024 JDSherbert. All rights reserved.
 /// </summary>
 
-namespace Sherbert.Framework.Generic
-{
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Runtime.Serialization;
-    using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using UnityEngine;
 
+namespace Madduck.Utils
+{
     // ---------------------------------------------------------------- //
     //? Serialized Dictionary Base
     // ---------------------------------------------------------------- //

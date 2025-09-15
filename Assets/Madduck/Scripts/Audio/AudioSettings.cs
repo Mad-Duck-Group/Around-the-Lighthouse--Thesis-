@@ -1,12 +1,11 @@
 ﻿using System;
 using FMOD.Studio;
 using FMODUnity;
-using Madduck.Scripts.Utils.Others;
-using Sherbert.Framework.Generic;
+using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Madduck.Scripts.Audio
+namespace Madduck.Audio
 {
     public enum BusType
     {

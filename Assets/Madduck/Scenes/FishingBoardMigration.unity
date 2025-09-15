@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.Fishing.DI::Madduck.Scripts.Fishing.DI.Reeling.ReelingLifetimeScope
   parentReference:
-    TypeName: Madduck.Scripts.Fishing.DI.StateMachine.FishingStateMachineLifetimeScope
+    TypeName: Madduck.Fishing.DI.FishingStateMachineLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
   reelingView: {fileID: 1147610541}
@@ -514,6 +514,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158141488}
   m_CullTransparentMesh: 1
+--- !u!1 &163909659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 163909660}
+  - component: {fileID: 163909661}
+  m_Layer: 0
+  m_Name: FishingRoomManagerLifetimeScope
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &163909660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163909659}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &163909661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163909659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade5bd8dbddf478ea55c02fe2f3b0b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Madduck.Scripts.Game.Room.FishingRoomManagerLifetimeScope
+  parentReference:
+    TypeName: Madduck.Core.ProjectLifetimeScope
+  autoRun: 1
+  autoInjectGameObjects: []
+  weatherWeightTable: {fileID: 11400000, guid: ce8e0bddbbfe23241b23afff2a4d6039, type: 2}
 --- !u!1 &166110747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,7 +1784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.Fishing.DI::Madduck.Scripts.Fishing.DI.ThrowHook.ThrowHookLifetimeScope
   parentReference:
-    TypeName: Madduck.Scripts.Fishing.DI.StateMachine.FishingStateMachineLifetimeScope
+    TypeName: Madduck.Fishing.DI.FishingStateMachineLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
   throwHookConfig: {fileID: 11400000, guid: e7748b66ef7a6e948a33e652f3b7cd71, type: 2}
@@ -2586,7 +2635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.Fishing.DI::Madduck.Scripts.Fishing.DI.StateMachine.FishingStateMachineLifetimeScope
   parentReference:
-    TypeName: Madduck.Scripts.Core.LifetimeScope.ProjectLifetimeScope
+    TypeName: Madduck.Room.FishingRoomManagerLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
   fishItemData: {fileID: 11400000, guid: 09e05137d53d8d74882aa881f15e2984, type: 2}
@@ -3049,7 +3098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.Fishing.DI::Madduck.Scripts.Fishing.DI.Nibble.NibbleLifetimeScope
   parentReference:
-    TypeName: Madduck.Scripts.Fishing.DI.StateMachine.FishingStateMachineLifetimeScope
+    TypeName: Madduck.Fishing.DI.FishingStateMachineLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
   nibbleView: {fileID: 329408339}
@@ -4121,7 +4170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.UI::Madduck.Scripts.UI.FishingBoard.FishingBoardLifetimeScope
   parentReference:
-    TypeName: Madduck.Scripts.Fishing.DI.StateMachine.FishingStateMachineLifetimeScope
+    TypeName: Madduck.Fishing.DI.FishingStateMachineLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
   behaviorGraphAgent: {fileID: 1911591240}
@@ -4139,10 +4188,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Behavior::Unity.Behavior.BehaviorGraphAgent
-  m_Graph: {fileID: -7089213909470340906, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  m_Graph: {fileID: -985583480639107272, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 8180553577711010355
-  - rid: 8180553658114768901
+  - rid: 8180553782806708462
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
@@ -4156,13 +4205,13 @@ MonoBehaviour:
           m_Value1: 0
         Name: BehaviourAgent
         m_Value: {fileID: 1911591237}
-    - rid: 8180553658114768901
-      type: {class: 'BlackboardVariable`1[[Madduck.Scripts.Fishing.DI.FishingBoard.FishingBoardLifetimeScope, Madduck.Fishing.DI]]', ns: Unity.Behavior, asm: Unity.Behavior}
+    - rid: 8180553782806708462
+      type: {class: 'BlackboardVariable`1[[Madduck.Fishing.DI.FishingBoardLifetimeScope, Madduck.Fishing.DI]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
-          m_Value0: 16499970111447762526
-          m_Value1: 17464497257440497784
-        Name: FishingBoardLifeTimeScope
+          m_Value0: 4482973012612018237
+          m_Value1: 14581503575779501920
+        Name: Fishing Board Lifetime Scope
         m_Value: {fileID: 1911591239}
 --- !u!1 &1926217909
 GameObject:
@@ -4426,4 +4475,5 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1677522017}
   - {fileID: 463744712}
+  - {fileID: 163909660}
   - {fileID: 1243495075}

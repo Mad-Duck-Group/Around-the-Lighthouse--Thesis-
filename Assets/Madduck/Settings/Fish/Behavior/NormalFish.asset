@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03e55b45a9684017b710ddcd75efa6c5, type: 3}
   m_Name: NormalFish
   m_EditorClassIdentifier: 
-  <BehaviorGraph>k__BackingField: {fileID: -7089213909470340906, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  <BehaviorGraph>k__BackingField: {fileID: -985583480639107272, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   <MaxNibbleAttempts>k__BackingField: 3
   <NibbleIntervalRange>k__BackingField: {x: 10, y: 15}
   <NibbleTimeFrameRange>k__BackingField: {x: 3, y: 6}
   <Power>k__BackingField: 4
+  <Resistance>k__BackingField: 1
+  <FishWeight>k__BackingField: 0
   <FatigueDuration>k__BackingField: 10
   <MaxFatigueAttempts>k__BackingField: 2

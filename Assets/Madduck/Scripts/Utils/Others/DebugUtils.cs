@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 
-namespace Madduck.Scripts.Utils.Others
+namespace Madduck.Utils
 {
     public static class DebugUtils
     {

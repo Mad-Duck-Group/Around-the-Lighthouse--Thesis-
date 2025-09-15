@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Madduck.Scripts.Audio
+namespace Madduck.Audio
 {
     [CreateAssetMenu(fileName = "AudioManagerConfig", menuName = "Madduck/Audio/AudioManagerConfig", order = 0)]
     public class AudioManagerConfig : ScriptableObject

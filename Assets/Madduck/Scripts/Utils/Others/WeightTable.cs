@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Madduck.Scripts.Utils.Others
+namespace Madduck.Utils
 {
     public interface IWeightRecord
     {

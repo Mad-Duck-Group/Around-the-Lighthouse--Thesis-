@@ -1,7 +1,7 @@
 ﻿using System;
 using MessagePipe;
 
-namespace Madduck.Scripts.Utils.Others
+namespace Madduck.Utils
 {
     #region Interfaces
     /// <summary>

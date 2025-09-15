@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Madduck.Scripts.Utils.Others
+namespace Madduck.Utils
 {
     public static class PrimeTweenUtils
     {

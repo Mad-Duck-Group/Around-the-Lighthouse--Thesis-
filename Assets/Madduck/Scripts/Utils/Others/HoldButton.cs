@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Threading;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace Madduck.Scripts.Utils.Others
+namespace Madduck.Utils
 {
     public class HoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
     {

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using R3;
 
-namespace Madduck.Scripts.Utils.Others
+namespace Madduck.Utils
 {
     public static class ObservableUtils
     {

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEngine;
 
-namespace MadDuck.Scripts.Utils.Inspectors
+namespace Madduck.Utils
 {
     /// <summary>
     /// Used as a placeholder in the inspector when no value is needed.

@@ -1,13 +1,13 @@
 using System;
 using Cysharp.Threading.Tasks;
+using Madduck.Scripts.Input;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-using VContainer.Unity;
 
-namespace Madduck.Scripts.Input
+namespace Madduck.Input
 {
     public enum InputType
     {

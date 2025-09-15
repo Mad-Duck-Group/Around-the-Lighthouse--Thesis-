@@ -1,8 +1,7 @@
 ﻿using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities.Editor;
 using UnityEngine;
 
-namespace Madduck.Scripts.Utils.Editor
+namespace Madduck.Utils
 {
     public interface IDebugData
     {

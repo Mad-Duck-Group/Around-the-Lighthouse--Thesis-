@@ -69,7 +69,7 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 7
-      Data: 1|Madduck.Scripts.Audio.AudioManagerInstaller, Madduck.Audio
+      Data: 1|Madduck.Audio.AudioManagerInstaller, Madduck.Audio
     - Name: audioManagerConfig
       Entry: 10
       Data: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 2|Madduck.Scripts.Input.PlayerInputHandlerInstaller, Madduck.Input
+      Data: 2|Madduck.Input.PlayerInputHandlerInstaller, Madduck.Input
     - Name: playerInputHandler
       Entry: 10
       Data: 1

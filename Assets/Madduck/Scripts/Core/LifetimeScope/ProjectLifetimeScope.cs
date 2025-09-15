@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Madduck.Scripts.Audio;
 using MessagePipe;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -7,7 +6,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Madduck.Scripts.Core.LifetimeScope
+namespace Madduck.Core
 {
     [ShowOdinSerializedPropertiesInInspector]
     public class ProjectLifetimeScope : VContainer.Unity.LifetimeScope, ISerializationCallbackReceiver, ISupportsPrefabSerialization

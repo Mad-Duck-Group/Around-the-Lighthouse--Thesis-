@@ -1,4 +1,4 @@
-namespace Madduck.Scripts.Utils.Others
+namespace Madduck.Utils
 {
     public abstract class State
     {

@@ -1,8 +1,7 @@
 ﻿using System;
 using R3;
-using UnityEngine;
 
-namespace Madduck.Scripts.Input
+namespace Madduck.Input
 {
     public static class ObservableInputUtils
     {

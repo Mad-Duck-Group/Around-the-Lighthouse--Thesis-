@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace MadDuck.Scripts.Utils.Inspectors
+namespace Madduck.Utils
 {
     
     public class SortingLayerAttribute : PropertyAttribute
