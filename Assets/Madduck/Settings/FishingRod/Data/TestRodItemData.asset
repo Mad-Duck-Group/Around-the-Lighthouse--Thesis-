@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Guid>k__BackingField: a722d28aaa0bd442859b9d5936076f31
   <ItemType>k__BackingField: 1
-  <CanPutInContainer>k__BackingField: 1
-  <CanPlaceOnGround>k__BackingField: 0
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 2
   <BaseStats>k__BackingField: {fileID: 11400000, guid: c704b2e9731993c49b635bf8da8ebb64, type: 2}

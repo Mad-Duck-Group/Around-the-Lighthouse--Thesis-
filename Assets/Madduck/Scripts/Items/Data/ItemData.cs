@@ -1,4 +1,5 @@
 using System;
+using MadDuck.Scripts.Utils.Inspectors;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -11,19 +12,22 @@ namespace MadDuck.Scripts.Items.Data
     }
     public abstract class ItemData : ScriptableObject
     {
-        [Title("Base Settings")]
-        [field: SerializeField, HideInInspector]
+        [Title("Base Settings"), 
+         HideLabel,
+         ShowInInspector] private InspectorVoid _baseSettingsTitle;
+        [field: HideInInspector, 
+                SerializeField]
         public byte[] Guid { get; private set; } = System.Guid.NewGuid().ToByteArray();
-        [ShowInInspector, DisplayAsString] private string GuidString => new Guid(Guid).ToString();
+        [DisplayAsString, 
+         ShowInInspector] private string GuidString => new Guid(Guid).ToString();
         [Button("Generate New GUID")]
         private void GenerateNewGuid()
         {
             Guid = System.Guid.NewGuid().ToByteArray();
         }
         [field: SerializeField] public ItemType ItemType { get; private set; }
-        [field: SerializeField] public bool CanPutInContainer { get; private set; }
-        [field: SerializeField] public bool CanPlaceOnGround { get; private set; }
         [field: SerializeField] public bool IsStackable { get; private set; }
-        [field: SerializeField, ShowIf(nameof(IsStackable))] public uint MaxStackSize { get; private set; } = 2;
+        [field: ShowIf(nameof(IsStackable)), 
+                SerializeField] public uint MaxStackSize { get; private set; } = 2;
     }
 }

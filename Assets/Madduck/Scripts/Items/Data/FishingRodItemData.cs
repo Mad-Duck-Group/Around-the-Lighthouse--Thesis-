@@ -1,13 +1,18 @@
-﻿using MadDuck.Scripts.FishingRods;
+﻿using Madduck.Scripts.Items.Data;
+using MadDuck.Scripts.Utils.Inspectors;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MadDuck.Scripts.Items.Data
 {
-    [CreateAssetMenu(fileName = "New Fishing Rod Item Data", menuName = "Fishing Rod/Fishing Rod Item")]
+    [CreateAssetMenu(fileName = "New Fishing Rod Item Data", menuName = "Madduck/Fishing Rod/Fishing Rod Item Data")]
     public class FishingRodItemData : ItemData
     {
-        [Title("References")]
-        [field: SerializeField, InlineEditor, Required] public FishingRodStatsData BaseStats { get; private set; }
+        [Title("References"), 
+         HideLabel,
+         ShowInInspector] private InspectorVoid _referenceTitle;
+        [field: InlineEditor,
+                Required,
+                SerializeField] public FishingRodStatsData BaseStats { get; private set; }
     }
 }

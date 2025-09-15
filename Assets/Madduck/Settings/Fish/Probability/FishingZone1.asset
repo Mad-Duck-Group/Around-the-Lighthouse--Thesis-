@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ed58405c7587b4286d05cfaea24aff, type: 3}
   m_Name: FishingZone1
   m_EditorClassIdentifier: 
-  fishProbabilities:
-  - fishData: {fileID: 11400000, guid: 0369377454aa07a4181e2aeccae60320, type: 2}
-    weight: 1
-    probability: 0.5
-  - fishData: {fileID: 11400000, guid: 826ca38ca0eeb7e4fa2e023df6f586a0, type: 2}
-    weight: 1
-    probability: 0.5
+  <FishProbabilities>k__BackingField:
+  - <FishItemData>k__BackingField: {fileID: 11400000, guid: fe2409ffe21a66f489b88b6cf7b663eb, type: 2}
+    <Weight>k__BackingField: 1
+  - <FishItemData>k__BackingField: {fileID: 11400000, guid: 09e05137d53d8d74882aa881f15e2984, type: 2}
+    <Weight>k__BackingField: 1
+  - <FishItemData>k__BackingField: {fileID: 11400000, guid: 0369377454aa07a4181e2aeccae60320, type: 2}
+    <Weight>k__BackingField: 1

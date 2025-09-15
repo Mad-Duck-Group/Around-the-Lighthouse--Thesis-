@@ -46,7 +46,7 @@ namespace Madduck.Scripts.Fishing.StateMachine
         public void NextState()
         {
             var nextStateType = _currentStateType + 1;
-            var maxStateType = _currentStateType.Max();
+            var maxStateType = EnumUtils.Max<FishingStateType>();
             if (nextStateType > maxStateType)
             {
                 DebugUtils.LogWarning("Already in the last state, cannot go to next state.");
@@ -58,7 +58,7 @@ namespace Madduck.Scripts.Fishing.StateMachine
         public void PreviousState()
         {
             var previousStateType = _currentStateType - 1;
-            var minStateType = _currentStateType.Min();
+            var minStateType = EnumUtils.Min<FishingStateType>();
             if (previousStateType < minStateType)
             {
                 DebugUtils.LogWarning("Already in the first state, cannot go to previous state.");
