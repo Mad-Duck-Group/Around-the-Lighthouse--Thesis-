@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace Madduck.GameData
             var totalWeight = Records.Sum(fishProbability => fishProbability.Weight);
             foreach (var fishProbability in Records)
             {
-                fishProbability.Probability = fishProbability.Weight / totalWeight;
+                fishProbability.Probability = Percentage.FromFraction(fishProbability.Weight / totalWeight);
             }
         }
 

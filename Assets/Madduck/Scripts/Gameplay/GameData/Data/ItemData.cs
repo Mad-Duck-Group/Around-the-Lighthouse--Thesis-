@@ -9,12 +9,13 @@ namespace Madduck.GameData
     {
         Fish,
         FishingRod,
+        Fisherman,
     }
     public abstract class ItemData : ScriptableObject
     {
         [Title("Base Settings"), 
          HideLabel,
-         ShowInInspector] private InspectorVoid _baseSettingsTitle;
+         ShowInInspector] private InspectorPlaceholder _baseSettingsTitle;
         [field: HideInInspector, 
                 SerializeField]
         public byte[] Guid { get; private set; } = System.Guid.NewGuid().ToByteArray();

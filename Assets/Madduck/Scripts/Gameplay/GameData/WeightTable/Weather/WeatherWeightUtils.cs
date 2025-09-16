@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -16,11 +17,11 @@ namespace Madduck.GameData
 
         [field: MinValue(0f),
                 SerializeField]
-        public float Weight { get; internal set; } = 1f;
+        public UFloat Weight { get; internal set; } = 1f;
 
-        [field: ReadOnly, DisplayAsString,
+        [field: DisplayAsString(TextAlignment.Center),
                 ShowInInspector]
-        public float Probability { get; internal set; }
+        public Percentage Probability { get; internal set; }
     }
 
     public class WeatherWeightFilter : IWeightFilter<WeatherWeightRecord>
@@ -64,8 +65,10 @@ namespace Madduck.GameData
         public Dictionary<string, IWeightModifier<WeatherWeightRecord>> PersistentModifiers { get; private set; }
 
         [Title("Debug")] 
-        [ReadOnly, 
+        [ReadOnly, TableList,
          ShowInInspector] private List<WeatherWeightRecord> _modifiedRecords = new();
+        [Button("Refresh")]
+        private void Refresh() => ApplyFiltersAndModifiers(out _);
 
         public WeatherWeightTableInstance(List<WeatherWeightRecord> baseRecords)
         {
@@ -73,8 +76,8 @@ namespace Madduck.GameData
             PersistentFilters = new Dictionary<string, IWeightFilter<WeatherWeightRecord>>();
             PersistentModifiers = new Dictionary<string, IWeightModifier<WeatherWeightRecord>>();
         }
-
-        public WeatherType GetRandomItem()
+        
+        private void ApplyFiltersAndModifiers(out float totalWeight)
         {
             var filteredRecords = BaseRecords.ToList();
             foreach (var filter in PersistentFilters.Values)
@@ -85,16 +88,21 @@ namespace Madduck.GameData
             {
                 filteredRecords = modifier.Modify(filteredRecords);
             }
-            _modifiedRecords = filteredRecords;
-            var totalWeight = filteredRecords.Sum(record => record.Weight);
+            totalWeight = filteredRecords.Sum(record => record.Weight);
             //update probabilities
             foreach (var record in filteredRecords)
             {
-                record.Probability = record.Weight / totalWeight;
+                record.Probability = Percentage.FromFraction(record.Weight / totalWeight);
             }
+            _modifiedRecords = filteredRecords;
+        }
+
+        public WeatherType GetRandomItem()
+        {
+            ApplyFiltersAndModifiers(out var totalWeight);
             var randomValue = UnityEngine.Random.Range(0f, totalWeight);
             var cumulativeWeight = 0f;
-            foreach (var record in filteredRecords)
+            foreach (var record in _modifiedRecords)
             {
                 cumulativeWeight += record.Weight;
                 if (randomValue <= cumulativeWeight)

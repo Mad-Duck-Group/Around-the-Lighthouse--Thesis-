@@ -1,5 +1,5 @@
 ﻿using System;
-using Madduck.Fishing.Config;
+using Madduck.Fishing.Shared;
 using R3;
 using UnityEngine;
 
@@ -16,7 +16,6 @@ namespace Madduck.Fishing.UI
         
         private readonly ThrowHookConfig _config;
         private IDisposable _bindings;
-        
         
         public ThrowHookModel(ThrowHookConfig config)
         {

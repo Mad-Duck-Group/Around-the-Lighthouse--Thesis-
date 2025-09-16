@@ -5,34 +5,31 @@ using Sirenix.OdinInspector;
 namespace Madduck.GameData
 {
     [Serializable]
-    public class FishingRodItemInstance : ItemInstance
+    public class FishingRodItemInstance : ItemInstance<FishingRodItemData>
     {
         [Title("Debug Stats"), 
          HideLabel,
-         ShowInInspector] private InspectorVoid _debugStatsTitle;
+         ShowInInspector] private InspectorPlaceholder _debugStatsTitle;
         [field: DisplayAsString, 
-                ShowInInspector] public float CurrentPower { get; set; }
+                ShowInInspector] public UFloat CurrentPower { get; set; }
         [field: DisplayAsString, 
-                ShowInInspector] public float CurrentFishingLineDurability { get; set; }
+                ShowInInspector] public UFloat CurrentFishingLineDurability { get; set; }
         [field: DisplayAsString, 
-                ShowInInspector] public float CurrentFishingLineRegenFactor { get; set; }
+                ShowInInspector] public UFloat CurrentFishingLineRegenFactor { get; set; }
         [field: DisplayAsString, 
-                ShowInInspector] public float CurrentReelingSpeed { get; set; }
+                ShowInInspector] public UFloat CurrentReelingSpeed { get; set; }
         
-        public FishingRodItemData FishingRodItemData => ItemData as FishingRodItemData;
-        public FishingRodStatsData BaseStats => FishingRodItemData ? FishingRodItemData.BaseStats : null;
-        
-        public FishingRodItemInstance(ItemData itemData) : base(itemData)
+        public FishingRodItemInstance(FishingRodItemData itemData) : base(itemData)
         {
             InitializeStats();
         }
         
         public void InitializeStats()
         {
-            CurrentPower = BaseStats.Power;
-            CurrentFishingLineDurability = BaseStats.FishingLineDurability;
-            CurrentFishingLineRegenFactor = BaseStats.FishingLineRegenFactor;
-            CurrentReelingSpeed = BaseStats.ReelingSpeed;
+            CurrentPower = ItemData.Power;
+            CurrentFishingLineDurability = ItemData.FishingLineDurability;
+            CurrentFishingLineRegenFactor = ItemData.FishingLineRegenFactor;
+            CurrentReelingSpeed = ItemData.ReelingSpeed;
         }
     }
 }

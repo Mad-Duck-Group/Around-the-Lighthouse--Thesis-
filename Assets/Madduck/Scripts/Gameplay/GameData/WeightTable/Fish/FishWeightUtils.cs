@@ -13,9 +13,9 @@ namespace Madduck.GameData
         [field: Required, 
                 SerializeField] public FishItemData Item { get; internal set; }
         [field: MinValue(0f), 
-                SerializeField] public float Weight { get; internal set; } = 1f;
-        [field: ReadOnly, DisplayAsString, 
-                ShowInInspector] public float Probability { get; internal set; }
+                SerializeField] public UFloat Weight { get; internal set; } = 1f;
+        [field: DisplayAsString(TextAlignment.Center), 
+                ShowInInspector] public Percentage Probability { get; internal set; }
     }
     
     public class FishWeightFilter : IWeightFilter<FishWeightRecord>
@@ -51,11 +51,18 @@ namespace Madduck.GameData
         }
     }
     
+    [Serializable]
     public class FishWeightTableInstance : IWeightTable<FishWeightRecord, FishItemData>
     {
+        [Title("Debug")] 
         private List<FishWeightRecord> BaseRecords { get; set; }
         public Dictionary<string, IWeightFilter<FishWeightRecord>> PersistentFilters { get; private set; }
         public Dictionary<string, IWeightModifier<FishWeightRecord>> PersistentModifiers { get; private set; }
+        
+        [ReadOnly, TableList,
+         ShowInInspector] private List<FishWeightRecord> _modifiedRecords = new();
+        [Button("Refresh")]
+        private void Refresh() => ApplyFiltersAndModifiers(out _);
 
         public FishWeightTableInstance(List<FishWeightRecord> baseRecords)
         {
@@ -64,7 +71,7 @@ namespace Madduck.GameData
             PersistentModifiers = new Dictionary<string, IWeightModifier<FishWeightRecord>>();
         }
         
-        public FishItemData GetRandomItem()
+        private void ApplyFiltersAndModifiers(out float totalWeight)
         {
             var filteredRecords = new List<FishWeightRecord>(BaseRecords);
             foreach (var filter in PersistentFilters.Values)
@@ -75,15 +82,20 @@ namespace Madduck.GameData
             {
                 filteredRecords = modifier.Modify(filteredRecords);
             }
-            var totalWeight = filteredRecords.Sum(record => record.Weight);
-            // update probabilities
+            totalWeight = filteredRecords.Sum(record => record.Weight);
             foreach (var record in filteredRecords)
             {
-                record.Probability = record.Weight / totalWeight;
+                record.Probability = Percentage.FromFraction(record.Weight / totalWeight);
             }
+            _modifiedRecords = filteredRecords;
+        }
+        
+        public FishItemData GetRandomItem()
+        {
+            ApplyFiltersAndModifiers(out var totalWeight);
             var randomValue = UnityEngine.Random.Range(0f, totalWeight);
             var cumulativeWeight = 0f;
-            foreach (var record in filteredRecords)
+            foreach (var record in _modifiedRecords)
             {
                 cumulativeWeight += record.Weight;
                 if (randomValue <= cumulativeWeight)

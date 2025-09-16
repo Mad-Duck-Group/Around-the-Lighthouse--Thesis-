@@ -1,7 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
-using Madduck.Fishing.Config;
+using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using Madduck.Input;
 using Madduck.Scripts.Input;
@@ -47,7 +47,8 @@ namespace Madduck.Fishing.Controller
         private readonly FishingBoardConfig _config;
         private readonly BehaviorGraphAgent _agent;
         private readonly AudioManager _audioManager;
-        private readonly ThrowHookProjectileFactory _factory;
+        private readonly HookProjectileFactory _hookFactory;
+        private readonly IFishFactory _fishFactory;
         
         private IDisposable _updateSubscription;
         private IDisposable _bindings;
@@ -72,14 +73,16 @@ namespace Madduck.Fishing.Controller
             FishingBoardConfig config,
             BehaviorGraphAgent agent,
             AudioManager audioManager,
-            ThrowHookProjectileFactory factory)
+            HookProjectileFactory hookFactory,
+            IFishFactory fishFactory)
         {
             _model = model;
             _playerInput = playerInput;
             _config = config;
             _agent = agent;
             _audioManager = audioManager;
-            _factory = factory;
+            _hookFactory = hookFactory;
+            _fishFactory = fishFactory;
         }
         #endregion
         
@@ -130,6 +133,7 @@ namespace Madduck.Fishing.Controller
             _bindings?.Dispose();
             if (active)
             {
+                _model.SetFishInstance(_fishFactory.CurrentFish);
                 Bind();
                 SetFishPosition(Vector2.zero);
                 SetHookPosition(Vector2.zero);
@@ -198,7 +202,7 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private void UpdateFatigueLevel()
         {
-            var fishPower = _model.FishItemInstance.FishItemData.FishBehaviorData.Power;
+            var fishPower = _model.FishItemInstance.ItemData.Power;
             var rodPower = _model.FishingRodItemInstance.CurrentPower;
             var fishMultiplier = _fishPowerMultiplier;
             var hookMultiplier = _hookPowerMultiplier;
@@ -225,7 +229,7 @@ namespace Madduck.Fishing.Controller
         {
             var currentRod = _model.FishingRodItemInstance;
             var currentFish = _model.FishItemInstance;
-            var fishPower = currentFish.FishItemData.FishBehaviorData.Power;
+            var fishPower = currentFish.ItemData.Power;
             var rodPower = currentRod.CurrentPower;
             var fishMultiplier = _fishPowerMultiplier;
             var hookMultiplier = _hookPowerMultiplier;
@@ -235,7 +239,7 @@ namespace Madduck.Fishing.Controller
             var currentDurability = currentRod.CurrentFishingLineDurability;
             currentDurability += final * Time.deltaTime;
             currentDurability = Mathf.Clamp(currentDurability,
-                0, currentRod.BaseStats.FishingLineDurability);
+                0, currentRod.ItemData.FishingLineDurability);
             currentRod.CurrentFishingLineDurability = currentDurability;
             PlayTensionSound(_model.FishingLineDurabilityPercent.CurrentValue);
             if (currentDurability <= 0)
@@ -259,8 +263,8 @@ namespace Madduck.Fishing.Controller
         private async UniTaskVoid LoseFishingBoard()
         {
             SetActive(false);
-            await _factory.CurrentHook.Return();
-            _factory.DestroyHook();
+            await _hookFactory.CurrentHook.Return();
+            _hookFactory.DestroyHook();
             OnFishingBoardResult?.Invoke(Sign.Negative);
         }
 
@@ -315,7 +319,7 @@ namespace Madduck.Fishing.Controller
         private void InitializeBehaviorGraph()
         {
             _agent.enabled = true;
-            _agent.Graph = _model.FishItemInstance.FishItemData.FishBehaviorData.BehaviorGraph;
+            _agent.Graph = _model.FishItemInstance.ItemData.BehaviorGraph;
             _agent.Init();
             _agent.GetVariable("FishZone", out _blackBoardFishZone);
             _agent.GetVariable("HookZone", out _blackBoardHookZone);

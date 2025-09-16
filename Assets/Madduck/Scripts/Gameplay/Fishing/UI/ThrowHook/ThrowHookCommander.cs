@@ -1,5 +1,5 @@
 ﻿using System;
-using Madduck.Fishing.Config;
+using Madduck.Fishing.Shared;
 using Madduck.Input;
 using Madduck.Scripts.Input;
 using Madduck.Utils;
@@ -62,7 +62,7 @@ namespace Madduck.Fishing.UI
                 _throwHookSliderDirection = Sign.Positive;
             }
             _model.ThrowHookCurrentValue.Value += (int)_throwHookSliderDirection 
-                                                  * (_config.ThrowHookSliderSpeed * Time.deltaTime);
+                                                  * ((float)_config.ThrowHookSliderSpeed * Time.deltaTime);
         }
         
         private void OnThrowHookReleased()

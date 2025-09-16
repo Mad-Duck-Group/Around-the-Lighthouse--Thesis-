@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Globalization;
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor.Validation;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Madduck.Utils
 {
@@ -8,15 +11,146 @@ namespace Madduck.Utils
     /// Used as a placeholder in the inspector when no value is needed.
     /// </summary>
     [Serializable]
-    public struct InspectorVoid {}
-
+    public struct InspectorPlaceholder
+    {
+    }
+    
     /// <summary>
-    /// Percentage multiplier ranging from 0 to 1.
+    /// Represents a percentage value that can be converted to different formats.
     /// </summary>
     [Serializable]
-    public struct PercentageMultiplier
+    public struct Percentage : IEquatable<Percentage>, IComparable<Percentage>, IFormattable
     {
-        [MinValue(0), MaxValue(1)] public float percentage;
+        [HideLabel, Unit(Units.Percent),
+         SerializeField] private float value;
+        public float AsPercentage => value;
+        public float AsMultiplier => 1f + value / 100f;
+        public float AsFraction => value / 100f;
+
+        private Percentage(float percentage)
+        {
+            value = percentage;
+        }
+        
+        // Factory methods
+        /// <summary>
+        /// Creates a Percentage from a percentage value.
+        /// </summary>
+        /// <param name="percentage">Example: 50 for 50%. -50 for -50%.</param>
+        /// <returns></returns>
+        public static Percentage FromPercentage(float percentage) => new(percentage);
+        /// <summary>
+        /// Creates a Percentage from a fraction value.
+        /// </summary>
+        /// <param name="fraction">Example: 0.5 for +50%. -0.5 for -50%.</param>
+        /// <returns></returns>
+        public static Percentage FromFraction(float fraction) => new(fraction * 100f);
+        /// <summary>
+        /// Creates a Percentage from a multiplier value. 
+        /// </summary>
+        /// <param name="multiplier">Example: 1.5 for +50%. -1.5 for -50%.</param>
+        /// <returns></returns>
+        public static Percentage FromMultiplier(float multiplier) => new((multiplier - 1f) * 100f);
+        
+        // Comparison implementation
+        public bool Equals(Percentage other) => value.Equals(other.value);
+        public override bool Equals(object obj) => obj is Percentage other && Equals(other);
+        public override int GetHashCode() => value.GetHashCode();
+        public int CompareTo(Percentage other) => value.CompareTo(other.value);
+        public static bool operator ==(Percentage left, Percentage right) => left.Equals(right);
+        public static bool operator !=(Percentage left, Percentage right) => !left.Equals(right);
+        public static bool operator <(Percentage left, Percentage right) => left.CompareTo(right) < 0;
+        public static bool operator >(Percentage left, Percentage right) => left.CompareTo(right) > 0;
+        public static bool operator <=(Percentage left, Percentage right) => left.CompareTo(right) <= 0;
+        public static bool operator >=(Percentage left, Percentage right) => left.CompareTo(right) >= 0;
+        
+        // Math operations
+        public static Percentage operator +(Percentage a, Percentage b) => new(a.value + b.value);
+        public static Percentage operator -(Percentage a, Percentage b) => new(a.value - b.value);
+        public static Percentage operator *(Percentage a, Percentage b) => new(a.AsFraction * b.AsFraction * 100f);
+        public static Percentage operator /(Percentage a, Percentage b) => new(a.AsFraction / b.AsFraction * 100f);
+
+        // String formatting
+        public override string ToString() => ToPercentageString(); // Default to percentage format
+        public string ToString(string format, IFormatProvider formatProvider) => value.ToString(format, formatProvider);
+        
+        public string ToPercentageString(string format = "F2", string suffix = "%", IFormatProvider formatProvider = null)
+        {
+            return AsPercentage.ToString(format, formatProvider ?? CultureInfo.InvariantCulture) + suffix;
+        }
+        
+        public string ToMultiplierString(string format = "F2", string suffix = "x", IFormatProvider formatProvider = null)
+        {
+            return AsMultiplier.ToString(format, formatProvider ?? CultureInfo.InvariantCulture) + suffix;
+        }
+        
+        public string ToFractionString(string format = "F2", IFormatProvider formatProvider = null)
+        {
+            return AsFraction.ToString(format, formatProvider ?? CultureInfo.InvariantCulture);
+        }
+    }
+
+    /// <summary>
+    /// Unsigned float, always >= 0.
+    /// </summary>
+    [Serializable]
+    public struct UFloat : IEquatable<UFloat>, IComparable<UFloat>, IFormattable
+    {
+        [MinValue(0),
+         ValidateInput(nameof(ValidateInput), "Value cannot be negative"),
+         HideLabel,
+         SerializeField] private float value;
+
+        public float Value => value;
+
+        private bool ValidateInput(ref float newValue)
+        {
+            if (newValue < 0)
+            {
+                DebugUtils.LogWarning("UFloat value cannot be negative. Setting to 0.");
+                newValue = 0;
+                return false;
+            }
+
+            value = Mathf.Max(0, newValue);
+            return true;
+        }
+
+        public UFloat(float value)
+        {
+            this.value = 0;
+            ValidateInput(ref value);
+        }
+
+        // Implicit conversions
+        public static implicit operator float(UFloat uf) => uf.Value;
+        public static implicit operator UFloat(float f) => new(f);
+
+        // Equality implementation
+        public bool Equals(UFloat other) => value.Equals(other.value);
+        public override bool Equals(object obj) => obj is UFloat other && Equals(other);
+        public override int GetHashCode() => value.GetHashCode();
+
+        // Comparison implementation
+        public int CompareTo(UFloat other) => value.CompareTo(other.value);
+
+        // Operators
+        public static bool operator ==(UFloat left, UFloat right) => left.Equals(right);
+        public static bool operator !=(UFloat left, UFloat right) => !left.Equals(right);
+        public static bool operator <(UFloat left, UFloat right) => left.CompareTo(right) < 0;
+        public static bool operator >(UFloat left, UFloat right) => left.CompareTo(right) > 0;
+        public static bool operator <=(UFloat left, UFloat right) => left.CompareTo(right) <= 0;
+        public static bool operator >=(UFloat left, UFloat right) => left.CompareTo(right) >= 0;
+
+        // Math operations
+        public static UFloat operator +(UFloat a, UFloat b) => new(a.value + b.value);
+        public static UFloat operator -(UFloat a, UFloat b) => new(a.value - b.value);
+        public static UFloat operator *(UFloat a, UFloat b) => new(a.value * b.value);
+        public static UFloat operator /(UFloat a, UFloat b) => new(a.value / b.value);
+
+        // String formatting
+        public override string ToString() => value.ToString(CultureInfo.InvariantCulture);
+        public string ToString(string format, IFormatProvider formatProvider) => value.ToString(format, formatProvider);
     }
 
     /// <summary>

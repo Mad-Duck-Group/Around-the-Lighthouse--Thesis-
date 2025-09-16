@@ -11,15 +11,17 @@ using VContainer.Unity;
 namespace Madduck.Fishing.DI
 {
     [Serializable]
-    public struct NibbleStateDebugData : IDebugData
+    public record NibbleStateDebugData : IDebugData
     {
         [field: SerializeField] public bool ConstantUpdate { get; private set; }
+        [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
         [ShowInInspector] private FishingState _state;
         [ShowInInspector] private NibbleModel _model;
         
         public NibbleStateDebugData(FishingState state, NibbleModel model)
         {
             ConstantUpdate = false;
+            AutoCloseWhenPlayModeEnds = true;
             _state = state;
             _model = model;
         }
@@ -37,19 +39,9 @@ namespace Madduck.Fishing.DI
         [Button("Open Debug Window")]
         private void OpenDebugWindow()
         {
-            _debugWindow = DebugEditorWindow.Inspect(_nibbleStateDebugData, "Nibble Debug");
+            DebugEditorWindow.Inspect(_nibbleStateDebugData, "Nibble Debug");
         }
         
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            if (_debugWindow)
-            {
-                _debugWindow.Close();
-            }
-        }
-        
-        private DebugEditorWindow _debugWindow;
         private NibbleStateDebugData _nibbleStateDebugData;
 #endif
         

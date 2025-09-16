@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using Madduck.Input;
 using Madduck.Scripts.Input;
@@ -16,7 +17,8 @@ namespace Madduck.Fishing.Controller
         private readonly PlayerInputHandler _inputHandler;
         private readonly NibbleModel _model;
         private readonly NibbleCommander _commander;
-        private readonly ThrowHookProjectileFactory _factory;
+        private readonly HookProjectileFactory _hookFactory;
+        private readonly IFishFactory _fishFactory;
         private IDisposable _bindings;
         private CancellationTokenSource _waitingCts = new();
         
@@ -25,12 +27,14 @@ namespace Madduck.Fishing.Controller
             PlayerInputHandler inputHandler,
             NibbleModel model, 
             NibbleCommander commander,
-            ThrowHookProjectileFactory factory)
+            HookProjectileFactory hookFactory,
+            IFishFactory fishFactory)
         {
             _inputHandler = inputHandler;
             _model = model;
             _commander = commander;
-            _factory = factory;
+            _hookFactory = hookFactory;
+            _fishFactory = fishFactory;
         }
 
         private void Bind()
@@ -67,6 +71,7 @@ namespace Madduck.Fishing.Controller
             _waitingCts.Cancel();
             if (active)
             {
+                _model.SetFishInstance(_fishFactory.CurrentFish);
                 Bind();
                 StartWaiting().Forget();
             }
@@ -75,7 +80,7 @@ namespace Madduck.Fishing.Controller
 
         private async UniTaskVoid StartWaiting()
         {
-            var maxAttempt = _model.FishItemInstance.FishBehaviorData.MaxNibbleAttempts;
+            var maxAttempt = _model.FishItemInstance.ItemData.MaxNibbleAttempts;
             for (var i = 0; i < maxAttempt; i++)
             {
                 _waitingCts = new CancellationTokenSource();
@@ -87,16 +92,16 @@ namespace Madduck.Fishing.Controller
 
         private async UniTask StartNibbleTimer(CancellationToken cancellationToken)
         {
-            var waitRange = _model.FishItemInstance.FishBehaviorData.NibbleIntervalRange;
+            var waitRange = _model.FishItemInstance.ItemData.NibbleIntervalRange;
             var waitTime = UnityEngine.Random.Range(waitRange.x, waitRange.y);
             await UniTask.WaitForSeconds(waitTime, cancellationToken: cancellationToken);
             _model.IsNibbling.Value = true;
-            _factory.CurrentHook.Nibble(-1).Forget();
-            var nibbleTimeframeRange = _model.FishItemInstance.FishBehaviorData.NibbleTimeFrameRange;
+            _hookFactory.CurrentHook.Nibble(-1).Forget();
+            var nibbleTimeframeRange = _model.FishItemInstance.ItemData.NibbleTimeFrameRange;
             var nibbleTimeframe = UnityEngine.Random.Range(nibbleTimeframeRange.x, nibbleTimeframeRange.y);
             await UniTask.WaitForSeconds(nibbleTimeframe, cancellationToken: cancellationToken);
             _model.IsNibbling.Value = false;
-            _factory.CurrentHook.StopNibble();
+            _hookFactory.CurrentHook.StopNibble();
         }
         
         private void OnPullHook()
@@ -107,12 +112,12 @@ namespace Madduck.Fishing.Controller
         private async UniTask OnPullHookResultChanged(Sign result)
         {
             _waitingCts.Cancel();
-            _factory.CurrentHook.StopNibble();
+            _hookFactory.CurrentHook.StopNibble();
             if (result is Sign.Negative)
             {
                 SetActive(false);
-                await _factory.CurrentHook.Return();
-                _factory.DestroyHook();
+                await _hookFactory.CurrentHook.Return();
+                _hookFactory.DestroyHook();
             }
             OnPullHookResult?.Invoke(result);
         }

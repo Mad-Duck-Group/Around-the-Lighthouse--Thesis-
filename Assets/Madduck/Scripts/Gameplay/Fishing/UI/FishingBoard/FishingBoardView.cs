@@ -40,7 +40,7 @@ namespace Madduck.Fishing.UI
         [Required]
         [SerializeField] private Image fishFatigueImage;
         [Required]
-        [SerializeField] private SerializableDictionary<Sprite, PercentageMultiplier> fatigueImageDictionary = new();
+        [SerializeField] private SerializableDictionary<Sprite, Percentage> fatigueImageDictionary = new();
         [Required]
         [SerializeField] private Slider reelingSlider;
 
@@ -53,7 +53,7 @@ namespace Madduck.Fishing.UI
         
         #region Fields
         private Tween _reelingSliderShakeTween;
-        private List<KeyValuePair<Sprite, PercentageMultiplier>> _sortedFatigueImageList = new();
+        private List<KeyValuePair<Sprite, Percentage>> _sortedFatigueImageList = new();
         private FishingBoardViewModel _fishingBoardViewModel;
         private IDisposable _isActiveBinding;
         private IDisposable _bindings;
@@ -142,7 +142,7 @@ namespace Madduck.Fishing.UI
             reelingSlider.minValue = 0;
             reelingSlider.maxValue = 1;
             reelingSlider.value = 0;
-            var sortedDictionary = fatigueImageDictionary.OrderByDescending(pair => pair.Value.percentage).ToList();
+            var sortedDictionary = fatigueImageDictionary.OrderByDescending(pair => pair.Value).ToList();
             _sortedFatigueImageList = sortedDictionary;
             foreach (var board in circleBoards)
             {
@@ -244,7 +244,7 @@ namespace Madduck.Fishing.UI
             fatigueSlider.value = fatiguePercent;
             foreach (var pair in _sortedFatigueImageList)
             {
-                if (fatiguePercent < pair.Value.percentage) continue;
+                if (fatiguePercent < pair.Value.AsFraction) continue;
                 fishFatigueImage.sprite = pair.Key;
                 break;
             }

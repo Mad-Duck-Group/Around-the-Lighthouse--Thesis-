@@ -1,6 +1,7 @@
 ﻿using System;
-using Madduck.Fishing.Config;
+using Madduck.Fishing.Shared;
 using Madduck.GameData;
+using Madduck.GameData.Fisherman;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -22,12 +23,10 @@ namespace Madduck.Fishing.UI
         [Inject]
         public ReelingModel(
             ReelingConfig config,
-            FishingRodItemInstance fishingRodItemInstance, 
-            FishItemInstance fishItemInstance)
+            FishermanItemInstance fisherman)
         {
             _config = config;
-            FishingRodInstance = fishingRodItemInstance;
-            FishInstance = fishItemInstance;
+            FishingRodInstance = fisherman.CurrentFishingRod;
             Bind();
         }
         
@@ -42,6 +41,11 @@ namespace Madduck.Fishing.UI
             MaxReelingProgress = new SerializableReactiveProperty<float>(_config.MaxReelingValue)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
+        }
+        
+        public void SetFishInstance(FishItemInstance fishItemInstance)
+        {
+            FishInstance = fishItemInstance;
         }
 
         public void Reset()

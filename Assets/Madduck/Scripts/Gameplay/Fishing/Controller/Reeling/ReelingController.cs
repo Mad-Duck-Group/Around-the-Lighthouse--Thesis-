@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using Madduck.Input;
 using Madduck.Scripts.Input;
@@ -13,7 +14,8 @@ namespace Madduck.Fishing.Controller
     public class ReelingController : IDisposable
     {
         public event Action<Sign> OnReelingResult;
-        private readonly ThrowHookProjectileFactory _factory;
+        private readonly HookProjectileFactory _hookFactory;
+        private readonly IFishFactory _fishFactory;
         private readonly PlayerInputHandler _inputHandler;
         private readonly ReelingCommander _commander;
         private readonly ReelingModel _model;
@@ -22,12 +24,14 @@ namespace Madduck.Fishing.Controller
         
         [Inject]
         public ReelingController(
-            ThrowHookProjectileFactory factory,
+            HookProjectileFactory hookFactory,
+            IFishFactory fishFactory,
             PlayerInputHandler inputHandler, 
             ReelingCommander commander,
             ReelingModel model)
         {
-            _factory = factory;
+            _hookFactory = hookFactory;
+            _fishFactory = fishFactory;
             _inputHandler = inputHandler;
             _commander = commander;
             _model = model;
@@ -59,6 +63,7 @@ namespace Madduck.Fishing.Controller
             _bindings?.Dispose();
             if (active)
             {
+                _model.SetFishInstance(_fishFactory.CurrentFish);
                 Bind();
                 StartFatigueTimer().Forget();
             }
@@ -76,11 +81,11 @@ namespace Madduck.Fishing.Controller
 
         private async UniTaskVoid StartFatigueTimer()
         {
-            var fatigueDuration = _model.FishInstance.FishBehaviorData.FatigueDuration;
+            var fatigueDuration = _model.FishInstance.ItemData.FatigueDuration;
             _fatigueTimerCts = new CancellationTokenSource();
             await UniTask.WaitForSeconds(fatigueDuration, cancellationToken: _fatigueTimerCts.Token);
             _model.FishInstance.CurrentFatigueCount++;
-            var maxFatigueAttempt = _model.FishInstance.FishBehaviorData.MaxFatigueAttempts;
+            var maxFatigueAttempt = _model.FishInstance.ItemData.MaxFatigueAttempts;
             if (_model.FishInstance.CurrentFatigueCount >= maxFatigueAttempt)
             {
                 OnLoseReeling().Forget();
@@ -97,16 +102,16 @@ namespace Madduck.Fishing.Controller
         private async UniTask OnWinReeling()
         {
             SetActive(false);
-            await _factory.CurrentHook.Return();
-            _factory.DestroyHook();
+            await _hookFactory.CurrentHook.Return();
+            _hookFactory.DestroyHook();
             OnReelingResult?.Invoke(Sign.Positive);
         }
         
         private async UniTaskVoid OnLoseReeling()
         {
             SetActive(false);
-            await _factory.CurrentHook.Return();
-            _factory.DestroyHook();
+            await _hookFactory.CurrentHook.Return();
+            _hookFactory.DestroyHook();
             OnReelingResult?.Invoke(Sign.Negative);
         }
         

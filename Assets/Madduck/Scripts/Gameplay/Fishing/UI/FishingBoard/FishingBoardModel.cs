@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Madduck.Fishing.Shared;
 using Madduck.GameData;
+using Madduck.GameData.Fisherman;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -26,10 +28,10 @@ namespace Madduck.Fishing.UI
         private IDisposable _bindings;
         
         [Inject]
-        public FishingBoardModel(FishItemInstance fishItemInstance, FishingRodItemInstance fishingRodItemInstance)
+        public FishingBoardModel(
+            FishermanItemInstance fisherman)
         {
-            FishItemInstance = fishItemInstance;
-            FishingRodItemInstance = fishingRodItemInstance;
+            FishingRodItemInstance = fisherman.CurrentFishingRod;
             Bind();
         }
 
@@ -51,7 +53,7 @@ namespace Madduck.Fishing.UI
             MaxFatigueLevel = new SerializableReactiveProperty<float>(100f)
                 .AddTo(ref disposableBuilder);
             var baseDurability =
-                Observable.EveryValueChanged(FishingRodItemInstance, x => x.BaseStats.FishingLineDurability);
+                Observable.EveryValueChanged(FishingRodItemInstance, x => x.ItemData.FishingLineDurability);
             var currentDurability =
                 Observable.EveryValueChanged(FishingRodItemInstance, x => x.CurrentFishingLineDurability);
             FishingLineDurabilityPercent = baseDurability
@@ -64,6 +66,11 @@ namespace Madduck.Fishing.UI
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
+        
+        public void SetFishInstance(FishItemInstance fishItemInstance)
+        {
+            FishItemInstance = fishItemInstance;
+        }
 
         public void Reset()
         {
@@ -73,7 +80,7 @@ namespace Madduck.Fishing.UI
             HookRotation.Value = Quaternion.identity;
             CurrentFatigueLevel.Value = 0f;
             MaxFatigueLevel.Value = 100f;
-            FishingRodItemInstance.CurrentFishingLineDurability = FishingRodItemInstance.BaseStats.FishingLineDurability;
+            FishingRodItemInstance.CurrentFishingLineDurability = FishingRodItemInstance.ItemData.FishingLineDurability;
         }
         
         public void Dispose()

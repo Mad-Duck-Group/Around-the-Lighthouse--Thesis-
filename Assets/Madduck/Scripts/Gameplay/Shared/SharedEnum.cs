@@ -1,8 +1,21 @@
-﻿namespace Madduck.Shared
+﻿using System;
+
+namespace Madduck.Shared
 {
+    [Flags]
     public enum DayPhaseType
     {
-        Day,
-        Night
+        Day = 1 << 0,
+        Night = 1 << 1,
+        Both = Day | Night
+    }
+    
+    [Flags]
+    public enum WeatherType
+    {
+        Clear = 1 << 0,
+        Rain = 1 << 1,
+        Fog = 1 << 2,
+        All = Clear | Rain | Fog
     }
 }

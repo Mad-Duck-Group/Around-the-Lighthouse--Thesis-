@@ -1,6 +1,7 @@
 using System;
 using Madduck.Fishing.Controller;
 using Madduck.Fishing.DI;
+using Madduck.Fishing.Shared;
 using Unity.Behavior;
 using Unity.Properties;
 using UnityEngine;

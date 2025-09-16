@@ -1,6 +1,6 @@
 ﻿using System;
-using Madduck.Fishing.Config;
 using Madduck.Fishing.Controller;
+using Madduck.Fishing.Shared;
 using Madduck.Fishing.StateMachine;
 using Madduck.Fishing.UI;
 using Madduck.Utils;
@@ -12,15 +12,17 @@ using VContainer.Unity;
 namespace Madduck.Fishing.DI
 {
     [Serializable]
-    public struct ThrowHookStateDebugData : IDebugData
+    public record ThrowHookStateDebugData : IDebugData
     {
         [field: SerializeField] public bool ConstantUpdate { get; private set; }
+        [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
         [ShowInInspector] private FishingState _state;
         [ShowInInspector] private ThrowHookModel _model;
         
         public ThrowHookStateDebugData(FishingState state, ThrowHookModel model)
         {
             ConstantUpdate = false;
+            AutoCloseWhenPlayModeEnds = true;
             _state = state;
             _model = model;
         }
@@ -40,19 +42,9 @@ namespace Madduck.Fishing.DI
         [Button("Open Debug Window")]
         private void OpenDebugWindow()
         {
-            _debugWindow = DebugEditorWindow.Inspect(_throwHookStateDebugData, "Throw Hook Debug");
+            DebugEditorWindow.Inspect(_throwHookStateDebugData, "Throw Hook Debug");
         }
         
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            if (_debugWindow)
-            {
-                _debugWindow.Close();
-            }
-        }
-        
-        private DebugEditorWindow _debugWindow;
         private ThrowHookStateDebugData _throwHookStateDebugData;
 #endif
         

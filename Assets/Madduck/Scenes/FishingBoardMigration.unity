@@ -2339,9 +2339,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 5af5950b972a1144a96b28542db07c93, type: 3}
     - {fileID: 21300000, guid: db07f6c36a4805b4b8b5e65e129eb706, type: 3}
     values:
-    - percentage: 0
-    - percentage: 1
-    - percentage: 0.75
+    - value: 0
+    - value: 100
+    - value: 75
   reelingSlider: {fileID: 1104649598}
   fishingBoardScaleTweenSettings:
     startFromCurrent: 0
@@ -2638,19 +2638,28 @@ MonoBehaviour:
     TypeName: Madduck.Room.FishingRoomManagerLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
-  fishItemData: {fileID: 11400000, guid: 09e05137d53d8d74882aa881f15e2984, type: 2}
-  fishingRodItemData: {fileID: 11400000, guid: e2eb69998c820924bb850e118fe4f8e3, type: 2}
-  throwHookProjectilePrefab: {fileID: 2383755556486574317, guid: 80c6418e84b2be94b8e14e1e8aae9c67, type: 3}
+  hookProjectilePrefab: {fileID: 2383755556486574317, guid: 80c6418e84b2be94b8e14e1e8aae9c67, type: 3}
   throwHookSpawnPoint: {fileID: 1676807520}
+  spoofFishFactory: 0
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 826ca38ca0eeb7e4fa2e023df6f586a0, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: fishFactory
+      Entry: 7
+      Data: 0|Madduck.Fishing.Shared.TestFishFactory, Madduck.Fishing.Shared
+    - Name: testFishData
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!1 &1303462125
 GameObject:
   m_ObjectHideFlags: 0
@@ -4188,7 +4197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Behavior::Unity.Behavior.BehaviorGraphAgent
-  m_Graph: {fileID: -985583480639107272, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  m_Graph: {fileID: -248466687916187535, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 8180553577711010355
   - rid: 8180553782806708462

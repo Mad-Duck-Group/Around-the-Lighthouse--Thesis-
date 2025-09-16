@@ -1,6 +1,6 @@
 ﻿using System;
-using Madduck.Fishing.Config;
 using Madduck.Fishing.Controller;
+using Madduck.Fishing.Shared;
 using Madduck.Fishing.StateMachine;
 using Madduck.Fishing.UI;
 using Madduck.Utils;
@@ -16,6 +16,7 @@ namespace Madduck.Fishing.DI
     public record FishingBoardDebugData : IDebugData
     {
         [field: SerializeField] public bool ConstantUpdate { get; private set; }
+        [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
         [ShowInInspector] private FishingBoardState _fishingBoardState;
         [ShowInInspector] private FishingBoardModel _fishingBoardModel;
         [ShowInInspector] private FishingBoardController _fishingBoardController;
@@ -25,10 +26,11 @@ namespace Madduck.Fishing.DI
             FishingBoardModel fishingBoardModel, 
             FishingBoardController fishingBoardController)
         {
+            ConstantUpdate = false;
+            AutoCloseWhenPlayModeEnds = true;
             _fishingBoardState = fishingBoardState;
             _fishingBoardModel = fishingBoardModel;
             _fishingBoardController = fishingBoardController;
-            ConstantUpdate = false;
         }
     }
     
@@ -46,19 +48,9 @@ namespace Madduck.Fishing.DI
         [Button("Open Debug Window")]
         private void OpenDebugWindow()
         {
-            _debugWindow = DebugEditorWindow.Inspect(_fishingBoardDebugData, "Fishing Board Debug");
+            DebugEditorWindow.Inspect(_fishingBoardDebugData, "Fishing Board Debug");
         }
         
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            if (_debugWindow)
-            {
-                _debugWindow.Close();
-            }
-        }
-        
-        private DebugEditorWindow _debugWindow;
         private FishingBoardDebugData _fishingBoardDebugData;
 #endif
         

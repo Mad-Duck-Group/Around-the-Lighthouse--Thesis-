@@ -9,15 +9,19 @@ using VContainer.Unity;
 namespace Madduck.Room
 {
     [Serializable]
-    public struct FishingRoomManagerDebugData : IDebugData
+    public record FishingRoomManagerDebugData : IDebugData
     {
         [field: SerializeField] public bool ConstantUpdate { get; private set; }
+        [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
         [ShowInInspector] private FishingRoomManager _manager;
+        [ShowInInspector] private WeatherWeightTableInstance _weatherWeightTable;
         
-        public FishingRoomManagerDebugData(FishingRoomManager manager)
+        public FishingRoomManagerDebugData(FishingRoomManager manager, WeatherWeightTableInstance weatherWeightTable)
         {
             ConstantUpdate = false;
+            AutoCloseWhenPlayModeEnds = true;
             _manager = manager;
+            _weatherWeightTable = weatherWeightTable;
         }
     }
     
@@ -33,19 +37,9 @@ namespace Madduck.Room
         [Button("Open Debug Window")]
         private void OpenDebugWindow()
         {
-            _debugWindow = DebugEditorWindow.Inspect(_fishingRoomManagerDebugData, "Fishing Room Manager Debug");
+            DebugEditorWindow.Inspect(_fishingRoomManagerDebugData, "Fishing Room Manager Debug");
         }
         
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            if (_debugWindow)
-            {
-                _debugWindow.Close();
-            }
-        }
-        
-        private DebugEditorWindow _debugWindow;
         private FishingRoomManagerDebugData _fishingRoomManagerDebugData;
 #endif
         
@@ -57,7 +51,8 @@ namespace Madduck.Room
             {
 #if UNITY_EDITOR
                 var manager = container.Resolve<FishingRoomManager>();
-                _fishingRoomManagerDebugData = new FishingRoomManagerDebugData(manager);
+                var table = container.Resolve<WeatherWeightTableInstance>();
+                _fishingRoomManagerDebugData = new FishingRoomManagerDebugData(manager, table);
 #endif
             });
 

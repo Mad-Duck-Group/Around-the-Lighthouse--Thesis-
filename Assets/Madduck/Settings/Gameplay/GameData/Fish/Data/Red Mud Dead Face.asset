@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a5f5ea7babc8264a8be61994ba02323, type: 3}
+  m_Name: Red Mud Dead Face
+  m_EditorClassIdentifier: 
+  <Guid>k__BackingField: f848b08b42fa524487509dabe4cae975
+  <ItemType>k__BackingField: 0
+  <IsStackable>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 2
+  <BehaviorGraph>k__BackingField: {fileID: -248466687916187535, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  <Size>k__BackingField: 0
+  <WeatherType>k__BackingField: 7
+  <DayPhaseType>k__BackingField: 3
+  <FishName>k__BackingField: Red Mud Dead Face
+  <FishSprite>k__BackingField: {fileID: 0}
+  <BasePrice>k__BackingField: 10
+  <MaxNibbleAttempts>k__BackingField: 3
+  <NibbleIntervalRange>k__BackingField: {x: 10, y: 15}
+  <NibbleTimeFrameRange>k__BackingField: {x: 3, y: 6}
+  <Power>k__BackingField:
+    value: 4
+  <Resistance>k__BackingField:
+    value: 1
+  <FishWeight>k__BackingField:
+    value: 2
+  <FatigueDuration>k__BackingField:
+    value: 10
+  <MaxFatigueAttempts>k__BackingField: 2

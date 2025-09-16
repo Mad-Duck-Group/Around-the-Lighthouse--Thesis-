@@ -1,6 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using Madduck.Fishing.Config;
+using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using Madduck.Input;
 using Madduck.Scripts.Input;
@@ -18,7 +18,8 @@ namespace Madduck.Fishing.Controller
         private readonly ThrowHookCommander _commander;
         private readonly ThrowHookModel _model;
         private readonly ThrowHookConfig _config;
-        private readonly ThrowHookProjectileFactory _factory;
+        private readonly HookProjectileFactory _hookFactory;
+        private readonly IFishFactory _fishFactory;
         private IDisposable _bindings;
         
         [Inject]
@@ -27,13 +28,15 @@ namespace Madduck.Fishing.Controller
             ThrowHookCommander commander,
             ThrowHookModel model,
             ThrowHookConfig config,
-            ThrowHookProjectileFactory factory)
+            HookProjectileFactory hookFactory,
+            IFishFactory fishFactory)
         {
             _inputHandler = inputHandler;
             _commander = commander;
             _model = model;
             _config = config;
-            _factory = factory;
+            _hookFactory = hookFactory;
+            _fishFactory = fishFactory;
         }
 
         private void Bind()
@@ -64,6 +67,7 @@ namespace Madduck.Fishing.Controller
             _bindings?.Dispose();
             if (active)
             {
+                _fishFactory.GetNewFish();
                 Bind();
             }
             _model.IsActive.Value = active;
@@ -86,7 +90,7 @@ namespace Madduck.Fishing.Controller
 
         private async UniTask OnHookThrown()
         {
-            var projectile = _factory.Create();
+            var projectile = _hookFactory.Create();
             var throwPercent = _model.ThrowHookPercent.CurrentValue;
             var distance = Mathf.Lerp(
                 _config.ThrowRange.x,

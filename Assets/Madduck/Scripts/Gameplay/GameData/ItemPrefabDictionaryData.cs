@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Madduck.GameData
 {
-    [CreateAssetMenu(fileName = "New Item Prefab Dictionary", menuName = "Item/Item Prefab Dictionary")]
+    [CreateAssetMenu(fileName = "New Item Prefab Dictionary", menuName = "Madduck/Item/Item Prefab Dictionary")]
     public class ItemPrefabDictionaryData : ScriptableObject
     {
         public SerializableDictionary<ItemType, ItemDisplay> itemPrefabDictionary;

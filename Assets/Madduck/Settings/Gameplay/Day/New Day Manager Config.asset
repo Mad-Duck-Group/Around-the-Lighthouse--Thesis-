@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 436e0d079fe24b08b0dd34c5b37718aa, type: 3}
+  m_Name: New Day Manager Config
+  m_EditorClassIdentifier: Madduck.Day::Madduck.Day.DayManagerConfig
+  <MaxDayCount>k__BackingField: 7
+  <MaxRoomCount>k__BackingField: 6
+  <DayNightRatio>k__BackingField:
+    value: 50

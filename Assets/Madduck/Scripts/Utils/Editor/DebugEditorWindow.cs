@@ -1,4 +1,6 @@
-﻿using Sirenix.OdinInspector.Editor;
+﻿using System;
+using R3;
+using Sirenix.OdinInspector.Editor;
 using UnityEngine;
 
 namespace Madduck.Utils
@@ -6,6 +8,7 @@ namespace Madduck.Utils
     public interface IDebugData
     {
         public bool ConstantUpdate { get; }
+        public bool AutoCloseWhenPlayModeEnds { get; }
     }
     
     /// <summary>
@@ -14,13 +17,34 @@ namespace Madduck.Utils
     public class DebugEditorWindow : OdinEditorWindow
     {
         private IDebugData _debugData;
+        private IDisposable _applicationQuitSubscription;
         public static DebugEditorWindow Inspect(IDebugData debugData, string title = "Debug")
         {
-            var window = GetWindow<DebugEditorWindow>();
+            var window = CreateWindow<DebugEditorWindow>();
             window._debugData = debugData;
             var inspectWindow = InspectObject(window, debugData);
             inspectWindow.titleContent = new GUIContent(title);
             return window;
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _applicationQuitSubscription = Observable.EveryValueChanged(this, _ => Application.isPlaying)
+                .DistinctUntilChanged()
+                .Subscribe(isPlaying =>
+                {
+                    if (!isPlaying && _debugData.AutoCloseWhenPlayModeEnds)
+                    {
+                        Close();
+                    }
+                });
+        }
+        
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            _applicationQuitSubscription?.Dispose();
         }
 
         protected void OnInspectorUpdate()

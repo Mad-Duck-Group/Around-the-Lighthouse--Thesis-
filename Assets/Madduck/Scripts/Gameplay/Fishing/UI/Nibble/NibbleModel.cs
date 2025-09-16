@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Fishing.Shared;
 using Madduck.GameData;
 using Madduck.Utils;
 using R3;
@@ -17,9 +18,8 @@ namespace Madduck.Fishing.UI
         private IDisposable _bindings;
         
         [Inject]
-        public NibbleModel(FishItemInstance fishItemInstance)
+        public NibbleModel()
         {
-            FishItemInstance = fishItemInstance;
             Bind();
         }
         
@@ -33,6 +33,11 @@ namespace Madduck.Fishing.UI
             PullHookResult = new SerializableReactiveProperty<Sign>(Sign.Zero)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
+        }
+        
+        public void SetFishInstance(FishItemInstance fishItemInstance)
+        {
+            FishItemInstance = fishItemInstance;
         }
         
         public void Reset()

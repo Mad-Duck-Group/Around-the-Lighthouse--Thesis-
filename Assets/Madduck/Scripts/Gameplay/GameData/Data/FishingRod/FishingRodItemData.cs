@@ -9,9 +9,19 @@ namespace Madduck.GameData
     {
         [Title("References"), 
          HideLabel,
-         ShowInInspector] private InspectorVoid _referenceTitle;
-        [field: InlineEditor,
-                Required,
-                SerializeField] public FishingRodStatsData BaseStats { get; private set; }
+         ShowInInspector] private InspectorPlaceholder _referenceTitle;
+        [Title("Fishing Rod Settings"), 
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _fishingRodSettingsTitle;
+        [field: InlineProperty, 
+                SerializeField] public UFloat Power { get; private set; } = 1f;
+        [field: InlineProperty, 
+                SerializeField] public UFloat Resistance { get; private set; } = 1f;
+        [field: InlineProperty, 
+                SerializeField] public UFloat FishingLineDurability { get; private set; } = 2f;
+        [field: InlineProperty, 
+                SerializeField] public UFloat FishingLineRegenFactor { get; private set; } = 10f;
+        [field: InlineProperty, 
+                SerializeField] public UFloat ReelingSpeed { get; private set; } = 2f;
     }
 }

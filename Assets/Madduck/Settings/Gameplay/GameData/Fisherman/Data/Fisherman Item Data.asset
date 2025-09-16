@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e0e3ef412e40d195fdcb2a028f0ed7, type: 3}
+  m_Name: Fisherman Item Data
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.FishermanItemData
+  <Guid>k__BackingField: 151b6756f4022a439a20536a95eec4af
+  <ItemType>k__BackingField: 2
+  <IsStackable>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 2
+  <FishingRod>k__BackingField: {fileID: 11400000, guid: e2eb69998c820924bb850e118fe4f8e3, type: 2}
+  <MaxStamina>k__BackingField:
+    value: 100
