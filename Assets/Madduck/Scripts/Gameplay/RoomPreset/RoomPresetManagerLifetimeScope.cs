@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Madduck.Day;
-using Madduck.Scripts.RoomGenerate;
+using Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,7 +13,7 @@ public record RoomPresetManagerDebugData : IDebugData
 {
     [field: SerializeField] public bool ConstantUpdate { get; private set; }
     [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
-    [ShowInInspector] private RoomPresetManager _manager;
+    
         
     public RoomPresetManagerDebugData(
         RoomPresetManager manager
@@ -21,7 +21,7 @@ public record RoomPresetManagerDebugData : IDebugData
     {
         ConstantUpdate = false;
         AutoCloseWhenPlayModeEnds = true;
-        _manager = manager;
+        
     }
 }
 
@@ -45,7 +45,6 @@ public class RoomPresetManagerLifetimeScope : LifetimeScope
     {
         builder.RegisterInstance(roomPresets).As<List<RoomPreset>>();
         //builder.RegisterComponent(roomPresetManager).AsSelf();
-        builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
         builder.RegisterBuildCallback(x =>
         {
 #if UNITY_EDITOR

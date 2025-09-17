@@ -41,13 +41,13 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: BG
+  - name: Background
     uniqueID: 1728063791
     locked: 0
   - name: MiddleGround
     uniqueID: 1380940993
     locked: 0
-  - name: ForeGround
+  - name: Foreground
     uniqueID: 4163197325
     locked: 0
   m_RenderingLayers:

@@ -1,42 +1,35 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Madduck.Utils;
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Madduck.Scripts.RoomGenerate
+namespace Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset
 {
     public class RoomPresetManager : IStartable
     {
-        //Inspector
-        //Background
-        //Middleground
-        //Foreground
-        #region Inspactor 
+        
+        #region Inspector 
         
         [Title("Debug"),
          BoxGroup("Debug"),
          HideLabel, ReadOnly,
-         ShowInInspector] private  List<RoomPreset> _presets;
+         ShowInInspector] private  List<global::Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset> _presets;
 
         #endregion
         
         #region Inject
         [Inject]
-        public RoomPresetManager(List<RoomPreset> presets)
+        public RoomPresetManager(List<global::Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset> presets)
         {
             _presets = presets;
         }
         #endregion
 
-        //Lifecycle
-        #region lifecycle
+        
+        #region Lifecycle
 
         public void Start()
         {
@@ -45,13 +38,13 @@ namespace Madduck.Scripts.RoomGenerate
 
         #endregion
 
-        //Room Management
-        #region RoomManage
+        
+        #region RoomManagement
 
-        public RoomPreset SpawnRandomRoom(Vector3 pos, Quaternion rot)
+        public global::Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset SpawnRandomRoom(Vector3 pos, Quaternion rot)
         {
             int index = Random.Range(0, _presets.Count);
-            RoomPreset instance = Object.Instantiate(_presets[index], pos, rot);
+            global::Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset instance = Object.Instantiate(_presets[index], pos, rot);
             
             instance.ApplySprites();
             return instance;

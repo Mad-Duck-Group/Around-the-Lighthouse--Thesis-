@@ -1,0 +1,20 @@
+{
+    "name": "Madduck.RoomPreset",
+    "rootNamespace": "Madduck.RoomPreset",
+    "references": [
+        "VContainer",
+        "Madduck.Day",
+        "Madduck.Utils",
+        "PrimeTween.Runtime",
+        "Extensions"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
