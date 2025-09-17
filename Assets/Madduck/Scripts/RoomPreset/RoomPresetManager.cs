@@ -6,42 +6,52 @@ using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Madduck.Scripts.RoomGenerate
 {
-    public class RoomPresetManager : MonoBehaviour
+    public class RoomPresetManager : IStartable
     {
-        #region Inspactor
-
-        [Title("Debug"),BoxGroup("Debug"),HideLabel,ReadOnly,SerializeField] 
-        private  List<RoomPreset> _presets;
+        //Inspector
+        //Background
+        //Middleground
+        //Foreground
+        #region Inspactor 
+        
+        [Title("Debug"),
+         BoxGroup("Debug"),
+         HideLabel, ReadOnly,
+         ShowInInspector] private  List<RoomPreset> _presets;
 
         #endregion
         
         #region Inject
         [Inject]
-        public void Construct(List<RoomPreset> presets)
+        public RoomPresetManager(List<RoomPreset> presets)
         {
             _presets = presets;
         }
         #endregion
 
+        //Lifecycle
         #region lifecycle
 
-        private void OnEnable()
+        public void Start()
         {
             SpawnRandomRoom(Vector3.zero, Quaternion.identity);
         }
 
         #endregion
 
+        //Room Management
         #region RoomManage
 
         public RoomPreset SpawnRandomRoom(Vector3 pos, Quaternion rot)
         {
             int index = Random.Range(0, _presets.Count);
-            RoomPreset instance = Instantiate(_presets[index], pos, rot);
+            RoomPreset instance = Object.Instantiate(_presets[index], pos, rot);
             
             instance.ApplySprites();
             return instance;

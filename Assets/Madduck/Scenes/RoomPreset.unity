@@ -167,55 +167,9 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  roomPresetManager: {fileID: 638813226}
   roomPresets:
   - {fileID: 7573038291939408853, guid: 915857240e49db24ebadea5af26f25cd, type: 3}
   - {fileID: 3949758502269770019, guid: 4b56d4deb9db69a4ebe6845c7d852d99, type: 3}
---- !u!1 &638813224
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 638813225}
-  - component: {fileID: 638813226}
-  m_Layer: 0
-  m_Name: RoomPresetManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &638813225
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638813224}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.90113, y: -1.18665, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &638813226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638813224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069abac015e602c40bd96b9488a38b2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Madduck.Scripts.RoomGenerate.RoomPresetManager
-  _presets: []
 --- !u!1 &764532130
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,5 +312,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 764532133}
-  - {fileID: 638813225}
   - {fileID: 511019671}
