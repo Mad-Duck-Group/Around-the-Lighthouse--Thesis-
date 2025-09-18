@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Madduck.Input;
 using Madduck.Scripts.Input;
 using Madduck.Utils;
@@ -10,7 +12,7 @@ using VContainer;
 
 namespace Madduck.Fishing.UI
 {
-    public class ReelingView : MonoBehaviour
+    public class ReelingView : MonoBehaviour, ITransitionable
     {
         [Title("References")]
         [Required]
@@ -20,7 +22,6 @@ namespace Madduck.Fishing.UI
         
         private ReelingViewModel _viewModel;
         private ReelingCommander _commander;
-        private IDisposable _isActiveSubscription;
         private IDisposable _bindings;
         
         [Inject]
@@ -30,9 +31,6 @@ namespace Madduck.Fishing.UI
         {
             _viewModel = viewModel;
             _commander = commander;
-            _isActiveSubscription = _viewModel.IsActive
-                .Subscribe(SetActive);
-            Bind();
         }
 
         private void Bind()
@@ -50,9 +48,29 @@ namespace Madduck.Fishing.UI
         
         private void OnDestroy()
         {
-            _isActiveSubscription?.Dispose();
             _bindings?.Dispose();
         }
+        
+        #region Transitions
+        public async UniTask TransitionIn(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.Register(CancelTransitions);
+            await UniTask.WaitForSeconds(1f, cancellationToken: cancellationToken); // placeholder for actual transition animation
+            SetActive(true);
+        }
+
+        public async UniTask TransitionOut(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.Register(CancelTransitions);
+            await UniTask.WaitForSeconds(1f, cancellationToken: cancellationToken); // placeholder for actual transition animation
+            SetActive(false);
+        }
+        
+        private void CancelTransitions()
+        {
+            // Implement if there are any ongoing animations or transitions to cancel
+        }
+        #endregion
 
         private void SetActive(bool active)
         {

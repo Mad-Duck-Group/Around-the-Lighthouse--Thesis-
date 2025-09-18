@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+
 namespace Madduck.Utils
 {
     public abstract class State
@@ -5,7 +7,7 @@ namespace Madduck.Utils
         /// <summary>
         /// Call when entering the state.
         /// </summary>
-        public virtual void Enter() { }
+        public virtual async UniTask Enter() { await UniTask.CompletedTask; }
         /// <summary>
         /// Call every frame while in the state.
         /// </summary>
@@ -13,7 +15,7 @@ namespace Madduck.Utils
         /// <summary>
         /// Call when exiting the state.
         /// </summary>
-        public virtual void Exit() { }
+        public virtual async UniTask Exit() { await UniTask.CompletedTask; }
         /// <summary>
         /// Reset the state to its initial condition.
         /// </summary>
@@ -36,11 +38,12 @@ namespace Madduck.Utils
         /// Changes the current state of the state machine.
         /// </summary>
         /// <param name="newState">New state to change to.</param>
-        protected void ChangeState(State newState)
+        protected async UniTask ChangeState(State newState)
         {
-            _currentState?.Exit();
+            if (_currentState != null)
+                await _currentState.Exit();
             _currentState = newState;
-            _currentState.Enter();
+            await _currentState.Enter();
         }
 
         public void Update()

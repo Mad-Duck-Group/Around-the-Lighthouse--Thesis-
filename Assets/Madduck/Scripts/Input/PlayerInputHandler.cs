@@ -15,13 +15,7 @@ namespace Madduck.Input
         NonUI = 1
     }
     
-    /// <summary>
-    /// Handle player inputs.
-    /// </summary>
-    [Serializable]
-    public class PlayerInputHandler : MonoBehaviour, PlayerInputAction.IPlayerActions
-    {
-        #region Data Structures
+    #region Data Structures
 
         [Serializable]
         public record InputButton(InputAction InputAction)
@@ -94,7 +88,13 @@ namespace Madduck.Input
         }
 
         #endregion
-
+    
+    /// <summary>
+    /// Handle player inputs.
+    /// </summary>
+    [Serializable]
+    public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
+    {
         #region Inspector
 
         #region Values
@@ -172,7 +172,7 @@ namespace Madduck.Input
             }
 
             _playerInputAction.Player.Enable();
-            _anyButtonPressListener = InputSystem.onAnyButtonPress.Call(x => OnAnyButton(x).Forget());
+            _anyButtonPressListener = InputSystem.onAnyButtonPress.Call(_ => OnAnyButton().Forget());
         }
 
         private void Unsubscribe()
@@ -185,7 +185,7 @@ namespace Madduck.Input
 
         #region Event Handlers
 
-        private async UniTaskVoid OnAnyButton(InputControl inputControl)
+        private async UniTaskVoid OnAnyButton()
         {
             AnyButtonPressed = true;
             await UniTask.WaitForEndOfFrame();
@@ -256,14 +256,27 @@ namespace Madduck.Input
         }
 
         #endregion
+    }
 
-        #region Utils
+    public interface IPlayerInputHandler : PlayerInputAction.IPlayerActions
+    {
+        #region Values
+        public bool AnyButtonPressed { get; }
+        public Vector2 MovementInput { get; }
+        public SerializableReactiveProperty<Vector2> MouseDelta { get; }
+        public SerializableReactiveProperty<Vector2> GamepadHookControl { get; }
+        public float BoatInput { get; }
+        #endregion
 
-        public void SetBoatInput(float input)
-        {
-            BoatInput = input;
-        }
-
+        #region Buttons
+        public InputButton InteractButton { get; }
+        public InputButton JerkBaitButton { get; }
+        public InputBinding[] JerkBindings { get; }
+        public InputButton Action0Button { get; }
+        public InputButton Action1Button { get; }
+        public InputButton ThrowHookButton { get; }
+        public InputButton ReelingButton { get; }
+        public InputButton PauseGameButton { get; }
         #endregion
     }
 }

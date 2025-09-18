@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
@@ -14,13 +15,17 @@ namespace Madduck.Fishing.Controller
     public class ThrowHookController : IDisposable
     {
         public event Action OnHookHitWater;
+        
         private readonly PlayerInputHandler _inputHandler;
         private readonly ThrowHookCommander _commander;
         private readonly ThrowHookModel _model;
         private readonly ThrowHookConfig _config;
         private readonly HookProjectileFactory _hookFactory;
         private readonly IFishFactory _fishFactory;
+        private readonly ITransitionable _viewTransition;
+        
         private IDisposable _bindings;
+        private CancellationTokenSource _transitionCts = new();
         
         [Inject]
         public ThrowHookController(
@@ -29,7 +34,8 @@ namespace Madduck.Fishing.Controller
             ThrowHookModel model,
             ThrowHookConfig config,
             HookProjectileFactory hookFactory,
-            IFishFactory fishFactory)
+            IFishFactory fishFactory,
+            ITransitionable viewTransition)
         {
             _inputHandler = inputHandler;
             _commander = commander;
@@ -37,6 +43,7 @@ namespace Madduck.Fishing.Controller
             _config = config;
             _hookFactory = hookFactory;
             _fishFactory = fishFactory;
+            _viewTransition = viewTransition;
         }
 
         private void Bind()
@@ -62,15 +69,21 @@ namespace Madduck.Fishing.Controller
             _bindings = disposableBuilder.Build();
         }
         
-        public void SetActive(bool active)
+        public async UniTask SetActive(bool active)
         {
             _bindings?.Dispose();
+            _transitionCts.Cancel();
+            _transitionCts = new CancellationTokenSource();
             if (active)
             {
+                await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 _fishFactory.GetNewFish();
                 Bind();
             }
-            _model.IsActive.Value = active;
+            else
+            {
+                await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
+            }
         }
         
         public void Reset()

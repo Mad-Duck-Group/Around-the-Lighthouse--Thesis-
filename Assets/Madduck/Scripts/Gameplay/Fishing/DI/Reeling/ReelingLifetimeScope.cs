@@ -50,7 +50,7 @@ namespace Madduck.Fishing.DI
         
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterComponent(reelingView).AsSelf();
+            builder.RegisterComponent(reelingView).AsImplementedInterfaces();
             builder.RegisterInstance(reelingConfig).AsSelf();
             builder.Register<ReelingController>(Lifetime.Scoped).AsSelf();
             builder.Register<ReelingCommander>(Lifetime.Scoped).AsSelf();

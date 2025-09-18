@@ -12,7 +12,6 @@ namespace Madduck.Fishing.UI
     [Serializable]
     public class ReelingModel : IDisposable
     {
-        [field: SerializeField] public SerializableReactiveProperty<bool> IsActive { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<UFloat> CurrentReelingProgress { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<UFloat> MaxReelingProgress { get; private set; }
         [field: SerializeField] public FishingRodItemInstance FishingRodInstance { get; private set; }
@@ -35,8 +34,6 @@ namespace Madduck.Fishing.UI
         {
             _bindings?.Dispose();
             var disposableBuilder = Disposable.CreateBuilder();
-            IsActive = new SerializableReactiveProperty<bool>(false)
-                .AddTo(ref disposableBuilder);
             CurrentReelingProgress = new SerializableReactiveProperty<UFloat>(0f)
                 .AddTo(ref disposableBuilder);
             MaxReelingProgress = new SerializableReactiveProperty<UFloat>(_config.MaxReelingValue)

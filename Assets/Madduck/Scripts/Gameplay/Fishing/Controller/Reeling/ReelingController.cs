@@ -14,27 +14,33 @@ namespace Madduck.Fishing.Controller
     public class ReelingController : IDisposable
     {
         public event Action<Sign> OnReelingResult;
+        
         private readonly HookProjectileFactory _hookFactory;
-        private readonly IFishFactory _fishFactory;
         private readonly PlayerInputHandler _inputHandler;
         private readonly ReelingCommander _commander;
         private readonly ReelingModel _model;
+        private readonly IFishFactory _fishFactory;
+        private readonly ITransitionable _viewTransition;
+        
         private IDisposable _bindings;
         private CancellationTokenSource _fatigueTimerCts = new();
+        private CancellationTokenSource _transitionCts = new();
         
         [Inject]
         public ReelingController(
             HookProjectileFactory hookFactory,
-            IFishFactory fishFactory,
             PlayerInputHandler inputHandler, 
             ReelingCommander commander,
-            ReelingModel model)
+            ReelingModel model,
+            IFishFactory fishFactory,
+            ITransitionable viewTransition)
         {
             _hookFactory = hookFactory;
-            _fishFactory = fishFactory;
             _inputHandler = inputHandler;
             _commander = commander;
             _model = model;
+            _fishFactory = fishFactory;
+            _viewTransition = viewTransition;
         }
         
         private void Bind()
@@ -48,7 +54,7 @@ namespace Madduck.Fishing.Controller
                 .AddTo(ref disposableBuilder);
             _model.CurrentReelingProgress
                 .Where(progress => progress >= _model.MaxReelingProgress.Value)
-                .SubscribeAwait((_, _) =>OnWinReeling(), AwaitOperation.Drop)
+                .Subscribe(_ => OnWinReeling().Forget())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -58,11 +64,14 @@ namespace Madduck.Fishing.Controller
             _bindings?.Dispose();
         }
         
-        public void SetActive(bool active)
+        public async UniTask SetActive(bool active)
         {
             _bindings?.Dispose();
+            _transitionCts.Cancel();
+            _transitionCts = new CancellationTokenSource();
             if (active)
             {
+                await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 _model.SetFishInstance(_fishFactory.CurrentFish);
                 Bind();
                 StartFatigueTimer().Forget();
@@ -70,8 +79,8 @@ namespace Madduck.Fishing.Controller
             else
             {
                 _fatigueTimerCts.Cancel();
+                await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
             }
-            _model.IsActive.Value = active;
         }
         
         public void Reset()
@@ -99,20 +108,18 @@ namespace Madduck.Fishing.Controller
             _commander.OnReelingHold.Execute(InputType.NonUI);
         }
 
-        private async UniTask OnWinReeling()
+        private async UniTaskVoid OnWinReeling()
         {
-            SetActive(false);
+            OnReelingResult?.Invoke(Sign.Positive);
             await _hookFactory.CurrentHook.Return();
             _hookFactory.DestroyHook();
-            OnReelingResult?.Invoke(Sign.Positive);
         }
         
         private async UniTaskVoid OnLoseReeling()
         {
-            SetActive(false);
+            OnReelingResult?.Invoke(Sign.Negative);
             await _hookFactory.CurrentHook.Return();
             _hookFactory.DestroyHook();
-            OnReelingResult?.Invoke(Sign.Negative);
         }
         
         private void OnFishRegainConsciousness()

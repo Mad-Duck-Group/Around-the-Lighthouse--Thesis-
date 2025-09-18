@@ -13,7 +13,6 @@ namespace Madduck.Fishing.UI
     [Serializable]
     public class FishingBoardModel : IDisposable
     {
-        [field: SerializeField] public SerializableReactiveProperty<bool> IsActive { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<Vector2> FishPosition { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<Vector2> HookPosition { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<Quaternion> FishRotation { get; private set; }
@@ -24,7 +23,6 @@ namespace Madduck.Fishing.UI
         [field: SerializeField] public FishingRodItemInstance FishingRodItemInstance { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> FishingLineDurabilityPercent { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> FatigueLevelPercent { get; private set; }
-        public Dictionary<FishZone, CircleBoardState> CircleBoardState { get; set; }
 
         private IDisposable _bindings;
         
@@ -39,8 +37,6 @@ namespace Madduck.Fishing.UI
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            IsActive = new SerializableReactiveProperty<bool>(false)
-                .AddTo(ref disposableBuilder);
             FishPosition = new SerializableReactiveProperty<Vector2>(Vector2.zero)
                 .AddTo(ref disposableBuilder);
             HookPosition = new SerializableReactiveProperty<Vector2>(Vector2.zero)

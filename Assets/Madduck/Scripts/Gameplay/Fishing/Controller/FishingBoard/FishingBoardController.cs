@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
 using Madduck.Fishing.Shared;
@@ -53,10 +55,17 @@ namespace Madduck.Fishing.Controller
         private readonly AudioManager _audioManager;
         private readonly HookProjectileFactory _hookFactory;
         private readonly IFishFactory _fishFactory;
+        private readonly ITransitionable _viewTransition;
+        private readonly ICircleBoard _circleBoard;
         
         private IDisposable _updateSubscription;
         private IDisposable _bindings;
+        private Dictionary<FishZone, CircleBoardState> _circleBoardState;
+        private CircleBoardState RedBoard => _circleBoardState[FishZone.Red];
+        private CircleBoardState YellowBoard => _circleBoardState[FishZone.Yellow];
+        private CircleBoardState GreenBoard => _circleBoardState[FishZone.Green];
         private AudioReference _fishingLineTensionSfx;
+        private CancellationTokenSource _transitionCts = new();
         private Tween _fishPositionTween;
         
         #region Blackboard Variables
@@ -78,7 +87,9 @@ namespace Madduck.Fishing.Controller
             BehaviorGraphAgent agent,
             AudioManager audioManager,
             HookProjectileFactory hookFactory,
-            IFishFactory fishFactory)
+            IFishFactory fishFactory,
+            ITransitionable viewTransition,
+            ICircleBoard circleBoard)
         {
             _model = model;
             _playerInput = playerInput;
@@ -87,6 +98,8 @@ namespace Madduck.Fishing.Controller
             _audioManager = audioManager;
             _hookFactory = hookFactory;
             _fishFactory = fishFactory;
+            _viewTransition = viewTransition;
+            _circleBoard = circleBoard;
         }
         #endregion
         
@@ -132,27 +145,38 @@ namespace Madduck.Fishing.Controller
         #endregion
         
         #region Activation
-        public void SetActive(bool active)
+        public async UniTask SetActive(bool active)
         {
             _bindings?.Dispose();
+            _transitionCts.Cancel();
+            _transitionCts = new CancellationTokenSource();
             if (active)
             {
-                _model.SetFishInstance(_fishFactory.CurrentFish);
-                Bind();
+                _circleBoardState = _circleBoard.CircleBoardStates;
                 SetFishPosition(Vector2.zero);
                 SetHookPosition(Vector2.zero);
+                await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
+                _model.SetFishInstance(_fishFactory.CurrentFish);
+                Bind();
                 StartFishingBoard();
             }
             else
             {
                 StopFishingBoard();
+                await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
+                SetFishPosition(Vector2.zero);
+                SetHookPosition(Vector2.zero);
             }
-            _model.IsActive.Value = active;
         }
 
         public void Reset()
         {
             _model.Reset();
+        }
+        
+        public void ResetCircleBoardSprite()
+        {
+            _circleBoard.ResetCircleBoardSprite();
         }
         #endregion
 
@@ -189,7 +213,6 @@ namespace Madduck.Fishing.Controller
             PlayTensionSound(_model.FishingLineDurabilityPercent.CurrentValue);
             ShutdownBehaviorGraph();
             _agent.enabled = false;
-            ResetFatigueLevel();
             _audioManager.StopAudio(_fishingLineTensionSfx);
         }
         
@@ -206,13 +229,13 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private void UpdateFatigueLevel()
         {
-            var fishPower = _model.FishItemInstance.ItemData.Power;
-            var rodPower = _model.FishingRodItemInstance.CurrentPower;
+            var fishPower = (float)_model.FishItemInstance.ItemData.Power;
+            var rodPower = (float)_model.FishingRodItemInstance.CurrentPower;
             var fishMultiplier = _fishPowerMultiplier;
             var hookMultiplier = _hookPowerMultiplier;
             var pullPercent = _pullPercent;
             var fatigue = (rodPower * hookMultiplier * pullPercent.AsFraction) - (fishPower * fishMultiplier);
-            var currentFatigue = _model.CurrentFatigueLevel.Value;
+            var currentFatigue = (float)_model.CurrentFatigueLevel.Value;
             currentFatigue += fatigue * Time.deltaTime;
             currentFatigue = Mathf.Clamp(currentFatigue, 0, _config.MaxFatigueLevel);
             _model.CurrentFatigueLevel.Value = currentFatigue;
@@ -233,14 +256,14 @@ namespace Madduck.Fishing.Controller
         {
             var currentRod = _model.FishingRodItemInstance;
             var currentFish = _model.FishItemInstance;
-            var fishPower = currentFish.ItemData.Power;
-            var rodPower = currentRod.CurrentPower;
+            var fishPower = (float)currentFish.ItemData.Power;
+            var rodPower = (float)currentRod.CurrentPower;
             var fishMultiplier = _fishPowerMultiplier;
             var hookMultiplier = _hookPowerMultiplier;
             var fishingLineTension = (rodPower * hookMultiplier) + (fishPower * fishMultiplier);
-            var regenFactor = currentRod.CurrentFishingLineRegenFactor;
+            var regenFactor = (float)currentRod.CurrentFishingLineRegenFactor;
             var final = regenFactor - fishingLineTension;
-            var currentDurability = currentRod.CurrentFishingLineDurability;
+            var currentDurability = (float)currentRod.CurrentFishingLineDurability;
             currentDurability += final * Time.deltaTime;
             currentDurability = Mathf.Clamp(currentDurability,
                 0, currentRod.ItemData.FishingLineDurability);
@@ -266,10 +289,9 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private async UniTaskVoid LoseFishingBoard()
         {
-            SetActive(false);
+            OnFishingBoardResult?.Invoke(Sign.Negative);
             await _hookFactory.CurrentHook.Return();
             _hookFactory.DestroyHook();
-            OnFishingBoardResult?.Invoke(Sign.Negative);
         }
 
         /// <summary>
@@ -289,9 +311,8 @@ namespace Madduck.Fishing.Controller
         private void MoveHook(Vector2 delta)
         {
             var hookPosition = _model.HookPosition.Value;
-            var redBoard = _model.CircleBoardState[FishZone.Red];
             var mouseDelta = delta * _config.MouseSensitivity;
-            var circleCenter = redBoard.Center;
+            var circleCenter = RedBoard.Center;
             var hookToCenter = (circleCenter - hookPosition).normalized;
             var inertiaForce = _model.FishingLineDurabilityPercent.CurrentValue.AsInverseFraction * _config.Inertia;
             hookPosition += hookToCenter * (inertiaForce * Time.deltaTime);
@@ -309,9 +330,8 @@ namespace Madduck.Fishing.Controller
         /// <param name="target"></param>
         private Vector2 ClampPosition(Vector2 target)
         {
-            var redBoard = _model.CircleBoardState[FishZone.Red];
-            var centerToPosition = (redBoard.Center - target).normalized;
-            var maxMagnitude = redBoard.Radius * centerToPosition.magnitude;
+            var centerToPosition = (RedBoard.Center - target).normalized;
+            var maxMagnitude = RedBoard.Radius * centerToPosition.magnitude;
             return Vector2.ClampMagnitude(target, maxMagnitude);
         }
         #endregion
@@ -363,7 +383,7 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private void FindFishAngle()
         {
-            Vector2 circleCenter = _model.CircleBoardState[FishZone.Red].Center;
+            Vector2 circleCenter = RedBoard.Center;
             Vector2 pullDirection = _model.HookPosition.Value - circleCenter;
             Vector2 fishDirection = _model.FishPosition.Value - circleCenter;
             _angleDifference = Vector2.Angle(pullDirection, fishDirection);
@@ -377,9 +397,9 @@ namespace Madduck.Fishing.Controller
         /// <returns>Fish zone.</returns>
         private FishZone GetFishZone(float unitCircleMagnitude)
         {
-            var greenThreshold = _model.CircleBoardState[FishZone.Green].Radius / _model.CircleBoardState[FishZone.Red].Radius;
-            var yellowThreshold = _model.CircleBoardState[FishZone.Yellow].Radius / _model.CircleBoardState[FishZone.Red].Radius;
-            var redThreshold = _model.CircleBoardState[FishZone.Red].Radius / _model.CircleBoardState[FishZone.Red].Radius;
+            var greenThreshold = GreenBoard.Radius / RedBoard.Radius;
+            var yellowThreshold = YellowBoard.Radius / RedBoard.Radius;
+            var redThreshold = RedBoard.Radius / RedBoard.Radius;
             if (unitCircleMagnitude <= greenThreshold)
             {
                 return FishZone.Green;
@@ -402,7 +422,7 @@ namespace Madduck.Fishing.Controller
         /// <returns>Unit circle position.</returns>
         private Vector2 GetUnitCircle(Vector2 position)
         {
-            return position / _model.CircleBoardState[FishZone.Red].Radius;
+            return position / _circleBoardState[FishZone.Red].Radius;
         }
 
         /// <summary>
@@ -415,12 +435,12 @@ namespace Madduck.Fishing.Controller
             var fishZone = GetFishZone(unitCircle.magnitude);
             var index = (int)fishZone;
             var previousIndex = Mathf.Max(0, index - 1);
-            var previousBoard = _model.CircleBoardState[(FishZone)previousIndex];
-            var previousThreshold = previousIndex == index ? 0 : previousBoard.Radius / _model.CircleBoardState[FishZone.Red].Radius;
-            var currentBoard = _model.CircleBoardState[fishZone];
+            var previousBoard = _circleBoardState[(FishZone)previousIndex];
+            var previousThreshold = previousIndex == index ? 0 : previousBoard.Radius / RedBoard.Radius;
+            var currentBoard = _circleBoardState[fishZone];
             var lowerBound = currentBoard.MultiplierRange.x;
             var upperBound = currentBoard.MultiplierRange.y;
-            var currentThreshold = currentBoard.Radius / _model.CircleBoardState[FishZone.Red].Radius;
+            var currentThreshold = currentBoard.Radius / RedBoard.Radius;
             var relativePercent = (unitCircle.magnitude - previousThreshold) / (currentThreshold - previousThreshold);
             var multiplier = Mathf.Lerp(lowerBound, upperBound, relativePercent);
             return multiplier;
@@ -432,9 +452,8 @@ namespace Madduck.Fishing.Controller
         /// <param name="unitCircle">Unit circle position.</param>
         private void SetHookPosition(Vector2 unitCircle)
         {
-            var redBoard = _model.CircleBoardState[FishZone.Red];
-            var circleCenter = redBoard.Center;
-            var position = unitCircle * redBoard.Radius;
+            var circleCenter = RedBoard.Center;
+            var position = unitCircle * RedBoard.Radius;
             _model.HookPosition.Value = position;
             //rotate facing the center
             var centerToHook = (circleCenter - _model.HookPosition.Value).normalized;
@@ -448,10 +467,9 @@ namespace Madduck.Fishing.Controller
         /// <param name="unitCircle">Unit circle position.</param>
         public void SetFishPosition(Vector2 unitCircle)
         {
-            var redBoard = _model.CircleBoardState[FishZone.Red];
-            var circleCenter = redBoard.Center;
-            var fishToCenter = (circleCenter - _model.FishPosition.Value).normalized;
-            Vector2 position = unitCircle * redBoard.Radius;
+            var circleCenter = RedBoard.Center;
+            //var fishToCenter = (circleCenter - _model.FishPosition.Value).normalized;
+            Vector2 position = unitCircle * RedBoard.Radius;
             _model.FishPosition.Value = position;
             //rotate facing the center
             var centerToFish = (circleCenter - _model.FishPosition.Value).normalized;
@@ -508,10 +526,10 @@ namespace Madduck.Fishing.Controller
         {
             var index = (int)fishZone;
             var previousIndex = Mathf.Max(0, index - 1);
-            var currentBoard = _model.CircleBoardState[fishZone];
-            var previousBoard = _model.CircleBoardState[(FishZone)previousIndex];
-            var currentThreshold = currentBoard.Radius / _model.CircleBoardState[FishZone.Red].Radius;
-            var previousThreshold = previousIndex == index ? 0 : previousBoard.Radius / _model.CircleBoardState[FishZone.Red].Radius;
+            var currentBoard = _circleBoardState[fishZone];
+            var previousBoard = _circleBoardState[(FishZone)previousIndex];
+            var currentThreshold = currentBoard.Radius / RedBoard.Radius;
+            var previousThreshold = previousIndex == index ? 0 : previousBoard.Radius / RedBoard.Radius;
             var threshold = UnityEngine.Random.Range(previousThreshold, currentThreshold);
             var randomPosition = UnityEngine.Random.insideUnitCircle.normalized * threshold;
             return randomPosition;

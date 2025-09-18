@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Controller;
 using Madduck.Utils;
 using R3;
@@ -20,10 +21,10 @@ namespace Madduck.Fishing.StateMachine
             _controller = controller;
         }
 
-        public override void Enter()
+        public override async UniTask Enter()
         {
-            base.Enter();
-            _controller.SetActive(true);
+            await base.Enter();
+            await _controller.SetActive(true);
             _hookHitWaterSubscription = Observable.FromEvent(
                     h => _controller.OnHookHitWater += h,
                     h => _controller.OnHookHitWater -= h)
@@ -36,11 +37,11 @@ namespace Madduck.Fishing.StateMachine
             stateMachine.NextState();
         }
 
-        public override void Exit()
+        public override async UniTask Exit()
         {
-            base.Exit();
+            await base.Exit();
             _hookHitWaterSubscription.Dispose();
-            _controller.SetActive(false);
+            await _controller.SetActive(false);
             _controller.Reset();
         }
     }

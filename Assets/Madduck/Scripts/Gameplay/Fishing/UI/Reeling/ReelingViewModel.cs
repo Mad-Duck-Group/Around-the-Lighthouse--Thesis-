@@ -8,7 +8,6 @@ namespace Madduck.Fishing.UI
 {
     public class ReelingViewModel : IDisposable
     {
-        public ReadOnlyReactiveProperty<bool> IsActive { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> ReelingProgressPercent { get; private set; }
 
         private readonly ReelingModel _model;
@@ -24,8 +23,6 @@ namespace Madduck.Fishing.UI
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            IsActive = _model.IsActive.ToReadOnlyReactiveProperty()
-                .AddTo(ref disposableBuilder);
             ReelingProgressPercent = _model.CurrentReelingProgress
                 .CombineLatest(_model.MaxReelingProgress, (current, max) => max == 0f 
                     ? Percentage.FromFraction(0f) 

@@ -47,7 +47,7 @@ namespace Madduck.Fishing.DI
         
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterComponent(nibbleView).AsSelf();
+            builder.RegisterComponent(nibbleView).AsImplementedInterfaces();
             builder.Register<NibbleController>(Lifetime.Scoped).AsSelf();
             builder.Register<NibbleCommander>(Lifetime.Scoped).AsSelf();
             builder.Register<NibbleViewModel>(Lifetime.Scoped).AsSelf();

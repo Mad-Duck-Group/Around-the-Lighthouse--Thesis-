@@ -19,8 +19,11 @@ namespace Madduck.Fishing.Controller
         private readonly NibbleCommander _commander;
         private readonly HookProjectileFactory _hookFactory;
         private readonly IFishFactory _fishFactory;
+        private readonly ITransitionable _viewTransition;
+        
         private IDisposable _bindings;
         private CancellationTokenSource _waitingCts = new();
+        private CancellationTokenSource _transitionCts = new();
         
         [Inject]
         public NibbleController(
@@ -28,13 +31,15 @@ namespace Madduck.Fishing.Controller
             NibbleModel model, 
             NibbleCommander commander,
             HookProjectileFactory hookFactory,
-            IFishFactory fishFactory)
+            IFishFactory fishFactory,
+            ITransitionable viewTransition)
         {
             _inputHandler = inputHandler;
             _model = model;
             _commander = commander;
             _hookFactory = hookFactory;
             _fishFactory = fishFactory;
+            _viewTransition = viewTransition;
         }
 
         private void Bind()
@@ -65,17 +70,23 @@ namespace Madduck.Fishing.Controller
             _bindings?.Dispose();
         }
         
-        public void SetActive(bool active)
+        public async UniTask SetActive(bool active)
         {
             _bindings?.Dispose();
             _waitingCts.Cancel();
+            _transitionCts.Cancel();
+            _transitionCts = new CancellationTokenSource();
             if (active)
             {
+                await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 _model.SetFishInstance(_fishFactory.CurrentFish);
                 Bind();
                 StartWaiting().Forget();
             }
-            _model.IsActive.Value = active;
+            else
+            {
+                await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
+            }
         }
 
         private async UniTaskVoid StartWaiting()

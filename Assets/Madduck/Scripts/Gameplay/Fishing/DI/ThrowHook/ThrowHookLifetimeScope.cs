@@ -51,7 +51,7 @@ namespace Madduck.Fishing.DI
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(throwHookConfig).AsSelf();
-            builder.RegisterComponent(throwHookView).AsSelf();
+            builder.RegisterComponent(throwHookView).AsImplementedInterfaces();
             builder.Register<ThrowHookController>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookCommander>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookViewModel>(Lifetime.Scoped).AsSelf();

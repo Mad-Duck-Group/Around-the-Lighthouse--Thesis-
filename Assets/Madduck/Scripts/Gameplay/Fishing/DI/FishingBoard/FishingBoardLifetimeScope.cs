@@ -58,7 +58,7 @@ namespace Madduck.Fishing.DI
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(behaviorGraphAgent).AsSelf();
-            builder.RegisterComponent(fishingBoardView).AsSelf();
+            builder.RegisterComponent(fishingBoardView).AsImplementedInterfaces();
             builder.RegisterInstance(fishingBoardConfig).AsSelf();
             builder.Register<FishingBoardController>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingBoardModel>(Lifetime.Scoped).AsSelf();

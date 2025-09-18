@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using Madduck.Utils;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,7 +10,7 @@ using VContainer;
 
 namespace Madduck.Fishing.UI
 {
-    public class NibbleView : MonoBehaviour
+    public class NibbleView : MonoBehaviour, ITransitionable
     {
         [Title("References")]
         [Required]
@@ -17,7 +20,6 @@ namespace Madduck.Fishing.UI
         
         private NibbleCommander _commander;
         private NibbleViewModel _viewModel;
-        private IDisposable _isActiveSubscription;
         private IDisposable _bindings;
         
         [Inject]
@@ -25,8 +27,6 @@ namespace Madduck.Fishing.UI
         {
             _commander = commander;
             _viewModel = viewModel;
-            _isActiveSubscription = _viewModel.IsActive.Subscribe(SetActive);
-            Bind();
         }
 
         private void Bind()
@@ -44,9 +44,29 @@ namespace Madduck.Fishing.UI
         
         private void OnDestroy()
         {
-            _isActiveSubscription.Dispose();
             _bindings?.Dispose();
         }
+    
+        #region Transitions
+        public async UniTask TransitionIn(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.Register(CancelTransition);
+            await UniTask.WaitForSeconds(1f, cancellationToken: cancellationToken); // placeholder for actual transition animation
+            SetActive(true);
+        }
+
+        public async UniTask TransitionOut(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.Register(CancelTransition);
+            await UniTask.WaitForSeconds(1f, cancellationToken: cancellationToken); // placeholder for actual transition animation
+            SetActive(false);
+        }
+        
+        private void CancelTransition()
+        {
+            // Implement if needed
+        }
+        #endregion
 
         private void SetActive(bool active)
         {

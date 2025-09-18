@@ -11,7 +11,6 @@ namespace Madduck.Fishing.UI
     [Serializable]
     public class NibbleModel : IDisposable
     {
-        [field: SerializeField] public SerializableReactiveProperty<bool> IsActive { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<bool> IsNibbling { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<Sign> PullHookResult { get; private set; }
         [field: SerializeField] public FishItemInstance FishItemInstance { get; private set; }
@@ -26,8 +25,6 @@ namespace Madduck.Fishing.UI
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            IsActive = new SerializableReactiveProperty<bool>(false)
-                .AddTo(ref disposableBuilder);
             IsNibbling = new SerializableReactiveProperty<bool>(false)
                 .AddTo(ref disposableBuilder);
             PullHookResult = new SerializableReactiveProperty<Sign>(Sign.Zero)
@@ -42,7 +39,6 @@ namespace Madduck.Fishing.UI
         
         public void Reset()
         {
-            IsActive.Value = false;
             IsNibbling.Value = false;
             PullHookResult.Value = Sign.Zero;
         }

@@ -9,7 +9,6 @@ namespace Madduck.Fishing.UI
     [Serializable]
     public class ThrowHookModel : IDisposable
     {
-        [field: SerializeField] public SerializableReactiveProperty<bool> IsActive { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<UFloat> ThrowHookMaxValue { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<UFloat> ThrowHookCurrentValue { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<bool> HookThrown { get; private set; }
@@ -27,8 +26,6 @@ namespace Madduck.Fishing.UI
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            IsActive = new SerializableReactiveProperty<bool>(false)
-                .AddTo(ref disposableBuilder);
             ThrowHookMaxValue = new SerializableReactiveProperty<UFloat>(_config.ThrowHookMaxValue)
                 .AddTo(ref disposableBuilder);
             ThrowHookCurrentValue = new SerializableReactiveProperty<UFloat>(0f)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using VContainer.Unity;
@@ -71,7 +72,19 @@ namespace Madduck.Fishing.StateMachine
             if (_states.TryGetValue(stateType, out var nextState))
             {
                 _currentStateType = stateType;
-                ChangeState(nextState);
+                ChangeState(nextState).Forget();
+            }
+            else
+            {
+                DebugUtils.LogError($"State {stateType} does not exist in FishingStateMachine.");
+            }
+        }
+
+        public void ResetState(FishingStateType stateType)
+        {
+            if (_states.TryGetValue(stateType, out var state))
+            {
+                state.Reset();
             }
             else
             {

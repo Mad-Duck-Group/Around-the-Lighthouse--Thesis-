@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Shared;
 using Madduck.Utils;
 using PrimeTween;
@@ -12,7 +14,12 @@ using VContainer;
 
 namespace Madduck.Fishing.UI
 {
-    public class FishingBoardView : MonoBehaviour
+    public interface ICircleBoard
+    {
+        public Dictionary<FishZone, CircleBoardState> CircleBoardStates { get; }
+        public void ResetCircleBoardSprite();
+    }
+    public class FishingBoardView : MonoBehaviour, ITransitionable, ICircleBoard
     {
         #region Inspector
         [Title("References")] 
@@ -36,21 +43,19 @@ namespace Madduck.Fishing.UI
         [SerializeField] private Image fishFatigueImage;
         [Required]
         [SerializeField] private SerializableDictionary<Sprite, Percentage> fatigueImageDictionary = new();
-        [Required]
-        [SerializeField] private Slider reelingSlider;
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings<Vector3> fishingBoardScaleTweenSettings;
         [SerializeField] private TweenSettings<float> fishingBoardAlphaTweenSettings;
         [SerializeField] private ShakeSettings shakeTweenSettings;
-        [SerializeField] private ShakeSettings reelingSliderShakeSettings;
         #endregion
+        public Dictionary<FishZone, CircleBoardState> CircleBoardStates => 
+            circleBoards.ToDictionary(pair => pair.Key, pair => new CircleBoardState(pair.Value));
         
         #region Fields
         private Tween _reelingSliderShakeTween;
         private List<KeyValuePair<Sprite, Percentage>> _sortedFatigueImageList = new();
         private FishingBoardViewModel _fishingBoardViewModel;
-        private IDisposable _isActiveBinding;
         private IDisposable _bindings;
         private Sequence _fishingBoardActivationSequence;
         private Tween _hookShakeTween;
@@ -62,16 +67,13 @@ namespace Madduck.Fishing.UI
         public void SetUp(FishingBoardViewModel fishingBoardViewModel)
         {
             _fishingBoardViewModel = fishingBoardViewModel;
-            _isActiveBinding = 
-                _fishingBoardViewModel.IsActive
-                    .Subscribe(SetActive);
-            UpdateCircleBoardStates();
-            Bind();
-        }
+            canvasGroup.gameObject.SetActive(true);
+            canvasGroup.transform.localScale = fishingBoardScaleTweenSettings.startValue;
+            canvasGroup.alpha = fishingBoardAlphaTweenSettings.startValue;
+        }   
         
         private void Bind()
         {
-            _bindings?.Dispose();
             var disposableBuilder = Disposable.CreateBuilder();
             _fishingBoardViewModel.FishPosition
                 .Subscribe(x =>
@@ -98,7 +100,6 @@ namespace Madduck.Fishing.UI
                 {
                     ShakeHook(x);
                     ShakeFish(x);
-                    ShakeReelingSlider(x);
                     fishingLineHandler.HandleTension(x);
                 })
                 .AddTo(ref disposableBuilder);
@@ -113,13 +114,11 @@ namespace Madduck.Fishing.UI
         private void Start()
         {
             InitializeFishingBoard();
-            UpdateCircleBoardStates();
             DrawFishLine();
         }
         
         private void OnDestroy()
         {
-            _isActiveBinding?.Dispose();
             _bindings?.Dispose();
             _fishingBoardViewModel.Dispose();
         }
@@ -134,9 +133,6 @@ namespace Madduck.Fishing.UI
             fatigueSlider.minValue = 0;
             fatigueSlider.maxValue = 1;
             fatigueSlider.value = 0;
-            reelingSlider.minValue = 0;
-            reelingSlider.maxValue = 1;
-            reelingSlider.value = 0;
             var sortedDictionary = fatigueImageDictionary.OrderByDescending(pair => pair.Value).ToList();
             _sortedFatigueImageList = sortedDictionary;
             foreach (var board in circleBoards)
@@ -148,17 +144,44 @@ namespace Madduck.Fishing.UI
         }
         
         /// <summary>
-        /// Update the states of all circle boards and notify the ViewModel.
+        /// Reset the circle boards to their initial sprites.
         /// </summary>
-        private void UpdateCircleBoardStates()
+        public void ResetCircleBoardSprite()
         {
-            var circleBoardStates = new Dictionary<FishZone, CircleBoardState>();
-            foreach (var board in circleBoards)
-            {
-                var state = new CircleBoardState(board.Value);
-                circleBoardStates.Add(board.Key, state);
-            }
-            _fishingBoardViewModel.UpdateCircleBoardCommand.Execute(circleBoardStates);
+            SetFatigue(Percentage.FromPercentage(0f));
+        }
+        #endregion
+        
+        #region Transitions
+        public async UniTask TransitionIn(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.Register(CancelTransitions);
+            await Transition(true);
+            SetActive(true);
+        }
+
+        public async UniTask TransitionOut(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.Register(CancelTransitions);
+            await Transition(false);
+            SetActive(false);
+        }
+
+        private async UniTask Transition(bool active)
+        {
+            _fishingBoardActivationSequence = Sequence.Create()
+                .Group(Tween.Scale(canvasGroup.transform, fishingBoardScaleTweenSettings.WithDirection(active)))
+                .Group(Tween.Alpha(canvasGroup, fishingBoardAlphaTweenSettings.WithDirection(active)));
+                /*.OnComplete(() =>
+                { 
+                    if (!active) canvasGroup.gameObject.SetActive(false);
+                });*/
+            await _fishingBoardActivationSequence.ToYieldInstruction().ToUniTask();
+        }
+
+        private void CancelTransitions()
+        {
+            _fishingBoardActivationSequence.Complete();
         }
         #endregion
         
@@ -169,25 +192,17 @@ namespace Madduck.Fishing.UI
         /// <param name="active"></param>
         private void SetActive(bool active)
         {
+            _bindings?.Dispose();
             if (active)
             {
                 Bind();
-                canvasGroup.gameObject.SetActive(true);
+                Cursor.lockState = CursorLockMode.Locked;
             }
             else
             {
                 fishingLineHandler.Reset();
-                _bindings?.Dispose();
+                Cursor.lockState = CursorLockMode.None;
             }
-            Cursor.lockState = active ? CursorLockMode.Locked : CursorLockMode.None;
-            if (_fishingBoardActivationSequence.isAlive) _fishingBoardActivationSequence.Complete();
-            _fishingBoardActivationSequence = Sequence.Create()
-                .Group(Tween.Scale(canvasGroup.transform, fishingBoardScaleTweenSettings.WithDirection(active)))
-                .Group(Tween.Alpha(canvasGroup, fishingBoardAlphaTweenSettings.WithDirection(active)))
-                .OnComplete(() =>
-                { 
-                    if (!active) canvasGroup.gameObject.SetActive(false);
-                });
         }
         #endregion
         
@@ -243,20 +258,6 @@ namespace Madduck.Fishing.UI
                 fishFatigueImage.sprite = pair.Key;
                 break;
             }
-        }
-
-        /// <summary>
-        /// Shake the reeling slider based on fishing line durability.
-        /// </summary>
-        /// <param name="durabilityPercent"></param>
-        private void ShakeReelingSlider(Percentage durabilityPercent)
-        {
-            if (_reelingSliderShakeTween.isAlive) _reelingSliderShakeTween.Complete();
-            var copy = reelingSliderShakeSettings;
-            copy.strength = reelingSliderShakeSettings.strength * durabilityPercent.AsInverseFraction;
-            copy.frequency = reelingSliderShakeSettings.frequency * durabilityPercent.AsInverseFraction;
-            if (copy.strength.magnitude <= 0f) return;
-            _reelingSliderShakeTween = Tween.ShakeLocalPosition(reelingSlider.transform, copy);
         }
         #endregion
     }

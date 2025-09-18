@@ -11,14 +11,12 @@ namespace Madduck.Fishing.UI
     [Serializable]
     public class FishingBoardViewModel : IDisposable
     {
-        public ReadOnlyReactiveProperty<bool> IsActive { get; private set; }
         public ReadOnlyReactiveProperty<Vector2> FishPosition { get; private set; }
         public ReadOnlyReactiveProperty<Vector2> HookPosition { get; private set; }
         public ReadOnlyReactiveProperty<Quaternion> FishRotation { get; private set; }
         public ReadOnlyReactiveProperty<Quaternion> HookRotation { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> FishLineDurabilityPercent { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> FatigueLevelPercent { get; private set; }
-        public ReactiveCommand<Dictionary<FishZone, CircleBoardState>> UpdateCircleBoardCommand { get; private set; }
         
         private readonly FishingBoardModel _fishingBoardModel;
         private IDisposable _bindings;
@@ -33,8 +31,6 @@ namespace Madduck.Fishing.UI
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            IsActive = _fishingBoardModel.IsActive.ToReadOnlyReactiveProperty()
-                .AddTo(ref disposableBuilder);
             FishPosition = _fishingBoardModel.FishPosition.ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
             HookPosition = _fishingBoardModel.HookPosition.ToReadOnlyReactiveProperty()
@@ -47,12 +43,7 @@ namespace Madduck.Fishing.UI
                 .AddTo(ref disposableBuilder);
             FatigueLevelPercent = _fishingBoardModel.FatigueLevelPercent.ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
-            UpdateCircleBoardCommand = 
-                new ReactiveCommand<Dictionary<FishZone, CircleBoardState>>(x =>
-                {
-                    _fishingBoardModel.CircleBoardState = x;
-                })
-                .AddTo(ref disposableBuilder);
+            
             _bindings = disposableBuilder.Build();
         }
 
