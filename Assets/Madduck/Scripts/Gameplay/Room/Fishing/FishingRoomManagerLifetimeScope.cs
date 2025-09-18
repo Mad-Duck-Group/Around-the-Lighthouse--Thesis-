@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Madduck.GameData;
+using Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,14 +15,19 @@ namespace Madduck.Room
     {
         [field: SerializeField] public bool ConstantUpdate { get; private set; }
         [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
-        [ShowInInspector] private FishingRoomManager _manager;
+        [ShowInInspector] private FishingRoomManager _fishingRoomManager;
         [ShowInInspector] private WeatherWeightTableInstance _weatherWeightTable;
+        [ShowInInspector] private RoomPresetManager _roomPresetManager;
         
-        public FishingRoomManagerDebugData(FishingRoomManager manager, WeatherWeightTableInstance weatherWeightTable)
+        public FishingRoomManagerDebugData(FishingRoomManager fishingRoomManager,
+            WeatherWeightTableInstance weatherWeightTable,
+            RoomPresetManager roomPresetManager 
+            )
         {
             ConstantUpdate = false;
             AutoCloseWhenPlayModeEnds = true;
-            _manager = manager;
+            _fishingRoomManager = fishingRoomManager;
+            _roomPresetManager = roomPresetManager;
             _weatherWeightTable = weatherWeightTable;
         }
     }
@@ -30,6 +37,8 @@ namespace Madduck.Room
         [Title("References")]
         [Required,
          SerializeField] private WeatherWeightTable weatherWeightTable;
+        [Required,
+         SerializeField] private List<RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset> roomPresets;
         
 #if UNITY_EDITOR
         [Title("Debug")]
@@ -38,21 +47,28 @@ namespace Madduck.Room
         private void OpenDebugWindow()
         {
             DebugEditorWindow.Inspect(_fishingRoomManagerDebugData, "Fishing Room Manager Debug");
+            DebugEditorWindow.Inspect(_dayManagerDebugData, "Room Preset Manager Debug");
         }
         
         private FishingRoomManagerDebugData _fishingRoomManagerDebugData;
+        private RoomPresetManagerDebugData _dayManagerDebugData;
+        
+        
 #endif
         
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(weatherWeightTable.GetInstance()).AsSelf();
+            builder.RegisterInstance(roomPresets).As<List<RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset>>();
             builder.RegisterEntryPoint<FishingRoomManager>().AsSelf();
+            builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
             builder.RegisterBuildCallback(container =>
             {
 #if UNITY_EDITOR
-                var manager = container.Resolve<FishingRoomManager>();
+                var fishingRoomManager = container.Resolve<FishingRoomManager>();
                 var table = container.Resolve<WeatherWeightTableInstance>();
-                _fishingRoomManagerDebugData = new FishingRoomManagerDebugData(manager, table);
+                var roomPresetManager = container.Resolve<RoomPresetManager>();
+                _fishingRoomManagerDebugData = new FishingRoomManagerDebugData(fishingRoomManager, table,roomPresetManager);
 #endif
             });
 
