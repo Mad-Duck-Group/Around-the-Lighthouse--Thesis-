@@ -95,7 +95,7 @@ namespace Madduck.Fishing.Controller
             var distance = Mathf.Lerp(
                 _config.ThrowRange.x,
                 _config.ThrowRange.y, 
-                throwPercent);
+                throwPercent.AsFraction);
             await projectile.Throw(distance);
             OnHookHitWater?.Invoke();
         }

@@ -3,7 +3,7 @@ using Unity.Behavior;
 namespace Madduck.Fishing.Shared
 {
 	[BlackboardEnum]
-	public enum BlackboardFishZone
+	public enum FishZone
 	{
 		Green,
 		Yellow,

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Madduck.Fishing.Shared;
+using Madduck.Utils;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -14,8 +16,8 @@ namespace Madduck.Fishing.UI
         public ReadOnlyReactiveProperty<Vector2> HookPosition { get; private set; }
         public ReadOnlyReactiveProperty<Quaternion> FishRotation { get; private set; }
         public ReadOnlyReactiveProperty<Quaternion> HookRotation { get; private set; }
-        public ReadOnlyReactiveProperty<float> FishLineDurabilityPercent { get; private set; }
-        public ReadOnlyReactiveProperty<float> FatigueLevelPercent { get; private set; }
+        public ReadOnlyReactiveProperty<Percentage> FishLineDurabilityPercent { get; private set; }
+        public ReadOnlyReactiveProperty<Percentage> FatigueLevelPercent { get; private set; }
         public ReactiveCommand<Dictionary<FishZone, CircleBoardState>> UpdateCircleBoardCommand { get; private set; }
         
         private readonly FishingBoardModel _fishingBoardModel;

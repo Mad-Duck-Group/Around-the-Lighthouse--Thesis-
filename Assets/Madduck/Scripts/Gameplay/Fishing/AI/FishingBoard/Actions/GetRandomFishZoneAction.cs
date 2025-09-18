@@ -10,15 +10,15 @@ using Action = Unity.Behavior.Action;
 namespace Madduck.Fishing.AI
 {
     [Serializable, GeneratePropertyBag]
-    [NodeDescription(name: "GetRandomFishZone", story: "Get random [TargetFishZone] except [FishZone]", category: "Action", id: "0f45fd91778e4cadd14b7f14ae273fa5")]
+    [NodeDescription(name: "GetRandomFishZone", story: "Get random [TargetFishZone] except [FishZone]", category: "Action/Fish", id: "0f45fd91778e4cadd14b7f14ae273fa5")]
     public partial class GetRandomFishZoneAction : Action
     {
-        [SerializeReference] public BlackboardVariable<BlackboardFishZone> TargetFishZone;
-        [SerializeReference] public BlackboardVariable<BlackboardFishZone> FishZone;
+        [SerializeReference] public BlackboardVariable<FishZone> TargetFishZone;
+        [SerializeReference] public BlackboardVariable<FishZone> FishZone;
 
         protected override Status OnStart()
         {
-            var enumCount = Enum.GetValues(typeof(BlackboardFishZone)).Length;
+            var enumCount = Enum.GetValues(typeof(FishZone)).Length;
             var removeIndex = (int)FishZone.Value;
             List<int> availableFishZones = new List<int>(enumCount - 1);
             for (int i = 0; i < enumCount; i++)
@@ -26,7 +26,7 @@ namespace Madduck.Fishing.AI
                 if (i == removeIndex) continue;
                 availableFishZones.Add(i);
             }
-            TargetFishZone.Value = (BlackboardFishZone)availableFishZones[UnityEngine.Random.Range(0, availableFishZones.Count)];
+            TargetFishZone.Value = (FishZone)availableFishZones[UnityEngine.Random.Range(0, availableFishZones.Count)];
             return Status.Running;
         }
 

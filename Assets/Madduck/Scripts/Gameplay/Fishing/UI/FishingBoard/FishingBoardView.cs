@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Madduck.Fishing.Shared;
 using Madduck.Utils;
 using PrimeTween;
 using R3;
@@ -11,12 +12,6 @@ using VContainer;
 
 namespace Madduck.Fishing.UI
 {
-    public enum FishZone
-    {
-        Green,
-        Yellow,
-        Red
-    }
     public class FishingBoardView : MonoBehaviour
     {
         #region Inspector
@@ -211,12 +206,12 @@ namespace Madduck.Fishing.UI
         /// Shake the hook icon based on fishing line durability.
         /// </summary>
         /// <param name="durabilityPercent"></param>
-        private void ShakeHook(float durabilityPercent)
+        private void ShakeHook(Percentage durabilityPercent)
         {
             if (_hookShakeTween.isAlive) return;
             var copy = shakeTweenSettings;
-            copy.strength = shakeTweenSettings.strength * (1 - durabilityPercent);
-            copy.frequency = shakeTweenSettings.frequency * (1 - durabilityPercent);
+            copy.strength = shakeTweenSettings.strength * durabilityPercent.AsInverseFraction;
+            copy.frequency = shakeTweenSettings.frequency * durabilityPercent.AsInverseFraction;
             if (copy.strength.magnitude <= 0) return;
             _hookShakeTween = Tween.ShakeLocalPosition(hookIcon.transform, copy);
         }
@@ -225,12 +220,12 @@ namespace Madduck.Fishing.UI
         /// Shake the fish icon based on fishing line durability.
         /// </summary>
         /// <param name="durabilityPercent"></param>
-        private void ShakeFish(float durabilityPercent)
+        private void ShakeFish(Percentage durabilityPercent)
         {
             if (_fishShakeTween.isAlive) return;
             var copy = shakeTweenSettings;
-            copy.strength = shakeTweenSettings.strength * (1 - durabilityPercent);
-            copy.frequency = shakeTweenSettings.frequency * (1 - durabilityPercent);
+            copy.strength = shakeTweenSettings.strength * durabilityPercent.AsInverseFraction;
+            copy.frequency = shakeTweenSettings.frequency * durabilityPercent.AsInverseFraction;
             if (copy.strength.magnitude <= 0) return;
             _fishShakeTween = Tween.ShakeLocalPosition(fishIcon.transform, copy);
         }
@@ -239,12 +234,12 @@ namespace Madduck.Fishing.UI
         /// Set the fatigue level UI.
         /// </summary>
         /// <param name="fatiguePercent"></param>
-        private void SetFatigue(float fatiguePercent)
+        private void SetFatigue(Percentage fatiguePercent)
         {
-            fatigueSlider.value = fatiguePercent;
+            fatigueSlider.value = fatiguePercent.AsFraction;
             foreach (var pair in _sortedFatigueImageList)
             {
-                if (fatiguePercent < pair.Value.AsFraction) continue;
+                if (fatiguePercent < pair.Value) continue;
                 fishFatigueImage.sprite = pair.Key;
                 break;
             }
@@ -254,12 +249,12 @@ namespace Madduck.Fishing.UI
         /// Shake the reeling slider based on fishing line durability.
         /// </summary>
         /// <param name="durabilityPercent"></param>
-        private void ShakeReelingSlider(float durabilityPercent)
+        private void ShakeReelingSlider(Percentage durabilityPercent)
         {
             if (_reelingSliderShakeTween.isAlive) _reelingSliderShakeTween.Complete();
             var copy = reelingSliderShakeSettings;
-            copy.strength = reelingSliderShakeSettings.strength * (1 - durabilityPercent);
-            copy.frequency = reelingSliderShakeSettings.frequency * (1 - durabilityPercent);
+            copy.strength = reelingSliderShakeSettings.strength * durabilityPercent.AsInverseFraction;
+            copy.frequency = reelingSliderShakeSettings.frequency * durabilityPercent.AsInverseFraction;
             if (copy.strength.magnitude <= 0f) return;
             _reelingSliderShakeTween = Tween.ShakeLocalPosition(reelingSlider.transform, copy);
         }

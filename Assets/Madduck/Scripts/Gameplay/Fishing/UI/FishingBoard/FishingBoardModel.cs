@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Madduck.Fishing.Shared;
 using Madduck.GameData;
 using Madduck.GameData.Fisherman;
+using Madduck.Utils;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -17,12 +18,12 @@ namespace Madduck.Fishing.UI
         [field: SerializeField] public SerializableReactiveProperty<Vector2> HookPosition { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<Quaternion> FishRotation { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<Quaternion> HookRotation { get; private set; }
-        [field: SerializeField] public SerializableReactiveProperty<float> CurrentFatigueLevel { get; private set; }
-        [field: SerializeField] public SerializableReactiveProperty<float> MaxFatigueLevel { get; private set; }
+        [field: SerializeField] public SerializableReactiveProperty<UFloat> CurrentFatigueLevel { get; private set; }
+        [field: SerializeField] public SerializableReactiveProperty<UFloat> MaxFatigueLevel { get; private set; }
         [field: SerializeField] public FishItemInstance FishItemInstance { get; private set; }
         [field: SerializeField] public FishingRodItemInstance FishingRodItemInstance { get; private set; }
-        public ReadOnlyReactiveProperty<float> FishingLineDurabilityPercent { get; private set; }
-        public ReadOnlyReactiveProperty<float> FatigueLevelPercent { get; private set; }
+        public ReadOnlyReactiveProperty<Percentage> FishingLineDurabilityPercent { get; private set; }
+        public ReadOnlyReactiveProperty<Percentage> FatigueLevelPercent { get; private set; }
         public Dictionary<FishZone, CircleBoardState> CircleBoardState { get; set; }
 
         private IDisposable _bindings;
@@ -48,20 +49,24 @@ namespace Madduck.Fishing.UI
                 .AddTo(ref disposableBuilder);
             HookRotation = new SerializableReactiveProperty<Quaternion>(Quaternion.identity)
                 .AddTo(ref disposableBuilder);
-            CurrentFatigueLevel = new SerializableReactiveProperty<float>(0f)
+            CurrentFatigueLevel = new SerializableReactiveProperty<UFloat>(0f)
                 .AddTo(ref disposableBuilder);
-            MaxFatigueLevel = new SerializableReactiveProperty<float>(100f)
+            MaxFatigueLevel = new SerializableReactiveProperty<UFloat>(100f)
                 .AddTo(ref disposableBuilder);
             var baseDurability =
                 Observable.EveryValueChanged(FishingRodItemInstance, x => x.ItemData.FishingLineDurability);
             var currentDurability =
                 Observable.EveryValueChanged(FishingRodItemInstance, x => x.CurrentFishingLineDurability);
             FishingLineDurabilityPercent = baseDurability
-                .CombineLatest(currentDurability, (@base, current) => @base <= 0 ? 0f : Mathf.Clamp01(current / @base))
+                .CombineLatest(currentDurability, (@base, current) => @base <= 0 
+                    ? Percentage.FromFraction(0f) 
+                    : Percentage.FromFraction(Mathf.Clamp01(current / @base)))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
             FatigueLevelPercent = CurrentFatigueLevel
-                .CombineLatest(MaxFatigueLevel, (current, max) => max <= 0 ? 0f : Mathf.Clamp01(current / max))
+                .CombineLatest(MaxFatigueLevel, (current, max) => max <= 0 
+                    ? Percentage.FromFraction(0f) 
+                    : Percentage.FromFraction(Mathf.Clamp01(current / max)))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();

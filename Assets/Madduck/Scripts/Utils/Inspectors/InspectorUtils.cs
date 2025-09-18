@@ -23,9 +23,22 @@ namespace Madduck.Utils
     {
         [HideLabel, Unit(Units.Percent),
          SerializeField] private float value;
+        /// <summary>
+        /// Returns the raw percentage value (e.g., 50% -> 50, -50% -> -50).
+        /// </summary>
         public float AsPercentage => value;
+        /// <summary>
+        /// Returns the percentage as a multiplier (e.g., 50% -> 1.5, -50% -> 0.5).
+        /// </summary>
         public float AsMultiplier => 1f + value / 100f;
+        /// <summary>
+        /// Return percentage as a fraction (e.g., 50% -> 0.5, -150% -> -1.5).
+        /// </summary>
         public float AsFraction => value / 100f;
+        /// <summary>
+        /// Returns the percentage as an inverse fraction (e.g., 75% -> 0.25, 150% -> -0.5).
+        /// </summary>
+        public float AsInverseFraction => 1f - value / 100f;
 
         private Percentage(float percentage)
         {

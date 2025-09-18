@@ -10,7 +10,7 @@ using Action = Unity.Behavior.Action;
 namespace Madduck.Fishing.AI
 {
     [Serializable, GeneratePropertyBag]
-    [NodeDescription(name: "GetRandomPosition", story: "Get random [TargetPosition] on [FishingBoard]", category: "Action", id: "2a6dffff240bbb7cae1d6936898a7434")]
+    [NodeDescription(name: "GetRandomPosition", story: "Get random [TargetPosition] on [FishingBoard]", category: "Action/Fish", id: "2a6dffff240bbb7cae1d6936898a7434")]
     public partial class GetRandomPositionAction : Action
     {
         [SerializeReference] public BlackboardVariable<Vector2> TargetPosition;

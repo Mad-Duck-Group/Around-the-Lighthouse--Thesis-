@@ -21,23 +21,25 @@ namespace Madduck.Fishing.Controller
     public class FishingBoardController : IDisposable
     {
         #region Inspector
-        [Title("Debug")] 
-        [DisplayAsString] 
-        [ShowInInspector] private float _angleDifference;
-        [DisplayAsString] 
-        [ShowInInspector] private float _pullPercent;
-        [DisplayAsString] 
-        [ShowInInspector] private Vector2 _fishUnitCirclePosition;
-        [DisplayAsString] 
-        [ShowInInspector] private Vector2 _hookUnitCirclePosition;
-        [DisplayAsString] 
-        [ShowInInspector] private FishZone _fishZone;
-        [DisplayAsString] 
-        [ShowInInspector] private FishZone _hookZone;
-        [DisplayAsString] 
-        [ShowInInspector] private float _fishPowerMultiplier;
-        [DisplayAsString] 
-        [ShowInInspector] private float _hookPowerMultiplier;
+        [Title("Debug"), 
+            HideLabel,
+            ShowInInspector] private InspectorPlaceholder _debugTitle;
+        [DisplayAsString,
+         ShowInInspector] private float _angleDifference;
+        [DisplayAsString,
+         ShowInInspector] private Percentage _pullPercent;
+        [DisplayAsString,
+         ShowInInspector] private Vector2 _fishUnitCirclePosition;
+        [DisplayAsString,
+         ShowInInspector] private Vector2 _hookUnitCirclePosition;
+        [DisplayAsString,
+         ShowInInspector] private FishZone _fishZone;
+        [DisplayAsString,
+         ShowInInspector] private FishZone _hookZone;
+        [DisplayAsString,
+         ShowInInspector] private float _fishPowerMultiplier;
+        [DisplayAsString,
+         ShowInInspector] private float _hookPowerMultiplier;
         #endregion
         
         #region Fields
@@ -56,8 +58,8 @@ namespace Madduck.Fishing.Controller
         private Tween _fishPositionTween;
         
         #region Blackboard Variables
-        private BlackboardVariable<BlackboardFishZone> _blackBoardFishZone;
-        private BlackboardVariable<BlackboardFishZone> _blackBoardHookZone;
+        private BlackboardVariable<FishZone> _blackBoardFishZone;
+        private BlackboardVariable<FishZone> _blackBoardHookZone;
         private BlackboardVariable<Vector2> _blackBoardFishUnitCirclePosition;
         private BlackboardVariable<Vector2> _blackBoardHookUnitCirclePosition;
         private BlackboardVariable<float> _blackBoardAngleDifference;
@@ -207,7 +209,7 @@ namespace Madduck.Fishing.Controller
             var fishMultiplier = _fishPowerMultiplier;
             var hookMultiplier = _hookPowerMultiplier;
             var pullPercent = _pullPercent;
-            var fatigue = (rodPower * hookMultiplier * pullPercent) - (fishPower * fishMultiplier);
+            var fatigue = (rodPower * hookMultiplier * pullPercent.AsFraction) - (fishPower * fishMultiplier);
             var currentFatigue = _model.CurrentFatigueLevel.Value;
             currentFatigue += fatigue * Time.deltaTime;
             currentFatigue = Mathf.Clamp(currentFatigue, 0, _config.MaxFatigueLevel);
@@ -252,9 +254,9 @@ namespace Madduck.Fishing.Controller
         /// Play the fishing line tension sound based on the durability percentage.
         /// </summary>
         /// <param name="durabilityPercent">The current durability percentage of the fishing line.</param>
-        private void PlayTensionSound(float durabilityPercent)
+        private void PlayTensionSound(Percentage durabilityPercent)
         {
-            _fishingLineTensionSfx.eventInstance.setParameterByName("Tension", 1 - durabilityPercent);
+            _fishingLineTensionSfx.eventInstance.setParameterByName("Tension", durabilityPercent.AsInverseFraction);
         }
 
         /// <summary>
@@ -289,7 +291,7 @@ namespace Madduck.Fishing.Controller
             var mouseDelta = delta * _config.MouseSensitivity;
             var circleCenter = redBoard.Center;
             var hookToCenter = (circleCenter - hookPosition).normalized;
-            var inertiaForce = (1 - _model.FishingLineDurabilityPercent.CurrentValue) * _config.Inertia;
+            var inertiaForce = _model.FishingLineDurabilityPercent.CurrentValue.AsInverseFraction * _config.Inertia;
             hookPosition += hookToCenter * (inertiaForce * Time.deltaTime);
             hookPosition += mouseDelta * Time.deltaTime;
             _model.HookPosition.Value = ClampPosition(hookPosition);
@@ -336,12 +338,12 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private void UpdateBehaviourGraphVariables()
         {
-            _blackBoardFishZone.Value = (BlackboardFishZone)(int)_fishZone;
-            _blackBoardHookZone.Value = (BlackboardFishZone)(int)_hookZone;
+            _blackBoardFishZone.Value = (FishZone)(int)_fishZone;
+            _blackBoardHookZone.Value = (FishZone)(int)_hookZone;
             _blackBoardFishUnitCirclePosition.Value = _fishUnitCirclePosition;
             _blackBoardHookUnitCirclePosition.Value = _hookUnitCirclePosition;
             _blackBoardAngleDifference.Value = _angleDifference;
-            _blackBoardFatiguePercent.Value = _model.FatigueLevelPercent.CurrentValue;
+            _blackBoardFatiguePercent.Value = _model.FatigueLevelPercent.CurrentValue.AsFraction;
         }
 
         /// <summary>
@@ -362,7 +364,7 @@ namespace Madduck.Fishing.Controller
             Vector2 pullDirection = _model.HookPosition.Value - circleCenter;
             Vector2 fishDirection = _model.FishPosition.Value - circleCenter;
             _angleDifference = Vector2.Angle(pullDirection, fishDirection);
-            _pullPercent = _angleDifference / 180f;
+            _pullPercent = Percentage.FromFraction(_angleDifference / 180f);
         }
 
         /// <summary>
@@ -499,7 +501,7 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         /// <param name="fishZone">The fish zone to get the random position from.</param>
         /// <returns>Random position within the specified fish zone.</returns>
-        private Vector2 GetRandomPositionOnFishZone(FishZone fishZone)
+        public Vector2 GetRandomPositionOnFishZone(FishZone fishZone)
         {
             var index = (int)fishZone;
             var previousIndex = Mathf.Max(0, index - 1);
@@ -510,16 +512,6 @@ namespace Madduck.Fishing.Controller
             var threshold = UnityEngine.Random.Range(previousThreshold, currentThreshold);
             var randomPosition = UnityEngine.Random.insideUnitCircle.normalized * threshold;
             return randomPosition;
-        }
-        
-        /// <summary>
-        /// Get a random position within the specified fish zone by casting from BlackboardFishZone to FishZone.
-        /// </summary>
-        /// <param name="blackboardFishZone">The fish zone to get the random position from.</param>
-        /// <returns>Random position within the specified fish zone.</returns>
-        public Vector2 GetRandomPositionOnFishZoneBlackboard(BlackboardFishZone blackboardFishZone)
-        {
-            return GetRandomPositionOnFishZone((FishZone)blackboardFishZone);
         }
         
         /// <summary>

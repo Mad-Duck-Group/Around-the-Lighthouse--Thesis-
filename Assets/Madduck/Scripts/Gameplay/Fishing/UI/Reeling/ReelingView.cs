@@ -63,14 +63,14 @@ namespace Madduck.Fishing.UI
             }
             else
             {
-                SetReelingProgress(0f);
+                SetReelingProgress(Percentage.FromPercentage(0f));
             }
             gameObject.SetActive(active);
         }
         
-        private void SetReelingProgress(float progress)
+        private void SetReelingProgress(Percentage progressPercent)
         {
-            reelingSlider.value = progress;
+            reelingSlider.value = progressPercent.AsFraction;
         }
     }
 }

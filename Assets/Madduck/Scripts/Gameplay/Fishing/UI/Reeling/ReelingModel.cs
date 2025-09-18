@@ -2,6 +2,7 @@
 using Madduck.Fishing.Shared;
 using Madduck.GameData;
 using Madduck.GameData.Fisherman;
+using Madduck.Utils;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -12,8 +13,8 @@ namespace Madduck.Fishing.UI
     public class ReelingModel : IDisposable
     {
         [field: SerializeField] public SerializableReactiveProperty<bool> IsActive { get; private set; }
-        [field: SerializeField] public SerializableReactiveProperty<float> CurrentReelingProgress { get; private set; }
-        [field: SerializeField] public SerializableReactiveProperty<float> MaxReelingProgress { get; private set; }
+        [field: SerializeField] public SerializableReactiveProperty<UFloat> CurrentReelingProgress { get; private set; }
+        [field: SerializeField] public SerializableReactiveProperty<UFloat> MaxReelingProgress { get; private set; }
         [field: SerializeField] public FishingRodItemInstance FishingRodInstance { get; private set; }
         [field: SerializeField] public FishItemInstance FishInstance { get; private set; }
 
@@ -36,9 +37,9 @@ namespace Madduck.Fishing.UI
             var disposableBuilder = Disposable.CreateBuilder();
             IsActive = new SerializableReactiveProperty<bool>(false)
                 .AddTo(ref disposableBuilder);
-            CurrentReelingProgress = new SerializableReactiveProperty<float>(0f)
+            CurrentReelingProgress = new SerializableReactiveProperty<UFloat>(0f)
                 .AddTo(ref disposableBuilder);
-            MaxReelingProgress = new SerializableReactiveProperty<float>(_config.MaxReelingValue)
+            MaxReelingProgress = new SerializableReactiveProperty<UFloat>(_config.MaxReelingValue)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }

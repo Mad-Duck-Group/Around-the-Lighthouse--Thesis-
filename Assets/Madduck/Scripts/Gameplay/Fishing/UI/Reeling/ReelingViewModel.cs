@@ -1,5 +1,7 @@
 ﻿using System;
+using Madduck.Utils;
 using R3;
+using UnityEngine;
 using VContainer;
 
 namespace Madduck.Fishing.UI
@@ -7,7 +9,7 @@ namespace Madduck.Fishing.UI
     public class ReelingViewModel : IDisposable
     {
         public ReadOnlyReactiveProperty<bool> IsActive { get; private set; }
-        public ReadOnlyReactiveProperty<float> ReelingProgressPercent { get; private set; }
+        public ReadOnlyReactiveProperty<Percentage> ReelingProgressPercent { get; private set; }
 
         private readonly ReelingModel _model;
         private IDisposable _bindings;
@@ -25,7 +27,9 @@ namespace Madduck.Fishing.UI
             IsActive = _model.IsActive.ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
             ReelingProgressPercent = _model.CurrentReelingProgress
-                .CombineLatest(_model.MaxReelingProgress, (current, max) => max == 0f ? 0f : current / max)
+                .CombineLatest(_model.MaxReelingProgress, (current, max) => max == 0f 
+                    ? Percentage.FromFraction(0f) 
+                    : Percentage.FromFraction(Mathf.Clamp01(current / max)))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();

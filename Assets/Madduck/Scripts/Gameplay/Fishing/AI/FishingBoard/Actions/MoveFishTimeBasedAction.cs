@@ -10,7 +10,7 @@ using Action = Unity.Behavior.Action;
 namespace Madduck.Fishing.AI
 {
     [Serializable, GeneratePropertyBag]
-    [NodeDescription(name: "MoveFishTimeBased", story: "Move fish to [TargetPosition] of [FishingBoard] in [Duration] seconds", category: "Action", id: "e3a7fa1ac8e1d556bfdccadd599ea0e0")]
+    [NodeDescription(name: "MoveFishTimeBased", story: "Move fish to [TargetPosition] of [FishingBoard] in [Duration] seconds", category: "Action/Fish", id: "e3a7fa1ac8e1d556bfdccadd599ea0e0")]
     public partial class MoveFishTimeBasedAction : Action
     {
         [SerializeReference] public BlackboardVariable<Vector2> TargetPosition;

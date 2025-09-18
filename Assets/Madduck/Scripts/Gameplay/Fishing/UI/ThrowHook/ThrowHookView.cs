@@ -61,7 +61,7 @@ namespace Madduck.Fishing.UI
             }
             else
             {
-                ChangeThrowHookSlider(0f);
+                ChangeThrowHookSlider(Percentage.FromPercentage(0f));
             }
             gameObject.SetActive(active);
         }
@@ -72,9 +72,9 @@ namespace Madduck.Fishing.UI
             _isActiveSubscription?.Dispose();
         }
         
-        private void ChangeThrowHookSlider(float value)
+        private void ChangeThrowHookSlider(Percentage throwPercent)
         {
-            throwHookSlider.value = value;
+            throwHookSlider.value = throwPercent.AsFraction;
         }
     }
 }

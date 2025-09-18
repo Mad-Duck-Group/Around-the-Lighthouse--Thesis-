@@ -1,3 +1,4 @@
+using Madduck.Utils;
 using PrimeTween;
 using Shapes2D;
 using Sirenix.OdinInspector;
@@ -117,17 +118,18 @@ namespace Madduck.Fishing.UI
         /// Handle the tension of the fishing line based on durability percentage.
         /// </summary>
         /// <param name="durabilityPercent"></param>
-        public void HandleTension(float durabilityPercent)
+        public void HandleTension(Percentage durabilityPercent)
         {
-            switch (durabilityPercent)
+            var percent = durabilityPercent.AsPercentage;
+            switch (percent)
             {
-                case <= 0.3f:
+                case <= 30f:
                     _fishlineTension = FishLineTension.High;
                     break;
-                case <= 0.5f:
+                case <= 50f:
                     _fishlineTension = FishLineTension.Medium;
                     break;
-                case <= 0.7f:
+                case <= 70f:
                     _fishlineTension = FishLineTension.Low;
                     break;
                 default:
