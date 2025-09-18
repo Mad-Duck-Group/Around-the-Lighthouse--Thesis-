@@ -6,7 +6,7 @@ using VContainer.Unity;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset
+namespace Madduck.RoomPreset
 {
     public class RoomPresetManager : IStartable
     {
@@ -16,13 +16,13 @@ namespace Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset
         [Title("Debug"),
          BoxGroup("Debug"),
          HideLabel, ReadOnly,
-         ShowInInspector] private  List<global::Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset> _presets;
+         ShowInInspector] private  List<global::Madduck.RoomPreset.RoomPreset> _presets;
 
         #endregion
         
         #region Inject
         [Inject]
-        public RoomPresetManager(List<global::Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset> presets)
+        public RoomPresetManager(List<global::Madduck.RoomPreset.RoomPreset> presets)
         {
             _presets = presets;
         }
@@ -41,10 +41,10 @@ namespace Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset
         
         #region RoomManagement
 
-        public global::Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset SpawnRandomRoom(Vector3 pos, Quaternion rot)
+        public global::Madduck.RoomPreset.RoomPreset SpawnRandomRoom(Vector3 pos, Quaternion rot)
         {
             int index = Random.Range(0, _presets.Count);
-            global::Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset instance = Object.Instantiate(_presets[index], pos, rot);
+            global::Madduck.RoomPreset.RoomPreset instance = Object.Instantiate(_presets[index], pos, rot);
             
             instance.ApplySprites();
             return instance;

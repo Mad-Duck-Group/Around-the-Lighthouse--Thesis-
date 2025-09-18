@@ -12,6 +12,7 @@ using Sirenix.OdinInspector;
 using Unity.Behavior;
 using UnityEngine;
 using VContainer;
+using Action = System.Action;
 
 namespace Madduck.Fishing.Controller
 {
@@ -44,6 +45,7 @@ namespace Madduck.Fishing.Controller
         
         #region Fields
         public event Action<Sign> OnFishingBoardResult;
+        public event Action OnInitializeBehaviorGraph;
         private readonly FishingBoardModel _model;
         private readonly PlayerInputHandler _playerInput;
         private readonly FishingBoardConfig _config;
@@ -329,6 +331,7 @@ namespace Madduck.Fishing.Controller
             _agent.GetVariable("HookUnitCirclePosition", out _blackBoardHookUnitCirclePosition);
             _agent.GetVariable("AngleDifference", out _blackBoardAngleDifference);
             _agent.GetVariable("FatiguePercent", out _blackBoardFatiguePercent);
+            OnInitializeBehaviorGraph?.Invoke();
             _agent.Restart();
             _agent.Start();
         }

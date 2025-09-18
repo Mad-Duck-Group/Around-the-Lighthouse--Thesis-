@@ -4,7 +4,7 @@ using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset
+namespace Madduck.RoomPreset
 {
     public class RoomPreset : MonoBehaviour
     {

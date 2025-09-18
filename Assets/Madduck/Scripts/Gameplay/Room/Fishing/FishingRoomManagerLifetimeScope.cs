@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Madduck.GameData;
-using Madduck.RoomPreset.Madduck.Scripts.Gameplay.RoomPreset;
+using Madduck.RoomPreset;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -38,7 +38,7 @@ namespace Madduck.Room
         [Required,
          SerializeField] private WeatherWeightTable weatherWeightTable;
         [Required,
-         SerializeField] private List<RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset> roomPresets;
+         SerializeField] private List<RoomPreset.RoomPreset> roomPresets;
         
 #if UNITY_EDITOR
         [Title("Debug")]
@@ -47,19 +47,15 @@ namespace Madduck.Room
         private void OpenDebugWindow()
         {
             DebugEditorWindow.Inspect(_fishingRoomManagerDebugData, "Fishing Room Manager Debug");
-            DebugEditorWindow.Inspect(_dayManagerDebugData, "Room Preset Manager Debug");
         }
         
         private FishingRoomManagerDebugData _fishingRoomManagerDebugData;
-        private RoomPresetManagerDebugData _dayManagerDebugData;
-        
-        
 #endif
         
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(weatherWeightTable.GetInstance()).AsSelf();
-            builder.RegisterInstance(roomPresets).As<List<RoomPreset.Madduck.Scripts.Gameplay.RoomPreset.RoomPreset>>();
+            builder.RegisterInstance(roomPresets).As<List<RoomPreset.RoomPreset>>();
             builder.RegisterEntryPoint<FishingRoomManager>().AsSelf();
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
             builder.RegisterBuildCallback(container =>

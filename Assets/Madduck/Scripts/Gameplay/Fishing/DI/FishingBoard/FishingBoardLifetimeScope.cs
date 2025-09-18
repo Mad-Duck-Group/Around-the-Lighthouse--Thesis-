@@ -4,6 +4,7 @@ using Madduck.Fishing.Shared;
 using Madduck.Fishing.StateMachine;
 using Madduck.Fishing.UI;
 using Madduck.Utils;
+using R3;
 using Sirenix.OdinInspector;
 using Unity.Behavior;
 using UnityEngine;
@@ -68,6 +69,12 @@ namespace Madduck.Fishing.DI
                 var fishingBoardState = x.Resolve<FishingBoardState>();
                 var stateMachine = x.Resolve<FishingStateMachine>();
                 stateMachine.AddState(FishingStateType.FishingBoard, fishingBoardState);
+                var controller = x.Resolve<FishingBoardController>();
+                Observable.FromEvent(
+                        h => controller.OnInitializeBehaviorGraph += h,
+                        h => controller.OnInitializeBehaviorGraph -= h)
+                    .Subscribe(_ => OnBehaviorGraphInitialized())
+                    .AddTo(this);
 #if UNITY_EDITOR
                 var fishingBoardModel= x.Resolve<FishingBoardModel>();
                 var fishingBoardController = x.Resolve<FishingBoardController>();
@@ -78,6 +85,11 @@ namespace Madduck.Fishing.DI
 #endif
             });
 
+        }
+        
+        private void OnBehaviorGraphInitialized()
+        {
+            behaviorGraphAgent.SetVariableValue("FishingBoard", this);
         }
     }
 }

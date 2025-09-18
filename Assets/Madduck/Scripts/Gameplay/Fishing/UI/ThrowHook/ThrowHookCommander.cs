@@ -51,7 +51,7 @@ namespace Madduck.Fishing.UI
         
         private void OnThrowHookHeld()
         {
-            var currentValue = _model.ThrowHookCurrentValue.Value;
+            var currentValue = (float)_model.ThrowHookCurrentValue.Value;
             var maxValue = _model.ThrowHookMaxValue.Value;
             if (currentValue >= maxValue && _throwHookSliderDirection is Sign.Positive)
             {
@@ -61,8 +61,8 @@ namespace Madduck.Fishing.UI
             {
                 _throwHookSliderDirection = Sign.Positive;
             }
-            _model.ThrowHookCurrentValue.Value += (int)_throwHookSliderDirection 
-                                                  * ((float)_config.ThrowHookSliderSpeed * Time.deltaTime);
+            _model.ThrowHookCurrentValue.Value = currentValue + (int)_throwHookSliderDirection 
+                * ((float)_config.ThrowHookSliderSpeed * Time.deltaTime);
         }
         
         private void OnThrowHookReleased()

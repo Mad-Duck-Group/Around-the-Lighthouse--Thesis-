@@ -120,7 +120,7 @@ namespace Madduck.Utils
         {
             if (newValue < 0)
             {
-                DebugUtils.LogWarning("UFloat value cannot be negative. Setting to 0.");
+                //DebugUtils.LogWarning("UFloat value cannot be negative. Setting to 0.");
                 newValue = 0;
                 return false;
             }
