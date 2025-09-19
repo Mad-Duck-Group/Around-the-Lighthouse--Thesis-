@@ -16,12 +16,12 @@ namespace Madduck.Fishing.AI
         [SerializeReference] public BlackboardVariable<Vector2> TargetPosition;
         [SerializeReference] public BlackboardVariable<FishingBoardLifetimeScope> FishingBoard;
         [SerializeReference] public BlackboardVariable<float> Duration;
-        private FishingBoardController _fishingBoardController;
+        private IFishingBoardAIController _fishingBoardAIController;
 
         protected override Status OnStart()
         {
-            _fishingBoardController ??= FishingBoard.Value.Container.Resolve<FishingBoardController>();
-            _fishingBoardController.MoveFishTimeBased(TargetPosition.Value, Duration.Value);
+            _fishingBoardAIController ??= FishingBoard.Value.Container.Resolve<IFishingBoardAIController>();
+            _fishingBoardAIController.MoveFishTimeBased(TargetPosition.Value, Duration.Value);
             return Status.Running;
         }
 

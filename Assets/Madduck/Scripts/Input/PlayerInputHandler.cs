@@ -9,119 +9,48 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace Madduck.Input
 {
-    public enum InputType
-    {
-        UI = 0,
-        NonUI = 1
-    }
-    
-    #region Data Structures
-
-        [Serializable]
-        public record InputButton(InputAction InputAction)
-        {
-            public InputAction InputAction { get; private set; } = InputAction;
-
-            [ShowInInspector, DisplayAsString]
-            public string ButtonName =>
-                InputAction != null
-                    ? InputAction.GetBindingDisplayString(UnityEngine.InputSystem.InputBinding.DisplayStringOptions.DontIncludeInteractions)
-                    : string.Empty;
-            public SerializableReactiveProperty<bool> IsDown { get; private set; } = new(false);
-            public SerializableReactiveProperty<bool> IsUp { get; private set; } = new(false);
-            public SerializableReactiveProperty<bool> IsHeld { get; private set; } = new(false);
-            public SerializableReactiveProperty<bool> IsUpAfterHeld { get; private set; } = new(false);
-            public InputBinding? InputBinding { get; private set; }
-            private bool _heldLastTime;
-
-            public void BindPressButton(InputAction.CallbackContext context)
-            {
-                IsDown.Value = context.performed;
-                IsUp.Value = context.canceled;
-                IsHeld.Value = context.performed;
-                IsUpAfterHeld.Value = context.canceled;
-                _heldLastTime = context.performed;
-                InputBinding = context.action.GetBindingForControl(context.control);
-                ButtonPressTask().Forget();
-            }
-
-            private async UniTaskVoid ButtonPressTask()
-            {
-                await UniTask.WaitForEndOfFrame();
-                IsDown.Value = false;
-                if (!IsHeld.Value)
-                {
-                    IsUp.Value = false;
-                    IsUpAfterHeld.Value = false;
-                }
-            }
-
-            public void BindHoldButton(InputAction.CallbackContext context)
-            {
-                InputBinding = context.action.GetBindingForControl(context.control);
-                switch (context)
-                {
-                    case { started: true, performed: false }:
-                        IsDown.Value = true;
-                        IsHeld.Value = false;
-                        IsUp.Value = false;
-                        IsUpAfterHeld.Value = false;
-                        _heldLastTime = false;
-                        ButtonPressTask().Forget();
-                        break;
-                    case { performed: true }:
-                        IsDown.Value = false;
-                        IsHeld.Value = true;
-                        IsUp.Value = false;
-                        IsUpAfterHeld.Value = false;
-                        _heldLastTime = true;
-                        break;
-                    case { canceled: true }:
-                        IsDown.Value = false;
-                        IsHeld.Value = false;
-                        IsUp.Value = true;
-                        IsUpAfterHeld.Value = _heldLastTime;
-                        ButtonPressTask().Forget();
-                        break;
-                }
-            }
-        }
-
-        #endregion
-    
     /// <summary>
     /// Handle player inputs.
     /// </summary>
     [Serializable]
-    public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
+    public class PlayerInputHandler : 
+        MonoBehaviour, 
+        PlayerInputAction.IPlayerActions, 
+        IPlayerInputHandler
     {
         #region Inspector
 
         #region Values
-
-        [field: ShowInInspector, ReadOnly] public bool AnyButtonPressed { get; private set; }
-        [field: ShowInInspector, ReadOnly] public Vector2 MovementInput { get; private set; }
-
-        [field: ShowInInspector, ReadOnly]
-        public SerializableReactiveProperty<Vector2> MouseDelta { get; private set; } = new();
-
-        [field: ShowInInspector, ReadOnly]
-        public SerializableReactiveProperty<Vector2> GamepadHookControl { get; private set; } = new();
-
-        [field: ShowInInspector, ReadOnly] public float BoatInput { get; private set; }
-
+        [field: ReadOnly, 
+                ShowInInspector] public SerializableReactiveProperty<bool> AnyButtonPressed { get; private set; } = new();
+        [field: ReadOnly, 
+                ShowInInspector] public SerializableReactiveProperty<Vector2> MovementInput { get; private set; } = new();
+        [field: ReadOnly, 
+                ShowInInspector] public SerializableReactiveProperty<Vector2> MouseDelta { get; private set; } = new();
+        [field: ReadOnly, 
+                ShowInInspector] public SerializableReactiveProperty<Vector2> GamepadHookControl { get; private set; } = new();
+        [field: ReadOnly, 
+                ShowInInspector] public SerializableReactiveProperty<float> BoatInput { get; private set; } = new();
         #endregion
 
         #region Buttons
 
-        [field: ShowInInspector, ReadOnly] public InputButton InteractButton { get; private set; }
-        [field: ShowInInspector, ReadOnly] public InputButton JerkBaitButton { get; private set; }
-        [field: ShowInInspector, ReadOnly] public InputBinding[] JerkBindings { get; private set; }
-        [field: ShowInInspector, ReadOnly] public InputButton Action0Button { get; private set; }
-        [field: ShowInInspector, ReadOnly] public InputButton Action1Button { get; private set; }
-        [field: ShowInInspector, ReadOnly] public InputButton ThrowHookButton { get; private set; }
-        [field: ShowInInspector, ReadOnly] public InputButton ReelingButton { get; private set; }
-        [field: ShowInInspector, ReadOnly] public InputButton PauseGameButton { get; private set; }
+        [field: ReadOnly, 
+                ShowInInspector] public InputButton InteractButton { get; private set; }
+        [field: ReadOnly, 
+                ShowInInspector] public InputButton JerkBaitButton { get; private set; }
+        [field: ReadOnly, 
+                ShowInInspector] public InputBinding[] JerkBindings { get; private set; }
+        [field: ReadOnly, 
+                ShowInInspector] public InputButton Action0Button { get; private set; }
+        [field: ReadOnly, 
+                ShowInInspector] public InputButton Action1Button { get; private set; }
+        [field: ReadOnly, 
+                ShowInInspector] public InputButton ThrowHookButton { get; private set; }
+        [field: ReadOnly, 
+                ShowInInspector] public InputButton ReelingButton { get; private set; }
+        [field: ReadOnly, 
+                ShowInInspector] public InputButton PauseGameButton { get; private set; }
 
         #endregion
 
@@ -187,14 +116,14 @@ namespace Madduck.Input
 
         private async UniTaskVoid OnAnyButton()
         {
-            AnyButtonPressed = true;
+            AnyButtonPressed.Value = true;
             await UniTask.WaitForEndOfFrame();
-            AnyButtonPressed = false;
+            AnyButtonPressed.Value = false;
         }
 
         public void OnMovement(InputAction.CallbackContext context)
         {
-            MovementInput = context.ReadValue<Vector2>();
+            MovementInput.Value = context.ReadValue<Vector2>();
         }
 
         public void OnControlBoat(InputAction.CallbackContext context)
@@ -202,11 +131,11 @@ namespace Madduck.Input
             if (context.performed)
             {
                 float input = context.ReadValue<float>();
-                BoatInput = input;
+                BoatInput.Value = input;
             }
             else if (context.canceled)
             {
-                BoatInput = 0f;
+                BoatInput.Value = 0f;
             }
         }
 
@@ -254,29 +183,6 @@ namespace Madduck.Input
         {
             GamepadHookControl.Value = context.ReadValue<Vector2>();
         }
-
-        #endregion
-    }
-
-    public interface IPlayerInputHandler : PlayerInputAction.IPlayerActions
-    {
-        #region Values
-        public bool AnyButtonPressed { get; }
-        public Vector2 MovementInput { get; }
-        public SerializableReactiveProperty<Vector2> MouseDelta { get; }
-        public SerializableReactiveProperty<Vector2> GamepadHookControl { get; }
-        public float BoatInput { get; }
-        #endregion
-
-        #region Buttons
-        public InputButton InteractButton { get; }
-        public InputButton JerkBaitButton { get; }
-        public InputBinding[] JerkBindings { get; }
-        public InputButton Action0Button { get; }
-        public InputButton Action1Button { get; }
-        public InputButton ThrowHookButton { get; }
-        public InputButton ReelingButton { get; }
-        public InputButton PauseGameButton { get; }
         #endregion
     }
 }

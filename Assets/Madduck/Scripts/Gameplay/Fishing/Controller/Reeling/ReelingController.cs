@@ -3,9 +3,11 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
+using Madduck.GameData;
 using Madduck.Input;
 using Madduck.Scripts.Input;
 using Madduck.Utils;
+using MessagePipe;
 using R3;
 using VContainer;
 
@@ -16,9 +18,9 @@ namespace Madduck.Fishing.Controller
         public event Action<Sign> OnReelingResult;
         
         private readonly HookProjectileFactory _hookFactory;
-        private readonly PlayerInputHandler _inputHandler;
         private readonly ReelingCommander _commander;
         private readonly ReelingModel _model;
+        private readonly IPlayerInputHandler _inputHandler;
         private readonly IFishFactory _fishFactory;
         private readonly ITransitionable _viewTransition;
         
@@ -29,9 +31,9 @@ namespace Madduck.Fishing.Controller
         [Inject]
         public ReelingController(
             HookProjectileFactory hookFactory,
-            PlayerInputHandler inputHandler, 
             ReelingCommander commander,
             ReelingModel model,
+            IPlayerInputHandler inputHandler,
             IFishFactory fishFactory,
             ITransitionable viewTransition)
         {
@@ -54,7 +56,7 @@ namespace Madduck.Fishing.Controller
                 .AddTo(ref disposableBuilder);
             _model.CurrentReelingProgress
                 .Where(progress => progress >= _model.MaxReelingProgress.Value)
-                .Subscribe(_ => OnWinReeling().Forget())
+                .Subscribe(_ => OnWinReeling())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -97,10 +99,16 @@ namespace Madduck.Fishing.Controller
             var maxFatigueAttempt = _model.FishInstance.ItemData.MaxFatigueAttempts;
             if (_model.FishInstance.CurrentFatigueCount >= maxFatigueAttempt)
             {
-                OnLoseReeling().Forget();
+                OnLoseReeling();
                 return;
             }
             OnFishRegainConsciousness();
+        }
+        
+        public async UniTask ReturnHook()
+        {
+            await _hookFactory.CurrentHook.Return();
+            _hookFactory.DestroyHook();
         }
         
         private void OnReelingHold()
@@ -108,18 +116,14 @@ namespace Madduck.Fishing.Controller
             _commander.OnReelingHold.Execute(InputType.NonUI);
         }
 
-        private async UniTaskVoid OnWinReeling()
+        private void OnWinReeling()
         {
             OnReelingResult?.Invoke(Sign.Positive);
-            await _hookFactory.CurrentHook.Return();
-            _hookFactory.DestroyHook();
         }
         
-        private async UniTaskVoid OnLoseReeling()
+        private void OnLoseReeling()
         {
             OnReelingResult?.Invoke(Sign.Negative);
-            await _hookFactory.CurrentHook.Return();
-            _hookFactory.DestroyHook();
         }
         
         private void OnFishRegainConsciousness()

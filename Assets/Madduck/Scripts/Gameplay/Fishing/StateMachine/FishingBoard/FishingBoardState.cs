@@ -1,7 +1,9 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Controller;
+using Madduck.GameData;
 using Madduck.Utils;
+using MessagePipe;
 using R3;
 
 namespace Madduck.Fishing.StateMachine
@@ -13,14 +15,17 @@ namespace Madduck.Fishing.StateMachine
     public class FishingBoardState : FishingState
     {
         private readonly FishingBoardController _controller;
+        private readonly IPublisher<FishEscapedEvent> _fishEscapedEventPublisher;
         private IDisposable _fishingBoardResultSubscription;
         
         public FishingBoardState(
             FishingStateMachine stateMachine,
-            FishingBoardController controller) 
+            FishingBoardController controller,
+            IPublisher<FishEscapedEvent> fishEscapedEventPublisher)
             : base(stateMachine)
         {
             _controller = controller;
+            _fishEscapedEventPublisher = fishEscapedEventPublisher;
         }
         
         public override async UniTask Enter()
@@ -55,6 +60,7 @@ namespace Madduck.Fishing.StateMachine
                 case Sign.Negative:
                     DebugUtils.Log("Fish escaped, transitioning to NoneState");
                     stateMachine.ChangeState(FishingStateType.None);
+                    _fishEscapedEventPublisher.Publish(new FishEscapedEvent());
                     break;
                 case Sign.Positive:
                     DebugUtils.Log("Fish is tired, transitioning to ReelingState");

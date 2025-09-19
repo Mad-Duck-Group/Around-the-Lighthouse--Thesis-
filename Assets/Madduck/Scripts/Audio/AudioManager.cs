@@ -13,58 +13,11 @@ using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Madduck.Audio
 {
-    #region Data Structures
-    public interface IAudioIdentifier
-    {
-        public Type GetIdentifierType();
-        public bool TryGetIdentifier<TId>(out TId identifier);
-    }
-
-    public interface IAudioIdentifier<T> : IAudioIdentifier
-    {
-        public T Identifier { get; set; }
-    }
-    
-    public record AudioIdentifier<T> : IAudioIdentifier<T>
-    {
-        public T Identifier { get; set; }
-        
-        public AudioIdentifier(T identifier)
-        {
-            Identifier = identifier;
-        }
-        
-        public Type GetIdentifierType()
-        {
-            return typeof(T);
-        }
-        
-        public bool TryGetIdentifier<TId>(out TId identifier)
-        {
-            if (typeof(TId) == GetIdentifierType())
-            {
-                identifier = (TId)(object)Identifier;
-                return true;
-            }
-            identifier = default;
-            return false;
-        }
-    }
-    
-    public record AudioReference
-    {
-        public EventInstance eventInstance;
-        public readonly IAudioIdentifier identifier;
-        
-        public AudioReference(EventInstance eventInstance, IAudioIdentifier identifier = null)
-        {
-            this.eventInstance = eventInstance;
-            this.identifier = identifier;
-        }
-    }
-    #endregion
-    
-    public class AudioManager : IInitializable, IDisposable
+    public class AudioManager : 
+        IAudioManager,
+        IAudioBusManager,
+        IInitializable, 
+        IDisposable
     {
         private readonly Dictionary<IAudioIdentifier, List<AudioReference>> _indexedAudioReferenceData = new();
         private readonly List<AudioReference> _wildAudioReferenceData = new();

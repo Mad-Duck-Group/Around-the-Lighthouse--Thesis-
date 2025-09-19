@@ -17,12 +17,12 @@ namespace Madduck.Fishing.AI
         [SerializeReference] public BlackboardVariable<Vector2> TargetPosition;
         [SerializeReference] public BlackboardVariable<FishZone> FishZone;
         [SerializeReference] public BlackboardVariable<FishingBoardLifetimeScope> FishingBoard;
-        private FishingBoardController _fishingBoardController;
+        private FishingBoardVariables _fishingBoardVariables;
 
         protected override Status OnStart()
         {
-            _fishingBoardController ??= FishingBoard.Value.Container.Resolve<FishingBoardController>();
-            TargetPosition.Value = _fishingBoardController.GetRandomPositionOnFishZone(FishZone.Value);
+            _fishingBoardVariables ??= FishingBoard.Value.Container.Resolve<FishingBoardVariables>();
+            TargetPosition.Value = _fishingBoardVariables.GetRandomPositionOnFishZone(FishZone.Value);
             return Status.Running;;
         }
 

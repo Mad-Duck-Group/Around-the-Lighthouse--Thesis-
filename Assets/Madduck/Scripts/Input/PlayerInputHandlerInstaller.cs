@@ -14,7 +14,7 @@ namespace Madduck.Input
         
         public void Install(IContainerBuilder builder)
         {
-            builder.RegisterInstance(playerInputHandler).AsSelf();
+            builder.RegisterInstance(playerInputHandler).As<IPlayerInputHandler>();
         }
     }
 }

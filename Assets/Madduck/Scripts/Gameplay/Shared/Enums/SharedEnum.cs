@@ -18,4 +18,12 @@ namespace Madduck.Shared
         Fog = 1 << 2,
         All = Clear | Rain | Fog
     }
+
+    public enum RoomType
+    {
+        Fishing,
+        Shop,
+        Restaurant,
+        Event,
+    }
 }

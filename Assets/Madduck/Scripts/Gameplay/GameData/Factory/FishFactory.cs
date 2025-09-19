@@ -1,15 +1,14 @@
 ﻿using System;
-using Madduck.GameData;
+using Madduck.Shared;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
 
-namespace Madduck.Fishing.Shared
+namespace Madduck.GameData
 {
-    public interface IFishFactory
+    public interface IFishFactory : IGenericFactory<FishItemInstance>
     {
         public FishItemInstance CurrentFish { get; }
-        public FishItemInstance GetNewFish();
     }
     
     [Serializable]
@@ -27,7 +26,7 @@ namespace Madduck.Fishing.Shared
             _weightTable = weightTable;
         }
 
-        public FishItemInstance GetNewFish()
+        public FishItemInstance Create()
         {
             var fishItem = _weightTable.GetRandomItem();
             CurrentFish = new FishItemInstance(fishItem);
@@ -36,13 +35,19 @@ namespace Madduck.Fishing.Shared
     }
     
     [Serializable]
-    public class TestFishFactory : IFishFactory
+    public class FishFactoryMock : IFishFactory
     {
         [Required, 
          SerializeField] private FishItemData testFishData;
         [field: ReadOnly, HideReferenceObjectPicker,
                 ShowInInspector] public FishItemInstance CurrentFish { get; private set; }
-        public FishItemInstance GetNewFish()
+        public FishFactoryMock(){} // For inspector serialization
+        public FishFactoryMock(FishItemData testFishData)
+        {
+            this.testFishData = testFishData;
+        }
+        
+        public FishItemInstance Create()
         {
             CurrentFish = new FishItemInstance(testFishData);
             return CurrentFish;

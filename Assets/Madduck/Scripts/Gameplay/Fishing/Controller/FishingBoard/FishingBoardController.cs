@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using Madduck.Audio;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
+using Madduck.GameData;
 using Madduck.Input;
 using Madduck.Scripts.Input;
 using Madduck.Utils;
@@ -19,87 +20,50 @@ using Action = System.Action;
 namespace Madduck.Fishing.Controller
 {
     /// <summary>
-    /// Controller for the Fishing Board mini-game. Handles non-UI input and AI logic.
+    /// Controller for the Fishing Board mini-game. Handles non-UI input.
     /// </summary>
     public class FishingBoardController : IDisposable
     {
-        #region Inspector
-        [Title("Debug"), 
-            HideLabel,
-            ShowInInspector] private InspectorPlaceholder _debugTitle;
-        [DisplayAsString,
-         ShowInInspector] private float _angleDifference;
-        [DisplayAsString,
-         ShowInInspector] private Percentage _pullPercent;
-        [DisplayAsString,
-         ShowInInspector] private Vector2 _fishUnitCirclePosition;
-        [DisplayAsString,
-         ShowInInspector] private Vector2 _hookUnitCirclePosition;
-        [DisplayAsString,
-         ShowInInspector] private FishZone _fishZone;
-        [DisplayAsString,
-         ShowInInspector] private FishZone _hookZone;
-        [DisplayAsString,
-         ShowInInspector] private float _fishPowerMultiplier;
-        [DisplayAsString,
-         ShowInInspector] private float _hookPowerMultiplier;
-        #endregion
-        
         #region Fields
         public event Action<Sign> OnFishingBoardResult;
-        public event Action OnInitializeBehaviorGraph;
         private readonly FishingBoardModel _model;
-        private readonly PlayerInputHandler _playerInput;
+        private readonly FishingBoardVariables _variables;
         private readonly FishingBoardConfig _config;
-        private readonly BehaviorGraphAgent _agent;
-        private readonly AudioManager _audioManager;
         private readonly HookProjectileFactory _hookFactory;
+        private readonly IAudioManager _audioManager;
+        private readonly IPlayerInputHandler _playerInput;
+        private readonly IFishingBoardAIController _aiController;
         private readonly IFishFactory _fishFactory;
         private readonly ITransitionable _viewTransition;
-        private readonly ICircleBoard _circleBoard;
         
         private IDisposable _updateSubscription;
         private IDisposable _bindings;
-        private Dictionary<FishZone, CircleBoardState> _circleBoardState;
-        private CircleBoardState RedBoard => _circleBoardState[FishZone.Red];
-        private CircleBoardState YellowBoard => _circleBoardState[FishZone.Yellow];
-        private CircleBoardState GreenBoard => _circleBoardState[FishZone.Green];
         private AudioReference _fishingLineTensionSfx;
         private CancellationTokenSource _transitionCts = new();
-        private Tween _fishPositionTween;
-        
-        #region Blackboard Variables
-        private BlackboardVariable<FishZone> _blackBoardFishZone;
-        private BlackboardVariable<FishZone> _blackBoardHookZone;
-        private BlackboardVariable<Vector2> _blackBoardFishUnitCirclePosition;
-        private BlackboardVariable<Vector2> _blackBoardHookUnitCirclePosition;
-        private BlackboardVariable<float> _blackBoardAngleDifference;
-        private BlackboardVariable<float> _blackBoardFatiguePercent;
-        #endregion
         #endregion
 
         #region Injection
         [Inject]
         public FishingBoardController(
             FishingBoardModel model, 
-            PlayerInputHandler playerInput,
+            FishingBoardVariables variables,
             FishingBoardConfig config,
-            BehaviorGraphAgent agent,
-            AudioManager audioManager,
             HookProjectileFactory hookFactory,
+            IAudioManager audioManager,
+            IPlayerInputHandler playerInput,
+            IFishingBoardAIController aiController,
             IFishFactory fishFactory,
-            ITransitionable viewTransition,
-            ICircleBoard circleBoard)
+            ITransitionable viewTransition)
         {
             _model = model;
+            _variables = variables;
             _playerInput = playerInput;
             _config = config;
-            _agent = agent;
-            _audioManager = audioManager;
             _hookFactory = hookFactory;
+            _audioManager = audioManager;
+            _aiController = aiController;
             _fishFactory = fishFactory;
             _viewTransition = viewTransition;
-            _circleBoard = circleBoard;
         }
         #endregion
         
@@ -112,18 +76,18 @@ namespace Madduck.Fishing.Controller
                     .Subscribe(x =>
                     {
                         FindFishAngle();
-                        _fishUnitCirclePosition = GetUnitCircle(x);
-                        _fishZone = GetFishZone(_fishUnitCirclePosition.magnitude);
-                        _fishPowerMultiplier = GetPowerMultiplier(_fishUnitCirclePosition);
+                        _variables.FishUnitCirclePosition = _variables.GetUnitCircle(x);
+                        _variables.FishZone = _variables.GetFishZone(_variables.FishUnitCirclePosition.magnitude);
+                        _variables.FishPowerMultiplier = _variables.GetPowerMultiplier(_variables.FishUnitCirclePosition);
                     })
                     .AddTo(ref disposableBuilder);
             _model.HookPosition
                     .Subscribe(x =>
                     {
                         FindFishAngle();
-                        _hookUnitCirclePosition = GetUnitCircle(x);
-                        _hookZone = GetFishZone(_hookUnitCirclePosition.magnitude);
-                        _hookPowerMultiplier = GetPowerMultiplier(_hookUnitCirclePosition);
+                        _variables.HookUnitCirclePosition = _variables.GetUnitCircle(x);
+                        _variables.HookZone = _variables.GetFishZone(_variables.HookUnitCirclePosition.magnitude);
+                        _variables.HookPowerMultiplier = _variables.GetPowerMultiplier(_variables.HookUnitCirclePosition);
                     })
                     .AddTo(ref disposableBuilder);
             _playerInput.MouseDelta
@@ -152,8 +116,7 @@ namespace Madduck.Fishing.Controller
             _transitionCts = new CancellationTokenSource();
             if (active)
             {
-                _circleBoardState = _circleBoard.CircleBoardStates;
-                SetFishPosition(Vector2.zero);
+                _aiController.SetFishPosition(Vector2.zero);
                 SetHookPosition(Vector2.zero);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 _model.SetFishInstance(_fishFactory.CurrentFish);
@@ -164,7 +127,7 @@ namespace Madduck.Fishing.Controller
             {
                 StopFishingBoard();
                 await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
-                SetFishPosition(Vector2.zero);
+                _aiController.SetFishPosition(Vector2.zero);
                 SetHookPosition(Vector2.zero);
             }
         }
@@ -176,7 +139,7 @@ namespace Madduck.Fishing.Controller
         
         public void ResetCircleBoardSprite()
         {
-            _circleBoard.ResetCircleBoardSprite();
+            _variables.ResetCircleBoardSprite();
         }
         #endregion
 
@@ -187,7 +150,7 @@ namespace Madduck.Fishing.Controller
         private void StartFishingBoard()
         {
             ResetFatigueLevel();
-            InitializeBehaviorGraph();
+            _aiController.InitializeBehaviorGraph();
             _model.MaxFatigueLevel.Value = _config.MaxFatigueLevel;
             _fishingLineTensionSfx = _audioManager.PlayAudio(_config.FishingLineTensionSfx, Vector3.zero);
             _updateSubscription = Observable.EveryUpdate().Subscribe(_ => Update());
@@ -200,7 +163,7 @@ namespace Madduck.Fishing.Controller
         {
             UpdateFatigueLevel();
             UpdateFishingLineDurability();
-            UpdateBehaviourGraphVariables();
+            _aiController.UpdateBehaviourGraphVariables();
         }
 
         /// <summary>
@@ -209,10 +172,9 @@ namespace Madduck.Fishing.Controller
         private void StopFishingBoard()
         {
             _updateSubscription?.Dispose();
-            MoveFishTimeBased(Vector2.zero, 1f);
+            _aiController.MoveFishTimeBased(Vector2.zero, 1f);
             PlayTensionSound(_model.FishingLineDurabilityPercent.CurrentValue);
-            ShutdownBehaviorGraph();
-            _agent.enabled = false;
+            _aiController.ShutdownBehaviorGraph();
             _audioManager.StopAudio(_fishingLineTensionSfx);
         }
         
@@ -231,9 +193,9 @@ namespace Madduck.Fishing.Controller
         {
             var fishPower = (float)_model.FishItemInstance.ItemData.Power;
             var rodPower = (float)_model.FishingRodItemInstance.CurrentPower;
-            var fishMultiplier = _fishPowerMultiplier;
-            var hookMultiplier = _hookPowerMultiplier;
-            var pullPercent = _pullPercent;
+            var fishMultiplier = _variables.FishPowerMultiplier;
+            var hookMultiplier = _variables.HookPowerMultiplier;
+            var pullPercent = _variables.PullPercent;
             var fatigue = (rodPower * hookMultiplier * pullPercent.AsFraction) - (fishPower * fishMultiplier);
             var currentFatigue = (float)_model.CurrentFatigueLevel.Value;
             currentFatigue += fatigue * Time.deltaTime;
@@ -258,8 +220,8 @@ namespace Madduck.Fishing.Controller
             var currentFish = _model.FishItemInstance;
             var fishPower = (float)currentFish.ItemData.Power;
             var rodPower = (float)currentRod.CurrentPower;
-            var fishMultiplier = _fishPowerMultiplier;
-            var hookMultiplier = _hookPowerMultiplier;
+            var fishMultiplier = _variables.FishPowerMultiplier;
+            var hookMultiplier = _variables.HookPowerMultiplier;
             var fishingLineTension = (rodPower * hookMultiplier) + (fishPower * fishMultiplier);
             var regenFactor = (float)currentRod.CurrentFishingLineRegenFactor;
             var final = regenFactor - fishingLineTension;
@@ -312,9 +274,9 @@ namespace Madduck.Fishing.Controller
         {
             var hookPosition = _model.HookPosition.Value;
             var mouseDelta = delta * _config.MouseSensitivity;
-            var circleCenter = RedBoard.Center;
+            var circleCenter = _variables.RedBoard.Center;
             var hookToCenter = (circleCenter - hookPosition).normalized;
-            var inertiaForce = _model.FishingLineDurabilityPercent.CurrentValue.AsInverseFraction * _config.Inertia;
+            var inertiaForce = _model.FishingLineDurabilityPercent.CurrentValue.AsInverseFraction * (float)_config.Inertia;
             hookPosition += hookToCenter * (inertiaForce * Time.deltaTime);
             hookPosition += mouseDelta * Time.deltaTime;
             _model.HookPosition.Value = ClampPosition(hookPosition);
@@ -330,121 +292,11 @@ namespace Madduck.Fishing.Controller
         /// <param name="target"></param>
         private Vector2 ClampPosition(Vector2 target)
         {
-            var centerToPosition = (RedBoard.Center - target).normalized;
-            var maxMagnitude = RedBoard.Radius * centerToPosition.magnitude;
+            var centerToPosition = (_variables.RedBoard.Center - target).normalized;
+            var maxMagnitude = _variables.RedBoard.Radius * centerToPosition.magnitude;
             return Vector2.ClampMagnitude(target, maxMagnitude);
         }
         #endregion
-        
-        #region AI Logic
-        /// <summary>
-        /// Initialize the behavior graph for fish behavior.
-        /// </summary>
-        private void InitializeBehaviorGraph()
-        {
-            _agent.enabled = true;
-            _agent.Graph = _model.FishItemInstance.ItemData.BehaviorGraph;
-            _agent.Init();
-            _agent.GetVariable("FishZone", out _blackBoardFishZone);
-            _agent.GetVariable("HookZone", out _blackBoardHookZone);
-            _agent.GetVariable("FishUnitCirclePosition", out _blackBoardFishUnitCirclePosition);
-            _agent.GetVariable("HookUnitCirclePosition", out _blackBoardHookUnitCirclePosition);
-            _agent.GetVariable("AngleDifference", out _blackBoardAngleDifference);
-            _agent.GetVariable("FatiguePercent", out _blackBoardFatiguePercent);
-            OnInitializeBehaviorGraph?.Invoke();
-            _agent.Restart();
-            _agent.Start();
-        }
-
-        /// <summary>
-        /// Update the behavior graph variables with the current state of the fishing board.
-        /// </summary>
-        private void UpdateBehaviourGraphVariables()
-        {
-            _blackBoardFishZone.Value = (FishZone)(int)_fishZone;
-            _blackBoardHookZone.Value = (FishZone)(int)_hookZone;
-            _blackBoardFishUnitCirclePosition.Value = _fishUnitCirclePosition;
-            _blackBoardHookUnitCirclePosition.Value = _hookUnitCirclePosition;
-            _blackBoardAngleDifference.Value = _angleDifference;
-            _blackBoardFatiguePercent.Value = _model.FatigueLevelPercent.CurrentValue.AsFraction;
-        }
-
-        /// <summary>
-        /// Shutdown the behavior graph when the mini-game ends.
-        /// </summary>
-        private void ShutdownBehaviorGraph()
-        {
-            _agent.End();
-            _agent.enabled = false;
-        }
-        
-        /// <summary>
-        /// Find the angle difference between the fish and the hook relative to the center of the circle board.
-        /// </summary>
-        private void FindFishAngle()
-        {
-            Vector2 circleCenter = RedBoard.Center;
-            Vector2 pullDirection = _model.HookPosition.Value - circleCenter;
-            Vector2 fishDirection = _model.FishPosition.Value - circleCenter;
-            _angleDifference = Vector2.Angle(pullDirection, fishDirection);
-            _pullPercent = Percentage.FromFraction(_angleDifference / 180f);
-        }
-
-        /// <summary>
-        /// Get the fish zone based on the magnitude of the unit circle position.
-        /// </summary>
-        /// <param name="unitCircleMagnitude">Magnitude of the unit circle position (0 to 1).</param>
-        /// <returns>Fish zone.</returns>
-        private FishZone GetFishZone(float unitCircleMagnitude)
-        {
-            var greenThreshold = GreenBoard.Radius / RedBoard.Radius;
-            var yellowThreshold = YellowBoard.Radius / RedBoard.Radius;
-            var redThreshold = RedBoard.Radius / RedBoard.Radius;
-            if (unitCircleMagnitude <= greenThreshold)
-            {
-                return FishZone.Green;
-            }
-            if (unitCircleMagnitude <= yellowThreshold)
-            {
-                return FishZone.Yellow;
-            }
-            if (unitCircleMagnitude <= redThreshold)
-            {
-                return FishZone.Red;
-            }
-            return FishZone.Green;
-        }
-        
-        /// <summary>
-        /// Get the unit circle position from the object position.
-        /// </summary>
-        /// <param name="position"></param>
-        /// <returns>Unit circle position.</returns>
-        private Vector2 GetUnitCircle(Vector2 position)
-        {
-            return position / _circleBoardState[FishZone.Red].Radius;
-        }
-
-        /// <summary>
-        /// Get the power multiplier based on the unit circle position.
-        /// </summary>
-        /// <param name="unitCircle">Unit circle position.</param>
-        /// <returns>Power multiplier.</returns>
-        private float GetPowerMultiplier(Vector2 unitCircle)
-        {
-            var fishZone = GetFishZone(unitCircle.magnitude);
-            var index = (int)fishZone;
-            var previousIndex = Mathf.Max(0, index - 1);
-            var previousBoard = _circleBoardState[(FishZone)previousIndex];
-            var previousThreshold = previousIndex == index ? 0 : previousBoard.Radius / RedBoard.Radius;
-            var currentBoard = _circleBoardState[fishZone];
-            var lowerBound = currentBoard.MultiplierRange.x;
-            var upperBound = currentBoard.MultiplierRange.y;
-            var currentThreshold = currentBoard.Radius / RedBoard.Radius;
-            var relativePercent = (unitCircle.magnitude - previousThreshold) / (currentThreshold - previousThreshold);
-            var multiplier = Mathf.Lerp(lowerBound, upperBound, relativePercent);
-            return multiplier;
-        }
         
         /// <summary>
         /// Set the hook position based on the unit circle position.
@@ -452,8 +304,8 @@ namespace Madduck.Fishing.Controller
         /// <param name="unitCircle">Unit circle position.</param>
         private void SetHookPosition(Vector2 unitCircle)
         {
-            var circleCenter = RedBoard.Center;
-            var position = unitCircle * RedBoard.Radius;
+            var circleCenter = _variables.RedBoard.Center;
+            var position = unitCircle * _variables.RedBoard.Radius;
             _model.HookPosition.Value = position;
             //rotate facing the center
             var centerToHook = (circleCenter - _model.HookPosition.Value).normalized;
@@ -462,103 +314,15 @@ namespace Madduck.Fishing.Controller
         }
         
         /// <summary>
-        /// Set the fish position based on the unit circle position.
+        /// Find the angle difference between the fish and the hook relative to the center of the circle board.
         /// </summary>
-        /// <param name="unitCircle">Unit circle position.</param>
-        public void SetFishPosition(Vector2 unitCircle)
+        private void FindFishAngle()
         {
-            var circleCenter = RedBoard.Center;
-            //var fishToCenter = (circleCenter - _model.FishPosition.Value).normalized;
-            Vector2 position = unitCircle * RedBoard.Radius;
-            _model.FishPosition.Value = position;
-            //rotate facing the center
-            var centerToFish = (circleCenter - _model.FishPosition.Value).normalized;
-            var angle = Mathf.Atan2(centerToFish.y, centerToFish.x) * Mathf.Rad2Deg + 90f;
-            _model.FishRotation.Value = Quaternion.Euler(0, 0, angle);
+            Vector2 circleCenter = _variables.RedBoard.Center;
+            Vector2 pullDirection = _model.HookPosition.Value - circleCenter;
+            Vector2 fishDirection = _model.FishPosition.Value - circleCenter;
+            _variables.AngleDifference = Vector2.Angle(pullDirection, fishDirection);
+            _variables.PullPercent = Percentage.FromFraction(_variables.AngleDifference / 180f);
         }
-        
-        /// <summary>
-        /// Move the fish to the target unit circle position over a duration.
-        /// </summary>
-        /// <param name="unitCircle">Target unit circle position.</param>
-        /// <param name="duration">Duration of the movement in seconds.</param>
-        public void MoveFishTimeBased(Vector2 unitCircle, float duration)
-        {
-            if (_fishPositionTween.isAlive) _fishPositionTween.Stop();
-            var currentFishPosition = _fishUnitCirclePosition;
-            var targetFishPosition = unitCircle;
-            _fishPositionTween = Tween.Custom(currentFishPosition, targetFishPosition, duration, 
-                SetFishPosition);
-        }
-        
-        /// <summary>
-        /// Move the fish to the target unit circle position based on speed (units per second).
-        /// </summary>
-        /// <param name="unitCircle">Target unit circle position.</param>
-        /// <param name="speed">Speed of the movement in units per second.</param>
-        public void MoveFishSpeedBased(Vector2 unitCircle, float speed)
-        {
-            if (_fishPositionTween.isAlive) _fishPositionTween.Stop();
-            var currentFishPosition = _fishUnitCirclePosition;
-            var targetFishPosition = unitCircle;
-            var distance = Vector2.Distance(currentFishPosition, targetFishPosition);
-            var duration = distance / speed;
-            _fishPositionTween = Tween.Custom(currentFishPosition, targetFishPosition, duration, 
-                SetFishPosition);
-        }
-
-        /// <summary>
-        /// Get a random position within the unit circle.
-        /// </summary>
-        /// <returns>Random position within the unit circle.</returns>
-        public Vector2 GetRandomPosition()
-        {
-            var randomPosition = UnityEngine.Random.insideUnitCircle.normalized;
-            return randomPosition;
-        }
-
-        /// <summary>
-        /// Get a random position within the specified fish zone.
-        /// </summary>
-        /// <param name="fishZone">The fish zone to get the random position from.</param>
-        /// <returns>Random position within the specified fish zone.</returns>
-        public Vector2 GetRandomPositionOnFishZone(FishZone fishZone)
-        {
-            var index = (int)fishZone;
-            var previousIndex = Mathf.Max(0, index - 1);
-            var currentBoard = _circleBoardState[fishZone];
-            var previousBoard = _circleBoardState[(FishZone)previousIndex];
-            var currentThreshold = currentBoard.Radius / RedBoard.Radius;
-            var previousThreshold = previousIndex == index ? 0 : previousBoard.Radius / RedBoard.Radius;
-            var threshold = UnityEngine.Random.Range(previousThreshold, currentThreshold);
-            var randomPosition = UnityEngine.Random.insideUnitCircle.normalized * threshold;
-            return randomPosition;
-        }
-        
-        /// <summary>
-        /// Get the unit circle position from a target angle in degrees.
-        /// </summary>
-        /// <param name="angle">Target angle in degrees.</param>
-        /// <returns>Unit circle position.</returns>
-        public Vector2 GetUnitCircleFromTargetAngle(float angle)
-        {
-            var radian = angle * Mathf.Deg2Rad;
-            var x = Mathf.Cos(radian);
-            var y = Mathf.Sin(radian);
-            return new Vector2(x, y).normalized;
-        }
-        
-        /// <summary>
-        /// Get a random position within the specified unit circle by scaling the unit circle position with a random multiplier between 0 and 1.
-        /// </summary>
-        /// <param name="unitCircle">The unit circle position to scale.</param>
-        /// <returns>Random position within the specified unit circle.</returns>
-        public Vector2 GetRandomPositionFromUnitCircle(Vector2 unitCircle)
-        {
-            var multiplier = UnityEngine.Random.Range(0f, 1f);
-            var randomPosition = unitCircle * multiplier;
-            return randomPosition;
-        }
-        #endregion
     }
 }

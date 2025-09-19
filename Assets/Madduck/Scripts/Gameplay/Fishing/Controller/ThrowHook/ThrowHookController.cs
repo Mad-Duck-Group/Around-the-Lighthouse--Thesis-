@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
+using Madduck.GameData;
 using Madduck.Input;
 using Madduck.Scripts.Input;
 using Madduck.Utils;
@@ -16,11 +17,11 @@ namespace Madduck.Fishing.Controller
     {
         public event Action OnHookHitWater;
         
-        private readonly PlayerInputHandler _inputHandler;
         private readonly ThrowHookCommander _commander;
         private readonly ThrowHookModel _model;
         private readonly ThrowHookConfig _config;
         private readonly HookProjectileFactory _hookFactory;
+        private readonly IPlayerInputHandler _inputHandler;
         private readonly IFishFactory _fishFactory;
         private readonly ITransitionable _viewTransition;
         
@@ -29,11 +30,11 @@ namespace Madduck.Fishing.Controller
         
         [Inject]
         public ThrowHookController(
-            PlayerInputHandler inputHandler,
             ThrowHookCommander commander,
             ThrowHookModel model,
             ThrowHookConfig config,
             HookProjectileFactory hookFactory,
+            IPlayerInputHandler inputHandler,
             IFishFactory fishFactory,
             ITransitionable viewTransition)
         {
@@ -77,7 +78,7 @@ namespace Madduck.Fishing.Controller
             if (active)
             {
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
-                _fishFactory.GetNewFish();
+                _fishFactory.Create();
                 Bind();
             }
             else

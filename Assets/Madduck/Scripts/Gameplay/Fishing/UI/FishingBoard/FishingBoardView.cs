@@ -261,4 +261,10 @@ namespace Madduck.Fishing.UI
         }
         #endregion
     }
+    
+    public class CircleBoardMock : ICircleBoard
+    {
+        public Dictionary<FishZone, CircleBoardState> CircleBoardStates { get; set; } = new();
+        public void ResetCircleBoardSprite() { }
+    }
 }

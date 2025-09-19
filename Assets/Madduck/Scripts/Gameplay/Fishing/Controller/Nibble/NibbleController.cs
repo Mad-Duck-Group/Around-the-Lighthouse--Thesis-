@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
+using Madduck.GameData;
 using Madduck.Input;
 using Madduck.Scripts.Input;
 using Madduck.Utils;
@@ -14,10 +15,10 @@ namespace Madduck.Fishing.Controller
     public class NibbleController : IDisposable
     {
         public event Action<Sign> OnPullHookResult;
-        private readonly PlayerInputHandler _inputHandler;
         private readonly NibbleModel _model;
         private readonly NibbleCommander _commander;
         private readonly HookProjectileFactory _hookFactory;
+        private readonly IPlayerInputHandler _inputHandler;
         private readonly IFishFactory _fishFactory;
         private readonly ITransitionable _viewTransition;
         
@@ -27,10 +28,10 @@ namespace Madduck.Fishing.Controller
         
         [Inject]
         public NibbleController(
-            PlayerInputHandler inputHandler,
             NibbleModel model, 
             NibbleCommander commander,
             HookProjectileFactory hookFactory,
+            IPlayerInputHandler inputHandler,
             IFishFactory fishFactory,
             ITransitionable viewTransition)
         {

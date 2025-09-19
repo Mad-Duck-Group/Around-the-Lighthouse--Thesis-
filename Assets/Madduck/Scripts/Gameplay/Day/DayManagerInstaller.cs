@@ -59,7 +59,7 @@ namespace Madduck.Day
             builder.RegisterInstance(dayManagerConfig).AsSelf();
             builder.RegisterInstance(fishWeightTable.GetInstance()).AsSelf();
             builder.RegisterInstance(new FishermanItemInstance(fishermanItemData)).AsSelf();
-            builder.Register<DayManager>(Lifetime.Singleton).AsSelf();
+            builder.Register<DayManager>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.RegisterBuildCallback(x =>
             {
 #if UNITY_EDITOR

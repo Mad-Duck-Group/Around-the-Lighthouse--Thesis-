@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Madduck.Day;
 using Madduck.GameData;
 using Madduck.RoomPreset;
+using Madduck.Shared;
 using Madduck.Utils;
+using MessagePipe;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -32,16 +36,24 @@ namespace Madduck.Room
         }
     }
     
-    public class FishingRoomManagerLifetimeScope : LifetimeScope
+    [ShowOdinSerializedPropertiesInInspector]
+    public class FishingRoomManagerLifetimeScope : LifetimeScope, ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
         [Title("References")]
         [Required,
          SerializeField] private WeatherWeightTable weatherWeightTable;
         [Required,
          SerializeField] private List<RoomPreset.RoomPreset> roomPresets;
+
+        [Title("Debug")] 
+        [SerializeField] private bool spoofWeather;
+        [ShowIf(nameof(spoofWeather)),
+         OdinSerialize] private IGenericFactory<WeatherType> weatherFactoryMock;
+        [SerializeField] private bool spoofMaxFishCount;
+        [ShowIf(nameof(spoofMaxFishCount)),
+         OdinSerialize] private IGenericFactory<uint> maxFishCountFactoryMock;
         
 #if UNITY_EDITOR
-        [Title("Debug")]
         [HideInEditorMode]
         [Button("Open Debug Window")]
         private void OpenDebugWindow()
@@ -54,9 +66,37 @@ namespace Madduck.Room
         
         protected override void Configure(IContainerBuilder builder)
         {
+#if !UNITY_EDITOR
+            spoofWeather = false;
+            spoofMaxFishCount = false;
+#endif
             builder.RegisterInstance(weatherWeightTable.GetInstance()).AsSelf();
+            if (spoofWeather && weatherFactoryMock != null)
+            {
+                builder.RegisterInstance(weatherFactoryMock)
+                    .As<IGenericFactory<WeatherType>>();
+            }
+            else
+            {
+                builder.Register<WeatherFactory>(Lifetime.Singleton)
+                    .As<IGenericFactory<WeatherType>>();
+            }
+            if (spoofMaxFishCount && maxFishCountFactoryMock != null)
+            {
+                builder.RegisterInstance(maxFishCountFactoryMock)
+                    .As<IGenericFactory<uint>>()
+                    .Keyed(DIConstants.MaxFishCountFactoryId);
+            }
+            else
+            {
+                builder.Register<MaxFishCountFactory>(Lifetime.Singleton)
+                    .As<IGenericFactory<uint>>()
+                    .Keyed(DIConstants.MaxFishCountFactoryId);
+            }
             builder.RegisterInstance(roomPresets).As<List<RoomPreset.RoomPreset>>();
-            builder.RegisterEntryPoint<FishingRoomManager>().AsSelf();
+            builder.RegisterEntryPoint<FishingRoomManager>()
+                .As<IRequestHandler<CanContinueFishingRequest, bool>>()
+                .AsSelf();
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
             builder.RegisterBuildCallback(container =>
             {
@@ -69,5 +109,26 @@ namespace Madduck.Room
             });
 
         }
+        
+        #region Serialization
+        [SerializeField, HideInInspector]
+        private SerializationData serializationData;
+
+        SerializationData ISupportsPrefabSerialization.SerializationData 
+        { 
+            get => serializationData;
+            set => serializationData = value;
+        }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            UnitySerializationUtility.DeserializeUnityObject(this, ref serializationData);
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+            UnitySerializationUtility.SerializeUnityObject(this, ref serializationData);
+        }
+        #endregion
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Controller;
+using Madduck.GameData;
 using Madduck.Utils;
+using MessagePipe;
 using R3;
 using VContainer;
 
@@ -10,16 +12,25 @@ namespace Madduck.Fishing.StateMachine
     public class ReelingState : FishingState
     {
         private readonly ReelingController _controller;
+        private readonly IFishFactory _fishFactory;
+        private readonly IPublisher<FishCaughtEvent> _fishCaughtEventPublisher;
+        private readonly IPublisher<FishEscapedEvent> _fishEscapedEventPublisher;
         private IDisposable _reelingResultSubscription;
-        private bool _shouldReset;
+        private Sign _result;
         
         [Inject]
         public ReelingState(
             FishingStateMachine stateMachine,
-            ReelingController controller)
+            ReelingController controller,
+            IFishFactory fishFactory,
+            IPublisher<FishCaughtEvent> fishCaughtEventPublisher,
+            IPublisher<FishEscapedEvent> fishEscapedEventPublisher)
             : base(stateMachine)
         {
             _controller = controller;
+            _fishFactory = fishFactory;
+            _fishCaughtEventPublisher = fishCaughtEventPublisher;
+            _fishEscapedEventPublisher = fishEscapedEventPublisher;
         }
         
         public override async UniTask Enter()
@@ -37,29 +48,32 @@ namespace Madduck.Fishing.StateMachine
             await base.Exit();
             _reelingResultSubscription.Dispose();
             await _controller.SetActive(false);
-            if (_shouldReset) _controller.Reset();
-            _shouldReset = false;
+            await _controller.ReturnHook();
+            if (_result is Sign.Positive)
+            {
+                _fishCaughtEventPublisher.Publish(new FishCaughtEvent(_fishFactory.CurrentFish));
+                _controller.Reset();
+            }
         }
         
         private void OnReelingResult(Sign result)
         {
+            _result = result;
             switch (result)
             {
                 case Sign.Positive:
                     DebugUtils.Log("Fish reeled in successfully, transitioning to NoneState");
-                    _shouldReset = true;
                     stateMachine.ChangeState(FishingStateType.None);
                     stateMachine.ResetState(FishingStateType.FishingBoard);
                     break;
                 case Sign.Negative:
                     DebugUtils.Log("Max fatigue attempt reached, fish escaped, transitioning to NoneState");
-                    _shouldReset = true;
                     stateMachine.ChangeState(FishingStateType.None);
                     stateMachine.ResetState(FishingStateType.FishingBoard);
+                    _fishEscapedEventPublisher.Publish(new FishEscapedEvent());
                     break;
                 case Sign.Zero:
                     DebugUtils.Log("Fish regained energy, transitioning to FishingBoardState");
-                    _shouldReset = false;
                     stateMachine.PreviousState();
                     break;
                 default:

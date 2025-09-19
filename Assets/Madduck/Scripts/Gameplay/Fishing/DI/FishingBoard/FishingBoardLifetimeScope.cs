@@ -18,20 +18,17 @@ namespace Madduck.Fishing.DI
     {
         [field: SerializeField] public bool ConstantUpdate { get; private set; }
         [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
-        [ShowInInspector] private FishingBoardState _fishingBoardState;
-        [ShowInInspector] private FishingBoardModel _fishingBoardModel;
-        [ShowInInspector] private FishingBoardController _fishingBoardController;
+        [ShowInInspector] private FishingBoardModel _model;
+        [ShowInInspector] private FishingBoardVariables _variables;
         
         public FishingBoardDebugData(
-            FishingBoardState fishingBoardState, 
-            FishingBoardModel fishingBoardModel, 
-            FishingBoardController fishingBoardController)
+            FishingBoardModel model, 
+            FishingBoardVariables variables)
         {
             ConstantUpdate = false;
             AutoCloseWhenPlayModeEnds = true;
-            _fishingBoardState = fishingBoardState;
-            _fishingBoardModel = fishingBoardModel;
-            _fishingBoardController = fishingBoardController;
+            _model = model;
+            _variables = variables;
         }
     }
     
@@ -60,7 +57,9 @@ namespace Madduck.Fishing.DI
             builder.RegisterComponent(behaviorGraphAgent).AsSelf();
             builder.RegisterComponent(fishingBoardView).AsImplementedInterfaces();
             builder.RegisterInstance(fishingBoardConfig).AsSelf();
+            builder.Register<FishingBoardVariables>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingBoardController>(Lifetime.Scoped).AsSelf();
+            builder.Register<FishingBoardAIController>(Lifetime.Scoped).As<IFishingBoardAIController>();
             builder.Register<FishingBoardModel>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingBoardViewModel>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingBoardState>(Lifetime.Scoped).AsSelf();
@@ -69,19 +68,18 @@ namespace Madduck.Fishing.DI
                 var fishingBoardState = x.Resolve<FishingBoardState>();
                 var stateMachine = x.Resolve<FishingStateMachine>();
                 stateMachine.AddState(FishingStateType.FishingBoard, fishingBoardState);
-                var controller = x.Resolve<FishingBoardController>();
+                var aiController = x.Resolve<IFishingBoardAIController>();
                 Observable.FromEvent(
-                        h => controller.OnInitializeBehaviorGraph += h,
-                        h => controller.OnInitializeBehaviorGraph -= h)
+                        h => aiController.OnInitializeBehaviorGraph += h,
+                        h => aiController.OnInitializeBehaviorGraph -= h)
                     .Subscribe(_ => OnBehaviorGraphInitialized())
                     .AddTo(this);
 #if UNITY_EDITOR
                 var fishingBoardModel= x.Resolve<FishingBoardModel>();
-                var fishingBoardController = x.Resolve<FishingBoardController>();
+                var variables = x.Resolve<FishingBoardVariables>();
                 _fishingBoardDebugData = new FishingBoardDebugData(
-                    fishingBoardState, 
                     fishingBoardModel, 
-                    fishingBoardController);
+                    variables);
 #endif
             });
 

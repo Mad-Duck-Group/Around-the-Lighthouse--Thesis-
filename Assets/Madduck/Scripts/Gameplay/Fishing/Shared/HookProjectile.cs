@@ -1,9 +1,13 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
+using Madduck.Shared;
 using Madduck.Utils;
 using PrimeTween;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
+using Object = UnityEngine.Object;
 
 namespace Madduck.Fishing.Shared
 {
@@ -76,25 +80,27 @@ namespace Madduck.Fishing.Shared
         }
     }
 
+    [Serializable]
     public class HookProjectileFactory
     {
+        [Required, AssetsOnly,
+         SerializeField] private HookProjectile prefab;
+        [Required, 
+         SerializeField] private Transform parent;
         public HookProjectile CurrentHook { get; private set; }
-        private readonly HookProjectile _prefab;
-        private readonly Transform _parent;
-
-        [Inject]
+        
         public HookProjectileFactory(
             HookProjectile prefab, 
-            [Key("ProjectileParent")] Transform parent)
+            Transform parent)
         {
-            _prefab = prefab;
-            _parent = parent;
+            this.prefab = prefab;
+            this.parent = parent;
         }
         
         public HookProjectile Create()
         {
             if (CurrentHook) return CurrentHook;
-            CurrentHook = Object.Instantiate(_prefab, _parent.position, Quaternion.identity, _parent);
+            CurrentHook = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
             return CurrentHook;
         }
         

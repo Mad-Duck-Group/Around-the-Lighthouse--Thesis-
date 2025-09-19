@@ -31,7 +31,7 @@ namespace Madduck.Fishing.StateMachine
 
         public void Start()
         {
-            ChangeState(_currentStateType);
+            ChangeState(FishingStateType.None);
         }
         
         public void AddState(FishingStateType stateType, FishingState state)
@@ -68,7 +68,6 @@ namespace Madduck.Fishing.StateMachine
         
         public void ChangeState(FishingStateType stateType)
         {
-            if (_currentStateType == stateType) return;
             if (_states.TryGetValue(stateType, out var nextState))
             {
                 _currentStateType = stateType;

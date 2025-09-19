@@ -4,6 +4,7 @@ using Madduck.Fishing.StateMachine;
 using Madduck.Fishing.UI;
 using Madduck.GameData;
 using Madduck.GameData.Fisherman;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -37,17 +38,14 @@ namespace Madduck.Fishing.DI
     [ShowOdinSerializedPropertiesInInspector]
     public class FishingStateMachineLifetimeScope : LifetimeScope, ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
-        [FormerlySerializedAs("throwHookProjectilePrefab")]
         [Title("References")]
-        [Required, AssetsOnly]
-        [SerializeField] private HookProjectile hookProjectilePrefab;
-        [Required]
-        [SerializeField] private Transform throwHookSpawnPoint;
+        [Required, 
+         SerializeField] private HookProjectileFactory hookProjectileFactory;
 
         [Title("Debug")] 
-        [SerializeField] private bool spoofFishFactory;
-        [ShowIf(nameof(spoofFishFactory)),
-            OdinSerialize] private IFishFactory fishFactory;
+        [SerializeField] private bool spoofFish;
+        [ShowIf(nameof(spoofFish)),
+            OdinSerialize] private IFishFactory fishFactoryMock;
         
         
 #if UNITY_EDITOR
@@ -63,17 +61,18 @@ namespace Madduck.Fishing.DI
         
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterInstance(hookProjectilePrefab).AsSelf();
-            builder.RegisterInstance(throwHookSpawnPoint).Keyed("ProjectileParent").AsSelf();
-            if (spoofFishFactory && fishFactory != null)
+#if !UNITY_EDITOR
+            spoofFish = false;
+#endif
+            if (spoofFish && fishFactoryMock != null)
             { 
-                builder.RegisterInstance(fishFactory).As<IFishFactory>();
+                builder.RegisterInstance(fishFactoryMock).As<IFishFactory>();
             }
             else
             {
                 builder.Register<FishFactory>(Lifetime.Singleton).As<IFishFactory>();
             }
-            builder.Register<HookProjectileFactory>(Lifetime.Singleton).AsSelf();
+            builder.RegisterInstance(hookProjectileFactory).AsSelf();
             builder.Register<FishingNoneState>(Lifetime.Scoped).AsSelf();
             builder.RegisterEntryPoint<FishingStateMachine>().AsSelf();
             builder.RegisterBuildCallback(x =>

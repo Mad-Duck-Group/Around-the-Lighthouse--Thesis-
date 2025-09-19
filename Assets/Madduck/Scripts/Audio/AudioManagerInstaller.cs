@@ -15,7 +15,10 @@ namespace Madduck.Audio
         public void Install(IContainerBuilder builder)
         {
             builder.RegisterInstance(audioManagerConfig).AsSelf();
-            builder.RegisterEntryPoint<AudioManager>().AsSelf();
+            builder.RegisterEntryPoint<AudioManager>()
+                .As<IAudioManager>()
+                .As<IAudioBusManager>()
+                .AsSelf();
         }
     }
 }

@@ -16,3 +16,20 @@ MonoBehaviour:
   <MaxRoomCount>k__BackingField: 6
   <DayNightRatio>k__BackingField:
     value: 50
+  <FishCountFormulas>k__BackingField:
+    keys: 00000000010000000200000003000000040000000500000006000000
+    values:
+    - <BaseCount>k__BackingField: 2
+      <IncrementPerRoom>k__BackingField: 2
+    - <BaseCount>k__BackingField: 4
+      <IncrementPerRoom>k__BackingField: 2
+    - <BaseCount>k__BackingField: 6
+      <IncrementPerRoom>k__BackingField: 2
+    - <BaseCount>k__BackingField: 6
+      <IncrementPerRoom>k__BackingField: 2
+    - <BaseCount>k__BackingField: 6
+      <IncrementPerRoom>k__BackingField: 2
+    - <BaseCount>k__BackingField: 8
+      <IncrementPerRoom>k__BackingField: 2
+    - <BaseCount>k__BackingField: 8
+      <IncrementPerRoom>k__BackingField: 4
