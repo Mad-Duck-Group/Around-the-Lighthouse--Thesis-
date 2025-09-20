@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Madduck.Day;
 using Madduck.GameData;
@@ -44,7 +44,8 @@ namespace Madduck.Room
          SerializeField] private WeatherWeightTable weatherWeightTable;
         [Required,
          SerializeField] private List<RoomPreset.RoomPreset> roomPresets;
-
+        [Required,
+         SerializeField] private List<WeatherPreset.WeatherPreset> weatherPresets;
         [Title("Debug")] 
         [SerializeField] private bool spoofWeather;
         [ShowIf(nameof(spoofWeather)),
@@ -94,6 +95,7 @@ namespace Madduck.Room
                     .Keyed(DIConstants.MaxFishCountFactoryId);
             }
             builder.RegisterInstance(roomPresets).As<List<RoomPreset.RoomPreset>>();
+            builder.RegisterInstance(weatherPresets).As<List<WeatherPreset.WeatherPreset>>();
             builder.RegisterEntryPoint<FishingRoomManager>()
                 .As<IRequestHandler<CanContinueFishingRequest, bool>>()
                 .AsSelf();
