@@ -28,6 +28,7 @@ namespace Madduck.Room
         private readonly IPublisher<OutOfFishEvent> _outOfFishEventPublisher;
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
+        private readonly IRequestHandler<ModifierRequest, ModiferResponse> _modifierRequestHandler;
 
         private IDisposable _subscriptions;
 
@@ -43,7 +44,8 @@ namespace Madduck.Room
             [Key(DIConstants.MaxFishCountFactoryId)] IGenericFactory<uint> maxFishCountFactory,
             IPublisher<OutOfFishEvent> outOfFishEventPublisher,
             ISubscriber<FishCaughtEvent> fishCaughtEventSubscriber,
-            ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber)
+            ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
+            IRequestHandler<ModifierRequest, ModiferResponse> modifierRequestHandler)
         {
             _fishWeightTableInstance = fishWeightTableInstanceInstance;
             _weatherFactory = weatherFactory;
@@ -51,6 +53,7 @@ namespace Madduck.Room
             _outOfFishEventPublisher = outOfFishEventPublisher;
             _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             _fishEscapedEventSubscriber = fishEscapedEventSubscriber;
+            _modifierRequestHandler = modifierRequestHandler;
             Subscribe();
         }
         

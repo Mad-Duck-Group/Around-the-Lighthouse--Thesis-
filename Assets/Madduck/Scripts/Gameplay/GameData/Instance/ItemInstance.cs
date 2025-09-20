@@ -6,13 +6,18 @@ using UnityEngine;
 namespace Madduck.GameData
 {
     [Serializable]
-    public abstract record ItemInstance<T>(T ItemData)
+    public abstract class ItemInstance<T>
         where T : ItemData
     {
         [Title("Base References"), 
          HideLabel, 
          ShowInInspector] private InspectorPlaceholder _referencesTitle;
         [field: InlineEditor, 
-                SerializeField] public T ItemData { get; private set; } = ItemData;
+                SerializeField] public T ItemData { get; private set; }
+        
+        public ItemInstance(T itemData)
+        {
+            ItemData = itemData;
+        }
     }
 }

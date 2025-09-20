@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Madduck.GameData
 {
     [Serializable]
-    public record FishWeightRecord : IWeightRecord<FishItemData>
+    public record FishWeightRecord : IWeightRecord<FishItemData>, IStatModifiable<FishWeightRecord>
     {
         [field: Required, 
                 SerializeField] public FishItemData Item { get; internal set; }
@@ -16,6 +16,8 @@ namespace Madduck.GameData
                 SerializeField] public UFloat Weight { get; internal set; } = 1f;
         [field: DisplayAsString(TextAlignment.Center), 
                 ShowInInspector] public Percentage Probability { get; internal set; }
+
+        public FishWeightRecord Copy() => this with {};
     }
     
     public class FishWeightFilter : IWeightFilter<FishWeightRecord>
@@ -29,7 +31,10 @@ namespace Madduck.GameData
 
         public List<FishWeightRecord> Filter(List<FishWeightRecord> records)
         {
-            return records.Where(_predicate).ToList();
+            return records
+                .Where(_predicate)
+                .Select(x => x.Copy())
+                .ToList();
         }
     }
     
@@ -66,14 +71,14 @@ namespace Madduck.GameData
 
         public FishWeightTableInstance(List<FishWeightRecord> baseRecords)
         {
-            BaseRecords = baseRecords;
+            BaseRecords = baseRecords.Select(x => x.Copy()).ToList();
             PersistentFilters = new Dictionary<string, IWeightFilter<FishWeightRecord>>();
             PersistentModifiers = new Dictionary<string, IWeightModifier<FishWeightRecord>>();
         }
         
         private void ApplyFiltersAndModifiers(out float totalWeight)
         {
-            var filteredRecords = new List<FishWeightRecord>(BaseRecords);
+            var filteredRecords = BaseRecords;
             foreach (var filter in PersistentFilters.Values)
             {
                 filteredRecords = filter.Filter(filteredRecords);

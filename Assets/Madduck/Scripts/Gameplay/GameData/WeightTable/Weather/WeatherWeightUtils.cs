@@ -11,7 +11,7 @@ using VContainer;
 namespace Madduck.GameData
 {
     [Serializable]
-    public record WeatherWeightRecord : IWeightRecord<WeatherType>
+    public record WeatherWeightRecord : IWeightRecord<WeatherType>, IStatModifiable<WeatherWeightRecord>
     {
         [field: Required,
                 SerializeField]
@@ -24,6 +24,8 @@ namespace Madduck.GameData
         [field: DisplayAsString(TextAlignment.Center),
                 ShowInInspector]
         public Percentage Probability { get; internal set; }
+
+        public WeatherWeightRecord Copy() => this with {};
     }
 
     public class WeatherWeightFilter : IWeightFilter<WeatherWeightRecord>
@@ -37,25 +39,41 @@ namespace Madduck.GameData
 
         public List<WeatherWeightRecord> Filter(List<WeatherWeightRecord> records)
         {
-            return records.Where(_predicate).ToList();
+            return records
+                .Where(_predicate)
+                .Select(x => x.Copy())
+                .ToList();
         }
     }
 
     public class WeatherWeightModifier : IWeightModifier<WeatherWeightRecord>
     {
-        private readonly Func<WeatherWeightRecord, float> _modifier;
+        private readonly List<WeatherModifierData> _modifier;
 
-        public WeatherWeightModifier(Func<WeatherWeightRecord, float> modifier)
+        public WeatherWeightModifier(List<WeatherModifierData> modifier)
         {
             _modifier = modifier;
         }
 
         public List<WeatherWeightRecord> Modify(List<WeatherWeightRecord> records)
         {
-            return records.Select(record => record with
+            var recordGroup = records
+                .GroupBy(x => x.Item)
+                .ToDictionary(x => x.Key, 
+                    x => x.Select(r => r.Copy()).ToList());
+            var modifierGroup = _modifier
+                .GroupBy(x => x.WeatherType)
+                .ToDictionary(x => x.Key, 
+                    x => x.ToList());
+            foreach (var modifier in modifierGroup)
             {
-                Weight = (float)record.Weight + _modifier(record)
-            }).ToList();
+                if (!recordGroup.TryGetValue(modifier.Key, out var value)) continue;
+                foreach (var record in value)
+                {
+                     record.Weight = modifier.Value.CalculateStat(record.Weight);
+                }
+            }
+            return recordGroup.SelectMany(x => x.Value).ToList();
         }
     }
 
@@ -74,14 +92,14 @@ namespace Madduck.GameData
 
         public WeatherWeightTableInstance(List<WeatherWeightRecord> baseRecords)
         {
-            BaseRecords = baseRecords;
+            BaseRecords = baseRecords.Select(x => x.Copy()).ToList();
             PersistentFilters = new Dictionary<string, IWeightFilter<WeatherWeightRecord>>();
             PersistentModifiers = new Dictionary<string, IWeightModifier<WeatherWeightRecord>>();
         }
         
         private void ApplyFiltersAndModifiers(out float totalWeight)
         {
-            var filteredRecords = BaseRecords.ToList();
+            var filteredRecords = BaseRecords;
             foreach (var filter in PersistentFilters.Values)
             {
                 filteredRecords = filter.Filter(filteredRecords);

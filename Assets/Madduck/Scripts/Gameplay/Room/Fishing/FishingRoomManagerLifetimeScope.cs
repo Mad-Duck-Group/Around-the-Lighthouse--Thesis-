@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Madduck.Day;
 using Madduck.GameData;
+using Madduck.GameData.Fisherman;
 using Madduck.RoomPreset;
 using Madduck.Shared;
 using Madduck.Utils;

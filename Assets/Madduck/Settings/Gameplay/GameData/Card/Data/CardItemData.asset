@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f88e80974044c6bae6e81f599d2018a, type: 3}
   m_Name: CardItemData
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.Card.CardItemData
-  <Guid>k__BackingField: 751ae1775240a642bb776eea568f90ac
+  <Guid>k__BackingField: 7c924265ad775e4ea58fb75f6416f14a
   <ItemType>k__BackingField: 3
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 2
@@ -27,35 +27,104 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Modifiers>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[Madduck.GameData.Card.IStatModifier,
+      Data: 0|System.Collections.Generic.List`1[[Madduck.GameData.BaseModifierData,
         Madduck.GameData]], mscorlib
     - Name: 
       Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 1|Madduck.GameData.RodModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
       Data: 3
-    - Name: 
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 10
+    - Name: <ModifierPercentage>k__BackingField
       Entry: 7
-      Data: 1|Madduck.GameData.Card.RodModifier, Madduck.GameData
-    - Name: <Modifier>k__BackingField
-      Entry: 6
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
       Data: 
+    - Name: <FishingRodStatType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 2|Madduck.GameData.Card.RodModifier, Madduck.GameData
-    - Name: <Modifier>k__BackingField
-      Entry: 6
+      Data: 2|Madduck.GameData.RodModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 4
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 0
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 50
+    - Name: 
+      Entry: 8
       Data: 
+    - Name: <FishingRodStatType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|Madduck.GameData.Card.RodModifier, Madduck.GameData
-    - Name: <Modifier>k__BackingField
-      Entry: 6
+      Data: 3|Madduck.GameData.WeatherModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 3
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 5
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
       Data: 
+    - Name: <WeatherType>k__BackingField
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|Madduck.GameData.WeatherModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 5
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 1.2
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <WeatherType>k__BackingField
+      Entry: 3
+      Data: 4
     - Name: 
       Entry: 8
       Data: 

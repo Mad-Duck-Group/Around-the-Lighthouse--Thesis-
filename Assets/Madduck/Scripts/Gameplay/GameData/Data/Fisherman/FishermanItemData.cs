@@ -1,4 +1,6 @@
-﻿using Madduck.Utils;
+﻿using System.Collections.Generic;
+using Madduck.GameData.Fisherman;
+using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,5 +20,7 @@ namespace Madduck.GameData
          ShowInInspector] private InspectorPlaceholder _fishermanSettingsTitle;
         [field: InlineProperty,
             SerializeField] public UFloat MaxStamina { get; private set; } = 100f;
+        [field: InlineProperty,
+                SerializeField] public List<CardItemData> StartingCards { get; private set; } = new();
     }
 }

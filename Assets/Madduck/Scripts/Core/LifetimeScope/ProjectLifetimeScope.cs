@@ -9,7 +9,7 @@ using VContainer.Unity;
 namespace Madduck.Core
 {
     [ShowOdinSerializedPropertiesInInspector]
-    public class ProjectLifetimeScope : VContainer.Unity.LifetimeScope, ISerializationCallbackReceiver, ISupportsPrefabSerialization
+    public class ProjectLifetimeScope : LifetimeScope, ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
         [Title("Installers")]
         [HideReferenceObjectPicker]

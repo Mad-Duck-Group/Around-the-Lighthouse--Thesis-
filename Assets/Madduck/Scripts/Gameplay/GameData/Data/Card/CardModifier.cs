@@ -1,95 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Madduck.GameData.Card
+namespace Madduck.GameData
 {
     public enum ModifierMethod
     {
         /// <summary>
-        /// Flat value addition (e.g. base is 100, flat is 20, final value = 120)
+        /// Overrides the current value.
         /// </summary>
-        Flat,
+        Override,
         /// <summary>
-        /// Percent of base value (e.g. base is 100, 20% of base is 20, final value = 20)
+        /// Percent increase based on the base value.
         /// </summary>
-        BasePercentAdd,
+        BasePercent,
         /// <summary>
-        /// Multiplier based on base value (e.g. base is 100, 20% multiplier is 1.2, final value = 120)
+        /// Multiplier based on the base value.
         /// </summary>
-        MultiplyTotal,
+        BaseMultiply,
         /// <summary>
-        /// Overrides the base value with the specified value
+        /// Flat increase based on the base value.
         /// </summary>
-        Override
-    }
-    
-    public interface IStatModifier
-    {
-        object Modifier { get; }
-        object Modify(object obj);
-    }
-    
-    public interface IStatModifier<TModifiable, out TModData> : IStatModifier 
-        where TModifiable : IStatModifiable<TModifiable> 
-        where TModData : BaseModifierData
-    {
-        new TModData Modifier { get; }
-        TModifiable Modify(TModifiable obj);
-    
-        object IStatModifier.Modifier => Modifier;
-        // Explicit implementation for the non-generic method
-        object IStatModifier.Modify(object obj)
-        {
-            if (obj is TModifiable typedObj)
-                return Modify(typedObj);
-            throw new ArgumentException($"Expected {typeof(TModifiable)}");
-        }
+        BaseFlat,
+        /// <summary>
+        /// Percent increase based on the total value after base modifiers have been applied.
+        /// </summary>
+        TotalPercent,
+        /// <summary>
+        /// Multiplier based on the total value after base modifiers have been applied.
+        /// </summary>
+        TotalMultiply,
+        /// <summary>
+        /// Flat increase to the total value after base modifiers have been applied.
+        /// </summary>
+        TotalFlat,
     }
 
     public interface IStatModifiable<out T>
     {
         public T Copy();
-    }
-    
-    public interface IStatProvider<out T> where T : IStatModifiable<T>
-    {
-        public T GetBaseStats();
-    }
-    
-    [Serializable]
-    public class RodModifier : IStatModifier<FishingRodStats, RodModifierData>
-    {
-        [field: HideReferenceObjectPicker, HideLabel, InlineProperty,
-         SerializeReference] public RodModifierData Modifier { get; private set; } = new();
-        public FishingRodStats Modify(FishingRodStats baseValue)
-        {
-            var copy = baseValue.Copy();
-            switch (Modifier.FishingRodStatType)
-            {
-                case FishingRodStatType.Power:
-                    copy.CurrentPower = Modifier.ApplyModifier(copy.CurrentPower);
-                    break;
-                case FishingRodStatType.Resistance:
-                    copy.CurrentResistance = Modifier.ApplyModifier(copy.CurrentResistance);
-                    break;
-                case FishingRodStatType.FishingLineDurability:
-                    copy.CurrentFishingLineDurability = Modifier.ApplyModifier(copy.CurrentFishingLineDurability);
-                    break;
-                case FishingRodStatType.FishingLineRegenFactor:
-                    copy.CurrentFishingLineRegenFactor = Modifier.ApplyModifier(copy.CurrentFishingLineRegenFactor);
-                    break;
-                case FishingRodStatType.ReelingSpeed:
-                    copy.CurrentReelingSpeed = Modifier.ApplyModifier(copy.CurrentReelingSpeed);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            return copy;
-        }
     }
 
     [Serializable]
@@ -101,16 +54,30 @@ namespace Madduck.GameData.Card
         [field: ShowIf(nameof(ShowPercent)), InlineProperty,
                 SerializeField] public Percentage ModifierPercentage { get; private set; }
 
+        public BaseModifierData() { } // For serialization
+
+        public BaseModifierData(ModifierMethod modifierMethod, float modifierValue)
+        {
+            ModifierMethod = modifierMethod;
+            ModifierValue = modifierValue;
+        }
+
+        public BaseModifierData(ModifierMethod modifierMethod, Percentage modifierPercentage)
+        {
+            ModifierMethod = modifierMethod;
+            ModifierPercentage = modifierPercentage;
+        }
+
         private bool ShowPercent()
         {
-            if (ModifierMethod is ModifierMethod.BasePercentAdd)
+            if (ModifierMethod is ModifierMethod.BasePercent or ModifierMethod.TotalPercent)
                 return true;
             return false;
         }
         
         private bool ShowValue()
         {
-            if (ModifierMethod is ModifierMethod.BasePercentAdd)
+            if (ModifierMethod is ModifierMethod.BasePercent or ModifierMethod.TotalPercent)
                 return false;
             return true;
         }
@@ -120,46 +87,94 @@ namespace Madduck.GameData.Card
     public class RodModifierData : BaseModifierData
     {
         [field: SerializeField] public FishingRodStatType FishingRodStatType { get; private set; }
+        public RodModifierData() { } // For serialization
+
+        public RodModifierData(ModifierMethod modifierMethod, float modifierValue,
+            FishingRodStatType fishingRodStatType) : base(modifierMethod, modifierValue)
+        {
+            FishingRodStatType = fishingRodStatType;
+        }
+        
+        public RodModifierData(ModifierMethod modifierMethod, Percentage modifierPercentage,
+            FishingRodStatType fishingRodStatType) : base(modifierMethod, modifierPercentage)
+        {
+            FishingRodStatType = fishingRodStatType;
+        }
+    }
+
+    [Serializable]
+    public class WeatherModifierData : BaseModifierData
+    {
+        [field: UnflagEnum,
+            SerializeField] public WeatherType WeatherType { get; private set; }
+        
+        public WeatherModifierData() { } // For serialization
+        public WeatherModifierData(ModifierMethod modifierMethod, float modifierValue,
+            WeatherType weatherType) : base(modifierMethod, modifierValue)
+        {
+            WeatherType = weatherType;
+        }
+        
+        public WeatherModifierData(ModifierMethod modifierMethod, Percentage modifierPercentage,
+            WeatherType weatherType) : base(modifierMethod, modifierPercentage)
+        {
+            WeatherType = weatherType;
+        }
     }
     
     public static class ModifierUtils
     {
-        public static float ApplyModifier(this BaseModifierData baseModifierData, float baseValue)
+        /// <summary>
+        /// Calculates a new value based on the provided base value and a list of modifiers.
+        /// </summary>
+        /// <param name="modifiers">A list of modifiers to apply to the base value.</param>
+        /// <param name="baseValue">The base value to which the modifiers will be applied.</param>
+        /// <returns>A new value calculated based on the provided base value and modifiers.</returns>
+        /// <remarks>
+        /// Modifiers are applied in the order of their <see cref="ModifierMethod"/>.
+        /// If a modifier with <see cref="ModifierMethod.Override"/> is found, its value will be returned immediately.
+        /// </remarks>
+        public static float CalculateStat(this IEnumerable<BaseModifierData> modifiers, float baseValue)
         {
-            switch (baseModifierData.ModifierMethod)
-            {
-                case ModifierMethod.Flat:
-                    baseValue += baseModifierData.ModifierValue;
-                    break;
-                case ModifierMethod.BasePercentAdd:
-                    baseValue *= baseModifierData.ModifierPercentage.AsMultiplier;
-                    break;
-                case ModifierMethod.MultiplyTotal:
-                    baseValue *= baseModifierData.ModifierValue;
-                    break;
-                case ModifierMethod.Override:
-                    baseValue = baseModifierData.ModifierValue;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            return baseValue;
-        }
+            var modifierList = modifiers.OrderBy(m => m.ModifierMethod).ToList();
+            
+            // Check for override
+            var overrideMod = modifierList.FirstOrDefault(m => m.ModifierMethod == ModifierMethod.Override);
+            if (overrideMod != null)
+                return overrideMod.ModifierValue;
         
-        public static IEnumerable<T> SortModifiers<T>(this IEnumerable<T> modifiers) where T : IStatModifier
-        {
-            // Sort by ModifierMethod in the order of Flat, BasePercentAdd, MultiplyTotal, Override
-            var modifierList = new List<T>(modifiers);
-            modifierList.Sort((a, b) =>
+            float result = baseValue;
+            float baseContributions = 0f;
+        
+            foreach (var modifier in modifierList)
             {
-                if (a.Modifier is BaseModifierData aData && b.Modifier is BaseModifierData bData)
+                switch (modifier.ModifierMethod)
                 {
-                    return aData.ModifierMethod.CompareTo(bData.ModifierMethod);
+                    case ModifierMethod.BasePercent:
+                        baseContributions += baseValue * modifier.ModifierPercentage.AsFraction;
+                        result += baseContributions;
+                        break;
+                    case ModifierMethod.BaseMultiply:
+                        baseContributions += baseValue * modifier.ModifierValue;
+                        result += baseContributions;
+                        break;
+                    case ModifierMethod.BaseFlat:
+                        baseContributions += modifier.ModifierValue;
+                        result += baseContributions;
+                        break;
+                    case ModifierMethod.TotalPercent:
+                        result *= modifier.ModifierPercentage.AsMultiplier;
+                        break;
+                    case ModifierMethod.TotalMultiply:
+                        result *= modifier.ModifierValue;
+                        break;
+                    case ModifierMethod.TotalFlat:
+                        result += modifier.ModifierValue;
+                        break;
                 }
-                return 0;
-            });
-            return modifierList;
+            }
+        
+            return result;
         }
     }
-
 }

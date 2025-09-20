@@ -1,5 +1,6 @@
 ﻿using System;
 using Madduck.Shared;
+using MessagePipe;
 using UnityEngine;
 using VContainer;
 
@@ -8,13 +9,20 @@ namespace Madduck.GameData
     public class WeatherFactory : IGenericFactory<WeatherType>
     {
         private readonly WeatherWeightTableInstance _weatherWeightTable;
+        private readonly IRequestHandler<ModifierRequest, ModiferResponse> _modifierRequestHandler;
         
         public WeatherType Current { get; private set; }
         
         [Inject]
-        public WeatherFactory(WeatherWeightTableInstance weatherWeightTable)
+        public WeatherFactory(
+            WeatherWeightTableInstance weatherWeightTable,
+            IRequestHandler<ModifierRequest, ModiferResponse> modifierRequestHandler)
         {
             _weatherWeightTable = weatherWeightTable;
+            _modifierRequestHandler = modifierRequestHandler;
+            var modifiers = _modifierRequestHandler.Invoke(ModifierRequest.For<WeatherModifierData>()).As<WeatherModifierData>();
+            _weatherWeightTable.PersistentModifiers.Remove("CardModifiers");
+            _weatherWeightTable.PersistentModifiers.TryAdd("CardModifiers", new WeatherWeightModifier(modifiers));
         }
         
         public WeatherType Create()
@@ -27,7 +35,8 @@ namespace Madduck.GameData
     [Serializable]
     public class WeatherFactoryMock : IGenericFactory<WeatherType>
     {
-        [SerializeField] private WeatherType fixedWeather;
+        [UnflagEnum, 
+         SerializeField] private WeatherType fixedWeather;
 
         public WeatherType Current => fixedWeather;
         public WeatherFactoryMock(){} // For inspector serialization

@@ -19,3 +19,5 @@ MonoBehaviour:
   <FishingRod>k__BackingField: {fileID: 11400000, guid: e2eb69998c820924bb850e118fe4f8e3, type: 2}
   <MaxStamina>k__BackingField:
     value: 100
+  <StartingCards>k__BackingField:
+  - {fileID: 11400000, guid: 975c83f6517f2774ca6eeacca9db74e3, type: 2}
