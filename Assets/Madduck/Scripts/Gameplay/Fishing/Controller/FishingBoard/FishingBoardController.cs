@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
+using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using Madduck.GameData;
 using Madduck.Input;
 using Madduck.Scripts.Input;
+using Madduck.Shared;
 using Madduck.Utils;
 using PrimeTween;
 using R3;
@@ -33,7 +35,7 @@ namespace Madduck.Fishing.Controller
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _playerInput;
         private readonly IFishingBoardAIController _aiController;
-        private readonly IFishFactory _fishFactory;
+        private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly ITransitionable _viewTransition;
         
         private IDisposable _updateSubscription;
@@ -52,7 +54,7 @@ namespace Madduck.Fishing.Controller
             IAudioManager audioManager,
             IPlayerInputHandler playerInput,
             IFishingBoardAIController aiController,
-            IFishFactory fishFactory,
+            IGenericFactory<FishItemInstance> fishFactory,
             ITransitionable viewTransition)
         {
             _model = model;
@@ -119,7 +121,7 @@ namespace Madduck.Fishing.Controller
                 _aiController.SetFishPosition(Vector2.zero);
                 SetHookPosition(Vector2.zero);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
-                _model.SetFishInstance(_fishFactory.CurrentFish);
+                _model.SetFishInstance(_fishFactory.Current);
                 Bind();
                 StartFishingBoard();
             }
@@ -192,7 +194,7 @@ namespace Madduck.Fishing.Controller
         private void UpdateFatigueLevel()
         {
             var fishPower = (float)_model.FishItemInstance.ItemData.Power;
-            var rodPower = (float)_model.FishingRodItemInstance.CurrentPower;
+            var rodPower = (float)_model.FishingRodItemInstance.CurrentStats.CurrentPower;
             var fishMultiplier = _variables.FishPowerMultiplier;
             var hookMultiplier = _variables.HookPowerMultiplier;
             var pullPercent = _variables.PullPercent;
@@ -219,17 +221,17 @@ namespace Madduck.Fishing.Controller
             var currentRod = _model.FishingRodItemInstance;
             var currentFish = _model.FishItemInstance;
             var fishPower = (float)currentFish.ItemData.Power;
-            var rodPower = (float)currentRod.CurrentPower;
+            var rodPower = (float)currentRod.CurrentStats.CurrentPower;
             var fishMultiplier = _variables.FishPowerMultiplier;
             var hookMultiplier = _variables.HookPowerMultiplier;
             var fishingLineTension = (rodPower * hookMultiplier) + (fishPower * fishMultiplier);
-            var regenFactor = (float)currentRod.CurrentFishingLineRegenFactor;
+            var regenFactor = (float)currentRod.CurrentStats.CurrentFishingLineRegenFactor;
             var final = regenFactor - fishingLineTension;
-            var currentDurability = (float)currentRod.CurrentFishingLineDurability;
+            var currentDurability = (float)currentRod.CurrentStats.CurrentFishingLineDurability;
             currentDurability += final * Time.deltaTime;
             currentDurability = Mathf.Clamp(currentDurability,
                 0, currentRod.ItemData.FishingLineDurability);
-            currentRod.CurrentFishingLineDurability = currentDurability;
+            currentRod.CurrentStats.CurrentFishingLineDurability = currentDurability;
             PlayTensionSound(_model.FishingLineDurabilityPercent.CurrentValue);
             if (currentDurability <= 0)
             {

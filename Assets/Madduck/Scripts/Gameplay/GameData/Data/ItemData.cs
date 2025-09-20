@@ -10,6 +10,7 @@ namespace Madduck.GameData
         Fish,
         FishingRod,
         Fisherman,
+        Card,
     }
     public abstract class ItemData : ScriptableObject
     {

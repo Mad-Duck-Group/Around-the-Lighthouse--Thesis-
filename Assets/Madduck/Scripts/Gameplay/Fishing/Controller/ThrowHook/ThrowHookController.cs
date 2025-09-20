@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using Madduck.GameData;
 using Madduck.Input;
 using Madduck.Scripts.Input;
+using Madduck.Shared;
 using Madduck.Utils;
 using R3;
 using UnityEngine;
@@ -22,7 +24,7 @@ namespace Madduck.Fishing.Controller
         private readonly ThrowHookConfig _config;
         private readonly HookProjectileFactory _hookFactory;
         private readonly IPlayerInputHandler _inputHandler;
-        private readonly IFishFactory _fishFactory;
+        private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly ITransitionable _viewTransition;
         
         private IDisposable _bindings;
@@ -35,7 +37,7 @@ namespace Madduck.Fishing.Controller
             ThrowHookConfig config,
             HookProjectileFactory hookFactory,
             IPlayerInputHandler inputHandler,
-            IFishFactory fishFactory,
+            IGenericFactory<FishItemInstance> fishFactory,
             ITransitionable viewTransition)
         {
             _inputHandler = inputHandler;

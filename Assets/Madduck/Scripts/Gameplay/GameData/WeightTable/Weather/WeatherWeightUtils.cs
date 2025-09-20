@@ -54,7 +54,7 @@ namespace Madduck.GameData
         {
             return records.Select(record => record with
             {
-                Weight = record.Weight + _modifier(record)
+                Weight = (float)record.Weight + _modifier(record)
             }).ToList();
         }
     }

@@ -6,16 +6,12 @@ using VContainer;
 
 namespace Madduck.GameData
 {
-    public interface IFishFactory : IGenericFactory<FishItemInstance>
-    {
-        public FishItemInstance CurrentFish { get; }
-    }
     
     [Serializable]
-    public class FishFactory : IFishFactory
+    public class FishFactory : IGenericFactory<FishItemInstance>
     {
         [field: ReadOnly, HideReferenceObjectPicker,
-                ShowInInspector] public FishItemInstance CurrentFish { get; private set; }
+                ShowInInspector] public FishItemInstance Current { get; private set; }
 
         [field: HideReferenceObjectPicker,
                 ShowInInspector] private readonly FishWeightTableInstance _weightTable;
@@ -29,18 +25,18 @@ namespace Madduck.GameData
         public FishItemInstance Create()
         {
             var fishItem = _weightTable.GetRandomItem();
-            CurrentFish = new FishItemInstance(fishItem);
-            return CurrentFish;
+            Current = new FishItemInstance(fishItem);
+            return Current;
         }
     }
     
     [Serializable]
-    public class FishFactoryMock : IFishFactory
+    public class FishFactoryMock : IGenericFactory<FishItemInstance>
     {
         [Required, 
          SerializeField] private FishItemData testFishData;
         [field: ReadOnly, HideReferenceObjectPicker,
-                ShowInInspector] public FishItemInstance CurrentFish { get; private set; }
+                ShowInInspector] public FishItemInstance Current { get; private set; }
         public FishFactoryMock(){} // For inspector serialization
         public FishFactoryMock(FishItemData testFishData)
         {
@@ -49,8 +45,8 @@ namespace Madduck.GameData
         
         public FishItemInstance Create()
         {
-            CurrentFish = new FishItemInstance(testFishData);
-            return CurrentFish;
+            Current = new FishItemInstance(testFishData);
+            return Current;
         }
     }
 }

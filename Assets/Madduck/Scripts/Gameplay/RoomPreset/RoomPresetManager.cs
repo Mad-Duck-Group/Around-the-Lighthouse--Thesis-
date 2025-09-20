@@ -16,7 +16,7 @@ namespace Madduck.RoomPreset
         [Title("Debug"),
          BoxGroup("Debug"),
          HideLabel, ReadOnly,
-         ShowInInspector] private  List<global::Madduck.RoomPreset.RoomPreset> _presets;
+         ShowInInspector] private  List<RoomPreset> _presets;
 
         #endregion
         

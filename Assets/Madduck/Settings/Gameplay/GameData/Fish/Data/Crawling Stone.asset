@@ -16,7 +16,7 @@ MonoBehaviour:
   <ItemType>k__BackingField: 0
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 2
-  <BehaviorGraph>k__BackingField: {fileID: 5250409653067072296, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   <Size>k__BackingField: 0
   <WeatherType>k__BackingField: 7
   <DayPhaseType>k__BackingField: 3

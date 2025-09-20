@@ -11,7 +11,7 @@ namespace Madduck.GameData
     }
     
     [Serializable]
-    public class FishItemInstance : ItemInstance<FishItemData>
+    public record FishItemInstance : ItemInstance<FishItemData>
     {
         [field: DisplayAsString, 
                 ShowInInspector] public uint CurrentFatigueCount { get; set; }

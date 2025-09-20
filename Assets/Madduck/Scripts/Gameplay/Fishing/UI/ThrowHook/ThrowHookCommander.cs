@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.Input;
 using Madduck.Scripts.Input;

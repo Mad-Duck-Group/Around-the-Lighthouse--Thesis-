@@ -9,13 +9,19 @@ namespace Madduck.GameData
     {
         private readonly WeatherWeightTableInstance _weatherWeightTable;
         
+        public WeatherType Current { get; private set; }
+        
         [Inject]
         public WeatherFactory(WeatherWeightTableInstance weatherWeightTable)
         {
             _weatherWeightTable = weatherWeightTable;
         }
-
-        public WeatherType Create() => _weatherWeightTable.GetRandomItem();
+        
+        public WeatherType Create()
+        {
+            Current = _weatherWeightTable.GetRandomItem();
+            return Current;
+        } 
     }
 
     [Serializable]
@@ -23,6 +29,7 @@ namespace Madduck.GameData
     {
         [SerializeField] private WeatherType fixedWeather;
 
+        public WeatherType Current => fixedWeather;
         public WeatherFactoryMock(){} // For inspector serialization
         public WeatherFactoryMock(WeatherType fixedWeather)
         {

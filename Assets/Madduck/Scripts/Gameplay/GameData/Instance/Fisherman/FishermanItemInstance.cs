@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 namespace Madduck.GameData.Fisherman
 {
     [Serializable]
-    public class FishermanItemInstance : ItemInstance<FishermanItemData>
+    public record FishermanItemInstance : ItemInstance<FishermanItemData>
     {
         [field: DisplayAsString, InlineProperty,
                 ShowInInspector] public UFloat CurrentStamina { get; set; }

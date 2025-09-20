@@ -22,11 +22,11 @@ namespace Madduck.Fishing.DI
         [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
         
         [ShowInInspector] private FishingStateMachine _stateMachine;
-        [ShowInInspector] private IFishFactory _fishFactory;
+        [ShowInInspector] private IGenericFactory<FishItemInstance> _fishFactory;
         
         public FishingStateMachineDebugData(
             FishingStateMachine stateMachine,
-            IFishFactory fishFactory)
+            IGenericFactory<FishItemInstance> fishFactory)
         {
             ConstantUpdate = false;
             AutoCloseWhenPlayModeEnds = true;
@@ -45,7 +45,7 @@ namespace Madduck.Fishing.DI
         [Title("Debug")] 
         [SerializeField] private bool spoofFish;
         [ShowIf(nameof(spoofFish)),
-            OdinSerialize] private IFishFactory fishFactoryMock;
+            OdinSerialize] private IGenericFactory<FishItemInstance> fishFactoryMock;
         
         
 #if UNITY_EDITOR
@@ -66,11 +66,11 @@ namespace Madduck.Fishing.DI
 #endif
             if (spoofFish && fishFactoryMock != null)
             { 
-                builder.RegisterInstance(fishFactoryMock).As<IFishFactory>();
+                builder.RegisterInstance(fishFactoryMock).As<IGenericFactory<FishItemInstance>>();
             }
             else
             {
-                builder.Register<FishFactory>(Lifetime.Singleton).As<IFishFactory>();
+                builder.Register<FishFactory>(Lifetime.Singleton).As<IGenericFactory<FishItemInstance>>();
             }
             builder.RegisterInstance(hookProjectileFactory).AsSelf();
             builder.Register<FishingNoneState>(Lifetime.Scoped).AsSelf();
@@ -81,7 +81,7 @@ namespace Madduck.Fishing.DI
                 var noneState = x.Resolve<FishingNoneState>();
                 stateMachine.AddState(FishingStateType.None, noneState);
 #if UNITY_EDITOR
-                var fishItemInstanceFactory = x.Resolve<IFishFactory>();
+                var fishItemInstanceFactory = x.Resolve<IGenericFactory<FishItemInstance>>();
                 _fishingStateMachineDebugData = new FishingStateMachineDebugData(stateMachine, fishItemInstanceFactory);
 #endif
             });

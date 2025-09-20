@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Controller;
 using Madduck.GameData;
+using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
@@ -12,7 +13,7 @@ namespace Madduck.Fishing.StateMachine
     public class ReelingState : FishingState
     {
         private readonly ReelingController _controller;
-        private readonly IFishFactory _fishFactory;
+        private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly IPublisher<FishCaughtEvent> _fishCaughtEventPublisher;
         private readonly IPublisher<FishEscapedEvent> _fishEscapedEventPublisher;
         private IDisposable _reelingResultSubscription;
@@ -22,7 +23,7 @@ namespace Madduck.Fishing.StateMachine
         public ReelingState(
             FishingStateMachine stateMachine,
             ReelingController controller,
-            IFishFactory fishFactory,
+            IGenericFactory<FishItemInstance> fishFactory,
             IPublisher<FishCaughtEvent> fishCaughtEventPublisher,
             IPublisher<FishEscapedEvent> fishEscapedEventPublisher)
             : base(stateMachine)
@@ -51,7 +52,7 @@ namespace Madduck.Fishing.StateMachine
             await _controller.ReturnHook();
             if (_result is Sign.Positive)
             {
-                _fishCaughtEventPublisher.Publish(new FishCaughtEvent(_fishFactory.CurrentFish));
+                _fishCaughtEventPublisher.Publish(new FishCaughtEvent(_fishFactory.Current));
                 _controller.Reset();
             }
         }

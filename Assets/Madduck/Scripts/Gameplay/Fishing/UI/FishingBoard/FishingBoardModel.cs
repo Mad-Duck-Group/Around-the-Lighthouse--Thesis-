@@ -52,7 +52,7 @@ namespace Madduck.Fishing.UI
             var baseDurability =
                 Observable.EveryValueChanged(FishingRodItemInstance, x => x.ItemData.FishingLineDurability);
             var currentDurability =
-                Observable.EveryValueChanged(FishingRodItemInstance, x => x.CurrentFishingLineDurability);
+                Observable.EveryValueChanged(FishingRodItemInstance, x => x.CurrentStats.CurrentFishingLineDurability);
             FishingLineDurabilityPercent = baseDurability
                 .CombineLatest(currentDurability, (@base, current) => @base <= 0 
                     ? Percentage.FromFraction(0f) 
@@ -81,7 +81,7 @@ namespace Madduck.Fishing.UI
             HookRotation.Value = Quaternion.identity;
             CurrentFatigueLevel.Value = 0f;
             MaxFatigueLevel.Value = 100f;
-            FishingRodItemInstance.CurrentFishingLineDurability = FishingRodItemInstance.ItemData.FishingLineDurability;
+            FishingRodItemInstance.CurrentStats.CurrentFishingLineDurability = FishingRodItemInstance.ItemData.FishingLineDurability;
         }
         
         public void Dispose()

@@ -6,6 +6,7 @@ using Madduck.Fishing.UI;
 using Madduck.GameData;
 using Madduck.Input;
 using Madduck.Scripts.Input;
+using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
@@ -21,7 +22,7 @@ namespace Madduck.Fishing.Controller
         private readonly ReelingCommander _commander;
         private readonly ReelingModel _model;
         private readonly IPlayerInputHandler _inputHandler;
-        private readonly IFishFactory _fishFactory;
+        private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly ITransitionable _viewTransition;
         
         private IDisposable _bindings;
@@ -34,7 +35,7 @@ namespace Madduck.Fishing.Controller
             ReelingCommander commander,
             ReelingModel model,
             IPlayerInputHandler inputHandler,
-            IFishFactory fishFactory,
+            IGenericFactory<FishItemInstance> fishFactory,
             ITransitionable viewTransition)
         {
             _hookFactory = hookFactory;
@@ -74,7 +75,7 @@ namespace Madduck.Fishing.Controller
             if (active)
             {
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
-                _model.SetFishInstance(_fishFactory.CurrentFish);
+                _model.SetFishInstance(_fishFactory.Current);
                 Bind();
                 StartFatigueTimer().Forget();
             }

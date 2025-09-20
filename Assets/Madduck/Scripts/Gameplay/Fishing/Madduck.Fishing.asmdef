@@ -1,0 +1,30 @@
+{
+    "name": "Madduck.Fishing",
+    "rootNamespace": "Madduck.Fishing",
+    "references": [
+        "GUID:5b07139c813055a45b749292fa7fbcdd",
+        "GUID:59060aab475fe74459dbf17bf4e78b81",
+        "GUID:9a8e98c85254a0446b05479cd383a29b",
+        "GUID:645e6f37545cbfd4282f212067f8b306",
+        "GUID:5ecb2f6dbf140e440bfa9b64e27a2d48",
+        "GUID:0c752da273b17c547ae705acf0f2adf2",
+        "GUID:73907d139b13f8a43b7e3e95c329d30a",
+        "GUID:20ee76f6d94ae4b0595f3ceb1c5359a7",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:77221876cc6b8244180b96e320b1bcd4",
+        "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
+        "GUID:250e7721b72357f41bf7522b8b7e2f98",
+        "GUID:b52c6daf0f9f3974fb04e400a06c9369",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:80ecb87cae9c44d19824e70ea7229748"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

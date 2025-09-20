@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.GameData;
 using Madduck.GameData.Fisherman;

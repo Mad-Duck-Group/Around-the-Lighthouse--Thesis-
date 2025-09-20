@@ -6,6 +6,7 @@ using Madduck.Fishing.UI;
 using Madduck.GameData;
 using Madduck.Input;
 using Madduck.Scripts.Input;
+using Madduck.Shared;
 using Madduck.Utils;
 using R3;
 using VContainer;
@@ -19,7 +20,7 @@ namespace Madduck.Fishing.Controller
         private readonly NibbleCommander _commander;
         private readonly HookProjectileFactory _hookFactory;
         private readonly IPlayerInputHandler _inputHandler;
-        private readonly IFishFactory _fishFactory;
+        private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly ITransitionable _viewTransition;
         
         private IDisposable _bindings;
@@ -32,7 +33,7 @@ namespace Madduck.Fishing.Controller
             NibbleCommander commander,
             HookProjectileFactory hookFactory,
             IPlayerInputHandler inputHandler,
-            IFishFactory fishFactory,
+            IGenericFactory<FishItemInstance> fishFactory,
             ITransitionable viewTransition)
         {
             _inputHandler = inputHandler;
@@ -80,7 +81,7 @@ namespace Madduck.Fishing.Controller
             if (active)
             {
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
-                _model.SetFishInstance(_fishFactory.CurrentFish);
+                _model.SetFishInstance(_fishFactory.Current);
                 Bind();
                 StartWaiting().Forget();
             }

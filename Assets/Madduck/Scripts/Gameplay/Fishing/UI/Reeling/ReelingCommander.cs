@@ -44,7 +44,7 @@ namespace Madduck.Fishing.UI
 
         private void OnReelingHeld()
         {
-            var reelingSpeed = (float)_reelingModel.FishingRodInstance.CurrentReelingSpeed;
+            var reelingSpeed = (float)_reelingModel.FishingRodInstance.CurrentStats.CurrentReelingSpeed;
             _reelingModel.CurrentReelingProgress.Value += reelingSpeed * Time.deltaTime;
         }
     }

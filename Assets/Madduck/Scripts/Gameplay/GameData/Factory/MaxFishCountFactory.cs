@@ -13,15 +13,18 @@ namespace Madduck.GameData
     {
         private readonly IMaxFishCountProvider _dayManager;
         
+        public uint Current { get; private set; }
+        
         [Inject]
         public MaxFishCountFactory(IMaxFishCountProvider dayManager)
         {
             _dayManager = dayManager;
         }
-        
+
         public uint Create()
         {
-            return _dayManager.GetMaxFishCount();
+            Current = _dayManager.GetMaxFishCount();
+            return Current;
         }
     }
     
@@ -30,11 +33,13 @@ namespace Madduck.GameData
     {
         [SerializeField] private uint fixedMaxFishCount;
         
+        public uint Current => fixedMaxFishCount;
         public MaxFishCountFactoryMock(){} // For inspector serialization
         public MaxFishCountFactoryMock(uint fixedMaxFishCount)
         {
             this.fixedMaxFishCount = fixedMaxFishCount;
         }
+        
         public uint Create() => fixedMaxFishCount;
     }
 }
