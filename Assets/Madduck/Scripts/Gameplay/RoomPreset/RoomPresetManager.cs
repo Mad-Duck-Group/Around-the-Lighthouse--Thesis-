@@ -16,13 +16,13 @@ namespace Madduck.RoomPreset
         [Title("Debug"),
          BoxGroup("Debug"),
          HideLabel, ReadOnly,
-         ShowInInspector] private  List<global::Madduck.RoomPreset.RoomPreset> _presets;
+         ShowInInspector] private  List<RoomPreset> _presets;
 
         #endregion
         
         #region Inject
         [Inject]
-        public RoomPresetManager(List<global::Madduck.RoomPreset.RoomPreset> presets)
+        public RoomPresetManager(List<RoomPreset> presets)
         {
             _presets = presets;
         }

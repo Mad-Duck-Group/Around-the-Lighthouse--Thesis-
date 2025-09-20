@@ -39,6 +39,8 @@ namespace Madduck.Room
          SerializeField] private WeatherWeightTable weatherWeightTable;
         [Required,
          SerializeField] private List<RoomPreset.RoomPreset> roomPresets;
+        [Required,
+         SerializeField] private List<WeatherPreset.WeatherPreset> weatherPresets;
         
 #if UNITY_EDITOR
         [Title("Debug")]
@@ -56,6 +58,7 @@ namespace Madduck.Room
         {
             builder.RegisterInstance(weatherWeightTable.GetInstance()).AsSelf();
             builder.RegisterInstance(roomPresets).As<List<RoomPreset.RoomPreset>>();
+            builder.RegisterInstance(weatherPresets).As<List<WeatherPreset.WeatherPreset>>();
             builder.RegisterEntryPoint<FishingRoomManager>().AsSelf();
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
             builder.RegisterBuildCallback(container =>

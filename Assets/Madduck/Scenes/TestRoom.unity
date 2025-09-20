@@ -199,7 +199,6 @@ MonoBehaviour:
     - value: 0
     - value: 100
     - value: 75
-  reelingSlider: {fileID: 56461222}
   fishingBoardScaleTweenSettings:
     startFromCurrent: 0
     startValue: {x: 0, y: 0, z: 0}
@@ -255,26 +254,6 @@ MonoBehaviour:
     asymmetry: 0
     easeBetweenShakes: 0
     cycles: 1
-    startDelay: 0
-    endDelay: 0
-    useUnscaledTime: 0
-    _useFixedUpdate: 0
-    _updateType: 0
-  reelingSliderShakeSettings:
-    strength: {x: 0, y: 0, z: 0}
-    duration: 0
-    frequency: 0
-    enableFalloff: 0
-    falloffEase: 0
-    strengthOverTime:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    asymmetry: 0
-    easeBetweenShakes: 0
-    cycles: 0
     startDelay: 0
     endDelay: 0
     useUnscaledTime: 0
