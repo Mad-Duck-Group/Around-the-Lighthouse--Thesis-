@@ -36,6 +36,7 @@ namespace Madduck.WeatherPreset
             if (renderer == null) return;
             renderer.sortingLayerID = sortingLayerID;
             renderer.sortingOrder = orderInLayer;
+            
         }
 
 #if UNITY_EDITOR

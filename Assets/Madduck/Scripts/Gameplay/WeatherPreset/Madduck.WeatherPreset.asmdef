@@ -4,7 +4,10 @@
     "references": [
         "VContainer",
         "Madduck.Utils",
-        "Madduck.Shared"
+        "Madduck.Shared",
+        "PrimeTween.Runtime",
+        "Unity.RenderPipelines.Universal.2D.Runtime",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
