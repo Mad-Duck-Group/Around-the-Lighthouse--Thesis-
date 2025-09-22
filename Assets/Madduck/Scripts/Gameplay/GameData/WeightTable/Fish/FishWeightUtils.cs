@@ -13,7 +13,7 @@ namespace Madduck.GameData
         [field: Required, 
                 SerializeField] public FishItemData Item { get; internal set; }
         [field: MinValue(0f), 
-                SerializeField] public UFloat Weight { get; internal set; } = 1f;
+                SerializeField] public UFloat Weight { get; set; } = 1f;
         [field: DisplayAsString(TextAlignment.Center), 
                 ShowInInspector] public Percentage Probability { get; internal set; }
 
@@ -40,19 +40,50 @@ namespace Madduck.GameData
     
     public class FishWeightModifier : IWeightModifier<FishWeightRecord>
     {
-        private readonly Func<FishWeightRecord, float> _modifier;
+        private readonly List<FishModifierData> _modifier;
 
-        public FishWeightModifier(Func<FishWeightRecord, float> modifier)
+        public FishWeightModifier(List<FishModifierData> modifier)
         {
             _modifier = modifier;
         }
 
         public List<FishWeightRecord> Modify(List<FishWeightRecord> records)
         {
-            return records.Select(record => record with
+            var copy = records.Select(x => x.Copy()).ToList();
+            var bucket = BucketModifiers(copy, _modifier);
+            foreach (var pair in bucket)
             {
-                Weight = (float)record.Weight + _modifier(record)
-            }).ToList();
+                pair.Key.Weight = pair.Value.CalculateStat(pair.Key.Weight);
+            }
+            return copy;
+        }
+
+        private static Dictionary<FishWeightRecord, List<FishModifierData>> BucketModifiers(
+            List<FishWeightRecord> records,
+            List<FishModifierData> modifiers)
+        {
+            var dictionary = records.Distinct().ToDictionary(x => x, _ => new List<FishModifierData>());
+
+            foreach (var modifier in modifiers)
+            {
+                foreach (var record in records)
+                {
+                    switch (modifier.ModifierType)
+                    {
+                        case FishModifierType.Name:
+                            if (!modifier.FishItemData.Guid.Equals(record.Item.Guid)) break;
+                            dictionary[record].Add(modifier);
+                            break;
+                        case FishModifierType.Size:
+                            if (modifier.FishSize != record.Item.Size) break;
+                            dictionary[record].Add(modifier);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+            }
+            return dictionary;
         }
     }
     

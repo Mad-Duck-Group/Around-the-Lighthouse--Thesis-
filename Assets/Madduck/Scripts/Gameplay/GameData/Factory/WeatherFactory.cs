@@ -9,14 +9,14 @@ namespace Madduck.GameData
     public class WeatherFactory : IGenericFactory<WeatherType>
     {
         private readonly WeatherWeightTableInstance _weatherWeightTable;
-        private readonly IRequestHandler<ModifierRequest, ModiferResponse> _modifierRequestHandler;
+        private readonly IRequestHandler<ModifierRequest, ModifierResponse> _modifierRequestHandler;
         
         public WeatherType Current { get; private set; }
         
         [Inject]
         public WeatherFactory(
             WeatherWeightTableInstance weatherWeightTable,
-            IRequestHandler<ModifierRequest, ModiferResponse> modifierRequestHandler)
+            IRequestHandler<ModifierRequest, ModifierResponse> modifierRequestHandler)
         {
             _weatherWeightTable = weatherWeightTable;
             _modifierRequestHandler = modifierRequestHandler;

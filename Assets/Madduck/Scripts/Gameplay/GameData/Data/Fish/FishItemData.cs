@@ -12,6 +12,12 @@ namespace Madduck.GameData
         Medium,
         Large
     }
+
+    public enum FishModifierType
+    {
+        Name,
+        Size,
+    }
     
     [CreateAssetMenu(fileName = "New Fish Item Data", menuName = "Madduck/Fish/Fish Item Data")]
     public class FishItemData : ItemData

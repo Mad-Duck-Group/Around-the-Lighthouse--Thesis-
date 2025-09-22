@@ -28,7 +28,7 @@ namespace Madduck.Room
         private readonly IPublisher<OutOfFishEvent> _outOfFishEventPublisher;
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
-        private readonly IRequestHandler<ModifierRequest, ModiferResponse> _modifierRequestHandler;
+        private readonly IRequestHandler<ModifierRequest, ModifierResponse> _modifierRequestHandler;
 
         private IDisposable _subscriptions;
 
@@ -45,7 +45,7 @@ namespace Madduck.Room
             IPublisher<OutOfFishEvent> outOfFishEventPublisher,
             ISubscriber<FishCaughtEvent> fishCaughtEventSubscriber,
             ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
-            IRequestHandler<ModifierRequest, ModiferResponse> modifierRequestHandler)
+            IRequestHandler<ModifierRequest, ModifierResponse> modifierRequestHandler)
         {
             _fishWeightTableInstance = fishWeightTableInstanceInstance;
             _weatherFactory = weatherFactory;

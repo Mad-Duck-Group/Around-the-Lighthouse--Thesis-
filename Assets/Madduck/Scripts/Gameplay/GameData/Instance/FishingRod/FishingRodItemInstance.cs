@@ -19,11 +19,11 @@ namespace Madduck.GameData
                 SerializeReference] public FishingRodStats CurrentStats { get; private set; }
         
         private List<RodModifierData> _modifiers;
-        private readonly IRequestHandler<ModifierRequest, ModiferResponse> _modifierRequestHandler;
+        private readonly IRequestHandler<ModifierRequest, ModifierResponse> _modifierRequestHandler;
 
         public FishingRodItemInstance(
             FishingRodItemData itemData,
-            IRequestHandler<ModifierRequest, ModiferResponse> modifierRequestHandler)
+            IRequestHandler<ModifierRequest, ModifierResponse> modifierRequestHandler)
             : base(itemData)
         {
              CurrentStats = new FishingRodStats(itemData);

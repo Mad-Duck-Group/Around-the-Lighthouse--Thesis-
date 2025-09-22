@@ -19,10 +19,6 @@ namespace Madduck.GameData
         /// </summary>
         BasePercent,
         /// <summary>
-        /// Multiplier based on the base value.
-        /// </summary>
-        BaseMultiply,
-        /// <summary>
         /// Flat increase based on the base value.
         /// </summary>
         BaseFlat,
@@ -30,10 +26,6 @@ namespace Madduck.GameData
         /// Percent increase based on the total value after base modifiers have been applied.
         /// </summary>
         TotalPercent,
-        /// <summary>
-        /// Multiplier based on the total value after base modifiers have been applied.
-        /// </summary>
-        TotalMultiply,
         /// <summary>
         /// Flat increase to the total value after base modifiers have been applied.
         /// </summary>
@@ -45,28 +37,15 @@ namespace Madduck.GameData
         public T Copy();
     }
 
+    #region Modifier Data
     [Serializable]
     public abstract class BaseModifierData
     {
-        [field: SerializeField] public ModifierMethod ModifierMethod { get; private set; }
+        [field: SerializeField] public ModifierMethod ModifierMethod { get; internal set; }
         [field: ShowIf(nameof(ShowValue)),
-            SerializeField] public float ModifierValue { get; private set; }
+            SerializeField] public float ModifierValue { get; internal set; }
         [field: ShowIf(nameof(ShowPercent)), InlineProperty,
-                SerializeField] public Percentage ModifierPercentage { get; private set; }
-
-        public BaseModifierData() { } // For serialization
-
-        public BaseModifierData(ModifierMethod modifierMethod, float modifierValue)
-        {
-            ModifierMethod = modifierMethod;
-            ModifierValue = modifierValue;
-        }
-
-        public BaseModifierData(ModifierMethod modifierMethod, Percentage modifierPercentage)
-        {
-            ModifierMethod = modifierMethod;
-            ModifierPercentage = modifierPercentage;
-        }
+                SerializeField] public Percentage ModifierPercentage { get; internal set; }
 
         private bool ShowPercent()
         {
@@ -87,18 +66,21 @@ namespace Madduck.GameData
     public class RodModifierData : BaseModifierData
     {
         [field: SerializeField] public FishingRodStatType FishingRodStatType { get; private set; }
-        public RodModifierData() { } // For serialization
-
-        public RodModifierData(ModifierMethod modifierMethod, float modifierValue,
-            FishingRodStatType fishingRodStatType) : base(modifierMethod, modifierValue)
+        public class Builder : ModifierDataBuilder<RodModifierData>
         {
-            FishingRodStatType = fishingRodStatType;
-        }
-        
-        public RodModifierData(ModifierMethod modifierMethod, Percentage modifierPercentage,
-            FishingRodStatType fishingRodStatType) : base(modifierMethod, modifierPercentage)
-        {
-            FishingRodStatType = fishingRodStatType;
+            private Builder(ModifierMethod modifierMethod) 
+                : base(modifierMethod) { }
+            
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+            
+            public Builder WithFishingRodStatType(FishingRodStatType fishingRodStatType)
+            {
+                modifierData.FishingRodStatType = fishingRodStatType;
+                return this;
+            }
         }
     }
 
@@ -108,20 +90,103 @@ namespace Madduck.GameData
         [field: UnflagEnum,
             SerializeField] public WeatherType WeatherType { get; private set; }
         
-        public WeatherModifierData() { } // For serialization
-        public WeatherModifierData(ModifierMethod modifierMethod, float modifierValue,
-            WeatherType weatherType) : base(modifierMethod, modifierValue)
+        public class Builder : ModifierDataBuilder<WeatherModifierData>
         {
-            WeatherType = weatherType;
-        }
-        
-        public WeatherModifierData(ModifierMethod modifierMethod, Percentage modifierPercentage,
-            WeatherType weatherType) : base(modifierMethod, modifierPercentage)
-        {
-            WeatherType = weatherType;
+            private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
+
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+            
+            public Builder WithWeatherType(WeatherType weatherType)
+            {
+                modifierData.WeatherType = weatherType;
+                return this;
+            }
         }
     }
     
+    [Serializable]
+    public class FishModifierData : BaseModifierData
+    {
+        [field: SerializeField] public FishModifierType ModifierType { get; private set; }
+        [field: ShowIf(nameof(ModifierType), FishModifierType.Size),
+            SerializeField] public FishSize FishSize { get; private set; }
+        [field: ShowIf(nameof(ModifierType), FishModifierType.Name),
+            SerializeField] public FishItemData FishItemData { get; private set; }
+        
+        public class Builder : ModifierDataBuilder<FishModifierData>
+        {
+            private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
+
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+
+            public Builder WithSize(FishSize size)
+            {
+                modifierData.ModifierType = FishModifierType.Size;
+                modifierData.FishSize = size;
+                return this;
+            }
+
+            public Builder WithName(FishItemData fishItemData)
+            {
+                modifierData.ModifierType = FishModifierType.Name;
+                modifierData.FishItemData = fishItemData;
+                return this;
+            }
+        }
+    }
+    #endregion
+    
+    #region Builder
+    public abstract class ModifierDataBuilder<T> where T : BaseModifierData, new()
+    {
+        protected readonly T modifierData;
+
+        protected ModifierDataBuilder(ModifierMethod modifierMethod)
+        {
+            modifierData = new T
+            {
+                ModifierMethod = modifierMethod
+            };
+        }
+
+        public ModifierDataBuilder<T> WithPercentage(Percentage percentage)
+        {
+            if (modifierData.ModifierMethod is not (ModifierMethod.BasePercent or ModifierMethod.TotalPercent))
+            {
+                DebugUtils.LogWarning("Modifier method is not based on percent, converting to float as fraction instead");
+                modifierData.ModifierValue = percentage.AsFraction;
+                return this;
+            }
+            modifierData.ModifierPercentage = percentage;
+            return this;
+        }
+
+        public ModifierDataBuilder<T> WithValue(float value)
+        {
+            if (modifierData.ModifierMethod is (ModifierMethod.BasePercent or ModifierMethod.TotalPercent))
+            {
+                DebugUtils.LogWarning("Modifier method is based on percent, converting to percent from float as fraction instead");
+                modifierData.ModifierPercentage = Percentage.FromFraction(value);
+                return this;
+            }
+            modifierData.ModifierValue = value;
+            return this;
+        }
+
+        public T Build()
+        {
+            return modifierData;
+        }
+    }
+    #endregion
+    
+    #region Utils
     public static class ModifierUtils
     {
         /// <summary>
@@ -154,10 +219,6 @@ namespace Madduck.GameData
                         baseContributions += baseValue * modifier.ModifierPercentage.AsFraction;
                         result += baseContributions;
                         break;
-                    case ModifierMethod.BaseMultiply:
-                        baseContributions += baseValue * modifier.ModifierValue;
-                        result += baseContributions;
-                        break;
                     case ModifierMethod.BaseFlat:
                         baseContributions += modifier.ModifierValue;
                         result += baseContributions;
@@ -165,11 +226,8 @@ namespace Madduck.GameData
                     case ModifierMethod.TotalPercent:
                         result *= modifier.ModifierPercentage.AsMultiplier;
                         break;
-                    case ModifierMethod.TotalMultiply:
-                        result *= modifier.ModifierValue;
-                        break;
                     case ModifierMethod.TotalFlat:
-                        result += modifier.ModifierValue;
+                        result += modifier.ModifierValue; 
                         break;
                 }
             }
@@ -177,4 +235,5 @@ namespace Madduck.GameData
             return result;
         }
     }
+    #endregion
 }

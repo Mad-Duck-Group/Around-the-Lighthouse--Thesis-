@@ -9,7 +9,7 @@ namespace Madduck.GameData.Fisherman
 {
     [Serializable]
     public class FishermanItemInstance : ItemInstance<FishermanItemData>,
-        IRequestHandler<ModifierRequest, ModiferResponse> 
+        IRequestHandler<ModifierRequest, ModifierResponse> 
     {
         [Title("Fisherman Stats"),
          HideLabel,
@@ -39,9 +39,9 @@ namespace Madduck.GameData.Fisherman
                  .Where(modifier => modifier.GetType() == modifierType).ToList();
         }
 
-        public ModiferResponse Invoke(ModifierRequest request)
+        public ModifierResponse Invoke(ModifierRequest request)
         {
-            return new ModiferResponse(GetModifiers(request.ModifierType));
+            return new ModifierResponse(GetModifiers(request.ModifierType));
         }
     }
 

@@ -19,11 +19,11 @@ namespace Madduck.GameData
          }
     }
 
-    public readonly struct ModiferResponse
+    public readonly struct ModifierResponse
     {
         private List<BaseModifierData> Modifiers { get; }
 
-        public ModiferResponse(List<BaseModifierData> modifiers)
+        public ModifierResponse(List<BaseModifierData> modifiers)
         {
              Modifiers = modifiers;
         }

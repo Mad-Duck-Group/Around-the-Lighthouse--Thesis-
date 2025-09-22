@@ -4,7 +4,7 @@ namespace Madduck.Utils
 {
     public interface IWeightRecord
     {
-        public UFloat Weight { get; }
+        public UFloat Weight { get; set; }
         public Percentage Probability { get; }
     }
 

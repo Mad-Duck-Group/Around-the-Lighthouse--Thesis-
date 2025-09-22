@@ -1,5 +1,6 @@
 ﻿using System;
 using Madduck.Shared;
+using MessagePipe;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
@@ -16,10 +17,18 @@ namespace Madduck.GameData
         [field: HideReferenceObjectPicker,
                 ShowInInspector] private readonly FishWeightTableInstance _weightTable;
         
+        private readonly IRequestHandler<ModifierRequest, ModifierResponse> _modifierHandler;
+        
         [Inject]
-        public FishFactory(FishWeightTableInstance weightTable)
+        public FishFactory(
+            FishWeightTableInstance weightTable,
+            IRequestHandler<ModifierRequest, ModifierResponse> modifierHandler)
         {
             _weightTable = weightTable;
+            _modifierHandler = modifierHandler;
+            var modifiers = _modifierHandler.Invoke(ModifierRequest.For<FishModifierData>()).As<FishModifierData>();
+            _weightTable.PersistentModifiers.Remove("CardModifiers");
+            _weightTable.PersistentModifiers.TryAdd("CardModifiers", new FishWeightModifier(modifiers));
         }
 
         public FishItemInstance Create()

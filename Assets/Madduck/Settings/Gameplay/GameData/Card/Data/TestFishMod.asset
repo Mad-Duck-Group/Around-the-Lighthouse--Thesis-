@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f88e80974044c6bae6e81f599d2018a, type: 3}
+  m_Name: TestFishMod
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.Card.CardItemData
+  <Guid>k__BackingField: 7c924265ad775e4ea58fb75f6416f14a
+  <ItemType>k__BackingField: 3
+  <IsStackable>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 2
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: fe2409ffe21a66f489b88b6cf7b663eb, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: <Modifiers>k__BackingField
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[Madduck.GameData.BaseModifierData,
+        Madduck.GameData]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 1|Madduck.GameData.FishModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 4
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 1
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierType>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <FishSize>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishItemData>k__BackingField
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|Madduck.GameData.FishModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 1
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishSize>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishItemData>k__BackingField
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

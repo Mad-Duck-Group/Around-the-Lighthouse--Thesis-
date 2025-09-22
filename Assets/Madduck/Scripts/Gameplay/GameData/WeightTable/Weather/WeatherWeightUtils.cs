@@ -19,7 +19,7 @@ namespace Madduck.GameData
 
         [field: MinValue(0f),
                 SerializeField]
-        public UFloat Weight { get; internal set; } = 1f;
+        public UFloat Weight { get; set; } = 1f;
 
         [field: DisplayAsString(TextAlignment.Center),
                 ShowInInspector]
@@ -57,23 +57,7 @@ namespace Madduck.GameData
 
         public List<WeatherWeightRecord> Modify(List<WeatherWeightRecord> records)
         {
-            var recordGroup = records
-                .GroupBy(x => x.Item)
-                .ToDictionary(x => x.Key, 
-                    x => x.Select(r => r.Copy()).ToList());
-            var modifierGroup = _modifier
-                .GroupBy(x => x.WeatherType)
-                .ToDictionary(x => x.Key, 
-                    x => x.ToList());
-            foreach (var modifier in modifierGroup)
-            {
-                if (!recordGroup.TryGetValue(modifier.Key, out var value)) continue;
-                foreach (var record in value)
-                {
-                     record.Weight = modifier.Value.CalculateStat(record.Weight);
-                }
-            }
-            return recordGroup.SelectMany(x => x.Value).ToList();
+            return _modifier.ModifyBy(records, data => data.WeatherType, record => record.Item);
         }
     }
 
