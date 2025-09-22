@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using Madduck.Shared;
 using MessagePipe;
 using UnityEngine;
@@ -10,8 +11,18 @@ namespace Madduck.GameData
     {
         private readonly WeatherWeightTableInstance _weatherWeightTable;
         private readonly IRequestHandler<ModifierRequest, ModifierResponse> _modifierRequestHandler;
-        
-        public WeatherType Current { get; private set; }
+
+        public WeatherType Current
+        {
+            get => !_generated ? Create() : _current;
+            private set
+            {
+                _generated = true;
+                _current = value;
+            }
+        }
+        private WeatherType _current;
+        private bool _generated;
         
         [Inject]
         public WeatherFactory(

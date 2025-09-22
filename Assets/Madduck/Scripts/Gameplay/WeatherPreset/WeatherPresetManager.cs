@@ -1,22 +1,23 @@
 using System.Collections.Generic;
 using Madduck.Shared;
 using Madduck.Utils;
+using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Madduck.WeatherPreset.Madduck.Scripts.Gameplay.WeatherPreset
+namespace Madduck.WeatherPreset
 {
     public class WeatherPresetManager : IStartable
     {
         #region Inspector
 
         [BoxGroup("Debug"),
-         HideLabel, ReadOnly,
-         ShowInInspector] private  List<global::Madduck.WeatherPreset.WeatherPreset> _presets;
+         HideLabel, Sirenix.OdinInspector.ReadOnly,
+         ShowInInspector] private  List<WeatherPreset> _presets;
         [BoxGroup("Debug"),
-          HideLabel, ReadOnly,
+          HideLabel, Sirenix.OdinInspector.ReadOnly,
           ShowInInspector] private  WeatherPresetConfig _presetsConfig;
         [BoxGroup("Debug")]
         [DisplayAsString, 
@@ -29,7 +30,7 @@ namespace Madduck.WeatherPreset.Madduck.Scripts.Gameplay.WeatherPreset
             WeatherPresetConfig weatherPresetConfig)
         {
             _presetsConfig = weatherPresetConfig;
-            _currentWeather = weatherFactory.Create();
+            _currentWeather = weatherFactory.Current;
             DebugUtils.Log("Current weather: " + _currentWeather);
         }
         
@@ -58,8 +59,7 @@ namespace Madduck.WeatherPreset.Madduck.Scripts.Gameplay.WeatherPreset
                     Debug.LogError("Unsupported weather type: " + _currentWeather);
                     break;
             }
-            int index = Random.Range(0, _presets.Count);
-            global::Madduck.WeatherPreset.WeatherPreset instance = Object.Instantiate(_presets[index], zero, identity);
+            WeatherPreset instance = Object.Instantiate(_presets.GetRandomElement(), zero, identity);
             instance.SetUpWeatherParticles();
         }
 

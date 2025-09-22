@@ -1,4 +1,6 @@
-﻿namespace Madduck.Shared
+using System;
+
+namespace Madduck.Shared
 {
     public interface IGenericFactory<out T>
     {

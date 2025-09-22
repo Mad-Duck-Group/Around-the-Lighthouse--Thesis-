@@ -9,45 +9,35 @@ namespace Madduck.WeatherPreset
     [Serializable]
     public class ParticleEntry
     {
-        [HorizontalGroup("Row")]
+        [VerticalGroup("Row")]
         public ParticleSystem prefab;
 
-        [HorizontalGroup("Row")]
+        [VerticalGroup("Row")]
         public Renderer renderer;
 
-        [HorizontalGroup("Row")]
+        [VerticalGroup("Row"), InlineProperty, HideLabel]
         public ParticleRendererConfig config;
     }
     
-    [System.Serializable]
+    [Serializable]
     public class ParticleRendererConfig
     {
-        [HorizontalGroup("Sorting"),
-         LabelText("Layer")]
-        [ValueDropdown("GetSortingLayers")]
-        [SerializeField] private int sortingLayerID;
+        [HorizontalGroup("Sorting"), 
+         LabelText("Layer"),
+         SortingLayer,
+         SerializeField] private int sortingLayerID;
 
         [HorizontalGroup("Sorting"),
          LabelText("Order")]
-        [SerializeField] private int orderInLayer = 0;
+        [SerializeField] private int orderInLayer;
 
         public void ApplyTo(Renderer renderer)
         {
-            if (renderer == null) return;
+            if (!renderer) return;
             renderer.sortingLayerID = sortingLayerID;
             renderer.sortingOrder = orderInLayer;
             
         }
-
-#if UNITY_EDITOR
-        private static IEnumerable<ValueDropdownItem<int>> GetSortingLayers()
-        {
-            foreach (var layer in SortingLayer.layers)
-            {
-                yield return new ValueDropdownItem<int>(layer.name, layer.id);
-            }
-        }
-#endif
     }
     
 }
