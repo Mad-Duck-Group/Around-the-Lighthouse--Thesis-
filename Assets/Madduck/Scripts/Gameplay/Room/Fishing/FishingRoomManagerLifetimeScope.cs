@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Madduck.Day;
 using Madduck.GameData;
@@ -6,6 +6,8 @@ using Madduck.GameData.Fisherman;
 using Madduck.RoomPreset;
 using Madduck.Shared;
 using Madduck.Utils;
+using Madduck.WeatherPreset;
+using Madduck.WeatherPreset.Madduck.Scripts.Gameplay.WeatherPreset;
 using MessagePipe;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -23,10 +25,12 @@ namespace Madduck.Room
         [ShowInInspector] private FishingRoomManager _fishingRoomManager;
         [ShowInInspector] private WeatherWeightTableInstance _weatherWeightTable;
         [ShowInInspector] private RoomPresetManager _roomPresetManager;
+        [ShowInInspector] private WeatherPresetManager _weatherPresetManager;
         
         public FishingRoomManagerDebugData(FishingRoomManager fishingRoomManager,
             WeatherWeightTableInstance weatherWeightTable,
-            RoomPresetManager roomPresetManager 
+            RoomPresetManager roomPresetManager ,
+            WeatherPresetManager weatherPresetManager
             )
         {
             ConstantUpdate = false;
@@ -34,6 +38,7 @@ namespace Madduck.Room
             _fishingRoomManager = fishingRoomManager;
             _roomPresetManager = roomPresetManager;
             _weatherWeightTable = weatherWeightTable;
+            _weatherPresetManager = weatherPresetManager;
         }
     }
     
@@ -45,7 +50,9 @@ namespace Madduck.Room
          SerializeField] private WeatherWeightTable weatherWeightTable;
         [Required,
          SerializeField] private List<RoomPreset.RoomPreset> roomPresets;
-
+        [Required,
+         SerializeField] private WeatherPresetConfig weatherPresetConfig;
+        
         [Title("Debug")] 
         [SerializeField] private bool spoofWeather;
         [ShowIf(nameof(spoofWeather)),
@@ -95,17 +102,20 @@ namespace Madduck.Room
                     .Keyed(DIConstants.MaxFishCountFactoryId);
             }
             builder.RegisterInstance(roomPresets).As<List<RoomPreset.RoomPreset>>();
+            builder.RegisterInstance(weatherPresetConfig).AsSelf();
             builder.RegisterEntryPoint<FishingRoomManager>()
                 .As<IRequestHandler<CanContinueFishingRequest, bool>>()
                 .AsSelf();
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
+            builder.RegisterEntryPoint<WeatherPresetManager>().AsSelf();
             builder.RegisterBuildCallback(container =>
             {
 #if UNITY_EDITOR
                 var fishingRoomManager = container.Resolve<FishingRoomManager>();
                 var table = container.Resolve<WeatherWeightTableInstance>();
                 var roomPresetManager = container.Resolve<RoomPresetManager>();
-                _fishingRoomManagerDebugData = new FishingRoomManagerDebugData(fishingRoomManager, table,roomPresetManager);
+                var weatherPresetManager = container.Resolve<WeatherPresetManager>();
+                _fishingRoomManagerDebugData = new FishingRoomManagerDebugData(fishingRoomManager, table,roomPresetManager,weatherPresetManager);
 #endif
             });
 

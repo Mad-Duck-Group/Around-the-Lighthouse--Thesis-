@@ -1,0 +1,21 @@
+{
+    "name": "Madduck.WeatherPreset",
+    "rootNamespace": "Madduck.WeatherPreset",
+    "references": [
+        "VContainer",
+        "Madduck.Utils",
+        "Madduck.Shared",
+        "PrimeTween.Runtime",
+        "Unity.RenderPipelines.Universal.2D.Runtime",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

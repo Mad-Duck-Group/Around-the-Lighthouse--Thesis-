@@ -50,5 +50,11 @@ TagManager:
   - name: Foreground
     uniqueID: 4163197325
     locked: 0
+  - name: Partical
+    uniqueID: 2746604491
+    locked: 0
+  - name: Lighting
+    uniqueID: 2193848709
+    locked: 0
   m_RenderingLayers:
   - Default

@@ -22,7 +22,7 @@ namespace Madduck.RoomPreset
         
         #region Inject
         [Inject]
-        public RoomPresetManager(List<global::Madduck.RoomPreset.RoomPreset> presets)
+        public RoomPresetManager(List<RoomPreset> presets)
         {
             _presets = presets;
         }
