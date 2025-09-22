@@ -24,13 +24,15 @@ namespace Madduck.WeatherPreset
          ShowInInspector] private WeatherType _currentWeather;
         #endregion
         
+        private readonly IGenericFactory<WeatherType> _weatherFactory;
+        
         #region Inject
         [Inject]
         public WeatherPresetManager(IGenericFactory<WeatherType> weatherFactory,
             WeatherPresetConfig weatherPresetConfig)
         {
             _presetsConfig = weatherPresetConfig;
-            _currentWeather = weatherFactory.Current;
+            _weatherFactory = weatherFactory;
             DebugUtils.Log("Current weather: " + _currentWeather);
         }
         
@@ -39,6 +41,7 @@ namespace Madduck.WeatherPreset
         #region Lifecycle
         public void Start()
         {
+            _currentWeather = _weatherFactory.Current;
             SpawnWeather(Vector3.zero, Quaternion.identity);
         }
 

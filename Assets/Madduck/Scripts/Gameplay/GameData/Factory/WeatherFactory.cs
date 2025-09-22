@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using Madduck.Shared;
 using MessagePipe;
+using R3;
 using UnityEngine;
 using VContainer;
 
@@ -10,7 +11,6 @@ namespace Madduck.GameData
     public class WeatherFactory : IGenericFactory<WeatherType>
     {
         private readonly WeatherWeightTableInstance _weatherWeightTable;
-        private readonly IRequestHandler<ModifierRequest, ModifierResponse> _modifierRequestHandler;
 
         public WeatherType Current
         {
@@ -27,13 +27,9 @@ namespace Madduck.GameData
         [Inject]
         public WeatherFactory(
             WeatherWeightTableInstance weatherWeightTable,
-            IRequestHandler<ModifierRequest, ModifierResponse> modifierRequestHandler)
+            ISubscriber<ModifierUpdatedEvent> modifierUpdatedEventSubscriber)
         {
             _weatherWeightTable = weatherWeightTable;
-            _modifierRequestHandler = modifierRequestHandler;
-            var modifiers = _modifierRequestHandler.Invoke(ModifierRequest.For<WeatherModifierData>()).As<WeatherModifierData>();
-            _weatherWeightTable.PersistentModifiers.Remove("CardModifiers");
-            _weatherWeightTable.PersistentModifiers.TryAdd("CardModifiers", new WeatherWeightModifier(modifiers));
         }
         
         public WeatherType Create()

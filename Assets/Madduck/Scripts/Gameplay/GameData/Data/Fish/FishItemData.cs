@@ -32,8 +32,10 @@ namespace Madduck.GameData
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _fishSettingsTitle;
         [field: SerializeField] public FishSize Size { get; private set; } = FishSize.Small;
-        [field: SerializeField] public WeatherType WeatherType { get; private set; } = WeatherType.Clear;
-        [field: SerializeField] public DayPhaseType DayPhaseType { get; private set; } = DayPhaseType.Day;
+        [field: NoNoneFlag,
+            SerializeField] public WeatherType WeatherType { get; private set; } = WeatherType.Clear;
+        [field: NoNoneFlag,
+                SerializeField] public DayPhaseType DayPhaseType { get; private set; } = DayPhaseType.Day;
         [field: SerializeField] public string FishName { get; private set; }
         [field: SerializeField] public Sprite FishSprite { get; private set; }
         [field: SerializeField] public uint BasePrice { get; private set; } = 10;

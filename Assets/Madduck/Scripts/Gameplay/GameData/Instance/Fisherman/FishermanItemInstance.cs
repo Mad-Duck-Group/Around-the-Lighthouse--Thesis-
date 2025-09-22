@@ -4,12 +4,12 @@ using System.Linq;
 using Madduck.Utils;
 using MessagePipe;
 using Sirenix.OdinInspector;
+using VContainer;
 
 namespace Madduck.GameData.Fisherman
 {
     [Serializable]
-    public class FishermanItemInstance : ItemInstance<FishermanItemData>,
-        IRequestHandler<ModifierRequest, ModifierResponse> 
+    public class FishermanItemInstance : ItemInstance<FishermanItemData>, IModifierProvider
     {
         [Title("Fisherman Stats"),
          HideLabel,
@@ -19,29 +19,44 @@ namespace Madduck.GameData.Fisherman
         [field: ReadOnly, 
                 ShowInInspector] public FishingRodItemInstance CurrentFishingRod { get; private set; }
         [field: ReadOnly, 
-                ShowInInspector] public List<CardItemData> CurrentCards { get; private set; }
+                ShowInInspector] public List<CardItemInstance> CurrentCards { get; private set; }
         
-        public FishermanItemInstance(FishermanItemData itemData) : base(itemData)
+        private readonly IPublisher<ModifierUpdatedEvent> _modifierUpdatedEventPublisher;
+        
+        [Inject]
+        public FishermanItemInstance(
+            FishermanItemData itemData,
+            IPublisher<ModifierUpdatedEvent> modifierUpdatedEventPublisher)
+            : base(itemData)
         {
+            _modifierUpdatedEventPublisher = modifierUpdatedEventPublisher;
             CurrentStats = new FishermanStats(itemData);
-            CurrentCards = new List<CardItemData>(itemData.StartingCards); 
+            CurrentCards = new List<CardItemInstance>(itemData.StartingCards.Select(x => new CardItemInstance(x))); 
             CurrentFishingRod = new FishingRodItemInstance(ItemData.FishingRod, this);
         }
 
-        private List<T> GetModifiers<T>() where T : BaseModifierData
+        public void NotifyModifierUpdate()
         {
-            return CurrentCards.SelectMany(card => card.Modifiers).OfType<T>().ToList();
+            _modifierUpdatedEventPublisher.Publish(new ModifierUpdatedEvent(this));
         }
 
-        private List<BaseModifierData> GetModifiers(Type modifierType)
+        public Dictionary<ModifierId, List<T>> GetModifiers<T>() where T : BaseModifierData
         {
-             return CurrentCards.SelectMany(card => card.Modifiers)
-                 .Where(modifier => modifier.GetType() == modifierType).ToList();
-        }
-
-        public ModifierResponse Invoke(ModifierRequest request)
-        {
-            return new ModifierResponse(GetModifiers(request.ModifierType));
+            var dictionary = new Dictionary<ModifierId, List<T>>();
+            foreach (var card in CurrentCards)
+            {
+                var list = new List<T>();
+                foreach (var modifier in card.ItemData.Modifiers)
+                {
+                    if (modifier is T mod)
+                    {
+                        list.Add(mod);
+                    }
+                }
+                if (list.Count > 0)
+                    dictionary.Add(new ModifierId(card.InstanceGuid, card.ItemData.name), list);
+            }
+            return dictionary;
         }
     }
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Madduck.Shared;
 using Madduck.Utils;
+using MessagePipe;
+using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,7 +15,8 @@ namespace Madduck.GameData
     [Serializable]
     public record WeatherWeightRecord : IWeightRecord<WeatherType>, IStatModifiable<WeatherWeightRecord>
     {
-        [field: Required,
+        [field: UnflagEnum, 
+                Required,
                 SerializeField]
         public WeatherType Item { get; internal set; }
 
@@ -45,65 +48,77 @@ namespace Madduck.GameData
                 .ToList();
         }
     }
-
-    public class WeatherWeightModifier : IWeightModifier<WeatherWeightRecord>
-    {
-        private readonly List<WeatherModifierData> _modifier;
-
-        public WeatherWeightModifier(List<WeatherModifierData> modifier)
-        {
-            _modifier = modifier;
-        }
-
-        public List<WeatherWeightRecord> Modify(List<WeatherWeightRecord> records)
-        {
-            return _modifier.ModifyBy(records, data => data.WeatherType, record => record.Item);
-        }
-    }
-
+    
     [Serializable]
-    public class WeatherWeightTableInstance : IWeightTable<WeatherWeightRecord, WeatherType>
+    public class WeatherWeightTableInstance : 
+        IWeightTable<WeatherWeightRecord, WeatherModifierData, WeatherType>, 
+        IDisposable
     {
         private List<WeatherWeightRecord> BaseRecords { get; set; }
         public Dictionary<string, IWeightFilter<WeatherWeightRecord>> PersistentFilters { get; private set; }
-        public Dictionary<string, IWeightModifier<WeatherWeightRecord>> PersistentModifiers { get; private set; }
+        public Dictionary<ModifierId, List<WeatherModifierData>> PersistentModifiers { get; private set; }
 
         [Title("Debug")] 
         [ReadOnly, TableList,
-         ShowInInspector] private List<WeatherWeightRecord> _modifiedRecords = new();
+         ShowInInspector] private List<WeatherWeightRecord> _modifiedRecords;
         [Button("Refresh")]
-        private void Refresh() => ApplyFiltersAndModifiers(out _);
+        private void Refresh() => ApplyFiltersAndModifiers();
+        
+        private readonly ISubscriber<ModifierUpdatedEvent> _modifierUpdatedEventSubscriber;
+        private IDisposable _subscriptions;
 
-        public WeatherWeightTableInstance(List<WeatherWeightRecord> baseRecords)
+        [Inject]
+        public WeatherWeightTableInstance(
+            WeatherWeightTable weatherWeightTable,
+            ISubscriber<ModifierUpdatedEvent> modifierUpdatedEventSubscriber)
         {
-            BaseRecords = baseRecords.Select(x => x.Copy()).ToList();
+            BaseRecords = weatherWeightTable.Records.Select(x => x.Copy()).ToList();
             PersistentFilters = new Dictionary<string, IWeightFilter<WeatherWeightRecord>>();
-            PersistentModifiers = new Dictionary<string, IWeightModifier<WeatherWeightRecord>>();
+            PersistentModifiers = new Dictionary<ModifierId, List<WeatherModifierData>>();
+            _modifierUpdatedEventSubscriber = modifierUpdatedEventSubscriber;
+            Subscribe();
         }
         
-        private void ApplyFiltersAndModifiers(out float totalWeight)
+        private void Subscribe()
         {
-            var filteredRecords = BaseRecords;
+            var disposableBuilder = Disposable.CreateBuilder();
+            _modifierUpdatedEventSubscriber.Subscribe(OnModifierUpdated)
+                .AddTo(ref disposableBuilder);
+            _subscriptions = disposableBuilder.Build();
+        }
+
+        public void Dispose()
+        {
+            _subscriptions?.Dispose();
+        }
+
+        private void OnModifierUpdated(ModifierUpdatedEvent eventData)
+        {
+            var newModifiers = eventData.ModifierProvider.GetModifiers<WeatherModifierData>();
+            PersistentModifiers.UpdateModifierDictionary(newModifiers);
+            ApplyFiltersAndModifiers();
+        }
+        
+        private void ApplyFiltersAndModifiers()
+        {
+            _modifiedRecords = BaseRecords.Select(x => x.Copy()).ToList();
             foreach (var filter in PersistentFilters.Values)
             {
-                filteredRecords = filter.Filter(filteredRecords);
+                _modifiedRecords = filter.Filter(_modifiedRecords);
             }
-            foreach (var modifier in PersistentModifiers.Values)
-            {
-                filteredRecords = modifier.Modify(filteredRecords);
-            }
-            totalWeight = filteredRecords.Sum(record => record.Weight);
-            //update probabilities
-            foreach (var record in filteredRecords)
+            var flattenModifiers = PersistentModifiers.SelectMany(x => x.Value).ToList();
+            _modifiedRecords = flattenModifiers.ModifyBy(_modifiedRecords, data => data.WeatherType, record => record.Item);
+            var totalWeight = _modifiedRecords.Sum(record => record.Weight);
+            foreach (var record in _modifiedRecords)
             {
                 record.Probability = Percentage.FromFraction(record.Weight / totalWeight);
             }
-            _modifiedRecords = filteredRecords;
         }
 
         public WeatherType GetRandomItem()
         {
-            ApplyFiltersAndModifiers(out var totalWeight);
+            ApplyFiltersAndModifiers();
+            var totalWeight = _modifiedRecords.Sum(record => record.Weight);
             var randomValue = UnityEngine.Random.Range(0f, totalWeight);
             var cumulativeWeight = 0f;
             foreach (var record in _modifiedRecords)

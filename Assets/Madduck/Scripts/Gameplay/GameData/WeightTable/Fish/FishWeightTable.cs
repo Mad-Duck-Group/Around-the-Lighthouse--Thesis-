@@ -11,7 +11,7 @@ namespace Madduck.GameData
     {
         [field: OnValueChanged(nameof(CalculateProbabilities)), 
                 TableList,
-                SerializeField] private List<FishWeightRecord> Records { get; set; } = new();
+                SerializeField] public List<FishWeightRecord> Records { get; private set; } = new();
         
         [Button("Refresh")]
         public void CalculateProbabilities()
@@ -21,11 +21,6 @@ namespace Madduck.GameData
             {
                 fishProbability.Probability = Percentage.FromFraction(fishProbability.Weight / totalWeight);
             }
-        }
-
-        public FishWeightTableInstance GetInstance()
-        {
-            return new FishWeightTableInstance(new List<FishWeightRecord>(Records));
         }
     }
 }

@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5f5ea7babc8264a8be61994ba02323, type: 3}
   m_Name: Crawling Stone
   m_EditorClassIdentifier: 
-  <Guid>k__BackingField: 0e99b6c4640f2543ba0eea33cca0f582
   <ItemType>k__BackingField: 0
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 2
   <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   <Size>k__BackingField: 0
-  <WeatherType>k__BackingField: 7
+  <WeatherType>k__BackingField: 1
   <DayPhaseType>k__BackingField: 3
   <FishName>k__BackingField: Crawling Stone
   <FishSprite>k__BackingField: {fileID: 0}

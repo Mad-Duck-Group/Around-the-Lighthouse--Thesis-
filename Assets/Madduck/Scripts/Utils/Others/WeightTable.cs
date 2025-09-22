@@ -13,20 +13,15 @@ namespace Madduck.Utils
         public T Item { get; }
     }
     
-    public interface IWeightTable<TRecord, out TItem> where TRecord : IWeightRecord<TItem>
+    public interface IWeightTable<TRecord, TModData, out TItem> where TRecord : IWeightRecord<TItem>
     {
         public Dictionary<string, IWeightFilter<TRecord>> PersistentFilters { get; }
-        public Dictionary<string, IWeightModifier<TRecord>> PersistentModifiers { get; }
+        public Dictionary<ModifierId, List<TModData>> PersistentModifiers { get; }
         public TItem GetRandomItem();
     }
 
     public interface IWeightFilter<T> where T : IWeightRecord
     {
         public List<T> Filter(List<T> record);
-    }
-
-    public interface IWeightModifier<T> where T : IWeightRecord
-    {
-        public List<T> Modify(List<T> record);
     }
 }

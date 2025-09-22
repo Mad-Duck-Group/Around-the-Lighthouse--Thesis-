@@ -312,7 +312,13 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: weatherFactoryMock
-      Entry: 6
+      Entry: 7
+      Data: 0|Madduck.GameData.WeatherFactoryMock, Madduck.GameData
+    - Name: fixedWeather
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 8
       Data: 
     - Name: maxFishCountFactoryMock
       Entry: 6

@@ -1,6 +1,7 @@
 ﻿using System;
 using Madduck.Day;
 using Madduck.GameData;
+using Madduck.GameData.Fisherman;
 using Madduck.Shared;
 using MessagePipe;
 using R3;
@@ -28,7 +29,6 @@ namespace Madduck.Room
         private readonly IPublisher<OutOfFishEvent> _outOfFishEventPublisher;
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
-        private readonly IRequestHandler<ModifierRequest, ModifierResponse> _modifierRequestHandler;
 
         private IDisposable _subscriptions;
 
@@ -36,29 +36,31 @@ namespace Madduck.Room
         private void NextWeather() => RandomWeather();
         
         private readonly FishWeightTableInstance _fishWeightTableInstance;
+        private readonly FishermanItemInstance _fishermanItemInstance;
         
         [Inject]
         public FishingRoomManager(
             FishWeightTableInstance fishWeightTableInstanceInstance,
+            FishermanItemInstance fishermanItemInstance,
             IGenericFactory<WeatherType> weatherFactory,
             [Key(DIConstants.MaxFishCountFactoryId)] IGenericFactory<uint> maxFishCountFactory,
             IPublisher<OutOfFishEvent> outOfFishEventPublisher,
             ISubscriber<FishCaughtEvent> fishCaughtEventSubscriber,
-            ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
-            IRequestHandler<ModifierRequest, ModifierResponse> modifierRequestHandler)
+            ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber)
         {
             _fishWeightTableInstance = fishWeightTableInstanceInstance;
+            _fishermanItemInstance = fishermanItemInstance;
             _weatherFactory = weatherFactory;
             _maxFishCountFactory = maxFishCountFactory;
             _outOfFishEventPublisher = outOfFishEventPublisher;
             _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             _fishEscapedEventSubscriber = fishEscapedEventSubscriber;
-            _modifierRequestHandler = modifierRequestHandler;
             Subscribe();
         }
         
         public void Start()
         {
+            _fishermanItemInstance.NotifyModifierUpdate();
             RandomWeather();
             _maxFishCount = _maxFishCountFactory.Create();
             _currentFishCount = _maxFishCount;

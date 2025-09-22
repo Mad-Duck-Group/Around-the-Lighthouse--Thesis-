@@ -50,7 +50,7 @@ TagManager:
   - name: Foreground
     uniqueID: 4163197325
     locked: 0
-  - name: Partical
+  - name: Particle
     uniqueID: 2746604491
     locked: 0
   - name: Lighting

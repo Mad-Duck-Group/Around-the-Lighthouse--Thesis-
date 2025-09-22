@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Madduck.Utils;
+using MessagePipe;
+using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VContainer;
 
 namespace Madduck.GameData
 {
@@ -38,19 +41,76 @@ namespace Madduck.GameData
         }
     }
     
-    public class FishWeightModifier : IWeightModifier<FishWeightRecord>
+    [Serializable]
+    public class FishWeightTableInstance : IWeightTable<FishWeightRecord, FishModifierData, FishItemData>, IDisposable
     {
-        private readonly List<FishModifierData> _modifier;
+        [Title("Debug")] 
+        private List<FishWeightRecord> BaseRecords { get; set; }
+        public Dictionary<string, IWeightFilter<FishWeightRecord>> PersistentFilters { get; private set; }
+        public Dictionary<ModifierId, List<FishModifierData>> PersistentModifiers { get; private set; }
+        
+        [ReadOnly, TableList,
+         ShowInInspector] private List<FishWeightRecord> _modifiedRecords;
 
-        public FishWeightModifier(List<FishModifierData> modifier)
+        [Button("Refresh")]
+        private void Refresh() => ApplyFiltersAndModifiers();
+        
+        private readonly ISubscriber<ModifierUpdatedEvent> _modifierUpdatedEventSubscriber;
+        private IDisposable _subscriptions;
+
+        [Inject]
+        public FishWeightTableInstance(
+            FishWeightTable fishWeightTable,
+            ISubscriber<ModifierUpdatedEvent> modifierUpdatedEventSubscriber)
         {
-            _modifier = modifier;
+            BaseRecords = fishWeightTable.Records.Select(x => x.Copy()).ToList();
+            PersistentFilters = new Dictionary<string, IWeightFilter<FishWeightRecord>>();
+            PersistentModifiers = new Dictionary<ModifierId, List<FishModifierData>>();
+            _modifierUpdatedEventSubscriber = modifierUpdatedEventSubscriber;
+            Subscribe();
+        }
+        
+        private void Subscribe()
+        {
+            DebugUtils.Log("Subscribing to modifier updated event");
+            var disposableBuilder = Disposable.CreateBuilder();
+            _modifierUpdatedEventSubscriber.Subscribe(OnModifierUpdated)
+                .AddTo(ref disposableBuilder);
+            _subscriptions = disposableBuilder.Build();
         }
 
-        public List<FishWeightRecord> Modify(List<FishWeightRecord> records)
+        public void Dispose()
+        {
+            _subscriptions?.Dispose();
+        }
+
+        private void OnModifierUpdated(ModifierUpdatedEvent eventData)
+        {
+            var newModifiers = eventData.ModifierProvider.GetModifiers<FishModifierData>();
+            PersistentModifiers.UpdateModifierDictionary(newModifiers);
+            ApplyFiltersAndModifiers();
+        }
+        
+        private void ApplyFiltersAndModifiers()
+        {
+            _modifiedRecords = BaseRecords.Select(x => x.Copy()).ToList();
+            foreach (var filter in PersistentFilters.Values)
+            {
+                _modifiedRecords = filter.Filter(_modifiedRecords);
+            }
+            _modifiedRecords = Modify(_modifiedRecords);
+            var totalWeight = _modifiedRecords.Sum(record => record.Weight);
+            foreach (var record in _modifiedRecords)
+            {
+                record.Probability = Percentage.FromFraction(record.Weight / totalWeight);
+            }
+        }
+        
+        private List<FishWeightRecord> Modify(List<FishWeightRecord> records)
         {
             var copy = records.Select(x => x.Copy()).ToList();
-            var bucket = BucketModifiers(copy, _modifier);
+            var flattenedModifiers = PersistentModifiers.Values.SelectMany(x => x).ToList();
+            var bucket = BucketModifiers(copy, flattenedModifiers);
             foreach (var pair in bucket)
             {
                 pair.Key.Weight = pair.Value.CalculateStat(pair.Key.Weight);
@@ -85,50 +145,11 @@ namespace Madduck.GameData
             }
             return dictionary;
         }
-    }
-    
-    [Serializable]
-    public class FishWeightTableInstance : IWeightTable<FishWeightRecord, FishItemData>
-    {
-        [Title("Debug")] 
-        private List<FishWeightRecord> BaseRecords { get; set; }
-        public Dictionary<string, IWeightFilter<FishWeightRecord>> PersistentFilters { get; private set; }
-        public Dictionary<string, IWeightModifier<FishWeightRecord>> PersistentModifiers { get; private set; }
-        
-        [ReadOnly, TableList,
-         ShowInInspector] private List<FishWeightRecord> _modifiedRecords = new();
-        [Button("Refresh")]
-        private void Refresh() => ApplyFiltersAndModifiers(out _);
-
-        public FishWeightTableInstance(List<FishWeightRecord> baseRecords)
-        {
-            BaseRecords = baseRecords.Select(x => x.Copy()).ToList();
-            PersistentFilters = new Dictionary<string, IWeightFilter<FishWeightRecord>>();
-            PersistentModifiers = new Dictionary<string, IWeightModifier<FishWeightRecord>>();
-        }
-        
-        private void ApplyFiltersAndModifiers(out float totalWeight)
-        {
-            var filteredRecords = BaseRecords;
-            foreach (var filter in PersistentFilters.Values)
-            {
-                filteredRecords = filter.Filter(filteredRecords);
-            }
-            foreach (var modifier in PersistentModifiers.Values)
-            {
-                filteredRecords = modifier.Modify(filteredRecords);
-            }
-            totalWeight = filteredRecords.Sum(record => record.Weight);
-            foreach (var record in filteredRecords)
-            {
-                record.Probability = Percentage.FromFraction(record.Weight / totalWeight);
-            }
-            _modifiedRecords = filteredRecords;
-        }
         
         public FishItemData GetRandomItem()
         {
-            ApplyFiltersAndModifiers(out var totalWeight);
+            ApplyFiltersAndModifiers();
+            var totalWeight = _modifiedRecords.Sum(record => record.Weight);
             var randomValue = UnityEngine.Random.Range(0f, totalWeight);
             var cumulativeWeight = 0f;
             foreach (var record in _modifiedRecords)

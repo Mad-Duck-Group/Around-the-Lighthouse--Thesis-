@@ -17,16 +17,8 @@ namespace Madduck.GameData
         [Title("Base Settings"), 
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _baseSettingsTitle;
-        [field: HideInInspector, 
-                SerializeField]
-        public byte[] Guid { get; private set; } = System.Guid.NewGuid().ToByteArray();
-        [DisplayAsString, 
-         ShowInInspector] private string GuidString => new Guid(Guid).ToString();
-        [Button("Generate New GUID")]
-        private void GenerateNewGuid()
-        {
-            Guid = System.Guid.NewGuid().ToByteArray();
-        }
+
+        [field: ShowInInspector] public Guid Guid { get; private set; } = Guid.NewGuid();
         [field: SerializeField] public ItemType ItemType { get; private set; }
         [field: SerializeField] public bool IsStackable { get; private set; }
         [field: ShowIf(nameof(IsStackable)), 

@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5f5ea7babc8264a8be61994ba02323, type: 3}
   m_Name: Herrington
   m_EditorClassIdentifier: 
-  <Guid>k__BackingField: d06c51492742254aa227be880f392514
   <ItemType>k__BackingField: 0
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 2
   <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
-  <Size>k__BackingField: 0
-  <WeatherType>k__BackingField: 7
-  <DayPhaseType>k__BackingField: 3
+  <Size>k__BackingField: 1
+  <WeatherType>k__BackingField: 1
+  <DayPhaseType>k__BackingField: 1
   <FishName>k__BackingField: Herrington
   <FishSprite>k__BackingField: {fileID: 0}
   <BasePrice>k__BackingField: 10

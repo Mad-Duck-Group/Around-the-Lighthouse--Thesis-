@@ -14,10 +14,13 @@ namespace Madduck.GameData
          ShowInInspector] private InspectorPlaceholder _referencesTitle;
         [field: InlineEditor, 
                 SerializeField] public T ItemData { get; private set; }
-        
-        public ItemInstance(T itemData)
+        [field: ReadOnly,
+            ShowInInspector] public Guid InstanceGuid { get; private set; }
+
+        protected ItemInstance(T itemData)
         {
             ItemData = itemData;
+            InstanceGuid = Guid.NewGuid();
         }
     }
 }

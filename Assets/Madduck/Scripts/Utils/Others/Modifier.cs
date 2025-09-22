@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Madduck.Shared;
-using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Madduck.GameData
+namespace Madduck.Utils
 {
     public enum ModifierMethod
     {
@@ -37,7 +35,21 @@ namespace Madduck.GameData
         public T Copy();
     }
 
-    #region Modifier Data
+    public interface IModifierProvider
+    {
+        public Dictionary<ModifierId, List<T>> GetModifiers<T>() where T : BaseModifierData;
+    }
+
+    [Serializable]
+    public record ModifierId(Guid SourceId, string DisplayName = null)
+    {
+        [DisplayAsString, 
+         ShowInInspector] public Guid SourceId { get; private set; } = SourceId;
+        [DisplayAsString, 
+         ShowInInspector] public string DisplayName { get; private set; } = DisplayName;
+    }
+
+    
     [Serializable]
     public abstract class BaseModifierData
     {
@@ -61,86 +73,6 @@ namespace Madduck.GameData
             return true;
         }
     }
-    
-    [Serializable]
-    public class RodModifierData : BaseModifierData
-    {
-        [field: SerializeField] public FishingRodStatType FishingRodStatType { get; private set; }
-        public class Builder : ModifierDataBuilder<RodModifierData>
-        {
-            private Builder(ModifierMethod modifierMethod) 
-                : base(modifierMethod) { }
-            
-            public static Builder CreateBuilder(ModifierMethod modifierMethod)
-            {
-                return new Builder(modifierMethod);
-            }
-            
-            public Builder WithFishingRodStatType(FishingRodStatType fishingRodStatType)
-            {
-                modifierData.FishingRodStatType = fishingRodStatType;
-                return this;
-            }
-        }
-    }
-
-    [Serializable]
-    public class WeatherModifierData : BaseModifierData
-    {
-        [field: UnflagEnum,
-            SerializeField] public WeatherType WeatherType { get; private set; }
-        
-        public class Builder : ModifierDataBuilder<WeatherModifierData>
-        {
-            private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
-
-            public static Builder CreateBuilder(ModifierMethod modifierMethod)
-            {
-                return new Builder(modifierMethod);
-            }
-            
-            public Builder WithWeatherType(WeatherType weatherType)
-            {
-                modifierData.WeatherType = weatherType;
-                return this;
-            }
-        }
-    }
-    
-    [Serializable]
-    public class FishModifierData : BaseModifierData
-    {
-        [field: SerializeField] public FishModifierType ModifierType { get; private set; }
-        [field: ShowIf(nameof(ModifierType), FishModifierType.Size),
-            SerializeField] public FishSize FishSize { get; private set; }
-        [field: ShowIf(nameof(ModifierType), FishModifierType.Name),
-            SerializeField] public FishItemData FishItemData { get; private set; }
-        
-        public class Builder : ModifierDataBuilder<FishModifierData>
-        {
-            private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
-
-            public static Builder CreateBuilder(ModifierMethod modifierMethod)
-            {
-                return new Builder(modifierMethod);
-            }
-
-            public Builder WithSize(FishSize size)
-            {
-                modifierData.ModifierType = FishModifierType.Size;
-                modifierData.FishSize = size;
-                return this;
-            }
-
-            public Builder WithName(FishItemData fishItemData)
-            {
-                modifierData.ModifierType = FishModifierType.Name;
-                modifierData.FishItemData = fishItemData;
-                return this;
-            }
-        }
-    }
-    #endregion
     
     #region Builder
     public abstract class ModifierDataBuilder<T> where T : BaseModifierData, new()
@@ -233,6 +165,25 @@ namespace Madduck.GameData
             }
         
             return result;
+        }
+        
+        /// <summary>
+        /// Updates the value of a dictionary with the contents of another dictionary.
+        /// If a key exists in both dictionaries, the value from the new dictionary will be used.
+        /// </summary>
+        /// <param name="oldDictionary">The dictionary to update.</param>
+        /// <param name="newDictionary">The dictionary containing the new values.</param>
+        /// <typeparam name="T">The type of values in the dictionaries.</typeparam>
+        public static void UpdateModifierDictionary<T>(
+            this Dictionary<ModifierId, List<T>> oldDictionary, 
+            Dictionary<ModifierId, List<T>> newDictionary) 
+            where T : BaseModifierData
+        {
+            foreach (var pair in newDictionary)
+            {
+                oldDictionary.Remove(pair.Key);
+                oldDictionary.Add(pair.Key, pair.Value);
+            }
         }
     }
     #endregion

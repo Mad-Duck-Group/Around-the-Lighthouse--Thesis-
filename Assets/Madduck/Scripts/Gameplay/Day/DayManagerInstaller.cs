@@ -57,16 +57,18 @@ namespace Madduck.Day
         public void Install(IContainerBuilder builder)
         {
             builder.RegisterInstance(dayManagerConfig).AsSelf();
-            builder.RegisterInstance(fishWeightTable.GetInstance()).AsSelf();
-            builder.RegisterInstance(new FishermanItemInstance(fishermanItemData)).AsImplementedInterfaces().AsSelf();
+            builder.RegisterInstance(fishWeightTable).AsSelf();
+            builder.Register<FishWeightTableInstance>(Lifetime.Singleton).AsSelf();
+            builder.RegisterInstance(fishermanItemData).AsSelf();
+            builder.Register<FishermanItemInstance>(Lifetime.Singleton).AsSelf();
             builder.Register<DayManager>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.RegisterBuildCallback(x =>
             {
 #if UNITY_EDITOR
+                var fishermanItemInstance = x.Resolve<FishermanItemInstance>();
                 var manager = x.Resolve<DayManager>();
                 var table = x.Resolve<FishWeightTableInstance>();
-                var fishermanItems = x.Resolve<FishermanItemInstance>();
-                _dayManagerDebugData = new DayManagerDebugData(manager, table, fishermanItems);
+                _dayManagerDebugData = new DayManagerDebugData(manager, table, fishermanItemInstance);
 #endif
             });
         }

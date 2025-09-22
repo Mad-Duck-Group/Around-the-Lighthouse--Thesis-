@@ -17,18 +17,19 @@ namespace Madduck.GameData
          ShowInInspector] private InspectorPlaceholder _fishingRodStatsTitle;
         [field: InlineProperty,
                 SerializeReference] public FishingRodStats CurrentStats { get; private set; }
-        
-        private List<RodModifierData> _modifiers;
-        private readonly IRequestHandler<ModifierRequest, ModifierResponse> _modifierRequestHandler;
+
+        private Dictionary<ModifierId, List<RodModifierData>> _modifiers = new();
+        private readonly IModifierProvider _cardModifierProvider;
 
         public FishingRodItemInstance(
             FishingRodItemData itemData,
-            IRequestHandler<ModifierRequest, ModifierResponse> modifierRequestHandler)
+            IModifierProvider cardModifierProvider)
             : base(itemData)
         {
              CurrentStats = new FishingRodStats(itemData);
-             _modifierRequestHandler = modifierRequestHandler;
-             _modifiers = _modifierRequestHandler.Invoke(ModifierRequest.For<RodModifierData>()).As<RodModifierData>();
+             _cardModifierProvider = cardModifierProvider;
+             var modifiers = _cardModifierProvider.GetModifiers<RodModifierData>();
+             _modifiers.UpdateModifierDictionary(modifiers);
              ApplyModifiers();
         }
         
@@ -41,8 +42,9 @@ namespace Madduck.GameData
         private void ApplyModifiers()
         {
             CurrentStats = new FishingRodStats(ItemData);
-            var statGroups = _modifiers.GroupBy(x => x.FishingRodStatType);
-            foreach (var group in statGroups)
+            var flattenModifiers = _modifiers.SelectMany(x => x.Value).ToList();
+            var modifierGroups = flattenModifiers.GroupBy(x => x.FishingRodStatType);
+            foreach (var group in modifierGroups)
             {
                 switch (group.Key)
                 {
