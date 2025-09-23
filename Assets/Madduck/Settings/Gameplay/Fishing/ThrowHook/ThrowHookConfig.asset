@@ -16,4 +16,4 @@ MonoBehaviour:
     value: 100
   <ThrowHookSliderSpeed>k__BackingField:
     value: 150
-  <ThrowRange>k__BackingField: {x: 1, y: 10}
+  <ThrowRange>k__BackingField: {x: 0, y: 7}

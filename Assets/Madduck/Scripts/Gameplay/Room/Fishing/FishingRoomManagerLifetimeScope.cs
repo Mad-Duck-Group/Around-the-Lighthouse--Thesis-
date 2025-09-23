@@ -81,7 +81,7 @@ namespace Madduck.Room
             builder.Register<WeatherWeightTableInstance>(Lifetime.Singleton).AsSelf();
             if (spoofWeather && weatherFactoryMock != null)
             {
-                builder.RegisterInstance(weatherFactoryMock)
+                builder.Register(_ => weatherFactoryMock, Lifetime.Singleton)
                     .As<IGenericFactory<WeatherType>>();
             }
             else
@@ -91,7 +91,7 @@ namespace Madduck.Room
             }
             if (spoofMaxFishCount && maxFishCountFactoryMock != null)
             {
-                builder.RegisterInstance(maxFishCountFactoryMock)
+                builder.Register(_ => maxFishCountFactoryMock, Lifetime.Singleton)
                     .As<IGenericFactory<uint>>()
                     .Keyed(DIConstants.MaxFishCountFactoryId);
             }

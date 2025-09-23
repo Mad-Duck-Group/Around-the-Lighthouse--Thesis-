@@ -21,9 +21,8 @@ namespace Madduck.Fishing.Controller
         
         private readonly ThrowHookCommander _commander;
         private readonly ThrowHookModel _model;
-        private readonly ThrowHookConfig _config;
-        private readonly HookProjectileFactory _hookFactory;
         private readonly IPlayerInputHandler _inputHandler;
+        private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly ITransitionable _viewTransition;
         
@@ -34,16 +33,14 @@ namespace Madduck.Fishing.Controller
         public ThrowHookController(
             ThrowHookCommander commander,
             ThrowHookModel model,
-            ThrowHookConfig config,
-            HookProjectileFactory hookFactory,
             IPlayerInputHandler inputHandler,
+            IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
             ITransitionable viewTransition)
         {
             _inputHandler = inputHandler;
             _commander = commander;
             _model = model;
-            _config = config;
             _hookFactory = hookFactory;
             _fishFactory = fishFactory;
             _viewTransition = viewTransition;
@@ -108,11 +105,7 @@ namespace Madduck.Fishing.Controller
         {
             var projectile = _hookFactory.Create();
             var throwPercent = _model.ThrowHookPercent.CurrentValue;
-            var distance = Mathf.Lerp(
-                _config.ThrowRange.x,
-                _config.ThrowRange.y, 
-                throwPercent.AsFraction);
-            await projectile.Throw(distance);
+            await projectile.Throw(throwPercent);
             OnHookHitWater?.Invoke();
         }
         

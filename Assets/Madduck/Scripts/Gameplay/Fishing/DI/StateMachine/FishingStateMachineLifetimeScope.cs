@@ -39,8 +39,8 @@ namespace Madduck.Fishing.DI
     public class FishingStateMachineLifetimeScope : LifetimeScope, ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
         [Title("References")]
-        [Required, 
-         SerializeField] private HookProjectileFactory hookProjectileFactory;
+        [Required, HideReferenceObjectPicker,
+         OdinSerialize] private HookProjectileFactory hookProjectileFactory = new();
 
         [Title("Debug")] 
         [SerializeField] private bool spoofFish;
@@ -66,13 +66,14 @@ namespace Madduck.Fishing.DI
 #endif
             if (spoofFish && fishFactoryMock != null)
             { 
-                builder.RegisterInstance(fishFactoryMock).As<IGenericFactory<FishItemInstance>>();
+                builder.Register(_ => fishFactoryMock, Lifetime.Singleton)
+                    .As<IGenericFactory<FishItemInstance>>();
             }
             else
             {
                 builder.Register<FishFactory>(Lifetime.Singleton).As<IGenericFactory<FishItemInstance>>();
             }
-            builder.RegisterInstance(hookProjectileFactory).AsSelf();
+            builder.Register(_ => hookProjectileFactory, Lifetime.Singleton).As<IHookFactory>();
             builder.Register<FishingNoneState>(Lifetime.Scoped).AsSelf();
             builder.RegisterEntryPoint<FishingStateMachine>().AsSelf();
             builder.RegisterBuildCallback(x =>

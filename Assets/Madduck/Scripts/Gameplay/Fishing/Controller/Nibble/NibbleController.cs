@@ -18,8 +18,8 @@ namespace Madduck.Fishing.Controller
         public event Action<Sign> OnPullHookResult;
         private readonly NibbleModel _model;
         private readonly NibbleCommander _commander;
-        private readonly HookProjectileFactory _hookFactory;
         private readonly IPlayerInputHandler _inputHandler;
+        private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly ITransitionable _viewTransition;
         
@@ -31,8 +31,8 @@ namespace Madduck.Fishing.Controller
         public NibbleController(
             NibbleModel model, 
             NibbleCommander commander,
-            HookProjectileFactory hookFactory,
             IPlayerInputHandler inputHandler,
+            IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
             ITransitionable viewTransition)
         {
@@ -109,12 +109,12 @@ namespace Madduck.Fishing.Controller
             var waitTime = UnityEngine.Random.Range(waitRange.x, waitRange.y);
             await UniTask.WaitForSeconds(waitTime, cancellationToken: cancellationToken);
             _model.IsNibbling.Value = true;
-            _hookFactory.CurrentHook.Nibble(-1).Forget();
+            _hookFactory.Current.Nibble(-1).Forget();
             var nibbleTimeframeRange = _model.FishItemInstance.ItemData.NibbleTimeFrameRange;
             var nibbleTimeframe = UnityEngine.Random.Range(nibbleTimeframeRange.x, nibbleTimeframeRange.y);
             await UniTask.WaitForSeconds(nibbleTimeframe, cancellationToken: cancellationToken);
             _model.IsNibbling.Value = false;
-            _hookFactory.CurrentHook.StopNibble();
+            _hookFactory.Current.StopNibble();
         }
         
         private void OnPullHook()
@@ -125,14 +125,17 @@ namespace Madduck.Fishing.Controller
         private async UniTask OnPullHookResultChanged(Sign result)
         {
             _waitingCts.Cancel();
-            _hookFactory.CurrentHook.StopNibble();
-            if (result is Sign.Negative)
+            _hookFactory.Current.StopNibble();
+            if (result is Sign.Positive)
             {
-                SetActive(false);
-                await _hookFactory.CurrentHook.Return();
-                _hookFactory.DestroyHook();
+                await _hookFactory.Current.Move(Percentage.FromPercentage(100f));
             }
             OnPullHookResult?.Invoke(result);
+            if (result is Sign.Negative)
+            {
+                await _hookFactory.Current.Return();
+                _hookFactory.DestroyHook();
+            }
         }
     }
 }

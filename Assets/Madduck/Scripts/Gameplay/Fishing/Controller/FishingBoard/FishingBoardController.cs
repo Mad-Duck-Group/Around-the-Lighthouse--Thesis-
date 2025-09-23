@@ -31,10 +31,10 @@ namespace Madduck.Fishing.Controller
         private readonly FishingBoardModel _model;
         private readonly FishingBoardVariables _variables;
         private readonly FishingBoardConfig _config;
-        private readonly HookProjectileFactory _hookFactory;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _playerInput;
         private readonly IFishingBoardAIController _aiController;
+        private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly ITransitionable _viewTransition;
         
@@ -50,10 +50,10 @@ namespace Madduck.Fishing.Controller
             FishingBoardModel model, 
             FishingBoardVariables variables,
             FishingBoardConfig config,
-            HookProjectileFactory hookFactory,
             IAudioManager audioManager,
             IPlayerInputHandler playerInput,
             IFishingBoardAIController aiController,
+            IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
             ITransitionable viewTransition)
         {
@@ -254,7 +254,7 @@ namespace Madduck.Fishing.Controller
         private async UniTaskVoid LoseFishingBoard()
         {
             OnFishingBoardResult?.Invoke(Sign.Negative);
-            await _hookFactory.CurrentHook.Return();
+            await _hookFactory.Current.Return();
             _hookFactory.DestroyHook();
         }
 

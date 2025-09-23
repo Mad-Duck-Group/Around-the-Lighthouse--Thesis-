@@ -1,23 +1,34 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
-using Madduck.Shared;
+﻿using Cysharp.Threading.Tasks;
 using Madduck.Utils;
 using PrimeTween;
+using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VContainer;
-using Object = UnityEngine.Object;
 
 namespace Madduck.Fishing.Shared
 {
-    public class HookProjectile : MonoBehaviour
+    public interface IHookProjectile
+    {
+        UniTask Throw(Percentage percent);
+        UniTask Return();
+        UniTask Move(Percentage percent);
+        UniTask Nibble(int? cycle);
+        void SetPosition(Percentage percent);
+        void StopNibble();
+    }
+    public class HookProjectile : MonoBehaviour, IHookProjectile
     {
         [Title("References")] 
         [Required] 
         [SerializeField] private Transform hookIcon;
         
+        [Title("Settings")]
+        [PropertyTooltip("Range of the throw distance when the throw hook value is between 0 and max.")]
+        [SerializeField] public Vector2 throwRange = new(0f, 7f);
+
         [Title("Tween")] 
+        [SerializeField] private TweenSettings moveTweenX;
         [SerializeField] private TweenSettings throwTweenX;
         [SerializeField] private TweenSettings<float> throwTweenY;
         [SerializeField] private TweenSettings<Vector2> nibbleTween;
@@ -25,6 +36,7 @@ namespace Madduck.Fishing.Shared
         private Vector2 _startPosition;
         private float _targetDistance;
         private bool _isThrown;
+        private Sequence _moveSequence;
         private Sequence _throwSequence;
         private Sequence _nibbleSequence;
         
@@ -36,12 +48,11 @@ namespace Madduck.Fishing.Shared
         /// <summary>
         /// Throws the hook to the specified distance.
         /// </summary>
-        /// <param name="distance"></param>
-        public async UniTask Throw(float distance)
+        public async UniTask Throw(Percentage percent)
         {
             if (_isThrown) return;
             _isThrown = true;
-            _targetDistance = distance;
+            _targetDistance = Mathf.Lerp(throwRange.x, throwRange.y, percent.AsFraction);
             _throwSequence = Sequence.Create()
                 .Group(Tween.LocalPositionX(transform, _startPosition.x, _targetDistance, throwTweenX))
                 .Group(Tween.LocalPositionY(transform, throwTweenY));
@@ -74,41 +85,36 @@ namespace Madduck.Fishing.Shared
             await _nibbleSequence.ToYieldInstruction().ToUniTask();
         }
 
+        public async UniTask Move(Percentage percentage)
+        {
+            _targetDistance = Mathf.Lerp(throwRange.x, throwRange.y, percentage.AsFraction);
+            _moveSequence = Sequence.Create()
+                .Group(Tween.LocalPositionX(transform, transform.localPosition.x, _targetDistance, moveTweenX));
+            await _moveSequence.ToYieldInstruction().ToUniTask();
+        }
+
+        public void SetPosition(Percentage percent)
+        {
+            _targetDistance = Mathf.Lerp(throwRange.x, throwRange.y, percent.AsFraction);
+            transform.localPosition = transform.localPosition.WithX(_targetDistance);
+        }
+
         public void StopNibble()
         {
             _nibbleSequence.Complete();
         }
     }
 
-    [Serializable]
-    public class HookProjectileFactory
+    public class HookProjectileMock : IHookProjectile
     {
-        [Required, AssetsOnly,
-         SerializeField] private HookProjectile prefab;
-        [Required, 
-         SerializeField] private Transform parent;
-        public HookProjectile CurrentHook { get; private set; }
-        
-        public HookProjectileFactory(
-            HookProjectile prefab, 
-            Transform parent)
-        {
-            this.prefab = prefab;
-            this.parent = parent;
-        }
-        
-        public HookProjectile Create()
-        {
-            if (CurrentHook) return CurrentHook;
-            CurrentHook = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
-            return CurrentHook;
-        }
-        
-        public void DestroyHook()
-        {
-            if (!CurrentHook) return;
-            Object.Destroy(CurrentHook.gameObject);
-            CurrentHook = null;
-        }
+        public UniTask Throw(Percentage percent) => UniTask.CompletedTask;
+
+        public UniTask Return() => UniTask.CompletedTask;
+
+        public UniTask Move(Percentage percent) => UniTask.CompletedTask;
+
+        public UniTask Nibble(int? cycle) => UniTask.CompletedTask;
+        public void SetPosition(Percentage percent){}
+        public void StopNibble(){}
     }
 }

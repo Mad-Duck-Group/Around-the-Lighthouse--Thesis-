@@ -10,6 +10,7 @@ using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
+using UnityEngine;
 using VContainer;
 
 namespace Madduck.Fishing.Controller
@@ -18,10 +19,10 @@ namespace Madduck.Fishing.Controller
     {
         public event Action<Sign> OnReelingResult;
         
-        private readonly HookProjectileFactory _hookFactory;
         private readonly ReelingCommander _commander;
         private readonly ReelingModel _model;
         private readonly IPlayerInputHandler _inputHandler;
+        private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly ITransitionable _viewTransition;
         
@@ -31,10 +32,10 @@ namespace Madduck.Fishing.Controller
         
         [Inject]
         public ReelingController(
-            HookProjectileFactory hookFactory,
             ReelingCommander commander,
             ReelingModel model,
             IPlayerInputHandler inputHandler,
+            IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
             ITransitionable viewTransition)
         {
@@ -56,7 +57,11 @@ namespace Madduck.Fishing.Controller
                 .Subscribe(_ => OnReelingHold())
                 .AddTo(ref disposableBuilder);
             _model.CurrentReelingProgress
-                .Where(progress => progress >= _model.MaxReelingProgress.Value)
+                .CombineLatest(_model.MaxReelingProgress, (current, max) => max == 0f
+                    ? Percentage.FromFraction(0f)
+                    : Percentage.FromFraction(Mathf.Clamp01(current / max)))
+                .Do(x => _hookFactory.Current.SetPosition(x.AsInversePercentage))
+                .Where(x => x == Percentage.FromPercentage(100f))
                 .Subscribe(_ => OnWinReeling())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
@@ -108,7 +113,7 @@ namespace Madduck.Fishing.Controller
         
         public async UniTask ReturnHook()
         {
-            await _hookFactory.CurrentHook.Return();
+            await _hookFactory.Current.Return();
             _hookFactory.DestroyHook();
         }
         
