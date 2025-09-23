@@ -87,7 +87,7 @@ namespace Madduck.GameData
         private void OnModifierUpdated(ModifierUpdatedEvent eventData)
         {
             var newModifiers = eventData.ModifierProvider.GetModifiers<FishModifierData>();
-            PersistentModifiers.UpdateModifierDictionary(newModifiers);
+            PersistentModifiers = newModifiers.CombineModifiers(PersistentModifiers);
             ApplyFiltersAndModifiers();
         }
         

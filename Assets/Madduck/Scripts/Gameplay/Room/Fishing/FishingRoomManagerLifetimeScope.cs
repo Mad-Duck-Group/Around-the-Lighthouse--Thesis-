@@ -51,6 +51,7 @@ namespace Madduck.Room
          SerializeField] private List<RoomPreset.RoomPreset> roomPresets;
         [Required,
          SerializeField] private WeatherPresetConfig weatherPresetConfig;
+        [SerializeField] private FishingRoomUIInstaller uiInstaller;
         
         [Title("Debug")] 
         [SerializeField] private bool spoofWeather;
@@ -108,6 +109,7 @@ namespace Madduck.Room
                 .AsSelf();
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
             builder.RegisterEntryPoint<WeatherPresetManager>().AsSelf();
+            uiInstaller.Install(builder);
             builder.RegisterBuildCallback(container =>
             {
 #if UNITY_EDITOR

@@ -26,8 +26,7 @@ namespace Madduck.GameData
         
         [Inject]
         public WeatherFactory(
-            WeatherWeightTableInstance weatherWeightTable,
-            ISubscriber<ModifierUpdatedEvent> modifierUpdatedEventSubscriber)
+            WeatherWeightTableInstance weatherWeightTable)
         {
             _weatherWeightTable = weatherWeightTable;
         }

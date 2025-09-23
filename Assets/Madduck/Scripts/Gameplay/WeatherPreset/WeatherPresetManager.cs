@@ -15,10 +15,10 @@ namespace Madduck.WeatherPreset
 
         [BoxGroup("Debug"),
          HideLabel, Sirenix.OdinInspector.ReadOnly,
-         ShowInInspector] private  List<WeatherPreset> _presets;
+         ShowInInspector] private List<WeatherPreset> _presets;
         [BoxGroup("Debug"),
           HideLabel, Sirenix.OdinInspector.ReadOnly,
-          ShowInInspector] private  WeatherPresetConfig _presetsConfig;
+          ShowInInspector] private WeatherPresetConfig _presetsConfig;
         [BoxGroup("Debug")]
         [DisplayAsString, 
          ShowInInspector] private WeatherType _currentWeather;

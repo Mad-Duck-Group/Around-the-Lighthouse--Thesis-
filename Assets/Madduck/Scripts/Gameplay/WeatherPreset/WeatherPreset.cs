@@ -20,13 +20,13 @@ namespace Madduck.WeatherPreset
          SerializeField] private bool isStormy;
 
         [BoxGroup("Settings"),
-         ShowIf("isStormy"),
+         ShowIf(nameof(isStormy)),
          SerializeField] private TweenSettings<Color> stormTweenSettings;
 
 
-        [MinMaxSlider("_dynamicRange", true),
-         ShowIf("isStormy"),
-         BoxGroup("Settings"),
+        [BoxGroup("Settings"),
+         ShowIf(nameof(isStormy)),
+         MinMaxSlider(nameof(_dynamicRange), true),
          SerializeField] private Vector2 stormDelayMinMax = new(1, 10);
 
         [Required,
@@ -64,20 +64,19 @@ namespace Madduck.WeatherPreset
 
         private void StormAnim()
         {
-            Light2D light = globalLight;
             Sequence.Create()
                 .Chain(Tween.Custom(stormTweenSettings.startValue, stormTweenSettings.endValue,
                     stormTweenSettings.settings,
-                    x => light.color = x))
+                    x => globalLight.color = x))
                 .Chain(Tween.Custom(stormTweenSettings.endValue, stormTweenSettings.startValue,
                     stormTweenSettings.settings,
-                    x => light.color = x))
+                    x => globalLight.color = x))
                 .Chain(Tween.Custom(stormTweenSettings.startValue, stormTweenSettings.endValue,
                     stormTweenSettings.settings,
-                    x => light.color = x))
+                    x => globalLight.color = x))
                 .Chain(Tween.Custom(stormTweenSettings.endValue, stormTweenSettings.startValue,
                     stormTweenSettings.settings,
-                    x => light.color = x))
+                    x => globalLight.color = x))
                 .ChainDelay(UnityEngine.Random.Range(_dynamicRange.x, _dynamicRange.y))
                 .SetRemainingCycles(-1);
         }

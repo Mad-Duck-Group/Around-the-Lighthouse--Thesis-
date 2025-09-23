@@ -26,6 +26,7 @@ namespace Madduck.Room
 
         private readonly IGenericFactory<WeatherType> _weatherFactory;
         private readonly IGenericFactory<uint> _maxFishCountFactory;
+        private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
         private readonly IPublisher<OutOfFishEvent> _outOfFishEventPublisher;
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
@@ -36,22 +37,21 @@ namespace Madduck.Room
         private void NextWeather() => RandomWeather();
         
         private readonly FishWeightTableInstance _fishWeightTableInstance;
-        private readonly FishermanItemInstance _fishermanItemInstance;
         
         [Inject]
         public FishingRoomManager(
             FishWeightTableInstance fishWeightTableInstanceInstance,
-            FishermanItemInstance fishermanItemInstance,
             IGenericFactory<WeatherType> weatherFactory,
             [Key(DIConstants.MaxFishCountFactoryId)] IGenericFactory<uint> maxFishCountFactory,
+            IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
             IPublisher<OutOfFishEvent> outOfFishEventPublisher,
             ISubscriber<FishCaughtEvent> fishCaughtEventSubscriber,
             ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber)
         {
             _fishWeightTableInstance = fishWeightTableInstanceInstance;
-            _fishermanItemInstance = fishermanItemInstance;
             _weatherFactory = weatherFactory;
             _maxFishCountFactory = maxFishCountFactory;
+            _fishingRoomStartedEventPublisher = fishingRoomStartedEventPublisher;
             _outOfFishEventPublisher = outOfFishEventPublisher;
             _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             _fishEscapedEventSubscriber = fishEscapedEventSubscriber;
@@ -60,7 +60,7 @@ namespace Madduck.Room
         
         public void Start()
         {
-            _fishermanItemInstance.NotifyModifierUpdate();
+            _fishingRoomStartedEventPublisher?.Publish(new FishingRoomStartedEvent());
             RandomWeather();
             _maxFishCount = _maxFishCountFactory.Create();
             _currentFishCount = _maxFishCount;

@@ -1,5 +1,6 @@
 ﻿namespace Madduck.GameData
 {
+    public struct FishingRoomStartedEvent{ }
     public struct FishCaughtEvent
     {
         public FishItemInstance FishItemInstance { get; private set; }
@@ -10,7 +11,6 @@
         }
     }
     public struct FishEscapedEvent { }
-    
     public struct OutOfFishEvent { }
     
 }

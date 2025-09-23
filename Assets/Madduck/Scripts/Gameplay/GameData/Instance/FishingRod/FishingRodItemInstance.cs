@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Madduck.Utils;
 using MessagePipe;
+using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
@@ -10,7 +11,7 @@ using VContainer;
 namespace Madduck.GameData
 {
     [Serializable]
-    public class FishingRodItemInstance : ItemInstance<FishingRodItemData>
+    public class FishingRodItemInstance : ItemInstance<FishingRodItemData>, IDisposable
     {
         [Title("Fishing Rod Stats"),
          HideLabel,
@@ -19,20 +20,39 @@ namespace Madduck.GameData
                 SerializeReference] public FishingRodStats CurrentStats { get; private set; }
 
         private Dictionary<ModifierId, List<RodModifierData>> _modifiers = new();
-        private readonly IModifierProvider _cardModifierProvider;
+        private readonly ISubscriber<ModifierUpdatedEvent> _modifierUpdatedEventSubscriber;
+        private IDisposable _subscriptions;
 
         public FishingRodItemInstance(
             FishingRodItemData itemData,
-            IModifierProvider cardModifierProvider)
+            ISubscriber<ModifierUpdatedEvent> modifierUpdatedEventSubscriber)
             : base(itemData)
         {
              CurrentStats = new FishingRodStats(itemData);
-             _cardModifierProvider = cardModifierProvider;
-             var modifiers = _cardModifierProvider.GetModifiers<RodModifierData>();
-             _modifiers.UpdateModifierDictionary(modifiers);
-             ApplyModifiers();
+             _modifierUpdatedEventSubscriber = modifierUpdatedEventSubscriber;
+             Subscribe();
         }
-        
+
+        private void Subscribe()
+        {
+            var disposableBuilder = Disposable.CreateBuilder();
+            _modifierUpdatedEventSubscriber.Subscribe(OnModifierUpdated)
+                .AddTo(ref disposableBuilder);
+            _subscriptions = disposableBuilder.Build();
+        }
+
+        public void Dispose()
+        {
+            _subscriptions.Dispose();
+        }
+
+        private void OnModifierUpdated(ModifierUpdatedEvent eventData)
+        {
+            var modifiers = eventData.ModifierProvider.GetModifiers<RodModifierData>();
+            _modifiers = modifiers.CombineModifiers(_modifiers);
+            ApplyModifiers();
+        }
+
         /// <summary>
         /// Applies the modifiers to the current stats.
         /// </summary>

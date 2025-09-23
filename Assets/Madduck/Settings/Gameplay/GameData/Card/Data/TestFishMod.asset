@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f88e80974044c6bae6e81f599d2018a, type: 3}
   m_Name: TestFishMod
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.Card.CardItemData
-  <Guid>k__BackingField: 7c924265ad775e4ea58fb75f6416f14a
   <ItemType>k__BackingField: 3
-  <IsStackable>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 2
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -26,10 +23,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: <Guid>k__BackingField
+      Entry: 2
+      Data: aad3051a260e4d54bc616c6f5647597c
     - Name: <Modifiers>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[Madduck.GameData.BaseModifierData,
-        Madduck.GameData]], mscorlib
+      Data: 0|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
@@ -99,3 +99,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  <CardName>k__BackingField: Test Fish Mod
+  <CardDescription>k__BackingField: 
+  <CardIcon>k__BackingField: {fileID: 0}

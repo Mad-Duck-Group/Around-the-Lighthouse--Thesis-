@@ -8,29 +8,16 @@ namespace Madduck.GameData
 {
     [CreateAssetMenu(fileName = "CardItemData", menuName = "Madduck/Card/CardItemData", order = 3)]
     [ShowOdinSerializedPropertiesInInspector]
-    public class CardItemData : ItemData, ISerializationCallbackReceiver, ISupportsPrefabSerialization
+    public class CardItemData : ItemData
     {
+        [Title("Card Settings"),
+            HideLabel,
+            ShowInInspector] private InspectorPlaceholder _cardSettingsTitle;
+        [field: SerializeField] public string CardName { get; private set; }
+        [field: TextArea,
+            SerializeField] public string CardDescription { get; private set; }
+        [field: PreviewField,
+            SerializeField] public Sprite CardIcon { get; private set; }
         [field: OdinSerialize] public List<BaseModifierData> Modifiers { get; private set; } = new();
-
-        #region Serialization
-        [SerializeField, HideInInspector]
-        private SerializationData serializationData;
-
-        SerializationData ISupportsPrefabSerialization.SerializationData 
-        { 
-            get => serializationData;
-            set => serializationData = value;
-        }
-
-        void ISerializationCallbackReceiver.OnAfterDeserialize()
-        {
-            UnitySerializationUtility.DeserializeUnityObject(this, ref serializationData);
-        }
-
-        void ISerializationCallbackReceiver.OnBeforeSerialize()
-        {
-            UnitySerializationUtility.SerializeUnityObject(this, ref serializationData);
-        }
-        #endregion
     }
 }

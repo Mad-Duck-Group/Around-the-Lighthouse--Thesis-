@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f88e80974044c6bae6e81f599d2018a, type: 3}
   m_Name: TestRodMod
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.Card.CardItemData
-  <Guid>k__BackingField: 189f7e85b9afcf4c9719f8623dcd848a
   <ItemType>k__BackingField: 3
-  <IsStackable>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 2
+  <CardName>k__BackingField: Test Rod Mod
+  <CardDescription>k__BackingField: 
+  <CardIcon>k__BackingField: {fileID: 0}
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -27,8 +27,8 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Modifiers>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[Madduck.GameData.BaseModifierData,
-        Madduck.GameData]], mscorlib
+      Data: 0|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
       Data: 2

@@ -167,23 +167,33 @@ namespace Madduck.Utils
             return result;
         }
         
+        
         /// <summary>
-        /// Updates the value of a dictionary with the contents of another dictionary.
-        /// If a key exists in both dictionaries, the value from the new dictionary will be used.
+        /// Combines two dictionaries of modifiers, adding the list of modifiers for each key.
+        /// If a key is present in both dictionaries, the modifiers from both dictionaries are combined.
         /// </summary>
-        /// <param name="oldDictionary">The dictionary to update.</param>
-        /// <param name="newDictionary">The dictionary containing the new values.</param>
-        /// <typeparam name="T">The type of values in the dictionaries.</typeparam>
-        public static void UpdateModifierDictionary<T>(
-            this Dictionary<ModifierId, List<T>> oldDictionary, 
-            Dictionary<ModifierId, List<T>> newDictionary) 
+        /// <typeparam name="T">The type of the modifiers.</typeparam>
+        /// <param name="dict1">The first dictionary of modifiers.</param>
+        /// <param name="dict2">The second dictionary of modifiers.</param>
+        /// <returns>A new dictionary with the combined modifiers.</returns>
+        public static Dictionary<ModifierId, List<T>> CombineModifiers<T>(
+            this Dictionary<ModifierId, List<T>> dict1, 
+            Dictionary<ModifierId, List<T>> dict2) 
             where T : BaseModifierData
         {
-            foreach (var pair in newDictionary)
+            var dictionary = new Dictionary<ModifierId, List<T>>(dict1);
+            foreach (var kvp in dict2)
             {
-                oldDictionary.Remove(pair.Key);
-                oldDictionary.Add(pair.Key, pair.Value);
+                if (dictionary.TryGetValue(kvp.Key, out var list))
+                {
+                    list.AddRange(kvp.Value);
+                }
+                else
+                {
+                    dictionary.Add(kvp.Key, kvp.Value);
+                }
             }
+            return dictionary;
         }
     }
     #endregion

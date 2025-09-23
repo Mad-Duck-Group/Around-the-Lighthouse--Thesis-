@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Madduck.Utils;
 using MessagePipe;
+using ObservableCollections;
+using R3;
 using Sirenix.OdinInspector;
 using VContainer;
 
 namespace Madduck.GameData.Fisherman
 {
     [Serializable]
-    public class FishermanItemInstance : ItemInstance<FishermanItemData>, IModifierProvider
+    public class FishermanItemInstance : ItemInstance<FishermanItemData>, IModifierProvider, IDisposable
     {
         [Title("Fisherman Stats"),
          HideLabel,
@@ -18,24 +20,54 @@ namespace Madduck.GameData.Fisherman
                 ShowInInspector] public FishermanStats CurrentStats { get; private set; }
         [field: ReadOnly, 
                 ShowInInspector] public FishingRodItemInstance CurrentFishingRod { get; private set; }
-        [field: ReadOnly, 
-                ShowInInspector] public List<CardItemInstance> CurrentCards { get; private set; }
+
+        [field: ReadOnly,
+                ShowInInspector] public ObservableList<CardItemInstance> CurrentCards { get; private set; } = new();
+
+        public ISynchronizedView<CardItemInstance, CardItemInstance> CurrentCardsView { get; private set; }
         
         private readonly IPublisher<ModifierUpdatedEvent> _modifierUpdatedEventPublisher;
+        private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
+        private IDisposable _subscriptions;
         
         [Inject]
         public FishermanItemInstance(
             FishermanItemData itemData,
-            IPublisher<ModifierUpdatedEvent> modifierUpdatedEventPublisher)
+            IPublisher<ModifierUpdatedEvent> modifierUpdatedEventPublisher,
+            ISubscriber<ModifierUpdatedEvent> modifierUpdatedEventSubscriber,
+            ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventSubscriber)
             : base(itemData)
         {
             _modifierUpdatedEventPublisher = modifierUpdatedEventPublisher;
+            _fishingRoomStartedEventSubscriber = fishingRoomStartedEventSubscriber;
             CurrentStats = new FishermanStats(itemData);
-            CurrentCards = new List<CardItemInstance>(itemData.StartingCards.Select(x => new CardItemInstance(x))); 
-            CurrentFishingRod = new FishingRodItemInstance(ItemData.FishingRod, this);
+            CurrentCardsView = CurrentCards.CreateView(x => x);
+            CurrentFishingRod = new FishingRodItemInstance(ItemData.FishingRod, modifierUpdatedEventSubscriber);
+            Subscribe();
         }
 
-        public void NotifyModifierUpdate()
+        private void Subscribe()
+        {
+            var disposableBuilder = Disposable.CreateBuilder();
+            _fishingRoomStartedEventSubscriber.Subscribe(_ => OnFishingRoomStarted())
+                .AddTo(ref disposableBuilder);
+            _subscriptions = disposableBuilder.Build();
+        }
+
+        public void Dispose()
+        {
+            _subscriptions.Dispose();
+            CurrentCardsView.Dispose();
+            CurrentFishingRod.Dispose();
+        }
+
+        private void OnFishingRoomStarted()
+        {
+            CurrentCards.AddRange(ItemData.StartingCards.Select(x => new CardItemInstance(x)));
+            NotifyUpdate();
+        }
+
+        private void NotifyUpdate()
         {
             _modifierUpdatedEventPublisher.Publish(new ModifierUpdatedEvent(this));
         }
@@ -54,7 +86,7 @@ namespace Madduck.GameData.Fisherman
                     }
                 }
                 if (list.Count > 0)
-                    dictionary.Add(new ModifierId(card.InstanceGuid, card.ItemData.name), list);
+                    dictionary.Add(new ModifierId(card.InstanceGuid, card.ItemData.CardName), list);
             }
             return dictionary;
         }
