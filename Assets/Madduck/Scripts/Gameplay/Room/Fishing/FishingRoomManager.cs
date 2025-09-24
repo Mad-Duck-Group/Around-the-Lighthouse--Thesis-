@@ -19,15 +19,17 @@ namespace Madduck.Room
         [Title("Debug")]
         [DisplayAsString, 
          ShowInInspector] private WeatherType _currentWeather;
-        [DisplayAsString, 
-         ShowInInspector] private uint _currentFishCount;
-        [DisplayAsString,
-         ShowInInspector] private uint _maxFishCount;
+        
+        [field: SerializeField] 
+        public ReactiveProperty<uint> CurrentFishCount { get; private set; } = new();
+        [field: SerializeField] 
+        public ReactiveProperty<uint> MaxFishCount { get; private set; } = new();
 
         private readonly IGenericFactory<WeatherType> _weatherFactory;
-        private readonly IGenericFactory<uint> _maxFishCountFactory;
+        private readonly IGenericFactory<uint> _maxFishCountFactory ;
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
         private readonly IPublisher<OutOfFishEvent> _outOfFishEventPublisher;
+        private readonly IPublisher<WeatherChangedEvent> _weatherChangedPublisher;
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
 
@@ -46,7 +48,8 @@ namespace Madduck.Room
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
             IPublisher<OutOfFishEvent> outOfFishEventPublisher,
             ISubscriber<FishCaughtEvent> fishCaughtEventSubscriber,
-            ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber)
+            ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
+            IPublisher<WeatherChangedEvent> weatherChangedPublisher)
         {
             _fishWeightTableInstance = fishWeightTableInstanceInstance;
             _weatherFactory = weatherFactory;
@@ -55,6 +58,7 @@ namespace Madduck.Room
             _outOfFishEventPublisher = outOfFishEventPublisher;
             _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             _fishEscapedEventSubscriber = fishEscapedEventSubscriber;
+            _weatherChangedPublisher = weatherChangedPublisher;
             Subscribe();
         }
         
@@ -62,8 +66,9 @@ namespace Madduck.Room
         {
             _fishingRoomStartedEventPublisher?.Publish(new FishingRoomStartedEvent());
             RandomWeather();
-            _maxFishCount = _maxFishCountFactory.Create();
-            _currentFishCount = _maxFishCount;
+            MaxFishCount.Value = _maxFishCountFactory.Create();
+            CurrentFishCount.Value = MaxFishCount.Value;
+            
         }
         
         public void Dispose()
@@ -93,16 +98,22 @@ namespace Madduck.Room
         
         private void ChangeFishCount(int change)
         {
-            _currentFishCount = (uint)Mathf.Clamp(_currentFishCount + change, 0, _maxFishCount);
-            if (_currentFishCount == 0)
+            CurrentFishCount.Value = (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
+            if (CurrentFishCount.Value == 0)
             {
                 _outOfFishEventPublisher?.Publish(new OutOfFishEvent());
             }
+        }
+        public readonly struct WeatherChangedEvent
+        {
+            public WeatherType Weather { get; }
+            public WeatherChangedEvent(WeatherType weather) => Weather = weather;
         }
 
         private void RandomWeather()
         {
             _currentWeather = _weatherFactory.Create();
+            _weatherChangedPublisher.Publish(new WeatherChangedEvent(_currentWeather));
             FilterFishByWeather();
         }
         
@@ -115,7 +126,7 @@ namespace Madduck.Room
 
         public bool Invoke(CanContinueFishingRequest request)
         {
-            return _currentFishCount > 0;
+            return CurrentFishCount.Value > 0;
         }
     }
 }
