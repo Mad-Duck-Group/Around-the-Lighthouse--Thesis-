@@ -33,7 +33,6 @@ namespace Madduck.WeatherPreset
         {
             _presetsConfig = weatherPresetConfig;
             _weatherFactory = weatherFactory;
-            DebugUtils.Log("Current weather: " + _currentWeather);
         }
         
         #endregion
