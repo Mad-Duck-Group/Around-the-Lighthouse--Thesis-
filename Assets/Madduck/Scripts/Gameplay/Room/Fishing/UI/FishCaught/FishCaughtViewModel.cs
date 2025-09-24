@@ -15,7 +15,7 @@ namespace Madduck.Room
         
         private IDisposable _bindings;
         
-        public FishCaughtViewModel(FishCaughtView view,FishingRoomManager fishingRoomManager)
+        public FishCaughtViewModel(FishCaughtView view, FishingRoomManager fishingRoomManager)
         {
             _view = view;
             _fishingRoomManager = fishingRoomManager;

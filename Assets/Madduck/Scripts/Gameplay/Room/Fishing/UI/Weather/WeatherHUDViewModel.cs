@@ -10,16 +10,17 @@ using VContainer;
 
 namespace Madduck.Room
 {
-    public class WeatherHUDModel : IDisposable
+    public class WeatherHUDViewModel : IDisposable
     {
-        
         private readonly SerializableDictionary<WeatherType, Sprite> _weatherIcons;
         private readonly ISubscriber<FishingRoomManager.WeatherChangedEvent> _weatherChangedSubscriber;
         private readonly WeatherHUDView _view;
         private IDisposable _bindings;
         
         [Inject]
-        public WeatherHUDModel( SerializableDictionary<WeatherType, Sprite> weatherIcons , WeatherHUDView view,
+        public WeatherHUDViewModel( 
+            SerializableDictionary<WeatherType, Sprite> weatherIcons, 
+            WeatherHUDView view,
             ISubscriber<FishingRoomManager.WeatherChangedEvent> weatherChangedSubscriber)
         {
             _weatherIcons = weatherIcons;
