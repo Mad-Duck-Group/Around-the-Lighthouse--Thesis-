@@ -1,29 +1,83 @@
-﻿using Madduck.GameData;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using Madduck.GameData;
+using Madduck.Utils;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VContainer;
 
 namespace Madduck.Room
 {
-    public class CardView : MonoBehaviour
+    [ShowOdinSerializedPropertiesInInspector]
+    public class CardView : MonoBehaviour, ITooltipProvider<GeneralTooltipObject>,
+        IPointerEnterHandler, IPointerExitHandler,
+        ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
         [Title("References")]
         [Required, 
          SerializeField] private Image icon;
         [Required, 
-         SerializeField] private TMP_Text nameText;
-        [Required, 
-         SerializeField] private TMP_Text descriptionText;
+         OdinSerialize] private GeneralTooltipManager tooltipManager;
         
         public CardItemInstance Card { get; private set; }
+
+        private CancellationTokenSource _tooltipCts = new();
+        
+        public void SetUp(Canvas tooltipCanvas)
+        {
+            tooltipManager.TooltipCanvas = tooltipCanvas;
+        }
 
         public void SetCard(CardItemInstance card)
         {
             Card = card;
             icon.sprite = card.ItemData.CardIcon;
-            nameText.text = card.ItemData.CardName;
-            descriptionText.text = card.ItemData.CardDescription;
         }
+        
+        public GeneralTooltipObject GetTooltipObject()
+        {
+            return new GeneralTooltipObject(
+                Card.ItemData.CardName, 
+                Card.ItemData.CardDescription);
+        }
+        
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            _tooltipCts.Cancel();
+            _tooltipCts = new();
+            tooltipManager.ShowTooltip(_tooltipCts.Token).Forget();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            _tooltipCts.Cancel();
+            _tooltipCts = new();
+            tooltipManager.HideTooltip(_tooltipCts.Token).Forget();
+        }
+        
+        #region Serialization
+        [SerializeField, HideInInspector]
+        private SerializationData serializationData;
+
+        SerializationData ISupportsPrefabSerialization.SerializationData 
+        { 
+            get => serializationData;
+            set => serializationData = value;
+        }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            UnitySerializationUtility.DeserializeUnityObject(this, ref serializationData);
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+            UnitySerializationUtility.SerializeUnityObject(this, ref serializationData);
+        }
+        #endregion
     }
 }

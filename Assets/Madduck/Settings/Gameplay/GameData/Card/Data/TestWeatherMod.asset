@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: TestWeatherMod
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.Card.CardItemData
   <ItemType>k__BackingField: 3
-  <CardName>k__BackingField: Test Weather Mod
-  <CardDescription>k__BackingField: 
-  <CardIcon>k__BackingField: {fileID: 0}
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -25,6 +22,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: <Guid>k__BackingField
+      Entry: 2
+      Data: cb7de70f7c09484bb37a056dd526de7f
     - Name: <Modifiers>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
@@ -86,3 +86,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  <CardName>k__BackingField: Test Weather Mod
+  <CardDescription>k__BackingField: '+5 Rain weight.
+
+    Override Fog weight to
+    1.2.'
+  <CardIcon>k__BackingField: {fileID: -700040529577777666, guid: 3c86786e1c268db4f8a0b6421adaba15, type: 3}

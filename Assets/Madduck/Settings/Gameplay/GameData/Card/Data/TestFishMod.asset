@@ -100,5 +100,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
   <CardName>k__BackingField: Test Fish Mod
-  <CardDescription>k__BackingField: 
-  <CardIcon>k__BackingField: {fileID: 0}
+  <CardDescription>k__BackingField: '+1 Small fish weight.
+
+    +10% chance of getting
+    the Crawling Stone.'
+  <CardIcon>k__BackingField: {fileID: -4427686869387307068, guid: a33e135118e4f7b4c95223a40f90e64f, type: 3}
