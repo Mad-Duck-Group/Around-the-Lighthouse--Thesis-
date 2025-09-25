@@ -14,7 +14,7 @@ namespace Madduck.GameData
             HideLabel,
             ShowInInspector] private InspectorPlaceholder _cardSettingsTitle;
         [field: SerializeField] public string CardName { get; private set; }
-        [field: TextArea,
+        [field: TextArea(3, 20),
             SerializeField] public string CardDescription { get; private set; }
         [field: PreviewField,
             SerializeField] public Sprite CardIcon { get; private set; }

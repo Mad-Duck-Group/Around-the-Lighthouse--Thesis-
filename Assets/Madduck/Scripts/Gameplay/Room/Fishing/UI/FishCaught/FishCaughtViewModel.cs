@@ -12,7 +12,6 @@ namespace Madduck.Room
         private uint _currentFishCount;
         private uint _maxFishCount;
         
-        
         private IDisposable _bindings;
         
         public FishCaughtViewModel(FishCaughtView view, FishingRoomManager fishingRoomManager)

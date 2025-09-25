@@ -30,7 +30,7 @@ namespace Madduck.Room
             
             builder.Register(_ => weatherIcons, Lifetime.Singleton)
                 .As<SerializableDictionary<WeatherType, Sprite>>();
-            builder.Register(_ => weatherHUDView, Lifetime.Singleton)
+            builder.RegisterComponent(weatherHUDView)
                 .As<WeatherHUDView>();
             builder.Register<WeatherHUDViewModel>(Lifetime.Singleton);
             builder.Register(_ => fishCaughtView, Lifetime.Singleton)

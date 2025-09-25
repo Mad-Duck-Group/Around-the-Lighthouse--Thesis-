@@ -12,19 +12,15 @@ namespace Madduck.Room
 {
     public class WeatherHUDViewModel : IDisposable
     {
-        private readonly SerializableDictionary<WeatherType, Sprite> _weatherIcons;
+        public ReactiveProperty<WeatherType> CurrentWeather { get; } = new();
+        
         private readonly ISubscriber<FishingRoomManager.WeatherChangedEvent> _weatherChangedSubscriber;
-        private readonly WeatherHUDView _view;
         private IDisposable _bindings;
         
         [Inject]
         public WeatherHUDViewModel( 
-            SerializableDictionary<WeatherType, Sprite> weatherIcons, 
-            WeatherHUDView view,
             ISubscriber<FishingRoomManager.WeatherChangedEvent> weatherChangedSubscriber)
         {
-            _weatherIcons = weatherIcons;
-            _view = view;
             _weatherChangedSubscriber = weatherChangedSubscriber;
             Bind();
         }
@@ -39,10 +35,7 @@ namespace Madduck.Room
 
         private void OnWeatherChanged(WeatherType newWeather)
         {
-            if (_weatherIcons.TryGetValue(newWeather, out var icon))
-            {
-                _view.SetWeatherIcon(icon);
-            }
+            CurrentWeather.Value = newWeather;
         }
         public void Dispose()
         {

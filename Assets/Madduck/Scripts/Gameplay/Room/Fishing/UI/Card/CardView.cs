@@ -22,9 +22,8 @@ namespace Madduck.Room
          SerializeField] private Image icon;
         [Required, 
          OdinSerialize] private GeneralTooltipManager tooltipManager;
-        
-        public CardItemInstance Card { get; private set; }
 
+        private CardItemInstance _card;
         private CancellationTokenSource _tooltipCts = new();
         
         public void SetUp(Canvas tooltipCanvas)
@@ -34,15 +33,15 @@ namespace Madduck.Room
 
         public void SetCard(CardItemInstance card)
         {
-            Card = card;
+            _card = card;
             icon.sprite = card.ItemData.CardIcon;
         }
         
         public GeneralTooltipObject GetTooltipObject()
         {
             return new GeneralTooltipObject(
-                Card.ItemData.CardName, 
-                Card.ItemData.CardDescription);
+                _card.ItemData.CardName, 
+                _card.ItemData.CardDescription);
         }
         
         public void OnPointerEnter(PointerEventData eventData)

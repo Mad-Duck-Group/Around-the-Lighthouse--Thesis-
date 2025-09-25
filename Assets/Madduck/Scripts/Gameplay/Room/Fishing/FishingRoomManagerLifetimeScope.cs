@@ -109,7 +109,7 @@ namespace Madduck.Room
                 .AsSelf();
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
             builder.RegisterEntryPoint<WeatherPresetManager>().AsSelf();
-            uiInstaller.Install(builder);
+            uiInstaller?.Install(builder);
             builder.RegisterBuildCallback(container =>
             {
 #if UNITY_EDITOR

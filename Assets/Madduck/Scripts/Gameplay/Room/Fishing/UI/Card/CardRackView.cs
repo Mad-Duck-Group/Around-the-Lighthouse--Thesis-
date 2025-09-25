@@ -18,7 +18,7 @@ namespace Madduck.Room
 	    private readonly FishermanItemInstance _fisherman;
 	    private readonly IGenericFactory<CardView> _cardViewFactory;
 		private IDisposable _bindings;
-		private readonly List<CardView> _cardViews = new();
+		private readonly Dictionary<Guid, CardView> _cardViewDictionary = new();
 
 		[Inject]
 		public CardRackView(
@@ -51,14 +51,15 @@ namespace Madduck.Room
 			{
 				case NotifyCollectionChangedAction.Add:
 					var cardView = _cardViewFactory.Create();
-					cardView.SetCard(eventData.NewItem.Value);
-					_cardViews.Add(cardView);
+					var addedInstance = eventData.NewItem.Value;
+					cardView.SetCard(addedInstance);
+					_cardViewDictionary.Add(addedInstance.ItemData.Guid, cardView);
 					break;
 				case NotifyCollectionChangedAction.Move:
 					break;
 				case NotifyCollectionChangedAction.Remove:
-					var cardToRemove = _cardViews.FirstOrDefault(x => x.Card == eventData.OldItem.Value);
-					_cardViews.Remove(cardToRemove);
+					var removedInstance = eventData.OldItem.Value;
+					if (!_cardViewDictionary.Remove(removedInstance.ItemData.Guid, out var cardToRemove)) break;
 					Object.Destroy(cardToRemove);
 					break;
 				case NotifyCollectionChangedAction.Replace:
