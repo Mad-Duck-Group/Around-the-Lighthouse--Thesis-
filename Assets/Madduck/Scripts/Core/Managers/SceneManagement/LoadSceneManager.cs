@@ -234,7 +234,7 @@ namespace Madduck.Core
             Debug.Log("Unloading " + lastScene.name);
             if (LoadSceneMode == LoadSceneMode.Additive)
             {
-                SceneManager.UnloadSceneAsync(lastScene);
+                await SceneManager.UnloadSceneAsync(lastScene);
             }
             _loadSceneStageEventPublisher.Publish(new LoadSceneStageEvent(LoadSceneStage.StartFadeIn));
             await _currentTransitionScreen.TransitionOut();

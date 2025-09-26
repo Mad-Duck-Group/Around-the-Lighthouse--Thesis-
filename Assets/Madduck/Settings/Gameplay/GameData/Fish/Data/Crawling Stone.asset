@@ -13,14 +13,25 @@ MonoBehaviour:
   m_Name: Crawling Stone
   m_EditorClassIdentifier: 
   <ItemType>k__BackingField: 0
-  <IsStackable>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 2
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: <Guid>k__BackingField
+      Entry: 2
+      Data: 24c55428fc8d4e70b8dd4f3706dd202c
   <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   <Size>k__BackingField: 0
   <WeatherType>k__BackingField: 1
   <DayPhaseType>k__BackingField: 3
   <FishName>k__BackingField: Crawling Stone
-  <FishSprite>k__BackingField: {fileID: 0}
+  <FishDescription>k__BackingField: Crawling in the deeeeeepppp
+  <FishSprite>k__BackingField: {fileID: 6828352678975438393, guid: b45595d772e894f41868e5e747ec576b, type: 3}
   <BasePrice>k__BackingField: 10
   <MaxNibbleAttempts>k__BackingField: 4
   <NibbleIntervalRange>k__BackingField: {x: 10, y: 15}

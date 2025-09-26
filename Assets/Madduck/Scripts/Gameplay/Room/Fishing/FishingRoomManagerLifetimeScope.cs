@@ -51,7 +51,7 @@ namespace Madduck.Room
          SerializeField] private List<RoomPreset.RoomPreset> roomPresets;
         [Required,
          SerializeField] private WeatherPresetConfig weatherPresetConfig;
-        [SerializeField] private FishingRoomUIInstaller uiInstaller;
+        [OdinSerialize] private FishingRoomUIInstaller uiInstaller;
         
         [Title("Debug")] 
         [SerializeField] private bool spoofWeather;
@@ -110,13 +110,13 @@ namespace Madduck.Room
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
             builder.Register<WeatherPresetManager>(Lifetime.Singleton).AsSelf();
             uiInstaller?.Install(builder);
-            builder.RegisterBuildCallback(container =>
+            builder.RegisterBuildCallback(x =>
             {
 #if UNITY_EDITOR
-                var fishingRoomManager = container.Resolve<FishingRoomManager>();
-                var table = container.Resolve<WeatherWeightTableInstance>();
-                var roomPresetManager = container.Resolve<RoomPresetManager>();
-                var weatherPresetManager = container.Resolve<WeatherPresetManager>();
+                var fishingRoomManager = x.Resolve<FishingRoomManager>();
+                var table = x.Resolve<WeatherWeightTableInstance>();
+                var roomPresetManager = x.Resolve<RoomPresetManager>();
+                var weatherPresetManager = x.Resolve<WeatherPresetManager>();
                 _fishingRoomManagerDebugData = new FishingRoomManagerDebugData(fishingRoomManager, table,roomPresetManager,weatherPresetManager);
 #endif
             });

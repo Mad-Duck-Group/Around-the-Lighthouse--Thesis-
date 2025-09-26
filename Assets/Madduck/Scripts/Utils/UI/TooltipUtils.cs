@@ -14,11 +14,6 @@ namespace Madduck.Utils
     
     public interface ITooltipObject { }
 
-    public interface ITooltipProvider<out T> where T : ITooltipObject
-    {
-        public T GetTooltipObject();
-    }
-
     public interface ITooltipView<in T> where T : ITooltipObject
     {
         public UniTask ShowTooltip(T tooltip, CancellationToken cancellationToken = default);
@@ -38,8 +33,6 @@ namespace Madduck.Utils
         [Required, 
          SerializeField] protected Transform tooltipParent;
         [field: SerializeField] public Canvas TooltipCanvas { get; set; }
-        [Required,
-         OdinSerialize] protected ITooltipProvider<T> tooltipProvider;
         [SerializeField] protected bool prefabMode;
         [Required, HideIf(nameof(prefabMode)),
          OdinSerialize] protected ITooltipView<T> tooltipView;
@@ -54,15 +47,19 @@ namespace Madduck.Utils
         private ITooltipView<T> _currentTooltipView; 
         private GameObject _currentTooltipViewObject;
 
-        public virtual async UniTask ShowTooltip(CancellationToken cancellationToken = default)
+        public virtual async UniTask ShowTooltip(ITooltipObject tooltipObject, CancellationToken cancellationToken = default)
         {
             if (!TooltipCanvas)
             {
                 DebugUtils.LogError("TooltipCanvas is not assigned");
                 return;
             }
+            if (tooltipObject is not T data)
+            {
+                DebugUtils.LogError($"TooltipObject is not of type {typeof(T).Name}");
+                return;
+            }
             await UniTask.WaitForSeconds(delay, cancellationToken: cancellationToken);
-            var tooltipObject = tooltipProvider.GetTooltipObject();
             if (prefabMode)
             {
                 _currentTooltipView = tooltipViewPrefab.InstantiateAsInterface(new InstantiateParameters
@@ -79,7 +76,7 @@ namespace Madduck.Utils
             {
                 _currentTooltipView = tooltipView;
             }
-            await _currentTooltipView.ShowTooltip(tooltipObject, cancellationToken);
+            await _currentTooltipView.ShowTooltip(data, cancellationToken);
         }
         
         public virtual async UniTask HideTooltip(CancellationToken cancellationToken = default)
@@ -90,7 +87,7 @@ namespace Madduck.Utils
             DestroyTooltipObject();
         }
 
-        private void DestroyTooltipObject()
+        protected virtual void DestroyTooltipObject()
         {
             if (_currentTooltipViewObject) Object.Destroy(_currentTooltipViewObject);
             _currentTooltipView = null;

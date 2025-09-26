@@ -13,7 +13,7 @@ using VContainer;
 namespace Madduck.Room
 {
     [ShowOdinSerializedPropertiesInInspector]
-    public class CardView : MonoBehaviour, ITooltipProvider<GeneralTooltipObject>,
+    public class CardView : MonoBehaviour,
         IPointerEnterHandler, IPointerExitHandler,
         ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
@@ -37,18 +37,14 @@ namespace Madduck.Room
             icon.sprite = card.ItemData.CardIcon;
         }
         
-        public GeneralTooltipObject GetTooltipObject()
-        {
-            return new GeneralTooltipObject(
-                _card.ItemData.CardName, 
-                _card.ItemData.CardDescription);
-        }
-        
         public void OnPointerEnter(PointerEventData eventData)
         {
             _tooltipCts.Cancel();
             _tooltipCts = new();
-            tooltipManager.ShowTooltip(_tooltipCts.Token).Forget();
+            var tooltipObject = new GeneralTooltipObject(
+                _card.ItemData.CardName, 
+                _card.ItemData.CardDescription);
+            tooltipManager.ShowTooltip(tooltipObject, _tooltipCts.Token).Forget();
         }
 
         public void OnPointerExit(PointerEventData eventData)

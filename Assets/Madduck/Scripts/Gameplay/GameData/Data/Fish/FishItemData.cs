@@ -37,7 +37,10 @@ namespace Madduck.GameData
         [field: NoNoneFlag,
                 SerializeField] public DayPhaseType DayPhaseType { get; private set; } = DayPhaseType.Day;
         [field: SerializeField] public string FishName { get; private set; }
-        [field: SerializeField] public Sprite FishSprite { get; private set; }
+        [field: TextArea(3, 20),
+            SerializeField] public string FishDescription { get; private set; }
+        [field: PreviewField,
+            SerializeField] public Sprite FishSprite { get; private set; }
         [field: SerializeField] public uint BasePrice { get; private set; } = 10;
         
         [Title("Nibble Settings"), 
