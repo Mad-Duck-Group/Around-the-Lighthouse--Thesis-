@@ -1,8 +1,11 @@
 ﻿using System;
+using Madduck.Core;
 using Madduck.Day;
 using Madduck.GameData;
 using Madduck.GameData.Fisherman;
 using Madduck.Shared;
+using Madduck.Shared.Events;
+using Madduck.Utils;
 using MessagePipe;
 using R3;
 using Sirenix.OdinInspector;
@@ -13,7 +16,7 @@ using VContainer.Unity;
 namespace Madduck.Room
 {
     public class FishingRoomManager : 
-        IStartable, IDisposable,
+        IDisposable,
         IRequestHandler<CanContinueFishingRequest, bool>
     {
         [Title("Debug")]
@@ -32,6 +35,7 @@ namespace Madduck.Room
         private readonly IPublisher<WeatherChangedEvent> _weatherChangedPublisher;
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
+        private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
 
         private IDisposable _subscriptions;
 
@@ -47,35 +51,23 @@ namespace Madduck.Room
             [Key(DIConstants.MaxFishCountFactoryId)] IGenericFactory<uint> maxFishCountFactory,
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
             IPublisher<OutOfFishEvent> outOfFishEventPublisher,
+            IPublisher<WeatherChangedEvent> weatherChangedPublisher,
             ISubscriber<FishCaughtEvent> fishCaughtEventSubscriber,
             ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
-            IPublisher<WeatherChangedEvent> weatherChangedPublisher)
+            ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
         {
             _fishWeightTableInstance = fishWeightTableInstanceInstance;
             _weatherFactory = weatherFactory;
             _maxFishCountFactory = maxFishCountFactory;
             _fishingRoomStartedEventPublisher = fishingRoomStartedEventPublisher;
             _outOfFishEventPublisher = outOfFishEventPublisher;
+            _weatherChangedPublisher = weatherChangedPublisher;
             _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             _fishEscapedEventSubscriber = fishEscapedEventSubscriber;
-            _weatherChangedPublisher = weatherChangedPublisher;
+            _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
             Subscribe();
         }
         
-        public void Start()
-        {
-            _fishingRoomStartedEventPublisher?.Publish(new FishingRoomStartedEvent());
-            RandomWeather();
-            MaxFishCount.Value = _maxFishCountFactory.Create();
-            CurrentFishCount.Value = MaxFishCount.Value;
-            
-        }
-        
-        public void Dispose()
-        {
-            _subscriptions?.Dispose();
-        }
-
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
@@ -83,7 +75,25 @@ namespace Madduck.Room
                 .AddTo(ref disposableBuilder);
             _fishEscapedEventSubscriber.Subscribe(_ => OnFishEscaped())
                 .AddTo(ref disposableBuilder);
+            _loadSceneStageEventSubscriber
+                .AsObservable().ToObservable()
+                .Where(x => x.Stage is LoadSceneStage.FinishLoading)
+                .Subscribe(_ => StartFishingRoom())
+                .AddTo(ref disposableBuilder);
             _subscriptions = disposableBuilder.Build();
+        }
+        
+        public void Dispose()
+        {
+            _subscriptions?.Dispose();
+        }
+        
+        private void StartFishingRoom()
+        {
+            MaxFishCount.Value = _maxFishCountFactory.Create();
+            CurrentFishCount.Value = MaxFishCount.Value;
+            _fishingRoomStartedEventPublisher?.Publish(new FishingRoomStartedEvent());
+            RandomWeather();
         }
         
         private void OnFishCaught()
@@ -95,19 +105,15 @@ namespace Madduck.Room
         {
             ChangeFishCount(-1);
         }
-        
+
         private void ChangeFishCount(int change)
         {
-            CurrentFishCount.Value = (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
+            CurrentFishCount.Value =
+                (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
             if (CurrentFishCount.Value == 0)
             {
                 _outOfFishEventPublisher?.Publish(new OutOfFishEvent());
             }
-        }
-        public readonly struct WeatherChangedEvent
-        {
-            public WeatherType Weather { get; }
-            public WeatherChangedEvent(WeatherType weather) => Weather = weather;
         }
 
         private void RandomWeather()

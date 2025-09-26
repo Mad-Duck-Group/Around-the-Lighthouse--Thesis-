@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Madduck.GameData;
 using Madduck.Utils;
+using MessagePipe;
+using R3;
 using Sirenix.OdinInspector;
+using VContainer;
 using VContainer.Unity;
 
 namespace Madduck.Fishing.StateMachine
@@ -17,7 +21,7 @@ namespace Madduck.Fishing.StateMachine
     }
     
     [Serializable]
-    public class FishingStateMachine : Utils.StateMachine, IStartable
+    public class FishingStateMachine : Utils.StateMachine, IDisposable
     {
         [Title("Debug")]
         [DisplayAsString]
@@ -28,8 +32,33 @@ namespace Madduck.Fishing.StateMachine
         private void TestNextState() => NextState();
         [Button("Test Previous State")]
         private void TestPreviousState() => PreviousState();
+        
+        private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
+        private IDisposable _subscriptions;
 
-        public void Start()
+        [Inject]
+        public FishingStateMachine(
+            ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventSubscriber)
+        {
+            _fishingRoomStartedEventSubscriber = fishingRoomStartedEventSubscriber;
+            Subscribe();
+        }
+
+        private void Subscribe()
+        {
+            var disposableBuilder = Disposable.CreateBuilder();
+            _fishingRoomStartedEventSubscriber
+                .Subscribe(_ => StartStateMachine())
+                .AddTo(ref disposableBuilder);
+            _subscriptions = disposableBuilder.Build();
+        }
+
+        public void Dispose()
+        {
+            _subscriptions.Dispose();
+        }
+        
+        private void StartStateMachine()
         {
             ChangeState(FishingStateType.None);
         }

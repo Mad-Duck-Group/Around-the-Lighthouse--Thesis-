@@ -1,15 +1,20 @@
+using System;
 using System.Collections.Generic;
 using Madduck.Shared;
+using Madduck.Shared.Events;
 using Madduck.Utils;
+using MessagePipe;
+using R3;
 using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace Madduck.WeatherPreset
 {
-    public class WeatherPresetManager : IStartable
+    public class WeatherPresetManager : IStartable, IDisposable
     {
         #region Inspector
 
@@ -25,16 +30,45 @@ namespace Madduck.WeatherPreset
         #endregion
         
         private readonly IGenericFactory<WeatherType> _weatherFactory;
+        private readonly ISubscriber<WeatherChangedEvent> _weatherChangedEventSubscriber;
+        private IDisposable _subscriptions;
         
         #region Inject
         [Inject]
-        public WeatherPresetManager(IGenericFactory<WeatherType> weatherFactory,
+        public WeatherPresetManager(
+            IGenericFactory<WeatherType> weatherFactory,
+            ISubscriber<WeatherChangedEvent> weatherChangedEventSubscriber,
             WeatherPresetConfig weatherPresetConfig)
         {
             _presetsConfig = weatherPresetConfig;
+            _weatherChangedEventSubscriber = weatherChangedEventSubscriber;
             _weatherFactory = weatherFactory;
+            Subscribe();
         }
+        #endregion
         
+        #region Subscription
+
+        private void Subscribe()
+        {
+            var disposableBuilder = Disposable.CreateBuilder();
+            _weatherChangedEventSubscriber
+                .Subscribe(OnWeatherChanged)
+                .AddTo(ref disposableBuilder);
+            _subscriptions = disposableBuilder.Build();
+        }
+
+        public void Dispose()
+        {
+            _subscriptions.Dispose();
+        }
+
+        private void OnWeatherChanged(WeatherChangedEvent weatherChangedEvent)
+        {
+            _currentWeather = weatherChangedEvent.Weather;
+            SpawnWeather(Vector3.zero, Quaternion.identity);
+        }
+
         #endregion
         
         #region Lifecycle

@@ -34,7 +34,7 @@ namespace Madduck.Day
     [Serializable]
     public class DayManagerInstaller : IInstaller
     {
-        [Title("References")]
+        [Title("Day Management")]
         [Required,
          SerializeField] private DayManagerConfig dayManagerConfig;
         [Required,

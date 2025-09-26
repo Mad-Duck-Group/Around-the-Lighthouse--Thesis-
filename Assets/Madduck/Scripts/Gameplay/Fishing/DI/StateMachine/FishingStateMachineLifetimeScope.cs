@@ -75,7 +75,7 @@ namespace Madduck.Fishing.DI
             }
             builder.Register(_ => hookProjectileFactory, Lifetime.Singleton).As<IHookFactory>();
             builder.Register<FishingNoneState>(Lifetime.Scoped).AsSelf();
-            builder.RegisterEntryPoint<FishingStateMachine>().AsSelf();
+            builder.Register<FishingStateMachine>(Lifetime.Singleton).AsSelf();
             builder.RegisterBuildCallback(x =>
             {
                 var stateMachine = x.Resolve<FishingStateMachine>();

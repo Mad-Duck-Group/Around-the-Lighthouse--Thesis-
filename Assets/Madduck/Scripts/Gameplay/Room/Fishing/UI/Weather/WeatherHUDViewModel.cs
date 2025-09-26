@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Madduck.Shared;
+using Madduck.Shared.Events;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
@@ -14,12 +15,12 @@ namespace Madduck.Room
     {
         public ReactiveProperty<WeatherType> CurrentWeather { get; } = new();
         
-        private readonly ISubscriber<FishingRoomManager.WeatherChangedEvent> _weatherChangedSubscriber;
+        private readonly ISubscriber<WeatherChangedEvent> _weatherChangedSubscriber;
         private IDisposable _bindings;
         
         [Inject]
         public WeatherHUDViewModel( 
-            ISubscriber<FishingRoomManager.WeatherChangedEvent> weatherChangedSubscriber)
+            ISubscriber<WeatherChangedEvent> weatherChangedSubscriber)
         {
             _weatherChangedSubscriber = weatherChangedSubscriber;
             Bind();

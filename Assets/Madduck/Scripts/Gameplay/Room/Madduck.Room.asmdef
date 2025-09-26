@@ -2,6 +2,7 @@
     "name": "Madduck.Room",
     "rootNamespace": "Madduck.Room",
     "references": [
+        "GUID:24b580ab6157dfa49bb8a3454de77db6",
         "GUID:57a05d594f797ff4dbb4e78521faf9e7",
         "GUID:59060aab475fe74459dbf17bf4e78b81",
         "GUID:8f89d8d09e708c845b0da85e868aec60",

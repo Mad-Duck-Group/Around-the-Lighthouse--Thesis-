@@ -104,11 +104,11 @@ namespace Madduck.Room
             }
             builder.RegisterInstance(roomPresets).As<List<RoomPreset.RoomPreset>>();
             builder.RegisterInstance(weatherPresetConfig).AsSelf();
-            builder.RegisterEntryPoint<FishingRoomManager>()
+            builder.Register<FishingRoomManager>(Lifetime.Singleton)
                 .As<IRequestHandler<CanContinueFishingRequest, bool>>()
                 .AsSelf();
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
-            builder.RegisterEntryPoint<WeatherPresetManager>().AsSelf();
+            builder.Register<WeatherPresetManager>(Lifetime.Singleton).AsSelf();
             uiInstaller?.Install(builder);
             builder.RegisterBuildCallback(container =>
             {
