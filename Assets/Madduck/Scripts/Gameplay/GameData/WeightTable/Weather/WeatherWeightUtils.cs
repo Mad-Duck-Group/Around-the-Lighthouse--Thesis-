@@ -4,11 +4,13 @@ using System.Linq;
 using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
+using ObservableCollections;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 using VContainer;
+using DisposableBag = R3.DisposableBag;
 
 namespace Madduck.GameData
 {
@@ -51,12 +53,15 @@ namespace Madduck.GameData
     
     [Serializable]
     public class WeatherWeightTableInstance : 
-        IWeightTable<WeatherWeightRecord, WeatherModifierData, WeatherType>, 
+        IWeightTable<WeatherWeightRecord, WeatherWeightModifierData, WeatherType>, 
         IDisposable
     {
+        [Title("Debug")] 
         private List<WeatherWeightRecord> BaseRecords { get; set; }
-        public Dictionary<string, IWeightFilter<WeatherWeightRecord>> PersistentFilters { get; private set; }
-        public Dictionary<ModifierId, List<WeatherModifierData>> PersistentModifiers { get; private set; }
+        [ReadOnly, 
+         ShowInInspector] public Dictionary<string, IWeightFilter<WeatherWeightRecord>> PersistentFilters { get; private set; }
+        [ReadOnly, 
+         ShowInInspector] public Dictionary<ModifierId, List<WeatherWeightModifierData>> PersistentModifiers { get; private set; }
 
         [Title("Debug")] 
         [ReadOnly, TableList,
@@ -64,25 +69,26 @@ namespace Madduck.GameData
         [Button("Refresh")]
         private void Refresh() => ApplyFiltersAndModifiers();
         
-        private readonly ISubscriber<ModifierUpdatedEvent> _modifierUpdatedEventSubscriber;
+        private readonly ISubscriber<ModifierSourceEvent> _modifierPublisherEventSubscriber;
         private IDisposable _subscriptions;
+        private DisposableBag _modifierChangedSubscription;
 
         [Inject]
         public WeatherWeightTableInstance(
             WeatherWeightTable weatherWeightTable,
-            ISubscriber<ModifierUpdatedEvent> modifierUpdatedEventSubscriber)
+            ISubscriber<ModifierSourceEvent> modifierPublisherEventSubscriber)
         {
             BaseRecords = weatherWeightTable.Records.Select(x => x.Copy()).ToList();
             PersistentFilters = new Dictionary<string, IWeightFilter<WeatherWeightRecord>>();
-            PersistentModifiers = new Dictionary<ModifierId, List<WeatherModifierData>>();
-            _modifierUpdatedEventSubscriber = modifierUpdatedEventSubscriber;
+            PersistentModifiers = new Dictionary<ModifierId, List<WeatherWeightModifierData>>();
+            _modifierPublisherEventSubscriber = modifierPublisherEventSubscriber;
             Subscribe();
         }
         
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _modifierUpdatedEventSubscriber.Subscribe(OnModifierUpdated)
+            _modifierPublisherEventSubscriber.Subscribe(OnModifierPublished)
                 .AddTo(ref disposableBuilder);
             _subscriptions = disposableBuilder.Build();
         }
@@ -90,13 +96,19 @@ namespace Madduck.GameData
         public void Dispose()
         {
             _subscriptions?.Dispose();
+            _modifierChangedSubscription.Dispose();
+            _modifierChangedSubscription.Clear();
         }
 
-        private void OnModifierUpdated(ModifierUpdatedEvent eventData)
+        private void OnModifierPublished(ModifierSourceEvent eventData)
         {
-            var newModifiers = eventData.ModifierProvider.GetModifiers<WeatherModifierData>();
-            PersistentModifiers = newModifiers.CombineModifiers(PersistentModifiers);
-            ApplyFiltersAndModifiers();
+            eventData.ModiferSource.ModifiersView.ObserveChanged()
+                .Subscribe(x =>
+                {
+                    PersistentModifiers.OnModifierChanged(x);
+                    ApplyFiltersAndModifiers();
+                })
+                .AddTo(ref _modifierChangedSubscription);
         }
         
         private void ApplyFiltersAndModifiers()

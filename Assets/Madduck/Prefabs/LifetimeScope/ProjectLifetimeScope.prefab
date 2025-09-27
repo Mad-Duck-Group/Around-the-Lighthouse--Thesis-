@@ -372,6 +372,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9b74cd10328d8d64a98ce1b7f8705086, type: 2}
     - {fileID: 5540994867124524877}
     - {fileID: 11400000, guid: bb8d3aacfcff685459c88790344b8f4d, type: 2}
+    - {fileID: 11400000, guid: 81a55ff5f491372458739e4baa1dc32a, type: 2}
     - {fileID: 11400000, guid: 039c3ad4efc03e345afdc51f750988fa, type: 2}
     - {fileID: 11400000, guid: 3d31df75f659d3946966c5ae84c26e9f, type: 2}
     SerializedBytesString: 
@@ -422,12 +423,15 @@ MonoBehaviour:
     - Name: dayManagerConfig
       Entry: 10
       Data: 4
-    - Name: fishWeightTable
+    - Name: playerInventoryConfig
       Entry: 10
       Data: 5
-    - Name: fishermanItemData
+    - Name: fishWeightTable
       Entry: 10
       Data: 6
+    - Name: fishermanItemData
+      Entry: 10
+      Data: 7
     - Name: 
       Entry: 8
       Data: 

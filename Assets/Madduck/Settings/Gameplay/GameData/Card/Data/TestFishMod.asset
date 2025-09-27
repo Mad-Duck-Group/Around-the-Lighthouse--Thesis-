@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 7
-      Data: 1|Madduck.GameData.FishModifierData, Madduck.GameData
+      Data: 1|Madduck.GameData.FishWeightModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 4
@@ -58,14 +58,14 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: <FishItemData>k__BackingField
-      Entry: 10
-      Data: 0
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 2|Madduck.GameData.FishModifierData, Madduck.GameData
+      Data: 2|Madduck.GameData.FishWeightModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1

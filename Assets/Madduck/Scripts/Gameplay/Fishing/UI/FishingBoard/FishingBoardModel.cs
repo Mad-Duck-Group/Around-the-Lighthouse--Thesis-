@@ -28,9 +28,9 @@ namespace Madduck.Fishing.UI
         
         [Inject]
         public FishingBoardModel(
-            FishermanItemInstance fisherman)
+            PlayerInventory inventory)
         {
-            FishingRodItemInstance = fisherman.CurrentFishingRod;
+            FishingRodItemInstance = inventory.CurrentFishingRod;
             Bind();
         }
 

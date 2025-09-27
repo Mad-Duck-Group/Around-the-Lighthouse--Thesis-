@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb1dfd96b8ccd6a4b832bde6a9af841d, type: 3}
-  m_Name: New Bait Item Data
+  m_Name: Glow
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.BaitItemData
   <ItemType>k__BackingField: 0
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: fe2409ffe21a66f489b88b6cf7b663eb, type: 2}
+    - {fileID: 11400000, guid: 826ca38ca0eeb7e4fa2e023df6f586a0, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -25,7 +25,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Guid>k__BackingField
       Entry: 2
-      Data: 00e4834698ec4e65945adf99d49513d0
+      Data: 48051ae487614bdbaa3e3c692c21758d
     - Name: <Modifiers>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
@@ -35,19 +35,19 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Madduck.GameData.FishModifierData, Madduck.GameData
+      Data: 1|Madduck.GameData.FishWeightModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
-      Data: 1
+      Data: 4
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: <ModifierPercentage>k__BackingField
       Entry: 7
       Data: Madduck.Utils.Percentage, Madduck.Utils
     - Name: value
       Entry: 4
-      Data: 20
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -56,7 +56,7 @@ MonoBehaviour:
       Data: 0
     - Name: <FishSize>k__BackingField
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: <FishItemData>k__BackingField
       Entry: 10
       Data: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <BaitType>k__BackingField: 4
-  <BaitName>k__BackingField: Fake
-  <BaitDescription>k__BackingField: 
-  <BaitIcon>k__BackingField: {fileID: 0}
+  <BaitType>k__BackingField: 8
+  <BaitName>k__BackingField: Glow
+  <BaitDescription>k__BackingField: The 3-letter agency glows so bright!!!
+  <BaitIcon>k__BackingField: {fileID: 21300000, guid: c3643b98aee978b4db23f49ca20a1f2d, type: 3}

@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using Madduck.Utils;
 using MessagePipe;
+using ObservableCollections;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
+using DisposableBag = R3.DisposableBag;
 
 namespace Madduck.GameData
 {
@@ -19,24 +22,25 @@ namespace Madduck.GameData
         [field: InlineProperty,
                 SerializeReference] public FishingRodStats CurrentStats { get; private set; }
 
-        private Dictionary<ModifierId, List<RodModifierData>> _modifiers = new();
-        private readonly ISubscriber<ModifierUpdatedEvent> _modifierUpdatedEventSubscriber;
+        private Dictionary<ModifierId, List<RodStatModifierData>> _modifiers = new();
+        private readonly ISubscriber<ModifierSourceEvent> _modifierPublisherEventSubscriber;
+        private DisposableBag _modifierChangedSubscription;
         private IDisposable _subscriptions;
 
         public FishingRodItemInstance(
             FishingRodItemData itemData,
-            ISubscriber<ModifierUpdatedEvent> modifierUpdatedEventSubscriber)
+            ISubscriber<ModifierSourceEvent> modifierPublisherEventSubscriber)
             : base(itemData)
         {
              CurrentStats = new FishingRodStats(itemData);
-             _modifierUpdatedEventSubscriber = modifierUpdatedEventSubscriber;
+             _modifierPublisherEventSubscriber = modifierPublisherEventSubscriber;
              Subscribe();
         }
 
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _modifierUpdatedEventSubscriber.Subscribe(OnModifierUpdated)
+            _modifierPublisherEventSubscriber.Subscribe(OnModifierPublished)
                 .AddTo(ref disposableBuilder);
             _subscriptions = disposableBuilder.Build();
         }
@@ -44,13 +48,19 @@ namespace Madduck.GameData
         public void Dispose()
         {
             _subscriptions.Dispose();
+            _modifierChangedSubscription.Dispose();
+            _modifierChangedSubscription.Clear();
         }
 
-        private void OnModifierUpdated(ModifierUpdatedEvent eventData)
+        private void OnModifierPublished(ModifierSourceEvent eventData)
         {
-            var modifiers = eventData.ModifierProvider.GetModifiers<RodModifierData>();
-            _modifiers = modifiers.CombineModifiers(_modifiers);
-            ApplyModifiers();
+            eventData.ModiferSource.ModifiersView.ObserveChanged()
+                .Subscribe(x =>
+                {
+                    _modifiers.OnModifierChanged(x);
+                    ApplyModifiers();
+                })
+                .AddTo(ref _modifierChangedSubscription);
         }
 
         /// <summary>

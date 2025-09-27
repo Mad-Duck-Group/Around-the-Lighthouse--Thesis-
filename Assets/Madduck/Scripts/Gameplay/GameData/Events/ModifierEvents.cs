@@ -2,13 +2,16 @@
 
 namespace Madduck.GameData
 {
-    public readonly struct ModifierUpdatedEvent
+    /// <summary>
+    /// Event that is sent out by ModifierSource to let subscribers subscribe to the modifiers.
+    /// </summary>
+    public readonly struct ModifierSourceEvent
     {
-        public IModifierProvider ModifierProvider { get; }
+        public IModifierSource ModiferSource { get; }
 
-        public ModifierUpdatedEvent(IModifierProvider modifierProvider)
+        public ModifierSourceEvent(IModifierSource source)
         {
-             ModifierProvider = modifierProvider;
+            ModiferSource = source;
         }
     }
 }

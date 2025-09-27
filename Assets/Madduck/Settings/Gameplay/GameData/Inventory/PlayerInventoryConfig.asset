@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd2dc281f7b64a118d22eec9ccb08e79, type: 3}
+  m_Name: PlayerInventoryConfig
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.PlayerInventoryConfig
+  <FishingRod>k__BackingField: {fileID: 11400000, guid: e2eb69998c820924bb850e118fe4f8e3, type: 2}
+  <StartingCards>k__BackingField:
+  - {fileID: 11400000, guid: 975c83f6517f2774ca6eeacca9db74e3, type: 2}
+  - {fileID: 11400000, guid: 8c1952bd3bfdcc0499ebb86156b6f2f6, type: 2}
+  - {fileID: 11400000, guid: 989a21f091f418047937985cc8855a5d, type: 2}
+  <StartingBaits>k__BackingField:
+    keys: 01000000020000000400000008000000
+    values:
+    - <ItemData>k__BackingField: {fileID: 11400000, guid: 669eb58ab25a3ab4e9d9996a52b1c32f, type: 2}
+      <Count>k__BackingField: 1
+    - <ItemData>k__BackingField: {fileID: 11400000, guid: 88943245a6cc928448de238b13b3732b, type: 2}
+      <Count>k__BackingField: 2
+    - <ItemData>k__BackingField: {fileID: 11400000, guid: 8acc07413585b1643be11671d50bc0a1, type: 2}
+      <Count>k__BackingField: 1
+    - <ItemData>k__BackingField: {fileID: 11400000, guid: 82ff1e58004ca0c42a11ffbe0e0452ad, type: 2}
+      <Count>k__BackingField: 1

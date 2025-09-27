@@ -9,18 +9,10 @@ namespace Madduck.GameData
     [CreateAssetMenu(fileName = "Fisherman Item Data", menuName = "Madduck/Fisherman/Fisherman Item Data", order = 0)]
     public class FishermanItemData : ItemData
     {
-        [Title("References"),
-         HideLabel,
-         ShowInInspector] private InspectorPlaceholder _referencesTitle;
-        [field: Required,
-                SerializeField] public FishingRodItemData FishingRod { get; private set; }
-        
         [Title("Fisherman Settings"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _fishermanSettingsTitle;
         [field: InlineProperty,
             SerializeField] public UFloat MaxStamina { get; private set; } = 100f;
-        [field: InlineProperty,
-                SerializeField] public List<CardItemData> StartingCards { get; private set; } = new();
     }
 }

@@ -24,10 +24,10 @@ namespace Madduck.Fishing.UI
         [Inject]
         public ReelingModel(
             ReelingConfig config,
-            FishermanItemInstance fisherman)
+            PlayerInventory inventory)
         {
             _config = config;
-            FishingRodInstance = fisherman.CurrentFishingRod;
+            FishingRodInstance = inventory.CurrentFishingRod;
             Bind();
         }
         

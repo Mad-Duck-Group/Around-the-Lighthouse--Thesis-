@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Madduck.Utils;
 using MessagePipe;
+using ObservableCollections;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
+using DisposableBag = R3.DisposableBag;
 
 namespace Madduck.GameData
 {
@@ -42,12 +44,14 @@ namespace Madduck.GameData
     }
     
     [Serializable]
-    public class FishWeightTableInstance : IWeightTable<FishWeightRecord, FishModifierData, FishItemData>, IDisposable
+    public class FishWeightTableInstance : IWeightTable<FishWeightRecord, FishWeightModifierData, FishItemData>, IDisposable
     {
         [Title("Debug")] 
         private List<FishWeightRecord> BaseRecords { get; set; }
-        public Dictionary<string, IWeightFilter<FishWeightRecord>> PersistentFilters { get; private set; }
-        public Dictionary<ModifierId, List<FishModifierData>> PersistentModifiers { get; private set; }
+        [ReadOnly, 
+         ShowInInspector] public Dictionary<string, IWeightFilter<FishWeightRecord>> PersistentFilters { get; private set; }
+        [ReadOnly, 
+         ShowInInspector] public Dictionary<ModifierId, List<FishWeightModifierData>> PersistentModifiers { get; private set; }
         
         [ReadOnly, TableList,
          ShowInInspector] private List<FishWeightRecord> _modifiedRecords;
@@ -55,18 +59,19 @@ namespace Madduck.GameData
         [Button("Refresh")]
         private void Refresh() => ApplyFiltersAndModifiers();
         
-        private readonly ISubscriber<ModifierUpdatedEvent> _modifierUpdatedEventSubscriber;
+        private readonly ISubscriber<ModifierSourceEvent> _modifierPublisherEventSubscriber;
         private IDisposable _subscriptions;
+        private DisposableBag _modifierChangedSubscription;
 
         [Inject]
         public FishWeightTableInstance(
             FishWeightTable fishWeightTable,
-            ISubscriber<ModifierUpdatedEvent> modifierUpdatedEventSubscriber)
+            ISubscriber<ModifierSourceEvent> modifierPublisherEventSubscriber)
         {
             BaseRecords = fishWeightTable.Records.Select(x => x.Copy()).ToList();
             PersistentFilters = new Dictionary<string, IWeightFilter<FishWeightRecord>>();
-            PersistentModifiers = new Dictionary<ModifierId, List<FishModifierData>>();
-            _modifierUpdatedEventSubscriber = modifierUpdatedEventSubscriber;
+            PersistentModifiers = new Dictionary<ModifierId, List<FishWeightModifierData>>();
+            _modifierPublisherEventSubscriber = modifierPublisherEventSubscriber;
             Subscribe();
         }
         
@@ -74,7 +79,7 @@ namespace Madduck.GameData
         {
             DebugUtils.Log("Subscribing to modifier updated event");
             var disposableBuilder = Disposable.CreateBuilder();
-            _modifierUpdatedEventSubscriber.Subscribe(OnModifierUpdated)
+            _modifierPublisherEventSubscriber.Subscribe(OnModifierPublished)
                 .AddTo(ref disposableBuilder);
             _subscriptions = disposableBuilder.Build();
         }
@@ -82,13 +87,19 @@ namespace Madduck.GameData
         public void Dispose()
         {
             _subscriptions?.Dispose();
+            _modifierChangedSubscription.Dispose();
+            _modifierChangedSubscription.Clear();
         }
 
-        private void OnModifierUpdated(ModifierUpdatedEvent eventData)
+        private void OnModifierPublished(ModifierSourceEvent eventData)
         {
-            var newModifiers = eventData.ModifierProvider.GetModifiers<FishModifierData>();
-            PersistentModifiers = newModifiers.CombineModifiers(PersistentModifiers);
-            ApplyFiltersAndModifiers();
+           eventData.ModiferSource.ModifiersView.ObserveChanged()
+                .Subscribe(x =>
+            {
+                PersistentModifiers.OnModifierChanged(x);
+                ApplyFiltersAndModifiers();
+            })
+            .AddTo(ref _modifierChangedSubscription);
         }
         
         private void ApplyFiltersAndModifiers()
@@ -118,11 +129,11 @@ namespace Madduck.GameData
             return copy;
         }
 
-        private static Dictionary<FishWeightRecord, List<FishModifierData>> BucketModifiers(
+        private static Dictionary<FishWeightRecord, List<FishWeightModifierData>> BucketModifiers(
             List<FishWeightRecord> records,
-            List<FishModifierData> modifiers)
+            List<FishWeightModifierData> modifiers)
         {
-            var dictionary = records.Distinct().ToDictionary(x => x, _ => new List<FishModifierData>());
+            var dictionary = records.Distinct().ToDictionary(x => x, _ => new List<FishWeightModifierData>());
 
             foreach (var modifier in modifiers)
             {

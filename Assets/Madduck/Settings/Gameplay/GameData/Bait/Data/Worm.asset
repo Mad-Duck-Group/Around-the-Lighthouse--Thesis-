@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f88e80974044c6bae6e81f599d2018a, type: 3}
-  m_Name: TestWeatherMod
-  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.Card.CardItemData
-  <ItemType>k__BackingField: 3
+  m_Script: {fileID: 11500000, guid: bb1dfd96b8ccd6a4b832bde6a9af841d, type: 3}
+  m_Name: Worm
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.BaitItemData
+  <ItemType>k__BackingField: 0
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 09e05137d53d8d74882aa881f15e2984, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -24,23 +25,23 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Guid>k__BackingField
       Entry: 2
-      Data: cb7de70f7c09484bb37a056dd526de7f
+      Data: a51180e3e6d54ceb8df8256ee0bebf8c
     - Name: <Modifiers>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Madduck.GameData.WeatherWeightModifierData, Madduck.GameData
+      Data: 1|Madduck.GameData.FishWeightModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 4
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 5
+      Data: 1
     - Name: <ModifierPercentage>k__BackingField
       Entry: 7
       Data: Madduck.Utils.Percentage, Madduck.Utils
@@ -50,33 +51,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: <WeatherType>k__BackingField
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 2|Madduck.GameData.WeatherWeightModifierData, Madduck.GameData
-    - Name: <ModifierMethod>k__BackingField
+    - Name: <ModifierType>k__BackingField
       Entry: 3
       Data: 0
-    - Name: <ModifierValue>k__BackingField
-      Entry: 4
-      Data: 1.2
-    - Name: <ModifierPercentage>k__BackingField
-      Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: <WeatherType>k__BackingField
+    - Name: <FishSize>k__BackingField
       Entry: 3
-      Data: 4
+      Data: 0
+    - Name: <FishItemData>k__BackingField
+      Entry: 10
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -86,9 +69,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <CardName>k__BackingField: Test Weather Mod
-  <CardDescription>k__BackingField: '+5 Rain weight.
-
-    Override Fog weight to
-    1.2.'
-  <CardIcon>k__BackingField: {fileID: -700040529577777666, guid: 3c86786e1c268db4f8a0b6421adaba15, type: 3}
+  <BaitType>k__BackingField: 2
+  <BaitName>k__BackingField: Worm
+  <BaitDescription>k__BackingField: Brainworm
+  <BaitIcon>k__BackingField: {fileID: 21300000, guid: 9816f38358ab9ab4386138de993532b1, type: 3}

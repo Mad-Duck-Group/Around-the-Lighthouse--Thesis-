@@ -8,7 +8,7 @@ namespace Madduck.GameData
 {
     [CreateAssetMenu(fileName = "CardItemData", menuName = "Madduck/Card/CardItemData", order = 3)]
     [ShowOdinSerializedPropertiesInInspector]
-    public class CardItemData : ItemData
+    public class CardItemData : ItemData, IHasModifier
     {
         [Title("Card Settings"),
             HideLabel,

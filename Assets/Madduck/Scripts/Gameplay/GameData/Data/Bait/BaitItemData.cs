@@ -18,7 +18,7 @@ namespace Madduck.GameData
     }
     
     [CreateAssetMenu(fileName = "New Bait Item Data", menuName = "Madduck/Bait/Bait Item Data")]
-    public class BaitItemData : ItemData
+    public class BaitItemData : ItemData, IHasModifier
     {
         [Title("Bait Settings"),
          HideLabel,

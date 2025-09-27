@@ -15,7 +15,7 @@ namespace Madduck.Room
 {
     public class CardRackView : IDisposable
     {
-	    private readonly FishermanItemInstance _fisherman;
+	    private readonly PlayerInventory _inventory;
 	    private readonly IGenericFactory<CardView> _cardViewFactory;
 		private IDisposable _bindings;
 		private readonly Dictionary<Guid, CardView> _cardViewDictionary = new();
@@ -23,9 +23,9 @@ namespace Madduck.Room
 		[Inject]
 		public CardRackView(
 			IGenericFactory<CardView> cardViewFactory,
-			FishermanItemInstance fisherman)
+			PlayerInventory inventory)
 		{
-			_fisherman = fisherman;
+			_inventory = inventory;
 			_cardViewFactory = cardViewFactory;
 			Bind();
 		}
@@ -33,7 +33,7 @@ namespace Madduck.Room
 		private void Bind()
 		{
 			var disposableBuilder = Disposable.CreateBuilder();
-			_fisherman.CurrentCardsView
+			_inventory.CurrentCardsView
 				.ObserveChanged()
 				.Subscribe(OnCardChanged)
 				.AddTo(ref disposableBuilder);

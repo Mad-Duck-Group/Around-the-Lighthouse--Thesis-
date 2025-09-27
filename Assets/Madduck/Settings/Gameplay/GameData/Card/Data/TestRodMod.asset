@@ -34,13 +34,13 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 7
-      Data: 1|Madduck.GameData.RodModifierData, Madduck.GameData
+      Data: 1|Madduck.GameData.RodStatModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 10
+      Data: 0
     - Name: <ModifierPercentage>k__BackingField
       Entry: 7
       Data: Madduck.Utils.Percentage, Madduck.Utils
@@ -58,7 +58,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 2|Madduck.GameData.RodModifierData, Madduck.GameData
+      Data: 2|Madduck.GameData.RodStatModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 4
@@ -70,7 +70,7 @@ MonoBehaviour:
       Data: Madduck.Utils.Percentage, Madduck.Utils
     - Name: value
       Entry: 4
-      Data: 50
+      Data: 0
     - Name: 
       Entry: 8
       Data: 

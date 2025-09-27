@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using ObservableCollections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -35,9 +37,17 @@ namespace Madduck.Utils
         public T Copy();
     }
 
-    public interface IModifierProvider
+    public interface IHasModifier
     {
-        public Dictionary<ModifierId, List<T>> GetModifiers<T>() where T : BaseModifierData;
+        public List<BaseModifierData> Modifiers { get; }
+    }
+
+    /// <summary>
+    /// Interface for a source of modifiers.
+    /// </summary>
+    public interface IModifierSource
+    {
+        public ISynchronizedView<KeyValuePair<ModifierId, List<BaseModifierData>>, KeyValuePair<ModifierId, List<BaseModifierData>>> ModifiersView { get; }
     }
 
     [Serializable]
@@ -48,7 +58,7 @@ namespace Madduck.Utils
         [DisplayAsString, 
          ShowInInspector] public string DisplayName { get; private set; } = DisplayName;
     }
-
+    
     
     [Serializable]
     public abstract class BaseModifierData
@@ -167,33 +177,45 @@ namespace Madduck.Utils
             return result;
         }
         
-        
         /// <summary>
-        /// Combines two dictionaries of modifiers, adding the list of modifiers for each key.
-        /// If a key is present in both dictionaries, the modifiers from both dictionaries are combined.
+        /// Updates the modifiers dictionary based on the provided view changed event.
         /// </summary>
-        /// <typeparam name="T">The type of the modifiers.</typeparam>
-        /// <param name="dict1">The first dictionary of modifiers.</param>
-        /// <param name="dict2">The second dictionary of modifiers.</param>
-        /// <returns>A new dictionary with the combined modifiers.</returns>
-        public static Dictionary<ModifierId, List<T>> CombineModifiers<T>(
-            this Dictionary<ModifierId, List<T>> dict1, 
-            Dictionary<ModifierId, List<T>> dict2) 
-            where T : BaseModifierData
+        /// <typeparam name="T">The type of modifier data.</typeparam>
+        /// <param name="modifiers">The modifiers dictionary to update.</param>
+        /// <param name="viewChangedEvent">The view changed event containing the new and old items.</param>
+        public static void OnModifierChanged<T>(
+            this Dictionary<ModifierId, List<T>> modifiers, 
+            ViewChangedEvent<KeyValuePair<ModifierId, List<BaseModifierData>>, KeyValuePair<ModifierId, List<BaseModifierData>>> viewChangedEvent)
+        where T : BaseModifierData
         {
-            var dictionary = new Dictionary<ModifierId, List<T>>(dict1);
-            foreach (var kvp in dict2)
+            var newItem = viewChangedEvent.NewItem.View;
+            var oldItem = viewChangedEvent.OldItem.View;
+            var newModifiers = newItem.Value?.OfType<T>().ToList();
+            switch (viewChangedEvent.Action)
             {
-                if (dictionary.TryGetValue(kvp.Key, out var list))
-                {
-                    list.AddRange(kvp.Value);
-                }
-                else
-                {
-                    dictionary.Add(kvp.Key, kvp.Value);
-                }
+                case NotifyCollectionChangedAction.Add:
+                    if (newItem.Value is null) return;
+                    modifiers.TryAdd(newItem.Key, newModifiers);
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    //Ignore because the modifiers are flattened
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    if (oldItem.Value is null) return;
+                    modifiers.Remove(oldItem.Key);
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    if (oldItem.Value is null) return;
+                    modifiers.Remove(oldItem.Key);
+                    if (newItem.Value is null) return;
+                    modifiers.TryAdd(newItem.Key, newModifiers);
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    modifiers.Clear();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            return dictionary;
         }
     }
     #endregion

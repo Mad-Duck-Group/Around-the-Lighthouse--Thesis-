@@ -13,7 +13,8 @@ namespace Madduck.GameData
     public class FishItemPopUpManager : PopUpManager<FishItemPopUpObject>
     {
         [Title("Debug")]
-        [Button("Test Show")]
+        [HideInEditorMode,
+         Button("Test Show")]
         public void TestShow(FishItemData fishItemData)
         {
             var instance = new FishItemInstance(fishItemData);

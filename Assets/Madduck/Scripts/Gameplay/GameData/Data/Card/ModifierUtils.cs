@@ -8,10 +8,10 @@ namespace Madduck.GameData
 {
     #region Modifier Data
     [Serializable]
-    public class RodModifierData : BaseModifierData
+    public class RodStatModifierData : BaseModifierData
     {
         [field: SerializeField] public FishingRodStatType FishingRodStatType { get; private set; }
-        public class Builder : ModifierDataBuilder<RodModifierData>
+        public class Builder : ModifierDataBuilder<RodStatModifierData>
         {
             private Builder(ModifierMethod modifierMethod) 
                 : base(modifierMethod) { }
@@ -30,12 +30,12 @@ namespace Madduck.GameData
     }
 
     [Serializable]
-    public class WeatherModifierData : BaseModifierData
+    public class WeatherWeightModifierData : BaseModifierData
     {
         [field: UnflagEnum,
             SerializeField] public WeatherType WeatherType { get; private set; }
         
-        public class Builder : ModifierDataBuilder<WeatherModifierData>
+        public class Builder : ModifierDataBuilder<WeatherWeightModifierData>
         {
             private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
 
@@ -53,7 +53,7 @@ namespace Madduck.GameData
     }
     
     [Serializable]
-    public class FishModifierData : BaseModifierData
+    public class FishWeightModifierData : BaseModifierData
     {
         [field: SerializeField] public FishModifierType ModifierType { get; private set; }
         [field: ShowIf(nameof(ModifierType), FishModifierType.Size),
@@ -61,7 +61,7 @@ namespace Madduck.GameData
         [field: ShowIf(nameof(ModifierType), FishModifierType.Name),
             SerializeField] public FishItemData FishItemData { get; private set; }
         
-        public class Builder : ModifierDataBuilder<FishModifierData>
+        public class Builder : ModifierDataBuilder<FishWeightModifierData>
         {
             private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
 
