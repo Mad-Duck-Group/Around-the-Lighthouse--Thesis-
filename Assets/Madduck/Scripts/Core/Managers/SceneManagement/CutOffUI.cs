@@ -1,18 +1,18 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 namespace Madduck.Core
 {
-    public class CutOffUI : Image
+    public class CutOffUI : MonoBehaviour, IMaterialModifier
     {
-        public override Material materialForRendering
+        private static readonly int StencilComp = Shader.PropertyToID("_StencilComp");
+        private Material _resultMaterial;
+        public Material GetModifiedMaterial(Material baseMaterial)
         {
-            get
-            {
-                Material material = new Material(base.materialForRendering);
-                material.SetInt("_StencilComp", (int)CompareFunction.NotEqual);
-                return material;
-            }
+            _resultMaterial = new Material(baseMaterial);
+            _resultMaterial.SetFloat(StencilComp, Convert.ToSingle(CompareFunction.NotEqual));
+            return _resultMaterial;
         }
     }
 }

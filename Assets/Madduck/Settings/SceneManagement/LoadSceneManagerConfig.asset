@@ -15,7 +15,7 @@ MonoBehaviour:
   <SceneReferences>k__BackingField:
     keys: 02000000
     values:
-    - _sceneObject: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
-      _path: Assets/Madduck/Scenes/Gameplay.unity
+    - _sceneObject: {fileID: 102900000, guid: ab3f2362900b5574c8fded722292090c, type: 3}
+      _path: Assets/Madduck/Scenes/LoadScene.unity
   <MinimumLoadingScreenDuration>k__BackingField: 1
   <LoadingScreenDuration>k__BackingField: 1
