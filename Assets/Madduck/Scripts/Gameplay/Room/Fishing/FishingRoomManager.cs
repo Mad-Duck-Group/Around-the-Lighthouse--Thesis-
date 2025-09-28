@@ -10,6 +10,7 @@ using MessagePipe;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
@@ -33,6 +34,7 @@ namespace Madduck.Room
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
         private readonly IPublisher<OutOfFishEvent> _outOfFishEventPublisher;
         private readonly IPublisher<WeatherChangedEvent> _weatherChangedPublisher;
+        private readonly IPublisher<LoadSceneEvent> _loadSceneEventPublisher;
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
@@ -52,6 +54,7 @@ namespace Madduck.Room
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
             IPublisher<OutOfFishEvent> outOfFishEventPublisher,
             IPublisher<WeatherChangedEvent> weatherChangedPublisher,
+            IPublisher<LoadSceneEvent> loadSceneEventPublisher,
             ISubscriber<FishCaughtEvent> fishCaughtEventSubscriber,
             ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
             ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
@@ -65,6 +68,7 @@ namespace Madduck.Room
             _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             _fishEscapedEventSubscriber = fishEscapedEventSubscriber;
             _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
+            _loadSceneEventPublisher = loadSceneEventPublisher;
             Subscribe();
         }
         
@@ -113,6 +117,7 @@ namespace Madduck.Room
             if (CurrentFishCount.Value == 0)
             {
                 _outOfFishEventPublisher?.Publish(new OutOfFishEvent());
+                _loadSceneEventPublisher?.Publish(new LoadSceneEvent(SceneType.Gameplay, LoadSceneMode.Single, false));
             }
         }
 

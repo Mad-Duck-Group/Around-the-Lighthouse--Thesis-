@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948e6c9ca92e41b3bf70b3dfe85370f4, type: 3}
+  m_Name: LoadSceneManagerConfig
+  m_EditorClassIdentifier: Madduck.Core::Madduck.Core.LoadSceneManagerConfig
+  <SceneReferences>k__BackingField:
+    keys: 02000000
+    values:
+    - _sceneObject: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
+      _path: Assets/Madduck/Scenes/Gameplay.unity
+  <MinimumLoadingScreenDuration>k__BackingField: 1
+  <LoadingScreenDuration>k__BackingField: 1

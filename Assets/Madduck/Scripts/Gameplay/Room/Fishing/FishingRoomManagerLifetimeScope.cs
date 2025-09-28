@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Madduck.Core;
 using Madduck.Day;
 using Madduck.GameData;
 using Madduck.GameData.Fisherman;

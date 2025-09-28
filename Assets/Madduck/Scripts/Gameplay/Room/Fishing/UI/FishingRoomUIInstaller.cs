@@ -4,6 +4,7 @@ using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -17,8 +18,9 @@ namespace Madduck.Room
             SerializeField] private CardViewFactory cardViewFactory;
         [Required,
          SerializeField] private WeatherHUDView weatherHUDView;
+        [FormerlySerializedAs("fishCaughtView")]
         [Required,
-         SerializeField] private FishCaughtView fishCaughtView;
+         SerializeField] private FishCountView fishCountView;
         [Required,
          SerializeField] private SerializableDictionary<WeatherType, Sprite> weatherIcons;
         
@@ -33,14 +35,15 @@ namespace Madduck.Room
             builder.RegisterComponent(weatherHUDView)
                 .As<WeatherHUDView>();
             builder.Register<WeatherHUDViewModel>(Lifetime.Singleton);
-            builder.Register(_ => fishCaughtView, Lifetime.Singleton)
-                .As<FishCaughtView>();
-            builder.Register<FishCaughtViewModel>(Lifetime.Singleton);
+            builder.RegisterComponent(fishCountView)
+                .As<FishCountView>();
+            
+            builder.Register<FishCountViewModel>(Lifetime.Singleton);
             builder.RegisterBuildCallback(x =>
             {
                 x.Resolve<CardRackView>();
                 x.Resolve<WeatherHUDViewModel>();
-                x.Resolve<FishCaughtViewModel>();
+                x.Resolve<FishCountViewModel>();
             });
         }
     }
