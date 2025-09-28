@@ -30,7 +30,7 @@ namespace Madduck.Day
         private void NextRoom() => ChangeRoom(1);
 
         public FishWeightTableInstance FishWeightTable { get; private set; }
-        private readonly DayManagerConfig _config;
+        public DayManagerConfig _config { get; private set; }
         private readonly ISubscriber<OutOfFishEvent> _outOfFishEventSubscriber;
         
         private IDisposable _subscriptions;
