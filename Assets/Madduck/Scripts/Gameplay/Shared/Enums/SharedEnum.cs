@@ -26,4 +26,14 @@ namespace Madduck.Shared
         Restaurant,
         Event,
     }
+    
+    public enum FishingStateType
+    {
+        None = 0,
+        ThrowHook = 1,
+        ThrowingHook = 2,
+        Nibble = 3,
+        FishingBoard = 4,
+        Reeling = 5,
+    }
 }

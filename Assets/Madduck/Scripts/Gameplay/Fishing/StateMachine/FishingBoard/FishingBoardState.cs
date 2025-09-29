@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Controller;
 using Madduck.GameData;
+using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using R3;

@@ -21,6 +21,7 @@ namespace Madduck.Fishing.UI
         [field: SerializeField] public SerializableReactiveProperty<UFloat> MaxFatigueLevel { get; private set; }
         [field: SerializeField] public FishItemInstance FishItemInstance { get; private set; }
         [field: SerializeField] public FishingRodItemInstance FishingRodItemInstance { get; private set; }
+        [field: SerializeField] public PlayerInventory Inventory { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> FishingLineDurabilityPercent { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> FatigueLevelPercent { get; private set; }
 
@@ -30,8 +31,14 @@ namespace Madduck.Fishing.UI
         public FishingBoardModel(
             PlayerInventory inventory)
         {
+            Inventory = inventory;
             FishingRodItemInstance = inventory.CurrentFishingRod;
             Bind();
+        }
+        
+        public void SetFishInstance(FishItemInstance fishItemInstance)
+        {
+            FishItemInstance = fishItemInstance;
         }
 
         private void Bind()
@@ -66,11 +73,6 @@ namespace Madduck.Fishing.UI
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
-        }
-        
-        public void SetFishInstance(FishItemInstance fishItemInstance)
-        {
-            FishItemInstance = fishItemInstance;
         }
 
         public void Reset()

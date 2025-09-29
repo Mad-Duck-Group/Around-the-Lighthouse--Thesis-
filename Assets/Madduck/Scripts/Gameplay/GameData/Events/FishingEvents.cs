@@ -1,4 +1,6 @@
-﻿namespace Madduck.GameData
+﻿using Madduck.Shared;
+
+namespace Madduck.GameData
 {
     public struct FishingRoomStartedEvent{ }
     public struct FishCaughtEvent
@@ -11,6 +13,15 @@
         }
     }
     public struct FishEscapedEvent { }
+
+    public struct FishingStateEvent
+    {
+        public FishingStateType StateType { get; private set; }
+        public FishingStateEvent(FishingStateType stateType)
+        {
+            StateType = stateType;
+        }
+    }
     public struct OutOfFishEvent { }
     
 }

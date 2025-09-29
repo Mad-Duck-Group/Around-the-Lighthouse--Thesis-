@@ -1,6 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Controller;
+using Madduck.Shared;
 using Madduck.Utils;
 using R3;
 using VContainer;

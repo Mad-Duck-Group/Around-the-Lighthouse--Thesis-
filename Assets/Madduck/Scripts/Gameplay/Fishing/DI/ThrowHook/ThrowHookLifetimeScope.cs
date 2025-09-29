@@ -4,6 +4,7 @@ using Madduck.Fishing.Controller;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.StateMachine;
 using Madduck.Fishing.UI;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -58,11 +59,14 @@ namespace Madduck.Fishing.DI
             builder.Register<ThrowHookViewModel>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookModel>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookState>(Lifetime.Scoped).AsSelf();
+            builder.Register<ThrowingHookState>(Lifetime.Scoped).AsSelf();
             builder.RegisterBuildCallback(x =>
             {
                 var stateMachine = x.Resolve<FishingStateMachine>();
                 var throwHookState = x.Resolve<ThrowHookState>();
+                var throwingHookState = x.Resolve<ThrowingHookState>();
                 stateMachine.AddState(FishingStateType.ThrowHook, throwHookState);
+                stateMachine.AddState(FishingStateType.ThrowingHook, throwingHookState);
 #if UNITY_EDITOR
                 var model = x.Resolve<ThrowHookModel>();
                 _throwHookStateDebugData = new ThrowHookStateDebugData(throwHookState, model);

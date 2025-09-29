@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
@@ -8,16 +7,11 @@ using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using Madduck.GameData;
 using Madduck.Input;
-using Madduck.Scripts.Input;
 using Madduck.Shared;
 using Madduck.Utils;
-using PrimeTween;
 using R3;
-using Sirenix.OdinInspector;
-using Unity.Behavior;
 using UnityEngine;
 using VContainer;
-using Action = System.Action;
 
 namespace Madduck.Fishing.Controller
 {
@@ -253,6 +247,7 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private async UniTaskVoid LoseFishingBoard()
         {
+            _model.Inventory.ChangeCurrentBaitAmount(-1);
             OnFishingBoardResult?.Invoke(Sign.Negative);
             await _hookFactory.Current.Return();
             _hookFactory.DestroyHook();

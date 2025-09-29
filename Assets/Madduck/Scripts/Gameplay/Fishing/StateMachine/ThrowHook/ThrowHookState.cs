@@ -10,7 +10,7 @@ namespace Madduck.Fishing.StateMachine
     public class ThrowHookState : FishingState
     {
         private readonly ThrowHookController _controller;
-        private IDisposable _hookHitWaterSubscription;
+        private IDisposable _hookThrownSubscription;
         
         [Inject]
         public ThrowHookState(
@@ -25,24 +25,23 @@ namespace Madduck.Fishing.StateMachine
         {
             await base.Enter();
             await _controller.SetActive(true);
-            _hookHitWaterSubscription = Observable.FromEvent(
-                    h => _controller.OnHookHitWater += h,
-                    h => _controller.OnHookHitWater -= h)
-                .Subscribe(_ => OnHookHitWater());
+            _hookThrownSubscription = Observable.FromEvent(
+                    h => _controller.OnHookThrown += h,
+                    h => _controller.OnHookThrown -= h)
+                .Subscribe(_ => OnHookThrown());
         }
         
-        private void OnHookHitWater()
+        private void OnHookThrown()
         {
-            DebugUtils.Log("Hook hit water, transitioning to NibbleState");
+            DebugUtils.Log("Hook thrown, transitioning to ThrowingHookState");
             stateMachine.NextState();
         }
 
         public override async UniTask Exit()
         {
             await base.Exit();
-            _hookHitWaterSubscription.Dispose();
-            await _controller.SetActive(false);
-            _controller.Reset();
+            _hookThrownSubscription.Dispose();
+            _controller.SetActive(false).Forget();
         }
     }
 }

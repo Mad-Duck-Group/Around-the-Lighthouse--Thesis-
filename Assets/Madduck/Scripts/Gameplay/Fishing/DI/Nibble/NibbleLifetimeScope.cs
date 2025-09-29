@@ -2,6 +2,7 @@
 using Madduck.Fishing.Controller;
 using Madduck.Fishing.StateMachine;
 using Madduck.Fishing.UI;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;

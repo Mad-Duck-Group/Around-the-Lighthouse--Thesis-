@@ -13,7 +13,7 @@ using Object = UnityEngine.Object;
 
 namespace Madduck.Room
 {
-    public class CardRackView : IDisposable
+    public class CardRackViewModel : IDisposable
     {
 	    private readonly PlayerInventory _inventory;
 	    private readonly IGenericFactory<CardView> _cardViewFactory;
@@ -21,7 +21,7 @@ namespace Madduck.Room
 		private readonly Dictionary<Guid, CardView> _cardViewDictionary = new();
 
 		[Inject]
-		public CardRackView(
+		public CardRackViewModel(
 			IGenericFactory<CardView> cardViewFactory,
 			PlayerInventory inventory)
 		{

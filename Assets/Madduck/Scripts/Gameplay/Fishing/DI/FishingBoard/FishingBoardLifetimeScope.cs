@@ -4,6 +4,7 @@ using Madduck.Fishing.Controller;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.StateMachine;
 using Madduck.Fishing.UI;
+using Madduck.Shared;
 using Madduck.Utils;
 using R3;
 using Sirenix.OdinInspector;

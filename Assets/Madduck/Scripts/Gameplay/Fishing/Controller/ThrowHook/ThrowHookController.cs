@@ -17,7 +17,7 @@ namespace Madduck.Fishing.Controller
 {
     public class ThrowHookController : IDisposable
     {
-        public event Action OnHookHitWater;
+        public event Action OnHookThrown;
         
         private readonly ThrowHookCommander _commander;
         private readonly ThrowHookModel _model;
@@ -64,7 +64,7 @@ namespace Madduck.Fishing.Controller
             _model.HookThrown
                 .DistinctUntilChanged()
                 .Where(x => x)
-                .SubscribeAwait((_,_) => OnHookThrown(), AwaitOperation.Drop)
+                .Subscribe(_ => OnThrownHook())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -101,12 +101,16 @@ namespace Madduck.Fishing.Controller
             _commander.ThrowHookReleaseCommand.Execute(InputType.NonUI);
         }
 
-        private async UniTask OnHookThrown()
+        private void OnThrownHook()
+        {
+            OnHookThrown?.Invoke();
+        }
+
+        public async UniTask ThrowHook()
         {
             var projectile = _hookFactory.Create();
             var throwPercent = _model.ThrowHookPercent.CurrentValue;
             await projectile.Throw(throwPercent);
-            OnHookHitWater?.Invoke();
         }
         
         public void Dispose()

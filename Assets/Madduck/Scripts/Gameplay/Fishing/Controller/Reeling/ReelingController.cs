@@ -124,11 +124,13 @@ namespace Madduck.Fishing.Controller
 
         private void OnWinReeling()
         {
+            _model.Inventory.ChangeCurrentBaitAmount(-1);
             OnReelingResult?.Invoke(Sign.Positive);
         }
         
         private void OnLoseReeling()
         {
+            _model.Inventory.ChangeCurrentBaitAmount(-1);
             OnReelingResult?.Invoke(Sign.Negative);
         }
         

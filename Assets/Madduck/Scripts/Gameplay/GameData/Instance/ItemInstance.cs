@@ -18,7 +18,7 @@ namespace Madduck.GameData
         [field: ReadOnly,
             ShowInInspector] public Guid InstanceGuid { get; private set; }
         [field: ReadOnly,
-                ShowInInspector] public uint CurrentCount { get; private set; }
+                ShowInInspector] public uint CurrentCount { get; set; }
         
         public ReadOnlyReactiveProperty<uint> CurrentCountView { get; }
 

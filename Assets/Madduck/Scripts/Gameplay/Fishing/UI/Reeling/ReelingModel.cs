@@ -15,6 +15,7 @@ namespace Madduck.Fishing.UI
     {
         [field: SerializeField] public SerializableReactiveProperty<UFloat> CurrentReelingProgress { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<UFloat> MaxReelingProgress { get; private set; }
+        [field: SerializeField] public PlayerInventory Inventory { get; private set; }
         [field: SerializeField] public FishingRodItemInstance FishingRodInstance { get; private set; }
         [field: SerializeField] public FishItemInstance FishInstance { get; private set; }
 
@@ -26,6 +27,7 @@ namespace Madduck.Fishing.UI
             ReelingConfig config,
             PlayerInventory inventory)
         {
+            Inventory = inventory;
             _config = config;
             FishingRodInstance = inventory.CurrentFishingRod;
             Bind();

@@ -11,6 +11,7 @@ using VContainer;
 
 namespace Madduck.GameData
 {
+    [Serializable]
     public class PlayerInventory : IModifierSource, IDisposable
     {
         [Title("Debug"),
@@ -115,6 +116,16 @@ namespace Madduck.GameData
                 return;
             }
             CurrentBait.Value = bait;
+        }
+
+        public void ChangeCurrentBaitAmount(int change)
+        {
+            if (CurrentBait.Value is null) return;
+            var currentCount = (int)CurrentBait.Value.CurrentCount;
+            currentCount += change;
+            CurrentBait.Value.CurrentCount = (uint)currentCount;
+            if (CurrentBait.Value.CurrentCount == 0) 
+                SetCurrentBait(BaitType.None);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Madduck.Room
         [Required,
          SerializeField] private FishCaughtView fishCaughtView;
         [Required,
-         SerializeField] private BaitSelectionView baitSelectionView;
+         SerializeField] private BaitButtonViewFactory baitButtonViewFactory;
         [Required,
          SerializeField] private SerializableDictionary<WeatherType, Sprite> weatherIcons;
         [Required, HideReferenceObjectPicker,
@@ -58,7 +58,7 @@ namespace Madduck.Room
         {
             builder.Register(_ => cardViewFactory, Lifetime.Singleton)
                 .As<IGenericFactory<CardView>>();
-            builder.Register<CardRackView>(Lifetime.Singleton);
+            builder.Register<CardRackViewModel>(Lifetime.Singleton);
             
             builder.Register(_ => weatherIcons, Lifetime.Singleton)
                 .As<SerializableDictionary<WeatherType, Sprite>>();
@@ -74,12 +74,13 @@ namespace Madduck.Room
                 .As<FishItemPopUpManager>();
             builder.Register<ItemPopUpHandler>(Lifetime.Singleton).AsSelf();
             
-            builder.RegisterComponent(baitSelectionView)
-                .As<BaitSelectionView>();
+            builder.Register(_ => baitButtonViewFactory, Lifetime.Singleton)
+                .As<IGenericFactory<BaitButtonView>>();
             builder.Register<BaitSelectionViewModel>(Lifetime.Singleton);
             builder.RegisterBuildCallback(x =>
             {
-                x.Resolve<CardRackView>();
+                x.Resolve<CardRackViewModel>();
+                x.Resolve<BaitSelectionViewModel>();
                 x.Resolve<WeatherHUDViewModel>();
                 x.Resolve<FishCaughtViewModel>();
                 var popUpHandler = x.Resolve<ItemPopUpHandler>();

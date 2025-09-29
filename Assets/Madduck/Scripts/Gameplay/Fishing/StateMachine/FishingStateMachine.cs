@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Madduck.GameData;
+using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
@@ -11,15 +12,6 @@ using VContainer.Unity;
 
 namespace Madduck.Fishing.StateMachine
 {
-    public enum FishingStateType
-    {
-        None = 0,
-        ThrowHook = 1,
-        Nibble = 2,
-        FishingBoard = 3,
-        Reeling = 4,
-    }
-    
     [Serializable]
     public class FishingStateMachine : Utils.StateMachine, IDisposable
     {
@@ -34,13 +26,16 @@ namespace Madduck.Fishing.StateMachine
         private void TestPreviousState() => PreviousState();
         
         private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
+        private readonly IPublisher<FishingStateEvent> _fishingStateEventPublisher;
         private IDisposable _subscriptions;
 
         [Inject]
         public FishingStateMachine(
-            ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventSubscriber)
+            ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventSubscriber,
+            IPublisher<FishingStateEvent> fishingStateEventPublisher)
         {
             _fishingRoomStartedEventSubscriber = fishingRoomStartedEventSubscriber;
+            _fishingStateEventPublisher = fishingStateEventPublisher;
             Subscribe();
         }
 
@@ -100,6 +95,7 @@ namespace Madduck.Fishing.StateMachine
             if (_states.TryGetValue(stateType, out var nextState))
             {
                 _currentStateType = stateType;
+                _fishingStateEventPublisher?.Publish(new FishingStateEvent(stateType));
                 ChangeState(nextState).Forget();
             }
             else

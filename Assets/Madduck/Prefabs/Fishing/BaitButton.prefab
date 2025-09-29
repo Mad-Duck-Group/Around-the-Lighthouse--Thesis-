@@ -349,3 +349,68 @@ MonoBehaviour:
   button: {fileID: 8704376228908250581}
   icon: {fileID: 6264117351887763349}
   amount: {fileID: 4212223920256072438}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 3460075309900610718}
+    - {fileID: 1250158992898015067, guid: 7c504d541f4092d488a927ead1a0668c, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: tooltipManager
+      Entry: 7
+      Data: 0|Madduck.Utils.GeneralTooltipManager, Madduck.Utils
+    - Name: tooltipParent
+      Entry: 10
+      Data: 0
+    - Name: <TooltipCanvas>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: prefabMode
+      Entry: 5
+      Data: true
+    - Name: tooltipView
+      Entry: 6
+      Data: 
+    - Name: tooltipViewPrefab
+      Entry: 10
+      Data: 1
+    - Name: delay
+      Entry: 4
+      Data: 1
+    - Name: canvasMargin
+      Entry: 7
+      Data: Madduck.Utils.RectTransformInset, Madduck.Utils
+    - Name: left
+      Entry: 4
+      Data: 10
+    - Name: top
+      Entry: 4
+      Data: 10
+    - Name: right
+      Entry: 4
+      Data: 10
+    - Name: bottom
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: offset
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
