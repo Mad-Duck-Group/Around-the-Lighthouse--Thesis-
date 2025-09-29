@@ -8,12 +8,13 @@ using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace Madduck.Day
 {
     public class DayManager : IMaxFishCountProvider, IDisposable
     {
+        #region Inspector
+
         [Title("Debug"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _debugTitle;
@@ -29,12 +30,20 @@ namespace Madduck.Day
         [Button("Next Room")]
         private void NextRoom() => ChangeRoom(1);
 
-        public FishWeightTableInstance FishWeightTable { get; private set; }
+        #endregion
+
+        #region Fields
+
+        private FishWeightTableInstance FishWeightTable { get; }
         private readonly DayManagerConfig _config;
         private readonly ISubscriber<OutOfFishEvent> _outOfFishEventSubscriber;
         
         private IDisposable _subscriptions;
-        
+
+        #endregion
+
+        #region Injection
+
         [Inject]
         public DayManager(
             FishWeightTableInstance fishWeightTable, 
@@ -47,7 +56,11 @@ namespace Madduck.Day
             Subscribe();
             SetDayIndex(0);
         }
-        
+
+        #endregion
+
+        #region Subscription
+
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
@@ -57,16 +70,22 @@ namespace Madduck.Day
             _subscriptions = disposableBuilder.Build();
         }
         
+        public void Dispose()
+        {
+            _subscriptions?.Dispose();
+        }
+
+        #endregion
+
+        #region Events
+
         private void OnOutOfFish()
         {
             DebugUtils.Log("Out of fish, moving to next room.");
             ChangeRoom(1);
         }
-        
-        public void Dispose()
-        {
-            _subscriptions?.Dispose();
-        }
+
+        #endregion
         
         #region Day Control
         /// <summary>

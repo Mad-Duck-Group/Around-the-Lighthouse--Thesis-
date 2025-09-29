@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 8704376228908250581}
   - component: {fileID: 6649232150655896214}
   m_Layer: 5
-  m_Name: BaitButton
+  m_Name: BaitButtonView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

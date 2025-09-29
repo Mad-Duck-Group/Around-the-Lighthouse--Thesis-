@@ -19,6 +19,8 @@ namespace Madduck.GameData
     
     public class FishItemPopUpView : MonoBehaviour, IPopUpView<FishItemPopUpObject>, ITransitionable
     {
+        #region Inspector
+
         [Title("References")]
         [Required,
          SerializeField] private CanvasGroup canvasGroup;
@@ -41,28 +43,57 @@ namespace Madduck.GameData
         [SerializeField] private TweenSettings<float> backgroundAlphaTweenSettings;
         [SerializeField] private TweenSettings<Vector3> scaleTweenSettings;
         
+        #endregion
+        
+        #region Fields
+        
         private Sequence _transitionSequence;
         private PopUpManager<FishItemPopUpObject> _popUpManager;
-        private IDisposable _closeButtonDisposable;
+        private IDisposable _bindings;
+        
+        #endregion
+
+        #region Injection
 
         public void SetUp(PopUpManager<FishItemPopUpObject> popUpManager)
         {
             _popUpManager = popUpManager;
             canvasGroup.transform.localScale = scaleTweenSettings.startValue;
             backgroundImage.color = backgroundImage.color.WithA(backgroundAlphaTweenSettings.startValue);
-            _closeButtonDisposable = closeButton.OnClickAsObservable().Subscribe(_ => OnCloseButtonClicked());
+            Bind();
         }
 
+        #endregion
+
+        #region Binding
+
+        private void Bind()
+        {
+            var disposableBuilder = Disposable.CreateBuilder();
+            closeButton.OnClickAsObservable()
+                .Subscribe(_ => OnCloseButtonClicked())
+                .AddTo(ref disposableBuilder);
+            _bindings = disposableBuilder.Build();
+        }
+        
         private void OnDestroy()
         {
-            _closeButtonDisposable?.Dispose();
+            _bindings?.Dispose();
         }
+
+        #endregion
+
+        #region Events
 
         private void OnCloseButtonClicked()
         {
             _popUpManager.HidePopUp().Forget();
         }
-        
+
+        #endregion
+
+        #region Pop Up
+
         public async UniTask ShowPopUp(FishItemPopUpObject popUpObject, CancellationToken cancellationToken = default)
         {
             fishNameText.text = popUpObject.FishItemInstance.ItemData.FishName;
@@ -77,6 +108,10 @@ namespace Madduck.GameData
         {
             await TransitionOut(cancellationToken);
         }
+
+        #endregion
+
+        #region Transition
 
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
@@ -101,5 +136,7 @@ namespace Madduck.GameData
         {
             _transitionSequence.Complete();
         }
+
+        #endregion
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using Madduck.Utils;
 using MessagePipe;
@@ -16,26 +15,41 @@ namespace Madduck.GameData
     [Serializable]
     public class FishingRodItemInstance : ItemInstance<FishingRodItemData>, IDisposable
     {
+        #region Inspector
+
         [Title("Fishing Rod Stats"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _fishingRodStatsTitle;
         [field: InlineProperty,
                 SerializeReference] public FishingRodStats CurrentStats { get; private set; }
 
-        private Dictionary<ModifierId, List<RodStatModifierData>> _modifiers = new();
+        #endregion
+
+        #region Fields
+
         private readonly ISubscriber<ModifierSourceEvent> _modifierPublisherEventSubscriber;
+        private Dictionary<ModifierId, List<RodStatModifierData>> _modifiers = new();
         private DisposableBag _modifierChangedSubscription;
         private IDisposable _subscriptions;
 
+        #endregion
+
+        #region Injection
+
+        [Inject]
         public FishingRodItemInstance(
             FishingRodItemData itemData,
             ISubscriber<ModifierSourceEvent> modifierPublisherEventSubscriber)
             : base(itemData)
         {
-             CurrentStats = new FishingRodStats(itemData);
-             _modifierPublisherEventSubscriber = modifierPublisherEventSubscriber;
-             Subscribe();
+            CurrentStats = new FishingRodStats(itemData);
+            _modifierPublisherEventSubscriber = modifierPublisherEventSubscriber;
+            Subscribe();
         }
+
+        #endregion
+
+        #region Subscriptions
 
         private void Subscribe()
         {
@@ -51,6 +65,10 @@ namespace Madduck.GameData
             _modifierChangedSubscription.Dispose();
             _modifierChangedSubscription.Clear();
         }
+
+        #endregion
+
+        #region Events
 
         private void OnModifierPublished(ModifierSourceEvent eventData)
         {
@@ -98,6 +116,8 @@ namespace Madduck.GameData
                 }
             }
         }
+
+        #endregion
     }
 
     [Serializable]

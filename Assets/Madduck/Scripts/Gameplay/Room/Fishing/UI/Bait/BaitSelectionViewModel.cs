@@ -15,17 +15,26 @@ namespace Madduck.Room
 {
     public class BaitSelectionViewModel : IDisposable
     {
+        #region Properties
+
         public ReadOnlyReactiveProperty<bool> InteractableView { get; }
         public ReadOnlyReactiveProperty<BaitItemInstance> CurrentBaitView { get; }
         public ReactiveCommand<BaitType> SetCurrentBaitCommand { get; } = new();
-        
+
+        #endregion
+
+        #region Fields
+
         private readonly PlayerInventory _playerInventory;
         private readonly IGenericFactory<BaitButtonView> _baitButtonViewFactory;
         private readonly ISubscriber<FishingStateEvent> _fishingStateEventSubscriber;
         private readonly Dictionary<BaitType, BaitButtonView> _baitButtonViews = new();
         private readonly ReactiveProperty<bool> _interactable = new(true);
-        
         private IDisposable _bindings;
+
+        #endregion
+
+        #region Injection
 
         [Inject]
         public BaitSelectionViewModel(
@@ -37,9 +46,13 @@ namespace Madduck.Room
             _baitButtonViewFactory = baitButtonViewFactory;
             _fishingStateEventSubscriber = fishingStateEventSubscriber;
             InteractableView = _interactable.ToReadOnlyReactiveProperty();
-            CurrentBaitView = _playerInventory.CurrentBait.ToReadOnlyReactiveProperty();
+            CurrentBaitView = _playerInventory.CurrentBaitView.ToReadOnlyReactiveProperty();
             Bind();
         }
+
+        #endregion
+
+        #region Binding
 
         private void Bind()
         {
@@ -62,6 +75,10 @@ namespace Madduck.Room
             _bindings.Dispose();
         }
 
+        #endregion
+
+        #region Events
+
         private void OnFishingStateEvent(FishingStateEvent eventData)
         {
             _interactable.Value = eventData.StateType is FishingStateType.ThrowHook;
@@ -70,7 +87,7 @@ namespace Madduck.Room
         private void OnSetCurrentBait(BaitType baitType)
         {
             var selected = false;
-            var currentBait = _playerInventory.CurrentBait.CurrentValue;
+            var currentBait = _playerInventory.CurrentBaitView.CurrentValue;
             if (currentBait is not null)
             {
                 var currentType = currentBait.ItemData.BaitType;
@@ -128,5 +145,7 @@ namespace Madduck.Room
                     Object.Destroy(baitButtonView.gameObject);
             }
         }
+
+        #endregion
     }
 }

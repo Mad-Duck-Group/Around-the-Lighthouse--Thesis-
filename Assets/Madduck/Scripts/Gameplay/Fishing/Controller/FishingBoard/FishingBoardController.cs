@@ -64,34 +64,35 @@ namespace Madduck.Fishing.Controller
         #endregion
         
         #region Bindings
+
         private void Bind()
         {
             _bindings?.Dispose();
             var disposableBuilder = Disposable.CreateBuilder();
             _model.FishPosition
-                    .Subscribe(x =>
-                    {
-                        FindFishAngle();
-                        _variables.FishUnitCirclePosition = _variables.GetUnitCircle(x);
-                        _variables.FishZone = _variables.GetFishZone(_variables.FishUnitCirclePosition.magnitude);
-                        _variables.FishPowerMultiplier = _variables.GetPowerMultiplier(_variables.FishUnitCirclePosition);
-                    })
-                    .AddTo(ref disposableBuilder);
+                .Subscribe(x =>
+                {
+                    FindFishAngle();
+                    _variables.FishUnitCirclePosition = _variables.GetUnitCircle(x);
+                    _variables.FishZone = _variables.GetFishZone(_variables.FishUnitCirclePosition.magnitude);
+                    _variables.FishPowerMultiplier = _variables.GetPowerMultiplier(_variables.FishUnitCirclePosition);
+                })
+                .AddTo(ref disposableBuilder);
             _model.HookPosition
-                    .Subscribe(x =>
-                    {
-                        FindFishAngle();
-                        _variables.HookUnitCirclePosition = _variables.GetUnitCircle(x);
-                        _variables.HookZone = _variables.GetFishZone(_variables.HookUnitCirclePosition.magnitude);
-                        _variables.HookPowerMultiplier = _variables.GetPowerMultiplier(_variables.HookUnitCirclePosition);
-                    })
-                    .AddTo(ref disposableBuilder);
+                .Subscribe(x =>
+                {
+                    FindFishAngle();
+                    _variables.HookUnitCirclePosition = _variables.GetUnitCircle(x);
+                    _variables.HookZone = _variables.GetFishZone(_variables.HookUnitCirclePosition.magnitude);
+                    _variables.HookPowerMultiplier = _variables.GetPowerMultiplier(_variables.HookUnitCirclePosition);
+                })
+                .AddTo(ref disposableBuilder);
             _playerInput.MouseDelta
-                    .Subscribe(MoveHook)
-                    .AddTo(ref disposableBuilder);
+                .Subscribe(MoveHook)
+                .AddTo(ref disposableBuilder);
             _playerInput.GamepadHookControl
-                    .Subscribe(MoveHook)
-                    .AddTo(ref disposableBuilder);
+                .Subscribe(MoveHook)
+                .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
         #endregion
@@ -294,7 +295,9 @@ namespace Madduck.Fishing.Controller
             return Vector2.ClampMagnitude(target, maxMagnitude);
         }
         #endregion
-        
+
+        #region Utils
+
         /// <summary>
         /// Set the hook position based on the unit circle position.
         /// </summary>
@@ -321,5 +324,7 @@ namespace Madduck.Fishing.Controller
             _variables.AngleDifference = Vector2.Angle(pullDirection, fishDirection);
             _variables.PullPercent = Percentage.FromFraction(_variables.AngleDifference / 180f);
         }
+
+        #endregion
     }
 }

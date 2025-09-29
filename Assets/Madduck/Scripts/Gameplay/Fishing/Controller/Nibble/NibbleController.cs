@@ -10,12 +10,20 @@ using Madduck.Shared;
 using Madduck.Utils;
 using R3;
 using VContainer;
+using Random = UnityEngine.Random;
 
 namespace Madduck.Fishing.Controller
 {
     public class NibbleController : IDisposable
     {
+        #region Events
+
         public event Action<Sign> OnPullHookResult;
+
+        #endregion
+
+        #region Fields
+
         private readonly NibbleModel _model;
         private readonly NibbleCommander _commander;
         private readonly IPlayerInputHandler _inputHandler;
@@ -26,7 +34,11 @@ namespace Madduck.Fishing.Controller
         private IDisposable _bindings;
         private CancellationTokenSource _waitingCts = new();
         private CancellationTokenSource _transitionCts = new();
-        
+
+        #endregion
+
+        #region Injection
+
         [Inject]
         public NibbleController(
             NibbleModel model, 
@@ -44,6 +56,10 @@ namespace Madduck.Fishing.Controller
             _viewTransition = viewTransition;
         }
 
+        #endregion
+
+        #region Bindings
+
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
@@ -60,16 +76,45 @@ namespace Madduck.Fishing.Controller
             _bindings = disposableBuilder.Build();
         }
         
-        public void Reset()
-        {
-            _model.Reset();
-        }
-        
         public void Dispose()
         {
             _waitingCts.Cancel();
             _waitingCts.Dispose();
             _bindings?.Dispose();
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void OnPullHook()
+        {
+            _commander.PullHookCommand.Execute(Unit.Default);
+        }
+        
+        private async UniTask OnPullHookResultChanged(Sign result)
+        {
+            _waitingCts.Cancel();
+            _hookFactory.Current.StopNibble();
+            if (result is Sign.Positive)
+            {
+                await _hookFactory.Current.Move(Percentage.FromPercentage(100f));
+            }
+            OnPullHookResult?.Invoke(result);
+            if (result is Sign.Negative)
+            {
+                await _hookFactory.Current.Return();
+                _hookFactory.DestroyHook();
+            }
+        }
+
+        #endregion
+
+        #region Utils
+
+        public void Reset()
+        {
+            _model.Reset();
         }
         
         public async UniTask SetActive(bool active)
@@ -106,36 +151,17 @@ namespace Madduck.Fishing.Controller
         private async UniTask StartNibbleTimer(CancellationToken cancellationToken)
         {
             var waitRange = _model.FishItemInstance.ItemData.NibbleIntervalRange;
-            var waitTime = UnityEngine.Random.Range(waitRange.x, waitRange.y);
+            var waitTime = Random.Range(waitRange.x, waitRange.y);
             await UniTask.WaitForSeconds(waitTime, cancellationToken: cancellationToken);
             _model.IsNibbling.Value = true;
             _hookFactory.Current.Nibble(-1).Forget();
             var nibbleTimeframeRange = _model.FishItemInstance.ItemData.NibbleTimeFrameRange;
-            var nibbleTimeframe = UnityEngine.Random.Range(nibbleTimeframeRange.x, nibbleTimeframeRange.y);
+            var nibbleTimeframe = Random.Range(nibbleTimeframeRange.x, nibbleTimeframeRange.y);
             await UniTask.WaitForSeconds(nibbleTimeframe, cancellationToken: cancellationToken);
             _model.IsNibbling.Value = false;
             _hookFactory.Current.StopNibble();
         }
-        
-        private void OnPullHook()
-        {
-            _commander.PullHookCommand.Execute(Unit.Default);
-        }
-        
-        private async UniTask OnPullHookResultChanged(Sign result)
-        {
-            _waitingCts.Cancel();
-            _hookFactory.Current.StopNibble();
-            if (result is Sign.Positive)
-            {
-                await _hookFactory.Current.Move(Percentage.FromPercentage(100f));
-            }
-            OnPullHookResult?.Invoke(result);
-            if (result is Sign.Negative)
-            {
-                await _hookFactory.Current.Return();
-                _hookFactory.DestroyHook();
-            }
-        }
+
+        #endregion
     }
 }

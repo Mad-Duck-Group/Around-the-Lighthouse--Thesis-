@@ -17,8 +17,14 @@ namespace Madduck.Fishing.Controller
 {
     public class ThrowHookController : IDisposable
     {
+        #region Events
+
         public event Action OnHookThrown;
-        
+
+        #endregion
+
+        #region Fields
+
         private readonly ThrowHookCommander _commander;
         private readonly ThrowHookModel _model;
         private readonly IPlayerInputHandler _inputHandler;
@@ -28,7 +34,11 @@ namespace Madduck.Fishing.Controller
         
         private IDisposable _bindings;
         private CancellationTokenSource _transitionCts = new();
-        
+
+        #endregion
+
+        #region Injection
+
         [Inject]
         public ThrowHookController(
             ThrowHookCommander commander,
@@ -45,6 +55,10 @@ namespace Madduck.Fishing.Controller
             _fishFactory = fishFactory;
             _viewTransition = viewTransition;
         }
+
+        #endregion
+
+        #region Bindings
 
         private void Bind()
         {
@@ -69,6 +83,34 @@ namespace Madduck.Fishing.Controller
             _bindings = disposableBuilder.Build();
         }
         
+        public void Dispose()
+        {
+            _bindings?.Dispose();
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void OnHookHeld()
+        {
+            _commander.ThrowHookHeldCommand.Execute(InputType.NonUI);
+        }
+        
+        private void OnHookRelease()
+        {
+            _commander.ThrowHookReleaseCommand.Execute(InputType.NonUI);
+        }
+
+        private void OnThrownHook()
+        {
+            OnHookThrown?.Invoke();
+        }
+
+        #endregion
+
+        #region Utils
+
         public async UniTask SetActive(bool active)
         {
             _bindings?.Dispose();
@@ -86,26 +128,6 @@ namespace Madduck.Fishing.Controller
             }
         }
         
-        public void Reset()
-        {
-            _model.Reset();
-        }
-
-        private void OnHookHeld()
-        {
-            _commander.ThrowHookHeldCommand.Execute(InputType.NonUI);
-        }
-        
-        private void OnHookRelease()
-        {
-            _commander.ThrowHookReleaseCommand.Execute(InputType.NonUI);
-        }
-
-        private void OnThrownHook()
-        {
-            OnHookThrown?.Invoke();
-        }
-
         public async UniTask ThrowHook()
         {
             var projectile = _hookFactory.Create();
@@ -113,9 +135,11 @@ namespace Madduck.Fishing.Controller
             await projectile.Throw(throwPercent);
         }
         
-        public void Dispose()
+        public void Reset()
         {
-            _bindings?.Dispose();
+            _model.Reset();
         }
+
+        #endregion
     }
 }

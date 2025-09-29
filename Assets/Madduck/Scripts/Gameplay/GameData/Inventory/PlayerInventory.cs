@@ -14,6 +14,7 @@ namespace Madduck.GameData
     [Serializable]
     public class PlayerInventory : IModifierSource, IDisposable
     {
+        #region Inspector
         [Title("Debug"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _debugTitle;
@@ -27,20 +28,27 @@ namespace Madduck.GameData
                 ShowInInspector] private ObservableDictionary<BaitType, BaitItemInstance> CurrentBaits { get; } = new();
 
         [field: ReadOnly,
-                ShowInInspector] public SerializableReactiveProperty<BaitItemInstance> CurrentBait { get; } = new();
-
-        private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _currentModifiers = new();
+                ShowInInspector] private SerializableReactiveProperty<BaitItemInstance> CurrentBait { get; } = new();
+        #endregion
+        
+        #region Properties
         public ISynchronizedView<CardItemInstance, CardItemInstance> CurrentCardsView { get; }
         public ISynchronizedView<KeyValuePair<BaitType, BaitItemInstance>, 
             KeyValuePair<BaitType, BaitItemInstance>> CurrentBaitsView { get; }
         public ISynchronizedView<KeyValuePair<ModifierId, List<BaseModifierData>>, 
             KeyValuePair<ModifierId, List<BaseModifierData>>> ModifiersView { get; }
+        public ReadOnlyReactiveProperty<BaitItemInstance> CurrentBaitView { get; }
+        #endregion
 
+        #region Fields
+        private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _currentModifiers = new();
         private readonly PlayerInventoryConfig _config;
         private readonly IPublisher<ModifierSourceEvent> _modifierSourceEventPublisher;
         private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
         private IDisposable _subscriptions;
+        #endregion
         
+        #region Injection
         [Inject]
         public PlayerInventory(
             PlayerInventoryConfig config,
@@ -54,10 +62,13 @@ namespace Madduck.GameData
             CurrentCardsView = CurrentCards.CreateView(x => x);
             ModifiersView = _currentModifiers.CreateView(x => x);
             CurrentBaitsView = CurrentBaits.CreateView(x => x);
+            CurrentBaitView = CurrentBait.ToReadOnlyReactiveProperty();
             CurrentFishingRod = new FishingRodItemInstance(_config.FishingRod, modifierSourceEventSubscriber);
             Subscribe();
         }
+        #endregion
         
+        #region Subscriptions
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
@@ -91,7 +102,9 @@ namespace Madduck.GameData
             CurrentCardsView.Dispose();
             CurrentFishingRod.Dispose();
         }
-
+        #endregion
+        
+        #region Events
         private void OnFishingRoomStarted()
         {
             _modifierSourceEventPublisher?.Publish(new ModifierSourceEvent(this));
@@ -102,7 +115,9 @@ namespace Madduck.GameData
             }
             SetCurrentBait(BaitType.None);
         }
+        #endregion
 
+        #region Bait
         public void SetCurrentBait(BaitType baitType)
         {
             if (baitType is BaitType.None)
@@ -127,5 +142,6 @@ namespace Madduck.GameData
             if (CurrentBait.Value.CurrentCount == 0) 
                 SetCurrentBait(BaitType.None);
         }
+        #endregion
     }
 }

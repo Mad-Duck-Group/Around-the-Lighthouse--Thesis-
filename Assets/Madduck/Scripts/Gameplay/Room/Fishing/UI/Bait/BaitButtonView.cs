@@ -20,16 +20,31 @@ namespace Madduck.Room
         IPointerEnterHandler, IPointerExitHandler,
         ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
-        [SerializeField] private Button button;
-        [SerializeField] private Image icon;
-        [SerializeField] private TMP_Text amount;
-        [OdinSerialize] private GeneralTooltipManager tooltipManager;
-        
+        #region Inspector
+
+        [Title("References")]
+        [Required, 
+         SerializeField] private Button button;
+        [Required, 
+         SerializeField] private Image icon;
+        [Required, 
+         SerializeField] private TMP_Text amount;
+        [Required,
+         OdinSerialize] private GeneralTooltipManager tooltipManager;
+
+        #endregion
+
+        #region Fields
+
         private BaitItemInstance _bait;
         private BaitSelectionViewModel _viewModel;
         private IDisposable _bindings;
         private CancellationTokenSource _tooltipCts = new();
-        
+
+        #endregion
+
+        #region Injection
+
         public void SetUp(
             Canvas tooltipCanvas)
         {
@@ -47,6 +62,10 @@ namespace Madduck.Room
             OnBaitAmountChanged(_bait.CurrentCount);
             SetInteractable(true);
         }
+
+        #endregion
+
+        #region Bindings
 
         private void Bind()
         {
@@ -72,6 +91,10 @@ namespace Madduck.Room
             _bindings?.Dispose();
         }
 
+        #endregion
+
+        #region Events
+
         private void OnBaitButtonClicked(BaitType baitType)
         {
             _viewModel.SetCurrentBaitCommand.Execute(baitType);
@@ -92,16 +115,6 @@ namespace Madduck.Room
             }
             SetSelected(selected);
         }
-
-        private void SetInteractable(bool interactable)
-        {
-            button.interactable = interactable && _bait.CurrentCount > 0;
-        }
-
-        private void SetSelected(bool selected)
-        {
-            icon.color = selected ? Color.red : Color.white;
-        }
         
         public void OnPointerEnter(PointerEventData eventData)
         {
@@ -119,6 +132,22 @@ namespace Madduck.Room
             _tooltipCts = new();
             tooltipManager.HideTooltip(_tooltipCts.Token).Forget();
         }
+
+        #endregion
+
+        #region Utils
+
+        private void SetInteractable(bool interactable)
+        {
+            button.interactable = interactable && _bait.CurrentCount > 0;
+        }
+
+        private void SetSelected(bool selected)
+        {
+            icon.color = selected ? Color.red : Color.white;
+        }
+
+        #endregion
         
         #region Serialization
         [SerializeField, HideInInspector]

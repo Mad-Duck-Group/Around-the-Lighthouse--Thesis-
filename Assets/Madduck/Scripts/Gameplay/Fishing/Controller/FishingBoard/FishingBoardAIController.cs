@@ -21,12 +21,20 @@ namespace Madduck.Fishing.Controller
 
     public class FishingBoardAIController : IFishingBoardAIController
     {
+        #region Event
+
         public event Action OnInitializeBehaviorGraph;
-        
+
+        #endregion
+
+        #region Fields
+
         private readonly FishingBoardModel _model;
         private readonly FishingBoardVariables _variables;
         private readonly BehaviorGraphAgent _agent;
         private Tween _fishPositionTween;
+
+        #endregion
         
         #region Blackboard Variables
         private BlackboardVariable<FishZone> _blackBoardFishZone;
@@ -36,6 +44,8 @@ namespace Madduck.Fishing.Controller
         private BlackboardVariable<float> _blackBoardAngleDifference;
         private BlackboardVariable<float> _blackBoardFatiguePercent;
         #endregion
+
+        #region Injection
 
         [Inject]
         public FishingBoardAIController(
@@ -47,6 +57,8 @@ namespace Madduck.Fishing.Controller
             _variables = variables;
             _agent = agent;
         }
+
+        #endregion
         
         #region AI Logic
         /// <summary>

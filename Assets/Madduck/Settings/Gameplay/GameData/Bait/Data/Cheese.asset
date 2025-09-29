@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1dfd96b8ccd6a4b832bde6a9af841d, type: 3}
   m_Name: Cheese
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.BaitItemData
-  <ItemType>k__BackingField: 0
+  <ItemType>k__BackingField: 4
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

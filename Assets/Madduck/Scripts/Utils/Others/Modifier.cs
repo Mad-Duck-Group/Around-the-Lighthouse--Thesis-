@@ -194,7 +194,9 @@ namespace Madduck.Utils
             switch (viewChangedEvent.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    if (newItem.Value is null) return;
+                    if (newItem.Value is null || 
+                        newModifiers is null || 
+                        newModifiers.Count == 0) return;
                     modifiers.TryAdd(newItem.Key, newModifiers);
                     break;
                 case NotifyCollectionChangedAction.Move:
@@ -207,7 +209,9 @@ namespace Madduck.Utils
                 case NotifyCollectionChangedAction.Replace:
                     if (oldItem.Value is null) return;
                     modifiers.Remove(oldItem.Key);
-                    if (newItem.Value is null) return;
+                    if (newItem.Value is null || 
+                        newModifiers is null || 
+                        newModifiers.Count == 0) return;
                     modifiers.TryAdd(newItem.Key, newModifiers);
                     break;
                 case NotifyCollectionChangedAction.Reset:

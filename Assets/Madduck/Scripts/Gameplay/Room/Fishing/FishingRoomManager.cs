@@ -1,33 +1,40 @@
 ﻿using System;
 using Madduck.Core;
-using Madduck.Day;
 using Madduck.GameData;
-using Madduck.GameData.Fisherman;
 using Madduck.Shared;
 using Madduck.Shared.Events;
-using Madduck.Utils;
 using MessagePipe;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace Madduck.Room
 {
+    [Serializable]
     public class FishingRoomManager : 
         IDisposable,
         IRequestHandler<CanContinueFishingRequest, bool>
     {
+        #region Inspector
+
         [Title("Debug")]
         [DisplayAsString, 
          ShowInInspector] private WeatherType _currentWeather;
         
         [field: SerializeField] 
-        public ReactiveProperty<uint> CurrentFishCount { get; private set; } = new();
+        public SerializableReactiveProperty<uint> CurrentFishCount { get; private set; } = new();
         [field: SerializeField] 
-        public ReactiveProperty<uint> MaxFishCount { get; private set; } = new();
+        public SerializableReactiveProperty<uint> MaxFishCount { get; private set; } = new();
+        
+        [Button("Next Weather")]
+        private void NextWeather() => RandomWeather();
 
+        #endregion
+
+        #region Fields
+
+        private readonly FishWeightTableInstance _fishWeightTableInstance;
         private readonly IGenericFactory<WeatherType> _weatherFactory;
         private readonly IGenericFactory<uint> _maxFishCountFactory ;
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
@@ -36,14 +43,12 @@ namespace Madduck.Room
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
-
         private IDisposable _subscriptions;
 
-        [Button("Next Weather")]
-        private void NextWeather() => RandomWeather();
+        #endregion
         
-        private readonly FishWeightTableInstance _fishWeightTableInstance;
-        
+        #region Injection
+
         [Inject]
         public FishingRoomManager(
             FishWeightTableInstance fishWeightTableInstanceInstance,
@@ -67,7 +72,11 @@ namespace Madduck.Room
             _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
             Subscribe();
         }
-        
+
+        #endregion
+
+        #region Subscriptions
+
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
@@ -78,7 +87,7 @@ namespace Madduck.Room
             _loadSceneStageEventSubscriber
                 .AsObservable().ToObservable()
                 .Where(x => x.Stage is LoadSceneStage.FinishLoading)
-                .Subscribe(_ => StartFishingRoom())
+                .Subscribe(_ => OnStartFishingRoom())
                 .AddTo(ref disposableBuilder);
             _subscriptions = disposableBuilder.Build();
         }
@@ -87,8 +96,12 @@ namespace Madduck.Room
         {
             _subscriptions?.Dispose();
         }
-        
-        private void StartFishingRoom()
+
+        #endregion
+
+        #region Events
+
+        private void OnStartFishingRoom()
         {
             MaxFishCount.Value = _maxFishCountFactory.Create();
             CurrentFishCount.Value = MaxFishCount.Value;
@@ -105,6 +118,19 @@ namespace Madduck.Room
         {
             ChangeFishCount(-1);
         }
+
+        #endregion
+
+        #region Request
+
+        public bool Invoke(CanContinueFishingRequest request)
+        {
+            return CurrentFishCount.Value > 0;
+        }
+
+        #endregion
+
+        #region Utils
 
         private void ChangeFishCount(int change)
         {
@@ -130,9 +156,6 @@ namespace Madduck.Room
             _fishWeightTableInstance.PersistentFilters.TryAdd("WeatherFilter", filter);
         }
 
-        public bool Invoke(CanContinueFishingRequest request)
-        {
-            return CurrentFishCount.Value > 0;
-        }
+        #endregion
     }
 }

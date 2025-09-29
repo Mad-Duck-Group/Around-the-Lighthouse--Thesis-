@@ -19,6 +19,8 @@ namespace Madduck.Fishing.Shared
     }
     public class HookProjectile : MonoBehaviour, IHookProjectile
     {
+        #region Inspector
+
         [Title("References")] 
         [Required] 
         [SerializeField] private Transform hookIcon;
@@ -32,18 +34,30 @@ namespace Madduck.Fishing.Shared
         [SerializeField] private TweenSettings throwTweenX;
         [SerializeField] private TweenSettings<float> throwTweenY;
         [SerializeField] private TweenSettings<Vector2> nibbleTween;
-        
+
+        #endregion
+
+        #region Fields
+
         private Vector2 _startPosition;
         private float _targetDistance;
         private bool _isThrown;
         private Sequence _moveSequence;
         private Sequence _throwSequence;
         private Sequence _nibbleSequence;
-        
+
+        #endregion
+
+        #region Lifecycle
+
         private void Awake()
         {
             _startPosition = transform.localPosition;
         }
+
+        #endregion
+
+        #region Utils
 
         /// <summary>
         /// Throws the hook to the specified distance.
@@ -103,6 +117,8 @@ namespace Madduck.Fishing.Shared
         {
             _nibbleSequence.Complete();
         }
+
+        #endregion
     }
 
     public class HookProjectileMock : IHookProjectile

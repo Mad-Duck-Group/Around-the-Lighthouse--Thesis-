@@ -78,7 +78,7 @@ namespace Madduck.Room
             spoofWeather = false;
             spoofMaxFishCount = false;
 #endif
-            builder.RegisterInstance(weatherWeightTable).AsSelf();
+            builder.RegisterInstance(weatherWeightTable).As<IWeightTable<WeatherWeightRecord>>();
             builder.Register<WeatherWeightTableInstance>(Lifetime.Singleton).AsSelf();
             if (spoofWeather && weatherFactoryMock != null)
             {

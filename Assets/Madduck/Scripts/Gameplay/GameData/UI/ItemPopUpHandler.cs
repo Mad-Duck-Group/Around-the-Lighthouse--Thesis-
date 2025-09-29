@@ -12,16 +12,25 @@ namespace Madduck.GameData
 {
     public class ItemPopUpHandler : IDisposable
     {
+        #region Inspector
+
         [Title("Debug")] 
         [ShowInInspector] private readonly Dictionary<Type, IPopUpManager> _popUpManagers = new();
-        
+
+        #endregion
+
+        #region Fields
+
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
-        
+        private readonly Stack<IPopUpObject> _popUpStack = new(); 
         private IDisposable _subscriptions;
         private IDisposable _popUpHiddenSubscription;
-        private readonly Stack<IPopUpObject> _popUpStack = new(); 
         private CancellationTokenSource _popUpCts = new();
-        
+
+        #endregion
+
+        #region Injection
+
         [Inject]
         public ItemPopUpHandler(
             FishItemPopUpManager fishItemPopUpManager,
@@ -31,7 +40,11 @@ namespace Madduck.GameData
             _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             Subscribe();
         }
-        
+
+        #endregion
+
+        #region Subscription
+
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
@@ -45,12 +58,20 @@ namespace Madduck.GameData
             _subscriptions.Dispose();
         }
 
+        #endregion
+
+        #region Events
+
         private void OnFishCaught(FishCaughtEvent fishCaughtEvent)
         {
             var fishItemPopUpObject = new FishItemPopUpObject(fishCaughtEvent.FishItemInstance);
             _popUpStack.Push(fishItemPopUpObject);
             ShowNextPopUp();
         }
+
+        #endregion
+
+        #region Utils
 
         private void ShowNextPopUp()
         {
@@ -71,5 +92,7 @@ namespace Madduck.GameData
                 .Subscribe(_ => ShowNextPopUp());
             manager.ShowPopUp(popUpObject, _popUpCts.Token).Forget();
         }
+
+        #endregion
     }
 }

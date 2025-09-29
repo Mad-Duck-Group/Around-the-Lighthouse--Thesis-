@@ -42,6 +42,8 @@ namespace Madduck.Core
     }
     #endregion
 
+    #region Enums
+
     public enum SceneType
     {
         MainMenu,
@@ -58,6 +60,8 @@ namespace Madduck.Core
         StartFadeIn,
         FinishFadeIn
     }
+
+        #endregion
     
     [Serializable]
     public class LoadSceneManager : IDisposable, IStartable
@@ -71,8 +75,16 @@ namespace Madduck.Core
             LoadScene(debugSceneType, LoadSceneMode.Single, false).Forget();
         }
         #endregion
+
+        #region Properties
+
+        public string NextScene { get; private set; }
+        public LoadSceneMode LoadSceneMode { get; private set; }
+        public bool FirstSceneLoaded { get; private set; }
+
+        #endregion
         
-        #region Fields and Properties
+        #region Fields
         private readonly LoadSceneManagerConfig _config;
         private readonly ITransitionable _currentTransitionScreen;
         private readonly ISubscriber<LoadSceneEvent> _loadSceneEventSubscriber;
@@ -82,10 +94,9 @@ namespace Madduck.Core
         private Tween _fadeTween;
         private AsyncOperation _asyncOperation;
         private CancellationTokenSource _loadSceneCts;
-        public string NextScene { get; private set; }
-        public LoadSceneMode LoadSceneMode { get; private set; }
-        public bool FirstSceneLoaded { get; private set; }
         #endregion
+
+        #region Injection
 
         [Inject]
         public LoadSceneManager(
@@ -100,13 +111,21 @@ namespace Madduck.Core
             _currentTransitionScreen = transitionScreen;
             Subscribe();
         }
-        
+
+        #endregion
+
+        #region Life Cycle
+
         public void Start()
         {
             if (FirstSceneLoaded) return;
             _loadSceneStageEventPublisher.Publish(new LoadSceneStageEvent(LoadSceneStage.FinishLoading));
             _loadSceneStageEventPublisher.Publish(new LoadSceneStageEvent(LoadSceneStage.FinishFadeIn));
         }
+
+        #endregion
+
+        #region Subscription
 
         private void Subscribe()
         {
@@ -120,11 +139,17 @@ namespace Madduck.Core
         {
             _subscriptions.Dispose();
         }
-        
+
+        #endregion
+
+        #region Events
+
         private void OnLoadSceneEvent(LoadSceneEvent loadSceneEvent)
         {
             LoadScene(loadSceneEvent.sceneType, loadSceneEvent.loadSceneMode, loadSceneEvent.useLoadingScene).Forget();
         }
+
+        #endregion
         
         #region Scene Loading
         

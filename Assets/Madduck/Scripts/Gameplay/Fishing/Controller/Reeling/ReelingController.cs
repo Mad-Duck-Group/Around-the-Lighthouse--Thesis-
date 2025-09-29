@@ -17,8 +17,14 @@ namespace Madduck.Fishing.Controller
 {
     public class ReelingController : IDisposable
     {
+        #region Events
+
         public event Action<Sign> OnReelingResult;
-        
+
+        #endregion
+
+        #region Fields
+
         private readonly ReelingCommander _commander;
         private readonly ReelingModel _model;
         private readonly IPlayerInputHandler _inputHandler;
@@ -29,7 +35,11 @@ namespace Madduck.Fishing.Controller
         private IDisposable _bindings;
         private CancellationTokenSource _fatigueTimerCts = new();
         private CancellationTokenSource _transitionCts = new();
-        
+
+        #endregion
+
+        #region Injection
+
         [Inject]
         public ReelingController(
             ReelingCommander commander,
@@ -46,7 +56,11 @@ namespace Madduck.Fishing.Controller
             _fishFactory = fishFactory;
             _viewTransition = viewTransition;
         }
-        
+
+        #endregion
+
+        #region Bindings
+
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
@@ -71,7 +85,37 @@ namespace Madduck.Fishing.Controller
         {
             _bindings?.Dispose();
         }
+
+        #endregion
         
+        #region Event Handlers
+
+        private void OnReelingHold()
+        {
+            _commander.OnReelingHold.Execute(InputType.NonUI);
+        }
+
+        private void OnWinReeling()
+        {
+            _model.Inventory.ChangeCurrentBaitAmount(-1);
+            OnReelingResult?.Invoke(Sign.Positive);
+        }
+        
+        private void OnLoseReeling()
+        {
+            _model.Inventory.ChangeCurrentBaitAmount(-1);
+            OnReelingResult?.Invoke(Sign.Negative);
+        }
+        
+        private void OnFishRegainConsciousness()
+        {
+            OnReelingResult?.Invoke(Sign.Zero);
+        }
+
+        #endregion
+
+        #region Utils
+
         public async UniTask SetActive(bool active)
         {
             _bindings?.Dispose();
@@ -117,26 +161,8 @@ namespace Madduck.Fishing.Controller
             _hookFactory.DestroyHook();
         }
         
-        private void OnReelingHold()
-        {
-            _commander.OnReelingHold.Execute(InputType.NonUI);
-        }
 
-        private void OnWinReeling()
-        {
-            _model.Inventory.ChangeCurrentBaitAmount(-1);
-            OnReelingResult?.Invoke(Sign.Positive);
-        }
+        #endregion
         
-        private void OnLoseReeling()
-        {
-            _model.Inventory.ChangeCurrentBaitAmount(-1);
-            OnReelingResult?.Invoke(Sign.Negative);
-        }
-        
-        private void OnFishRegainConsciousness()
-        {
-            OnReelingResult?.Invoke(Sign.Zero);
-        }
     }
 }

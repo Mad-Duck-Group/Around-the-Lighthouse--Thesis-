@@ -17,15 +17,25 @@ namespace Madduck.Room
         IPointerEnterHandler, IPointerExitHandler,
         ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
+        #region Inspector
+
         [Title("References")]
         [Required, 
          SerializeField] private Image icon;
         [Required, 
          OdinSerialize] private GeneralTooltipManager tooltipManager;
 
+        #endregion
+
+        #region Fields
+
         private CardItemInstance _card;
         private CancellationTokenSource _tooltipCts = new();
-        
+
+        #endregion
+
+        #region Injection
+
         public void SetUp(Canvas tooltipCanvas)
         {
             tooltipManager.TooltipCanvas = tooltipCanvas;
@@ -36,7 +46,11 @@ namespace Madduck.Room
             _card = card;
             icon.sprite = card.ItemData.CardIcon;
         }
-        
+
+        #endregion
+
+        #region Events
+
         public void OnPointerEnter(PointerEventData eventData)
         {
             _tooltipCts.Cancel();
@@ -53,6 +67,8 @@ namespace Madduck.Room
             _tooltipCts = new();
             tooltipManager.HideTooltip(_tooltipCts.Token).Forget();
         }
+
+        #endregion
         
         #region Serialization
         [SerializeField, HideInInspector]

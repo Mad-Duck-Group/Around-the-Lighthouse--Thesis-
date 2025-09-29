@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Madduck.GameData
 {
     [CreateAssetMenu(fileName = "New Weather Weight Table", menuName = "Madduck/Weather/Weather Weight Table")]
-    public class WeatherWeightTable : ScriptableObject
+    public class WeatherWeightTable : ScriptableObject, IWeightTable<WeatherWeightRecord>
     {
         [field: OnValueChanged(nameof(CalculateProbabilities)), 
                 TableList,

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Madduck.GameData
 {
     [CreateAssetMenu(fileName = "New Fish Probability", menuName = "Madduck/Fish/Fish Probability")]
-    public class FishWeightTable : ScriptableObject
+    public class FishWeightTable : ScriptableObject, IWeightTable<FishWeightRecord>
     {
         [field: OnValueChanged(nameof(CalculateProbabilities)), 
                 TableList,
