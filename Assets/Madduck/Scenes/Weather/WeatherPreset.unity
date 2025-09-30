@@ -298,8 +298,30 @@ MonoBehaviour:
     - {fileID: 4892504072273319092, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
     rainyWeatherPreset:
     - {fileID: 462862146089652756, guid: 2eaf76b86963909498281f46046f6ec5, type: 3}
-    fogWeatherPreset:
-    - {fileID: 8587683744590458652, guid: 4b66bb993dcce8445b0d2b78200491a6, type: 3}
+    stormWeatherPreset: []
+    cloudyWeatherPreset: []
+    strongWindWeatherPreset: []
+  uiInstaller:
+    cardViewFactory:
+      cardViewPrefab: {fileID: 0}
+      parent: {fileID: 0}
+      tooltipCanvas: {fileID: 0}
+    weatherHUDView: {fileID: 0}
+    fishCountView: {fileID: 0}
+    weatherIcons:
+      keys: 
+      values: []
+    sprites:
+      keys: []
+      values: []
+    roomTrackFactory:
+      _prefab: {fileID: 0}
+      _parent: {fileID: 0}
+    roomTrackView: {fileID: 0}
+    BoatTrackViewFactory:
+      _prefab: {fileID: 0}
+      _parent: {fileID: 0}
+      _defaultBoatSprite: {fileID: 0}
   spoofWeather: 0
   spoofMaxFishCount: 0
   serializationData:

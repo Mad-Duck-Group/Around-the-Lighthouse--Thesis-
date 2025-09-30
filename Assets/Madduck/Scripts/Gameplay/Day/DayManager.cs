@@ -21,7 +21,7 @@ namespace Madduck.Day
         [field: DisplayAsString, 
                 ShowInInspector] public uint CurrentDayIndex { get; private set; }
         [field: DisplayAsString, 
-                ShowInInspector] public uint CurrentRoomIndex { get; private set; }
+                ShowInInspector] public ReactiveProperty<uint> CurrentRoomIndex { get; private set; } = new(0);
         [field: DisplayAsString, 
                 ShowInInspector] public DayPhaseType CurrentDayPhase { get; private set; } = DayPhaseType.Day;
 
@@ -43,13 +43,12 @@ namespace Madduck.Day
         public DayManager(
             FishWeightTableInstance fishWeightTable, 
             DayManagerConfig config,
-            ISubscriber<OutOfFishEvent> outOfFishEventSubscriber,
-            IPublisher<DayStateChangedEvent> dayStatePublisher)
+            ISubscriber<OutOfFishEvent> outOfFishEventSubscriber)
         {
             FishWeightTable = fishWeightTable;
             _config = config;
             _outOfFishEventSubscriber = outOfFishEventSubscriber;
-            _dayStatePublisher = dayStatePublisher;   
+            
             Subscribe();
             SetDayIndex(0);
         }
@@ -63,24 +62,12 @@ namespace Madduck.Day
             _subscriptions = disposableBuilder.Build();
         }
         
+        
         private void OnOutOfFish()
         {
             DebugUtils.Log("Out of fish, moving to next room.");
             ChangeRoom(1);
         }
-        private void NotifyStateChanged()
-        {
-            _dayStatePublisher.Publish(
-                new DayStateChangedEvent(
-                    CurrentDayIndex,
-                    CurrentRoomIndex,
-                    RoomHistory[^1],
-                    CurrentDayPhase
-                )
-            );
-            
-        }
-        
         public void Dispose()
         {
             _subscriptions?.Dispose();
@@ -96,7 +83,6 @@ namespace Madduck.Day
             CurrentDayIndex = day;
             RoomHistory.Clear();
             SetRoomIndex(0);
-            NotifyStateChanged();
 
         }
         
@@ -110,7 +96,6 @@ namespace Madduck.Day
             CurrentDayIndex = (uint)Mathf.Clamp(CurrentDayIndex, 0, _config.MaxDayCount - 1);
             RoomHistory.Clear();
             SetRoomIndex(0);
-            NotifyStateChanged();
 
         }
         #endregion
@@ -122,7 +107,7 @@ namespace Madduck.Day
         /// <param name="room"></param>
         public void SetRoomIndex(uint room)
         {
-            CurrentRoomIndex = room;
+            CurrentRoomIndex.Value = room;
             RandomRoom();
             SetDayPhase();
         }
@@ -133,11 +118,11 @@ namespace Madduck.Day
         /// <param name="room"></param>
         public void ChangeRoom(int room)
         {
-            CurrentRoomIndex += (uint)room;
+            
+            CurrentRoomIndex.Value += (uint)room;
             CurrentDayIndex = (uint)Mathf.Clamp(CurrentDayIndex, 0, _config.MaxRoomCount - 1);
             RandomRoom();
             SetDayPhase();
-            NotifyStateChanged();
 
         }
 
@@ -152,7 +137,7 @@ namespace Madduck.Day
         /// </summary>
         private void SetDayPhase()
         {
-            var percent = Percentage.FromFraction((float)CurrentRoomIndex / (_config.MaxRoomCount - 1));
+            var percent = Percentage.FromFraction((float)CurrentRoomIndex.Value / (_config.MaxRoomCount - 1));
             CurrentDayPhase = percent <= _config.DayNightRatio ? DayPhaseType.Day : DayPhaseType.Night;
             FilterFishByDayPhase();
         }

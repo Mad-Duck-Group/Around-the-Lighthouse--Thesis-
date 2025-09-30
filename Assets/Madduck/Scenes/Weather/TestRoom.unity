@@ -434,27 +434,30 @@ MonoBehaviour:
     TypeName: Madduck.Room.FishingRoomManagerLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
-  hookProjectilePrefab: {fileID: 2383755556486574317, guid: 80c6418e84b2be94b8e14e1e8aae9c67, type: 3}
-  throwHookSpawnPoint: {fileID: 1537266019}
-  spoofFishFactory: 0
+  spoofFish: 0
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 826ca38ca0eeb7e4fa2e023df6f586a0, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: fishFactory
+    - Name: hookProjectileFactory
       Entry: 7
-      Data: 0|Madduck.Fishing.Shared.TestFishFactory, Madduck.Fishing.Shared
-    - Name: testFishData
-      Entry: 10
-      Data: 0
+      Data: 0|Madduck.Fishing.Shared.HookProjectileFactory, Madduck.Fishing
+    - Name: prefab
+      Entry: 6
+      Data: 
+    - Name: parent
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
+      Data: 
+    - Name: fishFactoryMock
+      Entry: 6
       Data: 
 --- !u!4 &129485299
 Transform:
@@ -1783,6 +1786,63 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1001 &1124131573
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6164215439769047438, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 238.37578
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164215439769047438, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 204.44786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164215439769047438, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164215439769047438, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164215439769047438, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164215439769047438, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164215439769047438, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164215439769047438, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164215439769047438, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164215439769047438, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501787822228617898, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
+      propertyPath: m_Name
+      value: WeatherPreset_Cleary
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1a27c82251583a44c92f69f0113986c8, type: 3}
 --- !u!1 &1128171356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,12 +1966,14 @@ MonoBehaviour:
   m_Graph: {fileID: -248466687916187535, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 8180553577711010355
-  - rid: 8180553782806708462
+  - rid: -2
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 8180553577711010355
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -1920,14 +1982,6 @@ MonoBehaviour:
           m_Value1: 0
         Name: BehaviourAgent
         m_Value: {fileID: 1138814995}
-    - rid: 8180553782806708462
-      type: {class: 'BlackboardVariable`1[[Madduck.Fishing.DI.FishingBoardLifetimeScope, Madduck.Fishing.DI]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 4482973012612018237
-          m_Value1: 14581503575779501920
-        Name: Fishing Board Lifetime Scope
-        m_Value: {fileID: 1138814998}
 --- !u!114 &1138814998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4159,6 +4213,50 @@ MonoBehaviour:
   roomPresets:
   - {fileID: 3949758502269770019, guid: 4b56d4deb9db69a4ebe6845c7d852d99, type: 3}
   - {fileID: 7573038291939408853, guid: 915857240e49db24ebadea5af26f25cd, type: 3}
+  weatherPresetConfig:
+    clearWeatherPreset: []
+    rainyWeatherPreset: []
+    stormWeatherPreset: []
+    cloudyWeatherPreset: []
+    strongWindWeatherPreset: []
+  uiInstaller:
+    cardViewFactory:
+      cardViewPrefab: {fileID: 0}
+      parent: {fileID: 0}
+      tooltipCanvas: {fileID: 0}
+    weatherHUDView: {fileID: 0}
+    fishCountView: {fileID: 0}
+    weatherIcons:
+      keys: 
+      values: []
+    sprites:
+      keys: []
+      values: []
+    roomTrackFactory:
+      _prefab: {fileID: 0}
+      _parent: {fileID: 0}
+    roomTrackView: {fileID: 0}
+    BoatTrackViewFactory:
+      _prefab: {fileID: 0}
+      _parent: {fileID: 0}
+      _defaultBoatSprite: {fileID: 0}
+  spoofWeather: 0
+  spoofMaxFishCount: 0
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: weatherFactoryMock
+      Entry: 6
+      Data: 
+    - Name: maxFishCountFactoryMock
+      Entry: 6
+      Data: 
 --- !u!4 &2098137351
 Transform:
   m_ObjectHideFlags: 0
@@ -4286,3 +4384,4 @@ SceneRoots:
   - {fileID: 960016352}
   - {fileID: 1995969899}
   - {fileID: 2098137351}
+  - {fileID: 1124131573}

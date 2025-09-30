@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Madduck.Day;
-using Madduck.GameData;
-using Madduck.Shared;
 using Madduck.Utils;
-using MessagePipe;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -13,40 +9,21 @@ namespace Madduck.Room
 {
     public class RoomTrackViewModel : IDisposable
     {
-        
-        public DayStateChangedEvent CurrentState { get; private set; }
-        public event Action<DayStateChangedEvent> OnStateChanged; 
-        private readonly ISubscriber<DayStateChangedEvent> _dayStateSubscriber;
+        public ReadOnlyReactiveProperty<uint> CurrentRoomIndex { get; }
         private readonly DayManager _dayManager;
         private IDisposable _bindings;
-        
+        private CompositeDisposable _disposables = new ();
         [Inject]
-        public RoomTrackViewModel(ISubscriber<DayStateChangedEvent> dayStateSubscriber)
+        public RoomTrackViewModel(DayManager dayManager )
         {
-            _dayStateSubscriber = dayStateSubscriber;
-            Bind();
+            _dayManager = dayManager; 
+            CurrentRoomIndex =_dayManager.CurrentRoomIndex.ToReadOnlyReactiveProperty()
+                .AddTo(_disposables);
         }
-        
-        private void Bind()
-        {
-            var disposableBuilder = Disposable.CreateBuilder();
-            _dayStateSubscriber
-                .Subscribe(OnDayStateChanged)   
-                .AddTo(ref disposableBuilder);
-            _bindings = disposableBuilder.Build();
-        }
-
-        private void OnDayStateChanged(DayStateChangedEvent e)
-        {
-            Debug.Log("State");
-            CurrentState = e;
-            OnStateChanged?.Invoke(e);
-        }
-        
         
         public void Dispose()
         {
-            _bindings?.Dispose();
+            _bindings.Dispose();
         }
     }
 }

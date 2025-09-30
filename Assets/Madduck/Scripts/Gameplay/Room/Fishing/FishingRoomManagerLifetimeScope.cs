@@ -117,6 +117,7 @@ namespace Madduck.Room
                 var fishingRoomManager = container.Resolve<FishingRoomManager>();
                 var table = container.Resolve<WeatherWeightTableInstance>();
                 var roomPresetManager = container.Resolve<RoomPresetManager>();
+                
                 var weatherPresetManager = container.Resolve<WeatherPresetManager>();
                 _fishingRoomManagerDebugData = new FishingRoomManagerDebugData(fishingRoomManager, table,roomPresetManager,weatherPresetManager);
 #endif

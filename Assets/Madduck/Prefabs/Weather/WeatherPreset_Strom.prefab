@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6988737753546463948}
   - component: {fileID: 462862146089652756}
   m_Layer: 0
-  m_Name: WeatherPreset_Rain
+  m_Name: WeatherPreset_Strom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     config:
       sortingLayerID: -1548362805
       orderInLayer: 0
-  isStormy: 0
+  isStormy: 1
   stormTweenSettings:
     startFromCurrent: 0
     startValue: {r: 0.21000001, g: 0.24000002, b: 0.3, a: 1}

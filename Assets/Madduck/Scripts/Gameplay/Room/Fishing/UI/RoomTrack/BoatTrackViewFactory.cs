@@ -8,21 +8,25 @@ using Object = UnityEngine.Object;
 namespace Madduck.Room
 {
     [Serializable]
-    public class RoomTrackFactory : IGenericFactory<RoomTrackView>
+    public class BoatTrackViewFactory : IGenericFactory<BoatTrackView>
     {
         [Required,
-         SerializeField] private RoomTrackView _prefab;
+         SerializeField] private BoatTrackView _prefab;
         [Required,
          SerializeField] private Transform _parent;
+        [Required,
+        SerializeField] private Sprite _defaultBoatSprite;
         
 
 
-        public RoomTrackView Current { get; private set; }
-        public RoomTrackView Create()
+        public BoatTrackView Current { get; private set; }
+        public BoatTrackView Create()
         {
             Current = Object.Instantiate(_prefab, _parent);
+            Current.SetUp(_defaultBoatSprite);
             return Current;
         }
        
     }
 }
+

@@ -30,6 +30,9 @@ namespace Madduck.Room
          SerializeField] private RoomTrackFactory roomTrackFactory;
         [Required,
          SerializeField] private RoomTrackView roomTrackView;
+        [Required,
+         SerializeField] private BoatTrackViewFactory BoatTrackViewFactory;
+        
         
         
         public void Install(IContainerBuilder builder)
@@ -50,6 +53,8 @@ namespace Madduck.Room
                 .As<SerializableDictionary<DayRoomKey, Sprite>>();
             builder.Register(_ => roomTrackFactory, Lifetime.Singleton)
                 .As<IGenericFactory<RoomTrackView>>();
+            builder.Register(_ => BoatTrackViewFactory, Lifetime.Singleton)
+                .As<IGenericFactory<BoatTrackView>>();
             builder.RegisterComponent(roomTrackView)
                 .As<RoomTrackView>();
             builder.Register<RoomTrackViewModel>(Lifetime.Singleton);
@@ -63,6 +68,7 @@ namespace Madduck.Room
                 x.Resolve<RoomTrackColumnView>();
                 x.Resolve<WeatherHUDViewModel>();
                 x.Resolve<FishCountViewModel>();
+                
             });
         }
     }

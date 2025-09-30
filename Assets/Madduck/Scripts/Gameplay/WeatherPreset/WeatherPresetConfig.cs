@@ -17,6 +17,13 @@ namespace Madduck.WeatherPreset
         
         [BoxGroup("Settings"),
          Required,
-         ShowInInspector] public List<WeatherPreset> fogWeatherPreset;
+         ShowInInspector] public List<WeatherPreset> stormWeatherPreset;
+        
+        [BoxGroup("Settings"),
+         Required,
+         ShowInInspector] public List<WeatherPreset> cloudyWeatherPreset;
+        [BoxGroup("Settings"),
+         Required,
+         ShowInInspector] public List<WeatherPreset> strongWindWeatherPreset;
     }
 }
