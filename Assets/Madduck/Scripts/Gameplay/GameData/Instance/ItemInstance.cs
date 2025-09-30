@@ -18,7 +18,7 @@ namespace Madduck.GameData
         [field: ReadOnly,
             ShowInInspector] public Guid InstanceGuid { get; private set; }
         [field: ReadOnly,
-                ShowInInspector] public uint CurrentCount { get; set; }
+                ShowInInspector] public uint CurrentCount { get; private set; }
         
         public ReadOnlyReactiveProperty<uint> CurrentCountView { get; }
 
@@ -30,6 +30,15 @@ namespace Madduck.GameData
             CurrentCountView = Observable
                 .EveryValueChanged(this, x => x.CurrentCount)
                 .ToReadOnlyReactiveProperty();
+        }
+
+        public void ChangeCurrentCount(int change)
+        {
+            var currentCount = (int)CurrentCount;
+            currentCount += change;
+            // Prevent underflow by clamping to 0
+            if (currentCount < 0) currentCount = 0;
+            CurrentCount = (uint)currentCount;
         }
     }
 }

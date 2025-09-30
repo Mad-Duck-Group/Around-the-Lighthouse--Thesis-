@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Madduck.GameData.Bait;
@@ -136,9 +136,7 @@ namespace Madduck.GameData
         public void ChangeCurrentBaitAmount(int change)
         {
             if (CurrentBait.Value is null) return;
-            var currentCount = (int)CurrentBait.Value.CurrentCount;
-            currentCount += change;
-            CurrentBait.Value.CurrentCount = (uint)currentCount;
+            CurrentBait.Value.ChangeCurrentCount(change);
             if (CurrentBait.Value.CurrentCount == 0) 
                 SetCurrentBait(BaitType.None);
         }
