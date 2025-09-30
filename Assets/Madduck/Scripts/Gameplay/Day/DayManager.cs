@@ -12,6 +12,7 @@ using VContainer.Unity;
 
 namespace Madduck.Day
 {
+    
     public class DayManager : IMaxFishCountProvider, IDisposable
     {
         [Title("Debug"),
@@ -32,6 +33,9 @@ namespace Madduck.Day
         public FishWeightTableInstance FishWeightTable { get; private set; }
         public DayManagerConfig _config { get; private set; }
         private readonly ISubscriber<OutOfFishEvent> _outOfFishEventSubscriber;
+        private readonly IPublisher<DayStateChangedEvent> _dayStatePublisher;
+        
+
         
         private IDisposable _subscriptions;
         
@@ -39,11 +43,13 @@ namespace Madduck.Day
         public DayManager(
             FishWeightTableInstance fishWeightTable, 
             DayManagerConfig config,
-            ISubscriber<OutOfFishEvent> outOfFishEventSubscriber)
+            ISubscriber<OutOfFishEvent> outOfFishEventSubscriber,
+            IPublisher<DayStateChangedEvent> dayStatePublisher)
         {
             FishWeightTable = fishWeightTable;
             _config = config;
             _outOfFishEventSubscriber = outOfFishEventSubscriber;
+            _dayStatePublisher = dayStatePublisher;   
             Subscribe();
             SetDayIndex(0);
         }
@@ -62,6 +68,18 @@ namespace Madduck.Day
             DebugUtils.Log("Out of fish, moving to next room.");
             ChangeRoom(1);
         }
+        private void NotifyStateChanged()
+        {
+            _dayStatePublisher.Publish(
+                new DayStateChangedEvent(
+                    CurrentDayIndex,
+                    CurrentRoomIndex,
+                    RoomHistory[^1],
+                    CurrentDayPhase
+                )
+            );
+            
+        }
         
         public void Dispose()
         {
@@ -78,6 +96,8 @@ namespace Madduck.Day
             CurrentDayIndex = day;
             RoomHistory.Clear();
             SetRoomIndex(0);
+            NotifyStateChanged();
+
         }
         
         /// <summary>
@@ -90,6 +110,8 @@ namespace Madduck.Day
             CurrentDayIndex = (uint)Mathf.Clamp(CurrentDayIndex, 0, _config.MaxDayCount - 1);
             RoomHistory.Clear();
             SetRoomIndex(0);
+            NotifyStateChanged();
+
         }
         #endregion
         
@@ -115,6 +137,8 @@ namespace Madduck.Day
             CurrentDayIndex = (uint)Mathf.Clamp(CurrentDayIndex, 0, _config.MaxRoomCount - 1);
             RandomRoom();
             SetDayPhase();
+            NotifyStateChanged();
+
         }
 
         private void RandomRoom()

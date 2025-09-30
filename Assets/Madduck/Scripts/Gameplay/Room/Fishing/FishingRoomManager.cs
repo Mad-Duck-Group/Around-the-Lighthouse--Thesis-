@@ -16,6 +16,7 @@ using VContainer.Unity;
 
 namespace Madduck.Room
 {
+    
     public class FishingRoomManager : 
         IDisposable,
         IRequestHandler<CanContinueFishingRequest, bool>

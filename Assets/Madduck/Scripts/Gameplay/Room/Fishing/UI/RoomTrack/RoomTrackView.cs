@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Madduck.Room
 {
-    public class CurrentRoomView : MonoBehaviour
+    public class RoomTrackView : MonoBehaviour
     {
         
         [Title("References")]
@@ -12,9 +12,9 @@ namespace Madduck.Room
          SerializeField] private Image icon;
         
         #region SetUp
-        public void SetUp()
+        public void SetUp(Sprite sprite)
         {
-            icon.sprite = null;
+            icon.sprite = sprite;
         }
 
         #endregion

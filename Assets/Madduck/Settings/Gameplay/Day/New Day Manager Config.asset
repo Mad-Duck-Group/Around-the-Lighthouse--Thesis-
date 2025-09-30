@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: New Day Manager Config
   m_EditorClassIdentifier: Madduck.Day::Madduck.Day.DayManagerConfig
   <MaxDayCount>k__BackingField: 7
-  <MaxRoomCount>k__BackingField: 6
+  <MaxRoomCount>k__BackingField: 7
   <DayNightRatio>k__BackingField:
     value: 50
   <FishCountFormulas>k__BackingField:

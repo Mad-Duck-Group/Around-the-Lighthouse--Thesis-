@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Madduck.Day;
 using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
@@ -23,6 +24,13 @@ namespace Madduck.Room
          SerializeField] private FishCountView fishCountView;
         [Required,
          SerializeField] private SerializableDictionary<WeatherType, Sprite> weatherIcons;
+        [Required,
+         SerializeField] private SerializableDictionary<DayRoomKey, Sprite> sprites;
+        [Required,
+         SerializeField] private RoomTrackFactory roomTrackFactory;
+        [Required,
+         SerializeField] private RoomTrackView roomTrackView;
+        
         
         public void Install(IContainerBuilder builder)
         {
@@ -37,11 +45,22 @@ namespace Madduck.Room
             builder.Register<WeatherHUDViewModel>(Lifetime.Singleton);
             builder.RegisterComponent(fishCountView)
                 .As<FishCountView>();
-            
             builder.Register<FishCountViewModel>(Lifetime.Singleton);
+            builder.Register(_ => sprites, Lifetime.Scoped)
+                .As<SerializableDictionary<DayRoomKey, Sprite>>();
+            builder.Register(_ => roomTrackFactory, Lifetime.Singleton)
+                .As<IGenericFactory<RoomTrackView>>();
+            builder.RegisterComponent(roomTrackView)
+                .As<RoomTrackView>();
+            builder.Register<RoomTrackViewModel>(Lifetime.Singleton);
+            builder.Register<RoomTrackColumnView>(Lifetime.Singleton);
+            
+            
             builder.RegisterBuildCallback(x =>
             {
                 x.Resolve<CardRackView>();
+                x.Resolve<RoomTrackViewModel>();
+                x.Resolve<RoomTrackColumnView>();
                 x.Resolve<WeatherHUDViewModel>();
                 x.Resolve<FishCountViewModel>();
             });
