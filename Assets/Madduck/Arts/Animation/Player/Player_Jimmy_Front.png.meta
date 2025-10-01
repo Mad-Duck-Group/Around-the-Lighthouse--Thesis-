@@ -1,0 +1,715 @@
+fileFormatVersion: 2
+guid: 38248677288b76548bff193d7e851c4c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7819429208883084508
+    second: Player_Jimmy_Front_0
+  - first:
+      213: 3145481832725490813
+    second: Player_Jimmy_Front_1
+  - first:
+      213: 2518062198928034940
+    second: Player_Jimmy_Front_2
+  - first:
+      213: 9147412601210077449
+    second: Player_Jimmy_Front_3
+  - first:
+      213: -1573667124209319627
+    second: Player_Jimmy_Front_4
+  - first:
+      213: 682769966303334886
+    second: Player_Jimmy_Front_5
+  - first:
+      213: -1651240228660538868
+    second: Player_Jimmy_Front_6
+  - first:
+      213: 7070697013887797458
+    second: Player_Jimmy_Front_7
+  - first:
+      213: 4809263869835663716
+    second: Player_Jimmy_Front_8
+  - first:
+      213: 3551945574317994289
+    second: Player_Jimmy_Front_9
+  - first:
+      213: -7272890302393526135
+    second: Player_Jimmy_Front_10
+  - first:
+      213: -5727959369612493014
+    second: Player_Jimmy_Front_11
+  - first:
+      213: 2989631602070335315
+    second: Player_Jimmy_Front_12
+  - first:
+      213: 5185762662820813420
+    second: Player_Jimmy_Front_13
+  - first:
+      213: -328913344518876100
+    second: Player_Jimmy_Front_14
+  - first:
+      213: -5636590740344144325
+    second: Player_Jimmy_Front_15
+  - first:
+      213: -8719209729732624376
+    second: Player_Jimmy_Front_16
+  - first:
+      213: 6284922148834622914
+    second: Player_Jimmy_Front_17
+  - first:
+      213: -8575303843920212548
+    second: Player_Jimmy_Front_18
+  - first:
+      213: 8253534476438941533
+    second: Player_Jimmy_Front_19
+  - first:
+      213: 3749588918563977663
+    second: Player_Jimmy_Front_20
+  - first:
+      213: 6022866787043793067
+    second: Player_Jimmy_Front_21
+  - first:
+      213: -5102811836199179330
+    second: Player_Jimmy_Front_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 696
+        width: 78
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdc3ac5bf61348c60800000000000000
+      internalID: 7819429208883084508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_1
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 702
+        width: 49
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7c2c07bf0ff6ab20800000000000000
+      internalID: 3145481832725490813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_2
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 665
+        width: 75
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7cc1798a34f1f220800000000000000
+      internalID: 2518062198928034940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_3
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 618
+        width: 80
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9010f05bb4322fe70800000000000000
+      internalID: 9147412601210077449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_4
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 632
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5310bc29616392ae0800000000000000
+      internalID: -1573667124209319627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_5
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 640
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e1d0d8baafa97900800000000000000
+      internalID: 682769966303334886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_6
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 647
+        width: 37
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c029adbb2cd9519e0800000000000000
+      internalID: -1651240228660538868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_7
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 643
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d88233d879202260800000000000000
+      internalID: 7070697013887797458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_8
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 631
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 469dca05200fdb240800000000000000
+      internalID: 4809263869835663716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_9
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 564
+        width: 57
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 131beba4eab0b4130800000000000000
+      internalID: 3551945574317994289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_10
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 620
+        width: 40
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 988537badc0811b90800000000000000
+      internalID: -7272890302393526135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_11
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 536
+        width: 97
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2f70662d433280b0800000000000000
+      internalID: -5727959369612493014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 366
+        width: 101
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35f2fa23a1e4d7920800000000000000
+      internalID: 2989631602070335315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_13
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 507
+        width: 18
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6a1bee9aa787f740800000000000000
+      internalID: 5185762662820813420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_14
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 512
+        width: 32
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c34111a4e077f6bf0800000000000000
+      internalID: -328913344518876100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_15
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 422
+        width: 51
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3ef789e59ec6c1b0800000000000000
+      internalID: -5636590740344144325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_16
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 493
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 800482972f42ff680800000000000000
+      internalID: -8719209729732624376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_17
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 254
+        width: 143
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cdb54a3567883750800000000000000
+      internalID: 6284922148834622914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_18
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 366
+        width: 54
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbd081e76966ef880800000000000000
+      internalID: -8575303843920212548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_19
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 142
+        width: 143
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5f259190e17a8270800000000000000
+      internalID: 8253534476438941533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_20
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 199
+        width: 11
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb93fb85147390430800000000000000
+      internalID: 3749588918563977663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_21
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 142
+        width: 12
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba85e3bae65859350800000000000000
+      internalID: 6022866787043793067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Jimmy_Front_22
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 150
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebb60bbbbab2f29b0800000000000000
+      internalID: -5102811836199179330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Player_Jimmy_Front_0: 7819429208883084508
+      Player_Jimmy_Front_1: 3145481832725490813
+      Player_Jimmy_Front_10: -7272890302393526135
+      Player_Jimmy_Front_11: -5727959369612493014
+      Player_Jimmy_Front_12: 2989631602070335315
+      Player_Jimmy_Front_13: 5185762662820813420
+      Player_Jimmy_Front_14: -328913344518876100
+      Player_Jimmy_Front_15: -5636590740344144325
+      Player_Jimmy_Front_16: -8719209729732624376
+      Player_Jimmy_Front_17: 6284922148834622914
+      Player_Jimmy_Front_18: -8575303843920212548
+      Player_Jimmy_Front_19: 8253534476438941533
+      Player_Jimmy_Front_2: 2518062198928034940
+      Player_Jimmy_Front_20: 3749588918563977663
+      Player_Jimmy_Front_21: 6022866787043793067
+      Player_Jimmy_Front_22: -5102811836199179330
+      Player_Jimmy_Front_3: 9147412601210077449
+      Player_Jimmy_Front_4: -1573667124209319627
+      Player_Jimmy_Front_5: 682769966303334886
+      Player_Jimmy_Front_6: -1651240228660538868
+      Player_Jimmy_Front_7: 7070697013887797458
+      Player_Jimmy_Front_8: 4809263869835663716
+      Player_Jimmy_Front_9: 3551945574317994289
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

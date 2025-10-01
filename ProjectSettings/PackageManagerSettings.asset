@@ -48,10 +48,10 @@ MonoBehaviour:
       m_Status: 0
       m_Violations: []
   m_UserSelectedRegistryName: OpenUPM
-  m_UserAddingNewScopedRegistry: 0
+  m_UserAddingNewScopedRegistry: 1
   m_RegistryInfoDraft:
     m_Modified: 0
     m_ErrorMessage: 
-    m_UserModificationsInstanceId: -890
-    m_OriginalInstanceId: -892
+    m_UserModificationsInstanceId: -868
+    m_OriginalInstanceId: -872
   m_LoadAssets: 0
