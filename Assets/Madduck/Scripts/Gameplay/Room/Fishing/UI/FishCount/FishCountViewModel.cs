@@ -18,6 +18,7 @@ namespace Madduck.Room
         [Inject]
         public FishCountViewModel( FishingRoomManager fishingRoomManager)
         {
+            
             _fishingRoomManager = fishingRoomManager;
             
             CurrentFishCount = _fishingRoomManager.CurrentFishCount
@@ -27,6 +28,7 @@ namespace Madduck.Room
             MaxFishCount = _fishingRoomManager.MaxFishCount
                 .ToReadOnlyReactiveProperty()
                 .AddTo(_disposables);
+            
         }
 
         public void Dispose()

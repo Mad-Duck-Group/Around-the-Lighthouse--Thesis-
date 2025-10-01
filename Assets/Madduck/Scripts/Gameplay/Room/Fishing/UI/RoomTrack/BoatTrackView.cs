@@ -6,7 +6,7 @@ namespace Madduck.Room
     public class BoatTrackView : MonoBehaviour
     {
         [SerializeField]private Image icon;
-        [SerializeField] private RectTransform _boatRectTransform;
+        [SerializeField] public RectTransform _boatRectTransform;
         #region SetUp
         public void SetUp(Sprite sprite)
         {

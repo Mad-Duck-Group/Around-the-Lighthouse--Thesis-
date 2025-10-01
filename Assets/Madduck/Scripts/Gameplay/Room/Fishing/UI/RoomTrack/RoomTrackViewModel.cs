@@ -23,7 +23,7 @@ namespace Madduck.Room
         
         public void Dispose()
         {
-            _bindings.Dispose();
+            //_bindings.Dispose();
         }
     }
 }

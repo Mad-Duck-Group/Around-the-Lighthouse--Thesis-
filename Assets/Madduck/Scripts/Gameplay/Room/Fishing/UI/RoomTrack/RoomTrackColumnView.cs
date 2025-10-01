@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Madduck.Core;
 using Madduck.Day;
 using Madduck.GameData;
 using Madduck.Shared;
@@ -8,6 +9,8 @@ using MessagePipe;
 using R3;
 using UnityEngine;
 using VContainer;
+using PrimeTween;
+
 
 namespace Madduck.Room
 {
@@ -21,7 +24,10 @@ namespace Madduck.Room
         private readonly List<RoomTrackView> _rooms = new();
         private readonly DayManagerConfig _dayManagerConfig;
         private readonly RoomTrackViewModel _roomTrackViewModel;
+        private ReadOnlyReactiveProperty<uint> _currentRoomIndex;
+        private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private IDisposable _binding;
+        private Sequence _tween;
         #endregion
 
         #region Inject
@@ -30,14 +36,16 @@ namespace Madduck.Room
         public RoomTrackColumnView(IGenericFactory<RoomTrackView> roomTrackFactory,
             SerializableDictionary<DayRoomKey, Sprite> spriteMap,
             DayManagerConfig dayManagerConfig,IGenericFactory<BoatTrackView> boatTrackFactory,
-            RoomTrackViewModel roomTrackViewModel)
+            RoomTrackViewModel roomTrackViewModel
+            ,ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
         {
             _dayManagerConfig = dayManagerConfig;
             _boatTrackFactory = boatTrackFactory;
             _roomTrackFactory = roomTrackFactory;
             _roomTrackViewModel = roomTrackViewModel;
+            _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
             _spriteMap = spriteMap;
-            
+            ;
             Bind();
             HandleStateChanged();
             
@@ -50,11 +58,12 @@ namespace Madduck.Room
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _roomTrackViewModel.CurrentRoomIndex
-                .Subscribe(index =>
-                {
-                    OnRoomIndexChanged((int)index);
-                })
+            _currentRoomIndex = _roomTrackViewModel.CurrentRoomIndex.ToReadOnlyReactiveProperty()
+                .AddTo(ref disposableBuilder);
+            _loadSceneStageEventSubscriber
+                .AsObservable().ToObservable()
+                .Where(x => x.Stage is LoadSceneStage.FinishLoading)
+                .Subscribe(_ => CreateBoatTrack())
                 .AddTo(ref disposableBuilder);
             _binding = disposableBuilder.Build();
         }
@@ -104,23 +113,40 @@ namespace Madduck.Room
         #region BoatTrackControl
         private void CreateBoatTrack()
         {
+            if (_boatTrackView != null){UnityEngine.Object.Destroy(_boatTrackView.gameObject);}
             var boatTrackView = _boatTrackFactory.Create();
             _boatTrackView = boatTrackView;
+
+            if (_currentRoomIndex.CurrentValue == 0)
+            {
+                _boatTrackView._boatRectTransform.anchoredPosition = _rooms[0]._RoomRectTransform.localPosition;
+                return;
+            }
+            _boatTrackView._boatRectTransform.anchoredPosition = _rooms[(int)_currentRoomIndex.CurrentValue - 1]._RoomRectTransform.localPosition;
+            BoatTrackAnimate((int)_currentRoomIndex.CurrentValue);
         }
-        private void BoatTrackAnimate()
+        private void BoatTrackAnimate(int index)
         {
-             
+            DebugUtils.Log("index : " + index);
+            var boatUI = _boatTrackView.transform;
+            var roomUI = _rooms[index]._RoomRectTransform;
+            Vector3 targetLocalPos = roomUI.TransformPoint(roomUI.localPosition);
+            
+            _tween.Stop();
+            _tween = Sequence.Create()
+                .Group(Tween.Position(boatUI,targetLocalPos, 2f, Ease.Linear))
+                .Group(Tween.Rotation(boatUI, Quaternion.Euler(0f, 0f, 10f), 2f, Ease.InOutSine));
+            
+            _tween.OnComplete(() =>
+            {
+                boatUI.rotation = Quaternion.identity;
+            });
+            //DebugUtils.Log(targetRoomRect + " - " + boatRect.anchoredPosition);
         }
         private void OnRoomIndexChanged(int index)
         {
             if (index == 0){return;}
-            if (_boatTrackView != null)
-            {
-                UnityEngine.Object.Destroy(_boatTrackView.gameObject);
-                CreateBoatTrack();
-            }
             
-            //BoatTrackAnimate();
         }
         #endregion
         

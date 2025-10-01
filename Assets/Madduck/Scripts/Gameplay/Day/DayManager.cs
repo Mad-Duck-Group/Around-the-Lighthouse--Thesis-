@@ -7,6 +7,7 @@ using MessagePipe;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
@@ -34,9 +35,6 @@ namespace Madduck.Day
         public DayManagerConfig _config { get; private set; }
         private readonly ISubscriber<OutOfFishEvent> _outOfFishEventSubscriber;
         private readonly IPublisher<DayStateChangedEvent> _dayStatePublisher;
-        
-
-        
         private IDisposable _subscriptions;
         
         [Inject]

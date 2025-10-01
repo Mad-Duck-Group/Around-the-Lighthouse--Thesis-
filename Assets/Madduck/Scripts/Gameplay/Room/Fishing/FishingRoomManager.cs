@@ -119,6 +119,7 @@ namespace Madduck.Room
             {
                 _outOfFishEventPublisher?.Publish(new OutOfFishEvent());
                 _loadSceneEventPublisher?.Publish(new LoadSceneEvent(SceneType.Gameplay, LoadSceneMode.Single, false));
+                
             }
         }
 

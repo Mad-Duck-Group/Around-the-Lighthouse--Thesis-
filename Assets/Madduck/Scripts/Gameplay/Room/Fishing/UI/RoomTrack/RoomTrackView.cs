@@ -11,7 +11,7 @@ namespace Madduck.Room
         [Required, 
          SerializeField] private Image icon;
         [Required,
-         SerializeField] private RectTransform _RoomRectTransform;
+         SerializeField] public RectTransform _RoomRectTransform;
         
         #region SetUp
         public void SetUp(Sprite sprite)
