@@ -89,4 +89,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.Room::Madduck.Room.BoatTrackView
   icon: {fileID: 5441863447849364919}
-  _boatRectTransform: {fileID: 5561139392242415862}
+  moveBoatTweenSettings:
+    duration: 1
+    ease: 1
+    customEase:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  rotateBoatTweenSettings:
+    duration: 0.3
+    ease: 4
+    customEase:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  rotateAngle: {x: 0, y: 0, z: 20}
