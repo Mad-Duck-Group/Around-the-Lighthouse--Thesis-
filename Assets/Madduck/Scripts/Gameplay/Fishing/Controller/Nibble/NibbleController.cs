@@ -101,11 +101,6 @@ namespace Madduck.Fishing.Controller
                 await _hookFactory.Current.Move(Percentage.FromPercentage(100f));
             }
             OnPullHookResult?.Invoke(result);
-            if (result is Sign.Negative)
-            {
-                await _hookFactory.Current.Return();
-                _hookFactory.DestroyHook();
-            }
         }
 
         #endregion
@@ -115,6 +110,12 @@ namespace Madduck.Fishing.Controller
         public void Reset()
         {
             _model.Reset();
+        }
+
+        public async UniTask ReturnHook()
+        {
+            await _hookFactory.Current.Return();
+            _hookFactory.DestroyHook();
         }
         
         public async UniTask SetActive(bool active)

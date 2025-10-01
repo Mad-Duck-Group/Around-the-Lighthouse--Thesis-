@@ -71,5 +71,6 @@ MonoBehaviour:
       Data: 
   <BaitType>k__BackingField: 2
   <BaitName>k__BackingField: Worm
-  <BaitDescription>k__BackingField: Brainworm
-  <BaitIcon>k__BackingField: {fileID: 21300000, guid: 9816f38358ab9ab4386138de993532b1, type: 3}
+  <BaitDescription>k__BackingField: A worm smiling at you warmly, knowing that this
+    will be its last day...
+  <BaitIcon>k__BackingField: {fileID: 21300000, guid: 025cd5e75fbbda04b85396e14942b4e6, type: 3}

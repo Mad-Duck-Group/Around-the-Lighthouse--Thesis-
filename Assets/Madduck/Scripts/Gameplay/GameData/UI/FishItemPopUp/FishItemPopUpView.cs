@@ -98,8 +98,8 @@ namespace Madduck.GameData
         {
             fishNameText.text = popUpObject.FishItemInstance.ItemData.FishName;
             fishDescriptionText.text = popUpObject.FishItemInstance.ItemData.FishDescription;
-            fishWeightText.text = popUpObject.FishItemInstance.ItemData.FishWeight.ToString();
-            fishRarityText.text = popUpObject.FishItemInstance.CurrentFishQuality.ToString();
+            fishWeightText.text = $"Weight:\n{popUpObject.FishItemInstance.ItemData.FishWeight:F2} kg";
+            fishRarityText.text = $"Rarity:\n{popUpObject.FishItemInstance.CurrentFishQuality}";
             fishIcon.sprite = popUpObject.FishItemInstance.ItemData.FishSprite;
             await TransitionIn(cancellationToken); 
         }

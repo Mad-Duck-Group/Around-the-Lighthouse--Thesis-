@@ -47,12 +47,15 @@ namespace Madduck.Room
     {
         [Title("References")]
         [Required,
+         SerializeField] private FishingRoomConfig fishingRoomConfig;
+        [Required,
          SerializeField] private WeatherWeightTable weatherWeightTable;
         [Required,
          SerializeField] private List<RoomPreset.RoomPreset> roomPresets;
         [Required,
          SerializeField] private WeatherPresetConfig weatherPresetConfig;
-        [OdinSerialize] private FishingRoomUIInstaller uiInstaller;
+        [HideReferenceObjectPicker,
+         OdinSerialize] private List<IInstaller> uiInstallers = new();
         
         [Title("Debug")] 
         [SerializeField] private bool spoofWeather;
@@ -79,6 +82,7 @@ namespace Madduck.Room
             spoofWeather = false;
             spoofMaxFishCount = false;
 #endif
+            builder.RegisterInstance(fishingRoomConfig).AsSelf();
             builder.RegisterInstance(weatherWeightTable).As<IWeightTable<WeatherWeightRecord>>();
             builder.Register<WeatherWeightTableInstance>(Lifetime.Singleton).AsSelf();
             if (spoofWeather && weatherFactoryMock != null)
@@ -110,7 +114,10 @@ namespace Madduck.Room
                 .AsSelf();
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
             builder.Register<WeatherPresetManager>(Lifetime.Singleton).AsSelf();
-            uiInstaller?.Install(builder);
+            foreach (var uiInstaller in uiInstallers)
+            {
+                uiInstaller.Install(builder);
+            }
             builder.RegisterBuildCallback(x =>
             {
 #if UNITY_EDITOR

@@ -35,11 +35,16 @@ namespace Madduck.Fishing.UI
         #endregion
 
         #region Fields
-        private Color _currentColor;
+        private Color32 _currentColor;
         private Tween _colorTween;
         private FishLineTension _previousTension = FishLineTension.Normal;
         private float _width, _height, _unitWidth, _unitHeight;
         #endregion
+
+        private void Awake()
+        {
+            _currentColor = noTensionColor;
+        }
 
         public void Reset()
         {

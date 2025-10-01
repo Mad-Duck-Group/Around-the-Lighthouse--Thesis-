@@ -31,37 +31,13 @@ MonoBehaviour:
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 1|Madduck.GameData.WeatherWeightModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
-      Data: 4
-    - Name: <ModifierValue>k__BackingField
-      Entry: 4
-      Data: 5
-    - Name: <ModifierPercentage>k__BackingField
-      Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: <WeatherType>k__BackingField
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 2|Madduck.GameData.WeatherWeightModifierData, Madduck.GameData
-    - Name: <ModifierMethod>k__BackingField
-      Entry: 3
-      Data: 0
+      Data: 1
     - Name: <ModifierValue>k__BackingField
       Entry: 4
       Data: 1.2
@@ -70,7 +46,7 @@ MonoBehaviour:
       Data: Madduck.Utils.Percentage, Madduck.Utils
     - Name: value
       Entry: 4
-      Data: 0
+      Data: 15
     - Name: 
       Entry: 8
       Data: 
@@ -86,9 +62,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <CardName>k__BackingField: Test Weather Mod
-  <CardDescription>k__BackingField: '+5 Rain weight.
+  <CardName>k__BackingField: Stormy Mood
+  <CardDescription>k__BackingField: '+15% chance of Storm appearing.
 
-    Override Fog weight to
-    1.2.'
-  <CardIcon>k__BackingField: {fileID: -700040529577777666, guid: 3c86786e1c268db4f8a0b6421adaba15, type: 3}
+'
+  <CardIcon>k__BackingField: {fileID: -7403225922231255738, guid: 9de2ba106c38cca409900777e6195b3f, type: 3}

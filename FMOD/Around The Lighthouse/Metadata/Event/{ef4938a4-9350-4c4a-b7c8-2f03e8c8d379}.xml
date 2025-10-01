@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
+<objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{ef4938a4-9350-4c4a-b7c8-2f03e8c8d379}">
 		<property name="name">
 			<value>FishingLineTension</value>

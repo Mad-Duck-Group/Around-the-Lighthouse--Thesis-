@@ -86,9 +86,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <CardName>k__BackingField: Test Rod Mod
+  <CardName>k__BackingField: Power Plus
   <CardDescription>k__BackingField: '+10% base rod''s power.
 
     +1 total rod''s
     power.'
-  <CardIcon>k__BackingField: {fileID: -1237837898643321459, guid: 41239aa37d04bcc42ba4e163270966bd, type: 3}
+  <CardIcon>k__BackingField: {fileID: -3584810823292265788, guid: eab616b1cc720ea4e8db110ba280502f, type: 3}

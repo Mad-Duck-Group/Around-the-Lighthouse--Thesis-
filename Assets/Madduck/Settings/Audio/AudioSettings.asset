@@ -24,10 +24,10 @@ MonoBehaviour:
       <IsMuted>k__BackingField: 0
     - <Path>k__BackingField: bus:/BGM
       <IsMaster>k__BackingField: 0
-      <LinearVolume>k__BackingField: 1
-      <Linear01Volume>k__BackingField: 0.31622776
-      <DecibelVolume>k__BackingField: 0
-      <Decibel01Volume>k__BackingField: 0.8888889
+      <LinearVolume>k__BackingField: 0.6
+      <Linear01Volume>k__BackingField: 0.18973666
+      <DecibelVolume>k__BackingField: -4.4369745
+      <Decibel01Volume>k__BackingField: 0.8395892
       <IsMuted>k__BackingField: 0
     - <Path>k__BackingField: bus:/SFX
       <IsMaster>k__BackingField: 0

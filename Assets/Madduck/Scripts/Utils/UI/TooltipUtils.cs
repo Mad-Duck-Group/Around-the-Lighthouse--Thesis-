@@ -6,6 +6,7 @@ using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 using Object = UnityEngine.Object;
 
@@ -29,9 +30,10 @@ namespace Madduck.Utils
     [Serializable]
     public abstract class TooltipManager<T> where T : ITooltipObject
     {
-        [Title("References")]
+        [Title("References")] 
         [Required, 
-         SerializeField] protected Transform tooltipParent;
+         SerializeField] private Transform referenceTransform;
+        [field: SerializeField] public Transform TooltipParent { get; set; }
         [field: SerializeField] public Canvas TooltipCanvas { get; set; }
         [SerializeField] protected bool prefabMode;
         [Required, HideIf(nameof(prefabMode)),
@@ -49,9 +51,9 @@ namespace Madduck.Utils
 
         public virtual async UniTask ShowTooltip(ITooltipObject tooltipObject, CancellationToken cancellationToken = default)
         {
-            if (!TooltipCanvas)
+            if (!TooltipCanvas || !TooltipParent)
             {
-                DebugUtils.LogError("TooltipCanvas is not assigned");
+                DebugUtils.LogError("TooltipCanvas or TooltipParent is not assigned");
                 return;
             }
             if (tooltipObject is not T data)
@@ -64,9 +66,10 @@ namespace Madduck.Utils
             {
                 _currentTooltipView = tooltipViewPrefab.InstantiateAsInterface(new InstantiateParameters
                 {
-                    parent = tooltipParent,
+                    parent = TooltipParent,
                     worldSpace = false
                 }, out _currentTooltipViewObject);
+                _currentTooltipViewObject.transform.position = referenceTransform.position;
                 var tooltipRectTransform = (RectTransform)_currentTooltipViewObject.transform;
                 var canvasRectTransform = (RectTransform)TooltipCanvas.transform;
                 tooltipRectTransform.localPosition += (Vector3)offset;

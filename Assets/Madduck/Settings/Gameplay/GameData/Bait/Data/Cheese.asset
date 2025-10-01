@@ -71,5 +71,6 @@ MonoBehaviour:
       Data: 
   <BaitType>k__BackingField: 1
   <BaitName>k__BackingField: Cheese
-  <BaitDescription>k__BackingField: Cheesy As Fuckkk
-  <BaitIcon>k__BackingField: {fileID: 21300000, guid: e5bdeb82185f0fb4e81a8f4e96843c22, type: 3}
+  <BaitDescription>k__BackingField: Cheese from your own pantry. Sorry, rat, but
+    I need it for fishing.
+  <BaitIcon>k__BackingField: {fileID: 21300000, guid: 20cbb866243715b4eafe2722a3e5d2c9, type: 3}

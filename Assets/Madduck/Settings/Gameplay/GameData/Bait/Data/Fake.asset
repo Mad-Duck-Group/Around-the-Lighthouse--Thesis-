@@ -70,6 +70,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   <BaitType>k__BackingField: 4
-  <BaitName>k__BackingField: Fake
-  <BaitDescription>k__BackingField: Real of fake!
-  <BaitIcon>k__BackingField: {fileID: 21300000, guid: 81613e0fcde44884cb64bf6ee222ae0a, type: 3}
+  <BaitName>k__BackingField: Sock
+  <BaitDescription>k__BackingField: A smelly sock. Some fish might mistaken it for
+    a dead bait.
+  <BaitIcon>k__BackingField: {fileID: 21300000, guid: 1eb50ff684624294685c9d2bcd25a630, type: 3}

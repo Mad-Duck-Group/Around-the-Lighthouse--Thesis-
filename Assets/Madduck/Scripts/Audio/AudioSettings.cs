@@ -56,6 +56,7 @@ namespace Madduck.Audio
                 DebugUtils.LogError($"Bus with path {Path} not found. Please check the FMOD settings.");
                 return;
             }
+            Bus = bus;
             SetVolume(LinearVolume);
             SetMute(IsMuted);
         }

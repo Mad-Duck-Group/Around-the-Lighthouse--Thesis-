@@ -15,12 +15,14 @@ namespace Madduck.Room
          SerializeField] private Transform parent;
         [Required,
          SerializeField] private Canvas tooltipCanvas;
+        [Required,
+         SerializeField] private Transform tooltipParent;
         
         public CardView Current { get; private set; }
         public CardView Create()
         {
             Current = Object.Instantiate(cardViewPrefab, parent);
-            Current.SetUp(tooltipCanvas);
+            Current.SetUp(tooltipCanvas, tooltipParent);
             return Current;
         }
     }

@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 777272526761126699}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7471652533598536529
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 7365031340990435738, guid: 94a8a45dbd6df66468fa90d260612c2e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5694952806250029247
 MonoBehaviour:
@@ -130,7 +130,6 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 777272526761126699}
-    - {fileID: 5694952806250029247}
     - {fileID: 1250158992898015067, guid: 7c504d541f4092d488a927ead1a0668c, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -140,18 +139,15 @@ MonoBehaviour:
     - Name: tooltipManager
       Entry: 7
       Data: 0|Madduck.Utils.GeneralTooltipManager, Madduck.Utils
-    - Name: tooltipParent
+    - Name: referenceTransform
       Entry: 10
       Data: 0
-    - Name: useRootCanvas
-      Entry: 5
-      Data: true
-    - Name: tooltipCanvas
+    - Name: <TooltipParent>k__BackingField
       Entry: 6
       Data: 
-    - Name: tooltipProvider
-      Entry: 10
-      Data: 1
+    - Name: <TooltipCanvas>k__BackingField
+      Entry: 6
+      Data: 
     - Name: prefabMode
       Entry: 5
       Data: true
@@ -160,7 +156,7 @@ MonoBehaviour:
       Data: 
     - Name: tooltipViewPrefab
       Entry: 10
-      Data: 2
+      Data: 1
     - Name: delay
       Entry: 4
       Data: 0.5

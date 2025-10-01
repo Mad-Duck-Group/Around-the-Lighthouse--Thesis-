@@ -45,6 +45,7 @@ namespace Madduck.Fishing.StateMachine
             _fishingBoardResultSubscription.Dispose();
             await _controller.SetActive(false);
             _controller.Reset();
+            _controller.ResetCircleBoardSprite();
         }
 
         public override void Reset()

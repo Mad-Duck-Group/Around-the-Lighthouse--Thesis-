@@ -1,0 +1,28 @@
+﻿using System;
+using Madduck.Shared;
+using Sirenix.OdinInspector;
+using UnityEngine;
+using VContainer;
+using VContainer.Unity;
+
+namespace Madduck.Room
+{
+    [Serializable]
+    public class BaitUIInstaller : IInstaller
+    {
+        [Title("Bait")]
+        [Required,
+         SerializeField] private BaitButtonViewFactory baitButtonViewFactory;
+        
+        public void Install(IContainerBuilder builder)
+        {
+            builder.Register(_ => baitButtonViewFactory, Lifetime.Singleton)
+                .As<IGenericFactory<BaitButtonView>>();
+            builder.Register<BaitSelectionViewModel>(Lifetime.Singleton);
+            builder.RegisterBuildCallback(x =>
+            {
+                x.Resolve<BaitSelectionViewModel>();
+            });
+        }
+    }
+}

@@ -36,9 +36,10 @@ namespace Madduck.Room
 
         #region Injection
 
-        public void SetUp(Canvas tooltipCanvas)
+        public void SetUp(Canvas tooltipCanvas, Transform tooltipParent)
         {
             tooltipManager.TooltipCanvas = tooltipCanvas;
+            tooltipManager.TooltipParent = tooltipParent;
         }
 
         public void SetCard(CardItemInstance card)

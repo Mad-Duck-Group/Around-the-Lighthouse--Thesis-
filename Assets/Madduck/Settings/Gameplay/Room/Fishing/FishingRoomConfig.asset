@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05168f1c06554f21a62af60c17286c67, type: 3}
+  m_Name: FishingRoomConfig
+  m_EditorClassIdentifier: Madduck.Room::Madduck.Room.FishingRoomConfig
+  <FishingRoomBGM>k__BackingField:
+    Guid:
+      Data1: 1720136588
+      Data2: 1316456403
+      Data3: 1804986558
+      Data4: -269740357
+    Path: event:/BGM/GameplayBGM

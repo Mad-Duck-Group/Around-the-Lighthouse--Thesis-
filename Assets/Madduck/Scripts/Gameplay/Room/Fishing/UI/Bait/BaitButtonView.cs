@@ -46,9 +46,11 @@ namespace Madduck.Room
         #region Injection
 
         public void SetUp(
-            Canvas tooltipCanvas)
+            Canvas tooltipCanvas,
+            Transform tooltipParent)
         {
             tooltipManager.TooltipCanvas = tooltipCanvas;
+            tooltipManager.TooltipParent = tooltipParent;
         }
 
         public void SetBait(
@@ -174,15 +176,20 @@ namespace Madduck.Room
     [Serializable]
     public class BaitButtonViewFactory : IGenericFactory<BaitButtonView>
     {
-        [SerializeField] private Transform baitButtonsParent;
-        [SerializeField] private Canvas tooltipCanvas;
-        [SerializeField] private BaitButtonView baitButtonViewPrefab;
+        [Required, 
+         SerializeField] private Transform baitButtonsParent;
+        [Required, 
+         SerializeField] private Canvas tooltipCanvas;
+        [Required, 
+         SerializeField] private BaitButtonView baitButtonViewPrefab;
+        [Required, 
+         SerializeField] private Transform tooltipParent;
         
         public BaitButtonView Current { get; private set; }
         public BaitButtonView Create()
         {
             Current = UnityEngine.Object.Instantiate(baitButtonViewPrefab, baitButtonsParent);
-            Current.SetUp(tooltipCanvas);
+            Current.SetUp(tooltipCanvas, tooltipParent);
             return Current;
         }
     }

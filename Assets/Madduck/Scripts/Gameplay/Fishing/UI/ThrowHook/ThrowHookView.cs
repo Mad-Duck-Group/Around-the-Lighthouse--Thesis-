@@ -54,14 +54,14 @@ namespace Madduck.Fishing.UI
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
             cancellationToken.Register(CancelTransitions);
-            await UniTask.WaitForSeconds(1f, cancellationToken: cancellationToken); // placeholder for actual transition animation
+            //await UniTask.WaitForSeconds(1f, cancellationToken: cancellationToken); // placeholder for actual transition animation
             SetActive(true);
         }
 
         public async UniTask TransitionOut(CancellationToken cancellationToken = default)
         {
             cancellationToken.Register(CancelTransitions);
-            await UniTask.WaitForSeconds(1f, cancellationToken: cancellationToken); // placeholder for actual transition animation
+            //await UniTask.WaitForSeconds(1f, cancellationToken: cancellationToken); // placeholder for actual transition animation
             SetActive(false);
         }
         

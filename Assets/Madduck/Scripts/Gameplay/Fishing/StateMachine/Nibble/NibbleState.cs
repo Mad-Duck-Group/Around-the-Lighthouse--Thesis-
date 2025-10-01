@@ -12,6 +12,7 @@ namespace Madduck.Fishing.StateMachine
     {
         private readonly NibbleController _controller;
         private IDisposable _pullHookResultSubscription;
+        private Sign _result;
         
         [Inject]
         public NibbleState(
@@ -37,11 +38,13 @@ namespace Madduck.Fishing.StateMachine
             await base.Exit();
             _pullHookResultSubscription.Dispose();
             await _controller.SetActive(false);
+            if (_result is Sign.Negative) await _controller.ReturnHook();
             _controller.Reset();
         }
         
         private void OnPullHookResult(Sign result)
         {
+            _result = result;
             switch (result)
             {
                 case Sign.Positive:

@@ -70,6 +70,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   <BaitType>k__BackingField: 8
-  <BaitName>k__BackingField: Glow
-  <BaitDescription>k__BackingField: The 3-letter agency glows so bright!!!
-  <BaitIcon>k__BackingField: {fileID: 21300000, guid: c3643b98aee978b4db23f49ca20a1f2d, type: 3}
+  <BaitName>k__BackingField: Glow Bait
+  <BaitDescription>k__BackingField: A bait coated with luminescent substance. Better
+    not touch it with your bare hands.
+  <BaitIcon>k__BackingField: {fileID: 21300000, guid: 8fff7545d19ebbe429526149d33dd966, type: 3}

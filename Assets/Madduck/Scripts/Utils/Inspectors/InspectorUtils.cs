@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor.Validation;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Madduck.Utils
 {

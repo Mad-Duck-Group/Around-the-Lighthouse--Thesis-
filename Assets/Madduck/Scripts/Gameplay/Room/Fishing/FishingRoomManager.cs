@@ -1,4 +1,5 @@
 using System;
+using Madduck.Audio;
 using Madduck.Core;
 using Madduck.GameData;
 using Madduck.Shared;
@@ -36,6 +37,8 @@ namespace Madduck.Room
         #region Fields
 
         private readonly FishWeightTableInstance _fishWeightTableInstance;
+        private readonly FishingRoomConfig _config;
+        private readonly IAudioManager _audioManager;
         private readonly IGenericFactory<WeatherType> _weatherFactory;
         private readonly IGenericFactory<uint> _maxFishCountFactory ;
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
@@ -44,6 +47,7 @@ namespace Madduck.Room
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
+        private AudioReference _bgm;
         private IDisposable _subscriptions;
 
         #endregion
@@ -53,6 +57,8 @@ namespace Madduck.Room
         [Inject]
         public FishingRoomManager(
             FishWeightTableInstance fishWeightTableInstanceInstance,
+            FishingRoomConfig config,
+            IAudioManager audioManager,
             IGenericFactory<WeatherType> weatherFactory,
             [Key(DIConstants.MaxFishCountFactoryId)] IGenericFactory<uint> maxFishCountFactory,
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
@@ -63,8 +69,10 @@ namespace Madduck.Room
             ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
         {
             _fishWeightTableInstance = fishWeightTableInstanceInstance;
+            _config = config;
             _weatherFactory = weatherFactory;
             _maxFishCountFactory = maxFishCountFactory;
+            _audioManager = audioManager;
             _fishingRoomStartedEventPublisher = fishingRoomStartedEventPublisher;
             _outOfFishEventPublisher = outOfFishEventPublisher;
             _weatherChangedPublisher = weatherChangedPublisher;
@@ -107,6 +115,7 @@ namespace Madduck.Room
             MaxFishCount.Value = _maxFishCountFactory.Create();
             CurrentFishCount.Value = MaxFishCount.Value;
             _fishingRoomStartedEventPublisher?.Publish(new FishingRoomStartedEvent());
+            _bgm = _audioManager.PlayAudio(_config.FishingRoomBGM, Vector3.zero);
             RandomWeather();
         }
         
@@ -137,10 +146,9 @@ namespace Madduck.Room
         {
             CurrentFishCount.Value =
                 (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
-            if (CurrentFishCount.Value == 0)
-            {
-                _outOfFishEventPublisher?.Publish(new OutOfFishEvent());
-            }
+            if (CurrentFishCount.Value != 0) return;
+            _audioManager.StopAudio(_bgm);
+            _outOfFishEventPublisher?.Publish(new OutOfFishEvent());
         }
 
         private void RandomWeather()

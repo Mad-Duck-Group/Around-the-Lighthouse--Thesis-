@@ -5,6 +5,7 @@
         "VContainer",
         "Madduck.Day",
         "Madduck.Utils",
+        "Madduck.Shared",
         "PrimeTween.Runtime",
         "Extensions"
     ],

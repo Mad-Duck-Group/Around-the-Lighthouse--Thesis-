@@ -107,6 +107,7 @@ namespace Madduck.GameData
         #region Events
         private void OnFishingRoomStarted()
         {
+            CurrentBaits.Clear();
             _modifierSourceEventPublisher?.Publish(new ModifierSourceEvent(this));
             CurrentCards.AddRange(_config.StartingCards.Select(x => new CardItemInstance(x)));
             foreach (var bait in _config.StartingBaits)

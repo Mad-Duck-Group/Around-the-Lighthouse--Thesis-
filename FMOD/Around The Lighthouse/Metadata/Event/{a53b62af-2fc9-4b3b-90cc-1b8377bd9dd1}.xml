@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
+<objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{a53b62af-2fc9-4b3b-90cc-1b8377bd9dd1}">
 		<property name="name">
 			<value>Reeling</value>

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Madduck.Day;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
@@ -20,11 +21,16 @@ namespace Madduck.RoomPreset
 
         #endregion
         
+        private readonly DayManager _dayManager;
+        
         #region Inject
         [Inject]
-        public RoomPresetManager(List<RoomPreset> presets)
+        public RoomPresetManager(
+            List<RoomPreset> presets,
+            DayManager dayManager)
         {
             _presets = presets;
+            _dayManager = dayManager;
         }
         #endregion
 
@@ -41,13 +47,13 @@ namespace Madduck.RoomPreset
         
         #region RoomManagement
 
-        public global::Madduck.RoomPreset.RoomPreset SpawnRandomRoom(Vector3 pos, Quaternion rot)
+        public void SpawnRandomRoom(Vector3 pos, Quaternion rot)
         {
             int index = Random.Range(0, _presets.Count);
-            global::Madduck.RoomPreset.RoomPreset instance = Object.Instantiate(_presets[index], pos, rot);
+            RoomPreset instance = Object.Instantiate(_presets[index], pos, rot);
             
+            instance.SetDayPhase(_dayManager.CurrentDayPhase);
             instance.ApplySprites();
-            return instance;
         }
 
         #endregion

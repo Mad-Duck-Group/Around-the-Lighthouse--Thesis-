@@ -41,6 +41,8 @@ namespace Madduck.Fishing.UI
         [SerializeField] private Slider fatigueSlider;
         [Required]
         [SerializeField] private Image fishFatigueImage;
+        [Required] 
+        [SerializeField] private Sprite fishCloseSprite;
         [Required]
         [SerializeField] private SerializableDictionary<Sprite, Percentage> fatigueImageDictionary = new();
 
@@ -149,6 +151,7 @@ namespace Madduck.Fishing.UI
         public void ResetCircleBoardSprite()
         {
             SetFatigue(Percentage.FromPercentage(0f));
+            fishFatigueImage.sprite = fishCloseSprite;
         }
         #endregion
         

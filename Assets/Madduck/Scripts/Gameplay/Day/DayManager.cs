@@ -159,7 +159,7 @@ namespace Madduck.Day
         /// </summary>
         private void SetDayPhase()
         {
-            var percent = Percentage.FromFraction((float)CurrentRoomIndex.Value / (_config.MaxRoomCount - 1));
+            var percent = Percentage.FromFraction((float)CurrentRoomIndex.Value / (_config.MaxRoomCount - 2)); //ignore last room
             CurrentDayPhase = percent <= _config.DayNightRatio ? DayPhaseType.Day : DayPhaseType.Night;
             FilterFishByDayPhase();
         }

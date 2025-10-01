@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
+<objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{acf29061-e84e-492b-9ac0-f92b7d3cd63f}">
 		<property name="name">
 			<value>FishingSuccess</value>

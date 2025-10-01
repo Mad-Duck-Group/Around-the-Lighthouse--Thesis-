@@ -1,3 +1,4 @@
+using Madduck.Shared;
 using Madduck.Utils;
 using PrimeTween;
 using Redcode.Extensions;
@@ -18,14 +19,15 @@ namespace Madduck.RoomPreset
         [BoxGroup("References"),
          SerializeField] public SpriteRenderer[] waveRenderers;
     
-    
-        [Title("Variants"),
-         BoxGroup("Variants"),
-         SerializeField] private Sprite[] skyVariants;
+        [Title("Variants")]
         [BoxGroup("Variants"),
          SerializeField] private Sprite[] rockVariants;
         [BoxGroup("Variants"),
          SerializeField] private Sprite[] waveVariants;
+        [BoxGroup("Variants"),
+         SerializeField] private Sprite[] daySkyVariants;
+        [BoxGroup("Variants"),
+         SerializeField] private Sprite[] nightSkyVariants;
     
         [Title("Tween Settings"),
          BoxGroup("Tween Settings"),
@@ -34,14 +36,30 @@ namespace Madduck.RoomPreset
          SerializeField] public TweenSettings<float> waveTweenSettings;
     
         private Sequence _waveSequence;
+        private DayPhaseType _currentDayPhase;
         #endregion
 
         #region Set Up Room
 
+        public void SetDayPhase(DayPhaseType dayPhase)
+        {
+            _currentDayPhase = dayPhase;
+        }
+
         public void ApplySprites()
         {
-            if (skyRenderer && skyVariants.Length > 0)
-                skyRenderer.sprite = skyVariants.GetRandomElement();
+            if (skyRenderer)
+            {
+                switch (_currentDayPhase)
+                {
+                    case DayPhaseType.Day when daySkyVariants.Length > 0:
+                        skyRenderer.sprite = daySkyVariants.GetRandomElement();
+                        break;
+                    case DayPhaseType.Night when nightSkyVariants.Length > 0:
+                        skyRenderer.sprite = nightSkyVariants.GetRandomElement();
+                        break;
+                }
+            }
         
             if (rockRenderers != null && rockVariants.Length > 0)
             {
