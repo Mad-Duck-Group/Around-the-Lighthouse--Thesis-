@@ -88,8 +88,14 @@ namespace Madduck.WeatherPreset
                 case WeatherType.Rain:
                     _presets = _presetsConfig.rainyWeatherPreset;
                     break;
-                case WeatherType.Fog:
-                    _presets = _presetsConfig.fogWeatherPreset;
+                case WeatherType.Storm:
+                    _presets = _presetsConfig.stormWeatherPreset;
+                    break;
+                case WeatherType.StrongWinds:
+                    _presets = _presetsConfig.strongWindWeatherPreset;
+                    break;
+                case WeatherType.Cloudy:
+                    _presets = _presetsConfig.cloudyWeatherPreset;
                     break;
                 default:
                     Debug.LogError("Unsupported weather type: " + _currentWeather);

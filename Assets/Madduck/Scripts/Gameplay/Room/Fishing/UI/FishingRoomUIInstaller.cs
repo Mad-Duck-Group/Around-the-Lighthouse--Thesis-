@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using Madduck.Day;
 using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -34,14 +36,23 @@ namespace Madduck.Room
             SerializeField] private CardViewFactory cardViewFactory;
         [Required,
          SerializeField] private WeatherHUDView weatherHUDView;
+        [FormerlySerializedAs("fishCaughtView")]
         [Required,
-         SerializeField] private FishCaughtView fishCaughtView;
+         SerializeField] private FishCountView fishCountView;
         [Required,
          SerializeField] private BaitButtonViewFactory baitButtonViewFactory;
         [Required,
          SerializeField] private SerializableDictionary<WeatherType, Sprite> weatherIcons;
         [Required, HideReferenceObjectPicker,
          OdinSerialize] private FishItemPopUpManager fishItemPopUpManager = new();
+        [Required,
+         SerializeField] private SerializableDictionary<DayRoomKey, Sprite> sprites;
+        [Required,
+         SerializeField] private RoomTrackFactory roomTrackFactory;
+        [Required,
+         SerializeField] private RoomTrackView roomTrackView;
+        [Required,
+         SerializeField] private BoatTrackViewFactory BoatTrackViewFactory;
         
 #if UNITY_EDITOR
         [HideInEditorMode]
@@ -65,11 +76,19 @@ namespace Madduck.Room
             builder.RegisterComponent(weatherHUDView)
                 .As<WeatherHUDView>();
             builder.Register<WeatherHUDViewModel>(Lifetime.Singleton);
-            
-            builder.Register(_ => fishCaughtView, Lifetime.Singleton)
-                .As<FishCaughtView>();
-            builder.Register<FishCaughtViewModel>(Lifetime.Singleton);
-            
+            builder.RegisterComponent(fishCountView)
+                .As<FishCountView>();
+            builder.Register<FishCountViewModel>(Lifetime.Singleton);
+            builder.Register(_ => sprites, Lifetime.Scoped)
+                .As<SerializableDictionary<DayRoomKey, Sprite>>();
+            builder.Register(_ => roomTrackFactory, Lifetime.Singleton)
+                .As<IGenericFactory<RoomTrackView>>();
+            builder.Register(_ => BoatTrackViewFactory, Lifetime.Singleton)
+                .As<IGenericFactory<BoatTrackView>>();
+            builder.RegisterComponent(roomTrackView)
+                .As<RoomTrackView>();
+            builder.Register<RoomTrackViewModel>(Lifetime.Singleton);
+            builder.Register<RoomTrackColumnViewModel>(Lifetime.Singleton);
             builder.Register(_ => fishItemPopUpManager, Lifetime.Singleton)
                 .As<FishItemPopUpManager>();
             builder.Register<ItemPopUpHandler>(Lifetime.Singleton).AsSelf();
@@ -81,8 +100,10 @@ namespace Madduck.Room
             {
                 x.Resolve<CardRackViewModel>();
                 x.Resolve<BaitSelectionViewModel>();
+                x.Resolve<RoomTrackViewModel>();
+                x.Resolve<RoomTrackColumnViewModel>();
                 x.Resolve<WeatherHUDViewModel>();
-                x.Resolve<FishCaughtViewModel>();
+                x.Resolve<FishCountViewModel>();
                 var popUpHandler = x.Resolve<ItemPopUpHandler>();
 #if UNITY_EDITOR
                 _fishingRoomUIDebugData = new(popUpHandler);

@@ -15,8 +15,10 @@ namespace Madduck.Shared
     {
         Clear = 1 << 0,
         Rain = 1 << 1,
-        Fog = 1 << 2,
-        All = Clear | Rain | Fog
+        Storm = 1 << 2,
+        Cloudy = 1 << 3,
+        StrongWinds = 1 << 4,
+        All = Clear | Rain | Storm | Cloudy |StrongWinds
     }
 
     public enum RoomType

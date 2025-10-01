@@ -52,7 +52,7 @@ MonoBehaviour:
     config:
       sortingLayerID: -1548362805
       orderInLayer: 0
-  isStormy: 1
+  isStormy: 0
   stormTweenSettings:
     startFromCurrent: 0
     startValue: {r: 0.21000001, g: 0.24000002, b: 0.3, a: 1}
@@ -73,8 +73,8 @@ MonoBehaviour:
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
+  stormDelayMinMax: {x: 1, y: 10}
   globalLight: {fileID: 8146313084690830065}
-  _stormDelayMinMax: {x: 1.0377358, y: 4.528302}
 --- !u!1 &2528635942651822413
 GameObject:
   m_ObjectHideFlags: 0

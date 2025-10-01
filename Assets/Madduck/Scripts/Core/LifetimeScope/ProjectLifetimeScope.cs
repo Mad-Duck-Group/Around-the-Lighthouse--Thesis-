@@ -11,7 +11,7 @@ namespace Madduck.Core
     [ShowOdinSerializedPropertiesInInspector]
     public class ProjectLifetimeScope : LifetimeScope, ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
-        [Title("Installers")]
+        [Title("Installers")]   
         [HideReferenceObjectPicker]
         [OdinSerialize] private List<IInstaller> installers;
         

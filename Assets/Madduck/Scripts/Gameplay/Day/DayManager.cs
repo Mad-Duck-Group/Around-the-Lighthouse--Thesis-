@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using Madduck.Core;
 using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
@@ -7,10 +8,12 @@ using MessagePipe;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 
 namespace Madduck.Day
 {
+    
     public class DayManager : IMaxFishCountProvider, IDisposable
     {
         #region Inspector
@@ -21,14 +24,15 @@ namespace Madduck.Day
         [field: DisplayAsString, 
                 ShowInInspector] public uint CurrentDayIndex { get; private set; }
         [field: DisplayAsString, 
-                ShowInInspector] public uint CurrentRoomIndex { get; private set; }
+                ShowInInspector] public ReactiveProperty<uint> CurrentRoomIndex { get; private set; } = new(0);
         [field: DisplayAsString, 
                 ShowInInspector] public DayPhaseType CurrentDayPhase { get; private set; } = DayPhaseType.Day;
 
         [field: DisplayAsString,
                 ShowInInspector] public List<RoomType> RoomHistory { get; private set; } = new();
+
         [Button("Next Room")]
-        private void NextRoom() => ChangeRoom(1);
+        private void NextRoom() => OnOutOfFish();
 
         #endregion
 
@@ -37,7 +41,8 @@ namespace Madduck.Day
         private FishWeightTableInstance FishWeightTable { get; }
         private readonly DayManagerConfig _config;
         private readonly ISubscriber<OutOfFishEvent> _outOfFishEventSubscriber;
-        
+        private readonly IPublisher<DayStateChangedEvent> _dayStatePublisher;
+        private readonly LoadSceneManager _loadSceneManager;
         private IDisposable _subscriptions;
 
         #endregion
@@ -48,11 +53,13 @@ namespace Madduck.Day
         public DayManager(
             FishWeightTableInstance fishWeightTable, 
             DayManagerConfig config,
+            LoadSceneManager loadSceneManager,
             ISubscriber<OutOfFishEvent> outOfFishEventSubscriber)
         {
             FishWeightTable = fishWeightTable;
             _config = config;
             _outOfFishEventSubscriber = outOfFishEventSubscriber;
+            _loadSceneManager = loadSceneManager;
             Subscribe();
             SetDayIndex(0);
         }
@@ -83,6 +90,7 @@ namespace Madduck.Day
         {
             DebugUtils.Log("Out of fish, moving to next room.");
             ChangeRoom(1);
+            _loadSceneManager.LoadScene(SceneType.Gameplay, LoadSceneMode.Single, false).Forget();
         }
 
         #endregion
@@ -97,6 +105,7 @@ namespace Madduck.Day
             CurrentDayIndex = day;
             RoomHistory.Clear();
             SetRoomIndex(0);
+
         }
         
         /// <summary>
@@ -109,6 +118,7 @@ namespace Madduck.Day
             CurrentDayIndex = (uint)Mathf.Clamp(CurrentDayIndex, 0, _config.MaxDayCount - 1);
             RoomHistory.Clear();
             SetRoomIndex(0);
+
         }
         #endregion
         
@@ -119,7 +129,7 @@ namespace Madduck.Day
         /// <param name="room"></param>
         public void SetRoomIndex(uint room)
         {
-            CurrentRoomIndex = room;
+            CurrentRoomIndex.Value = room;
             RandomRoom();
             SetDayPhase();
         }
@@ -130,10 +140,12 @@ namespace Madduck.Day
         /// <param name="room"></param>
         public void ChangeRoom(int room)
         {
-            CurrentRoomIndex += (uint)room;
+            
+            CurrentRoomIndex.Value += (uint)room;
             CurrentDayIndex = (uint)Mathf.Clamp(CurrentDayIndex, 0, _config.MaxRoomCount - 1);
             RandomRoom();
             SetDayPhase();
+
         }
 
         private void RandomRoom()
@@ -147,7 +159,7 @@ namespace Madduck.Day
         /// </summary>
         private void SetDayPhase()
         {
-            var percent = Percentage.FromFraction((float)CurrentRoomIndex / (_config.MaxRoomCount - 1));
+            var percent = Percentage.FromFraction((float)CurrentRoomIndex.Value / (_config.MaxRoomCount - 1));
             CurrentDayPhase = percent <= _config.DayNightRatio ? DayPhaseType.Day : DayPhaseType.Night;
             FilterFishByDayPhase();
         }

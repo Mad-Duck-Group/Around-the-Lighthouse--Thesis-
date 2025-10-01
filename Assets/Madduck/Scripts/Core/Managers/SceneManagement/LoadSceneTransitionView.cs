@@ -11,9 +11,15 @@ namespace Madduck.Core
     {
         [Title("References")]
         [SerializeField] private CanvasGroup canvasGroup;
-        
+        [SerializeField] private RectTransform circleTransform;
         [Title("Tween")]
-        [SerializeField] private TweenSettings<float> alphaTweenSettings;
+        [SerializeField] private TweenSettings<Vector2> tweenSettings;
+        
+        [Title("Debug")]
+        [Button("Transition In")]
+        private void TransitionInDebug() => TransitionIn().Forget();
+        [Button("Transition Out")]
+        private void TransitionOutDebug() => TransitionOut().Forget();
         
         private Sequence _transitionSequence;
         
@@ -21,8 +27,10 @@ namespace Madduck.Core
         {
             canvasGroup.blocksRaycasts = true;
             cancellationToken.Register(CancelTransition);
+            circleTransform.sizeDelta = tweenSettings.startValue;
             _transitionSequence = Sequence.Create()
-                .Group(Tween.Alpha(canvasGroup, alphaTweenSettings.WithDirection(true)));
+                .Group(
+                    Tween.UISizeDelta(circleTransform, tweenSettings.WithDirection(true)));
             await _transitionSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
             canvasGroup.blocksRaycasts = false;
         }
@@ -32,7 +40,8 @@ namespace Madduck.Core
             canvasGroup.blocksRaycasts = true;
             cancellationToken.Register(CancelTransition);
             _transitionSequence = Sequence.Create()
-                .Group(Tween.Alpha(canvasGroup, alphaTweenSettings.WithDirection(false)));
+                .Group(
+                    Tween.UISizeDelta(circleTransform, tweenSettings.WithDirection(false)));
             await _transitionSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
             canvasGroup.blocksRaycasts = false;
         }
