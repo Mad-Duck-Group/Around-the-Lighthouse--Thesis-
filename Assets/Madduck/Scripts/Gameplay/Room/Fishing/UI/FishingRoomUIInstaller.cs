@@ -58,14 +58,14 @@ namespace Madduck.Room
             builder.RegisterComponent(roomTrackView)
                 .As<RoomTrackView>();
             builder.Register<RoomTrackViewModel>(Lifetime.Singleton);
-            builder.Register<RoomTrackColumnView>(Lifetime.Singleton);
+            builder.Register<RoomTrackColumnViewModel>(Lifetime.Singleton);
             
             
             builder.RegisterBuildCallback(x =>
             {
                 x.Resolve<CardRackView>();
                 x.Resolve<RoomTrackViewModel>();
-                x.Resolve<RoomTrackColumnView>();
+                x.Resolve<RoomTrackColumnViewModel>();
                 x.Resolve<WeatherHUDViewModel>();
                 x.Resolve<FishCountViewModel>();
                 

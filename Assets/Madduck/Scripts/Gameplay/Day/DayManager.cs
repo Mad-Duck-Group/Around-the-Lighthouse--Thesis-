@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Madduck.Core;
 using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
@@ -28,25 +29,28 @@ namespace Madduck.Day
 
         [field: DisplayAsString,
                 ShowInInspector] public List<RoomType> RoomHistory { get; private set; } = new();
+
         [Button("Next Room")]
-        private void NextRoom() => ChangeRoom(1);
+        private void NextRoom() => OnOutOfFish();
 
         public FishWeightTableInstance FishWeightTable { get; private set; }
         public DayManagerConfig _config { get; private set; }
         private readonly ISubscriber<OutOfFishEvent> _outOfFishEventSubscriber;
         private readonly IPublisher<DayStateChangedEvent> _dayStatePublisher;
+        private readonly LoadSceneManager _loadSceneManager;
         private IDisposable _subscriptions;
         
         [Inject]
         public DayManager(
             FishWeightTableInstance fishWeightTable, 
             DayManagerConfig config,
+            LoadSceneManager loadSceneManager,
             ISubscriber<OutOfFishEvent> outOfFishEventSubscriber)
         {
             FishWeightTable = fishWeightTable;
             _config = config;
             _outOfFishEventSubscriber = outOfFishEventSubscriber;
-            
+            _loadSceneManager = loadSceneManager;
             Subscribe();
             SetDayIndex(0);
         }
@@ -65,6 +69,7 @@ namespace Madduck.Day
         {
             DebugUtils.Log("Out of fish, moving to next room.");
             ChangeRoom(1);
+            _loadSceneManager.LoadScene(SceneType.Gameplay, LoadSceneMode.Single, false).Forget();
         }
         public void Dispose()
         {

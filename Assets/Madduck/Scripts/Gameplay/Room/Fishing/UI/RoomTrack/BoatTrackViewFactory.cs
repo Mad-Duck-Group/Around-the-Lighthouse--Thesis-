@@ -2,6 +2,7 @@ using System;
 using Madduck.Shared;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -10,20 +11,20 @@ namespace Madduck.Room
     [Serializable]
     public class BoatTrackViewFactory : IGenericFactory<BoatTrackView>
     {
+        [FormerlySerializedAs("_prefab")]
         [Required,
-         SerializeField] private BoatTrackView _prefab;
+         SerializeField] private BoatTrackView prefab;
+        [FormerlySerializedAs("_parent")]
         [Required,
-         SerializeField] private Transform _parent;
+         SerializeField] private Transform parent;
+        [FormerlySerializedAs("_defaultBoatSprite")]
         [Required,
-        SerializeField] private Sprite _defaultBoatSprite;
-        
-
-
+         SerializeField] private Sprite defaultBoatSprite;
         public BoatTrackView Current { get; private set; }
         public BoatTrackView Create()
         {
-            Current = Object.Instantiate(_prefab, _parent);
-            Current.SetUp(_defaultBoatSprite);
+            Current = Object.Instantiate(prefab, parent);
+            Current.SetUp(defaultBoatSprite);
             return Current;
         }
        

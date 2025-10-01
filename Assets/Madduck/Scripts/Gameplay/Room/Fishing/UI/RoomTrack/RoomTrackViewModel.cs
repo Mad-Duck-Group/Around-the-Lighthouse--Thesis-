@@ -7,23 +7,14 @@ using VContainer;
 
 namespace Madduck.Room
 {
-    public class RoomTrackViewModel : IDisposable
+    public class RoomTrackViewModel
     {
         public ReadOnlyReactiveProperty<uint> CurrentRoomIndex { get; }
-        private readonly DayManager _dayManager;
-        private IDisposable _bindings;
-        private CompositeDisposable _disposables = new ();
-        [Inject]
-        public RoomTrackViewModel(DayManager dayManager )
-        {
-            _dayManager = dayManager; 
-            CurrentRoomIndex =_dayManager.CurrentRoomIndex.ToReadOnlyReactiveProperty()
-                .AddTo(_disposables);
-        }
         
-        public void Dispose()
+        [Inject]
+        public RoomTrackViewModel(DayManager dayManager)
         {
-            //_bindings.Dispose();
+            CurrentRoomIndex = dayManager.CurrentRoomIndex.ToReadOnlyReactiveProperty();
         }
     }
 }
