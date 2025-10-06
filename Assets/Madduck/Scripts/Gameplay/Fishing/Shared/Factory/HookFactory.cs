@@ -33,6 +33,10 @@ namespace Madduck.Fishing.Shared
             {
                 parent = parent
             }, out _currentObject);
+            if (Current is HookProjectile hook)
+            {
+                hook.SetUp(parent);
+            }
             return Current;
         }
         
