@@ -27,6 +27,9 @@ namespace Madduck.WeatherPreset
         [BoxGroup("Debug")]
         [DisplayAsString, 
          ShowInInspector] private WeatherType _currentWeather;
+        
+        [field: DisplayAsString, 
+                ShowInInspector] public ReactiveProperty<WeatherType> CurrentWeather { get; private set; }
         #endregion
         
         private readonly IGenericFactory<WeatherType> _weatherFactory;
@@ -43,6 +46,8 @@ namespace Madduck.WeatherPreset
             _presetsConfig = weatherPresetConfig;
             _weatherChangedEventSubscriber = weatherChangedEventSubscriber;
             _weatherFactory = weatherFactory;
+            CurrentWeather = new ReactiveProperty<WeatherType>(_currentWeather);
+
             Subscribe();
         }
         #endregion
@@ -66,6 +71,7 @@ namespace Madduck.WeatherPreset
         private void OnWeatherChanged(WeatherChangedEvent weatherChangedEvent)
         {
             _currentWeather = weatherChangedEvent.Weather;
+            CurrentWeather.Value = _currentWeather;
             SpawnWeather(Vector3.zero, Quaternion.identity);
         }
 

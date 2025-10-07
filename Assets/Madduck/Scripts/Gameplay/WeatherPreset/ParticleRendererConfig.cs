@@ -36,6 +36,7 @@ namespace Madduck.WeatherPreset
             if (!renderer) return;
             renderer.sortingLayerID = sortingLayerID;
             renderer.sortingOrder = orderInLayer;
+            DebugUtils.Log("Applied Particle Renderer Config");
             
         }
     }

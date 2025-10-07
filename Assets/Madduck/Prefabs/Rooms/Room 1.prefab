@@ -327,11 +327,12 @@ MonoBehaviour:
         m_RotationOrder: 4
       cycles: -1
       cycleMode: 1
-      startDelay: 0.8
+      startDelay: 0.3
       endDelay: 0
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
+  _waveSpeedMultiplier: 1
 --- !u!1 &2464108411556937826
 GameObject:
   m_ObjectHideFlags: 0

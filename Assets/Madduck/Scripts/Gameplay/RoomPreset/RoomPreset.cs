@@ -1,6 +1,7 @@
 using Madduck.Shared;
 using Madduck.Utils;
 using PrimeTween;
+using R3;
 using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -34,12 +35,22 @@ namespace Madduck.RoomPreset
          SerializeField] public ShakeSettings rockShakeSettings;
         [BoxGroup("Tween Settings"),
          SerializeField] public TweenSettings<float> waveTweenSettings;
+        [BoxGroup("Tween Settings"),
+        SerializeField] private float _waveSpeedMultiplier = 1f;
+
     
         private Sequence _waveSequence;
         private DayPhaseType _currentDayPhase;
+        private ReactiveProperty<WeatherType> _currentWeather { get; set; } = new();
+
         #endregion
 
         #region Set Up Room
+
+        public void SetDynamicElements(ReactiveProperty<WeatherType> weatherType)
+        {
+            _currentWeather = weatherType;
+        }
 
         public void SetDayPhase(DayPhaseType dayPhase)
         {
@@ -87,7 +98,7 @@ namespace Madduck.RoomPreset
         public void AnimateWave()
         {
             if (waveRenderers == null || waveRenderers.Length == 0) return;
-
+            SetSpeedTween();
             foreach (var waveRenderer in waveRenderers)
             {
                 if (!waveRenderer) continue;
@@ -102,7 +113,33 @@ namespace Madduck.RoomPreset
                     .Group(Tween.LocalPositionY(wave, relativeSettings));
             }
         }
-        
+
+        public void SetSpeedTween()
+        {
+            switch (_currentWeather.Value)
+            {
+                case WeatherType.Clear:
+                    _waveSpeedMultiplier = 1f;
+                    break;
+                case WeatherType.Rain:
+                    _waveSpeedMultiplier = 0.5f;
+                    break;
+                case WeatherType.Storm:
+                    _waveSpeedMultiplier = 0.25f;
+                    break;
+                case WeatherType.StrongWinds:
+                    _waveSpeedMultiplier = 0.75f;
+                    break;
+                case WeatherType.Cloudy:
+                    _waveSpeedMultiplier = 0.9f;
+                    break;
+                default:
+                    _waveSpeedMultiplier = 1f;
+                    break;  
+            }
+            waveTweenSettings.settings.duration =  _waveSpeedMultiplier;
+            
+        }
         // public void ShakeRock(int index = -1)
         // {
         //         if (rockRenderers == null || rockRenderers.Length == 0) return;
