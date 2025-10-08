@@ -1,0 +1,56 @@
+﻿using System.Collections.Generic;
+using Madduck.Utils;
+using Sirenix.OdinInspector;
+using Spine.Unity;
+using UnityEngine;
+
+namespace Madduck.Shared
+{
+    public enum PlayerAnimationKey
+    {
+        Idle1,
+        Idle2,
+        PrepareThrow,
+        ChargingThrow,
+        ReleaseThrow,
+        Pulling,
+        LoseFish,
+        GotFish
+    }
+
+    [CreateAssetMenu(fileName = "PlayerAnimatorConfig", menuName = "Madduck/Animation/PlayerAnimatorConfig")]
+    public class PlayerAnimatorConfig : ScriptableObject
+    {
+        [Title("References"),
+         HideLabel,
+         ShowInInspector]
+        private InspectorPlaceholder _referenceTitle;
+        [field: Required, SerializeField] private SkeletonDataAsset skeletonDataAsset;
+        [field: SerializeField] public SerializableDictionary<PlayerAnimationKey, string> Animations { get; private set; } = new();
+        [HideIf("@deconstructedAnimations.Count == 0"),
+         TableList,
+         SerializeField] private List<DeconstructedAnimationWrapper<PlayerAnimationKey>> deconstructedAnimations;
+        
+        [Button("Deconstruct")]
+        private void Deconstruct()
+        {
+            deconstructedAnimations.Clear();
+            foreach (var animation in Animations)
+            {
+                deconstructedAnimations.Add(new DeconstructedAnimationWrapper<PlayerAnimationKey>
+                    (skeletonDataAsset, animation.Key, animation.Value));
+            }
+        }
+        
+        [Button("Apply Changes")]
+        private void ApplyChanges()
+        {
+            Animations.Clear();
+            foreach (var animation in deconstructedAnimations)
+            {
+                Animations.Add(animation.key, animation.animation);
+            }
+            deconstructedAnimations.Clear();
+        }
+    }
+}

@@ -15,7 +15,7 @@ MonoBehaviour:
   modifierKey: 8
   folderRules:
   - folderName: Scripts
-    folderColor: {r: 0.09488035, g: 0.8773585, b: 0.012415428, a: 1}
+    folderColor: {r: 0.15294118, g: 0.41176474, b: 0.16470589, a: 1}
     fullPath: 
     icon: {fileID: 2800000, guid: e8f773ed12919704f8da008b216e3427, type: 3}
     applyToAllFolders: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
     applyIconToSubfolders: 0
     materialColor: 0
   - folderName: Scenes
-    folderColor: {r: 0.7254902, g: 0.10980393, b: 0.10980393, a: 1}
+    folderColor: {r: 0.8117648, g: 0.8117648, b: 0.8117648, a: 1}
     fullPath: 
     icon: {fileID: 2800000, guid: b1ee8bc0ead99e240b28c5d73f73d9f0, type: 3}
     applyToAllFolders: 1
@@ -103,7 +103,7 @@ MonoBehaviour:
     applyIconToSubfolders: 0
     materialColor: 0
   - folderName: Prefabs
-    folderColor: {r: 0.63529414, g: 0.10980393, b: 0.6862745, a: 1}
+    folderColor: {r: 0.49803925, g: 0.83921576, b: 0.98823535, a: 1}
     fullPath: 
     icon: {fileID: 2800000, guid: fb0e68a1a82c3a04c9e5a953987f5d2c, type: 3}
     applyToAllFolders: 1
@@ -167,7 +167,7 @@ MonoBehaviour:
     applyIconToSubfolders: 0
     materialColor: 0
   - folderName: Settings
-    folderColor: {r: 0.31305623, g: 0.38646927, b: 0.990566, a: 1}
+    folderColor: {r: 0.98823535, g: 0.427451, b: 0.2509804, a: 1}
     fullPath: 
     icon: {fileID: 0}
     applyToAllFolders: 1

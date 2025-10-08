@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using Madduck.GameData;
 using Madduck.Utils;
 using PrimeTween;
 using Redcode.Extensions;
@@ -11,10 +12,12 @@ namespace Madduck.Fishing.Shared
     public interface IHookProjectile
     {
         UniTask Throw(Percentage percent);
-        UniTask Return();
-        UniTask Move(Percentage percent);
+        UniTask Return(bool reelBack = true);
+        UniTask MoveX(Percentage percent);
+        UniTask MoveY(Percentage percent);
         UniTask Nibble(int? cycle);
-        void SetPosition(Percentage percent);
+        void SetPositionX(Percentage percent);
+        void SetPositionY(Percentage percent);
         void StopNibble();
     }
     public class HookProjectile : MonoBehaviour, IHookProjectile
@@ -30,12 +33,13 @@ namespace Madduck.Fishing.Shared
         [Title("Settings")]
         [PropertyTooltip("Range of the throw distance when the throw hook value is between 0 and max."), 
          SerializeField] private Vector2 throwRange = new(0f, 7f);
-        [SerializeField] private float yOffset;
+        [SerializeField] private Vector2 yOffsetRange = new(-2f, 0f);
         [SerializeField] private float div = 4f;
         [SerializeField] private float power = 0.7f;
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings moveTweenX;
+        [SerializeField] private TweenSettings moveTweenY;
         [InfoBox("Duration property of reelBackTweenX is speed"),
          SerializeField] private TweenSettings reelBackTweenX;
         [SerializeField] private TweenSettings<Vector2> nibbleTween;
@@ -44,7 +48,7 @@ namespace Madduck.Fishing.Shared
 
         #region Fields
 
-        private Vector2 _startPosition;
+        private Transform _rodTip;
         private bool _isThrown;
         private Sequence _moveSequence;
         private Sequence _throwSequence;
@@ -58,7 +62,7 @@ namespace Madduck.Fishing.Shared
 
         public void SetUp(Transform rodTip)
         {
-            _startPosition = transform.localPosition;
+            _rodTip = rodTip;
             line.SetUp(rodTip, transform);
         }
 
@@ -83,10 +87,12 @@ namespace Madduck.Fishing.Shared
             if (_isThrown) return;
             _isThrown = true;
             _rigidbody.constraints = RigidbodyConstraints2D.None;
-            var targetPos = CalculateTargetPosition(_startPosition, percent);
-            var velocity = CalculateLaunchVelocity(_startPosition, targetPos);
+            var targetPos = _rodTip.position
+                .WithX(CalculateTargetPositionX(percent))
+                .WithY(CalculateTargetPositionY(Percentage.Zero));
+            var velocity = CalculateLaunchVelocity(_rodTip.position, targetPos);
             _rigidbody.linearVelocity = velocity;
-            var distance = Vector2.Distance(_startPosition, CalculateTargetPosition(_startPosition, percent));
+            var distance = Vector2.Distance(_rodTip.position, targetPos);
             line.CastLine(_flightTime, distance, true);
             await UniTask.WaitForSeconds(_flightTime);
             _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
@@ -95,15 +101,15 @@ namespace Madduck.Fishing.Shared
         /// <summary>
         /// Returns the hook to the starting position.
         /// </summary>
-        public async UniTask Return()
+        public async UniTask Return(bool reelBack = true)
         {
             if (!_isThrown) return;
             _isThrown = false;
-            await ReelBack();
+            if (reelBack) await ReelBack();
             _rigidbody.constraints = RigidbodyConstraints2D.None;
-            var velocity = CalculateLaunchVelocity(transform.localPosition, _startPosition);
+            var velocity = CalculateLaunchVelocity(transform.position, _rodTip.position);
             _rigidbody.linearVelocity = velocity;
-            var distance = Vector2.Distance(transform.localPosition, _startPosition);
+            var distance = Vector2.Distance(transform.position, _rodTip.position);
             line.CastLine(_flightTime, distance, false);
             await UniTask.WaitForSeconds(_flightTime);
             _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
@@ -121,16 +127,42 @@ namespace Madduck.Fishing.Shared
             await _nibbleSequence.ToYieldInstruction().ToUniTask();
         }
 
-        public async UniTask Move(Percentage percent)
+        public async UniTask MoveX(Percentage percent)
         {
-            var targetPos = CalculateTargetPosition(_startPosition, percent);
-            await MoveTask(targetPos, moveTweenX);
+            var targetX = CalculateTargetPositionX(percent);
+            var targetPos = transform.position.WithX(targetX);
+            var sequence = Sequence.Create()
+                .Group(Tween.Custom(transform.position.x, targetX, moveTweenX, x =>
+                {
+                    var currentPos = transform.position.WithX(x);
+                    transform.position = currentPos;
+                    var distance = Vector2.Distance(currentPos, targetPos);
+                    line.SetLength(distance);
+                }));
+            await sequence.ToYieldInstruction().ToUniTask();
+        }
+
+        public async UniTask MoveY(Percentage percent)
+        {
+            var targetY = CalculateTargetPositionY(percent);
+            var targetPos = transform.position.WithY(targetY);
+            var sequence = Sequence.Create()
+                .Group(Tween.Custom(transform.position.y, targetY, moveTweenY, y =>
+                {
+                    var currentPos = transform.position.WithY(y);
+                    transform.position = currentPos;
+                    var distance = Vector2.Distance(currentPos, targetPos);
+                    line.SetLength(distance);
+                }));
+            await sequence.ToYieldInstruction().ToUniTask();
         }
         
         private async UniTask ReelBack()
         {
-            var targetPos = CalculateTargetPosition(_startPosition, Percentage.FromPercentage(0));
-            var distance = Vector2.Distance(transform.localPosition, targetPos);
+            var targetPos = _rodTip.position
+                .WithX(CalculateTargetPositionX(Percentage.Zero))
+                .WithY(transform.position.y);
+            var distance = Vector2.Distance(transform.position, targetPos);
             reelBackTweenX.duration = distance / reelBackTweenX.duration;
             await MoveTask(targetPos, reelBackTweenX);
         }
@@ -138,19 +170,25 @@ namespace Madduck.Fishing.Shared
         private async UniTask MoveTask(Vector2 targetPos, TweenSettings settings)
         {
             _moveSequence = Sequence.Create()
-                .Group(Tween.Custom((Vector2)transform.localPosition, targetPos, settings, x =>
+                .Group(Tween.Custom((Vector2)transform.position, targetPos, settings, x =>
                 {
-                    transform.localPosition = x;
+                    transform.position = x;
                     var distance = Vector2.Distance(x, targetPos);
                     line.SetLength(distance);
                 }));
             await _moveSequence.ToYieldInstruction().ToUniTask();
         }
 
-        private Vector2 CalculateTargetPosition(Vector2 startPosition, Percentage percent)
+        private float CalculateTargetPositionX(Percentage percentX)
         {
-            var targetX = Mathf.Lerp(throwRange.x, throwRange.y, percent.AsFraction);
-            return new Vector2(targetX, startPosition.y + yOffset);
+            var targetX = Mathf.Lerp(throwRange.x, throwRange.y, percentX.AsFraction);
+            return targetX;
+        }
+        
+        private float CalculateTargetPositionY(Percentage percentY)
+        {
+            var targetY = Mathf.Lerp(yOffsetRange.x, yOffsetRange.y, percentY.AsFraction);
+            return targetY;
         }
         
         private Vector2 CalculateLaunchVelocity(Vector2 startPosition, Vector2 targetPosition)
@@ -174,10 +212,24 @@ namespace Madduck.Fishing.Shared
             return launchVelocity;
         }
 
-        public void SetPosition(Percentage percent)
+        public void SetPositionX(Percentage percent)
         {
-            var targetPos = CalculateTargetPosition(_startPosition, percent);
-            transform.localPosition = targetPos;
+            var targetPos = _rodTip.position
+                    .WithX(CalculateTargetPositionX(percent))
+                    .WithY(transform.position.y);
+            transform.position = targetPos;
+            var distance = Vector2.Distance(transform.position, targetPos);
+            line.SetLength(distance);
+        }
+        
+        public void SetPositionY(Percentage percent)
+        {
+            var targetPos = _rodTip.position
+                .WithX(transform.position.x)
+                .WithY(CalculateTargetPositionY(percent));
+            transform.position = targetPos;
+            var distance = Vector2.Distance(transform.position, targetPos);
+            line.SetLength(distance);
         }
 
         public void StopNibble()
@@ -187,30 +239,52 @@ namespace Madduck.Fishing.Shared
         
         void OnDrawGizmosSelected()
         {
-            var startPos = transform.position;
-            var targetPos = CalculateTargetPosition(startPos, Percentage.FromFraction(0.5f));
+            var startPos = (Vector2)transform.position;
+            var bottomLeft = startPos
+                .WithX(CalculateTargetPositionX(Percentage.Zero))
+                .WithY(CalculateTargetPositionY(Percentage.Zero));
+            var bottomMiddle = startPos
+                .WithX(CalculateTargetPositionX(Percentage.Half))
+                .WithY(CalculateTargetPositionY(Percentage.Zero));
+            var bottomRight = startPos
+                .WithX(CalculateTargetPositionX(Percentage.Full))
+                .WithY(CalculateTargetPositionY(Percentage.Zero));
+            var topLeft = startPos
+                .WithX(CalculateTargetPositionX(Percentage.Zero))
+                .WithY(CalculateTargetPositionY(Percentage.Full));
+            var topRight = startPos
+                .WithX(CalculateTargetPositionX(Percentage.Full))
+                .WithY(CalculateTargetPositionY(Percentage.Full));
 
             // Draw start and target points
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(startPos, 0.5f);
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(targetPos, 0.5f);
+            Gizmos.DrawWireSphere(bottomMiddle, 0.5f);
 
-            // Draw line between points
+            // Draw displacement
             Gizmos.color = Color.white;
-            Gizmos.DrawLine(startPos, targetPos);
+            Gizmos.DrawLine(startPos, bottomMiddle);
+            
+            // Draw bottom line
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(bottomLeft, bottomRight);
+            
+            // Draw top line
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(topLeft, topRight);
 
             // Draw calculated trajectory
-            Vector3 launchVelocity = CalculateLaunchVelocity(startPos, targetPos);
+            var launchVelocity = CalculateLaunchVelocity(startPos, bottomMiddle);
             Gizmos.color = Color.yellow;
-            Vector3 previousPoint = startPos;
+            var previousPoint = startPos;
 
             for (int i = 1; i <= 20; i++)
             {
-                float simulationTime = i / 20f * _flightTime;
-                Vector3 displacement = launchVelocity * simulationTime +
-                                       Vector3.up * 0.5f * Physics.gravity.y * simulationTime * simulationTime;
-                Vector3 currentPoint = startPos + displacement;
+                var simulationTime = i / 20f * _flightTime;
+                var displacement = launchVelocity * simulationTime +
+                                       Vector2.up * 0.5f * Physics.gravity.y * simulationTime * simulationTime;
+                var currentPoint = startPos + displacement;
 
                 Gizmos.DrawLine(previousPoint, currentPoint);
                 previousPoint = currentPoint;
@@ -224,12 +298,14 @@ namespace Madduck.Fishing.Shared
     {
         public UniTask Throw(Percentage percent) => UniTask.CompletedTask;
 
-        public UniTask Return() => UniTask.CompletedTask;
+        public UniTask Return(bool reelBack = true) => UniTask.CompletedTask;
 
-        public UniTask Move(Percentage percent) => UniTask.CompletedTask;
+        public UniTask MoveX(Percentage percent) => UniTask.CompletedTask;
+        public UniTask MoveY(Percentage percent) => UniTask.CompletedTask;
 
         public UniTask Nibble(int? cycle) => UniTask.CompletedTask;
-        public void SetPosition(Percentage percent){}
+        public void SetPositionX(Percentage percent){}
+        public void SetPositionY(Percentage percent){}
         public void StopNibble(){}
     }
 }

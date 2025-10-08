@@ -41,6 +41,26 @@ namespace Madduck.Utils
         /// Returns the percentage as an inverse percentage (e.g., 75% -> 25%, 150% -> -50%).
         /// </summary>
         public Percentage AsInversePercentage => new(100f - value);
+        /// <summary>
+        /// 0%
+        /// </summary>
+        public static Percentage Zero => new(0f);
+        /// <summary>
+        /// 25%
+        /// </summary>
+        public static Percentage Quarter => new(25f);
+        /// <summary>
+        /// 50%
+        /// </summary>
+        public static Percentage Half => new(50f);
+        /// <summary>
+        /// 75%
+        /// </summary>
+        public static Percentage ThreeQuarters => new(75f);
+        /// <summary>
+        /// 100%
+        /// </summary>
+        public static Percentage Full => new(100f);
 
         private Percentage(float percentage)
         {

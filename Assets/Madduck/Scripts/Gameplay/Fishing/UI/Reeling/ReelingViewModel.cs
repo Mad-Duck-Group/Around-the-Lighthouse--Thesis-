@@ -25,7 +25,7 @@ namespace Madduck.Fishing.UI
             var disposableBuilder = Disposable.CreateBuilder();
             ReelingProgressPercent = _model.CurrentReelingProgress
                 .CombineLatest(_model.MaxReelingProgress, (current, max) => max == 0f 
-                    ? Percentage.FromFraction(0f) 
+                    ? Percentage.Zero
                     : Percentage.FromFraction(Mathf.Clamp01(current / max)))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);

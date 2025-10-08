@@ -33,7 +33,9 @@ MonoBehaviour:
   <FishDescription>k__BackingField: A long fish with sharp mouth. They are predators
     under the water, slashing its preys into pieces. On land, however, they are docile
     for unknown reason.
-  <FishSprite>k__BackingField: {fileID: 21300000, guid: 3ff237139cd730149b705d5d2f11f7b9, type: 3}
+  <FishIcon>k__BackingField: {fileID: 21300000, guid: 3ff237139cd730149b705d5d2f11f7b9, type: 3}
+  <FishSprite>k__BackingField: {fileID: 21300000, guid: 929f03e5661698744bb82347b1955f0c, type: 3}
+  <SpriteAnchorOffset>k__BackingField: {x: -1.17, y: 0.5}
   <BasePrice>k__BackingField: 10
   <MaxNibbleAttempts>k__BackingField: 4
   <NibbleIntervalRange>k__BackingField: {x: 5, y: 10}

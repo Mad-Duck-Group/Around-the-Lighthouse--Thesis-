@@ -30,7 +30,9 @@ namespace Madduck.Fishing.Controller
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
+        private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ITransitionable _viewTransition;
+        private ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         
         private IDisposable _bindings;
         private CancellationTokenSource _fatigueTimerCts = new();
@@ -47,14 +49,18 @@ namespace Madduck.Fishing.Controller
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
-            ITransitionable viewTransition)
+            IFishSpriteFactory fishSpriteFactory,
+            ITransitionable viewTransition,
+            ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
             _hookFactory = hookFactory;
             _inputHandler = inputHandler;
             _commander = commander;
             _model = model;
             _fishFactory = fishFactory;
+            _fishSpriteFactory = fishSpriteFactory;
             _viewTransition = viewTransition;
+            _playerAnimator = playerAnimator;
         }
 
         #endregion
@@ -72,10 +78,10 @@ namespace Madduck.Fishing.Controller
                 .AddTo(ref disposableBuilder);
             _model.CurrentReelingProgress
                 .CombineLatest(_model.MaxReelingProgress, (current, max) => max == 0f
-                    ? Percentage.FromFraction(0f)
+                    ? Percentage.Zero
                     : Percentage.FromFraction(Mathf.Clamp01(current / max)))
-                .Do(x => _hookFactory.Current.SetPosition(x.AsInversePercentage))
-                .Where(x => x == Percentage.FromPercentage(100f))
+                .Do(x => _hookFactory.Current.SetPositionX(x.AsInversePercentage))
+                .Where(x => x == Percentage.Full)
                 .Subscribe(_ => OnWinReeling())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
@@ -155,10 +161,16 @@ namespace Madduck.Fishing.Controller
             OnFishRegainConsciousness();
         }
         
-        public async UniTask ReturnHook()
+        public async UniTask ReturnHook(bool reelBack)
         {
-            await _hookFactory.Current.Return();
+            _playerAnimator.Set(reelBack ? PlayerAnimationKey.GotFish : PlayerAnimationKey.LoseFish, 0, false); 
+            _fishSpriteFactory.Current.Detach();
+            await UniTask.WhenAll(
+                _hookFactory.Current.Return(false),
+                _fishSpriteFactory.Current.TransitionOut());
+            _fishSpriteFactory.DestroyFishSprite();
             _hookFactory.DestroyHook();
+            _playerAnimator.Set(PlayerAnimationKey.Idle1, 0, true);
         }
         
 

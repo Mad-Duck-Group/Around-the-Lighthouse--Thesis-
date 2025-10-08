@@ -138,6 +138,7 @@ namespace Madduck.Fishing.Controller
         public void Reset()
         {
             _model.Reset();
+            _commander.Reset();
         }
 
         #endregion

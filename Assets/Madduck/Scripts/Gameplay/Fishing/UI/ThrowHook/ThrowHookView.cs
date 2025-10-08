@@ -80,7 +80,7 @@ namespace Madduck.Fishing.UI
             }
             else
             {
-                ChangeThrowHookSlider(Percentage.FromPercentage(0f));
+                ChangeThrowHookSlider(Percentage.Zero);
             }
             gameObject.SetActive(active);
         }

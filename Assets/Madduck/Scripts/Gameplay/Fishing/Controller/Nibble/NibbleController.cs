@@ -29,6 +29,7 @@ namespace Madduck.Fishing.Controller
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
+        private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ITransitionable _viewTransition;
         
         private IDisposable _bindings;
@@ -46,6 +47,7 @@ namespace Madduck.Fishing.Controller
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
+            IFishSpriteFactory fishSpriteFactory,
             ITransitionable viewTransition)
         {
             _inputHandler = inputHandler;
@@ -53,6 +55,7 @@ namespace Madduck.Fishing.Controller
             _commander = commander;
             _hookFactory = hookFactory;
             _fishFactory = fishFactory;
+            _fishSpriteFactory = fishSpriteFactory;
             _viewTransition = viewTransition;
         }
 
@@ -98,7 +101,12 @@ namespace Madduck.Fishing.Controller
             _hookFactory.Current.StopNibble();
             if (result is Sign.Positive)
             {
-                await _hookFactory.Current.Move(Percentage.FromPercentage(100f));
+                _fishSpriteFactory.Create();
+                _fishSpriteFactory.Current.SetUp(_hookFactory.CurrentGameObject.transform, _fishFactory.Current);
+                await UniTask.WhenAll(
+                    _fishSpriteFactory.Current.TransitionIn(),
+                    _hookFactory.Current.MoveY(Percentage.Full));
+                await _hookFactory.Current.MoveX(Percentage.Full);
             }
             OnPullHookResult?.Invoke(result);
         }

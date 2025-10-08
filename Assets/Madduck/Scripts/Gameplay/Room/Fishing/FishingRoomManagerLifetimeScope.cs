@@ -54,6 +54,8 @@ namespace Madduck.Room
          SerializeField] private List<RoomPreset.RoomPreset> roomPresets;
         [Required,
          SerializeField] private WeatherPresetConfig weatherPresetConfig;
+        [Required,
+         SerializeField] private PlayerAnimatorInstaller playerAnimatorInstaller;
         [HideReferenceObjectPicker,
          OdinSerialize] private List<IInstaller> uiInstallers = new();
         
@@ -114,6 +116,7 @@ namespace Madduck.Room
                 .AsSelf();
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
             builder.Register<WeatherPresetManager>(Lifetime.Singleton).AsSelf();
+            playerAnimatorInstaller?.Install(builder);
             foreach (var uiInstaller in uiInstallers)
             {
                 uiInstaller.Install(builder);

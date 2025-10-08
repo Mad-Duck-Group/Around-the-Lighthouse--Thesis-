@@ -30,7 +30,9 @@ namespace Madduck.Fishing.Controller
         private readonly IFishingBoardAIController _aiController;
         private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
+        private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ITransitionable _viewTransition;
+        private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         
         private IDisposable _updateSubscription;
         private IDisposable _bindings;
@@ -49,7 +51,9 @@ namespace Madduck.Fishing.Controller
             IFishingBoardAIController aiController,
             IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
-            ITransitionable viewTransition)
+            IFishSpriteFactory fishSpriteFactory,
+            ITransitionable viewTransition,
+            ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
             _model = model;
             _variables = variables;
@@ -59,7 +63,9 @@ namespace Madduck.Fishing.Controller
             _audioManager = audioManager;
             _aiController = aiController;
             _fishFactory = fishFactory;
+            _fishSpriteFactory = fishSpriteFactory;
             _viewTransition = viewTransition;
+            _playerAnimator = playerAnimator;
         }
         #endregion
         
@@ -119,6 +125,7 @@ namespace Madduck.Fishing.Controller
                 _model.SetFishInstance(_fishFactory.Current);
                 Bind();
                 StartFishingBoard();
+                _playerAnimator.Set(PlayerAnimationKey.Pulling, 0, true);
             }
             else
             {
@@ -250,8 +257,14 @@ namespace Madduck.Fishing.Controller
         {
             _model.Inventory.ChangeCurrentBaitAmount(-1);
             OnFishingBoardResult?.Invoke(Sign.Negative);
-            await _hookFactory.Current.Return();
+            _playerAnimator.Set(PlayerAnimationKey.LoseFish, 0, false);
+            _fishSpriteFactory.Current.Detach();
+            await UniTask.WhenAll(
+                _hookFactory.Current.Return(false),
+                _fishSpriteFactory.Current.TransitionOut());
+            _fishSpriteFactory.DestroyFishSprite();
             _hookFactory.DestroyHook();
+            _playerAnimator.Set(PlayerAnimationKey.Idle1, 0, true);
         }
 
         /// <summary>

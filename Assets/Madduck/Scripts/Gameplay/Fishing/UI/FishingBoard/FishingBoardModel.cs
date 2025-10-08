@@ -62,13 +62,13 @@ namespace Madduck.Fishing.UI
                 Observable.EveryValueChanged(FishingRodItemInstance, x => x.CurrentStats.CurrentFishingLineDurability);
             FishingLineDurabilityPercent = baseDurability
                 .CombineLatest(currentDurability, (@base, current) => @base <= 0 
-                    ? Percentage.FromFraction(0f) 
+                    ? Percentage.Zero
                     : Percentage.FromFraction(Mathf.Clamp01(current / @base)))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
             FatigueLevelPercent = CurrentFatigueLevel
                 .CombineLatest(MaxFatigueLevel, (current, max) => max <= 0 
-                    ? Percentage.FromFraction(0f) 
+                    ? Percentage.Zero
                     : Percentage.FromFraction(Mathf.Clamp01(current / max)))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);

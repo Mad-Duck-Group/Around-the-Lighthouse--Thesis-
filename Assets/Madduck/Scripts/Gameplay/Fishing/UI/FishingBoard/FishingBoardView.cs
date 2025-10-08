@@ -150,7 +150,7 @@ namespace Madduck.Fishing.UI
         /// </summary>
         public void ResetCircleBoardSprite()
         {
-            SetFatigue(Percentage.FromPercentage(0f));
+            SetFatigue(Percentage.Zero);
             fishFatigueImage.sprite = fishCloseSprite;
         }
         #endregion

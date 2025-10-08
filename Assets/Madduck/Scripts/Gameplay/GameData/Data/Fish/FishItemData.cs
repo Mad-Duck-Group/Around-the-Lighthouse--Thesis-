@@ -3,6 +3,7 @@ using Madduck.Utils;
 using Sirenix.OdinInspector;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Madduck.GameData
 {
@@ -40,7 +41,10 @@ namespace Madduck.GameData
         [field: TextArea(3, 20),
             SerializeField] public string FishDescription { get; private set; }
         [field: PreviewField,
-            SerializeField] public Sprite FishSprite { get; private set; }
+                SerializeField] public Sprite FishIcon { get; private set; }
+        [field: PreviewField,
+                SerializeField] public Sprite FishSprite { get; private set; }
+        [field: SerializeField] public Vector2 SpriteAnchorOffset { get; private set; }
         [field: SerializeField] public uint BasePrice { get; private set; } = 10;
         
         [Title("Nibble Settings"), 

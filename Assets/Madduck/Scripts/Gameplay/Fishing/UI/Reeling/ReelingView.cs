@@ -81,7 +81,7 @@ namespace Madduck.Fishing.UI
             }
             else
             {
-                SetReelingProgress(Percentage.FromPercentage(0f));
+                SetReelingProgress(Percentage.Zero);
             }
             gameObject.SetActive(active);
         }
