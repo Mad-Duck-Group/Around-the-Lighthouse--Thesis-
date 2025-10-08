@@ -319,6 +319,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rain_heavy_physic
       objectReference: {fileID: 0}
+    - target: {fileID: 5533888402545710403, guid: aa5d7cc3415105242b2f49b5eaf431d8, type: 3}
+      propertyPath: TrailModule.widthOverTrail.scalar
+      value: 4.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533888402545710403, guid: aa5d7cc3415105242b2f49b5eaf431d8, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.a
+      value: 0.8784314
+      objectReference: {fileID: 0}
     - target: {fileID: 8025595563517182052, guid: aa5d7cc3415105242b2f49b5eaf431d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.81
