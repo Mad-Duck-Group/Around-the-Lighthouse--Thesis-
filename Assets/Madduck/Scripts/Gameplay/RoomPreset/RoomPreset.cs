@@ -91,21 +91,21 @@ namespace Madduck.RoomPreset
             }
             AnimateWave();
             //ShakeRock();
-        }
+        }   
         #endregion
 
         #region Tween
         public void AnimateWave()
         {
             if (waveRenderers == null || waveRenderers.Length == 0) return;
-            SetSpeedTween();
+            //SetSpeedTween();
             foreach (var waveRenderer in waveRenderers)
             {
                 if (!waveRenderer) continue;
                 var wave = waveRenderer.transform;
                 float startY = wave.localPosition.y; 
                 var relativeSettings = waveTweenSettings.ToRelative(startY);
-                var startDelay = Random.Range(0f, waveTweenSettings.settings.startDelay);
+                var startDelay = Random.Range(0f, waveTweenSettings.settings.duration);
                 var cycle = relativeSettings.settings.cycles;
                 relativeSettings.settings.cycles = 1;
                 relativeSettings.settings.startDelay = startDelay;

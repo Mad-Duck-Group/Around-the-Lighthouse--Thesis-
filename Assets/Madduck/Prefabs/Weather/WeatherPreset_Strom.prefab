@@ -78,7 +78,7 @@ MonoBehaviour:
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
-  stormDelayMinMax: {x: 1, y: 10}
+  stormDelayMinMax: {x: 4.807692, y: 10}
   globalLight: {fileID: 8146313084690830065}
 --- !u!1 &2528635942651822413
 GameObject:
