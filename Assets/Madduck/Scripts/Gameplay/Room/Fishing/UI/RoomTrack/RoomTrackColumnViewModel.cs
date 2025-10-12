@@ -11,6 +11,7 @@ using R3;
 using UnityEngine;
 using VContainer;
 using PrimeTween;
+using UnityEngine.SceneManagement;
 
 
 namespace Madduck.Room
@@ -25,6 +26,7 @@ namespace Madduck.Room
         private readonly IGenericFactory<RoomTrackView> _roomTrackFactory;
         private readonly IGenericFactory<BoatTrackView> _boatTrackFactory;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
+        private readonly LoadSceneManager _loadSceneManager;
         private BoatTrackView _boatTrackView;
         private IDisposable _binding;
         #endregion
@@ -38,11 +40,13 @@ namespace Madduck.Room
             RoomTrackViewModel roomTrackViewModel,
             IGenericFactory<RoomTrackView> roomTrackFactory,
             IGenericFactory<BoatTrackView> boatTrackFactory,
-            ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
+            ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber,
+            LoadSceneManager loadSceneManager)
         {
             _dayManagerConfig = dayManagerConfig;
             _boatTrackFactory = boatTrackFactory;
             _roomTrackFactory = roomTrackFactory;
+            _loadSceneManager = loadSceneManager;
             _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
             _spriteMap = spriteMap;
             _currentRoomIndex = roomTrackViewModel.CurrentRoomIndex.ToReadOnlyReactiveProperty();
@@ -125,8 +129,10 @@ namespace Madduck.Room
             var previousPos = _rooms[(int)_currentRoomIndex.CurrentValue - 1].transform.position;
             var currentPos = _rooms[(int)_currentRoomIndex.CurrentValue].transform.position;
             boatRectTransform.anchoredPosition = boatRectTransform.parent.InverseTransformPoint(previousPos);
-            _boatTrackView.AnimateBoatTrack(currentPos);
+            bool shouldNotify = _loadSceneManager.CurrentSceneType == SceneType.Loading;
+            _boatTrackView.AnimateBoatTrack(currentPos, shouldNotify);
         }
+        
         #endregion
     }
 }

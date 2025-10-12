@@ -758,7 +758,7 @@ MonoBehaviour:
     startValue: 0
     endValue: 0.3
     settings:
-      duration: 0.25
+      duration: 1
       ease: 4
       customEase:
         serializedVersion: 2
@@ -818,7 +818,12 @@ MonoBehaviour:
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
-  _waveSpeedMultiplier: 1
+  _waveDurationMultiplier:
+    WeatherTypeClearSpeed: 1
+    WeatherTypeRainSpeed: 0.5
+    WeatherTypeStormSpeed: 0.25
+    WeatherTypeCloudySpeed: 0.75
+    WeatherTypeStrongWindsSpeed: 0.5
 --- !u!1 &8785690379600905634
 GameObject:
   m_ObjectHideFlags: 0

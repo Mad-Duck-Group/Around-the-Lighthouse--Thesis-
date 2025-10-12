@@ -21,8 +21,9 @@ namespace Madduck.Day
         [Title("Debug"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _debugTitle;
-        [field: DisplayAsString, 
-                ShowInInspector] public uint CurrentDayIndex { get; private set; }
+
+        [field: DisplayAsString,
+                ShowInInspector]public ReactiveProperty<uint> CurrentDayIndex { get; private set; } = new(0);
         [field: DisplayAsString, 
                 ShowInInspector] public ReactiveProperty<uint> CurrentRoomIndex { get; private set; } = new(0);
         [field: DisplayAsString, 
@@ -90,7 +91,12 @@ namespace Madduck.Day
         {
             DebugUtils.Log("Out of fish, moving to next room.");
             ChangeRoom(1);
-            _loadSceneManager.LoadScene(SceneType.Gameplay, LoadSceneMode.Single, false).Forget();
+            if (CurrentDayIndex.Value >= _config.MaxDayCount)
+            {
+                ChangeDayIndex(1);
+            }
+            
+            _loadSceneManager.LoadScene(SceneType.Gameplay, LoadSceneMode.Single, true).Forget();
         }
 
         #endregion
@@ -102,7 +108,7 @@ namespace Madduck.Day
         /// <param name="day"></param>
         public void SetDayIndex(uint day)
         {
-            CurrentDayIndex = day;
+            CurrentDayIndex.Value = day;
             RoomHistory.Clear();
             SetRoomIndex(0);
 
@@ -114,8 +120,8 @@ namespace Madduck.Day
         /// <param name="day"></param>
         public void ChangeDayIndex(int day)
         {
-            CurrentDayIndex += (uint)day;
-            CurrentDayIndex = (uint)Mathf.Clamp(CurrentDayIndex, 0, _config.MaxDayCount - 1);
+            CurrentDayIndex.Value += (uint)day;
+            CurrentDayIndex.Value = (uint)Mathf.Clamp(CurrentDayIndex.Value, 0, _config.MaxDayCount - 1);
             RoomHistory.Clear();
             SetRoomIndex(0);
 
@@ -142,7 +148,7 @@ namespace Madduck.Day
         {
             
             CurrentRoomIndex.Value += (uint)room;
-            CurrentDayIndex = (uint)Mathf.Clamp(CurrentDayIndex, 0, _config.MaxRoomCount - 1);
+            CurrentDayIndex.Value = (uint)Mathf.Clamp(CurrentDayIndex.Value, 0, _config.MaxRoomCount - 1);
             RandomRoom();
             SetDayPhase();
 
@@ -179,7 +185,7 @@ namespace Madduck.Day
 
         public uint GetMaxFishCount()
         {
-            if (_config.FishCountFormulas.TryGetValue(CurrentDayIndex, out var formula))
+            if (_config.FishCountFormulas.TryGetValue(CurrentDayIndex.Value, out var formula))
             {
                 var fishingRoomCount = RoomHistory.FindAll(room => room == RoomType.Fishing).Count;
                 if (fishingRoomCount != 0) return formula.Calculate((uint)(fishingRoomCount - 1));

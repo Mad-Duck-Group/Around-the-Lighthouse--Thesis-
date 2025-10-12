@@ -1,5 +1,6 @@
 using Madduck.Shared;
 using Madduck.Utils;
+using Madduck.WeatherPreset;
 using PrimeTween;
 using R3;
 using Redcode.Extensions;
@@ -36,7 +37,7 @@ namespace Madduck.RoomPreset
         [BoxGroup("Tween Settings"),
          SerializeField] public TweenSettings<float> waveTweenSettings;
         [BoxGroup("Tween Settings"),
-        SerializeField] private float _waveSpeedMultiplier = 1f;
+        SerializeField] private TweenAnimWaveSpeed _waveDurationMultiplier ;
 
     
         private Sequence _waveSequence;
@@ -98,7 +99,7 @@ namespace Madduck.RoomPreset
         public void AnimateWave()
         {
             if (waveRenderers == null || waveRenderers.Length == 0) return;
-            //SetSpeedTween();
+            SetSpeedTween();
             foreach (var waveRenderer in waveRenderers)
             {
                 if (!waveRenderer) continue;
@@ -116,28 +117,29 @@ namespace Madduck.RoomPreset
 
         public void SetSpeedTween()
         {
+            var waveDuration = 0f;
             switch (_currentWeather.Value)
             {
                 case WeatherType.Clear:
-                    _waveSpeedMultiplier = 1f;
+                    waveDuration = _waveDurationMultiplier.WeatherTypeClearSpeed;
                     break;
                 case WeatherType.Rain:
-                    _waveSpeedMultiplier = 0.5f;
+                    waveDuration = _waveDurationMultiplier.WeatherTypeRainSpeed;
                     break;
                 case WeatherType.Storm:
-                    _waveSpeedMultiplier = 0.25f;
+                    waveDuration = _waveDurationMultiplier.WeatherTypeStormSpeed;
                     break;
                 case WeatherType.StrongWinds:
-                    _waveSpeedMultiplier = 0.75f;
+                    waveDuration = _waveDurationMultiplier.WeatherTypeStrongWindsSpeed;
                     break;
                 case WeatherType.Cloudy:
-                    _waveSpeedMultiplier = 0.9f;
+                    waveDuration = _waveDurationMultiplier.WeatherTypeCloudySpeed;
                     break;
                 default:
-                    _waveSpeedMultiplier = 1f;
+                    waveDuration = _waveDurationMultiplier.WeatherTypeClearSpeed;
                     break;  
             }
-            waveTweenSettings.settings.duration =  _waveSpeedMultiplier;
+            waveTweenSettings.settings.duration *=  waveDuration;
             
         }
         // public void ShakeRock(int index = -1)
