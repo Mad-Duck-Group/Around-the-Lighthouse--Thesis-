@@ -1,35 +1,38 @@
-﻿using System.Collections.Generic;
-using MessagePipe;
+using System.Collections.Generic;
+using Madduck.Core;
+using Madduck.Room;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Madduck.Core
+namespace Madduck.Room
 {
     [ShowOdinSerializedPropertiesInInspector]
-    public class ProjectLifetimeScope : LifetimeScope, ISerializationCallbackReceiver, ISupportsPrefabSerialization
+    public class LoadSceneManagerLifetimeScope : LifetimeScope ,ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
-        [Title("Installers")]   
-        [HideReferenceObjectPicker]
-        [OdinSerialize] private List<IInstaller> installers;
-        
+        [Title("References")]
+        [Required,
+         OdinSerialize] private List<IInstaller> uiInstallers = new();
+        [Required,
+         SerializeField] private LoadingView loadingView;
+
+
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterMessagePipe(options =>
+            foreach (var installer in uiInstallers)
             {
-                options.InstanceLifetime = InstanceLifetime.Singleton;
-            });
-            
-            var options = new MessagePipeOptions
-            {
-                InstanceLifetime = InstanceLifetime.Singleton
-            };
+                installer.Install(builder);
+            }
 
-            builder.RegisterMessageBroker<LoadingSceneAnimationFinishedEvent>(options);
-            installers.ForEach(installer => installer.Install(builder));
-            builder.RegisterBuildCallback(x => GlobalMessagePipe.SetProvider(x.AsServiceProvider()));
+            builder.RegisterComponent(loadingView)
+                .As<LoadingView>();
+            builder.Register<LoadingViewModel>(Lifetime.Singleton);
+            builder.RegisterBuildCallback(x =>
+            {
+                x.Resolve<LoadingViewModel>();
+            });
         }
 
         #region Serialization

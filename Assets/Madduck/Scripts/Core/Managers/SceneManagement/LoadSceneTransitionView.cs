@@ -37,6 +37,7 @@ namespace Madduck.Core
 
         public async UniTask TransitionOut(CancellationToken cancellationToken = default)
         {
+            DebugUtils.Log("Transition Out");
             canvasGroup.blocksRaycasts = true;
             cancellationToken.Register(CancelTransition);
             _transitionSequence = Sequence.Create()
