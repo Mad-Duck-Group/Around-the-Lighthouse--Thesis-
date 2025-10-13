@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Madduck.Core;
-using Madduck.Room;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -21,14 +19,14 @@ namespace Madduck.Room
 
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.RegisterComponent(loadingView)
+                .As<LoadingView>();
+            builder.Register<LoadingViewModel>(Lifetime.Singleton);
+            
             foreach (var installer in uiInstallers)
             {
                 installer.Install(builder);
             }
-
-            builder.RegisterComponent(loadingView)
-                .As<LoadingView>();
-            builder.Register<LoadingViewModel>(Lifetime.Singleton);
             builder.RegisterBuildCallback(x =>
             {
                 x.Resolve<LoadingViewModel>();

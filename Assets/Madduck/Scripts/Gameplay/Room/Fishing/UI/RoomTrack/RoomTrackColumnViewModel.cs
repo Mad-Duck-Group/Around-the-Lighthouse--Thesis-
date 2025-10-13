@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Madduck.Core;
 using Madduck.Day;
-using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
 using UnityEngine;
 using VContainer;
-using PrimeTween;
-using UnityEngine.SceneManagement;
 
 
 namespace Madduck.Room
@@ -23,10 +20,11 @@ namespace Madduck.Room
         private readonly List<RoomTrackView> _rooms = new();
         private readonly DayManagerConfig _dayManagerConfig;
         private readonly ReadOnlyReactiveProperty<uint> _currentRoomIndex;
+        private readonly LoadSceneManager _loadSceneManager;
         private readonly IGenericFactory<RoomTrackView> _roomTrackFactory;
         private readonly IGenericFactory<BoatTrackView> _boatTrackFactory;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
-        private readonly LoadSceneManager _loadSceneManager;
+        private readonly IPublisher<LoadingSceneAnimationFinishedEvent> _loadingSceneAnimationFinishedPublisher;
         private BoatTrackView _boatTrackView;
         private IDisposable _binding;
         #endregion
@@ -38,16 +36,19 @@ namespace Madduck.Room
             SerializableDictionary<DayRoomKey, Sprite> spriteMap,
             DayManagerConfig dayManagerConfig,
             RoomTrackViewModel roomTrackViewModel,
+            LoadSceneManager loadSceneManager,
             IGenericFactory<RoomTrackView> roomTrackFactory,
             IGenericFactory<BoatTrackView> boatTrackFactory,
             ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber,
-            LoadSceneManager loadSceneManager)
+            IPublisher<LoadingSceneAnimationFinishedEvent> loadingSceneAnimationFinishedPublisher
+            )
         {
             _dayManagerConfig = dayManagerConfig;
             _boatTrackFactory = boatTrackFactory;
             _roomTrackFactory = roomTrackFactory;
             _loadSceneManager = loadSceneManager;
             _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
+            _loadingSceneAnimationFinishedPublisher = loadingSceneAnimationFinishedPublisher;
             _spriteMap = spriteMap;
             _currentRoomIndex = roomTrackViewModel.CurrentRoomIndex.ToReadOnlyReactiveProperty();
             Bind();
@@ -95,7 +96,7 @@ namespace Madduck.Room
                 CreateRoom(new DayRoomKey(DayPhaseType.Night, RoomType.Fishing));
             }
             await UniTask.WaitForEndOfFrame();
-            CreateBoatTrack();
+            CreateBoatTrack().Forget();
         }
         
         private void CreateRoom(DayRoomKey dayRoomKey)
@@ -115,7 +116,7 @@ namespace Madduck.Room
         #endregion
 
         #region BoatTrackControl
-        private void CreateBoatTrack()
+        private async UniTaskVoid CreateBoatTrack()
         {
             var boatTrackView = _boatTrackFactory.Create();
             _boatTrackView = boatTrackView;
@@ -129,8 +130,10 @@ namespace Madduck.Room
             var previousPos = _rooms[(int)_currentRoomIndex.CurrentValue - 1].transform.position;
             var currentPos = _rooms[(int)_currentRoomIndex.CurrentValue].transform.position;
             boatRectTransform.anchoredPosition = boatRectTransform.parent.InverseTransformPoint(previousPos);
-            bool shouldNotify = _loadSceneManager.CurrentSceneType == SceneType.Loading;
-            _boatTrackView.AnimateBoatTrack(currentPos, shouldNotify);
+            var shouldNotify = _loadSceneManager.CurrentSceneType == SceneType.Loading;
+            await _boatTrackView.AnimateBoatTrack(currentPos);
+            if (shouldNotify) 
+                _loadingSceneAnimationFinishedPublisher.Publish(new LoadingSceneAnimationFinishedEvent());
         }
         
         #endregion

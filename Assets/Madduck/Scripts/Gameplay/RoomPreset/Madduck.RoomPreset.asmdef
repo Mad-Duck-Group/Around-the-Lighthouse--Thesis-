@@ -8,7 +8,8 @@
         "Madduck.WeatherPreset",
         "Madduck.Shared",
         "PrimeTween.Runtime",
-        "Extensions"
+        "Extensions",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

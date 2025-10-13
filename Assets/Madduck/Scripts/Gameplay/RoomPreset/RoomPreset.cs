@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Madduck.Shared;
 using Madduck.Utils;
 using Madduck.WeatherPreset;
@@ -38,17 +39,15 @@ namespace Madduck.RoomPreset
          SerializeField] public TweenSettings<float> waveTweenSettings;
         [BoxGroup("Tween Settings"),
         SerializeField] private TweenAnimWaveSpeed _waveDurationMultiplier ;
-
-    
-        private Sequence _waveSequence;
+        
         private DayPhaseType _currentDayPhase;
-        private ReactiveProperty<WeatherType> _currentWeather { get; set; } = new();
+        private WeatherType _currentWeather;
 
         #endregion
 
         #region Set Up Room
 
-        public void SetDynamicElements(ReactiveProperty<WeatherType> weatherType)
+        public void SetDynamicElements(WeatherType weatherType)
         {
             _currentWeather = weatherType;
         }
@@ -90,13 +89,13 @@ namespace Madduck.RoomPreset
                         render.sprite = waveVariants.GetRandomElement();
                 }
             }
-            AnimateWave();
+            AnimateWaves();
             //ShakeRock();
         }   
         #endregion
 
         #region Tween
-        public void AnimateWave()
+        private void AnimateWaves()
         {
             if (waveRenderers == null || waveRenderers.Length == 0) return;
             SetSpeedTween();
@@ -104,21 +103,26 @@ namespace Madduck.RoomPreset
             {
                 if (!waveRenderer) continue;
                 var wave = waveRenderer.transform;
-                float startY = wave.localPosition.y; 
-                var relativeSettings = waveTweenSettings.ToRelative(startY);
-                var startDelay = Random.Range(0f, waveTweenSettings.settings.duration);
-                var cycle = relativeSettings.settings.cycles;
-                relativeSettings.settings.cycles = 1;
-                relativeSettings.settings.startDelay = startDelay;
-                _waveSequence = Sequence.Create(cycle, CycleMode.Yoyo)
-                    .Group(Tween.LocalPositionY(wave, relativeSettings));
+                AnimateWave(wave).Forget();
             }
         }
 
-        public void SetSpeedTween()
+        private async UniTaskVoid AnimateWave(Transform wave)
+        {
+            var startY = wave.localPosition.y; 
+            var relativeSettings = waveTweenSettings.ToRelative(startY);
+            var startDelay = Random.Range(0f, waveTweenSettings.settings.startDelay);
+            relativeSettings.settings.cycles = 1;
+            relativeSettings.settings.startDelay = 0f; 
+            await UniTask.WaitForSeconds(startDelay);
+            var waveSequence = Sequence.Create(-1, CycleMode.Yoyo)
+                .Group(Tween.LocalPositionY(wave, relativeSettings));
+        }
+
+        private void SetSpeedTween()
         {
             var waveDuration = 0f;
-            switch (_currentWeather.Value)
+            switch (_currentWeather)
             {
                 case WeatherType.Clear:
                     waveDuration = _waveDurationMultiplier.WeatherTypeClearSpeed;
@@ -139,7 +143,7 @@ namespace Madduck.RoomPreset
                     waveDuration = _waveDurationMultiplier.WeatherTypeClearSpeed;
                     break;  
             }
-            waveTweenSettings.settings.duration *=  waveDuration;
+            waveTweenSettings.settings.duration *= waveDuration;
             
         }
         // public void ShakeRock(int index = -1)
@@ -162,11 +166,6 @@ namespace Madduck.RoomPreset
         //             }
         //         }
         // }
-
-        public void StopWave()
-        {
-            _waveSequence.Complete();
-        }
         #endregion
 
     }

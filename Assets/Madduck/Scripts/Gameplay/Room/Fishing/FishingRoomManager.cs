@@ -98,6 +98,11 @@ namespace Madduck.Room
                 .Where(x => x.Stage is LoadSceneStage.FinishLoading)
                 .Subscribe(_ => OnStartFishingRoom())
                 .AddTo(ref disposableBuilder);
+            _loadSceneStageEventSubscriber
+                .AsObservable().ToObservable()
+                .Where(x => x.Stage is LoadSceneStage.StartFadeOut)
+                .Subscribe(_ => OnEndFishingRoom())
+                .AddTo(ref disposableBuilder);
             _subscriptions = disposableBuilder.Build();
         }
         
@@ -117,6 +122,11 @@ namespace Madduck.Room
             _fishingRoomStartedEventPublisher?.Publish(new FishingRoomStartedEvent());
             _bgm = _audioManager.PlayAudio(_config.FishingRoomBGM, Vector3.zero);
             RandomWeather();
+        }
+
+        private void OnEndFishingRoom()
+        {
+            _audioManager.StopAudio(_bgm);
         }
         
         private void OnFishCaught()
@@ -147,7 +157,6 @@ namespace Madduck.Room
             CurrentFishCount.Value =
                 (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
             if (CurrentFishCount.Value != 0) return;
-            _audioManager.StopAudio(_bgm);
             _outOfFishEventPublisher?.Publish(new OutOfFishEvent());
         }
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Madduck.Day;
 using Madduck.WeatherPreset;
+using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
@@ -17,13 +18,14 @@ namespace Madduck.RoomPreset
         
         [Title("Debug"),
          BoxGroup("Debug"),
-         HideLabel, ReadOnly,
+         HideLabel, Sirenix.OdinInspector.ReadOnly,
          ShowInInspector] private  List<RoomPreset> _presets;
 
         #endregion
         
         private readonly DayManager _dayManager;
-        private readonly  WeatherPresetManager _weatherPresetManager;      
+        private readonly  WeatherPresetManager _weatherPresetManager;  
+        
         #region Inject
         [Inject]
         public RoomPresetManager(
@@ -49,13 +51,11 @@ namespace Madduck.RoomPreset
         
         #region RoomManagement
 
-        public void SpawnRandomRoom(Vector3 pos, Quaternion rot)
+        private void SpawnRandomRoom(Vector3 pos, Quaternion rot)
         {
-            int index = Random.Range(0, _presets.Count);
-            RoomPreset instance = Object.Instantiate(_presets[index], pos, rot);
-            
+            var instance = Object.Instantiate(_presets.GetRandomElement(), pos, rot);
             instance.SetDayPhase(_dayManager.CurrentDayPhase);
-            instance.SetDynamicElements(_weatherPresetManager.CurrentWeather);
+            instance.SetDynamicElements(_weatherPresetManager.CurrentWeather.Value);
             instance.ApplySprites();
         }
 

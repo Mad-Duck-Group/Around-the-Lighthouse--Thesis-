@@ -8,17 +8,22 @@ namespace Madduck.Utils
         UniTask TransitionIn(CancellationToken cancellationToken = default);
         UniTask TransitionOut(CancellationToken cancellationToken = default);
     }
+
+    public interface IAnimatable
+    {
+        UniTask Animate(CancellationToken cancellationToken = default);
+    }
     
     public class TransitionMock : ITransitionable
     {
-        public async UniTask TransitionIn(CancellationToken cancellationToken = default)
-        {
-            await UniTask.CompletedTask;
-        }
+        public UniTask TransitionIn(CancellationToken cancellationToken = default) => UniTask.CompletedTask;
 
-        public async UniTask TransitionOut(CancellationToken cancellationToken = default)
-        {
-            await UniTask.CompletedTask;
-        }
+        public UniTask TransitionOut(CancellationToken cancellationToken = default) => UniTask.CompletedTask;
+
+    }
+
+    public class AnimateMock : IAnimatable
+    {
+        public UniTask Animate(CancellationToken cancellationToken = default) => UniTask.CompletedTask;
     }
 }
