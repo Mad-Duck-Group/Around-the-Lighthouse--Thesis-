@@ -332,12 +332,14 @@ MonoBehaviour:
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
-  _waveDurationMultiplier:
-    WeatherTypeClearSpeed: 1
-    WeatherTypeRainSpeed: 0.5
-    WeatherTypeStormSpeed: 0.25
-    WeatherTypeCloudySpeed: 0.75
-    WeatherTypeStrongWindsSpeed: 0.5
+  waveDurationMultiplier:
+    keys: 0100000002000000040000000800000010000000
+    values:
+    - 1
+    - 0.5
+    - 0.25
+    - 0.75
+    - 0.5
 --- !u!1 &2464108411556937826
 GameObject:
   m_ObjectHideFlags: 0

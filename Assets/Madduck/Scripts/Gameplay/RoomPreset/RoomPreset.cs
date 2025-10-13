@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Madduck.Shared;
 using Madduck.Utils;
@@ -38,7 +39,7 @@ namespace Madduck.RoomPreset
         [BoxGroup("Tween Settings"),
          SerializeField] public TweenSettings<float> waveTweenSettings;
         [BoxGroup("Tween Settings"),
-        SerializeField] private TweenAnimWaveSpeed _waveDurationMultiplier ;
+        SerializeField] private SerializableDictionary<WeatherType,float> waveDurationMultiplier ;
         
         private DayPhaseType _currentDayPhase;
         private WeatherType _currentWeather;
@@ -121,27 +122,12 @@ namespace Madduck.RoomPreset
 
         private void SetSpeedTween()
         {
-            var waveDuration = 0f;
-            switch (_currentWeather)
+            float waveDuration;
+            if (waveDurationMultiplier.TryGetValue(_currentWeather, out var resultDuration)){ waveDuration = resultDuration;}
+            else
             {
-                case WeatherType.Clear:
-                    waveDuration = _waveDurationMultiplier.WeatherTypeClearSpeed;
-                    break;
-                case WeatherType.Rain:
-                    waveDuration = _waveDurationMultiplier.WeatherTypeRainSpeed;
-                    break;
-                case WeatherType.Storm:
-                    waveDuration = _waveDurationMultiplier.WeatherTypeStormSpeed;
-                    break;
-                case WeatherType.StrongWinds:
-                    waveDuration = _waveDurationMultiplier.WeatherTypeStrongWindsSpeed;
-                    break;
-                case WeatherType.Cloudy:
-                    waveDuration = _waveDurationMultiplier.WeatherTypeCloudySpeed;
-                    break;
-                default:
-                    waveDuration = _waveDurationMultiplier.WeatherTypeClearSpeed;
-                    break;  
+                waveDurationMultiplier.TryGetValue(WeatherType.Clear, out var defaultDuration);
+                waveDuration = defaultDuration;
             }
             waveTweenSettings.settings.duration *= waveDuration;
             
