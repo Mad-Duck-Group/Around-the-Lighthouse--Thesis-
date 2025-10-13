@@ -86,7 +86,7 @@ namespace Madduck.Room
 #endif
             builder.RegisterInstance(fishingRoomConfig).AsSelf();
             builder.RegisterInstance(weatherWeightTable).As<IWeightTable<WeatherWeightRecord>>();
-            builder.Register<WeatherWeightTableInstance>(Lifetime.Singleton).AsSelf();
+                                                                                builder.Register<WeatherWeightTableInstance>(Lifetime.Singleton).AsSelf();
             if (spoofWeather && weatherFactoryMock != null)
             {
                 builder.Register(_ => weatherFactoryMock, Lifetime.Singleton)

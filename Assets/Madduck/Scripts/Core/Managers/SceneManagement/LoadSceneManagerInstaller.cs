@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Core;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;

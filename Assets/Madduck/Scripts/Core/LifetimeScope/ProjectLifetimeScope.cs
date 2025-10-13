@@ -21,6 +21,13 @@ namespace Madduck.Core
             {
                 options.InstanceLifetime = InstanceLifetime.Singleton;
             });
+            
+            var options = new MessagePipeOptions
+            {
+                InstanceLifetime = InstanceLifetime.Singleton
+            };
+
+            builder.RegisterMessageBroker<LoadingSceneAnimationFinishedEvent>(options);
             installers.ForEach(installer => installer.Install(builder));
             builder.RegisterBuildCallback(x => GlobalMessagePipe.SetProvider(x.AsServiceProvider()));
         }

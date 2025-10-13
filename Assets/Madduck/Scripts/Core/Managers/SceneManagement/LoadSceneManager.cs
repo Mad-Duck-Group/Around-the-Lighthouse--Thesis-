@@ -30,7 +30,7 @@ namespace Madduck.Core
             this.useLoadingScene = useLoadingScene;
         }
     }
-
+    public struct LoadingSceneAnimationFinishedEvent { }
     public struct LoadSceneStageEvent
     {
         public LoadSceneStage Stage { get; private set; }
@@ -81,6 +81,8 @@ namespace Madduck.Core
         public string NextScene { get; private set; }
         public LoadSceneMode LoadSceneMode { get; private set; }
         public bool FirstSceneLoaded { get; private set; }
+        public SceneType CurrentSceneType { get; private set; }
+
 
         #endregion
         
@@ -89,7 +91,8 @@ namespace Madduck.Core
         private readonly ITransitionable _currentTransitionScreen;
         private readonly ISubscriber<LoadSceneEvent> _loadSceneEventSubscriber;
         private readonly IPublisher<LoadSceneStageEvent> _loadSceneStageEventPublisher;
-        
+        private readonly ISubscriber<LoadingSceneAnimationFinishedEvent> _animationFinishedSubscriber;
+
         private IDisposable _subscriptions;
         private Tween _fadeTween;
         private AsyncOperation _asyncOperation;
@@ -103,7 +106,8 @@ namespace Madduck.Core
             LoadSceneManagerConfig config,
             ITransitionable transitionScreen,
             ISubscriber<LoadSceneEvent> loadSceneEventSubscriber,
-            IPublisher<LoadSceneStageEvent> loadSceneStageEventPublisher)
+            IPublisher<LoadSceneStageEvent> loadSceneStageEventPublisher
+            )
         {
             _config = config;
             _loadSceneEventSubscriber = loadSceneEventSubscriber;
@@ -132,6 +136,7 @@ namespace Madduck.Core
             var disposableBuilder = Disposable.CreateBuilder();
             _loadSceneEventSubscriber.Subscribe(OnLoadSceneEvent)
                 .AddTo(ref disposableBuilder);
+            
             _subscriptions = disposableBuilder.Build();
         }
 
@@ -200,7 +205,10 @@ namespace Madduck.Core
                     Debug.LogError("Loading scene not found in the dictionary.");
                     return;
                 }
-                SceneManager.LoadScene(loadingScene);
+                _loadSceneCts = new CancellationTokenSource();
+                NextScene = loadingScene;
+                LoadSceneAsync(_loadSceneCts.Token).Forget();
+                
             }
             else
             {
@@ -208,7 +216,7 @@ namespace Madduck.Core
                 LoadSceneAsync(_loadSceneCts.Token).Forget();
             }
         }
-
+        
         private async UniTask LoadSceneAsync(CancellationToken cancellationToken = default)
         {
             SceneManager.activeSceneChanged += UnloadScene;
@@ -229,6 +237,9 @@ namespace Madduck.Core
                 await UniTask.WhenAll(UniTask.WaitUntil(() => _asyncOperation.progress >= 0.9f, cancellationToken: cancellationToken),
                     UniTask.WaitForSeconds(_config.LoadingScreenDuration, ignoreTimeScale: true, cancellationToken: cancellationToken));
             }
+            DebugUtils.Log("Scene Loaded: " + NextScene);
+            CurrentSceneType = _config.SceneReferences.First(x => x.Value.Path == NextScene).Key;
+            DebugUtils.Log("Current Scene Type: " + CurrentSceneType);
             _asyncOperation.allowSceneActivation = true;
             SceneManager.sceneLoaded += SetActiveScene;
             FirstSceneLoaded = true;
@@ -238,6 +249,7 @@ namespace Madduck.Core
         
         private void SetActiveScene(Scene scene, LoadSceneMode mode)
         {
+            
             SceneManager.sceneLoaded -= SetActiveScene;
             SceneManager.SetActiveScene(scene);
             _loadSceneStageEventPublisher.Publish(new LoadSceneStageEvent(LoadSceneStage.FinishLoading));
