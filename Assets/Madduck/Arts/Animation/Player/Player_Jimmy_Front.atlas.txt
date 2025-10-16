@@ -1,118 +1,153 @@
 
 Player_Jimmy_Front.png
-size: 157,770
+size: 269,728
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Cloth_Normal
   rotate: true
-  xy: 2, 153
+  xy: 172, 349
   size: 80, 95
   orig: 83, 98
   offset: 2, 1
   index: -1
 Emot_Exhausted
-  rotate: true
-  xy: 103, 207
+  rotate: false
+  xy: 141, 5
   size: 69, 48
   orig: 72, 50
   offset: 1, 1
   index: -1
 Emot_Huh_Fail
-  rotate: false
-  xy: 82, 106
+  rotate: true
+  xy: 223, 53
   size: 73, 43
   orig: 75, 45
   offset: 1, 1
   index: -1
 Emot_Normal
   rotate: false
-  xy: 82, 69
+  xy: 2, 53
   size: 73, 35
   orig: 75, 37
   offset: 1, 1
   index: -1
 Emot_TryHard
   rotate: false
-  xy: 80, 31
+  xy: 212, 15
   size: 47, 36
   orig: 50, 39
   offset: 1, 1
   index: -1
 Hat_Normal
-  rotate: true
-  xy: 2, 235
+  rotate: false
+  xy: 2, 343
   size: 168, 99
   orig: 170, 101
   offset: 1, 1
   index: -1
 Head_Hair
   rotate: true
-  xy: 103, 278
+  xy: 212, 431
   size: 69, 49
   orig: 71, 52
   offset: 1, 1
   index: -1
 Head_Normal
-  rotate: false
-  xy: 2, 517
+  rotate: true
+  xy: 152, 128
   size: 141, 110
   orig: 143, 114
   offset: 1, 2
   index: -1
 Head_TryHard
   rotate: false
-  xy: 2, 405
+  xy: 2, 90
   size: 141, 110
   orig: 143, 114
   offset: 1, 2
   index: -1
 Hood_Normal
   rotate: false
-  xy: 2, 629
+  xy: 2, 202
   size: 148, 139
   orig: 150, 141
   offset: 1, 1
   index: -1
+L_Back_Hand
+  rotate: false
+  xy: 212, 502
+  size: 53, 43
+  orig: 55, 46
+  offset: 1, 1
+  index: -1
 L_Boot_Normal
-  rotate: true
-  xy: 103, 349
+  rotate: false
+  xy: 212, 547
   size: 54, 52
   orig: 57, 54
   offset: 1, 1
   index: -1
-L_Hand
+L_Front_Hand
   rotate: true
   xy: 2, 2
+  size: 49, 69
+  orig: 51, 71
+  offset: 1, 1
+  index: -1
+L_Hand
+  rotate: true
+  xy: 145, 55
   size: 71, 76
   orig: 74, 78
   offset: 2, 1
   index: -1
 L_Leg_Normal
   rotate: false
-  xy: 145, 514
+  xy: 252, 291
   size: 9, 56
   orig: 13, 58
   offset: 2, 1
   index: -1
 R_Boot_Normal
   rotate: false
-  xy: 99, 151
+  xy: 212, 613
   size: 55, 54
   orig: 59, 56
   offset: 2, 1
   index: -1
 R_Hand
   rotate: true
-  xy: 2, 75
+  xy: 172, 271
   size: 76, 78
   orig: 78, 81
   offset: 1, 1
   index: -1
+R_Hand2
+  rotate: true
+  xy: 212, 669
+  size: 57, 55
+  orig: 60, 57
+  offset: 2, 1
+  index: -1
 R_Leg_Normal
-  rotate: false
-  xy: 145, 572
+  rotate: true
+  xy: 212, 601
   size: 10, 55
   orig: 12, 57
   offset: 1, 1
+  index: -1
+Reel
+  rotate: true
+  xy: 77, 29
+  size: 59, 62
+  orig: 61, 64
+  offset: 1, 1
+  index: -1
+Rod
+  rotate: true
+  xy: 2, 444
+  size: 282, 208
+  orig: 283, 208
+  offset: 1, 0
   index: -1
