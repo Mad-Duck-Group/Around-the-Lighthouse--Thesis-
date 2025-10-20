@@ -11,13 +11,14 @@ namespace Madduck.Fishing.UI
 {
     public class ReelingCommander : IDisposable
     {
-        public ReactiveCommand<InputType> OnReelingFirstHold { get; private set; } = new();
-        public ReactiveCommand<InputType> OnReelingHold { get; private set; } = new();
-        public ReactiveCommand<InputType> OnReelingRelease { get; private set; } = new();
+        public ReactiveCommand<InputType> OnReelingFirstHold { get; } = new();
+        public ReactiveCommand<InputType> OnReelingHold { get; } = new();
+        public ReactiveCommand<InputType> OnReelingRelease { get; } = new();
         
         private readonly ReelingModel _reelingModel;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
-        private InputType _activeInputType;
+        private bool _isHolding;
+        private InputType? _activeInputType;
         private IDisposable _bindings;
         
         [Inject]
@@ -38,16 +39,24 @@ namespace Madduck.Fishing.UI
                 .Subscribe(x => _activeInputType = x)
                 .AddTo(ref disposableBuilder);
             OnReelingFirstHold
-                .Where(x => x == _activeInputType)
-                .Subscribe(_ => OnReelingFirstHeld())
+                .Where(_ => !_isHolding)
+                .Subscribe(x =>
+                {
+                    _activeInputType = x;
+                    OnReelingFirstHeld();
+                })
                 .AddTo(ref disposableBuilder);
             OnReelingHold
-                .Where(x => x == _activeInputType)
+                .Where(x => x == _activeInputType && _isHolding)
                 .Subscribe(_ => OnReelingHeld())
                 .AddTo(ref disposableBuilder);
             OnReelingRelease
-                .Where(x => x == _activeInputType)
-                .Subscribe(_ => OnReelingReleased())
+                .Where(x => x == _activeInputType && _isHolding)
+                .Subscribe(_ =>
+                {
+                    OnReelingReleased();
+                    _activeInputType = null;
+                })
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -59,6 +68,7 @@ namespace Madduck.Fishing.UI
         
         private void OnReelingFirstHeld()
         {
+            _isHolding = true;
             _playerAnimator.Set(PlayerAnimationKey.Reeling, 0, true);
         }
 
@@ -70,7 +80,14 @@ namespace Madduck.Fishing.UI
 
         private void OnReelingReleased()
         {
+            _isHolding = false;
             _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
+        }
+
+        public void Reset()
+        {
+            _isHolding = false;
+            _activeInputType = null;
         }
     }
 }

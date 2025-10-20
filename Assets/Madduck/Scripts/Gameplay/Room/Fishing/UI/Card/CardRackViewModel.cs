@@ -67,13 +67,13 @@ namespace Madduck.Room
 				    var cardView = _cardViewFactory.Create();
 				    var addedInstance = eventData.NewItem.Value;
 				    cardView.SetCard(addedInstance);
-				    _cardViewDictionary.Add(addedInstance.ItemData.Guid, cardView);
+				    _cardViewDictionary.Add(addedInstance.InstanceGuid, cardView);
 				    break;
 			    case NotifyCollectionChangedAction.Move:
 				    break;
 			    case NotifyCollectionChangedAction.Remove:
 				    var removedInstance = eventData.OldItem.Value;
-				    if (!_cardViewDictionary.Remove(removedInstance.ItemData.Guid, out var cardToRemove)) break;
+				    if (!_cardViewDictionary.Remove(removedInstance.InstanceGuid, out var cardToRemove)) break;
 				    Object.Destroy(cardToRemove);
 				    break;
 			    case NotifyCollectionChangedAction.Replace:

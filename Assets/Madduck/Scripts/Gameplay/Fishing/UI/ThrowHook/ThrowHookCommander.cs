@@ -25,7 +25,7 @@ namespace Madduck.Fishing.UI
         
         private bool _hookThrown;
         private CancellationTokenSource _chargeCts = new();
-        private InputType _activeInputType;
+        private InputType? _activeInputType;
         private Sign _throwHookSliderDirection = Sign.Positive;
         private IDisposable _bindings;
         
@@ -51,8 +51,12 @@ namespace Madduck.Fishing.UI
                 .Subscribe(x => _activeInputType = x)
                 .AddTo(ref disposableBuilder);
             ThrowHookFirstHeldCommand
-                .Where(x=> x == _activeInputType && !_hookThrown)
-                .Subscribe(_ => OnThrowHookFirstHeld(_chargeCts.Token).Forget())
+                .Where(_ => _activeInputType is null && !_hookThrown)
+                .Subscribe(x =>
+                {
+                    _activeInputType = x;
+                    OnThrowHookFirstHeld(_chargeCts.Token).Forget();
+                })
                 .AddTo(ref disposableBuilder);
             ThrowHookHeldCommand
                 .Where(x=> x == _activeInputType && !_hookThrown)
@@ -60,7 +64,11 @@ namespace Madduck.Fishing.UI
                 .AddTo(ref disposableBuilder);
             ThrowHookReleaseCommand
                 .Where(x => x == _activeInputType && !_hookThrown)
-                .Subscribe(_ => OnThrowHookReleased().Forget())
+                .Subscribe(_ =>
+                {
+                    OnThrowHookReleased().Forget();
+                    _activeInputType = null;
+                })
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -101,6 +109,7 @@ namespace Madduck.Fishing.UI
         {
             _chargeCts = new();
             _hookThrown = false;
+            _activeInputType = null;
         }
         
         public void Dispose()

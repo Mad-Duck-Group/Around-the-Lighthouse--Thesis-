@@ -154,6 +154,7 @@ namespace Madduck.Fishing.Controller
             }
             else
             {
+                _commander.Reset();
                 _fatigueTimerCts.Cancel();
                 await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
             }
@@ -162,6 +163,7 @@ namespace Madduck.Fishing.Controller
         public void Reset()
         {
             _model.Reset();
+            _commander.Reset();
         }
 
         private async UniTaskVoid StartFatigueTimer()

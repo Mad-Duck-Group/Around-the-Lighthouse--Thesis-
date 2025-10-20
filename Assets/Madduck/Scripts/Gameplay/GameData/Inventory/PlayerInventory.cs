@@ -46,6 +46,7 @@ namespace Madduck.GameData
         private readonly IPublisher<ModifierSourceEvent> _modifierSourceEventPublisher;
         private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
         private IDisposable _subscriptions;
+        private bool _startingAdded;
         #endregion
         
         #region Injection
@@ -109,13 +110,25 @@ namespace Madduck.GameData
         #region Events
         private void OnFishingRoomStarted()
         {
+            var previousBaits = new ObservableDictionary<BaitType, BaitItemInstance>(CurrentBaits);
+            var previousCards = new ObservableList<CardItemInstance>(CurrentCards);
             CurrentBaits.Clear();
+            CurrentCards.Clear();
             _modifierSourceEventPublisher?.Publish(new ModifierSourceEvent(this));
-            CurrentCards.AddRange(_config.StartingCards.Select(x => new CardItemInstance(x)));
-            foreach (var bait in _config.StartingBaits)
+            if (!_startingAdded)
             {
-                CurrentBaits.Add(bait.Key, new BaitItemInstance(bait.Value.ItemData, bait.Value.Count));
+                _startingAdded = true;
+                CurrentCards.AddRange(_config.StartingCards.Select(x => new CardItemInstance(x)));
+                foreach (var bait in _config.StartingBaits)
+                {
+                    CurrentBaits.Add(bait.Key, new BaitItemInstance(bait.Value.ItemData, bait.Value.Count));
+                }
             }
+            foreach (var bait in previousBaits)
+            {
+                CurrentBaits.Add(bait.Key, bait.Value);
+            }
+            CurrentCards.AddRange(previousCards);
             SetCurrentBait(BaitType.None);
         }
         #endregion

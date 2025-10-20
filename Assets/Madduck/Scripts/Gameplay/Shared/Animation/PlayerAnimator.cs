@@ -1,10 +1,11 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Utils;
 using Spine;
 using Spine.Unity;
-using UnityEngine;
 using VContainer;
+using Random = UnityEngine.Random;
 
 namespace Madduck.Shared
 {
@@ -13,7 +14,7 @@ namespace Madduck.Shared
         void StartIdle();
         void StopIdle();
     }
-    public class PlayerAnimator : ISpineAnimator<PlayerAnimationKey>, IIdleAnimator
+    public class PlayerAnimator : ISpineAnimator<PlayerAnimationKey>, IIdleAnimator, IDisposable
     {
         private readonly PlayerAnimatorConfig _config;
         private readonly SkeletonAnimation _skeletonAnimation;
@@ -96,6 +97,11 @@ namespace Madduck.Shared
             if (cancellationToken.IsCancellationRequested) return;
             Set(PlayerAnimationKey.Idle1, 0, true);
             SwitchIdle(cancellationToken).Forget();
+        }
+
+        public void Dispose()
+        {
+            StopIdle();
         }
     }
 

@@ -31,7 +31,7 @@ namespace Madduck.Utils
         public void Queue(IModal modal)
         {
             _modalQueue.Enqueue(modal);
-            if (_modalQueue.Count == 1)
+            if (_currentModal is null)
                 ShowNextModal();
         }
         
