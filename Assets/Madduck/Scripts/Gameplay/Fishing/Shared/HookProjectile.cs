@@ -12,7 +12,8 @@ namespace Madduck.Fishing.Shared
     public interface IHookProjectile
     {
         UniTask Throw(Percentage percent);
-        UniTask Return(bool reelBack = true);
+        UniTask Return();
+        UniTask ReelBack();
         UniTask MoveX(Percentage percent);
         UniTask MoveY(Percentage percent);
         UniTask Nibble(int? cycle);
@@ -101,11 +102,10 @@ namespace Madduck.Fishing.Shared
         /// <summary>
         /// Returns the hook to the starting position.
         /// </summary>
-        public async UniTask Return(bool reelBack = true)
+        public async UniTask Return()
         {
             if (!_isThrown) return;
             _isThrown = false;
-            if (reelBack) await ReelBack();
             _rigidbody.constraints = RigidbodyConstraints2D.None;
             var velocity = CalculateLaunchVelocity(transform.position, _rodTip.position);
             _rigidbody.linearVelocity = velocity;
@@ -157,7 +157,7 @@ namespace Madduck.Fishing.Shared
             await sequence.ToYieldInstruction().ToUniTask();
         }
         
-        private async UniTask ReelBack()
+        public async UniTask ReelBack()
         {
             var targetPos = _rodTip.position
                 .WithX(CalculateTargetPositionX(Percentage.Zero))
@@ -298,7 +298,8 @@ namespace Madduck.Fishing.Shared
     {
         public UniTask Throw(Percentage percent) => UniTask.CompletedTask;
 
-        public UniTask Return(bool reelBack = true) => UniTask.CompletedTask;
+        public UniTask Return() => UniTask.CompletedTask;
+        public UniTask ReelBack() => UniTask.CompletedTask;
 
         public UniTask MoveX(Percentage percent) => UniTask.CompletedTask;
         public UniTask MoveY(Percentage percent) => UniTask.CompletedTask;

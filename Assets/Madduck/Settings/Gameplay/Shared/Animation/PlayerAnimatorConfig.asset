@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Madduck.Shared::Madduck.Shared.PlayerAnimatorConfig
   skeletonDataAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
   <Animations>k__BackingField:
-    keys: 0000000001000000020000000300000004000000050000000600000007000000
+    keys: 000000000100000003000000040000000500000008000000090000000a000000020000000600000007000000
     values:
     - Idle1
     - Idle2
@@ -24,4 +24,7 @@ MonoBehaviour:
     - Pulling
     - Losefish
     - GotFish
+    - Idle_Rod
+    - PullHookUp
+    - Reeling
   deconstructedAnimations: []

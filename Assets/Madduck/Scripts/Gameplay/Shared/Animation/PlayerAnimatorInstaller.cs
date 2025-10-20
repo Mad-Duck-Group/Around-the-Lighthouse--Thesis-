@@ -21,7 +21,8 @@ namespace Madduck.Shared
         {
             builder.RegisterInstance(playerAnimatorConfig).AsSelf();
             builder.RegisterInstance(skeletonAnimation).AsSelf();
-            builder.Register<PlayerAnimator>(Lifetime.Singleton).As<ISpineAnimator<PlayerAnimationKey>>();
+            builder.Register<PlayerAnimator>(Lifetime.Singleton)
+                .AsImplementedInterfaces();
         }
     }
 }

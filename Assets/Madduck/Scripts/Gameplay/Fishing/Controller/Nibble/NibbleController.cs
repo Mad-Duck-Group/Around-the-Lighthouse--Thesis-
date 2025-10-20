@@ -31,6 +31,7 @@ namespace Madduck.Fishing.Controller
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ITransitionable _viewTransition;
+        private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         
         private IDisposable _bindings;
         private CancellationTokenSource _waitingCts = new();
@@ -48,7 +49,8 @@ namespace Madduck.Fishing.Controller
             IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
             IFishSpriteFactory fishSpriteFactory,
-            ITransitionable viewTransition)
+            ITransitionable viewTransition,
+            ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
             _inputHandler = inputHandler;
             _model = model;
@@ -57,6 +59,7 @@ namespace Madduck.Fishing.Controller
             _fishFactory = fishFactory;
             _fishSpriteFactory = fishSpriteFactory;
             _viewTransition = viewTransition;
+            _playerAnimator = playerAnimator;
         }
 
         #endregion
@@ -122,6 +125,9 @@ namespace Madduck.Fishing.Controller
 
         public async UniTask ReturnHook()
         {
+            _playerAnimator.Set(PlayerAnimationKey.Reeling, 0, true);
+            await _hookFactory.Current.ReelBack();
+            _playerAnimator.Set(PlayerAnimationKey.PullHookUp, 0, false);
             await _hookFactory.Current.Return();
             _hookFactory.DestroyHook();
         }

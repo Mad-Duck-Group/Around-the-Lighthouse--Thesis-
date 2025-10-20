@@ -39,9 +39,17 @@ namespace Madduck.Fishing.UI
             _viewModel.ReelingProgressPercent
                 .Subscribe(SetReelingProgress)
                 .AddTo(ref disposableBuilder);
+            reelingButton.OnFirstHold
+                .AsObservable()
+                .Subscribe(_ => _commander.OnReelingFirstHold.Execute(InputType.UI))
+                .AddTo(ref disposableBuilder);
             reelingButton.OnHold
                 .AsObservable()
                 .Subscribe(_ => _commander.OnReelingHold.Execute(InputType.UI))
+                .AddTo(ref disposableBuilder);
+            reelingButton.OnRelease
+                .AsObservable()
+                .Subscribe(_ => _commander.OnReelingRelease.Execute(InputType.UI))
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }

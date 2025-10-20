@@ -15,12 +15,13 @@ namespace Madduck.Fishing.UI
 {
     public class ThrowHookCommander : IDisposable
     {
-        public ReactiveCommand<InputType> ThrowHookHeldCommand { get; private set; }
-        public ReactiveCommand<InputType> ThrowHookReleaseCommand { get; private set; }
+        public ReactiveCommand<InputType> ThrowHookFirstHeldCommand { get; } = new();
+        public ReactiveCommand<InputType> ThrowHookHeldCommand { get; } = new();
+        public ReactiveCommand<InputType> ThrowHookReleaseCommand { get; } = new();
         private readonly ThrowHookModel _model;
         private readonly ThrowHookConfig _config;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
-        private readonly ReactiveProperty<bool> _isHolding = new();
+        private readonly IIdleAnimator _playerIdleAnimator;
         
         private bool _hookThrown;
         private CancellationTokenSource _chargeCts = new();
@@ -32,32 +33,31 @@ namespace Madduck.Fishing.UI
         public ThrowHookCommander(
             ThrowHookModel model, 
             ThrowHookConfig config, 
-            ISpineAnimator<PlayerAnimationKey> playerAnimator)
+            ISpineAnimator<PlayerAnimationKey> playerAnimator,
+            IIdleAnimator playerIdleAnimator)
         {
             _model = model;
             _config = config;
             _playerAnimator = playerAnimator;
+            _playerIdleAnimator = playerIdleAnimator;
             Bind();
         }
         
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            ThrowHookHeldCommand = new ReactiveCommand<InputType>();
             ThrowHookHeldCommand
                 .ResolveInputType()
                 .Subscribe(x => _activeInputType = x)
                 .AddTo(ref disposableBuilder);
-            _isHolding
-                .DistinctUntilChanged()
-                .Where(x => x && !_hookThrown)
+            ThrowHookFirstHeldCommand
+                .Where(x=> x == _activeInputType && !_hookThrown)
                 .Subscribe(_ => OnThrowHookFirstHeld(_chargeCts.Token).Forget())
                 .AddTo(ref disposableBuilder);
             ThrowHookHeldCommand
                 .Where(x=> x == _activeInputType && !_hookThrown)
                 .Subscribe(_ => OnThrowHookHeld())
                 .AddTo(ref disposableBuilder);
-            ThrowHookReleaseCommand = new ReactiveCommand<InputType>();
             ThrowHookReleaseCommand
                 .Where(x => x == _activeInputType && !_hookThrown)
                 .Subscribe(_ => OnThrowHookReleased().Forget())
@@ -67,13 +67,13 @@ namespace Madduck.Fishing.UI
 
         private async UniTaskVoid OnThrowHookFirstHeld(CancellationToken token)
         {
+            _playerIdleAnimator.StopIdle();
             await _playerAnimator.Set(PlayerAnimationKey.PrepareThrow, 0, false).WaitUntilComplete(cancellationToken: token);
             _playerAnimator.Set(PlayerAnimationKey.ChargingThrow, 0, true);
         }
         
         private void OnThrowHookHeld()
         {
-            _isHolding.Value = true;
             var currentValue = (float)_model.ThrowHookCurrentValue.Value;   
             var maxValue = (float)_model.ThrowHookMaxValue.Value;
             if (currentValue >= maxValue && _throwHookSliderDirection is Sign.Positive)
@@ -92,9 +92,8 @@ namespace Madduck.Fishing.UI
         {
             _chargeCts.Cancel();
             _hookThrown = true;
-            _isHolding.Value = false;
             await _playerAnimator.Set(PlayerAnimationKey.ReleaseThrow, 0, false).WaitUntilComplete();
-            _playerAnimator.Set(PlayerAnimationKey.Idle1, 0, true);
+            _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
             _model.HookThrown.Value = true;
         }
 
@@ -102,7 +101,6 @@ namespace Madduck.Fishing.UI
         {
             _chargeCts = new();
             _hookThrown = false;
-            _isHolding.Value = false;
         }
         
         public void Dispose()

@@ -260,11 +260,10 @@ namespace Madduck.Fishing.Controller
             _playerAnimator.Set(PlayerAnimationKey.LoseFish, 0, false);
             _fishSpriteFactory.Current.Detach();
             await UniTask.WhenAll(
-                _hookFactory.Current.Return(false),
+                _hookFactory.Current.Return(),
                 _fishSpriteFactory.Current.TransitionOut());
             _fishSpriteFactory.DestroyFishSprite();
             _hookFactory.DestroyHook();
-            _playerAnimator.Set(PlayerAnimationKey.Idle1, 0, true);
         }
 
         /// <summary>
@@ -272,6 +271,7 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private void WinFishingBoard()
         {
+            _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
             OnFishingBoardResult?.Invoke(Sign.Positive);
         }
         #endregion

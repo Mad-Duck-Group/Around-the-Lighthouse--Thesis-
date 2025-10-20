@@ -63,6 +63,12 @@ namespace Madduck.Fishing.Controller
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
+            _inputHandler.ThrowHookButton.IsDown
+                .IgnoreFirstValueWhenSubscribe()
+                .DistinctUntilChanged()
+                .Where(x => x)
+                .Subscribe(_ => OnHookFirstHeld())
+                .AddTo(ref disposableBuilder);
             _inputHandler.ThrowHookButton.IsHeld
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
@@ -91,6 +97,11 @@ namespace Madduck.Fishing.Controller
         #endregion
 
         #region Event Handlers
+
+        private void OnHookFirstHeld()
+        {
+            _commander.ThrowHookFirstHeldCommand.Execute(InputType.NonUI);
+        }
 
         private void OnHookHeld()
         {

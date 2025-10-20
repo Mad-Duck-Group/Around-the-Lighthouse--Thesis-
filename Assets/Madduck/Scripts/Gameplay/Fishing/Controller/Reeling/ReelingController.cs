@@ -70,11 +70,19 @@ namespace Madduck.Fishing.Controller
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
+            _inputHandler.ThrowHookButton.IsDown
+                .IgnoreFirstValueWhenSubscribe()
+                .Subscribe(_ => OnReelingFirstHold())
+                .AddTo(ref disposableBuilder);
             _inputHandler.ThrowHookButton.IsHeld
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
                 .EveryUpdateWhen(x => x)
                 .Subscribe(_ => OnReelingHold())
+                .AddTo(ref disposableBuilder);
+            _inputHandler.ThrowHookButton.IsUp
+                .IgnoreFirstValueWhenSubscribe()
+                .Subscribe(_ => OnReelingRelease())
                 .AddTo(ref disposableBuilder);
             _model.CurrentReelingProgress
                 .CombineLatest(_model.MaxReelingProgress, (current, max) => max == 0f
@@ -96,9 +104,19 @@ namespace Madduck.Fishing.Controller
         
         #region Event Handlers
 
+        private void OnReelingFirstHold()
+        {
+            _commander.OnReelingFirstHold.Execute(InputType.NonUI);
+        }
+
         private void OnReelingHold()
         {
             _commander.OnReelingHold.Execute(InputType.NonUI);
+        }
+
+        private void OnReelingRelease()
+        {
+            _commander.OnReelingRelease.Execute(InputType.NonUI);
         }
 
         private void OnWinReeling()
@@ -166,11 +184,10 @@ namespace Madduck.Fishing.Controller
             _playerAnimator.Set(reelBack ? PlayerAnimationKey.GotFish : PlayerAnimationKey.LoseFish, 0, false); 
             _fishSpriteFactory.Current.Detach();
             await UniTask.WhenAll(
-                _hookFactory.Current.Return(false),
+                _hookFactory.Current.Return(),
                 _fishSpriteFactory.Current.TransitionOut());
             _fishSpriteFactory.DestroyFishSprite();
             _hookFactory.DestroyHook();
-            _playerAnimator.Set(PlayerAnimationKey.Idle1, 0, true);
         }
         
 

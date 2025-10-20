@@ -1,4 +1,6 @@
-﻿using Madduck.Utils;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using Madduck.Utils;
 using Spine;
 using Spine.Unity;
 using UnityEngine;
@@ -6,10 +8,16 @@ using VContainer;
 
 namespace Madduck.Shared
 {
-    public class PlayerAnimator : ISpineAnimator<PlayerAnimationKey>
+    public interface IIdleAnimator
+    {
+        void StartIdle();
+        void StopIdle();
+    }
+    public class PlayerAnimator : ISpineAnimator<PlayerAnimationKey>, IIdleAnimator
     {
         private readonly PlayerAnimatorConfig _config;
         private readonly SkeletonAnimation _skeletonAnimation;
+        private CancellationTokenSource _idleCts = new();
         
         [Inject]
         public PlayerAnimator(
@@ -67,9 +75,31 @@ namespace Madduck.Shared
         {
             return _skeletonAnimation.AnimationState.GetCurrent(index);
         }
+
+        public void StartIdle()
+        {
+            _idleCts = new();
+            Set(PlayerAnimationKey.Idle1, 0, true);
+            SwitchIdle(_idleCts.Token).Forget();
+        }
+
+        public void StopIdle()
+        {
+            _idleCts.Cancel();
+        }
+        
+        private async UniTask SwitchIdle(CancellationToken cancellationToken)
+        {
+            var randomInterval = Random.Range(_config.IdleSwitchInterval.x, _config.IdleSwitchInterval.y);
+            await UniTask.WaitForSeconds(randomInterval, cancellationToken: cancellationToken);
+            await Set(PlayerAnimationKey.Idle2, 0, false).WaitUntilComplete(cancellationToken: cancellationToken);
+            if (cancellationToken.IsCancellationRequested) return;
+            Set(PlayerAnimationKey.Idle1, 0, true);
+            SwitchIdle(cancellationToken).Forget();
+        }
     }
 
-    public class PlayerAnimatorMock : ISpineAnimator<PlayerAnimationKey>
+    public class PlayerAnimatorMock : ISpineAnimator<PlayerAnimationKey>, IIdleAnimator
     {
         public TrackEntry Set(PlayerAnimationKey key, int index, bool loop) => null;
 
@@ -86,5 +116,8 @@ namespace Madduck.Shared
         public void ClearTracks(){}
 
         public TrackEntry GetCurrent(int index) => null;
+        public void StartIdle(){}
+
+        public void StopIdle(){}
     }
 }

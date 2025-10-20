@@ -9,6 +9,7 @@ namespace Madduck.Utils
 {
     public class HoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
     {
+        [field: SerializeField] public UnityEvent OnFirstHold { get; private set; } = new();
         [field: SerializeField] public UnityEvent OnHold { get; private set; } = new();
         [field: SerializeField] public UnityEvent OnClick { get; private set; } = new();
         [field: SerializeField] public UnityEvent OnRelease { get; private set; } = new();
@@ -34,6 +35,13 @@ namespace Madduck.Utils
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
+            _isHolding
+                .IgnoreFirstValueWhenSubscribe()
+                .DistinctUntilChanged()
+                .Where(x => x)
+                .Subscribe(_ => OnFirstHold.Invoke())
+                .AddTo(ref disposableBuilder);
+            
             _isHolding
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()

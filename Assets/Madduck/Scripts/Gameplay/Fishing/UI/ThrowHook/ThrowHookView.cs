@@ -39,6 +39,10 @@ namespace Madduck.Fishing.UI
             _viewModel.ThrowHookPercent
                 .Subscribe(ChangeThrowHookSlider)
                 .AddTo(ref disposableBuilder);
+            throwHookButton.OnFirstHold
+                .AsObservable()
+                .Subscribe(_ => _commander.ThrowHookFirstHeldCommand.Execute(InputType.UI))
+                .AddTo(ref disposableBuilder);
             throwHookButton.OnHold
                 .AsObservable()
                 .Subscribe(_ => _commander.ThrowHookHeldCommand.Execute(InputType.UI))

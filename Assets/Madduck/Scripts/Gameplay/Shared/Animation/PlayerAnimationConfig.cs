@@ -10,9 +10,12 @@ namespace Madduck.Shared
     {
         Idle1,
         Idle2,
+        IdleRod,
         PrepareThrow,
         ChargingThrow,
         ReleaseThrow,
+        PullHookUp,
+        Reeling,
         Pulling,
         LoseFish,
         GotFish
@@ -52,5 +55,11 @@ namespace Madduck.Shared
             }
             deconstructedAnimations.Clear();
         }
+        
+        [Title("Settings"),
+         HideLabel,
+         ShowInInspector]
+        private InspectorPlaceholder _settingTitle;
+        [field: SerializeField] public Vector2 IdleSwitchInterval { get; private set; } = new(5f, 10f);
     }
 }
