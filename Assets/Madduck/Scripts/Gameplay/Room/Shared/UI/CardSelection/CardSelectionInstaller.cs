@@ -26,7 +26,7 @@ namespace Madduck.Room
             builder.Register<CardSelectionScreenViewModel>(Lifetime.Scoped)
                 .AsSelf();
             builder.Register<CardSelectionController>(Lifetime.Scoped)
-                .AsSelf();
+                .As<IModal>();
         }
     }
 }

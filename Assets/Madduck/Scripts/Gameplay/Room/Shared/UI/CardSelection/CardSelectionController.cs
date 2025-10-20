@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.GameData;
 using Madduck.Shared;
@@ -10,9 +11,10 @@ using Object = UnityEngine.Object;
 
 namespace Madduck.Room
 {
-    public class CardSelectionController : IDisposable
+    public class CardSelectionController : IModal, IDisposable
     {
-        public event Action OnCardSelectionClosed;
+        public event Action OnOpen;
+        public event Action OnClose;
         
         private readonly CardSelectionScreenViewModel _viewModel;
         private readonly CardWeightTableInstance _cardWeightTableInstance;
@@ -45,7 +47,7 @@ namespace Madduck.Room
             Observable.FromEvent(
                 addHandler: handler => _viewModel.OnConfirmCardEvent += handler,
                 removeHandler: handler => _viewModel.OnConfirmCardEvent -= handler)
-                .Subscribe(_ => SetActive(false).Forget())
+                .Subscribe(_ => Hide().Forget())
                 .AddTo(ref disposableBuilder);
             _subscriptions = disposableBuilder.Build();
         }
@@ -58,22 +60,6 @@ namespace Madduck.Room
                 Object.Destroy(view);
             }
             _cardSelectionViews.Clear();
-        }
-
-        public async UniTask SetActive(bool active)
-        {
-            if (active)
-            {
-                await _cardSelectionScreen.TransitionIn();
-                SpawnCards();
-                await TransitionCards(true);
-            }
-            else
-            {
-                await TransitionCards(false);
-                await _cardSelectionScreen.TransitionOut();
-                OnCardSelectionClosed?.Invoke();
-            }
         }
 
         private void SpawnCards()
@@ -98,6 +84,21 @@ namespace Madduck.Room
                 if (forward) await view.TransitionIn();
                 else await view.TransitionOut();
             }
+        }
+        
+        public async UniTask Show(CancellationToken cancellationToken = default)
+        {
+            await _cardSelectionScreen.TransitionIn(cancellationToken);
+            SpawnCards();
+            await TransitionCards(true);
+            OnOpen?.Invoke();
+        }
+
+        public async UniTask Hide(CancellationToken cancellationToken = default)
+        {
+            await TransitionCards(false);
+            await _cardSelectionScreen.TransitionOut(cancellationToken);
+            OnClose?.Invoke();
         }
     }
 }

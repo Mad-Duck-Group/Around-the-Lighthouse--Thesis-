@@ -10,7 +10,7 @@ using VContainer;
 namespace Madduck.GameData
 {
     [Serializable]
-    public class FishItemPopUpManager : PopUpManager<FishItemPopUpObject>
+    public class FishItemPopUpFactory : PopUpFactory<FishItemPopUpObject>
     {
         [Title("Debug")]
         [HideInEditorMode,
@@ -19,7 +19,9 @@ namespace Madduck.GameData
         {
             var instance = new FishItemInstance(fishItemData);
             var popUpObject = new FishItemPopUpObject(instance);
-            ShowPopUp(popUpObject).Forget();
+            var popUp = Create();
+            popUp.SetPopUpObject(popUpObject);
+            popUp.Show().Forget();
         }
     }
 }

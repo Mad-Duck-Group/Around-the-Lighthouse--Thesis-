@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using R3;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -15,23 +16,20 @@ namespace Madduck.Utils
         public T GetPopUpObject();
     }
 
-    public interface IPopUpView<T> where T : IPopUpObject
+    public interface IPopUpView<in T> : IModal where T : IPopUpObject
     {
-        public void SetUp(PopUpManager<T> popUpManager);
-        public UniTask ShowPopUp(T popUpObject, CancellationToken cancellationToken = default);
-        public UniTask HidePopUp(CancellationToken cancellationToken = default);
+        public void SetPopUpObject(T popUpObject);
     }
 
-    public interface IPopUpManager
+    public interface IPopUpFactory<in T> : IGenericFactory<IPopUpView<T>>
+        where T : IPopUpObject
     {
-        UniTask ShowPopUp(IPopUpObject popUpObject, CancellationToken cancellationToken = default);
-        UniTask HidePopUp(CancellationToken cancellationToken = default);
-        public event Action OnPopUpShown;
-        public event Action OnPopUpHidden;
+        void DestroyPopUp();
     }
-
+    
     [Serializable]
-    public abstract class PopUpManager<T> : IPopUpManager where T : IPopUpObject
+    public abstract class PopUpFactory<T> : IPopUpFactory<T>, IDisposable
+        where T : IPopUpObject
     {
         [Title("References")]
         [Required, 
@@ -43,27 +41,15 @@ namespace Madduck.Utils
         [Required, ShowIf(nameof(prefabMode)),
          OdinSerialize] protected IPopUpView<T> popUpViewPrefab;
         
-        public event Action OnPopUpShown;
-        public event Action OnPopUpHidden;
-
-        protected IPopUpView<T> currentPopUpView;
+        public IPopUpView<T> Current { get; private set; }
         protected GameObject currentPopUpViewObject;
+        protected IDisposable subscriptions;
         
-        public virtual async UniTask ShowPopUp(IPopUpObject popUpObject, CancellationToken cancellationToken = default)
+        public IPopUpView<T> Create()
         {
-            if (!PopUpCanvas)
-            {
-                DebugUtils.LogError("PopUpCanvas is not assigned");
-                return;
-            }
-            if (popUpObject is not T data)
-            {
-                DebugUtils.LogError("PopUpObject is not of type T");
-                return;
-            }
             if (prefabMode)
             {
-                currentPopUpView = popUpViewPrefab.InstantiateAsInterface(new InstantiateParameters
+                Current = popUpViewPrefab.InstantiateAsInterface(new InstantiateParameters
                 {
                     parent = popUpParent,
                     worldSpace = false
@@ -71,26 +57,25 @@ namespace Madduck.Utils
             }
             else
             {
-                currentPopUpView = popUpView;
+                Current = popUpView;
             }
-            currentPopUpView.SetUp(this);
-            OnPopUpShown?.Invoke();
-            await currentPopUpView.ShowPopUp(data, cancellationToken);
+            subscriptions = Observable.FromEvent(
+                h => Current.OnClose += h,
+                h => Current.OnClose -= h)
+                .Subscribe(_ => DestroyPopUp());
+            return Current;
         }
         
-        public virtual async UniTask HidePopUp(CancellationToken cancellationToken = default)
+        public void DestroyPopUp()
         {
-            cancellationToken.Register(DestroyPopUpObject);
-            if (currentPopUpView != null)
-                await currentPopUpView.HidePopUp(cancellationToken);
-            OnPopUpHidden?.Invoke();
-            DestroyPopUpObject();
+            subscriptions?.Dispose();
+            if (currentPopUpViewObject) Object.Destroy(currentPopUpViewObject);
+            Current = null;
         }
 
-        protected virtual void DestroyPopUpObject()
+        public void Dispose()
         {
-            if (currentPopUpViewObject) Object.Destroy(currentPopUpViewObject);
-            currentPopUpView = null;
+            subscriptions?.Dispose();
         }
     }
 }

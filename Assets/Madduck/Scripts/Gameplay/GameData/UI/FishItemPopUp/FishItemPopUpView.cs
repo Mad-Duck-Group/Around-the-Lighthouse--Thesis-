@@ -47,22 +47,25 @@ namespace Madduck.GameData
         
         #region Fields
         
+        public event Action OnOpen;
+        public event Action OnClose;
         private Sequence _transitionSequence;
-        private PopUpManager<FishItemPopUpObject> _popUpManager;
         private IDisposable _bindings;
         
         #endregion
 
         #region Injection
-
-        public void SetUp(PopUpManager<FishItemPopUpObject> popUpManager)
+        public void SetPopUpObject(FishItemPopUpObject popUpObject)
         {
-            _popUpManager = popUpManager;
             canvasGroup.transform.localScale = scaleTweenSettings.startValue;
             backgroundImage.color = backgroundImage.color.WithA(backgroundAlphaTweenSettings.startValue);
+            fishNameText.text = popUpObject.FishItemInstance.ItemData.FishName;
+            fishDescriptionText.text = popUpObject.FishItemInstance.ItemData.FishDescription;
+            fishWeightText.text = $"Weight:\n{popUpObject.FishItemInstance.ItemData.FishWeight:F2} kg";
+            fishRarityText.text = $"Rarity:\n{popUpObject.FishItemInstance.CurrentFishQuality}";
+            fishIcon.sprite = popUpObject.FishItemInstance.ItemData.FishIcon;
             Bind();
         }
-
         #endregion
 
         #region Binding
@@ -87,26 +90,23 @@ namespace Madduck.GameData
 
         private void OnCloseButtonClicked()
         {
-            _popUpManager.HidePopUp().Forget();
+            Hide().Forget();
         }
 
         #endregion
 
         #region Pop Up
 
-        public async UniTask ShowPopUp(FishItemPopUpObject popUpObject, CancellationToken cancellationToken = default)
+        public async UniTask Show(CancellationToken cancellationToken = default)
         {
-            fishNameText.text = popUpObject.FishItemInstance.ItemData.FishName;
-            fishDescriptionText.text = popUpObject.FishItemInstance.ItemData.FishDescription;
-            fishWeightText.text = $"Weight:\n{popUpObject.FishItemInstance.ItemData.FishWeight:F2} kg";
-            fishRarityText.text = $"Rarity:\n{popUpObject.FishItemInstance.CurrentFishQuality}";
-            fishIcon.sprite = popUpObject.FishItemInstance.ItemData.FishIcon;
-            await TransitionIn(cancellationToken); 
+            await TransitionIn(cancellationToken);
+            OnOpen?.Invoke();
         }
 
-        public async UniTask HidePopUp(CancellationToken cancellationToken = default)
+        public async UniTask Hide(CancellationToken cancellationToken = default)
         {
             await TransitionOut(cancellationToken);
+            OnClose?.Invoke();
         }
 
         #endregion
