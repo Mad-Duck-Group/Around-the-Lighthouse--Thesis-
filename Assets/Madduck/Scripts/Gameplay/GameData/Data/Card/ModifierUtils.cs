@@ -85,5 +85,50 @@ namespace Madduck.GameData
             }
         }
     }
+    
+    [Serializable]
+    public class CardWeightModifierData : BaseModifierData
+    {
+        [field: SerializeField] public CardItemData ItemData { get; private set; }
+        
+        public class Builder : ModifierDataBuilder<CardWeightModifierData>
+        {
+            private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
+
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+            
+            public Builder WithName(CardItemData cardItemData)
+            {
+                modifierData.ItemData = cardItemData;
+                return this;
+            }
+        }
+    }
+    
+    [Serializable]
+    public class CardRarityWeightModifierData : BaseModifierData
+    {
+        [field: UnflagEnum,
+            SerializeField] public CardRarity CardRarity { get; private set; }
+        
+        public class Builder : ModifierDataBuilder<CardRarityWeightModifierData>
+        {
+            private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
+
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+            
+            public Builder WithRarity(CardRarity cardRarity)
+            {
+                modifierData.CardRarity = cardRarity;
+                return this;
+            }
+        }
+    }
     #endregion
 }

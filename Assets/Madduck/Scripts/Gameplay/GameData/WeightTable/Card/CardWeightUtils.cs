@@ -7,31 +7,29 @@ using UnityEngine;
 
 namespace Madduck.GameData
 {
-    #region Data Structure
-
     [Serializable]
-    public record FishWeightRecord : IWeightRecord<FishItemData>, IStatModifiable<FishWeightRecord>
+    public record CardWeightRecord : IWeightRecord<CardItemData>, IStatModifiable<CardWeightRecord>
     {
         [field: Required, 
-                SerializeField] public FishItemData Item { get; internal set; }
+                SerializeField] public CardItemData Item { get; internal set; }
         [field: MinValue(0f), 
                 SerializeField] public UFloat Weight { get; set; } = 1f;
         [field: DisplayAsString(TextAlignment.Center), 
                 ShowInInspector] public Percentage Probability { get; internal set; }
 
-        public FishWeightRecord Copy() => this with {};
+        public CardWeightRecord Copy() => this with {};
     }
     
-    public class FishWeightFilter : IWeightFilter<FishWeightRecord>
+    public class CardWeightFilter : IWeightFilter<CardWeightRecord>
     {
-        private readonly Func<FishWeightRecord, bool> _predicate;
+        private readonly Func<CardWeightRecord, bool> _predicate;
 
-        public FishWeightFilter(Func<FishWeightRecord, bool> predicate)
+        public CardWeightFilter(Func<CardWeightRecord, bool> predicate)
         {
             _predicate = predicate;
         }
 
-        public List<FishWeightRecord> Filter(List<FishWeightRecord> records)
+        public List<CardWeightRecord> Filter(List<CardWeightRecord> records)
         {
             return records
                 .Where(_predicate)
@@ -39,6 +37,4 @@ namespace Madduck.GameData
                 .ToList();
         }
     }
-
-    #endregion
 }

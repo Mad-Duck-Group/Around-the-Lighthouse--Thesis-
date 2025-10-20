@@ -300,6 +300,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: bb8d3aacfcff685459c88790344b8f4d, type: 2}
     - {fileID: 11400000, guid: 81a55ff5f491372458739e4baa1dc32a, type: 2}
     - {fileID: 11400000, guid: 039c3ad4efc03e345afdc51f750988fa, type: 2}
+    - {fileID: 11400000, guid: 9e6ce87e201f71e4ead48630fe2dd231, type: 2}
+    - {fileID: 11400000, guid: fe0e6d807531c3a4f8b054c682df0644, type: 2}
     - {fileID: 11400000, guid: 3d31df75f659d3946966c5ae84c26e9f, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -355,9 +357,15 @@ MonoBehaviour:
     - Name: fishWeightTable
       Entry: 10
       Data: 6
-    - Name: fishermanItemData
+    - Name: cardWeightTable
       Entry: 10
       Data: 7
+    - Name: cardRarityWeightTable
+      Entry: 10
+      Data: 8
+    - Name: fishermanItemData
+      Entry: 10
+      Data: 9
     - Name: 
       Entry: 8
       Data: 

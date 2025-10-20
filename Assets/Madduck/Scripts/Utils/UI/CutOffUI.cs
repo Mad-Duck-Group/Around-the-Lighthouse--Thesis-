@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Rendering;
-namespace Madduck.Core
+using UnityEngine.UI;
+
+namespace Madduck.Utils
 {
     public class CutOffUI : MonoBehaviour, IMaterialModifier
     {

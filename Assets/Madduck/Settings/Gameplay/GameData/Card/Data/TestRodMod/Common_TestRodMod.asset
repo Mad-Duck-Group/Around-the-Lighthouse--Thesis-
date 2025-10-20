@@ -9,23 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f88e80974044c6bae6e81f599d2018a, type: 3}
-  m_Name: TestFishMod
-  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.Card.CardItemData
-  <ItemType>k__BackingField: 3
+  m_Script: {fileID: 11500000, guid: 0c7cfa35056b436a934e45615276bf7d, type: 3}
+  m_Name: Common_TestRodMod
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.CardRarityData
+  <CardName>k__BackingField: Power Plus
+  <CardDescription>k__BackingField: '+10% base rod''s power.
+
+    +1 total rod''s
+    power.'
+  <CardIcon>k__BackingField: {fileID: -3584810823292265788, guid: eab616b1cc720ea4e8db110ba280502f, type: 3}
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: fe2409ffe21a66f489b88b6cf7b663eb, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: <Guid>k__BackingField
-      Entry: 2
-      Data: aad3051a260e4d54bc616c6f5647597c
     - Name: <Modifiers>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
@@ -35,43 +36,13 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 7
-      Data: 1|Madduck.GameData.FishWeightModifierData, Madduck.GameData
-    - Name: <ModifierMethod>k__BackingField
-      Entry: 3
-      Data: 4
-    - Name: <ModifierValue>k__BackingField
-      Entry: 4
-      Data: 0.5
-    - Name: <ModifierPercentage>k__BackingField
-      Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: <ModifierType>k__BackingField
-      Entry: 3
-      Data: 1
-    - Name: <FishSize>k__BackingField
-      Entry: 3
-      Data: 0
-    - Name: <FishItemData>k__BackingField
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 2|Madduck.GameData.FishWeightModifierData, Madduck.GameData
+      Data: 1|Madduck.GameData.RodStatModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: <ModifierPercentage>k__BackingField
       Entry: 7
       Data: Madduck.Utils.Percentage, Madduck.Utils
@@ -81,14 +52,32 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: <ModifierType>k__BackingField
+    - Name: <FishingRodStatType>k__BackingField
       Entry: 3
       Data: 0
-    - Name: <FishSize>k__BackingField
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|Madduck.GameData.RodStatModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
       Entry: 3
+      Data: 4
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 1
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
       Data: 0
-    - Name: <FishItemData>k__BackingField
-      Entry: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <FishingRodStatType>k__BackingField
+      Entry: 3
       Data: 0
     - Name: 
       Entry: 8
@@ -99,9 +88,3 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <CardName>k__BackingField: Luck of the Sea
-  <CardDescription>k__BackingField: 'Increase the chance of getting Small fish moderately.
-
-    +10%
-    chance of getting Crawling Stone.'
-  <CardIcon>k__BackingField: {fileID: 7365031340990435738, guid: 94a8a45dbd6df66468fa90d260612c2e, type: 3}

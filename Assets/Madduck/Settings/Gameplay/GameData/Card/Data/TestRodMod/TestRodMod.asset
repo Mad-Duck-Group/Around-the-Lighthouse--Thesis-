@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f88e80974044c6bae6e81f599d2018a, type: 3}
-  m_Name: TestWeatherMod
+  m_Name: TestRodMod
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.Card.CardItemData
   <ItemType>k__BackingField: 3
   serializationData:
@@ -24,35 +24,59 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Guid>k__BackingField
       Entry: 2
-      Data: cb7de70f7c09484bb37a056dd526de7f
+      Data: a3be5bb2c2d7447baf38649dcf3c4621
     - Name: <Modifiers>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 1|Madduck.GameData.WeatherWeightModifierData, Madduck.GameData
+      Data: 1|Madduck.GameData.RodStatModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 1.2
+      Data: 0
     - Name: <ModifierPercentage>k__BackingField
       Entry: 7
       Data: Madduck.Utils.Percentage, Madduck.Utils
     - Name: value
       Entry: 4
-      Data: 15
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
-    - Name: <WeatherType>k__BackingField
+    - Name: <FishingRodStatType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|Madduck.GameData.RodStatModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 4
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 1
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <FishingRodStatType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -62,8 +86,13 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <CardName>k__BackingField: Stormy Mood
-  <CardDescription>k__BackingField: '+15% chance of Storm appearing.
+  <CardName>k__BackingField: Power Plus
+  <CardDescription>k__BackingField: '+10% base rod''s power.
 
-'
-  <CardIcon>k__BackingField: {fileID: -7403225922231255738, guid: 9de2ba106c38cca409900777e6195b3f, type: 3}
+    +1 total rod''s
+    power.'
+  <CardIcon>k__BackingField: {fileID: -3584810823292265788, guid: eab616b1cc720ea4e8db110ba280502f, type: 3}
+  <RarityData>k__BackingField:
+    keys: 00000000
+    values:
+    - {fileID: 11400000, guid: c025175881ba47c46b86eaae206a75e8, type: 2}

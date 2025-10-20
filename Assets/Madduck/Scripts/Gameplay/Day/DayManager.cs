@@ -41,7 +41,7 @@ namespace Madduck.Day
 
         private FishWeightTableInstance FishWeightTable { get; }
         private readonly DayManagerConfig _config;
-        private readonly ISubscriber<OutOfFishEvent> _outOfFishEventSubscriber;
+        private readonly ISubscriber<FishingRoomEndedEvent> _outOfFishEventSubscriber;
         private readonly IPublisher<DayStateChangedEvent> _dayStatePublisher;
         private readonly LoadSceneManager _loadSceneManager;
         private IDisposable _subscriptions;
@@ -55,7 +55,7 @@ namespace Madduck.Day
             FishWeightTableInstance fishWeightTable, 
             DayManagerConfig config,
             LoadSceneManager loadSceneManager,
-            ISubscriber<OutOfFishEvent> outOfFishEventSubscriber)
+            ISubscriber<FishingRoomEndedEvent> outOfFishEventSubscriber)
         {
             FishWeightTable = fishWeightTable;
             _config = config;

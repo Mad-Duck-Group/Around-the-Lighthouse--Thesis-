@@ -80,7 +80,8 @@ namespace Madduck.GameData
                 .Subscribe(x =>
                 {
                     _currentModifiers.OnItemInstanceCollectionChanged<CardItemInstance, CardItemData>(x,
-                        i => i.ItemData.CardName);
+                        i => i.GetRarityData(),
+                        i => i.GetRarityData().CardName);
                 })
                 .AddTo(ref disposableBuilder);
             CurrentBait
@@ -90,6 +91,7 @@ namespace Madduck.GameData
                     _currentModifiers.OnItemInstanceChanged<BaitItemInstance, BaitItemData>(
                         x.Previous, 
                         x.Current,
+                        i => i.ItemData,
                         i => i.ItemData.BaitName);
                 })
                 .AddTo(ref disposableBuilder);
@@ -141,6 +143,26 @@ namespace Madduck.GameData
             if (CurrentBait.Value.CurrentCount == 0) 
                 SetCurrentBait(BaitType.None);
         }
+        #endregion
+
+        #region Card
+
+        public void AddCard(CardItemInstance cardItemInstance)
+        {
+            CurrentCards.Add(cardItemInstance);
+        }
+
+        public void RemoveCard(Guid cardInstanceGuid)
+        {
+            var cardToRemove = CurrentCards.FirstOrDefault(x => x.InstanceGuid == cardInstanceGuid);
+            if (cardToRemove is null)
+            {
+                DebugUtils.LogWarning($"Card with instance guid {cardInstanceGuid} not found");
+                return;
+            }
+            CurrentCards.Remove(cardToRemove);
+        }
+
         #endregion
     }
 }

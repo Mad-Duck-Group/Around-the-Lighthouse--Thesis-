@@ -45,7 +45,7 @@ namespace Madduck.Room
         public void SetCard(CardItemInstance card)
         {
             _card = card;
-            icon.sprite = card.ItemData.CardIcon;
+            icon.sprite = card.GetRarityData().CardIcon;
         }
 
         #endregion
@@ -57,8 +57,8 @@ namespace Madduck.Room
             _tooltipCts.Cancel();
             _tooltipCts = new();
             var tooltipObject = new GeneralTooltipObject(
-                _card.ItemData.CardName, 
-                _card.ItemData.CardDescription);
+                _card.GetRarityData().CardName, 
+                _card.GetRarityData().CardDescription);
             tooltipManager.ShowTooltip(tooltipObject, _tooltipCts.Token).Forget();
         }
 

@@ -23,15 +23,18 @@ namespace Madduck.GameData
         /// <param name="collectionChangedEvent">
         /// The collection changed event containing the new and old items.
         /// </param>
+        /// <param name="modifierGetter"></param>
+        /// The function to get the <see cref="IHasModifier"/> from the item instance.
         /// <param name="idDisplayNameGetter">
         /// The function to get the display name for the <see cref="ModifierId"/>.
         /// </param>
         public static void OnItemInstanceCollectionChanged<TInstance, TData>(
             this IDictionary<ModifierId, List<BaseModifierData>> modifiers, 
             CollectionChangedEvent<TInstance> collectionChangedEvent, 
+            Func<TInstance, IHasModifier> modifierGetter,
             Func<TInstance, string> idDisplayNameGetter = null) 
             where TInstance : ItemInstance<TData> 
-            where TData : ItemData, IHasModifier
+            where TData : ItemData
         {
             var newItem = collectionChangedEvent.NewItem;
             var oldItem = collectionChangedEvent.OldItem;
@@ -45,7 +48,7 @@ namespace Madduck.GameData
             {
                 case NotifyCollectionChangedAction.Add:
                     if (newId == null) return;
-                    modifiers.TryAdd(newId, newItem.ItemData.Modifiers);
+                    modifiers.TryAdd(newId, modifierGetter.Invoke(newItem).Modifiers);
                     break;
                 case NotifyCollectionChangedAction.Move:
                     //Ignore because the modifiers are flattened
@@ -57,7 +60,7 @@ namespace Madduck.GameData
                 case NotifyCollectionChangedAction.Replace:
                     if (oldId == null || newId == null) return;
                     modifiers.Remove(oldId);
-                    modifiers.TryAdd(newId, newItem.ItemData.Modifiers);
+                    modifiers.TryAdd(newId, modifierGetter.Invoke(newItem).Modifiers);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     modifiers.Clear();
@@ -66,8 +69,8 @@ namespace Madduck.GameData
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
-        
+
+
         /// <summary>
         /// Updates the modifiers dictionary based on the provided previous and current item instances.
         /// </summary>
@@ -76,14 +79,16 @@ namespace Madduck.GameData
         /// <param name="modifiers">The modifiers.</param>
         /// <param name="previous">The previous item instance.</param>
         /// <param name="current">The current item instance.</param>
+        /// <param name="modifierGetter">The function to get the <see cref="IHasModifier"/> from the item instance.</param>
         /// <param name="idDisplayNameGetter">The function to get the display name for the <see cref="ModifierId"/>.</param>
         public static void OnItemInstanceChanged<TInstance, TData>(
             this IDictionary<ModifierId, List<BaseModifierData>> modifiers,
             TInstance previous, 
             TInstance current, 
+            Func<TInstance, IHasModifier> modifierGetter,
             Func<TInstance, string> idDisplayNameGetter = null) 
             where TInstance : ItemInstance<TData> 
-            where TData : ItemData, IHasModifier
+            where TData : ItemData
         {
             if (previous != null)
             {
@@ -93,7 +98,7 @@ namespace Madduck.GameData
             if (current != null)
             {
                 var currentId = new ModifierId(current.InstanceGuid, idDisplayNameGetter?.Invoke(current));
-                modifiers.TryAdd(currentId, current.ItemData.Modifiers);
+                modifiers.TryAdd(currentId, modifierGetter.Invoke(current).Modifiers);
             }
         }
     }

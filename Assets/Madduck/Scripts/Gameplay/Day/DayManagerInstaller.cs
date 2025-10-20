@@ -45,6 +45,10 @@ namespace Madduck.Day
         [Required,
          SerializeField] private FishWeightTable fishWeightTable;
         [Required,
+         SerializeField] private CardWeightTable cardWeightTable;
+        [Required,
+         SerializeField] private CardRarityWeightTable cardRarityWeightTable;
+        [Required,
          SerializeField] private FishermanItemData fishermanItemData;
         
 #if UNITY_EDITOR
@@ -64,6 +68,10 @@ namespace Madduck.Day
             builder.RegisterInstance(dayManagerConfig).AsSelf();
             builder.RegisterInstance(fishWeightTable).As<IWeightTable<FishWeightRecord>>();
             builder.Register<FishWeightTableInstance>(Lifetime.Singleton).AsSelf();
+            builder.RegisterInstance(cardWeightTable).As<IWeightTable<CardWeightRecord>>();
+            builder.Register<CardWeightTableInstance>(Lifetime.Singleton).AsSelf();
+            builder.RegisterInstance(cardRarityWeightTable).As<IWeightTable<CardRarityWeightRecord>>();
+            builder.Register<CardRarityWeightTableInstance>(Lifetime.Singleton).AsSelf();
             builder.RegisterInstance(fishermanItemData).AsSelf();
             builder.RegisterInstance(playerInventoryConfig).AsSelf();
             builder.Register<PlayerInventory>(Lifetime.Singleton).AsSelf();

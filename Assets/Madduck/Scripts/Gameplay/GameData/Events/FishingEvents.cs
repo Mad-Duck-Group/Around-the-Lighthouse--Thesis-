@@ -22,6 +22,6 @@ namespace Madduck.GameData
             StateType = stateType;
         }
     }
-    public struct OutOfFishEvent { }
+    public struct FishingRoomEndedEvent { }
     
 }

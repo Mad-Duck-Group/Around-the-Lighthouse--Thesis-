@@ -1,23 +1,24 @@
-﻿using System.Collections.Generic;
-using Madduck.Utils;
+﻿using Madduck.Utils;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Madduck.GameData
 {
+    public enum CardRarity
+    {
+        Common,
+        Uncommon,
+        Rare,
+        Unique
+    }
+    
     [CreateAssetMenu(fileName = "CardItemData", menuName = "Madduck/Card/CardItemData", order = 3)]
     [ShowOdinSerializedPropertiesInInspector]
-    public class CardItemData : ItemData, IHasModifier
+    public class CardItemData : ItemData
     {
         [Title("Card Settings"),
             HideLabel,
             ShowInInspector] private InspectorPlaceholder _cardSettingsTitle;
-        [field: SerializeField] public string CardName { get; private set; }
-        [field: TextArea(3, 20),
-            SerializeField] public string CardDescription { get; private set; }
-        [field: PreviewField,
-            SerializeField] public Sprite CardIcon { get; private set; }
-        [field: OdinSerialize] public List<BaseModifierData> Modifiers { get; private set; } = new();
+        [field: SerializeField] public SerializableDictionary<CardRarity, CardRarityData> RarityData { get; private set; } = new();
     }
 }
