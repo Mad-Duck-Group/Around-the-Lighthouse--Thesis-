@@ -1,6 +1,7 @@
 using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
+using Spine.Unity;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -44,6 +45,10 @@ namespace Madduck.GameData
                 SerializeField] public Sprite FishIcon { get; private set; }
         [field: PreviewField,
                 SerializeField] public Sprite FishSprite { get; private set; }
+        [field: Required, 
+                SerializeField] public FishSpriteAnimatorConfig FishSpriteAnimatorConfig { get; private set; }
+        [field: Required, 
+                SerializeField] public SkeletonDataAsset FishSkeletonDataAsset { get; private set; }
         [field: SerializeField] public Vector2 SpriteAnchorOffset { get; private set; }
         [field: SerializeField] public uint BasePrice { get; private set; } = 10;
         

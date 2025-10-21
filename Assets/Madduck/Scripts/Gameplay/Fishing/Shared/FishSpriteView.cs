@@ -2,9 +2,11 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.GameData;
+using Madduck.Shared;
 using Madduck.Utils;
 using PrimeTween;
 using Sirenix.OdinInspector;
+using Spine.Unity;
 using UnityEngine;
 
 namespace Madduck.Fishing.Shared
@@ -13,27 +15,33 @@ namespace Madduck.Fishing.Shared
     {
         void SetUp(Transform hook, FishItemInstance fishItemInstance);
         void Detach();
+        ISpineAnimator<FishSpriteAnimationKey> Animator { get; }
     }
     public class FishSpriteView : MonoBehaviour, IFishSpriteView
     {
         [Title("References")]
         [Required,
-         SerializeField] private SpriteRenderer spriteRenderer;
+         SerializeField] private SkeletonAnimation skeletonAnimation;
         
         [Title("Settings")] 
         [SerializeField] private TweenSettings<Vector3> scaleTween;
 
         [Title("Debug")] 
         [InlineEditor, 
-         SerializeField] private FishItemData debugFish;
+         SerializeField] 
+        private FishItemData debugFish;
+        
+        public ISpineAnimator<FishSpriteAnimationKey> Animator { get; private set; }
         
         private Sequence _transitionSequence;
         
         public void SetUp(Transform hook, FishItemInstance fishItemInstance)
         {
-            spriteRenderer.sprite = fishItemInstance.ItemData.FishSprite;
             transform.position = hook.position;
             transform.position -= (Vector3)fishItemInstance.ItemData.SpriteAnchorOffset;
+            skeletonAnimation.skeletonDataAsset = fishItemInstance.ItemData.FishSkeletonDataAsset;
+            skeletonAnimation.Initialize(true);
+            Animator = new FishSpriteAnimator(fishItemInstance.ItemData.FishSpriteAnimatorConfig, skeletonAnimation);
             transform.SetParent(hook);
         }
 
@@ -68,9 +76,7 @@ namespace Madduck.Fishing.Shared
 
         private void OnDrawGizmosSelected()
         {
-            if (!debugFish || !spriteRenderer) return;
             var anchoredPos = transform.position + (Vector3)debugFish.SpriteAnchorOffset;
-            spriteRenderer.sprite = debugFish.FishSprite;
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(anchoredPos, 0.5f);
         }

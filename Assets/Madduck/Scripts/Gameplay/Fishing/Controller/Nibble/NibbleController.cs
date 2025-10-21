@@ -104,10 +104,11 @@ namespace Madduck.Fishing.Controller
             _hookFactory.Current.StopNibble();
             if (result is Sign.Positive)
             {
-                _fishSpriteFactory.Create();
-                _fishSpriteFactory.Current.SetUp(_hookFactory.CurrentGameObject.transform, _fishFactory.Current);
+                var fishSprite = _fishSpriteFactory.Create();
+                fishSprite.SetUp(_hookFactory.CurrentGameObject.transform, _fishFactory.Current);
+                fishSprite.Animator.Set(FishSpriteAnimationKey.Idle, 0, true);
                 await UniTask.WhenAll(
-                    _fishSpriteFactory.Current.TransitionIn(),
+                    fishSprite.TransitionIn(),
                     _hookFactory.Current.MoveY(Percentage.Full));
                 await _hookFactory.Current.MoveX(Percentage.Full);
             }

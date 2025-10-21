@@ -35,6 +35,8 @@ MonoBehaviour:
     for unknown reason.
   <FishIcon>k__BackingField: {fileID: 21300000, guid: 3ff237139cd730149b705d5d2f11f7b9, type: 3}
   <FishSprite>k__BackingField: {fileID: 21300000, guid: 929f03e5661698744bb82347b1955f0c, type: 3}
+  <FishSpriteAnimatorConfig>k__BackingField: {fileID: 11400000, guid: 27e818c32360bb94fa38cd88fa750c87, type: 2}
+  <FishSkeletonDataAsset>k__BackingField: {fileID: 0}
   <SpriteAnchorOffset>k__BackingField: {x: -1.17, y: 0.5}
   <BasePrice>k__BackingField: 10
   <MaxNibbleAttempts>k__BackingField: 4

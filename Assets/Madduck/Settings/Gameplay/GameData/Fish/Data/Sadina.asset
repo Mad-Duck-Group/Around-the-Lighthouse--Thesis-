@@ -34,6 +34,8 @@ MonoBehaviour:
     distance. They unfortunately are likey to be scoop away by seagull.
   <FishIcon>k__BackingField: {fileID: 21300000, guid: b85dabca159f3a84bbf9b5a7275208c8, type: 3}
   <FishSprite>k__BackingField: {fileID: 21300000, guid: 929f03e5661698744bb82347b1955f0c, type: 3}
+  <FishSpriteAnimatorConfig>k__BackingField: {fileID: 11400000, guid: 27e818c32360bb94fa38cd88fa750c87, type: 2}
+  <FishSkeletonDataAsset>k__BackingField: {fileID: 0}
   <SpriteAnchorOffset>k__BackingField: {x: -1.17, y: 0.5}
   <BasePrice>k__BackingField: 10
   <MaxNibbleAttempts>k__BackingField: 3
