@@ -36,6 +36,7 @@ namespace Madduck.Fishing.Controller
         private IDisposable _bindings;
         private CancellationTokenSource _waitingCts = new();
         private CancellationTokenSource _transitionCts = new();
+        private const string ThrowEventName = "After_Throw";
 
         #endregion
 
@@ -128,8 +129,10 @@ namespace Madduck.Fishing.Controller
         {
             _playerAnimator.Set(PlayerAnimationKey.Reeling, 0, true);
             await _hookFactory.Current.ReelBack();
-            _playerAnimator.Set(PlayerAnimationKey.PullHookUp, 0, false);
-            await _hookFactory.Current.Return();
+            var track = _playerAnimator.Set(PlayerAnimationKey.PullHookUp, 0, false);
+            await track.WaitUntilEvent(ThrowEventName);
+            await UniTask.WhenAny(_hookFactory.Current.Return(), 
+                track.WaitUntilComplete());
             _hookFactory.DestroyHook();
         }
         

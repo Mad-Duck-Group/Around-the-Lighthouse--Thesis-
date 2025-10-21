@@ -49,7 +49,7 @@ namespace Madduck.Fishing.StateMachine
             await base.Exit();
             _reelingResultSubscription.Dispose();
             await _controller.SetActive(false);
-            if (_result is not Sign.Zero) await _controller.ReturnHook(_result is Sign.Positive);
+            if (_result is not Sign.Zero) await _controller.ReturnHook();
             if (_result is Sign.Positive)
             {
                 _fishCaughtEventPublisher.Publish(new FishCaughtEvent(_fishFactory.Current));

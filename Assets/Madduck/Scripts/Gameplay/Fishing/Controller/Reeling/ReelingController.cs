@@ -32,11 +32,12 @@ namespace Madduck.Fishing.Controller
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ITransitionable _viewTransition;
-        private ISpineAnimator<PlayerAnimationKey> _playerAnimator;
+        private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         
         private IDisposable _bindings;
         private CancellationTokenSource _fatigueTimerCts = new();
         private CancellationTokenSource _transitionCts = new();
+        private const string ThrowEventName = "After_Throw";
 
         #endregion
 
@@ -181,10 +182,10 @@ namespace Madduck.Fishing.Controller
             OnFishRegainConsciousness();
         }
         
-        public async UniTask ReturnHook(bool reelBack)
+        public async UniTask ReturnHook()
         {
-            _playerAnimator.Set(reelBack ? PlayerAnimationKey.GotFish : PlayerAnimationKey.LoseFish, 0, false); 
             _fishSpriteFactory.Current.Detach();
+            await _playerAnimator.Set(PlayerAnimationKey.GotFish, 0, false).WaitUntilEvent(ThrowEventName); 
             await UniTask.WhenAll(
                 _hookFactory.Current.Return(),
                 _fishSpriteFactory.Current.TransitionOut());

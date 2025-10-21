@@ -18,6 +18,7 @@ namespace Madduck.Fishing.StateMachine
         private readonly FishingBoardController _controller;
         private readonly IPublisher<FishEscapedEvent> _fishEscapedEventPublisher;
         private IDisposable _fishingBoardResultSubscription;
+        private Sign _result;
         
         public FishingBoardState(
             FishingStateMachine stateMachine,
@@ -44,6 +45,8 @@ namespace Madduck.Fishing.StateMachine
             await base.Exit();
             _fishingBoardResultSubscription.Dispose();
             await _controller.SetActive(false);
+            if (_result is Sign.Negative)
+                await _controller.ReturnHook();
             _controller.Reset();
             _controller.ResetCircleBoardSprite();
         }
@@ -57,6 +60,7 @@ namespace Madduck.Fishing.StateMachine
 
         private void OnFishingBoardResult(Sign result)
         {
+            _result = result;
             switch (result)
             {
                 case Sign.Negative:

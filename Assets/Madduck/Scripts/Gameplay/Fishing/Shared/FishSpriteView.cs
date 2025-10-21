@@ -22,6 +22,8 @@ namespace Madduck.Fishing.Shared
         [Title("References")]
         [Required,
          SerializeField] private SkeletonAnimation skeletonAnimation;
+        [Required,
+         SerializeField] private SkeletonUtility skeletonUtility;
         
         [Title("Settings")] 
         [SerializeField] private TweenSettings<Vector3> scaleTween;
@@ -37,12 +39,14 @@ namespace Madduck.Fishing.Shared
         
         public void SetUp(Transform hook, FishItemInstance fishItemInstance)
         {
+            transform.localScale = scaleTween.startValue;
             transform.position = hook.position;
             transform.position -= (Vector3)fishItemInstance.ItemData.SpriteAnchorOffset;
             skeletonAnimation.skeletonDataAsset = fishItemInstance.ItemData.FishSkeletonDataAsset;
             skeletonAnimation.Initialize(true);
             Animator = new FishSpriteAnimator(fishItemInstance.ItemData.FishSpriteAnimatorConfig, skeletonAnimation);
             transform.SetParent(hook);
+            skeletonUtility.SpawnHierarchy(SkeletonUtilityBone.Mode.Follow, true, true, true);
         }
 
         public void Detach()

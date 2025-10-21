@@ -38,6 +38,7 @@ namespace Madduck.Fishing.Controller
         private IDisposable _bindings;
         private AudioReference _fishingLineTensionSfx;
         private CancellationTokenSource _transitionCts = new();
+        private const string ThrowEventName = "After_Throw";
         #endregion
 
         #region Injection
@@ -208,7 +209,7 @@ namespace Madduck.Fishing.Controller
             _model.CurrentFatigueLevel.Value = currentFatigue;
             if (currentFatigue <= 0)
             {
-                LoseFishingBoard().Forget();  
+                LoseFishingBoard();  
             }
             if (currentFatigue >= _config.MaxFatigueLevel)
             {
@@ -238,7 +239,7 @@ namespace Madduck.Fishing.Controller
             PlayTensionSound(_model.FishingLineDurabilityPercent.CurrentValue);
             if (currentDurability <= 0)
             {
-                LoseFishingBoard().Forget();
+                LoseFishingBoard();
             }
         }
         
@@ -254,18 +255,12 @@ namespace Madduck.Fishing.Controller
         /// <summary>
         /// Called when the player loses the fishing board mini-game.
         /// </summary>
-        private async UniTaskVoid LoseFishingBoard()
+        private void LoseFishingBoard()
         {
             _model.Inventory.ChangeCurrentBaitAmount(-1);
             OnFishingBoardResult?.Invoke(Sign.Negative);
-            _playerAnimator.Set(PlayerAnimationKey.LoseFish, 0, false);
             _fishSpriteFactory.Current.Animator.Set(FishSpriteAnimationKey.Idle, 0, true);
             _fishSpriteFactory.Current.Detach();
-            await UniTask.WhenAll(
-                _hookFactory.Current.Return(),
-                _fishSpriteFactory.Current.TransitionOut());
-            _fishSpriteFactory.DestroyFishSprite();
-            _hookFactory.DestroyHook();
         }
 
         /// <summary>
@@ -276,6 +271,16 @@ namespace Madduck.Fishing.Controller
             _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
             _fishSpriteFactory.Current.Animator.Set(FishSpriteAnimationKey.Exhausted, 0, true);
             OnFishingBoardResult?.Invoke(Sign.Positive);
+        }
+
+        public async UniTask ReturnHook()
+        {
+            await _playerAnimator.Set(PlayerAnimationKey.GotFish, 0, false).WaitUntilEvent(ThrowEventName);
+            await UniTask.WhenAll(
+                _hookFactory.Current.Return(),
+                _fishSpriteFactory.Current.TransitionOut());
+            _fishSpriteFactory.DestroyFishSprite();
+            _hookFactory.DestroyHook();
         }
         #endregion
         

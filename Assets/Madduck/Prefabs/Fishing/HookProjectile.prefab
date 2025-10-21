@@ -78,7 +78,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1380940993
   m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -379,7 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Madduck.Fishing.UI::Madduck.Scripts.Fishing.UI.ThrowHook.ThrowHookProjectile
   hookIcon: {fileID: 1710082700227665942}
   line: {fileID: 3633826853592955727}
-  throwRange: {x: -3.59, y: 6.73}
+  throwRange: {x: -1.5, y: 4}
   yOffsetRange: {x: -2.77, y: -0.6}
   div: 4
   power: 0.7

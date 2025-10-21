@@ -38,6 +38,7 @@ namespace Madduck.Room
         private Sequence _selectCardSequence;
         private CardItemInstance _currentCard;
         private IDisposable _bindings;
+        private bool _currentActiveStatus = true;
         
         public void SetUp(CardSelectionScreenViewModel viewModel)
         {
@@ -86,6 +87,8 @@ namespace Madduck.Room
         private void OnSelectedCardChanged(CardItemInstance cardItemInstance)
         {
             var selected = cardItemInstance != null && cardItemInstance == _currentCard;
+            if (_currentActiveStatus == selected) return;
+            _currentActiveStatus = selected;
             _selectCardSequence.Complete();
             SelectCardTransition(selected).Forget();
         }

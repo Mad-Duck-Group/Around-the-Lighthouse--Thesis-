@@ -28,6 +28,7 @@ namespace Madduck.Fishing.UI
         private InputType? _activeInputType;
         private Sign _throwHookSliderDirection = Sign.Positive;
         private IDisposable _bindings;
+        private const string ThrowEventName = "After_Throw";
         
         [Inject]
         public ThrowHookCommander(
@@ -100,9 +101,11 @@ namespace Madduck.Fishing.UI
         {
             _chargeCts.Cancel();
             _hookThrown = true;
-            await _playerAnimator.Set(PlayerAnimationKey.ReleaseThrow, 0, false).WaitUntilComplete();
-            _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
+            var track = _playerAnimator.Set(PlayerAnimationKey.ReleaseThrow, 0, false);
+            await track.WaitUntilEvent(ThrowEventName);
             _model.HookThrown.Value = true;
+            await track.WaitUntilComplete();
+            _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
         }
 
         public void Reset()

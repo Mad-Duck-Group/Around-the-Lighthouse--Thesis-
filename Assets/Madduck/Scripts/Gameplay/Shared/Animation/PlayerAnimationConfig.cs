@@ -17,7 +17,6 @@ namespace Madduck.Shared
         PullHookUp,
         Reeling,
         Pulling,
-        LoseFish,
         GotFish
     }
 
