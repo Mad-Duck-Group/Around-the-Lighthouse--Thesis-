@@ -19,7 +19,6 @@ namespace Madduck.Fishing.UI
         public ReactiveCommand<InputType> ThrowHookHeldCommand { get; } = new();
         public ReactiveCommand<InputType> ThrowHookReleaseCommand { get; } = new();
         private readonly ThrowHookModel _model;
-        private readonly ThrowHookConfig _config;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         private readonly IIdleAnimator _playerIdleAnimator;
         
@@ -33,12 +32,10 @@ namespace Madduck.Fishing.UI
         [Inject]
         public ThrowHookCommander(
             ThrowHookModel model, 
-            ThrowHookConfig config, 
             ISpineAnimator<PlayerAnimationKey> playerAnimator,
             IIdleAnimator playerIdleAnimator)
         {
             _model = model;
-            _config = config;
             _playerAnimator = playerAnimator;
             _playerIdleAnimator = playerIdleAnimator;
             Bind();
@@ -84,8 +81,8 @@ namespace Madduck.Fishing.UI
         private void OnThrowHookHeld()
         {
             var currentValue = (float)_model.ThrowHookCurrentValue.Value;   
-            var maxValue = (float)_model.ThrowHookMaxValue.Value;
-            if (currentValue >= maxValue && _throwHookSliderDirection is Sign.Positive)
+            var currentMaxValue = (float)_model.ThrowHookCurrentMaxValue.Value;
+            if (currentValue >= currentMaxValue && _throwHookSliderDirection is Sign.Positive)
             {
                 _throwHookSliderDirection = Sign.Negative;
             }
@@ -94,7 +91,7 @@ namespace Madduck.Fishing.UI
                 _throwHookSliderDirection = Sign.Positive;
             }
             _model.ThrowHookCurrentValue.Value = currentValue + (int)_throwHookSliderDirection 
-                * ((float)_config.ThrowHookSliderSpeed * Time.deltaTime);
+                * ((float)_model.FishingRod.CurrentStats.CurrentThrowSliderSpeed * Time.deltaTime);
         }
         
         private async UniTaskVoid OnThrowHookReleased()

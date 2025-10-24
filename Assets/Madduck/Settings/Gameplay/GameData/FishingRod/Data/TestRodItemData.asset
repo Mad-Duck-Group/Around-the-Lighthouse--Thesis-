@@ -12,10 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73adda8fefa4f398efe9ff3744d88ea, type: 3}
   m_Name: TestRodItemData
   m_EditorClassIdentifier: 
-  <Guid>k__BackingField: a722d28aaa0bd442859b9d5936076f31
   <ItemType>k__BackingField: 1
-  <IsStackable>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 2
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: <Guid>k__BackingField
+      Entry: 2
+      Data: 58005c04492c4799ab2ad56006843831
+  <MaxThrowPercentage>k__BackingField:
+    value: 50
+  <ThrowSliderSpeed>k__BackingField:
+    value: 10
+  <BubbleNibbleBonuses>k__BackingField:
+    keys: 000000000100000002000000
+    values:
+    - value: 5
+    - value: 10
+    - value: 15
+  <BubbleNibblePenalties>k__BackingField:
+    keys: 000000000100000002000000
+    values:
+    - value: 10
+    - value: 15
+    - value: 20
+  <NibbleBaseSuccessChances>k__BackingField:
+    keys: 0000000001000000
+    values:
+    - value: 5
+    - value: 15
   <Power>k__BackingField:
     value: 6
   <Resistance>k__BackingField:

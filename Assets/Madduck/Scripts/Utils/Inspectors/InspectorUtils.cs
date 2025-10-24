@@ -2,6 +2,7 @@
 using System.Globalization;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Madduck.Utils
 {
@@ -122,6 +123,33 @@ namespace Madduck.Utils
         public string ToFractionString(string format = "F2", IFormatProvider formatProvider = null)
         {
             return AsFraction.ToString(format, formatProvider ?? CultureInfo.InvariantCulture);
+        }
+        
+        //Clamping
+        public static Percentage Clamp(Percentage percentage, float min, float max)
+        {
+            return new Percentage(Mathf.Clamp(percentage.AsPercentage, min, max));
+        }
+        
+        public static Percentage Clamp01(Percentage percentage)
+        {
+            return FromFraction(Mathf.Clamp01(percentage.AsFraction));
+        }
+        
+        //Chance
+        /// <summary>
+        /// Returns true with the given percentage chance.
+        /// </summary>
+        /// <param name="percentage"></param>
+        /// <returns></returns>
+        public static bool TryRoll(Percentage percentage)
+        {
+            return percentage.AsFraction switch
+            {
+                <= 0 => false,
+                >= 1 => true,
+                _ => Random.value <= percentage.AsFraction
+            };
         }
     }
 

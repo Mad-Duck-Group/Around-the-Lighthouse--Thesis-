@@ -43,18 +43,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ThrowHook",
+                    "name": "Action1",
                     "type": "Button",
-                    "id": "0470eb13-3324-4803-9ebf-21b4ee6f6c9e",
+                    "id": "69b68153-44ee-41fe-9a31-7b576f0c7bf1",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Action1",
+                    "name": "ThrowHook",
                     "type": "Button",
-                    "id": "69b68153-44ee-41fe-9a31-7b576f0c7bf1",
+                    "id": "0470eb13-3324-4803-9ebf-21b4ee6f6c9e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",

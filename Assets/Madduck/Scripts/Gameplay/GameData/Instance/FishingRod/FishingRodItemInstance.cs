@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using ObservableCollections;
@@ -127,6 +128,25 @@ namespace Madduck.GameData
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _debugStatsTitle;
 
+        private Percentage _currentMaxThrowPercentage;
+
+        [InlineProperty, DisplayAsString,
+         ShowInInspector]
+        public Percentage CurrentMaxThrowPercentage
+        {
+            get => _currentMaxThrowPercentage; 
+            set
+            {
+                var clamp = Percentage.Clamp01(value);
+                _currentMaxThrowPercentage = clamp;
+            }
+        }
+        
+        [field: InlineProperty, DisplayAsString,
+                SerializeField] public UFloat CurrentThrowSliderSpeed { get; set; }
+        [field: ShowInInspector] public SerializableDictionary<BubbleType, Percentage> CurrentBubbleNibbleBonuses { get; set; } = new();
+        [field: ShowInInspector] public SerializableDictionary<BubbleType, Percentage> CurrentBubbleNibblePenalties { get; set; } = new();
+        [field: ShowInInspector] public SerializableDictionary<int, Percentage> CurrentNibbleBaseSuccessChances { get; set; } = new();        
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentPower { get; set; }
 
@@ -144,6 +164,11 @@ namespace Madduck.GameData
          
         public FishingRodStats(FishingRodItemData itemData)
         {
+            CurrentMaxThrowPercentage = itemData.MaxThrowPercentage;
+            CurrentThrowSliderSpeed = itemData.ThrowSliderSpeed;
+            CurrentBubbleNibbleBonuses = new(itemData.BubbleNibbleBonuses);
+            CurrentBubbleNibblePenalties = new(itemData.BubbleNibblePenalties);
+            CurrentNibbleBaseSuccessChances = new(itemData.NibbleBaseSuccessChances);
             CurrentPower = itemData.Power;
             CurrentResistance = itemData.Resistance;
             CurrentFishingLineDurability = itemData.FishingLineDurability;

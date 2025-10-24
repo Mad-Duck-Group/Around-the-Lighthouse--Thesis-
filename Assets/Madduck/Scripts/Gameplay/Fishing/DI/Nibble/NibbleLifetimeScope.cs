@@ -1,7 +1,9 @@
 ﻿using System;
+using Madduck.Fishing.Config;
 using Madduck.Fishing.Controller;
 using Madduck.Fishing.StateMachine;
 using Madduck.Fishing.UI;
+using Madduck.Input;
 using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
@@ -31,8 +33,12 @@ namespace Madduck.Fishing.DI
     public class NibbleLifetimeScope : LifetimeScope
     {
         [Title("References")]
-        [Required]
-        [SerializeField] private NibbleView nibbleView;
+        [Required, 
+         SerializeField] private NibbleView nibbleView;
+        [Required, 
+         SerializeField] private NibbleConfig nibbleConfig;
+        [Required, 
+         SerializeField] private QTEButtonFactory qteButtonFactory;
         
 #if UNITY_EDITOR
         [Title("Debug")]
@@ -49,11 +55,19 @@ namespace Madduck.Fishing.DI
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(nibbleView).AsImplementedInterfaces();
+            builder.RegisterInstance(nibbleConfig).AsSelf();
             builder.Register<NibbleController>(Lifetime.Scoped).AsSelf();
             builder.Register<NibbleCommander>(Lifetime.Scoped).AsSelf();
             builder.Register<NibbleViewModel>(Lifetime.Scoped).AsSelf();
             builder.Register<NibbleModel>(Lifetime.Scoped).AsSelf();
             builder.Register<NibbleState>(Lifetime.Scoped).AsSelf();
+            builder.Register(resolver =>
+                {
+                    var input = resolver.Resolve<IPlayerInputHandler>();
+                    qteButtonFactory.SetUp(input);
+                    return qteButtonFactory;
+                }, Lifetime.Scoped)
+                .As<IQTEButtonFactory>();
             builder.RegisterBuildCallback(x =>
             {
                 var stateMachine = x.Resolve<FishingStateMachine>();

@@ -15,12 +15,14 @@ namespace Madduck.Fishing.UI
     public class ThrowHookView : MonoBehaviour, ITransitionable
     {
         [Title("References")]
-        [Required]
-        [SerializeField] private CanvasGroup canvasGroup;
-        [Required]
-        [SerializeField] private Slider throwHookSlider;
-        [Required]
-        [SerializeField] private HoldButton throwHookButton;
+        [Required, 
+         SerializeField] private CanvasGroup canvasGroup;
+        [Required,
+         SerializeField] private Slider throwHookUnlockedSlider;
+        [Required,
+         SerializeField] private Slider throwHookLockedSlider;
+        [Required,
+         SerializeField] private HoldButton throwHookButton;
         
         private ThrowHookViewModel _viewModel;
         private ThrowHookCommander _commander;
@@ -38,6 +40,9 @@ namespace Madduck.Fishing.UI
             var disposableBuilder = Disposable.CreateBuilder();
             _viewModel.ThrowHookPercent
                 .Subscribe(ChangeThrowHookSlider)
+                .AddTo(ref disposableBuilder);
+            _viewModel.LockedRangePercent
+                .Subscribe(x => throwHookLockedSlider.value = x.AsFraction)
                 .AddTo(ref disposableBuilder);
             throwHookButton.OnFirstHold
                 .AsObservable()
@@ -96,7 +101,7 @@ namespace Madduck.Fishing.UI
         
         private void ChangeThrowHookSlider(Percentage throwPercent)
         {
-            throwHookSlider.value = throwPercent.AsFraction;
+            throwHookUnlockedSlider.value = throwPercent.AsFraction;
         }
     }
 }

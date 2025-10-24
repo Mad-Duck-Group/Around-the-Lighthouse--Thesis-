@@ -13,12 +13,14 @@ namespace Madduck.Fishing.UI
     {
         [field: SerializeField] public SerializableReactiveProperty<bool> IsNibbling { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<Sign> PullHookResult { get; private set; }
+        [field: SerializeField] public FishingRodItemInstance FishingRod { get; private set; }
         [field: SerializeField] public FishItemInstance FishItemInstance { get; private set; }
         private IDisposable _bindings;
         
         [Inject]
-        public NibbleModel()
+        public NibbleModel(PlayerInventory playerInventory)
         {
+            FishingRod = playerInventory.CurrentFishingRod;
             Bind();
         }
         

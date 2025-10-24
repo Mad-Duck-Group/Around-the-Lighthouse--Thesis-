@@ -1,6 +1,7 @@
 ﻿using System;
 using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
+using Madduck.GameData;
 using Madduck.Utils;
 using R3;
 using UnityEngine;
@@ -10,31 +11,32 @@ namespace Madduck.Fishing.UI
     [Serializable]
     public class ThrowHookModel : IDisposable
     {
-        [field: SerializeField] public SerializableReactiveProperty<UFloat> ThrowHookMaxValue { get; private set; }
+        [field: SerializeField] public SerializableReactiveProperty<UFloat> ThrowHookCurrentMaxValue { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<UFloat> ThrowHookCurrentValue { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<bool> HookThrown { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> ThrowHookPercent { get; private set; }
+        public FishingRodItemInstance FishingRod { get; private set; }
         
-        private readonly ThrowHookConfig _config;
         private IDisposable _bindings;
         
-        public ThrowHookModel(ThrowHookConfig config)
+        public ThrowHookModel(
+            PlayerInventory playerInventory)
         {
-            _config = config;
+            FishingRod = playerInventory.CurrentFishingRod;
             Bind();
         }
         
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            ThrowHookMaxValue = new SerializableReactiveProperty<UFloat>(_config.ThrowHookMaxValue)
+            ThrowHookCurrentMaxValue = new SerializableReactiveProperty<UFloat>(FishingRod.CurrentStats.CurrentMaxThrowPercentage.AsPercentage)
                 .AddTo(ref disposableBuilder);
             ThrowHookCurrentValue = new SerializableReactiveProperty<UFloat>(0f)
                 .AddTo(ref disposableBuilder);
             HookThrown = new SerializableReactiveProperty<bool>(false)
                 .AddTo(ref disposableBuilder);
             ThrowHookPercent = ThrowHookCurrentValue
-                .CombineLatest(ThrowHookMaxValue, (current, max) => max <= 0 
+                .CombineLatest(new ReactiveProperty<UFloat>(Percentage.Full.AsPercentage), (current, max) => max <= 0 
                     ? Percentage.FromFraction(0f) 
                     : Percentage.FromFraction(Mathf.Clamp01(current / max)))
                 .ToReadOnlyReactiveProperty()
@@ -45,7 +47,7 @@ namespace Madduck.Fishing.UI
         public void Reset()
         {
             ThrowHookCurrentValue.Value = 0f;
-            ThrowHookMaxValue.Value = _config.ThrowHookMaxValue;
+            ThrowHookCurrentMaxValue.Value = FishingRod.CurrentStats.CurrentMaxThrowPercentage.AsPercentage;
             HookThrown.Value = false;
         }
         

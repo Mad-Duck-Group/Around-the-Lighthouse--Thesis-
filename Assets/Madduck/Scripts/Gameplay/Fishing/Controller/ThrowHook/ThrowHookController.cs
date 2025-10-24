@@ -29,7 +29,6 @@ namespace Madduck.Fishing.Controller
         private readonly ThrowHookModel _model;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
-        private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly ITransitionable _viewTransition;
         
         private IDisposable _bindings;
@@ -45,14 +44,12 @@ namespace Madduck.Fishing.Controller
             ThrowHookModel model,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
-            IGenericFactory<FishItemInstance> fishFactory,
             ITransitionable viewTransition)
         {
             _inputHandler = inputHandler;
             _commander = commander;
             _model = model;
             _hookFactory = hookFactory;
-            _fishFactory = fishFactory;
             _viewTransition = viewTransition;
         }
 
@@ -130,7 +127,6 @@ namespace Madduck.Fishing.Controller
             if (active)
             {
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
-                _fishFactory.Create();
                 Bind();
             }
             else

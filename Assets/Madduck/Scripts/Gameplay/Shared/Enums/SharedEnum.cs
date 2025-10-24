@@ -38,4 +38,11 @@ namespace Madduck.Shared
         FishingBoard = 4,
         Reeling = 5,
     }
+
+    public enum BubbleType
+    {
+        None,
+        Standard,
+        Special
+    }
 }

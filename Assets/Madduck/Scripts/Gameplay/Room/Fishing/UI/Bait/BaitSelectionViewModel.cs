@@ -20,7 +20,6 @@ namespace Madduck.Room
         public ReadOnlyReactiveProperty<bool> InteractableView { get; }
         public ReadOnlyReactiveProperty<BaitItemInstance> CurrentBaitView { get; }
         public ReactiveCommand<BaitType> SetCurrentBaitCommand { get; } = new();
-
         #endregion
 
         #region Fields
