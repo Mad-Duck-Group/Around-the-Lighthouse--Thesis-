@@ -146,7 +146,9 @@ namespace Madduck.GameData
                 SerializeField] public UFloat CurrentThrowSliderSpeed { get; set; }
         [field: ShowInInspector] public SerializableDictionary<BubbleType, Percentage> CurrentBubbleNibbleBonuses { get; set; } = new();
         [field: ShowInInspector] public SerializableDictionary<BubbleType, Percentage> CurrentBubbleNibblePenalties { get; set; } = new();
-        [field: ShowInInspector] public SerializableDictionary<int, Percentage> CurrentNibbleBaseSuccessChances { get; set; } = new();        
+        [field: ShowInInspector] public SerializableDictionary<int, Percentage> CurrentNibbleBaseSuccessChances { get; set; } = new(); 
+        [field: DisplayAsString,
+                ShowInInspector] public UFloat CurrentFishBiteTimeFrame { get; set; }
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentPower { get; set; }
 
@@ -161,6 +163,7 @@ namespace Madduck.GameData
 
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentReelingSpeed { get; set; }
+        
          
         public FishingRodStats(FishingRodItemData itemData)
         {
@@ -169,6 +172,7 @@ namespace Madduck.GameData
             CurrentBubbleNibbleBonuses = new(itemData.BubbleNibbleBonuses);
             CurrentBubbleNibblePenalties = new(itemData.BubbleNibblePenalties);
             CurrentNibbleBaseSuccessChances = new(itemData.NibbleBaseSuccessChances);
+            CurrentFishBiteTimeFrame = itemData.FishBiteTimeFrame;
             CurrentPower = itemData.Power;
             CurrentResistance = itemData.Resistance;
             CurrentFishingLineDurability = itemData.FishingLineDurability;

@@ -7,17 +7,12 @@ using R3;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using VContainer;
 
 namespace Madduck.Shared
 {
-    public interface IQTEButtonView : ITransitionable
-    {
-        UniTask OnSuccess();
-        UniTask OnFail();
-        void Destroy();
-    }
-    public class QTEButtonView : MonoBehaviour, IQTEButtonView
+    public class QteButtonView : MonoBehaviour, IQteElement
     {
         [Title("References")]
         [Required,
@@ -38,27 +33,30 @@ namespace Madduck.Shared
         [SerializeField] private TweenSettings<Vector3> successTween;
         [SerializeField] private ShakeSettings failShakeSettings;
 
-        private QTEButtonViewModel _viewModel;
+        [ShowInInspector] private QteButtonController _controller;
         private IDisposable _bindings;
         private Sequence _transitionSequence;
         
         [Inject]
-        public void SetUp(QTEButtonViewModel viewModel)
+        public void SetUp(QteButtonController controller)
         {
-            _viewModel = viewModel;
+            _controller = controller;
+            canvasGroup.alpha = 0;
+            outerRing.sizeDelta = outerRingSize;
+            innerRing.sizeDelta = innerRingSize;
             Bind();
         }
 
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _viewModel.ButtonName
-                .Subscribe(buttonName =>
+            _controller.CurrentBinding
+                .Subscribe(button =>
                 {
-                    buttonNameText.text = buttonName;
+                    buttonNameText.text = button.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
                 })
                 .AddTo(ref disposableBuilder);
-            _viewModel.Remaining
+            _controller.RemainingPercentage
                 .IgnoreFirstValueWhenSubscribe()
                 .Subscribe(remaining =>
                 {
@@ -74,19 +72,20 @@ namespace Madduck.Shared
             _bindings?.Dispose();
         }
 
-        public async UniTask OnSuccess()
+        public async UniTask OnSuccess(CancellationToken cancellationToken = default)
         {
-            await Tween.Scale(transform, successTween).ToYieldInstruction().ToUniTask();
+            await Tween.Scale(transform, successTween).ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
 
-        public async UniTask OnFail()
+        public async UniTask OnFail(CancellationToken cancellationToken = default)
         {
-            await Tween.ShakeLocalPosition(transform, failShakeSettings).ToYieldInstruction().ToUniTask();
+            await Tween.ShakeLocalPosition(transform, failShakeSettings).ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
 
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
             transform.localScale = scaleTweenSettings.startValue;
+            canvasGroup.alpha = 1;
             await Transition(true);
         }
 
@@ -105,6 +104,11 @@ namespace Madduck.Shared
         public void Destroy()
         {
             Destroy(gameObject);
+        }
+
+        public void SetAsChild(IQteElement child)
+        {
+            child.SetParent(this);
         }
     }
 }

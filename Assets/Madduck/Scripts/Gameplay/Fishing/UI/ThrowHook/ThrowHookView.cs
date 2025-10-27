@@ -5,6 +5,7 @@ using Madduck.Input;
 using Madduck.Scripts.Input;
 using Madduck.Utils;
 using R3;
+using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,18 +19,21 @@ namespace Madduck.Fishing.UI
         [Required, 
          SerializeField] private CanvasGroup canvasGroup;
         [Required,
-         SerializeField] private Slider throwHookUnlockedSlider;
-        [Required,
-         SerializeField] private Slider throwHookLockedSlider;
+         SerializeField] private Slider throwHookSlider;
         [Required,
          SerializeField] private HoldButton throwHookButton;
+
+        [Title("Settings")] 
+        [SerializeField] private float throwHookSliderMaxLength = 350f;
         
         private ThrowHookViewModel _viewModel;
         private ThrowHookCommander _commander;
         private IDisposable _bindings;
         
         [Inject]
-        public void SetUp(ThrowHookViewModel viewModel, ThrowHookCommander commander)
+        public void SetUp(
+            ThrowHookViewModel viewModel, 
+            ThrowHookCommander commander)
         {
             _viewModel = viewModel;
             _commander = commander;
@@ -38,11 +42,11 @@ namespace Madduck.Fishing.UI
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _viewModel.ThrowHookPercent
+            _viewModel.ThrowHookPercentRelative
                 .Subscribe(ChangeThrowHookSlider)
                 .AddTo(ref disposableBuilder);
             _viewModel.LockedRangePercent
-                .Subscribe(x => throwHookLockedSlider.value = x.AsFraction)
+                .Subscribe(OnLockedRangeChanged)
                 .AddTo(ref disposableBuilder);
             throwHookButton.OnFirstHold
                 .AsObservable()
@@ -57,6 +61,20 @@ namespace Madduck.Fishing.UI
                 .Subscribe(_ => _commander.ThrowHookReleaseCommand.Execute(InputType.UI))
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
+        }
+
+        private void OnLockedRangeChanged(Percentage current)
+        {
+            var rectTransform = (RectTransform)throwHookSlider.transform;
+            var sizeDelta = rectTransform.sizeDelta;
+            if (throwHookSlider.direction is Slider.Direction.BottomToTop or Slider.Direction.TopToBottom)
+            {
+                rectTransform.sizeDelta = sizeDelta.WithY(throwHookSliderMaxLength * current.AsFraction);
+            }
+            else
+            {
+                rectTransform.sizeDelta = sizeDelta.WithX(throwHookSliderMaxLength * current.AsFraction);
+            }
         }
         
         #region Transitions
@@ -101,7 +119,7 @@ namespace Madduck.Fishing.UI
         
         private void ChangeThrowHookSlider(Percentage throwPercent)
         {
-            throwHookUnlockedSlider.value = throwPercent.AsFraction;
+            throwHookSlider.value = throwPercent.AsFraction;
         }
     }
 }

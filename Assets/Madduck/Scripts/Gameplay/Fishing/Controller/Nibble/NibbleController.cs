@@ -7,12 +7,10 @@ using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using Madduck.GameData;
 using Madduck.Input;
-using Madduck.Scripts.Input;
 using Madduck.Shared;
 using Madduck.Utils;
 using R3;
 using VContainer;
-using Random = UnityEngine.Random;
 
 namespace Madduck.Fishing.Controller
 {
@@ -33,16 +31,19 @@ namespace Madduck.Fishing.Controller
         private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
-        private readonly IQTEButtonFactory _qteButtonFactory;
+        private readonly IFishEyesFactory _fishEyesFactory;
+        private readonly IGenericFactory<IQuickTimeEvent> _qteButtonFactory;
         private readonly ITransitionable _viewTransition;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         
         private IDisposable _bindings;
         private IDisposable _qteIntervalTimer;
         private CancellationTokenSource _transitionCts = new();
+        private CancellationTokenSource _fishBiteCts = new();
         private const string ThrowEventName = "After_Throw";
         private int _currentStageIndex;
         private bool _qteActive;
+        private bool _fishBiting;
 
         private readonly Dictionary<int, Percentage> _currentStageChance = new()
         {
@@ -63,7 +64,8 @@ namespace Madduck.Fishing.Controller
             IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
             IFishSpriteFactory fishSpriteFactory,
-            IQTEButtonFactory qteButtonFactory,
+            IFishEyesFactory fishEyesFactory,
+            IGenericFactory<IQuickTimeEvent> qteButtonFactory,
             ITransitionable viewTransition,
             ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
@@ -73,6 +75,7 @@ namespace Madduck.Fishing.Controller
             _commander = commander;
             _hookFactory = hookFactory;
             _fishFactory = fishFactory;
+            _fishEyesFactory = fishEyesFactory;
             _qteButtonFactory = qteButtonFactory;
             _fishSpriteFactory = fishSpriteFactory;
             _viewTransition = viewTransition;
@@ -86,16 +89,16 @@ namespace Madduck.Fishing.Controller
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            // _inputHandler.ThrowHookButton.IsDown
-            //     .IgnoreFirstValueWhenSubscribe()
-            //     .DistinctUntilChanged()
-            //     .Where(x => x)
-            //     .Subscribe(_ => OnPullHook())
-            //     .AddTo(ref disposableBuilder);
+            _inputHandler.Action0Button.IsDown
+                .IgnoreFirstValueWhenSubscribe()
+                .DistinctUntilChanged()
+                .Where(x => x && _fishBiting)
+                .Subscribe(_ => OnPullHook())
+                .AddTo(ref disposableBuilder);
             _inputHandler.Action1Button.IsDown
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
-                .Where(x => x && !_qteActive)
+                .Where(x => x && !_qteActive && !_fishBiting)
                 .Subscribe(_ => OnCancel())
                 .AddTo(ref disposableBuilder);
             _model.PullHookResult
@@ -117,7 +120,8 @@ namespace Madduck.Fishing.Controller
 
         private void OnPullHook()
         {
-            _commander.PullHookCommand.Execute(Unit.Default);
+            //_commander.PullHookCommand.Execute(Unit.Default);
+            OnPullHookResultChanged(Sign.Positive).Forget();
         }
 
         private void OnCancel()
@@ -127,6 +131,8 @@ namespace Madduck.Fishing.Controller
         
         private async UniTask OnPullHookResultChanged(Sign result)
         {
+            TransitionOutFishEyes();
+            _fishBiteCts.Cancel();
             _qteIntervalTimer?.Dispose();
             _hookFactory.Current.StopNibble();
             if (result is Sign.Positive)
@@ -167,13 +173,17 @@ namespace Madduck.Fishing.Controller
             _bindings?.Dispose();
             _qteIntervalTimer?.Dispose();
             _transitionCts.Cancel();
+            _fishBiteCts.Cancel();
             _transitionCts = new CancellationTokenSource();
+            _fishBiteCts = new CancellationTokenSource();
             if (active)
             {
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 _currentStageChance[0] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[0];
                 _currentStageChance[1] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[1];
                 _currentStageIndex = 0;
+                _fishBiting = false;
+                _qteActive = false;
                 Bind();
                 StartQteTimer();
             }
@@ -183,6 +193,13 @@ namespace Madduck.Fishing.Controller
             }
         }
 
+        private void TransitionOutFishEyes()
+        {
+            _fishEyesFactory.Current?.TransitionOut()
+                .ContinueWith(() => _fishEyesFactory.DestroyFishEyes()).Forget();
+        }
+
+        #region QTE
         private void StartQteTimer()
         {
             _qteIntervalTimer = Observable.Timer(TimeSpan.FromSeconds(_config.QteIntervalRange.RandomBetweenRange()))
@@ -202,8 +219,9 @@ namespace Madduck.Fishing.Controller
         {
             _qteActive = false;
             _qteButtonFactory.Current.OnSuccess -= OnQteSuccess;
-            _hookFactory.Current.Nibble(1);
+            _hookFactory.Current.Nibble(2);
             _currentStageChance[_currentStageIndex] += _model.FishingRod.CurrentStats.CurrentBubbleNibbleBonuses[BubbleType.None]; //TODO: Do bubble later
+            _currentStageChance[_currentStageIndex] = Percentage.Clamp01(_currentStageChance[_currentStageIndex]);
             var result = Percentage.TryRoll(_currentStageChance[_currentStageIndex]);
             switch (_currentStageIndex)
             {
@@ -212,9 +230,13 @@ namespace Madduck.Fishing.Controller
                     _currentStageIndex++;
                     var fish = _fishFactory.Create();
                     _model.SetFishInstance(fish);
+                    var fishEyes = _fishEyesFactory.Create();
+                    fishEyes.SetUp(_hookFactory.CurrentGameObject.transform);
+                    fishEyes.TransitionIn();
                     break;
                 case 1 when result:
-                    OnPullHookResultChanged(Sign.Positive).Forget();
+                    _fishEyesFactory.Current.Bite();
+                    StartFishBiteTimer(_fishBiteCts.Token).Forget();
                     return;
             }
             StartQteTimer();
@@ -225,18 +247,33 @@ namespace Madduck.Fishing.Controller
             _qteActive = false;
             _qteButtonFactory.Current.OnFail -= OnQteFail;
             _currentStageChance[_currentStageIndex] -= _model.FishingRod.CurrentStats.CurrentBubbleNibblePenalties[BubbleType.None]; //TODO: Do bubble later
+            _currentStageChance[_currentStageIndex] = Percentage.Clamp01(_currentStageChance[_currentStageIndex]);
             switch (_currentStageIndex)
             {
                 case 0:
                     break;
-                case 1:
+                case 1 when _currentStageChance[_currentStageIndex] <= Percentage.Zero:
                     _currentStageChance[_currentStageIndex] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[1];
                     _currentStageIndex--;
+                    TransitionOutFishEyes();
                     break;
             }
             StartQteTimer();
         }
+        #endregion
 
+        #region Fish Bite
+
+        private async UniTaskVoid StartFishBiteTimer(CancellationToken token)
+        {
+            _fishBiting = true;
+            await UniTask.WaitForSeconds(_model.FishingRod.CurrentStats.CurrentFishBiteTimeFrame, cancellationToken: token);
+            _fishBiting = false;
+            DebugUtils.Log("Fish got away with the bait");
+            OnPullHookResultChanged(Sign.Negative).Forget();
+        }
+
+        #endregion
         #endregion
     }
 }

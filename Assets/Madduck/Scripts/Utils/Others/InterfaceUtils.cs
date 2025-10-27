@@ -31,5 +31,22 @@ namespace Madduck.Utils
             gameObject = clone.gameObject;
             return clone as T;
         }
+
+        public static void SetParent<T1, T2>(this T1 child, T2 parent) 
+            where T1 : class
+            where T2 : class
+        {
+            if (child is not MonoBehaviour childMonoBehaviour)
+            {
+                DebugUtils.LogError($"Child of type {typeof(T1)} is not a MonoBehaviour. Cannot set parent.");
+                return;
+            }
+            if (parent is not MonoBehaviour parentMonoBehaviour)
+            {
+                DebugUtils.LogError($"Parent of type {typeof(T2)} is not a MonoBehaviour. Cannot set parent.");
+                return;
+            }
+            childMonoBehaviour.transform.SetParent(parentMonoBehaviour.transform);
+        }
     }
 }

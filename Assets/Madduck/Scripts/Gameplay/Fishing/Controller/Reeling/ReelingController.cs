@@ -169,7 +169,7 @@ namespace Madduck.Fishing.Controller
 
         private async UniTaskVoid StartFatigueTimer()
         {
-            var fatigueDuration = _model.FishInstance.ItemData.FatigueDuration;
+            var fatigueDuration = _model.FishInstance.CurrentStats.CurrentFatigueDuration;
             _fatigueTimerCts = new CancellationTokenSource();
             await UniTask.WaitForSeconds(fatigueDuration, cancellationToken: _fatigueTimerCts.Token);
             _model.FishInstance.CurrentFatigueCount++;

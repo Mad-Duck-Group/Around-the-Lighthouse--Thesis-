@@ -5,41 +5,48 @@ using Madduck.Input;
 using Madduck.Utils;
 using R3;
 using Redcode.Extensions;
+using Sirenix.OdinInspector;
 using UnityEngine.InputSystem;
 using VContainer;
 using Time = UnityEngine.Time;
 
 namespace Madduck.Shared
 {
-    public class QTEButtonController : IQuickTimeEvent, IDisposable
+    [Serializable]
+    public class QteButtonController : IQuickTimeEvent, IDisposable
     {
         public event Action OnSuccess;
         public event Action OnFail;
+        public IQteElement CurrentElement { get; }
+        public bool ChangeViewResultManually { get; set; } = false;
+
+        public bool DestroyWhenFinished { get; set; } = true;
         
         public ReadOnlyReactiveProperty<InputBinding> CurrentBinding { get; }
         public ReadOnlyReactiveProperty<Percentage> RemainingPercentage { get; }
 
-        private readonly QTEButtonConfigInstance _configInstance;
+        private readonly QteButtonConfigInstance _configInstance;
         private readonly IPlayerInputHandler _input;
-        private readonly IQTEButtonView _view;
+        private readonly IQteElement _view;
         private readonly ReactiveProperty<InputBinding> _currentBinding = new();
         private readonly ReactiveProperty<Percentage> _remainingPercentage = new();
         private IDisposable _bindings;
         private IDisposable _timer;
         private CancellationTokenSource _cts = new();
         private bool _timeFrameOpen;
-        private bool _active = true;
+        [ShowInInspector] private bool _active = true;
         private float _currentTime;
 
         [Inject]
-        public QTEButtonController(
-            QTEButtonConfigInstance configInstance,
+        public QteButtonController(
+            QteButtonConfigInstance configInstance,
             IPlayerInputHandler inputHandler,
-            IQTEButtonView view)
+            IQteElement view)
         {
             _configInstance = configInstance;
             _input = inputHandler;
             _view = view;
+            CurrentElement = view;
             CurrentBinding = _currentBinding.ToReadOnlyReactiveProperty();
             RemainingPercentage = _remainingPercentage.ToReadOnlyReactiveProperty();
             Bind();
@@ -50,6 +57,7 @@ namespace Madduck.Shared
             var disposableBuilder = Disposable.CreateBuilder();
             _input.JerkBaitButton.IsDown
                 .IgnoreFirstValueWhenSubscribe()
+                .DistinctUntilChanged()
                 .Where(x => x && _active)
                 .Select(_ => _input.JerkBaitButton)
                 .Subscribe(OnJerkBaitButtonDown)
@@ -105,7 +113,7 @@ namespace Madduck.Shared
                 Fail();
             }
         }
-
+        
         private void OnJerkBaitButtonDown(InputButton button)
         {
             if (!_timeFrameOpen)
@@ -125,30 +133,37 @@ namespace Madduck.Shared
 
         private void Success()
         {
+            DebugUtils.Log($"Success {_currentBinding.Value.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions)}");
             _cts.Cancel();
             _timer?.Dispose();
-            ChangeViewResult(true).Forget();
+            if (!ChangeViewResultManually) ChangeViewResult(true).Forget();
             OnSuccess?.Invoke();
             _active = false;
         }
 
         private void Fail()
         {
+            DebugUtils.Log($"Fail {_currentBinding.Value.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions)}");
             _cts.Cancel();
             _timer?.Dispose();
-            ChangeViewResult(false).Forget();
+            if (!ChangeViewResultManually) ChangeViewResult(false).Forget();
             OnFail?.Invoke();
             _active = false;
         }
 
-        private async UniTaskVoid ChangeViewResult(bool result)
+        public async UniTask ChangeViewResult(bool result, CancellationToken cancellationToken = default)
         {
             if (result)
-                await _view.OnSuccess();
+                await _view.OnSuccess(cancellationToken);
             else
-                await _view.OnFail();
-            await _view.TransitionOut();
-            _view.Destroy();
+                await _view.OnFail(cancellationToken);
+            await _view.TransitionOut(cancellationToken);
+            if (DestroyWhenFinished) _view.Destroy();
+        }
+        
+        public void ChangeInputActiveState(bool active)
+        {
+            _active = active;
         }
     }
 }

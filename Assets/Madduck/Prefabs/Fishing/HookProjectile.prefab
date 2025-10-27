@@ -380,7 +380,7 @@ MonoBehaviour:
   hookIcon: {fileID: 1710082700227665942}
   line: {fileID: 3633826853592955727}
   throwRange: {x: -1.5, y: 4}
-  yOffsetRange: {x: -2.77, y: -0.6}
+  yOffsetRange: {x: -1, y: -0.6}
   div: 4
   power: 0.7
   moveTweenX:

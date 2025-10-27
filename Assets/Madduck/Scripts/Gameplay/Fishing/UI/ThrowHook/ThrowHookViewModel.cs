@@ -8,7 +8,7 @@ namespace Madduck.Fishing.UI
 {
     public class ThrowHookViewModel : IDisposable
     {
-        public ReadOnlyReactiveProperty<Percentage> ThrowHookPercent { get; private set; }
+        public ReadOnlyReactiveProperty<Percentage> ThrowHookPercentRelative { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> LockedRangePercent { get; private set; }
         private readonly ThrowHookModel _model;
         private IDisposable _bindings;
@@ -23,7 +23,10 @@ namespace Madduck.Fishing.UI
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            ThrowHookPercent = _model.ThrowHookPercent
+            ThrowHookPercentRelative = _model.ThrowHookCurrentValue
+                .CombineLatest(_model.ThrowHookCurrentMaxValue, (current, max) => max <= 0 
+                    ? Percentage.FromFraction(0f) 
+                    : Percentage.FromFraction(Mathf.Clamp01(current / max)))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
             LockedRangePercent = _model.ThrowHookCurrentMaxValue

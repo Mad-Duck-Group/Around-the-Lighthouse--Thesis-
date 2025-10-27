@@ -46,6 +46,8 @@ MonoBehaviour:
     values:
     - value: 5
     - value: 15
+  <FishBiteTimeFrame>k__BackingField:
+    value: 3
   <Power>k__BackingField:
     value: 6
   <Resistance>k__BackingField:

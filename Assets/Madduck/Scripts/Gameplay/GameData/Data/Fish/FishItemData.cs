@@ -1,3 +1,4 @@
+using System;
 using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
@@ -51,13 +52,6 @@ namespace Madduck.GameData
                 SerializeField] public SkeletonDataAsset FishSkeletonDataAsset { get; private set; }
         [field: SerializeField] public Vector2 SpriteAnchorOffset { get; private set; }
         [field: SerializeField] public uint BasePrice { get; private set; } = 10;
-        
-        [Title("Nibble Settings"), 
-         HideLabel,
-         ShowInInspector] private InspectorPlaceholder _nibbleSettingsTitle;
-        [field: SerializeField] public uint MaxNibbleAttempts { get; private set; } = 3;
-        [field: SerializeField] public Vector2 NibbleIntervalRange { get; private set; } = new(5f, 15f);
-        [field: SerializeField] public Vector2 NibbleTimeFrameRange { get; private set; } = new(1f, 3f);
         
         [Title("Fishing Board Settings"), 
          HideLabel,

@@ -43,6 +43,8 @@ namespace Madduck.Fishing.DI
          OdinSerialize] private HookProjectileFactory hookProjectileFactory = new();
         [Required, HideReferenceObjectPicker,
          OdinSerialize] private FishSpriteFactory fishSpriteFactory = new();
+        [Required, HideReferenceObjectPicker,
+         OdinSerialize] private FishEyesFactory fishEyesFactory = new();
 
         [Title("Debug")] 
         [SerializeField] private bool spoofFish;
@@ -77,6 +79,7 @@ namespace Madduck.Fishing.DI
             }
             builder.Register(_ => hookProjectileFactory, Lifetime.Singleton).As<IHookFactory>();
             builder.Register(_ => fishSpriteFactory, Lifetime.Singleton).As<IFishSpriteFactory>();
+            builder.Register(_ => fishEyesFactory, Lifetime.Singleton).As<IFishEyesFactory>();
             builder.Register<FishingNoneState>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingStateMachine>(Lifetime.Singleton).AsSelf();
             builder.RegisterBuildCallback(x =>

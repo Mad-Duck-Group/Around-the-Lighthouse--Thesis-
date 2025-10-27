@@ -197,7 +197,7 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private void UpdateFatigueLevel()
         {
-            var fishPower = (float)_model.FishItemInstance.ItemData.Power;
+            var fishPower = (float)_model.FishItemInstance.CurrentStats.CurrentPower;
             var rodPower = (float)_model.FishingRodItemInstance.CurrentStats.CurrentPower;
             var fishMultiplier = _variables.FishPowerMultiplier;
             var hookMultiplier = _variables.HookPowerMultiplier;
@@ -224,7 +224,7 @@ namespace Madduck.Fishing.Controller
         {
             var currentRod = _model.FishingRodItemInstance;
             var currentFish = _model.FishItemInstance;
-            var fishPower = (float)currentFish.ItemData.Power;
+            var fishPower = (float)currentFish.CurrentStats.CurrentPower;
             var rodPower = (float)currentRod.CurrentStats.CurrentPower;
             var fishMultiplier = _variables.FishPowerMultiplier;
             var hookMultiplier = _variables.HookPowerMultiplier;

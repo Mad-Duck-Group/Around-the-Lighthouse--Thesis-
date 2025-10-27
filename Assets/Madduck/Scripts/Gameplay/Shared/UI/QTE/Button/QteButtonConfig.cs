@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Madduck.Shared
 {
     [CreateAssetMenu(fileName = "QTEButtonConfig", menuName = "Madduck/QTE/QTE Button Config")]
-    public class QTEButtonConfig : ScriptableObject
+    public class QteButtonConfig : ScriptableObject
     {
         [field: InlineProperty, 
                 SerializeField] public UFloat StartDelay { get; private set; }
@@ -17,7 +17,7 @@ namespace Madduck.Shared
     }
     
     [Serializable]
-    public record QTEButtonConfigInstance : IStatModifiable<QTEButtonConfigInstance>
+    public record QteButtonConfigInstance : IStatModifiable<QteButtonConfigInstance>
     {
         [field: InlineProperty, ReadOnly, 
                 ShowInInspector] public UFloat CurrentStartDelay { get; set; }
@@ -27,12 +27,12 @@ namespace Madduck.Shared
                 ShowInInspector] public UFloat CurrentSuccessTimeFrame { get; set; }
         
 
-        public QTEButtonConfigInstance(QTEButtonConfig config)
+        public QteButtonConfigInstance(QteButtonConfig config)
         {
                 CurrentStartDelay = config.StartDelay;
                 CurrentClosingInDuration = config.ClosingInDuration;
                 CurrentSuccessTimeFrame = config.SuccessTimeFrame;
         }
-        public QTEButtonConfigInstance Copy() => this with {};
+        public QteButtonConfigInstance Copy() => this with {};
     }
 }

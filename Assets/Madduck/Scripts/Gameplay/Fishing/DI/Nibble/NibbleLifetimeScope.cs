@@ -38,7 +38,7 @@ namespace Madduck.Fishing.DI
         [Required, 
          SerializeField] private NibbleConfig nibbleConfig;
         [Required, 
-         SerializeField] private QTEButtonFactory qteButtonFactory;
+         SerializeField] private QteSequenceFactory qteSequenceFactory;
         
 #if UNITY_EDITOR
         [Title("Debug")]
@@ -64,10 +64,10 @@ namespace Madduck.Fishing.DI
             builder.Register(resolver =>
                 {
                     var input = resolver.Resolve<IPlayerInputHandler>();
-                    qteButtonFactory.SetUp(input);
-                    return qteButtonFactory;
+                    qteSequenceFactory.SetUp(input);
+                    return qteSequenceFactory;
                 }, Lifetime.Scoped)
-                .As<IQTEButtonFactory>();
+                .As<IGenericFactory<IQuickTimeEvent>>();
             builder.RegisterBuildCallback(x =>
             {
                 var stateMachine = x.Resolve<FishingStateMachine>();

@@ -32,6 +32,8 @@ namespace Madduck.GameData
         [field: SerializeField] public SerializableDictionary<BubbleType, Percentage> BubbleNibbleBonuses { get; private set; } = new();
         [field: SerializeField] public SerializableDictionary<BubbleType, Percentage> BubbleNibblePenalties { get; private set; } = new();
         [field: SerializeField] public SerializableDictionary<int, Percentage> NibbleBaseSuccessChances { get; private set; } = new();
+        [field: InlineProperty, 
+                SerializeField] public UFloat FishBiteTimeFrame { get; private set; } = 3f;
 
         [Title("Fishing Board Settings"),
          HideLabel,

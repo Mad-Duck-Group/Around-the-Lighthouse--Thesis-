@@ -67,7 +67,7 @@ MonoBehaviour:
   buttonNameText: {fileID: 8337528055940594555}
   outerRing: {fileID: 2763532190450359236}
   innerRing: {fileID: 5818590193810705175}
-  outerRingSize: {x: 250, y: 250}
+  outerRingSize: {x: 200, y: 200}
   innerRingSize: {x: 100, y: 100}
   scaleTweenSettings:
     startFromCurrent: 0
