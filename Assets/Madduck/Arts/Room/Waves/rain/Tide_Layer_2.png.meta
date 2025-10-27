@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bfdafa7a897bdd84996a11f851f39930
+guid: 78e64877a9544784cab919f83d289c3d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8721790055150835701
-    second: BG_Boat_0
+      213: -5883888373979817000
+    second: Tide_Layer_2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG_Boat_0
+      name: Tide_Layer_2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 731
-        height: 393
+        width: 1920
+        height: 519
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b082335a72af5f680800000000000000
-      internalID: -8721790055150835701
+      spriteID: 8dbd1e2b2ba385ea0800000000000000
+      internalID: -5883888373979817000
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BG_Boat_0: -8721790055150835701
+      Tide_Layer_2_0: -5883888373979817000
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

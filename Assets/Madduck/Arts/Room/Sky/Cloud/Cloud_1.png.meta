@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bfdafa7a897bdd84996a11f851f39930
+guid: eeb850339ee0ce046827102800485a0e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8721790055150835701
-    second: BG_Boat_0
+      213: 3399250985731408391
+    second: Cloud_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG_Boat_0
+      name: Cloud_1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 731
-        height: 393
+        width: 625
+        height: 314
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b082335a72af5f680800000000000000
-      internalID: -8721790055150835701
+      spriteID: 702cae2f2c09c2f20800000000000000
+      internalID: 3399250985731408391
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BG_Boat_0: -8721790055150835701
+      Cloud_1_0: 3399250985731408391
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

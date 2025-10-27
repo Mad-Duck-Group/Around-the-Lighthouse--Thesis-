@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 0596183538acbc240a630900920b1367
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3587412960255827273
+    second: Fish_Alert_F5_0
+  - first:
+      213: 4211625693875664764
+    second: Fish_Alert_F5_1
+  - first:
+      213: 4423373767811630928
+    second: Fish_Alert_F5_2
+  - first:
+      213: 8749577276913249578
+    second: Fish_Alert_F5_3
+  - first:
+      213: -5334881436802532784
+    second: Fish_Alert_F5_4
+  - first:
+      213: -1415672118250600735
+    second: Fish_Alert_F5_5
+  - first:
+      213: 1218183482662068100
+    second: Fish_Alert_F5_6
+  - first:
+      213: -768050102460156057
+    second: Fish_Alert_F5_7
+  - first:
+      213: 7604354199179758384
+    second: Fish_Alert_F5_8
+  - first:
+      213: -4459910587656108611
+    second: Fish_Alert_F5_9
+  - first:
+      213: -6259886440454962221
+    second: Fish_Alert_F5_10
+  - first:
+      213: 6573842177171975103
+    second: Fish_Alert_F5_11
+  - first:
+      213: -3521024992817770114
+    second: Fish_Alert_F5_12
+  - first:
+      213: -4600438260298478552
+    second: Fish_Alert_F5_13
+  - first:
+      213: -4626592059343832807
+    second: Fish_Alert_F5_14
+  - first:
+      213: -5273232554580214644
+    second: Fish_Alert_F5_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Fish_Alert_F5_0
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 214
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b2a1596be2f63ec0800000000000000
+      internalID: -3587412960255827273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_1
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 225
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c77fd522143b27a30800000000000000
+      internalID: 4211625693875664764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_2
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 216
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 057813b710bf26d30800000000000000
+      internalID: 4423373767811630928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_3
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 211
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2d6e351d2ebc6970800000000000000
+      internalID: 8749577276913249578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_4
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 221
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05a3f804991b6f5b0800000000000000
+      internalID: -5334881436802532784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_5
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 204
+        width: 20
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e68f3185b58a5ce0800000000000000
+      internalID: -1415672118250600735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_6
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 201
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48f125b5c6bd7e010800000000000000
+      internalID: 1218183482662068100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_7
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 199
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 767f82940865755f0800000000000000
+      internalID: -768050102460156057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_8
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 148
+        width: 24
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03b0c54cad7188960800000000000000
+      internalID: 7604354199179758384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_9
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 191
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db501cc33f63b12c0800000000000000
+      internalID: -4459910587656108611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_10
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 203
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d3c56ed27a6029a0800000000000000
+      internalID: -6259886440454962221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_11
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 179
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbbe0d361aafa3b50800000000000000
+      internalID: 6573842177171975103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_12
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 188
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7113d99c6ec22fc0800000000000000
+      internalID: -3521024992817770114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 89
+        width: 29
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82c0bc3c6c5f720c0800000000000000
+      internalID: -4600438260298478552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_14
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 53
+        width: 18
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 919fa26e80b0bcfb0800000000000000
+      internalID: -4626592059343832807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fish_Alert_F5_15
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 84
+        width: 20
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8c783e2ee6b1d6b0800000000000000
+      internalID: -5273232554580214644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Fish_Alert_F5_0: -3587412960255827273
+      Fish_Alert_F5_1: 4211625693875664764
+      Fish_Alert_F5_10: -6259886440454962221
+      Fish_Alert_F5_11: 6573842177171975103
+      Fish_Alert_F5_12: -3521024992817770114
+      Fish_Alert_F5_13: -4600438260298478552
+      Fish_Alert_F5_14: -4626592059343832807
+      Fish_Alert_F5_15: -5273232554580214644
+      Fish_Alert_F5_2: 4423373767811630928
+      Fish_Alert_F5_3: 8749577276913249578
+      Fish_Alert_F5_4: -5334881436802532784
+      Fish_Alert_F5_5: -1415672118250600735
+      Fish_Alert_F5_6: 1218183482662068100
+      Fish_Alert_F5_7: -768050102460156057
+      Fish_Alert_F5_8: 7604354199179758384
+      Fish_Alert_F5_9: -4459910587656108611
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

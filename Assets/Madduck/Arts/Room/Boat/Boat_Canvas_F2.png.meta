@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bfdafa7a897bdd84996a11f851f39930
+guid: 744a2d6478c9ce742a994f429e56df07
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8721790055150835701
-    second: BG_Boat_0
+      213: 9045122791199885087
+    second: Boat_Canvas_F2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG_Boat_0
+      name: Boat_Canvas_F2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 731
-        height: 393
+        width: 227
+        height: 421
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b082335a72af5f680800000000000000
-      internalID: -8721790055150835701
+      spriteID: f174247614bb68d70800000000000000
+      internalID: 9045122791199885087
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BG_Boat_0: -8721790055150835701
+      Boat_Canvas_F2_0: 9045122791199885087
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

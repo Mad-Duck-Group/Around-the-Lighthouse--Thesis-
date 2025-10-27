@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bfdafa7a897bdd84996a11f851f39930
+guid: f0b5226b99f33cc4581eb238ad110562
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8721790055150835701
-    second: BG_Boat_0
+      213: -765324843644647022
+    second: Rock_Blue_L_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG_Boat_0
+      name: Rock_Blue_L_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 731
-        height: 393
+        width: 538
+        height: 428
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b082335a72af5f680800000000000000
-      internalID: -8721790055150835701
+      spriteID: 29987cc0c150165f0800000000000000
+      internalID: -765324843644647022
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BG_Boat_0: -8721790055150835701
+      Rock_Blue_L_0: -765324843644647022
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
