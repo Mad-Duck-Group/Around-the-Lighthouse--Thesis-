@@ -199,10 +199,14 @@ namespace Madduck.Fishing.Controller
         {
             var fishPower = (float)_model.FishItemInstance.CurrentStats.CurrentPower;
             var rodPower = (float)_model.FishingRodItemInstance.CurrentStats.CurrentPower;
+            var fishResistance = (float)_model.FishItemInstance.CurrentStats.CurrentResistance;
+            var rodResistance = (float)_model.FishingRodItemInstance.CurrentStats.CurrentResistance;
+            var fishTotalPower = Mathf.Max(1, fishPower - rodResistance);
+            var rodTotalPower = Mathf.Max(1, rodPower - fishResistance);
             var fishMultiplier = _variables.FishPowerMultiplier;
             var hookMultiplier = _variables.HookPowerMultiplier;
             var pullPercent = _variables.PullPercent;
-            var fatigue = (rodPower * hookMultiplier * pullPercent.AsFraction) - (fishPower * fishMultiplier);
+            var fatigue = (rodTotalPower * hookMultiplier * pullPercent.AsFraction) - (fishTotalPower * fishMultiplier);
             var currentFatigue = (float)_model.CurrentFatigueLevel.Value;
             currentFatigue += fatigue * Time.deltaTime;
             currentFatigue = Mathf.Clamp(currentFatigue, 0, _config.MaxFatigueLevel);
@@ -295,7 +299,11 @@ namespace Madduck.Fishing.Controller
             var mouseDelta = delta * _config.MouseSensitivity;
             var circleCenter = _variables.RedBoard.Center;
             var hookToCenter = (circleCenter - hookPosition).normalized;
-            var inertiaForce = _model.FishingLineDurabilityPercent.CurrentValue.AsInverseFraction * (float)_config.Inertia;
+            var fishUnitCirclePosition = _variables.FishUnitCirclePosition;
+            var hookUnitCirclePosition = _variables.HookUnitCirclePosition;
+            // var inertiaForce = _model.FishingLineDurabilityPercent.CurrentValue.AsInverseFraction * (float)_config.Inertia;
+            var inertiaForce = Vector2.Distance(fishUnitCirclePosition, hookUnitCirclePosition) / 2f 
+                               * (float)_model.FishingRodItemInstance.CurrentStats.CurrentHookToCenterForce;
             hookPosition += hookToCenter * (inertiaForce * Time.deltaTime);
             hookPosition += mouseDelta * Time.deltaTime;
             _model.HookPosition.Value = ClampPosition(hookPosition);

@@ -154,6 +154,8 @@ namespace Madduck.GameData
 
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentResistance { get; set; }
+        [field: DisplayAsString,
+                ShowInInspector] public UFloat CurrentHookToCenterForce { get; set; }
 
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentFishingLineDurability { get; set; }
@@ -175,6 +177,7 @@ namespace Madduck.GameData
             CurrentFishBiteTimeFrame = itemData.FishBiteTimeFrame;
             CurrentPower = itemData.Power;
             CurrentResistance = itemData.Resistance;
+            CurrentHookToCenterForce = itemData.HookToCenterForce;
             CurrentFishingLineDurability = itemData.FishingLineDurability;
             CurrentFishingLineRegenFactor = itemData.FishingLineRegenFactor;
             CurrentReelingSpeed = itemData.ReelingSpeed;

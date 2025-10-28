@@ -44,6 +44,9 @@ namespace Madduck.GameData
 
         [field: InlineProperty,
                 SerializeField] public UFloat Resistance { get; private set; } = 1f;
+        
+        [field: InlineProperty,
+                SerializeField] public UFloat HookToCenterForce { get; private set; } = 200f;
 
         [field: InlineProperty,
                 SerializeField] public UFloat FishingLineDurability { get; private set; } = 2f;

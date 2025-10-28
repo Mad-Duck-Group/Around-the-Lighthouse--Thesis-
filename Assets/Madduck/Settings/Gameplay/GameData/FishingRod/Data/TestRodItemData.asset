@@ -44,14 +44,16 @@ MonoBehaviour:
   <NibbleBaseSuccessChances>k__BackingField:
     keys: 0000000001000000
     values:
-    - value: 5
-    - value: 15
+    - value: 100
+    - value: 100
   <FishBiteTimeFrame>k__BackingField:
     value: 3
   <Power>k__BackingField:
-    value: 6
+    value: 8
   <Resistance>k__BackingField:
     value: 1
+  <HookToCenterForce>k__BackingField:
+    value: 200
   <FishingLineDurability>k__BackingField:
     value: 10
   <FishingLineRegenFactor>k__BackingField:
