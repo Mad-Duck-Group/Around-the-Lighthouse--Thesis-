@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bfdafa7a897bdd84996a11f851f39930
+guid: cdab3ec25351fc24f94871a808536733
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8721790055150835701
-    second: BG_Boat_0
+      213: -694736220005313535
+    second: Ocean_Layer_4_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG_Boat_0
+      name: Ocean_Layer_4_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 731
-        height: 393
+        width: 1920
+        height: 736
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b082335a72af5f680800000000000000
-      internalID: -8721790055150835701
+      spriteID: 1045cf9b61dcb56f0800000000000000
+      internalID: -694736220005313535
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BG_Boat_0: -8721790055150835701
+      Ocean_Layer_4_0: -694736220005313535
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

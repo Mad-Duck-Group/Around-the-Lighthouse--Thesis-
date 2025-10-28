@@ -29,6 +29,8 @@ namespace Madduck.RoomPreset
         [BoxGroup("Variants"),
          SerializeField] private Sprite[] waveVariants;
         [BoxGroup("Variants"),
+         SerializeField] private Sprite[] waveRainVariants;
+        [BoxGroup("Variants"),
          SerializeField] private Sprite[] daySkyVariants;
         [BoxGroup("Variants"),
          SerializeField] private Sprite[] nightSkyVariants;
@@ -84,10 +86,17 @@ namespace Madduck.RoomPreset
         
             if (waveRenderers != null && waveVariants.Length > 0)
             {
-                foreach (var render in waveRenderers)
+                for (int i = 0; i < waveRenderers.Length; i++)
                 {
-                    if (render)
-                        render.sprite = waveVariants.GetRandomElement();
+                    if (_currentWeather == WeatherType.Rain || _currentWeather == WeatherType.Storm )
+                    {
+                        waveRenderers[i].sprite = waveRainVariants[i];
+                    }
+                    else
+                    {
+                        waveRenderers[i].sprite = waveVariants[i];
+
+                    }
                 }
             }
             AnimateWaves();

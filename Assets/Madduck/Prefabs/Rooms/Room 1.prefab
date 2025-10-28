@@ -78,7 +78,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1380940993
   m_SortingLayer: 2
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 81613e0fcde44884cb64bf6ee222ae0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -238,11 +238,19 @@ MonoBehaviour:
   - {fileID: 8488998414933262107}
   - {fileID: 3446063414533135315}
   rockVariants:
-  - {fileID: 21300000, guid: 9816f38358ab9ab4386138de993532b1, type: 3}
-  - {fileID: 21300000, guid: 134b24a21ea70fc459d91c7b4526152b, type: 3}
-  - {fileID: 21300000, guid: b357eda9e098654448fca8834880f763, type: 3}
+  - {fileID: 21300000, guid: f0b5226b99f33cc4581eb238ad110562, type: 3}
+  - {fileID: 21300000, guid: fb66d221df288ef43aa16d6e0435105e, type: 3}
+  - {fileID: 21300000, guid: 047dcf959333b9947a28a017990e7a19, type: 3}
   waveVariants:
-  - {fileID: 21300000, guid: cf8fb1385792e0d499f52f289a0057c4, type: 3}
+  - {fileID: 21300000, guid: cdab3ec25351fc24f94871a808536733, type: 3}
+  - {fileID: 21300000, guid: c4a96b8171373484aa27b5d7c014c5db, type: 3}
+  - {fileID: 21300000, guid: 025527c023765c4458efb108a2b2061b, type: 3}
+  - {fileID: 21300000, guid: c583852b8cd9c014ca3a8df5b03ce960, type: 3}
+  waveRainVariants:
+  - {fileID: 21300000, guid: 16b72623a086fa14283ee6a142d1962d, type: 3}
+  - {fileID: 21300000, guid: 65ce81a2b51a09c4590978ce4f09012e, type: 3}
+  - {fileID: 21300000, guid: 78e64877a9544784cab919f83d289c3d, type: 3}
+  - {fileID: 21300000, guid: 64cffecf5684c3743b2101f0824283d9, type: 3}
   daySkyVariants:
   - {fileID: 21300000, guid: a2c905547e009da448b29d92ebc1564b, type: 3}
   nightSkyVariants:
@@ -494,7 +502,7 @@ Transform:
   m_GameObject: {fileID: 4121709692870524424}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.37, y: -6.3499994, z: 0}
+  m_LocalPosition: {x: 0.32, y: -4.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -547,7 +555,7 @@ SpriteRenderer:
   m_SortingLayerID: 1380940993
   m_SortingLayer: 2
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: cf8fb1385792e0d499f52f289a0057c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 025527c023765c4458efb108a2b2061b, type: 3}
   m_Color: {r: 0.6, g: 0.49090913, b: 0.49090913, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -584,7 +592,7 @@ Transform:
   m_GameObject: {fileID: 4235217490794979772}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.74, y: -4.39, z: 0}
+  m_LocalPosition: {x: -0.02, y: -3.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -637,7 +645,7 @@ SpriteRenderer:
   m_SortingLayerID: 1380940993
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: cf8fb1385792e0d499f52f289a0057c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4a96b8171373484aa27b5d7c014c5db, type: 3}
   m_Color: {r: 0.8, g: 0.75838155, b: 0.65202314, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -674,7 +682,7 @@ Transform:
   m_GameObject: {fileID: 5254391865226093538}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.55, y: -3.6, z: 0}
+  m_LocalPosition: {x: 0.02, y: -2.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -727,7 +735,7 @@ SpriteRenderer:
   m_SortingLayerID: 1380940993
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: cf8fb1385792e0d499f52f289a0057c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cdab3ec25351fc24f94871a808536733, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -764,7 +772,7 @@ Transform:
   m_GameObject: {fileID: 6207674007405096087}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.15, y: -7.6499996, z: 0}
+  m_LocalPosition: {x: 0.11, y: -4.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -816,8 +824,8 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1380940993
   m_SortingLayer: 2
-  m_SortingOrder: 11
-  m_Sprite: {fileID: 21300000, guid: cf8fb1385792e0d499f52f289a0057c4, type: 3}
+  m_SortingOrder: 13
+  m_Sprite: {fileID: 21300000, guid: c583852b8cd9c014ca3a8df5b03ce960, type: 3}
   m_Color: {r: 0.4056604, g: 0.33486116, b: 0.33486116, a: 1}
   m_FlipX: 0
   m_FlipY: 0
