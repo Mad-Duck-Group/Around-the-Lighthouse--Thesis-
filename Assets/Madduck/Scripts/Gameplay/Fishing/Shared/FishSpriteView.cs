@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.GameData;
 using Madduck.Shared;
@@ -16,6 +15,7 @@ namespace Madduck.Fishing.Shared
         void SetUp(Transform hook, FishItemInstance fishItemInstance);
         void Detach();
         ISpineAnimator<FishSpriteAnimationKey> Animator { get; }
+        IFishFatigueTimerView FatigueTimerView { get; }
     }
     public class FishSpriteView : MonoBehaviour, IFishSpriteView
     {
@@ -24,6 +24,8 @@ namespace Madduck.Fishing.Shared
          SerializeField] private SkeletonAnimation skeletonAnimation;
         [Required,
          SerializeField] private SkeletonUtility skeletonUtility;
+        [Required,
+         SerializeField] private FishFatigueTimerView fatigueTimerView;
         
         [Title("Settings")] 
         [SerializeField] private TweenSettings<Vector3> scaleTween;
@@ -32,9 +34,11 @@ namespace Madduck.Fishing.Shared
         [InlineEditor, 
          SerializeField] 
         private FishItemData debugFish;
-        
+       
         public ISpineAnimator<FishSpriteAnimationKey> Animator { get; private set; }
-        
+        public IFishFatigueTimerView FatigueTimerView => fatigueTimerView;
+
+
         private Sequence _transitionSequence;
         
         public void SetUp(Transform hook, FishItemInstance fishItemInstance)
@@ -53,6 +57,7 @@ namespace Madduck.Fishing.Shared
         {
             transform.SetParent(null);
         }
+
 
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {

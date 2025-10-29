@@ -66,7 +66,7 @@ namespace Madduck.Fishing.Controller
             IFishSpriteFactory fishSpriteFactory,
             IFishEyesFactory fishEyesFactory,
             IGenericFactory<IQuickTimeEvent> qteButtonFactory,
-            ITransitionable viewTransition,
+            [Key(FishingStateType.Nibble)] ITransitionable viewTransition,
             ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
             _config = config;

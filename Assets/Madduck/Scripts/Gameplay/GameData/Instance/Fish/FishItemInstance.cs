@@ -16,13 +16,10 @@ namespace Madduck.GameData
     public class FishItemInstance : ItemInstance<FishItemData>
     {
         [field: DisplayAsString, 
-                ShowInInspector] public uint CurrentFatigueCount { get; set; }
-        [field: DisplayAsString, 
                 ShowInInspector] public FishQuality CurrentFishQuality { get; set; }
         [field: ShowInInspector] public FishStats CurrentStats { get; private set; }
         public FishItemInstance(FishItemData itemData) : base(itemData)
         {
-            CurrentFatigueCount = 0;
             CurrentStats = new FishStats(itemData);
         }
     }
@@ -38,6 +35,10 @@ namespace Madduck.GameData
                 ShowInInspector] public UFloat CurrentFishWeight { get; set; }
         [field: DisplayAsString, 
                 ShowInInspector] public UFloat CurrentFatigueDuration { get; set; }
+        [field: DisplayAsString, 
+                ShowInInspector] public UFloat CurrentTugOfWarDecayRate { get; set; }
+        [field: DisplayAsString, 
+                ShowInInspector] public UFloat CurrentTugOfWarRegression { get; set; }
         
         public FishStats(FishItemData itemData)
         {
@@ -45,6 +46,8 @@ namespace Madduck.GameData
             CurrentResistance = itemData.Resistance;
             CurrentFishWeight = itemData.FishWeight;
             CurrentFatigueDuration = itemData.FatigueDuration;
+            CurrentTugOfWarDecayRate = itemData.TugOfWarDecayRate;
+            CurrentTugOfWarRegression = itemData.TugOfWarRegression;
         }
         
         public FishStats Copy() => this with { };

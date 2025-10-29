@@ -30,7 +30,8 @@ namespace Madduck.Fishing.DI
         }
     }
     
-    public class NibbleLifetimeScope : LifetimeScope
+    [Serializable]
+    public class NibbleLifetimeScope : IInstaller
     {
         [Title("References")]
         [Required, 
@@ -52,9 +53,15 @@ namespace Madduck.Fishing.DI
         private NibbleStateDebugData _nibbleStateDebugData;
 #endif
         
-        protected override void Configure(IContainerBuilder builder)
+        public void Install(IContainerBuilder builder)
         {
-            builder.RegisterComponent(nibbleView).AsImplementedInterfaces();
+            builder.Register(x =>
+                {
+                    x.Inject(nibbleView);
+                    return nibbleView;
+                }, Lifetime.Scoped)
+                .Keyed(FishingStateType.Nibble)
+                .AsImplementedInterfaces();
             builder.RegisterInstance(nibbleConfig).AsSelf();
             builder.Register<NibbleController>(Lifetime.Scoped).AsSelf();
             builder.Register<NibbleCommander>(Lifetime.Scoped).AsSelf();

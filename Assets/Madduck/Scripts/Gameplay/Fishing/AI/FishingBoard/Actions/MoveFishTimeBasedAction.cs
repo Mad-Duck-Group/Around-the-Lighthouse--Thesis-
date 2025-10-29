@@ -14,7 +14,7 @@ namespace Madduck.Fishing.AI
     public partial class MoveFishTimeBasedAction : Action
     {
         [SerializeReference] public BlackboardVariable<Vector2> TargetPosition;
-        [SerializeReference] public BlackboardVariable<FishingBoardLifetimeScope> FishingBoard;
+        [SerializeReference] public BlackboardVariable<FishingStateMachineLifetimeScope> FishingBoard;
         [SerializeReference] public BlackboardVariable<float> Duration;
         private IFishingBoardAIController _fishingBoardAIController;
 

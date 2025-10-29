@@ -151,6 +151,8 @@ namespace Madduck.GameData
                 ShowInInspector] public UFloat CurrentFishBiteTimeFrame { get; set; }
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentPower { get; set; }
+        [field: DisplayAsString,
+                ShowInInspector] public Percentage CurrentFishingBoardDecayThreshold { get; set; }
 
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentResistance { get; set; }
@@ -165,6 +167,10 @@ namespace Madduck.GameData
 
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentReelingSpeed { get; set; }
+        [field: DisplayAsString,
+                ShowInInspector] public UFloat CurrentTugOfWarGainRate { get; set; }
+        [field: DisplayAsString,
+                ShowInInspector] public Percentage CurrentTugOfWarDecayThreshold { get; set; }
         
          
         public FishingRodStats(FishingRodItemData itemData)
@@ -176,11 +182,14 @@ namespace Madduck.GameData
             CurrentNibbleBaseSuccessChances = new(itemData.NibbleBaseSuccessChances);
             CurrentFishBiteTimeFrame = itemData.FishBiteTimeFrame;
             CurrentPower = itemData.Power;
+            CurrentFishingBoardDecayThreshold = itemData.FishingBoardDecayThreshold;
             CurrentResistance = itemData.Resistance;
             CurrentHookToCenterForce = itemData.HookToCenterForce;
             CurrentFishingLineDurability = itemData.FishingLineDurability;
             CurrentFishingLineRegenFactor = itemData.FishingLineRegenFactor;
             CurrentReelingSpeed = itemData.ReelingSpeed;
+            CurrentTugOfWarGainRate = itemData.TugOfWarGainRate;
+            CurrentTugOfWarDecayThreshold = itemData.TugOfWarDecayThreshold;
         }
 
         public FishingRodStats Copy() => this with { };

@@ -15,10 +15,10 @@ namespace Madduck.Fishing.UI
     public class ReelingView : MonoBehaviour, ITransitionable
     {
         [Title("References")]
-        [Required]
-        [SerializeField] private Slider reelingSlider;
-        [Required]
-        [SerializeField] private HoldButton reelingButton;
+        [Required, 
+         SerializeField] private Slider reelingSlider;
+        [Required, 
+         SerializeField] private HoldButton reelingButton;
         
         private ReelingViewModel _viewModel;
         private ReelingCommander _commander;

@@ -30,7 +30,8 @@ namespace Madduck.Fishing.DI
         }
     }
     
-    public class ThrowHookLifetimeScope : LifetimeScope
+    [Serializable]
+    public class ThrowHookLifetimeScope : IInstaller
     {
         [Title("References")]
         [Required]
@@ -50,10 +51,16 @@ namespace Madduck.Fishing.DI
         private ThrowHookStateDebugData _throwHookStateDebugData;
 #endif
         
-        protected override void Configure(IContainerBuilder builder)
+        public void Install(IContainerBuilder builder)
         {
             builder.RegisterInstance(throwHookConfig).AsSelf();
-            builder.RegisterComponent(throwHookView).AsImplementedInterfaces();
+            builder.Register(x =>
+                {
+                    x.Inject(throwHookView);
+                    return throwHookView;
+                }, Lifetime.Scoped)
+                .Keyed(FishingStateType.ThrowHook)
+                .AsImplementedInterfaces();
             builder.Register<ThrowHookController>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookCommander>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookViewModel>(Lifetime.Scoped).AsSelf();

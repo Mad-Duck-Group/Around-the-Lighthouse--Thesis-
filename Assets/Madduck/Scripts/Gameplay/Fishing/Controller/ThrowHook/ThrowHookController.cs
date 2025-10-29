@@ -44,7 +44,7 @@ namespace Madduck.Fishing.Controller
             ThrowHookModel model,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
-            ITransitionable viewTransition)
+            [Key(FishingStateType.ThrowHook)] ITransitionable viewTransition)
         {
             _inputHandler = inputHandler;
             _commander = commander;

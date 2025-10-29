@@ -75,7 +75,9 @@ namespace Madduck.Fishing.UI
         private void OnReelingHeld()
         {
             var reelingSpeed = (float)_reelingModel.FishingRodInstance.CurrentStats.CurrentReelingSpeed;
-            _reelingModel.CurrentReelingProgress.Value += reelingSpeed * Time.deltaTime;
+            var fishWeight = (float)_reelingModel.FishInstance.CurrentStats.CurrentFishWeight;
+            var final = Mathf.Max(0, reelingSpeed - fishWeight);
+            _reelingModel.CurrentReelingProgress.Value += final * Time.deltaTime;
         }
 
         private void OnReelingReleased()

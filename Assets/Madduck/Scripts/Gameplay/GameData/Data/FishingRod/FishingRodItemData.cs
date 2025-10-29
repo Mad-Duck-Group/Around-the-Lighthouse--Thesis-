@@ -44,6 +44,8 @@ namespace Madduck.GameData
 
         [field: InlineProperty,
                 SerializeField] public UFloat Resistance { get; private set; } = 1f;
+        [field: InlineProperty,
+                SerializeField] public Percentage FishingBoardDecayThreshold { get; private set; } = Percentage.FromPercentage(1f);
         
         [field: InlineProperty,
                 SerializeField] public UFloat HookToCenterForce { get; private set; } = 200f;
@@ -60,5 +62,13 @@ namespace Madduck.GameData
 
         [field: InlineProperty,
                 SerializeField] public UFloat ReelingSpeed { get; private set; } = 2f;
+        
+        [Title("Tug of War Settings"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _tugOfWarSettingsTitle;
+        [field: InlineProperty,
+                SerializeField] public Percentage TugOfWarDecayThreshold { get; private set; } = Percentage.FromPercentage(1f);
+        [field: InlineProperty,
+                SerializeField] public UFloat TugOfWarGainRate { get; private set; } = 5f;
     }
 }

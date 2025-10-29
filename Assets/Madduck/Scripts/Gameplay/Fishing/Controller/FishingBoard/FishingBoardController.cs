@@ -38,6 +38,7 @@ namespace Madduck.Fishing.Controller
         private IDisposable _bindings;
         private AudioReference _fishingLineTensionSfx;
         private CancellationTokenSource _transitionCts = new();
+        private bool _thresholdReached;
         private const string ThrowEventName = "After_Throw";
         #endregion
 
@@ -53,7 +54,7 @@ namespace Madduck.Fishing.Controller
             IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
             IFishSpriteFactory fishSpriteFactory,
-            ITransitionable viewTransition,
+            [Key(FishingStateType.FishingBoard)] ITransitionable viewTransition,
             ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
             _model = model;
@@ -140,6 +141,7 @@ namespace Madduck.Fishing.Controller
 
         public void Reset()
         {
+            _thresholdReached = false;
             _model.Reset();
         }
         
@@ -189,7 +191,7 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private void ResetFatigueLevel()
         {
-            _model.CurrentFatigueLevel.Value = _config.MaxFatigueLevel / 2;
+            _model.CurrentFatigueLevel.Value = 0f;
         }
 
         /// <summary>
@@ -208,10 +210,20 @@ namespace Madduck.Fishing.Controller
             var pullPercent = _variables.PullPercent;
             var fatigue = (rodTotalPower * hookMultiplier * pullPercent.AsFraction) - (fishTotalPower * fishMultiplier);
             var currentFatigue = (float)_model.CurrentFatigueLevel.Value;
+            if (!_thresholdReached)
+            {
+                fatigue = Mathf.Max(0, fatigue);
+            }
             currentFatigue += fatigue * Time.deltaTime;
             currentFatigue = Mathf.Clamp(currentFatigue, 0, _config.MaxFatigueLevel);
             _model.CurrentFatigueLevel.Value = currentFatigue;
-            if (currentFatigue <= 0)
+            var fatiguePercent = _model.FatigueLevelPercent.CurrentValue;
+            var decayThreshold = _model.FishingRodItemInstance.CurrentStats.CurrentFishingBoardDecayThreshold;
+            if (!_thresholdReached && fatiguePercent >= decayThreshold)
+            {
+                _thresholdReached = true;
+            }
+            if (_thresholdReached && currentFatigue <= 0)
             {
                 LoseFishingBoard();  
             }

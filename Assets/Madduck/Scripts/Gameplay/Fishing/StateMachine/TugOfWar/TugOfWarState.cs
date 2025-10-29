@@ -6,76 +6,70 @@ using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
+using VContainer;
 
 namespace Madduck.Fishing.StateMachine
 {
-    /// <summary>
-    /// State of the Fishing Board mini-game.
-    /// </summary>
-    [Serializable]
-    public class FishingBoardState : FishingState
+    public class TugOfWarState : FishingState
     {
-        private readonly FishingBoardController _controller;
+        private readonly TugOfWarController _controller;
         private readonly IPublisher<FishEscapedEvent> _fishEscapedEventPublisher;
-        private IDisposable _fishingBoardResultSubscription;
+        
+        private IDisposable _subscription;
         private Sign _result;
         
-        public FishingBoardState(
+        [Inject]
+        public TugOfWarState(
             FishingStateMachine stateMachine,
-            FishingBoardController controller,
+            TugOfWarController controller,
             IPublisher<FishEscapedEvent> fishEscapedEventPublisher)
             : base(stateMachine)
         {
             _controller = controller;
             _fishEscapedEventPublisher = fishEscapedEventPublisher;
         }
-        
+
         public override async UniTask Enter()
         {
             await base.Enter();
             await _controller.SetActive(true);
-            _fishingBoardResultSubscription = Observable.FromEvent<Sign>(
-                    h => _controller.OnFishingBoardResult += h,
-                    h => _controller.OnFishingBoardResult -= h)
-                .Subscribe(OnFishingBoardResult);
+            _subscription = Observable.FromEvent<Sign>(
+                    h => _controller.OnTugOfWarResult += h,
+                    h => _controller.OnTugOfWarResult -= h)
+                .Subscribe(OnTugOfWarResult);
         }
 
         public override async UniTask Exit()
         {
             await base.Exit();
-            _fishingBoardResultSubscription.Dispose();
+            _subscription.Dispose();
             await _controller.SetActive(false);
-            if (_result is Sign.Negative)
-                await _controller.ReturnHook();
+            if (_result is Sign.Negative) await _controller.ReturnHook();
             _controller.Reset();
-            _controller.ResetCircleBoardSprite();
         }
-
-        public override void Reset()
-        {
-            base.Reset();
-            _controller.Reset();
-            _controller.ResetCircleBoardSprite();
-        }
-
-        private void OnFishingBoardResult(Sign result)
+        
+        private void OnTugOfWarResult(Sign result)
         {
             _result = result;
             switch (result)
             {
+                case Sign.Positive:
+                    DebugUtils.Log("Won Tug of War, back to FishingBoardState");
+                    stateMachine.ChangeState(FishingStateType.FishingBoard);
+                    break;
                 case Sign.Negative:
-                    DebugUtils.Log("Fish escaped, transitioning to NoneState");
+                    DebugUtils.Log("Fish got away, back to NoneState");
                     stateMachine.ChangeState(FishingStateType.None);
+                    stateMachine.ResetState(FishingStateType.FishingBoard);
                     stateMachine.ResetState(FishingStateType.Reeling);
                     _fishEscapedEventPublisher.Publish(new FishEscapedEvent());
                     break;
-                case Sign.Positive:
-                    DebugUtils.Log("Fish is tired, transitioning to ReelingState");
-                    stateMachine.NextState();
-                    break;
                 case Sign.Zero:
+                    DebugUtils.Log("Lose Tug of War, back to FishingBoardState");
+                    stateMachine.ChangeState(FishingStateType.FishingBoard);
+                    break;
                 default:
-                    DebugUtils.LogError($"Unexpected FishingBoardResult value: {result}");
+                    DebugUtils.LogError($"Unexpected TugOfWarResult value: {result}");
                     break;
             }
         }

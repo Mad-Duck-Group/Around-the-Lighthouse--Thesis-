@@ -29,7 +29,8 @@ namespace Madduck.Fishing.DI
             _model = model;
         }
     }
-    public class ReelingLifetimeScope : LifetimeScope
+    [Serializable]
+    public class ReelingLifetimeScope : IInstaller
     {
         [Title("References")]
         [Required]
@@ -50,14 +51,20 @@ namespace Madduck.Fishing.DI
         private ReelingStateDebugData _reelingStateDebugData;
 #endif
         
-        protected override void Configure(IContainerBuilder builder)
+        public void Install(IContainerBuilder builder)
         {
-            builder.RegisterComponent(reelingView).AsImplementedInterfaces();
+            builder.Register(x =>
+            {
+                x.Inject(reelingView);
+                return reelingView;
+            }, Lifetime.Scoped)
+                .Keyed(FishingStateType.Reeling)
+                .AsImplementedInterfaces();
             builder.RegisterInstance(reelingConfig).AsSelf();
             builder.Register<ReelingController>(Lifetime.Scoped).AsSelf();
             builder.Register<ReelingCommander>(Lifetime.Scoped).AsSelf();
             builder.Register<ReelingViewModel>(Lifetime.Scoped).AsSelf();
-            builder.Register<ReelingModel>(Lifetime.Scoped).AsSelf();
+            builder.Register<ReelingModel>(Lifetime.Singleton).AsSelf();
             builder.Register<ReelingState>(Lifetime.Scoped).AsSelf();
             builder.RegisterBuildCallback(x =>
             {

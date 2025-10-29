@@ -34,13 +34,14 @@ namespace Madduck.Fishing.DI
         }
     }
     
-    public class FishingBoardLifetimeScope : LifetimeScope
+    [Serializable]
+    public class FishingBoardLifetimeScope : IInstaller
     {
         [Title("References")]
         [SerializeField] private BehaviorGraphAgent behaviorGraphAgent;
         [SerializeField] private FishingBoardView fishingBoardView;
-        [InlineEditor]
-        [SerializeField] private FishingBoardConfig fishingBoardConfig;
+        [InlineEditor, 
+         SerializeField] private FishingBoardConfig fishingBoardConfig;
 
 #if UNITY_EDITOR
         [Title("Debug")]
@@ -54,10 +55,18 @@ namespace Madduck.Fishing.DI
         private FishingBoardDebugData _fishingBoardDebugData;
 #endif
         
-        protected override void Configure(IContainerBuilder builder)
+        public void Install(IContainerBuilder builder)
         {
             builder.RegisterComponent(behaviorGraphAgent).AsSelf();
-            builder.RegisterComponent(fishingBoardView).AsImplementedInterfaces();
+            builder.Register(x =>
+                {
+                    x.Inject(fishingBoardView);
+                    return fishingBoardView;
+                }, Lifetime.Scoped)
+                .Keyed(FishingStateType.FishingBoard)
+                .As<ITransitionable>();
+            builder.Register(_ => fishingBoardView, Lifetime.Scoped)
+                .As<ICircleBoard>();
             builder.RegisterInstance(fishingBoardConfig).AsSelf();
             builder.Register<FishingBoardVariables>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingBoardController>(Lifetime.Scoped).AsSelf();
@@ -70,12 +79,6 @@ namespace Madduck.Fishing.DI
                 var fishingBoardState = x.Resolve<FishingBoardState>();
                 var stateMachine = x.Resolve<FishingStateMachine>();
                 stateMachine.AddState(FishingStateType.FishingBoard, fishingBoardState);
-                var aiController = x.Resolve<IFishingBoardAIController>();
-                Observable.FromEvent(
-                        h => aiController.OnInitializeBehaviorGraph += h,
-                        h => aiController.OnInitializeBehaviorGraph -= h)
-                    .Subscribe(_ => OnBehaviorGraphInitialized())
-                    .AddTo(this);
 #if UNITY_EDITOR
                 var fishingBoardModel= x.Resolve<FishingBoardModel>();
                 var variables = x.Resolve<FishingBoardVariables>();
@@ -85,11 +88,6 @@ namespace Madduck.Fishing.DI
 #endif
             });
 
-        }
-        
-        private void OnBehaviorGraphInitialized()
-        {
-            behaviorGraphAgent.SetVariableValue("FishingBoard", this);
         }
     }
 }

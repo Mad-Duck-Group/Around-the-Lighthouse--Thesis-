@@ -52,11 +52,17 @@ MonoBehaviour:
     value: 8
   <Resistance>k__BackingField:
     value: 1
+  <FishingBoardDecayThreshold>k__BackingField:
+    value: 5
   <HookToCenterForce>k__BackingField:
-    value: 200
+    value: 250
   <FishingLineDurability>k__BackingField:
     value: 10
   <FishingLineRegenFactor>k__BackingField:
     value: 14
   <ReelingSpeed>k__BackingField:
     value: 25
+  <TugOfWarDecayThreshold>k__BackingField:
+    value: 5
+  <TugOfWarGainRate>k__BackingField:
+    value: 5

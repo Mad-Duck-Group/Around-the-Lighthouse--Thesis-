@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.StateMachine;
 using Madduck.Fishing.UI;
@@ -38,7 +39,9 @@ namespace Madduck.Fishing.DI
     [ShowOdinSerializedPropertiesInInspector]
     public class FishingStateMachineLifetimeScope : LifetimeScope, ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
-        [Title("References")]
+        [Title("References")] 
+        [HideReferenceObjectPicker, 
+         OdinSerialize] private List<IInstaller> fishingStateInstallers = new();
         [Required, HideReferenceObjectPicker,
          OdinSerialize] private HookProjectileFactory hookProjectileFactory = new();
         [Required, HideReferenceObjectPicker,
@@ -82,6 +85,7 @@ namespace Madduck.Fishing.DI
             builder.Register(_ => fishEyesFactory, Lifetime.Singleton).As<IFishEyesFactory>();
             builder.Register<FishingNoneState>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingStateMachine>(Lifetime.Singleton).AsSelf();
+            fishingStateInstallers.ForEach(x => x.Install(builder));
             builder.RegisterBuildCallback(x =>
             {
                 var stateMachine = x.Resolve<FishingStateMachine>();

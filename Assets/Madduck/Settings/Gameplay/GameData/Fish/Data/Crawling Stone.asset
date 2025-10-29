@@ -38,9 +38,6 @@ MonoBehaviour:
   <FishSkeletonDataAsset>k__BackingField: {fileID: 11400000, guid: b30bb1cfde387bb47bd8ef3142a9f219, type: 2}
   <SpriteAnchorOffset>k__BackingField: {x: -2.47, y: 2}
   <BasePrice>k__BackingField: 10
-  <MaxNibbleAttempts>k__BackingField: 4
-  <NibbleIntervalRange>k__BackingField: {x: 5, y: 10}
-  <NibbleTimeFrameRange>k__BackingField: {x: 3, y: 6}
   <Power>k__BackingField:
     value: 4
   <Resistance>k__BackingField:
@@ -49,4 +46,7 @@ MonoBehaviour:
     value: 2
   <FatigueDuration>k__BackingField:
     value: 10
-  <MaxFatigueAttempts>k__BackingField: 2
+  <TugOfWarDecayRate>k__BackingField:
+    value: 10
+  <TugOfWarRegression>k__BackingField:
+    value: 20

@@ -14,7 +14,7 @@ namespace Madduck.Fishing.AI
     public partial class WarpFishAction : Action
     {
         [SerializeReference] public BlackboardVariable<Vector2> TargetPosition;
-        [SerializeReference] public BlackboardVariable<FishingBoardLifetimeScope> FishingBoard;
+        [SerializeReference] public BlackboardVariable<FishingStateMachineLifetimeScope> FishingBoard;
         private IFishingBoardAIController _fishingBoardAIController;
 
         protected override Status OnStart()

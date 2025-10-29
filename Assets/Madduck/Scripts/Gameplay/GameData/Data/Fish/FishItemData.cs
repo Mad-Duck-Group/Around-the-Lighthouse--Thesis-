@@ -68,6 +68,14 @@ namespace Madduck.GameData
                 SerializeField] public UFloat FishWeight { get; private set; }
         [field: InlineProperty,
                  SerializeField] public UFloat FatigueDuration { get; private set; } = 10f;
-        [field: SerializeField] public int MaxFatigueAttempts { get; private set; } = -1;
+        
+        [Title("Tug of War Settings"), 
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _tugOfWarSettingsTitle;
+
+        [field: InlineProperty,
+                SerializeField] public UFloat TugOfWarDecayRate { get; private set; } = 30f;
+        [field: InlineProperty,
+                SerializeField] public UFloat TugOfWarRegression { get; private set; } = 20f;
     }
 }

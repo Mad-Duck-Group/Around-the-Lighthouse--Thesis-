@@ -1,4 +1,5 @@
-﻿using Madduck.Fishing.Shared;
+﻿using Madduck.Fishing.DI;
+using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using PrimeTween;
 using Unity.Behavior;
@@ -10,7 +11,6 @@ namespace Madduck.Fishing.Controller
 {
     public interface IFishingBoardAIController
     {
-        event Action OnInitializeBehaviorGraph;
         void InitializeBehaviorGraph();
         void UpdateBehaviourGraphVariables();
         void ShutdownBehaviorGraph();
@@ -21,14 +21,10 @@ namespace Madduck.Fishing.Controller
 
     public class FishingBoardAIController : IFishingBoardAIController
     {
-        #region Event
-
-        public event Action OnInitializeBehaviorGraph;
-
-        #endregion
 
         #region Fields
 
+        private readonly FishingStateMachineLifetimeScope _lifetimeScope;
         private readonly FishingBoardModel _model;
         private readonly FishingBoardVariables _variables;
         private readonly BehaviorGraphAgent _agent;
@@ -49,10 +45,12 @@ namespace Madduck.Fishing.Controller
 
         [Inject]
         public FishingBoardAIController(
+            FishingStateMachineLifetimeScope lifetimeScope,
             FishingBoardModel model,
             FishingBoardVariables variables,
             BehaviorGraphAgent agent)
         {
+            _lifetimeScope = lifetimeScope;
             _model = model;
             _variables = variables;
             _agent = agent;
@@ -75,7 +73,7 @@ namespace Madduck.Fishing.Controller
             _agent.GetVariable("HookUnitCirclePosition", out _blackBoardHookUnitCirclePosition);
             _agent.GetVariable("AngleDifference", out _blackBoardAngleDifference);
             _agent.GetVariable("FatiguePercent", out _blackBoardFatiguePercent);
-            OnInitializeBehaviorGraph?.Invoke();
+            _agent.SetVariableValue("FishingBoard", _lifetimeScope);
             _agent.Restart();
             _agent.Start();
         }
@@ -152,8 +150,6 @@ namespace Madduck.Fishing.Controller
     
     public class FishingBoardAIControllerMock : IFishingBoardAIController
     {
-        public event Action OnInitializeBehaviorGraph;
-        
         private readonly FishingBoardModel _model;
         private readonly FishingBoardVariables _variables;
         
@@ -165,10 +161,7 @@ namespace Madduck.Fishing.Controller
             _variables = variables;
         }
 
-        public void InitializeBehaviorGraph()
-        {
-            OnInitializeBehaviorGraph?.Invoke();
-        }
+        public void InitializeBehaviorGraph() { }
         
         public void UpdateBehaviourGraphVariables() { }
         public void ShutdownBehaviorGraph() { }
