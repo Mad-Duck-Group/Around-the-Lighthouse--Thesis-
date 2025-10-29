@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Scripts.Input;
 using R3;
@@ -70,6 +71,7 @@ namespace Madduck.Input
             public SerializableReactiveProperty<bool> IsUpAfterHeld { get; private set; } = new(false);
             public InputBinding? InputBinding { get; private set; }
             private bool _heldLastTime;
+            private CancellationTokenSource _cts = new();
 
             public void BindPressButton(InputAction.CallbackContext context)
             {
@@ -79,12 +81,13 @@ namespace Madduck.Input
                 IsUpAfterHeld.Value = context.canceled;
                 _heldLastTime = context.performed;
                 InputBinding = context.action.GetBindingForControl(context.control);
-                ButtonPressTask().Forget();
+                _cts = new();
+                ButtonPressTask(_cts.Token).Forget();
             }
 
-            private async UniTaskVoid ButtonPressTask()
+            private async UniTaskVoid ButtonPressTask(CancellationToken token)
             {
-                await UniTask.WaitForEndOfFrame();
+                await UniTask.WaitForEndOfFrame(token);
                 IsDown.Value = false;
                 if (!IsHeld.Value)
                 {
@@ -104,7 +107,8 @@ namespace Madduck.Input
                         IsUp.Value = false;
                         IsUpAfterHeld.Value = false;
                         _heldLastTime = false;
-                        ButtonPressTask().Forget();
+                        _cts = new();
+                        ButtonPressTask(_cts.Token).Forget();
                         break;
                     case { performed: true }:
                         IsDown.Value = false;
@@ -118,7 +122,8 @@ namespace Madduck.Input
                         IsHeld.Value = false;
                         IsUp.Value = true;
                         IsUpAfterHeld.Value = _heldLastTime;
-                        ButtonPressTask().Forget();
+                        _cts = new();
+                        ButtonPressTask(_cts.Token).Forget();
                         break;
                 }
             }

@@ -34,9 +34,9 @@ namespace Madduck.Fishing.Controller
         
         private IDisposable _bindings;
         private IDisposable _fatigueTimer;
+        private IDisposable _startSlowMo;
         private float _fatigueTimerProgress;
         private CancellationTokenSource _transitionCts = new();
-        private const string ThrowEventName = "After_Throw";
 
         #endregion
 
@@ -98,6 +98,7 @@ namespace Madduck.Fishing.Controller
         {
             _bindings?.Dispose();
             _fatigueTimer?.Dispose();
+            _startSlowMo?.Dispose();
         }
 
         #endregion
@@ -121,6 +122,7 @@ namespace Madduck.Fishing.Controller
 
         private void OnWinReeling()
         {
+            _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
             _model.Inventory.ChangeCurrentBaitAmount(-1);
             OnReelingResult?.Invoke(Sign.Positive);
         }
@@ -150,6 +152,8 @@ namespace Madduck.Fishing.Controller
             {
                 _commander.Reset();
                 _fatigueTimer?.Dispose();
+                var fatigueSlider = _fishSpriteFactory.Current.FatigueTimerView;
+                fatigueSlider.TransitionOut().Forget();
                 await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
             }
         }
@@ -177,17 +181,6 @@ namespace Madduck.Fishing.Controller
                     fatigueSlider.TransitionOut();
                     OnFishRegainConsciousness();
                 });
-        }
-        
-        public async UniTask ReturnHook()
-        {
-            _fishSpriteFactory.Current.Detach();
-            await _playerAnimator.Set(PlayerAnimationKey.GotFish, 0, false).WaitUntilEvent(ThrowEventName); 
-            await UniTask.WhenAll(
-                _hookFactory.Current.Return(),
-                _fishSpriteFactory.Current.TransitionOut());
-            _fishSpriteFactory.DestroyFishSprite();
-            _hookFactory.DestroyHook();
         }
         
         #endregion

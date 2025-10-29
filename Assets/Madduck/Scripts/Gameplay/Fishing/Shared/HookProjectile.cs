@@ -1,18 +1,24 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using Cysharp.Threading.Tasks;
 using Madduck.GameData;
 using Madduck.Utils;
 using PrimeTween;
 using Redcode.Extensions;
 using Sirenix.OdinInspector;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Splines;
 using VContainer;
 
 namespace Madduck.Fishing.Shared
 {
     public interface IHookProjectile
     {
+        event Action<Percentage> OnDramaticReturnProgress;
         UniTask Throw(Percentage percent);
         UniTask Return();
+        UniTask DramaticReturn();
         UniTask ReelBack();
         UniTask MoveX(Percentage percent);
         UniTask MoveY(Percentage percent);
@@ -30,6 +36,8 @@ namespace Madduck.Fishing.Shared
          SerializeField] private Transform hookIcon;
         [Required,
          SerializeField] private VerletFishingLine2D line;
+        [Required,
+         SerializeField] private SplineContainer splineContainer;
         
         [Title("Settings")]
         [PropertyTooltip("Range of the throw distance when the throw hook value is between 0 and max."), 
@@ -37,6 +45,7 @@ namespace Madduck.Fishing.Shared
         [SerializeField] private Vector2 yOffsetRange = new(-2f, 0f);
         [SerializeField] private float div = 4f;
         [SerializeField] private float power = 0.7f;
+        [SerializeField] private float dramaticReturnHeight = 3f;
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings moveTweenX;
@@ -44,12 +53,16 @@ namespace Madduck.Fishing.Shared
         [InfoBox("Duration property of reelBackTweenX is speed"),
          SerializeField] private TweenSettings reelBackTweenX;
         [SerializeField] private TweenSettings<Vector2> nibbleTween;
+        [SerializeField] private TweenSettings dramaticReturnTween;
 
         #endregion
+        
+        public event Action<Percentage> OnDramaticReturnProgress;
 
         #region Fields
 
         private Transform _rodTip;
+        private Transform _landingPoint;
         private bool _isThrown;
         private Sequence _moveSequence;
         private Sequence _throwSequence;
@@ -61,9 +74,12 @@ namespace Madduck.Fishing.Shared
 
         #region Injection
 
-        public void SetUp(Transform rodTip)
+        public void SetUp(
+            Transform rodTip,
+            Transform landingPoint)
         {
             _rodTip = rodTip;
+            _landingPoint = landingPoint;
             line.SetUp(rodTip, transform);
         }
 
@@ -114,6 +130,46 @@ namespace Madduck.Fishing.Shared
             await UniTask.WaitForSeconds(_flightTime);
             _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         }
+        
+        public async UniTask DramaticReturn()
+        {
+            if (!_isThrown) return;
+            splineContainer.transform.SetParent(null);
+            splineContainer.transform.position = Vector3.zero;
+            var spline = splineContainer[0];
+            var knots = spline.Knots.ToList();
+            var middleKnot = knots[1];
+            var hookPos = transform.position;
+            var landingPos = _landingPoint.position;
+            var middleX = Mathf.Lerp(hookPos.x, landingPos.x, Percentage.Half.AsFraction);
+            middleKnot.Position = new float3(middleX, dramaticReturnHeight, middleKnot.Position.z);
+            knots[1] = middleKnot;
+            var lastKnot = knots[^1];
+            lastKnot.Position = landingPos;
+            knots[^1] = lastKnot;
+            for (var i = 0; i < knots.Count; i++)
+            {
+                var previousKnot = i == 0 ? knots[i] : knots[i - 1];
+                var nextKnot = i == knots.Count - 1 ? knots[i] : knots[i + 1];
+                var currentKnot = knots[i];
+                var autoKnot = SplineUtility.GetAutoSmoothKnot(currentKnot.Position, previousKnot.Position, nextKnot.Position);
+                knots[i] = autoKnot;
+            }
+            spline.Knots = knots;
+            var sequence = Sequence.Create()
+                .Group(Tween.Custom(0f, 1f, dramaticReturnTween, x =>
+                { 
+                    OnDramaticReturnProgress?.Invoke(Percentage.FromFraction(x));
+                    var pos = spline.EvaluatePosition(x);
+                    transform.position = pos;
+                    var distance = Vector2.Distance(transform.position, _landingPoint.position);
+                    line.SetLength(distance);
+                }));
+            await sequence.ToYieldInstruction().ToUniTask();
+            splineContainer.transform.SetParent(transform);
+            splineContainer.transform.localPosition = Vector3.zero;
+        }
+
 
         /// <summary>
         /// Animates the nibble effect on the hook icon.
@@ -296,9 +352,11 @@ namespace Madduck.Fishing.Shared
 
     public class HookProjectileMock : IHookProjectile
     {
+        public event Action<Percentage> OnDramaticReturnProgress;
         public UniTask Throw(Percentage percent) => UniTask.CompletedTask;
 
         public UniTask Return() => UniTask.CompletedTask;
+        public UniTask DramaticReturn() => UniTask.CompletedTask;
         public UniTask ReelBack() => UniTask.CompletedTask;
 
         public UniTask MoveX(Percentage percent) => UniTask.CompletedTask;

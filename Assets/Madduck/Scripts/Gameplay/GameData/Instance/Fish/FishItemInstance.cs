@@ -22,6 +22,31 @@ namespace Madduck.GameData
         {
             CurrentStats = new FishStats(itemData);
         }
+        
+        public void SetFishQuality(FishQuality fishQuality)
+        {
+            CurrentFishQuality = fishQuality;
+        }
+        
+        public void UpgradeFishQuality()
+        {
+            if (CurrentFishQuality == EnumUtils.Max<FishQuality>())
+            {
+                DebugUtils.LogWarning("Already at max quality");
+                return;
+            }
+            CurrentFishQuality++;
+        }
+        
+        public void DowngradeFishQuality()
+        {
+            if (CurrentFishQuality == EnumUtils.Min<FishQuality>())
+            {
+                DebugUtils.LogWarning("Already at min quality");
+                return;
+            }
+            CurrentFishQuality--;
+        }
     }
 
     [Serializable]

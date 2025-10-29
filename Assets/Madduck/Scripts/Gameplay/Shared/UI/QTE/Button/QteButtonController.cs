@@ -49,7 +49,7 @@ namespace Madduck.Shared
             CurrentElement = view;
             CurrentBinding = _currentBinding.ToReadOnlyReactiveProperty();
             RemainingPercentage = _remainingPercentage.ToReadOnlyReactiveProperty();
-            Bind();
+            ChangeInputActiveState(true);
         }
 
         private void Bind()
@@ -83,17 +83,20 @@ namespace Madduck.Shared
             _timeFrameOpen = false;
             _remainingPercentage.Value = Percentage.Zero;
             await _view.TransitionIn(cancellationToken);
-            await UniTask.WaitForSeconds(_configInstance.CurrentStartDelay, cancellationToken: cancellationToken);
+            await UniTask.WaitForSeconds(_configInstance.CurrentStartDelay, ignoreTimeScale: true, 
+                cancellationToken: cancellationToken);
             _timer = Observable.EveryUpdate()
                 .Subscribe(_ =>
                 {
-                    _currentTime += Time.deltaTime;
+                    _currentTime += Time.unscaledDeltaTime;
                     _remainingPercentage.Value = Percentage.FromFraction(_currentTime / _configInstance.CurrentClosingInDuration);
                 });
             var halfTimeFrame = (float)_configInstance.CurrentSuccessTimeFrame / 2f;
-            await UniTask.WaitForSeconds(_configInstance.CurrentClosingInDuration - halfTimeFrame, cancellationToken: cancellationToken);
+            await UniTask.WaitForSeconds(_configInstance.CurrentClosingInDuration - halfTimeFrame, ignoreTimeScale: true, 
+                cancellationToken: cancellationToken);
             _timeFrameOpen = true;
-            await UniTask.WaitForSeconds(_configInstance.CurrentSuccessTimeFrame, cancellationToken: cancellationToken);
+            await UniTask.WaitForSeconds(_configInstance.CurrentSuccessTimeFrame, ignoreTimeScale: true, 
+                cancellationToken: cancellationToken);
             _timeFrameOpen = false;
             _remainingPercentage.Value = Percentage.Full;
             _timer.Dispose();
@@ -121,6 +124,9 @@ namespace Madduck.Shared
                 Fail();
                 return;
             }
+            if (button.InputBinding.HasValue)
+                DebugUtils.Log(
+                button.InputBinding.Value.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions));
             if (button.InputBinding.HasValue && button.InputBinding.Value == _currentBinding.Value)
             {
                 Success();
@@ -164,6 +170,8 @@ namespace Madduck.Shared
         public void ChangeInputActiveState(bool active)
         {
             _active = active;
+            _bindings?.Dispose();
+            Bind();
         }
     }
 }

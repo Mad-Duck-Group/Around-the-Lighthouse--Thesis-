@@ -13,22 +13,16 @@ namespace Madduck.Fishing.StateMachine
     public class ReelingState : FishingState
     {
         private readonly ReelingController _controller;
-        private readonly IGenericFactory<FishItemInstance> _fishFactory;
-        private readonly IPublisher<FishCaughtEvent> _fishCaughtEventPublisher;
         private IDisposable _reelingResultSubscription;
         private Sign _result;
         
         [Inject]
         public ReelingState(
             FishingStateMachine stateMachine,
-            ReelingController controller,
-            IGenericFactory<FishItemInstance> fishFactory,
-            IPublisher<FishCaughtEvent> fishCaughtEventPublisher)
+            ReelingController controller)
             : base(stateMachine)
         {
             _controller = controller;
-            _fishFactory = fishFactory;
-            _fishCaughtEventPublisher = fishCaughtEventPublisher;
         }
         
         public override async UniTask Enter()
@@ -48,8 +42,6 @@ namespace Madduck.Fishing.StateMachine
             await _controller.SetActive(false);
             if (_result is Sign.Positive)
             {
-                await _controller.ReturnHook();
-                _fishCaughtEventPublisher.Publish(new FishCaughtEvent(_fishFactory.Current));
                 _controller.Reset();
             }
         }
@@ -66,9 +58,8 @@ namespace Madduck.Fishing.StateMachine
             switch (result)
             {
                 case Sign.Positive:
-                    DebugUtils.Log("Fish reeled in successfully, transitioning to NoneState");
-                    stateMachine.ChangeState(FishingStateType.None);
-                    stateMachine.ResetState(FishingStateType.FishingBoard);
+                    DebugUtils.Log("Reel in successfully, transition to CatchFishState");
+                    stateMachine.ChangeState(FishingStateType.CatchFish);
                     break;
                 case Sign.Negative:
                     DebugUtils.Log("Fish regained energy, transitioning to TugOfWarState");

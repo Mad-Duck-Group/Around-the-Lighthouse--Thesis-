@@ -1,11 +1,8 @@
 ﻿using System;
-using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 using Object = UnityEngine.Object;
 
 namespace Madduck.Fishing.Shared
@@ -23,6 +20,8 @@ namespace Madduck.Fishing.Shared
          OdinSerialize] private IHookProjectile prefab;
         [Required, 
          SerializeField] private Transform parent;
+        [Required, 
+         SerializeField] private Transform landingPoint;
         public IHookProjectile Current { get; private set; }
         
         private GameObject _currentObject;
@@ -37,7 +36,7 @@ namespace Madduck.Fishing.Shared
             _currentObject.transform.position = parent.transform.position;
             if (Current is HookProjectile hook)
             {
-                hook.SetUp(parent);
+                hook.SetUp(parent, landingPoint);
             }
             return Current;
         }

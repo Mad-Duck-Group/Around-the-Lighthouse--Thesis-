@@ -108,6 +108,8 @@ namespace Madduck.Fishing.Controller
 
         private void StartDecaying()
         {
+            _playerAnimator.Set(PlayerAnimationKey.Pulling, 0, true);
+            _fishSpriteFactory.Current.Animator.Set(FishSpriteAnimationKey.Pulling, 0, true);
             _decayingTimer = Observable.EveryUpdate()
                 .Where(_ => _thresholdReached)
                 .Subscribe(_ =>

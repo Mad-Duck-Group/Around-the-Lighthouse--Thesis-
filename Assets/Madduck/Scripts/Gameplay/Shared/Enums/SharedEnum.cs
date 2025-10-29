@@ -38,6 +38,7 @@ namespace Madduck.Shared
         FishingBoard = 4,
         Reeling = 5,
         TugOfWar = 6,
+        CatchFish = 7,
     }
 
     public enum BubbleType

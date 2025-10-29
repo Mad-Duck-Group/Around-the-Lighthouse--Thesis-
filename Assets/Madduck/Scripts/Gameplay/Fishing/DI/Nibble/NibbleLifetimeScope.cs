@@ -68,12 +68,12 @@ namespace Madduck.Fishing.DI
             builder.Register<NibbleViewModel>(Lifetime.Scoped).AsSelf();
             builder.Register<NibbleModel>(Lifetime.Scoped).AsSelf();
             builder.Register<NibbleState>(Lifetime.Scoped).AsSelf();
-            builder.Register(resolver =>
+            builder.Register(x =>
                 {
-                    var input = resolver.Resolve<IPlayerInputHandler>();
-                    qteSequenceFactory.SetUp(input);
+                    x.Inject(qteSequenceFactory);
                     return qteSequenceFactory;
                 }, Lifetime.Scoped)
+                .Keyed(FishingStateType.Nibble)
                 .As<IGenericFactory<IQuickTimeEvent>>();
             builder.RegisterBuildCallback(x =>
             {

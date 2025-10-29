@@ -16,6 +16,7 @@ namespace Madduck.Utils
         [Title("Settings")]
         [SerializeField] private int segmentCount = 15;
         [SerializeField] private int constraintIterations = 3;
+        [SerializeField] private float looseness = 1;
         [SerializeField] private TweenSettings forwardSettings;
         [SerializeField] private TweenSettings backwardSettings;
         [SerializeField] private float constraintDifferenceThreshold = 0.01f;
@@ -53,7 +54,7 @@ namespace Madduck.Utils
                 forwardSettings.duration = flightTime;
                 Tween.Custom(startLength, targetLength, forwardSettings, x =>
                 {
-                    _segmentLength = x;
+                    _segmentLength = x * looseness;
                 });
             }
             else
@@ -61,15 +62,15 @@ namespace Madduck.Utils
                 backwardSettings.duration = flightTime;
                 Tween.Custom(targetLength, startLength, backwardSettings, x =>
                 {
-                    _segmentLength = x;
+                    _segmentLength = x * looseness;
                 });
             }
         }
 
         public void SetLength(float distance)
         {
-            var targetLength = distance / segmentCount;
-            _segmentLength = targetLength;
+            var targetLength = distance / segmentCount ;
+            _segmentLength = targetLength * looseness;
         }
 
         private void InitializeRope()
