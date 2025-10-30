@@ -174,8 +174,9 @@ namespace Madduck.Fishing.Controller
                 .Subscribe(_ =>
                 {
                     _fatigueTimerProgress += Time.deltaTime;
-                    var percent = Percentage.Clamp01(Percentage.FromFraction(_fatigueTimerProgress / fatigueDuration));
-                    fatigueSlider.SetFishFatigueTimerProgress(percent);
+                    var percent = 
+                        Percentage.Clamp01(Percentage.FromFraction(_fatigueTimerProgress / fatigueDuration));
+                    fatigueSlider.SetFishFatigueTimerProgress(percent.AsInversePercentage);
                     if (percent != Percentage.Full) return;
                     _fatigueTimer.Dispose();
                     fatigueSlider.TransitionOut();

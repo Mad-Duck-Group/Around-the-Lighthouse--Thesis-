@@ -138,9 +138,9 @@ MonoBehaviour:
   lineRenderer: {fileID: 8885834627957209827}
   <RodTip>k__BackingField: {fileID: 0}
   <Hook>k__BackingField: {fileID: 0}
-  segmentCount: 150
-  constraintIterations: 10
-  looseness: 0.9
+  segmentCount: 100
+  constraintIterations: 50
+  looseness: 0.5
   forwardSettings:
     duration: 1
     ease: -1
@@ -219,6 +219,7 @@ MonoBehaviour:
     _useFixedUpdate: 0
     _updateType: 0
   constraintDifferenceThreshold: 0.001
+  deltaTimeThreshold: 0.02
   gravity: 9.8
   friction: 0.98
 --- !u!120 &8885834627957209827

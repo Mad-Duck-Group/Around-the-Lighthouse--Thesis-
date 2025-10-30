@@ -28,7 +28,7 @@ MonoBehaviour:
   <MaxThrowPercentage>k__BackingField:
     value: 50
   <ThrowSliderSpeed>k__BackingField:
-    value: 10
+    value: 150
   <BubbleNibbleBonuses>k__BackingField:
     keys: 000000000100000002000000
     values:
@@ -44,8 +44,8 @@ MonoBehaviour:
   <NibbleBaseSuccessChances>k__BackingField:
     keys: 0000000001000000
     values:
-    - value: 20
-    - value: 30
+    - value: 100
+    - value: 100
   <FishBiteTimeFrame>k__BackingField:
     value: 3
   <Power>k__BackingField:

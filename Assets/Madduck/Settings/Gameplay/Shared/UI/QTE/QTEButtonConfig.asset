@@ -16,5 +16,9 @@ MonoBehaviour:
     value: 0.5
   <ClosingInDuration>k__BackingField:
     value: 1
+  <EarlySuccessTimeFrame>k__BackingField:
+    value: 0.1
   <SuccessTimeFrame>k__BackingField:
     value: 0.25
+  <LateSuccessTimeFrame>k__BackingField:
+    value: 0.15

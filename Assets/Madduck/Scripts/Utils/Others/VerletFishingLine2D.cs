@@ -1,4 +1,5 @@
-﻿using PrimeTween;
+﻿using System;
+using PrimeTween;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -20,17 +21,21 @@ namespace Madduck.Utils
         [SerializeField] private TweenSettings forwardSettings;
         [SerializeField] private TweenSettings backwardSettings;
         [SerializeField] private float constraintDifferenceThreshold = 0.01f;
-    
-        [Title("Physics")]
+
+        [Title("Physics")] 
+        [SerializeField] private float deltaTimeThreshold = 0.05f;
         [SerializeField] private float gravity = 2f;
         [SerializeField] private float friction = 0.98f;
         
-        private Vector2[] _segments;
-        private Vector2[] _previousSegments;
+        [ShowInInspector] private Vector2[] _segments;
+        [ShowInInspector] private Vector2[] _previousSegments;
         private float _segmentLength;
 
         private void Awake()
         {
+            _segments = new Vector2[segmentCount];
+            _previousSegments = new Vector2[segmentCount];
+            lineRenderer.positionCount = segmentCount;
             if (!RodTip || !Hook) return;
             InitializeRope();
         }
@@ -75,14 +80,10 @@ namespace Madduck.Utils
 
         private void InitializeRope()
         {
-            _segments = new Vector2[segmentCount];
-            _previousSegments = new Vector2[segmentCount];
-            lineRenderer.positionCount = segmentCount;
-        
             // Initialize positions
             for (int i = 0; i < segmentCount; i++)
             {
-                Vector2 pos = Vector2.Lerp(RodTip.position, Hook.position, i / (float)(segmentCount - 1));
+                var pos = Vector2.Lerp(RodTip.position, Hook.position, i / (float)(segmentCount - 1));
                 _segments[i] = pos;
                 _previousSegments[i] = pos;
             }
@@ -90,12 +91,19 @@ namespace Madduck.Utils
 
         private void Update()
         {
-            SimulateRope();
+            if (Time.deltaTime > deltaTimeThreshold)
+            {
+                InitializeRope();
+                return;
+            }
+            var deltaTime = Mathf.Min(Time.deltaTime, deltaTimeThreshold);
+            SimulateRope(deltaTime);
             UpdateLineRenderer();
         }
 
-        private void SimulateRope()
+        private void SimulateRope(float deltaTime)
         {
+            
             // Apply verlet integration
             for (int i = 0; i < segmentCount; i++)
             {
@@ -105,7 +113,8 @@ namespace Madduck.Utils
                 _previousSegments[i] = _segments[i];
             
                 // Apply gravity
-                _segments[i] += velocity + Vector2.down * (gravity * Time.deltaTime * Time.deltaTime);
+                var gravityApplied = velocity + Vector2.down * (gravity * deltaTime * deltaTime);
+                _segments[i] += gravityApplied;
             }
         
             // Apply constraints
@@ -118,7 +127,7 @@ namespace Madduck.Utils
                 for (int i = 0; i < segmentCount - 1; i++)
                 {
                     Vector2 delta = _segments[i + 1] - _segments[i];
-                    float distance = delta.magnitude;
+                    float distance = Mathf.Max(0.001f, delta.magnitude);
                     float difference = (_segmentLength - distance) / distance;
                     if (Mathf.Abs(difference) < constraintDifferenceThreshold) continue;
                     if (i > 0) _segments[i] -= delta * (0.5f * difference);

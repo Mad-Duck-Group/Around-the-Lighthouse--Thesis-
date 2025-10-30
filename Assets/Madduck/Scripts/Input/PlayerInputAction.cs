@@ -114,9 +114,9 @@ namespace Madduck.Scripts.Input
                 },
                 {
                     ""name"": ""JerkBait"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""17dde90e-3b81-4d2d-a83e-7d3a7b1fa4db"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false

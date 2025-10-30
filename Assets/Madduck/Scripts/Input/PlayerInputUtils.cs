@@ -75,25 +75,27 @@ namespace Madduck.Input
 
             public void BindPressButton(InputAction.CallbackContext context)
             {
+                InputBinding = context.action.GetBindingForControl(context.control);
                 IsDown.Value = context.performed;
                 IsUp.Value = context.canceled;
                 IsHeld.Value = context.performed;
                 IsUpAfterHeld.Value = context.canceled;
                 _heldLastTime = context.performed;
-                InputBinding = context.action.GetBindingForControl(context.control);
                 _cts = new();
                 ButtonPressTask(_cts.Token).Forget();
             }
-
-            private async UniTaskVoid ButtonPressTask(CancellationToken token)
+            
+            public void BindPassThroughButton(InputAction.CallbackContext context)
             {
-                await UniTask.WaitForEndOfFrame(token);
-                IsDown.Value = false;
-                if (!IsHeld.Value)
-                {
-                    IsUp.Value = false;
-                    IsUpAfterHeld.Value = false;
-                }
+                InputBinding = context.action.GetBindingForControl(context.control);
+                var down = context.ReadValueAsButton();
+                IsDown.Value = down;
+                IsUp.Value = !down;
+                IsHeld.Value = down;
+                IsUpAfterHeld.Value = !down;
+                _heldLastTime = down;
+                _cts = new();
+                ButtonPressTask(_cts.Token).Forget();
             }
 
             public void BindHoldButton(InputAction.CallbackContext context)
@@ -125,6 +127,17 @@ namespace Madduck.Input
                         _cts = new();
                         ButtonPressTask(_cts.Token).Forget();
                         break;
+                }
+            }
+            
+            private async UniTaskVoid ButtonPressTask(CancellationToken token)
+            {
+                await UniTask.WaitForEndOfFrame(token);
+                IsDown.Value = false;
+                if (!IsHeld.Value)
+                {
+                    IsUp.Value = false;
+                    IsUpAfterHeld.Value = false;
                 }
             }
         }

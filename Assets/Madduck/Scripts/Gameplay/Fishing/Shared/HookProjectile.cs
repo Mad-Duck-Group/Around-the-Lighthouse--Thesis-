@@ -111,7 +111,7 @@ namespace Madduck.Fishing.Shared
             _rigidbody.linearVelocity = velocity;
             var distance = Vector2.Distance(_rodTip.position, targetPos);
             line.CastLine(_flightTime, distance, true);
-            await UniTask.WaitForSeconds(_flightTime);
+            await UniTask.WaitForSeconds(_flightTime, delayTiming: PlayerLoopTiming.FixedUpdate);
             _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         }
 
@@ -127,7 +127,7 @@ namespace Madduck.Fishing.Shared
             _rigidbody.linearVelocity = velocity;
             var distance = Vector2.Distance(transform.position, _rodTip.position);
             line.CastLine(_flightTime, distance, false);
-            await UniTask.WaitForSeconds(_flightTime);
+            await UniTask.WaitForSeconds(_flightTime, delayTiming: PlayerLoopTiming.FixedUpdate);
             _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         }
         

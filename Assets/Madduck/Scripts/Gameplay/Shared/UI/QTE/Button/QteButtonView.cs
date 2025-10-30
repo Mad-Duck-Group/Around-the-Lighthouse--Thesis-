@@ -22,6 +22,8 @@ namespace Madduck.Shared
         [Required,
          SerializeField] private RectTransform outerRing;
         [Required,
+         SerializeField] private RectTransform middleRing;
+        [Required,
          SerializeField] private RectTransform innerRing;
 
         [Title("Settings")] 
@@ -44,6 +46,7 @@ namespace Madduck.Shared
             canvasGroup.alpha = 0;
             outerRing.sizeDelta = outerRingSize;
             innerRing.sizeDelta = innerRingSize;
+            middleRing.sizeDelta = innerRingSize;
             Bind();
         }
 
@@ -62,6 +65,13 @@ namespace Madduck.Shared
                 {
                     var size = Vector2.Lerp(outerRingSize, innerRingSize, remaining.AsFraction);
                     outerRing.sizeDelta = size;
+                })
+                .AddTo(ref disposableBuilder);
+            _controller.TimeFramePercentage
+                .Subscribe(x =>
+                {
+                    var size = Vector2.Lerp(innerRingSize, outerRingSize, x.AsFraction);
+                    middleRing.sizeDelta = size;
                 })
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();

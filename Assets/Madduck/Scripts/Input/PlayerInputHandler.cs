@@ -151,7 +151,7 @@ namespace Madduck.Input
 
         public void OnJerkBait(InputAction.CallbackContext context)
         {
-            JerkBaitButton.BindPressButton(context);
+            JerkBaitButton.BindPassThroughButton(context);
         }
 
         public void OnAction0(InputAction.CallbackContext context)
