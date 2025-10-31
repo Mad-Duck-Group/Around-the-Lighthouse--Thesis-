@@ -13,8 +13,8 @@ namespace Madduck.GameData
         [Inject]
         public CardRarityWeightTableInstance(
             IWeightTable<CardRarityWeightRecord> cardRarityWeightTable,
-            ISubscriber<ModifierSourceEvent> modifierPublisherEventSubscriber)
-            : base(cardRarityWeightTable, modifierPublisherEventSubscriber) { }
+            IModifierSource modifierSource)
+            : base(cardRarityWeightTable, modifierSource) { }
 
         #endregion
 

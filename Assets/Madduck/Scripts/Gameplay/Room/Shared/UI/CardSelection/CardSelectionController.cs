@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -64,9 +65,10 @@ namespace Madduck.Room
 
         private void SpawnCards()
         {
-            for (var i = 0; i < 3; i++)
+            var randomCards = new CardItemData?[3];
+            _cardWeightTableInstance.GetRandomUniqueItems(randomCards, true);
+            foreach (var card in randomCards)
             {
-                var card = _cardWeightTableInstance.GetRandomItem();
                 var rarity = _cardRarityWeightTableInstance.GetRandomItem();
                 var cardItemInstance = new CardItemInstance(card);
                 cardItemInstance.SetRarity(rarity);

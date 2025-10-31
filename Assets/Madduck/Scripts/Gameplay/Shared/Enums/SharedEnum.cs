@@ -21,6 +21,13 @@ namespace Madduck.Shared
         All = Clear | Rain | Storm | Cloudy |StrongWinds
     }
 
+    public enum WindDirection
+    {
+        Left,
+        Middle,
+        Right
+    }
+
     public enum RoomType
     {
         Fishing,

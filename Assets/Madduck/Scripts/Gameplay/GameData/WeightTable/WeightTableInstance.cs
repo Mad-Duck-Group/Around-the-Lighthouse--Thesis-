@@ -1,6 +1,9 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using JetBrains.Annotations;
 using Madduck.Utils;
 using MessagePipe;
 using ObservableCollections;
@@ -36,8 +39,8 @@ namespace Madduck.GameData
         #endregion
 
         #region Fields
-
-        protected readonly ISubscriber<ModifierSourceEvent> modifierPublisherEventSubscriber;
+        
+        protected readonly IModifierSource modifierSource;
         protected IDisposable subscriptions;
         protected DisposableBag modifierChangedSubscription;
 
@@ -48,12 +51,12 @@ namespace Madduck.GameData
         [Inject]
         protected WeightTableInstance(
             IWeightTable<TRecord> weightTable,
-            ISubscriber<ModifierSourceEvent> modifierPublisherEventSubscriber)
+            IModifierSource modifierSource)
         {
             BaseRecords = weightTable.Records.Select(x => x.Copy()).ToList();
             PersistentFilters = new Dictionary<string, IWeightFilter<TRecord>>();
             PersistentModifiers = new Dictionary<ModifierId, List<TModData>>();
-            this.modifierPublisherEventSubscriber = modifierPublisherEventSubscriber;
+            this.modifierSource = modifierSource;
             Subscribe();
         }
 
@@ -64,8 +67,7 @@ namespace Madduck.GameData
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            modifierPublisherEventSubscriber.Subscribe(OnModifierPublished)
-                .AddTo(ref disposableBuilder);
+            SubscribeModifierSource();
             subscriptions = disposableBuilder.Build();
             SubscribeAdditional();
         }
@@ -86,9 +88,12 @@ namespace Madduck.GameData
 
         #region Events
 
-        protected virtual void OnModifierPublished(ModifierSourceEvent eventData)
+        protected virtual void SubscribeModifierSource()
         {
-            eventData.ModiferSource.ModifiersView.ObserveChanged()
+            PersistentModifiers.OnModifierFirstSubscribe(modifierSource.Modifiers);
+            ApplyFiltersAndModifiers();
+            modifierSource.ModifiersView
+                .ObserveChanged()
                 .Subscribe(x =>
                 {
                     PersistentModifiers.OnModifierChanged(x);
@@ -102,22 +107,78 @@ namespace Madduck.GameData
         #region Utils
 
         protected abstract void ApplyFiltersAndModifiers();
-
-        public virtual TItem GetRandomItem()
+        
+        protected virtual TItem? GetRandomItemInternal(List<TRecord> records, out TRecord? resultRecord)
         {
-            ApplyFiltersAndModifiers();
-            var totalWeight = modifiedRecords.Sum(record => record.Weight);
+            var totalWeight = records.Sum(record => record.Weight);
             var randomValue = UnityEngine.Random.Range(0f, totalWeight);
             var cumulativeWeight = 0f;
-            foreach (var record in modifiedRecords)
+            foreach (var record in records)
             {
                 cumulativeWeight += record.Weight;
                 if (randomValue <= cumulativeWeight)
                 {
+                    resultRecord = record;
                     return record.Item;
                 }
             }
+            DebugUtils.LogWarning($"Cannot produce random item for {typeof(TItem)} of {typeof(TRecord)}");
+            resultRecord = null;
             return default;
+        }
+        
+        /// <summary>
+        /// Get a random item from the weight table.
+        /// </summary>
+        /// <returns></returns>
+        public virtual TItem? GetRandomItem()
+        {
+            ApplyFiltersAndModifiers();
+            return GetRandomItemInternal(modifiedRecords, out _);
+        }
+
+        /// <summary>
+        /// Get a list of items from the weight table. The results are not unique.
+        /// </summary>
+        /// <param name="array">The array to fill with random items.</param>
+        /// <returns></returns>
+        public virtual void GetRandomItems(TItem?[] array)
+        {
+            ApplyFiltersAndModifiers();
+            var arrayCount = array.Length;
+            for (int i = 0; i < arrayCount; i++)
+            {
+                var item = GetRandomItemInternal(modifiedRecords, out var resultRecord);
+                if (resultRecord == null) break;
+                array[i] = item;
+            }
+        }
+
+        /// <summary>
+        /// Get a list of unique items from the weight table.
+        /// </summary>
+        /// <param name="array">The array to fill with random unique items.</param>
+        /// <param name="fallback">Fall back to not unique item?</param>
+        /// <returns></returns>
+        public virtual void GetRandomUniqueItems(TItem?[] array, bool fallback = false)
+        {
+            ApplyFiltersAndModifiers();
+            var arrayCount = array.Length;
+            var records = modifiedRecords.Select(x => x.Copy()).ToList();
+            for (int i = 0; i < arrayCount; i++)
+            {
+                var item = GetRandomItemInternal(records, out var resultRecord);
+                if (resultRecord == null)
+                {
+                    if (!fallback) break;
+                    item = GetRandomItemInternal(modifiedRecords, out _);
+                }
+                else
+                {
+                    records.Remove(resultRecord);
+                }
+                array[i] = item;
+            }
         }
 
         #endregion

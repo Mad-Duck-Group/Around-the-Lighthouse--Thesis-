@@ -16,8 +16,8 @@ namespace Madduck.GameData
         [Inject]
         public FishWeightTableInstance(
             IWeightTable<FishWeightRecord> fishWeightTable,
-            ISubscriber<ModifierSourceEvent> modifierPublisherEventSubscriber) 
-            : base(fishWeightTable, modifierPublisherEventSubscriber) { }
+            IModifierSource modifierSource) 
+            : base(fishWeightTable, modifierSource) { }
 
         #endregion
 

@@ -65,6 +65,8 @@ namespace Madduck.Day
         
         public void Install(IContainerBuilder builder)
         {
+            builder.Register<ModifierContainer>(Lifetime.Singleton)
+                .As<IModifierSource>();
             builder.RegisterInstance(dayManagerConfig).AsSelf();
             builder.RegisterInstance(fishWeightTable).As<IWeightTable<FishWeightRecord>>();
             builder.Register<FishWeightTableInstance>(Lifetime.Singleton).AsSelf();

@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using MessagePipe;
 using ObservableCollections;
+using R3;
+using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VContainer;
+using DisposableBag = R3.DisposableBag;
 
 namespace Madduck.Utils
 {
@@ -47,7 +52,87 @@ namespace Madduck.Utils
     /// </summary>
     public interface IModifierSource
     {
+        public event Action OnDisposed;
         public ISynchronizedView<KeyValuePair<ModifierId, List<BaseModifierData>>, KeyValuePair<ModifierId, List<BaseModifierData>>> ModifiersView { get; }
+        public IReadOnlyList<KeyValuePair<ModifierId, List<BaseModifierData>>> Modifiers { get; }
+    }
+    
+    /// <summary>
+    /// Event that is sent out by ModifierSource to let subscribers subscribe to the modifiers.
+    /// </summary>
+    public readonly struct ModifierSourceEvent
+    {
+        public IModifierSource ModiferSource { get; }
+
+        public ModifierSourceEvent(IModifierSource source)
+        {
+            ModiferSource = source;
+        }
+    }
+
+    public class ModifierContainer : IModifierSource, IDisposable
+    {
+        public event Action OnDisposed;
+
+        public ISynchronizedView<KeyValuePair<ModifierId, List<BaseModifierData>>, KeyValuePair<ModifierId, List<BaseModifierData>>> ModifiersView
+        {
+            get;
+        }
+        public IReadOnlyList<KeyValuePair<ModifierId, List<BaseModifierData>>> Modifiers => _modifiers.ToList();
+        private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _modifiers = new();
+        private readonly Dictionary<IModifierSource, IDisposable> _disposeDictionary = new();
+        private readonly ISubscriber<ModifierSourceEvent> _modifierSourceEvent;
+        
+        private DisposableBag _disposableBag;
+
+        [Inject]
+        public ModifierContainer(
+            ISubscriber<ModifierSourceEvent> modifierSourceEvent)
+        {
+            _modifierSourceEvent = modifierSourceEvent;
+            _disposableBag = new();
+            ModifiersView = _modifiers.CreateView(x => x)
+                .AddTo(ref _disposableBag);
+            Subscribe();
+        }
+
+        private void Subscribe()
+        {
+            _modifierSourceEvent.Subscribe(x =>
+                {
+                    OnSubscribeModifierSource(x.ModiferSource);
+                })
+                .AddTo(ref _disposableBag);
+        }
+
+        private void OnSubscribeModifierSource(IModifierSource source)
+        {
+            var disposable = Observable.FromEvent(
+                    h => source.OnDisposed += h,
+                    h => source.OnDisposed -= h)
+                .Subscribe(_ => OnSourceDisposed(source));
+            _disposeDictionary.Add(source, disposable);
+            _modifiers.OnModifierFirstSubscribe(source.Modifiers);
+            source.ModifiersView.ObserveChanged()
+                .Subscribe(x =>
+                {
+                    _modifiers.OnModifierChanged(x);
+                })
+                .AddTo(ref _disposableBag);
+        }
+        
+        private void OnSourceDisposed(IModifierSource source)
+        {
+            _disposeDictionary[source].Dispose();
+            _disposeDictionary.Remove(source);
+            source.Modifiers.ForEach(x => _modifiers.Remove(x.Key));
+        }
+
+        public void Dispose()
+        {
+            OnDisposed?.Invoke();
+            _disposableBag.Dispose();
+        }
     }
 
     [Serializable]
@@ -176,6 +261,18 @@ namespace Madduck.Utils
         
             return result;
         }
+
+        public static void OnModifierFirstSubscribe<T>(
+            this IDictionary<ModifierId, List<T>> modifiers,
+            IReadOnlyList<KeyValuePair<ModifierId, List<BaseModifierData>>> currentState)
+        {
+            currentState.ForEach(x => 
+            {
+                var newModifiers = x.Value?.OfType<T>().ToList();
+                if (newModifiers is { Count: > 0 })
+                    modifiers.TryAdd(x.Key, newModifiers);
+            });
+        }
         
         /// <summary>
         /// Updates the modifiers dictionary based on the provided view changed event.
@@ -184,7 +281,7 @@ namespace Madduck.Utils
         /// <param name="modifiers">The modifiers dictionary to update.</param>
         /// <param name="viewChangedEvent">The view changed event containing the new and old items.</param>
         public static void OnModifierChanged<T>(
-            this Dictionary<ModifierId, List<T>> modifiers, 
+            this IDictionary<ModifierId, List<T>> modifiers, 
             ViewChangedEvent<KeyValuePair<ModifierId, List<BaseModifierData>>, KeyValuePair<ModifierId, List<BaseModifierData>>> viewChangedEvent)
         where T : BaseModifierData
         {

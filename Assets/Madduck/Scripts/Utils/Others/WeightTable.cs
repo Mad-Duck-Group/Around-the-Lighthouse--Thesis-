@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 
 namespace Madduck.Utils
 {
@@ -18,11 +19,13 @@ namespace Madduck.Utils
         public List<TRecord> Records { get; }
     }
     
-    public interface IWeightTableInstance<TRecord, TModData, out TItem> where TRecord : IWeightRecord<TItem>
+    public interface IWeightTableInstance<TRecord, TModData, TItem> where TRecord : IWeightRecord<TItem>
     {
         public Dictionary<string, IWeightFilter<TRecord>> PersistentFilters { get; }
         public Dictionary<ModifierId, List<TModData>> PersistentModifiers { get; }
-        public TItem GetRandomItem();
+        public TItem? GetRandomItem();
+        public void GetRandomItems(TItem?[] array);
+        public void GetRandomUniqueItems(TItem?[] array, bool fallback = false);
     }
 
     public interface IWeightFilter<T> where T : IWeightRecord

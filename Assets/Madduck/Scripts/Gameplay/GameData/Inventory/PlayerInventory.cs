@@ -14,6 +14,8 @@ namespace Madduck.GameData
     [Serializable]
     public class PlayerInventory : IModifierSource, IDisposable
     {
+        public event Action OnDisposed;
+
         #region Inspector
         [Title("Debug"),
          HideLabel,
@@ -35,8 +37,12 @@ namespace Madduck.GameData
         public ISynchronizedView<CardItemInstance, CardItemInstance> CurrentCardsView { get; }
         public ISynchronizedView<KeyValuePair<BaitType, BaitItemInstance>, 
             KeyValuePair<BaitType, BaitItemInstance>> CurrentBaitsView { get; }
+        
         public ISynchronizedView<KeyValuePair<ModifierId, List<BaseModifierData>>, 
             KeyValuePair<ModifierId, List<BaseModifierData>>> ModifiersView { get; }
+
+        public IReadOnlyList<KeyValuePair<ModifierId, List<BaseModifierData>>> Modifiers => _currentModifiers.ToList();
+
         public ReadOnlyReactiveProperty<BaitItemInstance> CurrentBaitView { get; }
         #endregion
 
@@ -47,6 +53,8 @@ namespace Madduck.GameData
         private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
         private IDisposable _subscriptions;
         private bool _startingAdded;
+        private IModifierSource _modifierSourceImplementation;
+
         #endregion
         
         #region Injection
@@ -101,6 +109,7 @@ namespace Madduck.GameData
 
         public void Dispose()
         {
+            OnDisposed?.Invoke();
             _subscriptions.Dispose();
             CurrentCardsView.Dispose();
             CurrentFishingRod.Dispose();
