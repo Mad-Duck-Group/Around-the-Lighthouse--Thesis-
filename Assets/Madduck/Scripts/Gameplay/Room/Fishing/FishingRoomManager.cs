@@ -4,7 +4,6 @@ using Madduck.Audio;
 using Madduck.Core;
 using Madduck.GameData;
 using Madduck.Shared;
-using Madduck.Shared.Events;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
@@ -23,8 +22,7 @@ namespace Madduck.Room
         #region Inspector
 
         [Title("Debug")]
-        [DisplayAsString, 
-         ShowInInspector] private WeatherType _currentWeather;
+        [ShowInInspector] private WeatherItemInstance _currentWeather;
         
         [field: SerializeField] 
         public SerializableReactiveProperty<uint> CurrentFishCount { get; private set; } = new();
@@ -46,7 +44,7 @@ namespace Madduck.Room
         private readonly IModal _cardSelectionController;
         private readonly IAudioManager _audioManager;
         private readonly IModalManager _modalManager;
-        private readonly IGenericFactory<WeatherType> _weatherFactory;
+        private readonly IGenericFactory<WeatherItemInstance> _weatherFactory;
         private readonly IGenericFactory<uint> _maxFishCountFactory;
         private readonly IPopUpFactory<FishItemPopUpObject> _fishItemPopUpFactory;
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
@@ -69,7 +67,7 @@ namespace Madduck.Room
             IModal cardSelectionController,
             IAudioManager audioManager,
             IModalManager modalManager,
-            IGenericFactory<WeatherType> weatherFactory,
+            IGenericFactory<WeatherItemInstance> weatherFactory,
             [Key(DIConstants.MaxFishCountFactoryId)] IGenericFactory<uint> maxFishCountFactory,
             IPopUpFactory<FishItemPopUpObject> fishItemPopUpFactory,
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
@@ -199,7 +197,7 @@ namespace Madduck.Room
         private void FilterFishByWeather()
         {
             _fishWeightTableInstance.PersistentFilters.Remove("WeatherFilter");
-            var filter = new FishWeightFilter(record => record.Item.WeatherType.HasFlag(_currentWeather));
+            var filter = new FishWeightFilter(record => record.Item.WeatherType.HasFlag(_currentWeather.ItemData.WeatherType));
             _fishWeightTableInstance.PersistentFilters.TryAdd("WeatherFilter", filter);
         }
 

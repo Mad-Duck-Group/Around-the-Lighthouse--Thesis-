@@ -223,6 +223,7 @@ namespace Madduck.Fishing.Controller
             _currentStageChance[_currentStageIndex] += _model.FishingRod.CurrentStats.CurrentBubbleNibbleBonuses[BubbleType.None]; //TODO: Do bubble later
             _currentStageChance[_currentStageIndex] = Percentage.Clamp01(_currentStageChance[_currentStageIndex]);
             var result = Percentage.TryRoll(_currentStageChance[_currentStageIndex]);
+            DebugUtils.Log($"Index {_currentStageIndex} Nibble Chance: {_currentStageChance[_currentStageIndex]} Roll Result: {result}");
             switch (_currentStageIndex)
             {
                 case 0 when result:

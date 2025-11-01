@@ -62,7 +62,7 @@ namespace Madduck.Room
         [Title("Debug")] 
         [SerializeField] private bool spoofWeather;
         [ShowIf(nameof(spoofWeather)),
-         OdinSerialize] private IGenericFactory<WeatherType> weatherFactoryMock;
+         OdinSerialize] private IGenericFactory<WeatherItemInstance> weatherFactoryMock;
         [SerializeField] private bool spoofMaxFishCount;
         [ShowIf(nameof(spoofMaxFishCount)),
          OdinSerialize] private IGenericFactory<uint> maxFishCountFactoryMock;
@@ -90,12 +90,12 @@ namespace Madduck.Room
             if (spoofWeather && weatherFactoryMock != null)
             {
                 builder.Register(_ => weatherFactoryMock, Lifetime.Singleton)
-                    .As<IGenericFactory<WeatherType>>();
+                    .As<IGenericFactory<WeatherItemInstance>>();
             }
             else
             {
                 builder.Register<WeatherFactory>(Lifetime.Singleton)
-                    .As<IGenericFactory<WeatherType>>();
+                    .As<IGenericFactory<WeatherItemInstance>>();
             }
             if (spoofMaxFishCount && maxFishCountFactoryMock != null)
             {

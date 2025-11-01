@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
 using Madduck.WeatherPreset;

@@ -55,7 +55,7 @@ MonoBehaviour:
       Data: 
     - Name: <ModifierType>k__BackingField
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: <FishSize>k__BackingField
       Entry: 3
       Data: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
       Data: 
     - Name: <ModifierType>k__BackingField
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: <FishSize>k__BackingField
       Entry: 3
       Data: 0

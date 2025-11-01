@@ -1,4 +1,5 @@
 using System;
+using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
 using R3;

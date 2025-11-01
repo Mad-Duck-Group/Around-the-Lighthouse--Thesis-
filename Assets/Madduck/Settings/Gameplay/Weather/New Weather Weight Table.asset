@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: New Weather Weight Table
   m_EditorClassIdentifier: Assembly-CSharp::Madduck.Scripts.Game.Weather.WeatherWeightTable
   <Records>k__BackingField:
-  - <Item>k__BackingField: 1
+  - <Item>k__BackingField: {fileID: 11400000, guid: f98a3414f82cd8a499e70425a46aac24, type: 2}
     <Weight>k__BackingField:
       value: 1
-  - <Item>k__BackingField: 2
+  - <Item>k__BackingField: {fileID: 11400000, guid: 6ba69e4a80ce1514bae5090e4500f749, type: 2}
     <Weight>k__BackingField:
       value: 1
-  - <Item>k__BackingField: 4
+  - <Item>k__BackingField: {fileID: 11400000, guid: 16ced65aac56f3944a1355e2ab729712, type: 2}
     <Weight>k__BackingField:
       value: 1

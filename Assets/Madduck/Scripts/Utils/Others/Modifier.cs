@@ -70,6 +70,7 @@ namespace Madduck.Utils
         }
     }
 
+    [Serializable]
     public class ModifierContainer : IModifierSource, IDisposable
     {
         public event Action OnDisposed;
@@ -79,7 +80,7 @@ namespace Madduck.Utils
             get;
         }
         public IReadOnlyList<KeyValuePair<ModifierId, List<BaseModifierData>>> Modifiers => _modifiers.ToList();
-        private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _modifiers = new();
+        [ShowInInspector] private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _modifiers = new();
         private readonly Dictionary<IModifierSource, IDisposable> _disposeDictionary = new();
         private readonly ISubscriber<ModifierSourceEvent> _modifierSourceEvent;
         
@@ -107,16 +108,19 @@ namespace Madduck.Utils
 
         private void OnSubscribeModifierSource(IModifierSource source)
         {
+            DebugUtils.Log("Subscribed to modifier source: " + source.GetType().Name);
             var disposable = Observable.FromEvent(
                     h => source.OnDisposed += h,
                     h => source.OnDisposed -= h)
                 .Subscribe(_ => OnSourceDisposed(source));
             _disposeDictionary.Add(source, disposable);
-            _modifiers.OnModifierFirstSubscribe(source.Modifiers);
+            //DebugUtils.Log($"Source Count: {source.Modifiers.Count}");
+            source.Modifiers.OnModifierFirstSubscribe(_modifiers);
             source.ModifiersView.ObserveChanged()
                 .Subscribe(x =>
                 {
-                    _modifiers.OnModifierChanged(x);
+                    DebugUtils.Log($"Source Modifier Changed: {source.Modifiers.Count} of {source.GetType().Name}");
+                    x.OnModifierChanged(_modifiers);
                 })
                 .AddTo(ref _disposableBag);
         }
@@ -134,13 +138,30 @@ namespace Madduck.Utils
             _disposableBag.Dispose();
         }
     }
+    
+    public class ModifierSourceMock : IModifierSource
+    {
+        public event Action OnDisposed;
+        public ISynchronizedView<KeyValuePair<ModifierId, List<BaseModifierData>>, KeyValuePair<ModifierId, List<BaseModifierData>>> ModifiersView
+        {
+            get;
+        }
+
+        public IReadOnlyList<KeyValuePair<ModifierId, List<BaseModifierData>>> Modifiers => _modifiers.ToList();
+        
+        private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _modifiers = new();
+        public ModifierSourceMock()
+        {
+            ModifiersView = _modifiers.CreateView(x => x);
+        }
+    }
 
     [Serializable]
     public record ModifierId(Guid SourceId, string DisplayName = null)
     {
-        [DisplayAsString, 
+        [DisplayAsString, HideLabel,
          ShowInInspector] public Guid SourceId { get; private set; } = SourceId;
-        [DisplayAsString, 
+        [DisplayAsString, HideLabel,
          ShowInInspector] public string DisplayName { get; private set; } = DisplayName;
     }
     
@@ -166,6 +187,11 @@ namespace Madduck.Utils
             if (ModifierMethod is ModifierMethod.BasePercent or ModifierMethod.TotalPercent)
                 return false;
             return true;
+        }
+        
+        public BaseModifierData Copy()
+        {
+            return (BaseModifierData)MemberwiseClone();
         }
     }
     
@@ -263,8 +289,9 @@ namespace Madduck.Utils
         }
 
         public static void OnModifierFirstSubscribe<T>(
-            this IDictionary<ModifierId, List<T>> modifiers,
-            IReadOnlyList<KeyValuePair<ModifierId, List<BaseModifierData>>> currentState)
+            this IReadOnlyList<KeyValuePair<ModifierId, List<BaseModifierData>>> currentState,
+            IDictionary<ModifierId, List<T>> modifiers
+            )
         {
             currentState.ForEach(x => 
             {
@@ -281,8 +308,8 @@ namespace Madduck.Utils
         /// <param name="modifiers">The modifiers dictionary to update.</param>
         /// <param name="viewChangedEvent">The view changed event containing the new and old items.</param>
         public static void OnModifierChanged<T>(
-            this IDictionary<ModifierId, List<T>> modifiers, 
-            ViewChangedEvent<KeyValuePair<ModifierId, List<BaseModifierData>>, KeyValuePair<ModifierId, List<BaseModifierData>>> viewChangedEvent)
+             this ViewChangedEvent<KeyValuePair<ModifierId, List<BaseModifierData>>, KeyValuePair<ModifierId, List<BaseModifierData>>> viewChangedEvent, 
+             IDictionary<ModifierId, List<T>> modifiers)
         where T : BaseModifierData
         {
             var newItem = viewChangedEvent.NewItem.View;

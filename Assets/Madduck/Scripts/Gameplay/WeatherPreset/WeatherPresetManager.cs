@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Madduck.GameData;
 using Madduck.Shared;
-using Madduck.Shared.Events;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
@@ -32,14 +32,14 @@ namespace Madduck.WeatherPreset
                 ShowInInspector] public ReactiveProperty<WeatherType> CurrentWeather { get; private set; }
         #endregion
         
-        private readonly IGenericFactory<WeatherType> _weatherFactory;
+        private readonly IGenericFactory<WeatherItemInstance> _weatherFactory;
         private readonly ISubscriber<WeatherChangedEvent> _weatherChangedEventSubscriber;
         private IDisposable _subscriptions;
         
         #region Inject
         [Inject]
         public WeatherPresetManager(
-            IGenericFactory<WeatherType> weatherFactory,
+            IGenericFactory<WeatherItemInstance> weatherFactory,
             ISubscriber<WeatherChangedEvent> weatherChangedEventSubscriber,
             WeatherPresetConfig weatherPresetConfig)
         {
@@ -70,7 +70,7 @@ namespace Madduck.WeatherPreset
 
         private void OnWeatherChanged(WeatherChangedEvent weatherChangedEvent)
         {
-            _currentWeather = weatherChangedEvent.Weather;
+            _currentWeather = weatherChangedEvent.Weather.ItemData.WeatherType;
             CurrentWeather.Value = _currentWeather;
             SpawnWeather(Vector3.zero, Quaternion.identity);
         }
@@ -80,7 +80,7 @@ namespace Madduck.WeatherPreset
         #region Lifecycle
         public void Start()
         {
-            _currentWeather = _weatherFactory.Current;
+            _currentWeather = _weatherFactory.Current.ItemData.WeatherType;
             SpawnWeather(Vector3.zero, Quaternion.identity);
         }
 

@@ -9,7 +9,7 @@ namespace Madduck.GameData
 {
     [Serializable]
     public class WeatherWeightTableInstance : 
-        WeightTableInstance<WeatherWeightRecord, WeatherWeightModifierData, WeatherType>
+        WeightTableInstance<WeatherWeightRecord, WeatherWeightModifierData, WeatherItemData>
     {
         #region Injection
 
@@ -30,7 +30,7 @@ namespace Madduck.GameData
                 modifiedRecords = filter.Filter(modifiedRecords);
             }
             var flattenModifiers = PersistentModifiers.SelectMany(x => x.Value).ToList();
-            modifiedRecords = flattenModifiers.ModifyBy(modifiedRecords, data => data.WeatherType, record => record.Item);
+            modifiedRecords = flattenModifiers.ModifyBy(modifiedRecords, data => data.WeatherType, record => record.Item.WeatherType);
             var totalWeight = modifiedRecords.Sum(record => record.Weight);
             foreach (var record in modifiedRecords)
             {

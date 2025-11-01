@@ -9,7 +9,8 @@
         "Madduck.Shared",
         "PrimeTween.Runtime",
         "Extensions",
-        "UniTask"
+        "UniTask",
+        "Madduck.GameData"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

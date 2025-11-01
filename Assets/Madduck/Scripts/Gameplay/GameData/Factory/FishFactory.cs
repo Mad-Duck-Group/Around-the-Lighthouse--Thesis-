@@ -11,7 +11,7 @@ namespace Madduck.GameData
 {
     
     [Serializable]
-    public class FishFactory : IGenericFactory<FishItemInstance>
+    public class FishFactory : IGenericFactory<FishItemInstance>, IDisposable
     {
         [field: ReadOnly, HideReferenceObjectPicker,
                 ShowInInspector] public FishItemInstance Current { get; private set; }
@@ -19,22 +19,32 @@ namespace Madduck.GameData
         [field: HideReferenceObjectPicker,
                 ShowInInspector] private readonly FishWeightTableInstance _weightTable;
         
+        private IModifierSource _modifierSource;
+        
         [Inject]
-        public FishFactory(FishWeightTableInstance weightTable)
+        public FishFactory(
+            IModifierSource modifierSource,
+            FishWeightTableInstance weightTable)
         {
+            _modifierSource = modifierSource;
             _weightTable = weightTable;
         }
 
         public FishItemInstance Create()
         {
             var fishItem = _weightTable.GetRandomItem();
-            Current = new FishItemInstance(fishItem);
+            Current = new FishItemInstance(fishItem, _modifierSource);
             return Current;
+        }
+
+        public void Dispose()
+        {
+            Current?.Dispose();
         }
     }
     
     [Serializable]
-    public class FishFactoryMock : IGenericFactory<FishItemInstance>
+    public class FishFactoryMock : IGenericFactory<FishItemInstance>, IDisposable
     {
         [Required, 
          SerializeField] private FishItemData testFishData;
@@ -48,8 +58,13 @@ namespace Madduck.GameData
         
         public FishItemInstance Create()
         {
-            Current = new FishItemInstance(testFishData);
+            Current = new FishItemInstance(testFishData, new ModifierSourceMock());
             return Current;
+        }
+
+        public void Dispose()
+        {
+            Current?.Dispose();
         }
     }
 }

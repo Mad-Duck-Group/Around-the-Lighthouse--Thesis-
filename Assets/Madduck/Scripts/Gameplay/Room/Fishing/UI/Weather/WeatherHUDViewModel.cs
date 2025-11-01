@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using Madduck.Shared;
-using Madduck.Shared.Events;
-using Madduck.Utils;
+using Madduck.GameData;
 using MessagePipe;
 using R3;
-using Sirenix.OdinInspector;
-using UnityEngine;
 using VContainer;
 
 namespace Madduck.Room
@@ -29,7 +24,7 @@ namespace Madduck.Room
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _weatherChangedSubscriber.Subscribe(e => OnWeatherChanged(e.Weather))
+            _weatherChangedSubscriber.Subscribe(e => OnWeatherChanged(e.Weather.ItemData.WeatherType))
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }

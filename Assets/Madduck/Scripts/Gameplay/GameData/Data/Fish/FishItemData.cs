@@ -17,9 +17,20 @@ namespace Madduck.GameData
     }
 
     public enum FishModifierType
-    {
+    { 
+        All,
         Name,
         Size,
+    }
+    
+    public enum FishStatType
+    {
+        Power,
+        Resistance,
+        FishWeight,
+        FatigueDuration,
+        TugOfWarDecayRate,
+        TugOfWarRegression,
     }
     
     [CreateAssetMenu(fileName = "New Fish Item Data", menuName = "Madduck/Fish/Fish Item Data")]

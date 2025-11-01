@@ -37,4 +37,27 @@ namespace Madduck.GameData
                 .ToList();
         }
     }
+    
+    [Serializable]
+    public class CardRarityWeightModifierData : BaseModifierData
+    {
+        [field: UnflagEnum,
+                SerializeField] public CardRarity CardRarity { get; private set; }
+        
+        public class Builder : ModifierDataBuilder<CardRarityWeightModifierData>
+        {
+            private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
+
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+            
+            public Builder WithRarity(CardRarity cardRarity)
+            {
+                modifierData.CardRarity = cardRarity;
+                return this;
+            }
+        }
+    }
 }

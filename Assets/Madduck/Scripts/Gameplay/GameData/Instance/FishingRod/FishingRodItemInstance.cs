@@ -14,7 +14,7 @@ using DisposableBag = R3.DisposableBag;
 namespace Madduck.GameData
 {
     [Serializable]
-    public class FishingRodItemInstance : ItemInstance<FishingRodItemData>, IDisposable
+    public class FishingRodItemInstance : ItemInstance<FishingRodItemData>
     {
         #region Inspector
 
@@ -28,8 +28,8 @@ namespace Madduck.GameData
 
         #region Fields
 
-        private readonly ISubscriber<ModifierSourceEvent> _modifierPublisherEventSubscriber;
-        private Dictionary<ModifierId, List<RodStatModifierData>> _modifiers = new();
+        private readonly IModifierSource _modifierSource;
+        [ShowInInspector] private Dictionary<ModifierId, List<RodStatModifierData>> _modifiers = new();
         private DisposableBag _modifierChangedSubscription;
         private IDisposable _subscriptions;
 
@@ -40,11 +40,11 @@ namespace Madduck.GameData
         [Inject]
         public FishingRodItemInstance(
             FishingRodItemData itemData,
-            ISubscriber<ModifierSourceEvent> modifierPublisherEventSubscriber)
+            IModifierSource modifierSource)
             : base(itemData)
         {
             CurrentStats = new FishingRodStats(itemData);
-            _modifierPublisherEventSubscriber = modifierPublisherEventSubscriber;
+            _modifierSource = modifierSource;
             Subscribe();
         }
 
@@ -55,13 +55,13 @@ namespace Madduck.GameData
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _modifierPublisherEventSubscriber.Subscribe(OnModifierPublished)
-                .AddTo(ref disposableBuilder);
+            OnSubscribeModifierSource(_modifierSource);
             _subscriptions = disposableBuilder.Build();
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
             _subscriptions.Dispose();
             _modifierChangedSubscription.Dispose();
             _modifierChangedSubscription.Clear();
@@ -71,12 +71,14 @@ namespace Madduck.GameData
 
         #region Events
 
-        private void OnModifierPublished(ModifierSourceEvent eventData)
+        private void OnSubscribeModifierSource(IModifierSource source)
         {
-            eventData.ModiferSource.ModifiersView.ObserveChanged()
+            source.Modifiers.OnModifierFirstSubscribe(_modifiers);
+            ApplyModifiers();
+            source.ModifiersView.ObserveChanged()
                 .Subscribe(x =>
                 {
-                    _modifiers.OnModifierChanged(x);
+                    x.OnModifierChanged(_modifiers);
                     ApplyModifiers();
                 })
                 .AddTo(ref _modifierChangedSubscription);
@@ -144,9 +146,9 @@ namespace Madduck.GameData
         
         [field: InlineProperty, DisplayAsString,
                 SerializeField] public UFloat CurrentThrowSliderSpeed { get; set; }
-        [field: ShowInInspector] public SerializableDictionary<BubbleType, Percentage> CurrentBubbleNibbleBonuses { get; set; } = new();
-        [field: ShowInInspector] public SerializableDictionary<BubbleType, Percentage> CurrentBubbleNibblePenalties { get; set; } = new();
-        [field: ShowInInspector] public SerializableDictionary<int, Percentage> CurrentNibbleBaseSuccessChances { get; set; } = new(); 
+        [field: ShowInInspector] public Dictionary<BubbleType, Percentage> CurrentBubbleNibbleBonuses { get; set; } = new();
+        [field: ShowInInspector] public Dictionary<BubbleType, Percentage> CurrentBubbleNibblePenalties { get; set; } = new();
+        [field: ShowInInspector] public Dictionary<int, Percentage> CurrentNibbleBaseSuccessChances { get; set; } = new(); 
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentFishBiteTimeFrame { get; set; }
         [field: DisplayAsString,
@@ -193,5 +195,27 @@ namespace Madduck.GameData
         }
 
         public FishingRodStats Copy() => this with { };
+    }
+    
+    [Serializable]
+    public class RodStatModifierData : BaseModifierData
+    {
+        [field: SerializeField] public FishingRodStatType FishingRodStatType { get; private set; }
+        public class Builder : ModifierDataBuilder<RodStatModifierData>
+        {
+            private Builder(ModifierMethod modifierMethod) 
+                : base(modifierMethod) { }
+            
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+            
+            public Builder WithFishingRodStatType(FishingRodStatType fishingRodStatType)
+            {
+                modifierData.FishingRodStatType = fishingRodStatType;
+                return this;
+            }
+        }
     }
 }

@@ -487,6 +487,101 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!21 &120236097
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shapes2D Material
+  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - FILL_SOLID_COLOR
+  - POLYGON_8
+  m_InvalidKeywords:
+  - _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BumpScale: 1
+    - _ColorMask: 15
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _Shapes2D_DstAlpha: 1
+    - _Shapes2D_DstBlend: 10
+    - _Shapes2D_SrcAlpha: 1
+    - _Shapes2D_SrcBlend: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &120329042
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +826,7 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 638901543}
     - {fileID: 21300000, guid: bc4a16ba7d4f553428b56bb0c2c7b81b, type: 3}
+    - {fileID: 21300000, guid: 0596183538acbc240a630900920b1367, type: 3}
     - {fileID: 21300000, guid: 3ddabd368b85b384abe8de3271fc4226, type: 3}
     - {fileID: 1419393681}
     - {fileID: 1677522016}
@@ -753,6 +849,7 @@ MonoBehaviour:
     - {fileID: 1100514717}
     - {fileID: 8124344020347496695, guid: b6304eb062cfd994e94ee54b9af8bba2, type: 3}
     - {fileID: 137340420}
+    - {fileID: 11400000, guid: 6ba69e4a80ce1514bae5090e4500f749, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -779,15 +876,15 @@ MonoBehaviour:
       Data: 0
     - Name: weatherIcons
       Entry: 7
-      Data: 3|Madduck.Utils.SerializableDictionary`2[[Madduck.Shared.WeatherType,
-        Madduck.Shared],[UnityEngine.Sprite, UnityEngine.CoreModule]], Madduck.Utils
+      Data: 3|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WeatherType,
+        Madduck.GameData],[UnityEngine.Sprite, UnityEngine.CoreModule]], Madduck.Utils
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 3
     - Name: 
       Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Shared.WeatherType,
-        Madduck.Shared],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WeatherType,
+        Madduck.GameData],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
     - Name: 
       Entry: 3
       Data: 1
@@ -799,8 +896,8 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Shared.WeatherType,
-        Madduck.Shared],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WeatherType,
+        Madduck.GameData],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
     - Name: 
       Entry: 3
       Data: 2
@@ -812,40 +909,14 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Shared.WeatherType,
-        Madduck.Shared],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WeatherType,
+        Madduck.GameData],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
     - Name: 
       Entry: 3
       Data: 4
     - Name: 
       Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Shared.WeatherType,
-        Madduck.Shared],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
-    - Name: 
-      Entry: 3
-      Data: 8
-    - Name: 
-      Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Shared.WeatherType,
-        Madduck.Shared],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
-    - Name: 
-      Entry: 3
-      Data: 16
-    - Name: 
-      Entry: 10
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -866,16 +937,16 @@ MonoBehaviour:
       Data: 5|Madduck.Room.BaitButtonViewFactory, Madduck.Room
     - Name: baitButtonsParent
       Entry: 10
-      Data: 3
+      Data: 4
     - Name: tooltipCanvas
       Entry: 10
-      Data: 4
+      Data: 5
     - Name: baitButtonViewPrefab
       Entry: 10
-      Data: 5
+      Data: 6
     - Name: tooltipParent
       Entry: 10
-      Data: 6
+      Data: 7
     - Name: 
       Entry: 8
       Data: 
@@ -890,16 +961,16 @@ MonoBehaviour:
       Data: 7|Madduck.Room.CardViewFactory, Madduck.Room
     - Name: cardViewPrefab
       Entry: 10
-      Data: 7
+      Data: 8
     - Name: parent
       Entry: 10
-      Data: 8
+      Data: 9
     - Name: tooltipCanvas
       Entry: 10
-      Data: 4
+      Data: 5
     - Name: tooltipParent
       Entry: 10
-      Data: 6
+      Data: 7
     - Name: 
       Entry: 8
       Data: 
@@ -911,7 +982,7 @@ MonoBehaviour:
       Data: 8|Madduck.Room.FishCountUIInstaller, Madduck.Room
     - Name: fishCountView
       Entry: 10
-      Data: 9
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -923,10 +994,10 @@ MonoBehaviour:
       Data: 10|Madduck.GameData.FishItemPopUpFactory, Madduck.GameData
     - Name: popUpParent
       Entry: 10
-      Data: 10
+      Data: 11
     - Name: <PopUpCanvas>k__BackingField
       Entry: 10
-      Data: 11
+      Data: 12
     - Name: prefabMode
       Entry: 5
       Data: true
@@ -935,7 +1006,7 @@ MonoBehaviour:
       Data: 
     - Name: popUpViewPrefab
       Entry: 10
-      Data: 12
+      Data: 13
     - Name: 
       Entry: 8
       Data: 
@@ -970,7 +1041,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 10
-      Data: 13
+      Data: 14
     - Name: 
       Entry: 8
       Data: 
@@ -992,7 +1063,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 10
-      Data: 14
+      Data: 15
     - Name: 
       Entry: 8
       Data: 
@@ -1014,7 +1085,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 10
-      Data: 15
+      Data: 16
     - Name: 
       Entry: 8
       Data: 
@@ -1029,10 +1100,10 @@ MonoBehaviour:
       Data: 13|Madduck.Room.RoomTrackFactory, Madduck.Room
     - Name: prefab
       Entry: 10
-      Data: 16
+      Data: 17
     - Name: parent
       Entry: 10
-      Data: 17
+      Data: 18
     - Name: 
       Entry: 8
       Data: 
@@ -1041,13 +1112,13 @@ MonoBehaviour:
       Data: 14|Madduck.Room.BoatTrackViewFactory, Madduck.Room
     - Name: prefab
       Entry: 10
-      Data: 18
+      Data: 19
     - Name: parent
       Entry: 10
-      Data: 19
+      Data: 20
     - Name: defaultBoatSprite
       Entry: 10
-      Data: 20
+      Data: 21
     - Name: 
       Entry: 8
       Data: 
@@ -1059,16 +1130,16 @@ MonoBehaviour:
       Data: 15|Madduck.Room.CardSelectionInstaller, Madduck.Room
     - Name: cardSelectionScreenView
       Entry: 10
-      Data: 21
+      Data: 22
     - Name: cardSelectionFactory
       Entry: 7
       Data: 16|Madduck.Room.CardSelectionFactory, Madduck.Room
     - Name: prefab
       Entry: 10
-      Data: 22
+      Data: 23
     - Name: parent
       Entry: 10
-      Data: 23
+      Data: 24
     - Name: 
       Entry: 8
       Data: 
@@ -1085,8 +1156,8 @@ MonoBehaviour:
       Entry: 7
       Data: 17|Madduck.GameData.WeatherFactoryMock, Madduck.GameData
     - Name: fixedWeather
-      Entry: 3
-      Data: 4
+      Entry: 10
+      Data: 25
     - Name: 
       Entry: 8
       Data: 
@@ -1225,7 +1296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2137397257}
+  m_Material: {fileID: 1346711053}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1714,7 +1785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 589134119}
+  m_Material: {fileID: 120236097}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3231,101 +3302,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 585020742}
   m_CullTransparentMesh: 1
---- !u!21 &589134119
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Shapes2D Material
-  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - FILL_SOLID_COLOR
-  - POLYGON_8
-  m_InvalidKeywords:
-  - _EMISSION
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _BumpScale: 1
-    - _ColorMask: 15
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _GlossyReflections: 1
-    - _Metallic: 0
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _Shapes2D_DstAlpha: 1
-    - _Shapes2D_DstBlend: 10
-    - _Shapes2D_SrcAlpha: 1
-    - _Shapes2D_SrcBlend: 1
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UVSec: 0
-    - _ZWrite: 1
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &625345631
 GameObject:
   m_ObjectHideFlags: 0
@@ -6566,6 +6542,101 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!21 &1346711053
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shapes2D Material
+  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - FILL_SOLID_COLOR
+  - POLYGON_8
+  m_InvalidKeywords:
+  - _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BumpScale: 1
+    - _ColorMask: 15
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _Shapes2D_DstAlpha: 1
+    - _Shapes2D_DstBlend: 10
+    - _Shapes2D_SrcAlpha: 1
+    - _Shapes2D_SrcBlend: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1363008358
 GameObject:
   m_ObjectHideFlags: 0
@@ -9692,101 +9763,6 @@ MonoBehaviour:
   <OnRelease>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
---- !u!21 &2137397257
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Shapes2D Material
-  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - FILL_SOLID_COLOR
-  - POLYGON_8
-  m_InvalidKeywords:
-  - _EMISSION
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _BumpScale: 1
-    - _ColorMask: 15
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _GlossyReflections: 1
-    - _Metallic: 0
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _Shapes2D_DstAlpha: 1
-    - _Shapes2D_DstBlend: 10
-    - _Shapes2D_SrcAlpha: 1
-    - _Shapes2D_SrcBlend: 1
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UVSec: 0
-    - _ZWrite: 1
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

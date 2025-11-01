@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f88e80974044c6bae6e81f599d2018a, type: 3}
+  m_Name: TestFishjStatMod
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.Card.CardItemData
+  <ItemType>k__BackingField: 3
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: <Guid>k__BackingField
+      Entry: 2
+      Data: 6e4c1e0268d24e9f9ac09b13b033ec53
+  <RarityData>k__BackingField:
+    keys: 00000000
+    values:
+    - {fileID: 11400000, guid: 6952d70cabb6726468caa0777d3881a6, type: 2}

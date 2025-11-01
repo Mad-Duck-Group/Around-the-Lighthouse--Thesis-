@@ -17,12 +17,11 @@ namespace Madduck.GameData
     #region Data Structure
 
     [Serializable]
-    public record WeatherWeightRecord : IWeightRecord<WeatherType>, IStatModifiable<WeatherWeightRecord>
+    public record WeatherWeightRecord : IWeightRecord<WeatherItemData>, IStatModifiable<WeatherWeightRecord>
     {
-        [field: UnflagEnum, 
-                Required,
+        [field: Required,
                 SerializeField]
-        public WeatherType Item { get; internal set; }
+        public WeatherItemData Item { get; internal set; }
 
         [field: MinValue(0f),
                 SerializeField]
@@ -52,6 +51,29 @@ namespace Madduck.GameData
                 .ToList();
         }
     }
+    
+    [Serializable]
+    public class WeatherWeightModifierData : BaseModifierData
+    {
+        [field: UnflagEnum,
+                SerializeField] public WeatherType WeatherType { get; private set; }
+        
+        public class Builder : ModifierDataBuilder<WeatherWeightModifierData>
+        {
+            private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
 
-        #endregion
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+            
+            public Builder WithWeatherType(WeatherType weatherType)
+            {
+                modifierData.WeatherType = weatherType;
+                return this;
+            }
+        }
+    }
+
+    #endregion
 }

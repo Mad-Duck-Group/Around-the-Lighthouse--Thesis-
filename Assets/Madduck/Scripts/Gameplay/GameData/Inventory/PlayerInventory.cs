@@ -47,7 +47,7 @@ namespace Madduck.GameData
         #endregion
 
         #region Fields
-        private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _currentModifiers = new();
+        [ShowInInspector] private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _currentModifiers = new();
         private readonly PlayerInventoryConfig _config;
         private readonly IPublisher<ModifierSourceEvent> _modifierSourceEventPublisher;
         private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
@@ -61,8 +61,8 @@ namespace Madduck.GameData
         [Inject]
         public PlayerInventory(
             PlayerInventoryConfig config,
+            IModifierSource modifierSource,
             IPublisher<ModifierSourceEvent> modifierSourceEventPublisher,
-            ISubscriber<ModifierSourceEvent> modifierSourceEventSubscriber,
             ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventSubscriber)
         {
             _config = config;
@@ -72,7 +72,7 @@ namespace Madduck.GameData
             ModifiersView = _currentModifiers.CreateView(x => x);
             CurrentBaitsView = CurrentBaits.CreateView(x => x);
             CurrentBaitView = CurrentBait.ToReadOnlyReactiveProperty();
-            CurrentFishingRod = new FishingRodItemInstance(_config.FishingRod, modifierSourceEventSubscriber);
+            CurrentFishingRod = new FishingRodItemInstance(_config.FishingRod, modifierSource);
             Subscribe();
         }
         #endregion
@@ -124,6 +124,7 @@ namespace Madduck.GameData
             CurrentBaits.Clear();
             CurrentCards.Clear();
             _modifierSourceEventPublisher?.Publish(new ModifierSourceEvent(this));
+            DebugUtils.Log("Modifier Source Published from Player Inventory");
             if (!_startingAdded)
             {
                 _startingAdded = true;

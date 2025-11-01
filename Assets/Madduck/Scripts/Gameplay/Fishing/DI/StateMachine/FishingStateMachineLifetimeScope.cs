@@ -78,7 +78,8 @@ namespace Madduck.Fishing.DI
             }
             else
             {
-                builder.Register<FishFactory>(Lifetime.Singleton).As<IGenericFactory<FishItemInstance>>();
+                builder.Register<FishFactory>(Lifetime.Singleton)
+                    .As<IGenericFactory<FishItemInstance>>();
             }
             builder.Register(_ => hookProjectileFactory, Lifetime.Singleton).As<IHookFactory>();
             builder.Register(_ => fishSpriteFactory, Lifetime.Singleton).As<IFishSpriteFactory>();

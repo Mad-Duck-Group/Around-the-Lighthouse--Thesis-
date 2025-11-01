@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Madduck.GameData
 {
     [Serializable]
-    public abstract class ItemInstance<T>
+    public abstract class ItemInstance<T> : IDisposable
         where T : ItemData
     {
         [Title("Base References"), 
@@ -39,6 +39,11 @@ namespace Madduck.GameData
             // Prevent underflow by clamping to 0
             if (currentCount < 0) currentCount = 0;
             CurrentCount = (uint)currentCount;
+        }
+
+        public virtual void Dispose()
+        {
+            CurrentCountView?.Dispose();
         }
     }
 }

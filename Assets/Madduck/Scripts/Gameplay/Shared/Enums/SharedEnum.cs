@@ -10,16 +10,7 @@ namespace Madduck.Shared
         Both = Day | Night
     }
     
-    [Flags]
-    public enum WeatherType
-    {
-        Clear = 1 << 0,
-        Rain = 1 << 1,
-        Storm = 1 << 2,
-        Cloudy = 1 << 3,
-        StrongWinds = 1 << 4,
-        All = Clear | Rain | Storm | Cloudy |StrongWinds
-    }
+    
 
     public enum WindDirection
     {

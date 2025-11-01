@@ -90,13 +90,13 @@ namespace Madduck.GameData
 
         protected virtual void SubscribeModifierSource()
         {
-            PersistentModifiers.OnModifierFirstSubscribe(modifierSource.Modifiers);
+            modifierSource.Modifiers.OnModifierFirstSubscribe(PersistentModifiers);
             ApplyFiltersAndModifiers();
             modifierSource.ModifiersView
                 .ObserveChanged()
                 .Subscribe(x =>
                 {
-                    PersistentModifiers.OnModifierChanged(x);
+                    x.OnModifierChanged(PersistentModifiers);
                     ApplyFiltersAndModifiers();
                 })
                 .AddTo(ref modifierChangedSubscription);

@@ -9,11 +9,11 @@ using VContainer;
 
 namespace Madduck.GameData
 {
-    public class WeatherFactory : IGenericFactory<WeatherType>
+    public class WeatherFactory : IGenericFactory<WeatherItemInstance>
     {
         private readonly WeatherWeightTableInstance _weatherWeightTable;
 
-        public WeatherType Current
+        public WeatherItemInstance Current
         {
             get => !_generated ? Create() : _current;
             private set
@@ -22,36 +22,47 @@ namespace Madduck.GameData
                 _current = value;
             }
         }
-        private WeatherType _current;
+        private WeatherItemInstance _current;
+        private readonly IModifierSource _modifierSource;
+        private readonly IPublisher<ModifierSourceEvent> _modifierSourceEventPublisher;
         private bool _generated;
         
         [Inject]
         public WeatherFactory(
-            WeatherWeightTableInstance weatherWeightTable)
+            WeatherWeightTableInstance weatherWeightTable,
+            IModifierSource modifierSource,
+            IPublisher<ModifierSourceEvent> modifierSourceEventPublisher)
+
         {
             _weatherWeightTable = weatherWeightTable;
+            _modifierSourceEventPublisher = modifierSourceEventPublisher;
+            _modifierSource = modifierSource;
         }
         
-        public WeatherType Create()
+        public WeatherItemInstance Create()
         {
-            Current = _weatherWeightTable.GetRandomItem();
+            var random = _weatherWeightTable.GetRandomItem();
+            Current = new WeatherItemInstance(random, _modifierSource, _modifierSourceEventPublisher);
             return Current;
         } 
     }
 
     [Serializable]
-    public class WeatherFactoryMock : IGenericFactory<WeatherType>
+    public class WeatherFactoryMock : IGenericFactory<WeatherItemInstance>
     {
-        [UnflagEnum, 
-         SerializeField] private WeatherType fixedWeather;
+        [SerializeField] private WeatherItemData fixedWeather;
 
-        public WeatherType Current => fixedWeather;
+        public WeatherItemInstance Current { get; private set; }
         public WeatherFactoryMock(){} // For inspector serialization
-        public WeatherFactoryMock(WeatherType fixedWeather)
+        public WeatherFactoryMock(WeatherItemData fixedWeather)
         {
             this.fixedWeather = fixedWeather;
         }
-        
-        public WeatherType Create() => fixedWeather;
+
+        public WeatherItemInstance Create()
+        {
+            Current = new WeatherItemInstance(fixedWeather, new ModifierSourceMock(), null);
+            return Current;
+        }
     }
 }

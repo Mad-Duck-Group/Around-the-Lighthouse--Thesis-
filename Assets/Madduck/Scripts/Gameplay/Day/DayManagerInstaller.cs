@@ -18,12 +18,14 @@ namespace Madduck.Day
         [ShowInInspector] private PlayerInventory _playerInventory;
         [ShowInInspector] private FishWeightTableInstance _fishWeightTable;
         [ShowInInspector] private FishermanItemInstance _fishermanItemData;
+        [ShowInInspector] private ModifierContainer _modifierContainer;
         
         public DayManagerDebugData(
             DayManager manager, 
             PlayerInventory playerInventory,
             FishWeightTableInstance fishWeightTable,
-            FishermanItemInstance fishermanItemData)
+            FishermanItemInstance fishermanItemData,
+            ModifierContainer modifierContainer)
         {
             ConstantUpdate = false;
             AutoCloseWhenPlayModeEnds = true;
@@ -31,6 +33,7 @@ namespace Madduck.Day
             _manager = manager;
             _fishWeightTable = fishWeightTable;
             _fishermanItemData = fishermanItemData;
+            _modifierContainer = modifierContainer;
         }
     }
     
@@ -66,6 +69,7 @@ namespace Madduck.Day
         public void Install(IContainerBuilder builder)
         {
             builder.Register<ModifierContainer>(Lifetime.Singleton)
+                .AsSelf()
                 .As<IModifierSource>();
             builder.RegisterInstance(dayManagerConfig).AsSelf();
             builder.RegisterInstance(fishWeightTable).As<IWeightTable<FishWeightRecord>>();
@@ -86,7 +90,8 @@ namespace Madduck.Day
                 var manager = x.Resolve<DayManager>();
                 var table = x.Resolve<FishWeightTableInstance>();
                 var playerInventory = x.Resolve<PlayerInventory>();
-                _dayManagerDebugData = new DayManagerDebugData(manager, playerInventory, table, fishermanItemInstance);
+                var modifierContainer = x.Resolve<ModifierContainer>();
+                _dayManagerDebugData = new DayManagerDebugData(manager, playerInventory, table, fishermanItemInstance, modifierContainer);
 #endif
             });
         }

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Utils;
-using MessagePipe;
-using R3;
 using Sirenix.OdinInspector;
-using VContainer;
 
 namespace Madduck.GameData
 {
@@ -17,7 +13,7 @@ namespace Madduck.GameData
          Button("Test Show")]
         public void TestShow(FishItemData fishItemData)
         {
-            var instance = new FishItemInstance(fishItemData);
+            var instance = new FishItemInstance(fishItemData, new ModifierSourceMock());
             var popUpObject = new FishItemPopUpObject(instance);
             var popUp = Create();
             popUp.SetPopUpObject(popUpObject);

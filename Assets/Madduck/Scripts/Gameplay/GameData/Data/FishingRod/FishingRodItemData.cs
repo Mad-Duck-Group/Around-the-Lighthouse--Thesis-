@@ -1,4 +1,5 @@
-﻿using Madduck.Shared;
+﻿using System.Collections.Generic;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -29,9 +30,16 @@ namespace Madduck.GameData
         [Title("Nibble Settings"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _nibbleSettingsTitle;
-        [field: SerializeField] public SerializableDictionary<BubbleType, Percentage> BubbleNibbleBonuses { get; private set; } = new();
-        [field: SerializeField] public SerializableDictionary<BubbleType, Percentage> BubbleNibblePenalties { get; private set; } = new();
-        [field: SerializeField] public SerializableDictionary<int, Percentage> NibbleBaseSuccessChances { get; private set; } = new();
+        [field: SerializeField] private SerializableDictionary<BubbleType, Percentage> bubbleNibbleBonuses = new();
+
+        public IReadOnlyDictionary<BubbleType, Percentage> BubbleNibbleBonuses =>
+                (Dictionary<BubbleType, Percentage>)bubbleNibbleBonuses;
+        [field: SerializeField] private SerializableDictionary<BubbleType, Percentage> bubbleNibblePenalties = new();
+        public IReadOnlyDictionary<BubbleType, Percentage> BubbleNibblePenalties =>
+                (Dictionary<BubbleType, Percentage>)bubbleNibblePenalties;
+        [field: SerializeField] private SerializableDictionary<int, Percentage> nibbleBaseSuccessChances = new();
+        public IReadOnlyDictionary<int, Percentage> NibbleBaseSuccessChances =>
+                (Dictionary<int, Percentage>)nibbleBaseSuccessChances;
         [field: InlineProperty, 
                 SerializeField] public UFloat FishBiteTimeFrame { get; private set; } = 3f;
 

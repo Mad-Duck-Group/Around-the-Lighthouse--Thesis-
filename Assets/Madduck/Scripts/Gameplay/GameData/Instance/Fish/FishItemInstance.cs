@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Madduck.Utils;
+using ObservableCollections;
+using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VContainer;
 
 namespace Madduck.GameData
 {
@@ -17,12 +22,101 @@ namespace Madduck.GameData
     {
         [field: DisplayAsString, 
                 ShowInInspector] public FishQuality CurrentFishQuality { get; set; }
+        [field: ShowInInspector] private Dictionary<ModifierId, List<FishStatModifierData>> _modifiers = new();
         [field: ShowInInspector] public FishStats CurrentStats { get; private set; }
-        public FishItemInstance(FishItemData itemData) : base(itemData)
+        
+        private DisposableBag _modifierChangedSubscription;
+        
+        [Inject]
+        public FishItemInstance(
+            FishItemData itemData, 
+            IModifierSource modifierSource) 
+            : base(itemData)
         {
             CurrentStats = new FishStats(itemData);
+            OnSubscribeModifierSource(modifierSource);
+        }
+
+        #region Modifier 
+        private void OnSubscribeModifierSource(IModifierSource source)
+        {
+            source.Modifiers.OnModifierFirstSubscribe(_modifiers);
+            ApplyModifiers();
+            source.ModifiersView.ObserveChanged()
+                .Subscribe(x =>
+                {
+                    x.OnModifierChanged(_modifiers);
+                    ApplyModifiers();
+                })
+                .AddTo(ref _modifierChangedSubscription);
         }
         
+        private void ApplyModifiers()
+        {
+            CurrentStats = new FishStats(ItemData);
+            var flattenModifiers = _modifiers.SelectMany(x => x.Value).ToList();
+            flattenModifiers = FilterModifier(flattenModifiers);
+            var modifierGroups = flattenModifiers.GroupBy(x => x.FishStatType);
+            foreach (var group in modifierGroups)
+            {
+                switch (group.Key)
+                {
+                    case FishStatType.Power:
+                        CurrentStats.CurrentPower = group.CalculateStat(CurrentStats.CurrentPower);
+                        break;
+                    case FishStatType.Resistance:
+                        CurrentStats.CurrentResistance = group.CalculateStat(CurrentStats.CurrentResistance);
+                        break;
+                    case FishStatType.FishWeight:
+                        CurrentStats.CurrentFishWeight = group.CalculateStat(CurrentStats.CurrentFishWeight);
+                        break;
+                    case FishStatType.FatigueDuration:
+                        CurrentStats.CurrentFatigueDuration = group.CalculateStat(CurrentStats.CurrentFatigueDuration);
+                        break;
+                    case FishStatType.TugOfWarDecayRate:
+                        CurrentStats.CurrentTugOfWarDecayRate = group.CalculateStat(CurrentStats.CurrentTugOfWarDecayRate);
+                        break;
+                    case FishStatType.TugOfWarRegression:
+                        CurrentStats.CurrentTugOfWarRegression = group.CalculateStat(CurrentStats.CurrentTugOfWarRegression);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        private List<FishStatModifierData> FilterModifier(List<FishStatModifierData> flatten)
+        {
+            var result = new List<FishStatModifierData>();
+            foreach (var modifier in flatten)
+            {
+                switch (modifier.ModifierType)
+                {
+                    case FishModifierType.All:
+                        break;
+                    case FishModifierType.Name:
+                        if (!modifier.FishItemData.Guid.Equals(ItemData.Guid)) continue;
+                        break;
+                    case FishModifierType.Size:
+                        if (modifier.FishSize != ItemData.Size) continue;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                result.Add(modifier);
+            }
+            return result;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _modifierChangedSubscription.Dispose();
+            _modifierChangedSubscription.Clear();
+        }
+        #endregion
+
+        #region Fish Quality
         public void SetFishQuality(FishQuality fishQuality)
         {
             CurrentFishQuality = fishQuality;
@@ -47,6 +141,7 @@ namespace Madduck.GameData
             }
             CurrentFishQuality--;
         }
+        #endregion
     }
 
     [Serializable]
@@ -76,5 +171,46 @@ namespace Madduck.GameData
         }
         
         public FishStats Copy() => this with { };
+    }
+    
+    [Serializable]
+    public class FishStatModifierData : BaseModifierData
+    {
+        [field: SerializeField] public FishModifierType ModifierType { get; private set; }
+        [field: ShowIf(nameof(ModifierType), FishModifierType.Size),
+                SerializeField] public FishSize FishSize { get; private set; }
+        [field: ShowIf(nameof(ModifierType), FishModifierType.Name),
+                SerializeField] public FishItemData FishItemData { get; private set; }
+        [field: SerializeField] public FishStatType FishStatType { get; private set; }
+        public class Builder : ModifierDataBuilder<FishStatModifierData>
+        {
+            private Builder(ModifierMethod modifierMethod) 
+                : base(modifierMethod) { }
+            
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+            
+            public Builder WithSize(FishSize size)
+            {
+                modifierData.ModifierType = FishModifierType.Size;
+                modifierData.FishSize = size;
+                return this;
+            }
+            
+            public Builder WithName(FishItemData fishItemData)
+            {
+                modifierData.ModifierType = FishModifierType.Name;
+                modifierData.FishItemData = fishItemData;
+                return this;
+            }
+            
+            public Builder WithFishStatType(FishStatType fishStatType)
+            {
+                modifierData.FishStatType = fishStatType;
+                return this;
+            }
+        }
     }
 }

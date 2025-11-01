@@ -39,6 +39,40 @@ namespace Madduck.GameData
                 .ToList();
         }
     }
+    
+    [Serializable]
+    public class FishWeightModifierData : BaseModifierData
+    {
+        [field: SerializeField] public FishModifierType ModifierType { get; private set; }
+        [field: ShowIf(nameof(ModifierType), FishModifierType.Size),
+                SerializeField] public FishSize FishSize { get; private set; }
+        [field: ShowIf(nameof(ModifierType), FishModifierType.Name),
+                SerializeField] public FishItemData FishItemData { get; private set; }
+        
+        public class Builder : ModifierDataBuilder<FishWeightModifierData>
+        {
+            private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
+
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+
+            public Builder WithSize(FishSize size)
+            {
+                modifierData.ModifierType = FishModifierType.Size;
+                modifierData.FishSize = size;
+                return this;
+            }
+
+            public Builder WithName(FishItemData fishItemData)
+            {
+                modifierData.ModifierType = FishModifierType.Name;
+                modifierData.FishItemData = fishItemData;
+                return this;
+            }
+        }
+    }
 
     #endregion
 }

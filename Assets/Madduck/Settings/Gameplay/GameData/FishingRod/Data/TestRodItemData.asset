@@ -29,19 +29,19 @@ MonoBehaviour:
     value: 50
   <ThrowSliderSpeed>k__BackingField:
     value: 150
-  <BubbleNibbleBonuses>k__BackingField:
+  bubbleNibbleBonuses:
     keys: 000000000100000002000000
     values:
     - value: 5
     - value: 10
-    - value: 15
-  <BubbleNibblePenalties>k__BackingField:
+    - value: 10
+  bubbleNibblePenalties:
     keys: 000000000100000002000000
     values:
     - value: 10
-    - value: 15
-    - value: 20
-  <NibbleBaseSuccessChances>k__BackingField:
+    - value: 10
+    - value: 10
+  nibbleBaseSuccessChances:
     keys: 0000000001000000
     values:
     - value: 100

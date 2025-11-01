@@ -37,4 +37,26 @@ namespace Madduck.GameData
                 .ToList();
         }
     }
+    
+    [Serializable]
+    public class CardWeightModifierData : BaseModifierData
+    {
+        [field: SerializeField] public CardItemData ItemData { get; private set; }
+        
+        public class Builder : ModifierDataBuilder<CardWeightModifierData>
+        {
+            private Builder(ModifierMethod modifierMethod) : base(modifierMethod) { }
+
+            public static Builder CreateBuilder(ModifierMethod modifierMethod)
+            {
+                return new Builder(modifierMethod);
+            }
+            
+            public Builder WithName(CardItemData cardItemData)
+            {
+                modifierData.ItemData = cardItemData;
+                return this;
+            }
+        }
+    }
 }
