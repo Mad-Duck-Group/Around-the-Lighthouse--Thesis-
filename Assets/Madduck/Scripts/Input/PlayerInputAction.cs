@@ -192,6 +192,15 @@ namespace Madduck.Scripts.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Bait"",
+                    ""type"": ""Button"",
+                    ""id"": ""97d14819-a323-4bdd-9c5c-9544579a880e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -425,6 +434,28 @@ namespace Madduck.Scripts.Input
                     ""action"": ""GamepadHookControl"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5ab0d80-a83b-40e3-9160-578efd552131"",
+                    ""path"": ""<XInputController>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Bait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""635c3e34-bfe1-4483-9665-a65717e3335d"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Mouse & Keyboard"",
+                    ""action"": ""Bait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -483,6 +514,7 @@ namespace Madduck.Scripts.Input
             m_Player_GamepadHookControl = m_Player.FindAction("GamepadHookControl", throwIfNotFound: true);
             m_Player_ControlBoat = m_Player.FindAction("ControlBoat", throwIfNotFound: true);
             m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
+            m_Player_Bait = m_Player.FindAction("Bait", throwIfNotFound: true);
         }
 
         ~@PlayerInputAction()
@@ -574,6 +606,7 @@ namespace Madduck.Scripts.Input
         private readonly InputAction m_Player_GamepadHookControl;
         private readonly InputAction m_Player_ControlBoat;
         private readonly InputAction m_Player_PauseGame;
+        private readonly InputAction m_Player_Bait;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -629,6 +662,10 @@ namespace Madduck.Scripts.Input
             /// Provides access to the underlying input action "Player/PauseGame".
             /// </summary>
             public InputAction @PauseGame => m_Wrapper.m_Player_PauseGame;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Bait".
+            /// </summary>
+            public InputAction @Bait => m_Wrapper.m_Player_Bait;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -688,6 +725,9 @@ namespace Madduck.Scripts.Input
                 @PauseGame.started += instance.OnPauseGame;
                 @PauseGame.performed += instance.OnPauseGame;
                 @PauseGame.canceled += instance.OnPauseGame;
+                @Bait.started += instance.OnBait;
+                @Bait.performed += instance.OnBait;
+                @Bait.canceled += instance.OnBait;
             }
 
             /// <summary>
@@ -732,6 +772,9 @@ namespace Madduck.Scripts.Input
                 @PauseGame.started -= instance.OnPauseGame;
                 @PauseGame.performed -= instance.OnPauseGame;
                 @PauseGame.canceled -= instance.OnPauseGame;
+                @Bait.started -= instance.OnBait;
+                @Bait.performed -= instance.OnBait;
+                @Bait.canceled -= instance.OnBait;
             }
 
             /// <summary>
@@ -888,6 +931,13 @@ namespace Madduck.Scripts.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnPauseGame(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Bait" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnBait(InputAction.CallbackContext context);
         }
     }
 }

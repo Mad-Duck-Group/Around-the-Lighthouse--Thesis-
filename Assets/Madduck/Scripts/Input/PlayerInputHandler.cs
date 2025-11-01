@@ -50,6 +50,8 @@ namespace Madduck.Input
         [field: ReadOnly, 
                 ShowInInspector] public InputButton ReelingButton { get; private set; }
         [field: ReadOnly, 
+                ShowInInspector]public InputButton BaitButton { get; private set; }
+        [field: ReadOnly, 
                 ShowInInspector] public InputButton PauseGameButton { get; private set; }
 
         #endregion
@@ -86,6 +88,8 @@ namespace Madduck.Input
             ReelingButton = new InputButton(_playerInputAction.Player.Reeling);
             PauseGameButton = new InputButton(_playerInputAction.Player.PauseGame);
             JerkBindings = _playerInputAction.Player.JerkBait.bindings.ToArray();
+            BaitButton = new InputButton(_playerInputAction.Player.Bait);
+
         }
 
         #endregion
@@ -142,6 +146,11 @@ namespace Madduck.Input
         public void OnPauseGame(InputAction.CallbackContext context)
         {
             PauseGameButton.BindPressButton(context);
+        }
+
+        public void OnBait(InputAction.CallbackContext context)
+        {
+            BaitButton.BindPressButton(context);
         }
 
         public void OnInteract(InputAction.CallbackContext context)

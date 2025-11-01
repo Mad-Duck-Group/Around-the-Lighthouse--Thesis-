@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Input;
 using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
@@ -20,9 +21,14 @@ namespace Madduck.Room
             builder.Register(_ => baitButtonViewFactory, Lifetime.Singleton)
                 .As<IGenericFactory<BaitButtonView>>();
             builder.Register<BaitSelectionViewModel>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<BaitController>()
+                .As<IStartable>()
+                .AsSelf();
             builder.RegisterBuildCallback(x =>
             {
                 x.Resolve<BaitSelectionViewModel>();
+                x.Resolve<BaitController>();
+
             });
         }
     }
