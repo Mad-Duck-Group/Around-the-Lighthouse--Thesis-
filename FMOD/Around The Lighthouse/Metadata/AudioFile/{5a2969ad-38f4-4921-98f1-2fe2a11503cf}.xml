@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{ff1661ad-9655-4583-84b1-6bd7fafc3c6e}">
+	<object class="AudioFile" id="{5a2969ad-38f4-4921-98f1-2fe2a11503cf}">
 		<property name="assetPath">
-			<value>SFX/SFX_Bag.mp3</value>
+			<value>Ambient/AMB_Seagull_V2.mp3</value>
 		</property>
 		<property name="frequencyInKHz">
-			<value>24</value>
+			<value>11.0249996</value>
 		</property>
 		<property name="channelCount">
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>0.52800000000000002</value>
+			<value>6.3216326530612248</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{d0370551-250a-46b4-8fe4-9471cc918246}</destination>

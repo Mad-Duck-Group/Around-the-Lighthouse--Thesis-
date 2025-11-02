@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{ff1661ad-9655-4583-84b1-6bd7fafc3c6e}">
+	<object class="AudioFile" id="{00198c53-98da-480a-8ef4-f9dcba59c8df}">
 		<property name="assetPath">
-			<value>SFX/SFX_Bag.mp3</value>
+			<value>SFX/SFX_Ship_Engine.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>24</value>
@@ -11,7 +14,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>0.52800000000000002</value>
+			<value>26.783999999999999</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{d0370551-250a-46b4-8fe4-9471cc918246}</destination>
