@@ -31,6 +31,8 @@ namespace Madduck.Input
                 ShowInInspector] public SerializableReactiveProperty<Vector2> GamepadHookControl { get; private set; } = new();
         [field: ReadOnly, 
                 ShowInInspector] public SerializableReactiveProperty<float> BoatInput { get; private set; } = new();
+        [field: ReadOnly, 
+                ShowInInspector] public SerializableReactiveProperty<float> BaitSelectInput { get; private set; } = new();
         #endregion
 
         #region Buttons
@@ -88,7 +90,7 @@ namespace Madduck.Input
             ReelingButton = new InputButton(_playerInputAction.Player.Reeling);
             PauseGameButton = new InputButton(_playerInputAction.Player.PauseGame);
             JerkBindings = _playerInputAction.Player.JerkBait.bindings.ToArray();
-            BaitButton = new InputButton(_playerInputAction.Player.Bait);
+            BaitButton = new InputButton(_playerInputAction.Player.ToggleBait);
 
         }
 
@@ -148,9 +150,22 @@ namespace Madduck.Input
             PauseGameButton.BindPressButton(context);
         }
 
-        public void OnBait(InputAction.CallbackContext context)
+        public void OnToggleBait(InputAction.CallbackContext context)
         {
             BaitButton.BindPressButton(context);
+        }
+
+        public void OnSelectBait(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                float input = context.ReadValue<float>();
+                BaitSelectInput.Value = input;
+            }
+            else if (context.canceled)
+            {
+                BaitSelectInput.Value = 0f;
+            }
         }
 
         public void OnInteract(InputAction.CallbackContext context)

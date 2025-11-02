@@ -17,18 +17,17 @@ namespace Madduck.Room
 {
     [ShowOdinSerializedPropertiesInInspector]
     public class BaitButtonView : MonoBehaviour,
-        IPointerEnterHandler, IPointerExitHandler,
         ISerializationCallbackReceiver, ISupportsPrefabSerialization
     {
         #region Inspector
 
         [Title("References")]
         [Required, 
-         SerializeField] private Button button;
-        [Required, 
          SerializeField] private Image icon;
         [Required, 
          SerializeField] private TMP_Text amount;
+        [Required,
+            SerializeField] private RectTransform baitViewTransform;
         [Required,
          OdinSerialize] private GeneralTooltipManager tooltipManager;
 
@@ -62,7 +61,7 @@ namespace Madduck.Room
             icon.sprite = bait.ItemData.BaitIcon;
             Bind();
             OnBaitAmountChanged(_bait.CurrentCount);
-            SetInteractable(true);
+            
         }
 
         #endregion
@@ -72,18 +71,11 @@ namespace Madduck.Room
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            button
-                .OnClickAsObservable()
-                .Subscribe(_ => OnBaitButtonClicked(_bait.ItemData.BaitType))
-                .AddTo(ref disposableBuilder);
             _bait.CurrentCountView
                 .Subscribe(OnBaitAmountChanged)
                 .AddTo(ref disposableBuilder);
             _viewModel.CurrentBaitView
                 .Subscribe(OnBaitChanged)
-                .AddTo(ref disposableBuilder);
-            _viewModel.InteractableView
-                .Subscribe(SetInteractable)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -105,7 +97,7 @@ namespace Madduck.Room
         private void OnBaitAmountChanged(uint count)
         {
             amount.text = count.ToString();
-            if (count == 0) SetSelected(false);
+            
         }
 
         private void OnBaitChanged(BaitItemInstance newInstance)
@@ -115,41 +107,11 @@ namespace Madduck.Room
             {
                 selected = newInstance.ItemData.BaitType == _bait.ItemData.BaitType;
             }
-            SetSelected(selected);
+            
         }
         
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            _tooltipCts.Cancel();
-            _tooltipCts = new();
-            var tooltipObject = new GeneralTooltipObject(
-                _bait.ItemData.BaitName, 
-                _bait.ItemData.BaitDescription);
-            tooltipManager.ShowTooltip(tooltipObject, _tooltipCts.Token).Forget();
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            _tooltipCts.Cancel();
-            _tooltipCts = new();
-            tooltipManager.HideTooltip(_tooltipCts.Token).Forget();
-        }
-
         #endregion
-
-        #region Utils
-
-        private void SetInteractable(bool interactable)
-        {
-            button.interactable = interactable && _bait.CurrentCount > 0;
-        }
-
-        private void SetSelected(bool selected)
-        {
-            icon.color = selected ? Color.red : Color.white;
-        }
-
-        #endregion
+        
         
         #region Serialization
         [SerializeField, HideInInspector]
@@ -173,24 +135,5 @@ namespace Madduck.Room
         #endregion
     }
 
-    [Serializable]
-    public class BaitButtonViewFactory : IGenericFactory<BaitButtonView>
-    {
-        [Required, 
-         SerializeField] private Transform baitButtonsParent;
-        [Required, 
-         SerializeField] private Canvas tooltipCanvas;
-        [Required, 
-         SerializeField] private BaitButtonView baitButtonViewPrefab;
-        [Required, 
-         SerializeField] private Transform tooltipParent;
-        
-        public BaitButtonView Current { get; private set; }
-        public BaitButtonView Create()
-        {
-            Current = UnityEngine.Object.Instantiate(baitButtonViewPrefab, baitButtonsParent);
-            Current.SetUp(tooltipCanvas, tooltipParent);
-            return Current;
-        }
-    }
+   
 }

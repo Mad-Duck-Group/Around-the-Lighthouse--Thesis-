@@ -106,13 +106,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Bait",
+                    "name": "ToggleBait",
                     "type": "Button",
                     "id": "97d14819-a323-4bdd-9c5c-9544579a880e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SelectBait",
+                    "type": "Value",
+                    "id": "dba79475-a0df-4c9c-bb16-8d9c13d84ead",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -350,11 +359,11 @@
                 {
                     "name": "",
                     "id": "e5ab0d80-a83b-40e3-9160-578efd552131",
-                    "path": "<XInputController>/leftTrigger",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Bait",
+                    "action": "ToggleBait",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -365,9 +374,75 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Mouse & Keyboard",
-                    "action": "Bait",
+                    "action": "ToggleBait",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "8ce499dd-3cbe-41fa-a77a-10c9163ab51b",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectBait",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "3618194e-61d0-4546-aa64-f423e3933fb4",
+                    "path": "<XInputController>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectBait",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "8b95be3c-9426-44de-9be3-1b945fe66800",
+                    "path": "<XInputController>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "SelectBait",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "3d386a45-a89b-4dd7-a895-d9c4ba3d339a",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectBait",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "34f97cf7-e662-4bf3-a28b-7c12a1885c70",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectBait",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "18e46bf0-463f-48ef-87cc-c06a3886e320",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectBait",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

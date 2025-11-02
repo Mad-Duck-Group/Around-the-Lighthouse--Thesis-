@@ -194,13 +194,22 @@ namespace Madduck.Scripts.Input
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Bait"",
+                    ""name"": ""ToggleBait"",
                     ""type"": ""Button"",
                     ""id"": ""97d14819-a323-4bdd-9c5c-9544579a880e"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectBait"",
+                    ""type"": ""Value"",
+                    ""id"": ""dba79475-a0df-4c9c-bb16-8d9c13d84ead"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -438,11 +447,11 @@ namespace Madduck.Scripts.Input
                 {
                     ""name"": """",
                     ""id"": ""e5ab0d80-a83b-40e3-9160-578efd552131"",
-                    ""path"": ""<XInputController>/leftTrigger"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""Bait"",
+                    ""action"": ""ToggleBait"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -453,9 +462,75 @@ namespace Madduck.Scripts.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Mouse & Keyboard"",
-                    ""action"": ""Bait"",
+                    ""action"": ""ToggleBait"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""8ce499dd-3cbe-41fa-a77a-10c9163ab51b"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectBait"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""3618194e-61d0-4546-aa64-f423e3933fb4"",
+                    ""path"": ""<XInputController>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""8b95be3c-9426-44de-9be3-1b945fe66800"",
+                    ""path"": ""<XInputController>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""SelectBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""3d386a45-a89b-4dd7-a895-d9c4ba3d339a"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectBait"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""34f97cf7-e662-4bf3-a28b-7c12a1885c70"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""18e46bf0-463f-48ef-87cc-c06a3886e320"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -514,7 +589,8 @@ namespace Madduck.Scripts.Input
             m_Player_GamepadHookControl = m_Player.FindAction("GamepadHookControl", throwIfNotFound: true);
             m_Player_ControlBoat = m_Player.FindAction("ControlBoat", throwIfNotFound: true);
             m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
-            m_Player_Bait = m_Player.FindAction("Bait", throwIfNotFound: true);
+            m_Player_ToggleBait = m_Player.FindAction("ToggleBait", throwIfNotFound: true);
+            m_Player_SelectBait = m_Player.FindAction("SelectBait", throwIfNotFound: true);
         }
 
         ~@PlayerInputAction()
@@ -606,7 +682,8 @@ namespace Madduck.Scripts.Input
         private readonly InputAction m_Player_GamepadHookControl;
         private readonly InputAction m_Player_ControlBoat;
         private readonly InputAction m_Player_PauseGame;
-        private readonly InputAction m_Player_Bait;
+        private readonly InputAction m_Player_ToggleBait;
+        private readonly InputAction m_Player_SelectBait;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -663,9 +740,13 @@ namespace Madduck.Scripts.Input
             /// </summary>
             public InputAction @PauseGame => m_Wrapper.m_Player_PauseGame;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Bait".
+            /// Provides access to the underlying input action "Player/ToggleBait".
             /// </summary>
-            public InputAction @Bait => m_Wrapper.m_Player_Bait;
+            public InputAction @ToggleBait => m_Wrapper.m_Player_ToggleBait;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/SelectBait".
+            /// </summary>
+            public InputAction @SelectBait => m_Wrapper.m_Player_SelectBait;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -725,9 +806,12 @@ namespace Madduck.Scripts.Input
                 @PauseGame.started += instance.OnPauseGame;
                 @PauseGame.performed += instance.OnPauseGame;
                 @PauseGame.canceled += instance.OnPauseGame;
-                @Bait.started += instance.OnBait;
-                @Bait.performed += instance.OnBait;
-                @Bait.canceled += instance.OnBait;
+                @ToggleBait.started += instance.OnToggleBait;
+                @ToggleBait.performed += instance.OnToggleBait;
+                @ToggleBait.canceled += instance.OnToggleBait;
+                @SelectBait.started += instance.OnSelectBait;
+                @SelectBait.performed += instance.OnSelectBait;
+                @SelectBait.canceled += instance.OnSelectBait;
             }
 
             /// <summary>
@@ -772,9 +856,12 @@ namespace Madduck.Scripts.Input
                 @PauseGame.started -= instance.OnPauseGame;
                 @PauseGame.performed -= instance.OnPauseGame;
                 @PauseGame.canceled -= instance.OnPauseGame;
-                @Bait.started -= instance.OnBait;
-                @Bait.performed -= instance.OnBait;
-                @Bait.canceled -= instance.OnBait;
+                @ToggleBait.started -= instance.OnToggleBait;
+                @ToggleBait.performed -= instance.OnToggleBait;
+                @ToggleBait.canceled -= instance.OnToggleBait;
+                @SelectBait.started -= instance.OnSelectBait;
+                @SelectBait.performed -= instance.OnSelectBait;
+                @SelectBait.canceled -= instance.OnSelectBait;
             }
 
             /// <summary>
@@ -932,12 +1019,19 @@ namespace Madduck.Scripts.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnPauseGame(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Bait" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "ToggleBait" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnBait(InputAction.CallbackContext context);
+            void OnToggleBait(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "SelectBait" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSelectBait(InputAction.CallbackContext context);
         }
     }
 }

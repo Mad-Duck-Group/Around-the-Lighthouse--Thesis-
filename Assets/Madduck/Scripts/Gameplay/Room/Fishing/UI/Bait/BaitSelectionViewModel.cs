@@ -56,10 +56,10 @@ namespace Madduck.Room
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _playerInventory.CurrentBaitsView
-                .ObserveChanged()
-                .Subscribe(OnBaitChanged)
-                .AddTo(ref disposableBuilder);
+            // _playerInventory.CurrentBaitsView
+            //     .ObserveChanged()
+            //     .Subscribe(OnBaitChanged)
+            //     .AddTo(ref disposableBuilder);
             SetCurrentBaitCommand
                 .Subscribe(OnSetCurrentBait)
                 .AddTo(ref disposableBuilder);

@@ -6,11 +6,9 @@ using UnityEngine.EventSystems;
 
 namespace HasanSadikin.Carousel
 {
-    public abstract class CarouselItem<T> : MonoBehaviour, IPointerClickHandler
+    public abstract class CarouselItem<T> : MonoBehaviour
     {
         [SerializeField] private T _data;
-        
-
         public event Action<CarouselItem<T>> OnSelected;
 
         public RectTransform _rectTransform;
@@ -41,9 +39,5 @@ namespace HasanSadikin.Carousel
 
         protected virtual void OnActivated() { }
         protected virtual void OnDeactivated() { }
-        public virtual void OnPointerClick(PointerEventData eventData)
-        {
-            OnSelected?.Invoke(this);
-        }
     }
 }
