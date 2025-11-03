@@ -34,12 +34,25 @@ namespace Madduck.GameData
         private readonly IPublisher<ModifierSourceEvent> _modifierSourceEventPublisher;
         private readonly ReactiveProperty<WindDirection> _currentWindDirection = new();
         private readonly ReactiveProperty<WindStrength> _currentWindStrength = new();
-        private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _modifiers = new();
+        [ShowInInspector] private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _modifiers = new();
         private IDisposable _subscriptions;
         
         [Inject]
         public WeatherItemInstance(
             WeatherItemData itemData, 
+            IModifierSource modifierSource,
+            IPublisher<ModifierSourceEvent> modifierSourceEventPublisher)
+            : this(
+                itemData, 
+                null,
+                null,
+                modifierSource,
+                modifierSourceEventPublisher) { }
+        
+        public WeatherItemInstance(
+            WeatherItemData itemData, 
+            WindDirection? windDirection,
+            WindStrength? windStrength,
             IModifierSource modifierSource,
             IPublisher<ModifierSourceEvent> modifierSourceEventPublisher)
             : base(itemData)
@@ -53,8 +66,20 @@ namespace Madduck.GameData
             ModifiersView = _modifiers.CreateView(x => x);
             _modifierSourceEventPublisher?.Publish(new ModifierSourceEvent(this));
             Subscribe();
-            _currentWindDirection.Value = _windDirectionWeightTableInstance.GetRandomItem();
-            _currentWindStrength.Value = _windStrengthWeightTableInstance.GetRandomItem();
+            SetWindDirection(windDirection);
+            SetWindStrength(windStrength);
+        }
+        
+        private void SetWindDirection(WindDirection? windDirection)
+        {
+            windDirection ??= _windDirectionWeightTableInstance.GetRandomItem();
+            _currentWindDirection.Value = windDirection.Value;
+        }
+        
+        private void SetWindStrength(WindStrength? windStrength)
+        {
+            windStrength ??= _windStrengthWeightTableInstance.GetRandomItem();
+            _currentWindStrength.Value = windStrength.Value;
         }
 
         private void Subscribe()
@@ -78,7 +103,13 @@ namespace Madduck.GameData
         
         private void UpdateModifiers()
         {
-            _modifiers.Clear();
+            //_modifiers.Clear();
+            //NOTE: Clear in reverse to avoid collection modified errors
+            var count = _modifiers.Count;
+            for (var i = count - 1; i >= 0; i--)
+            {
+                _modifiers.Remove(_modifiers.ElementAt(i).Key);
+            }
             var weatherType = ItemData.WeatherType;
             var windDirection = _currentWindDirection.Value;
             var windStrength = _currentWindStrength.Value;
@@ -92,16 +123,12 @@ namespace Madduck.GameData
                 DebugUtils.LogError($"Wind strength {windStrength} not found in wind modifiers for weather item {weatherType} and direction {windDirection}");
                 return;
             }
-
-            foreach (var modifier in modifiers)
+            
+            var displayName = $"{weatherType}_{windDirection}_{windStrength}";
+            var modifierId = new ModifierId(InstanceGuid, displayName);
+            if (!_modifiers.ContainsKey(modifierId))
             {
-                var displayName = $"{weatherType}_{windDirection}_{windStrength}";
-                var modifierId = new ModifierId(InstanceGuid, displayName);
-                if (!_modifiers.ContainsKey(modifierId))
-                {
-                    _modifiers[modifierId] = new List<BaseModifierData>();
-                }
-                _modifiers[modifierId].Add(modifier);
+                _modifiers[modifierId] = new List<BaseModifierData>(modifiers);
             }
         }
     }

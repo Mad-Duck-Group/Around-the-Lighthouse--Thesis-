@@ -89,7 +89,11 @@ namespace Madduck.Room
             builder.Register<WeatherWeightTableInstance>(Lifetime.Singleton).AsSelf();
             if (spoofWeather && weatherFactoryMock != null)
             {
-                builder.Register(_ => weatherFactoryMock, Lifetime.Singleton)
+                builder.Register(x =>
+                    {
+                        x.Inject(weatherFactoryMock);
+                        return weatherFactoryMock;
+                    }, Lifetime.Singleton)
                     .As<IGenericFactory<WeatherItemInstance>>();
             }
             else

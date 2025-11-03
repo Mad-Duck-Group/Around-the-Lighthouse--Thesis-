@@ -108,18 +108,15 @@ namespace Madduck.Utils
 
         private void OnSubscribeModifierSource(IModifierSource source)
         {
-            DebugUtils.Log("Subscribed to modifier source: " + source.GetType().Name);
             var disposable = Observable.FromEvent(
                     h => source.OnDisposed += h,
                     h => source.OnDisposed -= h)
                 .Subscribe(_ => OnSourceDisposed(source));
             _disposeDictionary.Add(source, disposable);
-            //DebugUtils.Log($"Source Count: {source.Modifiers.Count}");
             source.Modifiers.OnModifierFirstSubscribe(_modifiers);
             source.ModifiersView.ObserveChanged()
                 .Subscribe(x =>
                 {
-                    DebugUtils.Log($"Source Modifier Changed: {source.Modifiers.Count} of {source.GetType().Name}");
                     x.OnModifierChanged(_modifiers);
                 })
                 .AddTo(ref _disposableBag);

@@ -8,11 +8,12 @@ using ObservableCollections;
 using R3;
 using Sirenix.OdinInspector;
 using VContainer;
+using VContainer.Unity;
 
 namespace Madduck.GameData
 {
     [Serializable]
-    public class PlayerInventory : IModifierSource, IDisposable
+    public class PlayerInventory : IModifierSource, IDisposable, IPostInitializable
     {
         public event Action OnDisposed;
 
@@ -117,14 +118,16 @@ namespace Madduck.GameData
         #endregion
         
         #region Events
+        public void PostInitialize()
+        {
+            _modifierSourceEventPublisher?.Publish(new ModifierSourceEvent(this));
+        }
         private void OnFishingRoomStarted()
         {
             var previousBaits = new ObservableDictionary<BaitType, BaitItemInstance>(CurrentBaits);
             var previousCards = new ObservableList<CardItemInstance>(CurrentCards);
             CurrentBaits.Clear();
             CurrentCards.Clear();
-            _modifierSourceEventPublisher?.Publish(new ModifierSourceEvent(this));
-            DebugUtils.Log("Modifier Source Published from Player Inventory");
             if (!_startingAdded)
             {
                 _startingAdded = true;
@@ -187,5 +190,7 @@ namespace Madduck.GameData
         }
 
         #endregion
+
+        
     }
 }

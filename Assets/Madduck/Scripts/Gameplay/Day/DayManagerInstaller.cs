@@ -80,7 +80,10 @@ namespace Madduck.Day
             builder.Register<CardRarityWeightTableInstance>(Lifetime.Singleton).AsSelf();
             builder.RegisterInstance(fishermanItemData).AsSelf();
             builder.RegisterInstance(playerInventoryConfig).AsSelf();
-            builder.Register<PlayerInventory>(Lifetime.Singleton).AsSelf();
+            EntryPointsBuilder.EnsureDispatcherRegistered(builder);
+            builder.Register<PlayerInventory>(Lifetime.Singleton)
+                .AsSelf()
+                .As<IPostInitializable>();
             builder.Register<FishermanItemInstance>(Lifetime.Singleton).AsSelf();
             builder.Register<DayManager>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.RegisterBuildCallback(x =>
