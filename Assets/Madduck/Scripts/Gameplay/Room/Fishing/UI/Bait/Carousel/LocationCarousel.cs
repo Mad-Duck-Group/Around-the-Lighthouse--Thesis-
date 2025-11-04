@@ -2,6 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using HasanSadikin.Carousel;
 using Madduck.Utils;
+using R3;
 using UnityEngine;
 
 
@@ -14,8 +15,8 @@ using UnityEngine;
     {
         public void OnEnable()
         {
-            OnItemSelected.AddListener(LogItem);
-            OnCurrentItemUpdated.AddListener(LogItem);
+            OnItemSelected.Subscribe(LogItem).AddTo(this);
+            OnCurrentItemUpdated.Subscribe(LogItem).AddTo(this);
         }
 
         private void LogItem(LocationData data)
@@ -23,3 +24,5 @@ using UnityEngine;
             //DebugUtils.Log(data.sprite);
         }
     }
+
+

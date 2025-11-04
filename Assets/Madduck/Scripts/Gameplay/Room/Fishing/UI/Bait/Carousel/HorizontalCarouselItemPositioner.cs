@@ -37,9 +37,6 @@ namespace HasanSadikin.Carousel
 
         private void OnValidate()
         {
-            if (_image == null) _image = GetComponent<Image>();
-            
-            _image.color = _debugCarouselArea ? new Color(1, 1, 1, 50 / 255f) : new Color(0, 0, 0, 0.1f);
             
             if(_isStatic)
             {

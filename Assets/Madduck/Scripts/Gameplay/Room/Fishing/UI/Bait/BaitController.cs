@@ -1,4 +1,5 @@
 using System;
+using HasanSadikin.Carousel;
 using Madduck.GameData;
 using Madduck.GameData.Bait;
 using Madduck.Input;
@@ -15,30 +16,35 @@ namespace Madduck.Room
 {
     public class BaitController : IDisposable ,IStartable
     {
-        
+        public ReactiveCommand<BaitItemInstance> OnBaitChanged { get; } = new();
         
         private readonly PlayerInputHandler _inputHandler;
         private readonly PlayerInventory _playerInventory;
         private readonly ISubscriber<FishingStateEvent> _fishingStateSubscriber;
         private readonly GameObject _uiBeforeTriggerBait;
         private readonly GameObject _uiAfterTriggerBait;
-
+        private readonly CarouselController<LocationData> _carousel;
+        
         private bool _interactable = true;
 
-        private IDisposable _baitBinding;
+        private IDisposable _bindings;
+        private readonly CompositeDisposable _confirmDisposables = new();
+
 
         [Inject]
         public BaitController(PlayerInputHandler inputHandler,
             PlayerInventory playerInventory,
             ISubscriber<FishingStateEvent> fishingStateSubscriber,
             UIBeforeTriggerBait before,
-            UIAfterTriggerBait after)
+            UIAfterTriggerBait after,
+            CarouselController<LocationData> carousel)
         {
             _inputHandler = inputHandler;
             _playerInventory = playerInventory;
             _fishingStateSubscriber = fishingStateSubscriber;
             _uiBeforeTriggerBait = before.Value;
             _uiAfterTriggerBait = after.Value;
+            _carousel = carousel;
         }
         
         public void Start()
@@ -50,21 +56,60 @@ namespace Madduck.Room
         private void Bind()
         {
             var builder = Disposable.CreateBuilder();
-            _fishingStateSubscriber.Subscribe(OnFishingStateEvent).AddTo(ref builder);
-            _baitBinding = _inputHandler.BaitButton.IsDown.Where(x => x)
-                .Subscribe(_ => { ToggleBaitUI();});
-            _baitBinding = _inputHandler.BaitSelectInput.Subscribe(value =>
+            _fishingStateSubscriber
+                .Subscribe(OnFishingStateEvent)
+                .AddTo(ref builder);
+            _inputHandler.BaitButton.IsDown
+                .Where(x => x)
+                .Subscribe(_ => { ToggleBaitUI();})
+                .AddTo(ref builder);
+            _inputHandler.BaitSelectInput
+                .Where(_ => _interactable)
+                .ThrottleFirst(TimeSpan.FromMilliseconds(200))//block spam
+                .Subscribe(value =>
             {
-                // if (value > 0 && _interactable)
-                // {
-                //     OnCarouselItemUpdated(_playerInventory.GetNextBait());
-                // }
-                // else if (value < 0&& _interactable)
-                // {
-                //     OnCarouselItemUpdated(_playerInventory.GetPreviousBait());
-                // }
-            }).AddTo(ref builder);
-            //DebugUtils.Log("test inject");
+                if (value > 0 && _interactable)
+                {
+                    OnNextBait();
+                    _carousel.Next();
+                }
+                else if (value < 0&& _interactable)
+                {
+                    OnPreviousBait();
+                    _carousel.Previous();
+                }
+            })
+                .AddTo(ref builder);
+            _carousel.OnInitialized
+                .Where(_ => _carousel.HasItems)
+                .Subscribe(_ =>
+                {
+                    _confirmDisposables.Clear(); // กัน double bind
+
+                    _inputHandler.ConfirmBaitButton.IsDown
+                        .Where(x => x && _interactable && _uiAfterTriggerBait.activeSelf)
+                        .Subscribe(__ => _carousel.Select())
+                        .AddTo(_confirmDisposables);
+                })
+                .AddTo(ref builder);
+            
+             _carousel.OnCurrentItemUpdated
+                 .Where(_ => _uiAfterTriggerBait.activeSelf)
+                 .Subscribe(data =>
+                 {
+                     DebugUtils.Log($"Current bait: {data.sprite}");
+                 })
+                 .AddTo(ref builder);
+            
+             _carousel.OnItemSelected
+                 .Where(_ => _interactable)
+                 .Subscribe(data =>
+                 {
+                     DebugUtils.Log($"Selected bait from carousel: {data.sprite}");
+                 })
+                 .AddTo(ref builder);
+             _bindings = builder.Build();
+            DebugUtils.Log("test inject");
         }
 
         private void ToggleBaitUI()
@@ -91,8 +136,27 @@ namespace Madduck.Room
         {
             if (bait == null) return;
             _playerInventory.SetCurrentBait(bait.ItemData.BaitType);
+            OnBaitChanged.Execute(bait);
+        }
+        private void OnNextBait()
+        {
+            var next = _playerInventory.GetNextBait();
+            if (next != null)
+            {
+                OnCarouselItemUpdated(next);
+                DebugUtils.Log($"Next bait: {next.ItemData.BaitType}");
+            }
         }
 
+        private void OnPreviousBait()
+        {
+            var prev = _playerInventory.GetPreviousBait();
+            if (prev != null)
+            {
+                OnCarouselItemUpdated(prev);
+                DebugUtils.Log($"Previous bait: {prev.ItemData.BaitType}");
+            }
+        }
         private void OnCarouselItemSelected(BaitItemInstance bait)
         {
             if (!_interactable || bait == null) return;
@@ -102,7 +166,7 @@ namespace Madduck.Room
 
         public void Dispose()
         {
-            _baitBinding?.Dispose();
+            _bindings?.Dispose();
         }
 
 

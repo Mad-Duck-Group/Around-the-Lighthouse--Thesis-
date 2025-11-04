@@ -122,6 +122,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ConfirmBait",
+                    "type": "Button",
+                    "id": "850ee2c4-7a09-4769-b5cb-dbc0e9a95e1b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -443,6 +452,28 @@
                     "action": "SelectBait",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "cd09ad07-126a-4d52-8ace-4905572db5ac",
+                    "path": "<XInputController>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "ConfirmBait",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1561da61-86c2-4212-9311-79f903b9037f",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Mouse & Keyboard",
+                    "action": "ConfirmBait",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

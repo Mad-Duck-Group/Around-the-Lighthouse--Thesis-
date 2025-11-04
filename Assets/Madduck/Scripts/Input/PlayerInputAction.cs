@@ -210,6 +210,15 @@ namespace Madduck.Scripts.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ConfirmBait"",
+                    ""type"": ""Button"",
+                    ""id"": ""850ee2c4-7a09-4769-b5cb-dbc0e9a95e1b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -531,6 +540,28 @@ namespace Madduck.Scripts.Input
                     ""action"": ""SelectBait"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd09ad07-126a-4d52-8ace-4905572db5ac"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""ConfirmBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1561da61-86c2-4212-9311-79f903b9037f"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Mouse & Keyboard"",
+                    ""action"": ""ConfirmBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -591,6 +622,7 @@ namespace Madduck.Scripts.Input
             m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
             m_Player_ToggleBait = m_Player.FindAction("ToggleBait", throwIfNotFound: true);
             m_Player_SelectBait = m_Player.FindAction("SelectBait", throwIfNotFound: true);
+            m_Player_ConfirmBait = m_Player.FindAction("ConfirmBait", throwIfNotFound: true);
         }
 
         ~@PlayerInputAction()
@@ -684,6 +716,7 @@ namespace Madduck.Scripts.Input
         private readonly InputAction m_Player_PauseGame;
         private readonly InputAction m_Player_ToggleBait;
         private readonly InputAction m_Player_SelectBait;
+        private readonly InputAction m_Player_ConfirmBait;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -747,6 +780,10 @@ namespace Madduck.Scripts.Input
             /// Provides access to the underlying input action "Player/SelectBait".
             /// </summary>
             public InputAction @SelectBait => m_Wrapper.m_Player_SelectBait;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/ConfirmBait".
+            /// </summary>
+            public InputAction @ConfirmBait => m_Wrapper.m_Player_ConfirmBait;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -812,6 +849,9 @@ namespace Madduck.Scripts.Input
                 @SelectBait.started += instance.OnSelectBait;
                 @SelectBait.performed += instance.OnSelectBait;
                 @SelectBait.canceled += instance.OnSelectBait;
+                @ConfirmBait.started += instance.OnConfirmBait;
+                @ConfirmBait.performed += instance.OnConfirmBait;
+                @ConfirmBait.canceled += instance.OnConfirmBait;
             }
 
             /// <summary>
@@ -862,6 +902,9 @@ namespace Madduck.Scripts.Input
                 @SelectBait.started -= instance.OnSelectBait;
                 @SelectBait.performed -= instance.OnSelectBait;
                 @SelectBait.canceled -= instance.OnSelectBait;
+                @ConfirmBait.started -= instance.OnConfirmBait;
+                @ConfirmBait.performed -= instance.OnConfirmBait;
+                @ConfirmBait.canceled -= instance.OnConfirmBait;
             }
 
             /// <summary>
@@ -1032,6 +1075,13 @@ namespace Madduck.Scripts.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnSelectBait(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "ConfirmBait" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnConfirmBait(InputAction.CallbackContext context);
         }
     }
 }

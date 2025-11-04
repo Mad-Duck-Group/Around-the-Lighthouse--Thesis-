@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Madduck.Utils;
+using R3;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using VContainer;
 
 namespace HasanSadikin.Carousel
 {
@@ -32,26 +34,37 @@ namespace HasanSadikin.Carousel
         [SerializeField] protected bool _isInfinity = false;
         [SerializeField] protected int _repeat = 2;
         [SerializeField] protected int _indexRepeatOffset = 1;
-
-        [SerializeField] protected UnityEvent<T> _onItemSelected;
-        [SerializeField] protected UnityEvent<T> _onCurrentItemUpdated;
-        [SerializeField] protected UnityEvent _onNext;
-        [SerializeField] protected UnityEvent _onPrev;
-
+        
+        public int TotalItems => _carouselItems.Count;
+        public bool HasItems => _carouselItems.Count > 0;
+        public ReactiveCommand<Unit> OnInitialized { get; } = new();
+        public ReactiveCommand<T> OnItemSelected { get; } = new();
+        public ReactiveCommand<T> OnCurrentItemUpdated { get; } = new();
+        public ReactiveCommand<Unit> OnNext { get; } = new();
+        public ReactiveCommand<Unit> OnPrev { get; } = new();
         protected int _currentIndex;
         protected ICarouselItemPositioner _positioner;
         protected List<CarouselItem<T>> _carouselItems = new List<CarouselItem<T>>();
 
-        public UnityEvent<T> OnItemSelected { get => _onItemSelected; }
-        public UnityEvent<T> OnCurrentItemUpdated { get => _onCurrentItemUpdated; }
-        public UnityEvent OnPrev { get => _onPrev; }
-        public UnityEvent OnNext { get => _onNext; }
+        private readonly CompositeDisposable _disposables = new();
+        
 
-        protected virtual void Awake()
+        // 🧩 Reactive State
+        public ReactiveProperty<int> CurrentIndex { get; } = new(0);
+
+        [Inject]
+        public void Construct(ICarouselItemPositioner positioner)
         {
-            _positioner = GetComponent<ICarouselItemPositioner>() ?? gameObject.AddComponent<HorizontalCarouselItemPositioner>();
+            _positioner = positioner;
+            Bind();
         }
-
+        
+        public void Bind()
+        {
+            CurrentIndex.Subscribe(_ => UpdateData()).AddTo(_disposables);
+            
+        }
+        
         protected virtual void OnValidate()
         {
             if (_repeat < 2) _repeat = 2;
@@ -61,7 +74,10 @@ namespace HasanSadikin.Carousel
         protected virtual void Start()
         {
             CreateCarouselItems();
-            UpdateData();
+            if (HasItems && _data != null && _data.Length > 0)
+                UpdateData();
+
+            OnInitialized.Execute(Unit.Default);
         }
 
         protected virtual void CreateCarouselItems()
@@ -78,7 +94,11 @@ namespace HasanSadikin.Carousel
                 SetChildOrigin(rect);
                 rect.anchoredPosition = new Vector3(0, 0);
 
-                newItem.OnSelected += AdjustIndexForClickedItem;
+                newItem.OnSelected += clicked =>
+                {
+                    AdjustIndexForClickedItem(clicked);
+                    OnItemSelected.Execute(clicked.Data);
+                };
 
                 _carouselItems.Add(newItem);
             }
@@ -153,11 +173,16 @@ namespace HasanSadikin.Carousel
 
         protected int GetCarouselIndex(int index)
         {
-            return (index % _carouselItems.Count + _carouselItems.Count) % _carouselItems.Count;
+            var count = _carouselItems.Count;
+            if (count == 0) return 0; 
+            var mod = index % count;
+            return (mod + count) % count;
         }
 
         protected virtual void UpdateData()
         {
+            if (!HasItems || _data == null || _data.Length == 0) return;
+
             for (int i = 0; i < _carouselItems.Count; i++)
             {
                 var item = GetCarouselItemAt(i);
@@ -166,7 +191,7 @@ namespace HasanSadikin.Carousel
             
                 if (isActive)
                 {
-                    _onCurrentItemUpdated?.Invoke(item.Data);
+                    OnCurrentItemUpdated.Execute(item.Data);
                 }
 
                 MoveItemToPositionAtIndex(item, _isInfinity ? GetCarouselIndex(i - _currentIndex) - _data.Length * _indexRepeatOffset : i - _currentIndex);
@@ -184,8 +209,8 @@ namespace HasanSadikin.Carousel
 
             _currentIndex++;
           
-            UpdateData();
-            _onNext?.Invoke();
+            CurrentIndex.Value = _currentIndex;
+            OnNext.Execute(Unit.Default);
         }
 
         public virtual void Previous()
@@ -194,13 +219,13 @@ namespace HasanSadikin.Carousel
 
             _currentIndex--;
 
-            UpdateData();
-            _onPrev?.Invoke();
+            CurrentIndex.Value = _currentIndex;
+            OnPrev.Execute(Unit.Default);
         }
 
         public virtual void Select()
         {
-            _onItemSelected?.Invoke(_carouselItems[GetCarouselIndex(_currentIndex)].Data);
+            OnItemSelected.Execute(_carouselItems[GetCarouselIndex(_currentIndex)].Data);
         }
 
         protected virtual void OnCarouselItemClicked(CarouselItem<T> clickedItem)

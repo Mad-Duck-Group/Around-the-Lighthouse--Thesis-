@@ -38,6 +38,9 @@ namespace Madduck.GameData
         public ISynchronizedView<KeyValuePair<ModifierId, List<BaseModifierData>>, 
             KeyValuePair<ModifierId, List<BaseModifierData>>> ModifiersView { get; }
         public ReadOnlyReactiveProperty<BaitItemInstance> CurrentBaitView { get; }
+        public ReactiveCommand<Unit> NextBaitCommand { get; } = new();
+        public ReactiveCommand<Unit> PreviousBaitCommand { get; } = new();
+        public ReactiveCommand<BaitItemInstance> BaitChanged { get; } = new();
         #endregion
 
         #region Fields
@@ -96,7 +99,26 @@ namespace Madduck.GameData
                         i => i.ItemData.BaitName);
                 })
                 .AddTo(ref disposableBuilder);
-            _subscriptions = disposableBuilder.Build();
+            NextBaitCommand.Subscribe(_ =>
+            {
+                var next = GetNextBait();
+                if (next != null)
+                {
+                    SetCurrentBait(next.ItemData.BaitType);
+                    BaitChanged.Execute(next);
+                }
+            }).AddTo(ref disposableBuilder);
+
+            PreviousBaitCommand.Subscribe(_ =>
+            {
+                var prev = GetPreviousBait();
+                if (prev != null)
+                {
+                    SetCurrentBait(prev.ItemData.BaitType);
+                    BaitChanged.Execute(prev);
+                }
+            }).AddTo(ref disposableBuilder);
+            _subscriptions = disposableBuilder.Build(); 
         }
 
         public void Dispose()
@@ -155,6 +177,32 @@ namespace Madduck.GameData
             CurrentBait.Value.ChangeCurrentCount(change);
             if (CurrentBait.Value.CurrentCount == 0) 
                 SetCurrentBait(BaitType.None);
+        }
+        public BaitItemInstance GetNextBait()
+        {
+            if (CurrentBaits.Count == 0) return null;
+    
+            var baitList = CurrentBaitsView.Select(x => x.Value).ToList();;
+            var currentIndex = CurrentBait.Value == null
+                ? -1
+                : baitList.IndexOf(CurrentBait.Value);
+
+            var nextIndex = (currentIndex + 1) % baitList.Count;
+            DebugUtils.Log($"Next index: {nextIndex}, Current index: {currentIndex}, Bait count: {baitList.Count}");
+            return baitList[nextIndex];
+        }
+
+        public BaitItemInstance GetPreviousBait()
+        {
+            if (CurrentBaits.Count == 0) return null;
+    
+            var baitList = CurrentBaitsView.Select(x => x.Value).ToList();
+            var currentIndex = CurrentBait.Value == null
+                ? 0
+                : baitList.IndexOf(CurrentBait.Value);
+
+            var prevIndex = (currentIndex - 1 + baitList.Count) % baitList.Count;
+            return baitList[prevIndex];
         }
         #endregion
 
