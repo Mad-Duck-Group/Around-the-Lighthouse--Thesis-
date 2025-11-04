@@ -15,6 +15,10 @@ namespace Madduck.Room
         [Title("Bait")]
         [Required,
          SerializeField] private BaitButtonViewFactory baitButtonViewFactory;
+        [Required,
+         SerializeField]private GameObject uiBeforeTriggerBait;
+        [Required,
+         SerializeField] private GameObject uiAfterTriggerBait;
         
         public void Install(IContainerBuilder builder)
         {
@@ -24,6 +28,8 @@ namespace Madduck.Room
             builder.RegisterEntryPoint<BaitController>()
                 .As<IStartable>()
                 .AsSelf();
+            builder.RegisterInstance(new UIBeforeTriggerBait(uiBeforeTriggerBait));
+            builder.RegisterInstance(new UIAfterTriggerBait(uiAfterTriggerBait));
             builder.RegisterBuildCallback(x =>
             {
                 x.Resolve<BaitSelectionViewModel>();

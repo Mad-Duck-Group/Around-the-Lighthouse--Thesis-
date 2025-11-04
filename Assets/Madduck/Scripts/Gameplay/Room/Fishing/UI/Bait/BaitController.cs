@@ -6,6 +6,7 @@ using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -14,9 +15,13 @@ namespace Madduck.Room
 {
     public class BaitController : IDisposable ,IStartable
     {
+        
+        
         private readonly PlayerInputHandler _inputHandler;
         private readonly PlayerInventory _playerInventory;
         private readonly ISubscriber<FishingStateEvent> _fishingStateSubscriber;
+        private readonly GameObject _uiBeforeTriggerBait;
+        private readonly GameObject _uiAfterTriggerBait;
 
         private bool _interactable = true;
 
@@ -25,11 +30,15 @@ namespace Madduck.Room
         [Inject]
         public BaitController(PlayerInputHandler inputHandler,
             PlayerInventory playerInventory,
-            ISubscriber<FishingStateEvent> fishingStateSubscriber)
+            ISubscriber<FishingStateEvent> fishingStateSubscriber,
+            UIBeforeTriggerBait before,
+            UIAfterTriggerBait after)
         {
             _inputHandler = inputHandler;
             _playerInventory = playerInventory;
             _fishingStateSubscriber = fishingStateSubscriber;
+            _uiBeforeTriggerBait = before.Value;
+            _uiAfterTriggerBait = after.Value;
         }
         
         public void Start()
@@ -43,7 +52,7 @@ namespace Madduck.Room
             var builder = Disposable.CreateBuilder();
             _fishingStateSubscriber.Subscribe(OnFishingStateEvent).AddTo(ref builder);
             _baitBinding = _inputHandler.BaitButton.IsDown.Where(x => x)
-                .Subscribe(_ => { OpenUI();});
+                .Subscribe(_ => { ToggleBaitUI();});
             _baitBinding = _inputHandler.BaitSelectInput.Subscribe(value =>
             {
                 // if (value > 0 && _interactable)
@@ -58,9 +67,20 @@ namespace Madduck.Room
             //DebugUtils.Log("test inject");
         }
 
-        private void OpenUI()
+        private void ToggleBaitUI()
         {
-            DebugUtils.Log("OpenUI");
+            if (_uiBeforeTriggerBait.activeSelf)
+            {
+                _uiBeforeTriggerBait.SetActive(false);
+                _uiAfterTriggerBait.SetActive(true);
+                DebugUtils.Log("CloseUI");
+            }
+            else
+            {
+                _uiAfterTriggerBait.SetActive(false);
+                _uiBeforeTriggerBait.SetActive(true);
+                DebugUtils.Log("OpenUI");
+            }
         }
         private void OnFishingStateEvent(FishingStateEvent evt)
         {
@@ -87,5 +107,16 @@ namespace Madduck.Room
 
 
         
+    }
+    public class UIBeforeTriggerBait
+    {
+        public GameObject Value { get; }
+        public UIBeforeTriggerBait(GameObject value) => Value = value;
+    }
+
+    public class UIAfterTriggerBait
+    {
+        public GameObject Value { get; }
+        public UIAfterTriggerBait(GameObject value) => Value = value;
     }
 }
