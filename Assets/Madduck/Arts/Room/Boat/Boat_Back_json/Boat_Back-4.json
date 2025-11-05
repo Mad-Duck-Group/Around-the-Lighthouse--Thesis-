@@ -1,0 +1,135 @@
+{
+  "frames": {
+    "Boat_Back24.png": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 881,
+        "h": 774
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 16,
+        "y": 0,
+        "w": 881,
+        "h": 774
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Boat_Back25.png": {
+      "frame": {
+        "x": 2,
+        "y": 780,
+        "w": 881,
+        "h": 774
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 16,
+        "y": 0,
+        "w": 881,
+        "h": 774
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Boat_Back26.png": {
+      "frame": {
+        "x": 887,
+        "y": 2,
+        "w": 881,
+        "h": 774
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 16,
+        "y": 0,
+        "w": 881,
+        "h": 774
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Boat_Back27.png": {
+      "frame": {
+        "x": 1772,
+        "y": 2,
+        "w": 881,
+        "h": 774
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 16,
+        "y": 0,
+        "w": 881,
+        "h": 774
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Boat_Back28.png": {
+      "frame": {
+        "x": 887,
+        "y": 780,
+        "w": 881,
+        "h": 774
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 16,
+        "y": 0,
+        "w": 881,
+        "h": 774
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "Boat_Back-4.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 2655,
+      "h": 1556
+    },
+    "scale": 1
+  }
+}

@@ -32,6 +32,8 @@ namespace Madduck.Input
                 ShowInInspector] public SerializableReactiveProperty<Vector2> RightStickDelta { get; private set; } = new();
         [field: ReadOnly, 
                 ShowInInspector] public SerializableReactiveProperty<Vector2> LeftStickDelta { get; private set; } = new();
+        [field: ReadOnly, 
+                ShowInInspector] public SerializableReactiveProperty<float> BaitSelectInput { get; private set; } = new();
         #endregion
 
         #region Buttons
@@ -57,6 +59,10 @@ namespace Madduck.Input
                 ShowInInspector] public InputButton Action1Button { get; private set; }
         [field: ReadOnly, 
                 ShowInInspector] public InputButton ReelingButton { get; private set; }
+        [field: ReadOnly, 
+                ShowInInspector]public InputButton BaitButton { get; private set; }
+        [field: ReadOnly, 
+                ShowInInspector]public InputButton ConfirmBaitButton { get; private set; }
         [field: ReadOnly, 
                 ShowInInspector] public InputButton PauseGameButton { get; private set; }
 
@@ -93,7 +99,8 @@ namespace Madduck.Input
             Action1Button = new InputButton(_playerInputAction.Player.Action1);
             ReelingButton = new InputButton(_playerInputAction.Player.Reeling);
             PauseGameButton = new InputButton(_playerInputAction.Player.PauseGame);
-            //JerkBindings = _playerInputAction.Player.JerkBait.bindings.ToArray();
+            BaitButton = new InputButton(_playerInputAction.Player.ToggleBait);
+            ConfirmBaitButton = new InputButton(_playerInputAction.Player.ConfirmBait);
         }
 
         #endregion
@@ -156,6 +163,27 @@ namespace Madduck.Input
             PauseGameButton.BindPressButton(context);
         }
 
+        public void OnToggleBait(InputAction.CallbackContext context)
+        {
+            BaitButton.BindPressButton(context);
+        }
+
+        public void OnSelectBait(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                float input = context.ReadValue<float>();
+                BaitSelectInput.Value = input;
+            }
+            else if (context.canceled)
+            {
+                BaitSelectInput.Value = 0f;
+            }
+        }
+        public void OnConfirmBait(InputAction.CallbackContext context)
+        {
+            ConfirmBaitButton.BindPressButton(context);
+        }
         public void OnInteract(InputAction.CallbackContext context)
         {
             InteractButton.BindPressButton(context);

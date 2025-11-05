@@ -1,0 +1,159 @@
+{
+  "frames": {
+    "Boat_Back_Still18.png": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 853,
+        "h": 751
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 44,
+        "y": 0,
+        "w": 853,
+        "h": 751
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Boat_Back_Still19.png": {
+      "frame": {
+        "x": 2,
+        "y": 757,
+        "w": 853,
+        "h": 751
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 44,
+        "y": 0,
+        "w": 853,
+        "h": 751
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Boat_Back_Still20.png": {
+      "frame": {
+        "x": 859,
+        "y": 2,
+        "w": 853,
+        "h": 751
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 44,
+        "y": 0,
+        "w": 853,
+        "h": 751
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Boat_Back_Still21.png": {
+      "frame": {
+        "x": 1716,
+        "y": 2,
+        "w": 853,
+        "h": 751
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 44,
+        "y": 0,
+        "w": 853,
+        "h": 751
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Boat_Back_Still22.png": {
+      "frame": {
+        "x": 859,
+        "y": 757,
+        "w": 853,
+        "h": 751
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 44,
+        "y": 0,
+        "w": 853,
+        "h": 751
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Boat_Back_Still23.png": {
+      "frame": {
+        "x": 1716,
+        "y": 757,
+        "w": 853,
+        "h": 751
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 44,
+        "y": 0,
+        "w": 853,
+        "h": 751
+      },
+      "sourceSize": {
+        "w": 897,
+        "h": 780
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "Boat_Back_Still-3.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 2571,
+      "h": 1510
+    },
+    "scale": 1
+  }
+}
