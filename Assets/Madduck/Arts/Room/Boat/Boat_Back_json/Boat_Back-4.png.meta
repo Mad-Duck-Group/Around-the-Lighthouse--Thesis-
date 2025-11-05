@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: 5a502e04a7dcc7e45a21e627835eaf78
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -996998648209419232
+    second: Boat_Back-4_0
+  - first:
+      213: -4194394625260557046
+    second: Boat_Back-4_1
+  - first:
+      213: 533937892352108341
+    second: Boat_Back-4_2
+  - first:
+      213: -6300876466188880227
+    second: Boat_Back-4_3
+  - first:
+      213: -3006049383495232144
+    second: Boat_Back-4_4
+  - first:
+      213: 6081292968256341039
+    second: Boat_Back-4_5
+  - first:
+      213: 1730450088199800104
+    second: Boat_Back-4_6
+  - first:
+      213: -4594181727196519294
+    second: Boat_Back-4_7
+  - first:
+      213: -4141633412233212411
+    second: Boat_Back-4_8
+  - first:
+      213: 6451837639526755288
+    second: Boat_Back-4_9
+  - first:
+      213: 675275015969082199
+    second: Boat_Back-4_10
+  - first:
+      213: -582197115360434031
+    second: Boat_Back-4_11
+  - first:
+      213: -2460213162788641287
+    second: Boat_Back-4_12
+  - first:
+      213: 1648670323115288377
+    second: Boat_Back-4_13
+  - first:
+      213: 23284246269798747
+    second: Boat_Back-4_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Boat_Back-4_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 789
+        width: 884
+        height: 767
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 024dee30303f922f0800000000000000
+      internalID: -996998648209419232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_1
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 779
+        width: 123
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0d6989af448ac5c0800000000000000
+      internalID: -4194394625260557046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_2
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 783
+        width: 143
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 537a4c52fade86700800000000000000
+      internalID: 533937892352108341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_3
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 789
+        width: 884
+        height: 767
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d96713bcc3ace88a0800000000000000
+      internalID: -6300876466188880227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_4
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 779
+        width: 123
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0751c7f230e5846d0800000000000000
+      internalID: -3006049383495232144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_5
+      rect:
+        serializedVersion: 2
+        x: 1140
+        y: 783
+        width: 143
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f24000c0cb7156450800000000000000
+      internalID: 6081292968256341039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_6
+      rect:
+        serializedVersion: 2
+        x: 1771
+        y: 789
+        width: 884
+        height: 767
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82541b8df2bc30810800000000000000
+      internalID: 1730450088199800104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_7
+      rect:
+        serializedVersion: 2
+        x: 1813
+        y: 779
+        width: 123
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2846cd46f003e30c0800000000000000
+      internalID: -4594181727196519294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_8
+      rect:
+        serializedVersion: 2
+        x: 2025
+        y: 783
+        width: 143
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50e43f9da56f586c0800000000000000
+      internalID: -4141633412233212411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_9
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 11
+        width: 884
+        height: 767
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dbac7c5628898950800000000000000
+      internalID: 6451837639526755288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_10
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 1
+        width: 123
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75b888c9c0f0f5900800000000000000
+      internalID: 675275015969082199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_11
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 5
+        width: 143
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1982fa5eece9be7f0800000000000000
+      internalID: -582197115360434031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_12
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 11
+        width: 884
+        height: 767
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f52e38c9219bddd0800000000000000
+      internalID: -2460213162788641287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_13
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 1
+        width: 123
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 937e3018ce041e610800000000000000
+      internalID: 1648670323115288377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back-4_14
+      rect:
+        serializedVersion: 2
+        x: 1140
+        y: 5
+        width: 143
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5926cb06e8b25000800000000000000
+      internalID: 23284246269798747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Boat_Back-4_0: -996998648209419232
+      Boat_Back-4_1: -4194394625260557046
+      Boat_Back-4_10: 675275015969082199
+      Boat_Back-4_11: -582197115360434031
+      Boat_Back-4_12: -2460213162788641287
+      Boat_Back-4_13: 1648670323115288377
+      Boat_Back-4_14: 23284246269798747
+      Boat_Back-4_2: 533937892352108341
+      Boat_Back-4_3: -6300876466188880227
+      Boat_Back-4_4: -3006049383495232144
+      Boat_Back-4_5: 6081292968256341039
+      Boat_Back-4_6: 1730450088199800104
+      Boat_Back-4_7: -4594181727196519294
+      Boat_Back-4_8: -4141633412233212411
+      Boat_Back-4_9: 6451837639526755288
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
