@@ -61,7 +61,7 @@ MonoBehaviour:
   <FishingLineRegenFactor>k__BackingField:
     value: 14
   <ReelingSpeed>k__BackingField:
-    value: 50
+    value: 30
   <TugOfWarDecayThreshold>k__BackingField:
     value: 5
   <TugOfWarGainRate>k__BackingField:

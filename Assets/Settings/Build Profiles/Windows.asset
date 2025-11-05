@@ -164,11 +164,13 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 0.3.0_pre-alpha'
+    - line: '|   bundleVersion: 0.4.0_pre-alpha'
     - line: '|   preloadedAssets:'
     - line: '|   - {fileID: 11400000, guid: a042dd127467ead479c337aa9506b46e, type:
         2}'
     - line: '|   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100,
+        type: 3}'
+    - line: '|   - {fileID: -944628639613478452, guid: f3f5d7fdd4212004e8353d90538f7123,
         type: 3}'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
