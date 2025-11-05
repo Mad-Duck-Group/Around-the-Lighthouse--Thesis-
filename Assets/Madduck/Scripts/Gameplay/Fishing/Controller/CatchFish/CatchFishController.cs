@@ -136,7 +136,12 @@ namespace Madduck.Fishing.Controller
             Observable.FromEvent(
                     h => qte.OnFail += h,
                     h => qte.OnFail -= h)
-                .Subscribe(_ => tcs.TrySetResult())
+                .Subscribe(_ =>
+                {
+                    var currentFish = _fishFactory.Current;
+                    currentFish.DowngradeFishQuality();
+                    tcs.TrySetResult();
+                })
                 .AddTo(ref _qteSubscription);
             var settings = _config.SlowMoSettings;   
             _slowMoSequence = Sequence.Create(useUnscaledTime: true)   

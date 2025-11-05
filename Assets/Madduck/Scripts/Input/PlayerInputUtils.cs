@@ -15,8 +15,8 @@ namespace Madduck.Input
         public SerializableReactiveProperty<bool> AnyButtonPressed { get; }
         public SerializableReactiveProperty<Vector2> MovementInput { get; }
         public SerializableReactiveProperty<Vector2> MouseDelta { get; }
-        public SerializableReactiveProperty<Vector2> GamepadHookControl { get; }
-        public SerializableReactiveProperty<float> BoatInput { get; }
+        public SerializableReactiveProperty<Vector2> RightStickDelta { get; }
+        public SerializableReactiveProperty<Vector2> LeftStickDelta { get; }
         #endregion
 
         #region Buttons
@@ -25,10 +25,11 @@ namespace Madduck.Input
         public InputBinding[] JerkBindings { get; }
         public InputButton Action0Button { get; }
         public InputButton Action1Button { get; }
-        public InputButton ThrowHookButton { get; }
         public InputButton ReelingButton { get; }
         public InputButton PauseGameButton { get; }
         #endregion
+        
+        void SetActiveInput(bool active);
     }
 
     public class PlayerInputHandlerMock : IPlayerInputHandler
@@ -36,16 +37,17 @@ namespace Madduck.Input
         public SerializableReactiveProperty<bool> AnyButtonPressed { get; set; }
         public SerializableReactiveProperty<Vector2> MovementInput { get; set; }
         public SerializableReactiveProperty<Vector2> MouseDelta { get; set; }
-        public SerializableReactiveProperty<Vector2> GamepadHookControl { get; set; }
-        public SerializableReactiveProperty<float> BoatInput { get; set; }
+        public SerializableReactiveProperty<Vector2> RightStickDelta { get; set; }
+        public SerializableReactiveProperty<Vector2> LeftStickDelta { get; set; }
         public InputButton InteractButton { get; set; }
         public InputButton JerkBaitButton { get; set; }
         public InputBinding[] JerkBindings { get; set; }
         public InputButton Action0Button { get; set; }
         public InputButton Action1Button { get; set; }
-        public InputButton ThrowHookButton { get; set; }
         public InputButton ReelingButton { get; set; }
         public InputButton PauseGameButton { get; set; }
+        public void SetActiveInput(bool active){}
+        
     }
     public enum InputType
     {

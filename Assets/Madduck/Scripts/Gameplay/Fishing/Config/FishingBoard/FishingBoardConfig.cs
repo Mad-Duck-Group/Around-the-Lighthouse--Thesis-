@@ -15,6 +15,8 @@ namespace Madduck.Fishing.Config
         [PropertyTooltip("How fast the hook moves in response to mouse movement.")]
         [field: InlineProperty,
                 SerializeField] public UFloat MouseSensitivity { get; private set; } = 1f;
+        [field: InlineProperty,
+                SerializeField] public UFloat GamepadSensitivity { get; private set; } = 1f;
         [PropertyTooltip("Max fatigue level, when reached the fish is caught.")]
         [field: InlineProperty,
                 SerializeField] public UFloat MaxFatigueLevel { get; private set; } = 100;

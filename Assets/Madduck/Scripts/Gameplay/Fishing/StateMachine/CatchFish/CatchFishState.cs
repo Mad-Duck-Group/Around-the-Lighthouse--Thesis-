@@ -52,10 +52,10 @@ namespace Madduck.Fishing.StateMachine
         private void OnCatchFishCompleted()
         {
             DebugUtils.Log("Catch fish completed, transitioning to NoneState");
+            _fishCaughtEventPublisher.Publish(new FishCaughtEvent(_fishFactory.Current));
             stateMachine.ChangeState(FishingStateType.None);
             stateMachine.ResetState(FishingStateType.FishingBoard);
             stateMachine.ResetState(FishingStateType.Reeling);
-            _fishCaughtEventPublisher.Publish(new FishCaughtEvent(_fishFactory.Current));
         }
     }
 }

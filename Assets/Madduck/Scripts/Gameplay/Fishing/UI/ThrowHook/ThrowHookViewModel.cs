@@ -10,6 +10,7 @@ namespace Madduck.Fishing.UI
     {
         public ReadOnlyReactiveProperty<Percentage> ThrowHookPercentRelative { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> LockedRangePercent { get; private set; }
+        public ReadOnlyReactiveProperty<bool> ShowSlider { get; private set; }
         private readonly ThrowHookModel _model;
         private IDisposable _bindings;
         
@@ -33,6 +34,9 @@ namespace Madduck.Fishing.UI
                 .CombineLatest(new ReactiveProperty<UFloat>(Percentage.Full.AsPercentage), (current, max) => max <= 0 
                     ? Percentage.FromFraction(0f) 
                     : Percentage.FromFraction(1 - Mathf.Clamp01(current / max)))
+                .ToReadOnlyReactiveProperty()
+                .AddTo(ref disposableBuilder);
+            ShowSlider = _model.HookThrownFirstHeld
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();

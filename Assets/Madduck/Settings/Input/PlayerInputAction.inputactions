@@ -52,15 +52,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ThrowHook",
-                    "type": "Button",
-                    "id": "0470eb13-3324-4803-9ebf-21b4ee6f6c9e",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Reeling",
                     "type": "Button",
                     "id": "0a0a316c-be20-4dd2-9561-1d1a70bf3298",
@@ -74,25 +65,25 @@
                     "type": "Value",
                     "id": "4b2945ad-866f-479f-a81a-b530976598a2",
                     "expectedControlType": "Delta",
-                    "processors": "",
+                    "processors": "NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "GamepadHookControl",
+                    "name": "RightStickDelta",
                     "type": "Value",
                     "id": "65703e99-9c16-405b-af75-9fa928f14e97",
-                    "expectedControlType": "",
-                    "processors": "StickDeadzone",
+                    "expectedControlType": "Stick",
+                    "processors": "StickDeadzone,NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ControlBoat",
+                    "name": "LeftStickDelta",
                     "type": "Value",
-                    "id": "03a0d180-db3a-4626-9c14-62c715a05a32",
-                    "expectedControlType": "Axis",
-                    "processors": "",
+                    "id": "3d71a682-a100-4216-aebd-79baa11ab996",
+                    "expectedControlType": "Stick",
+                    "processors": "StickDeadzone,NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -219,6 +210,50 @@
                 },
                 {
                     "name": "",
+                    "id": "6cc4f8c7-5b38-4ecf-bfb8-a30e2ca4e255",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "JerkBait",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e54a1f0-88ff-46e9-acfa-20387f21f240",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "JerkBait",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b4c13cac-99d9-461f-affb-52a994e637d7",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "JerkBait",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b037c4a-0918-4f49-b35a-a640615fc2c6",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "JerkBait",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "331aacf1-287c-4795-a4e9-f1b6c623c727",
                     "path": "<Mouse>/leftButton",
                     "interactions": "Hold",
@@ -230,12 +265,12 @@
                 },
                 {
                     "name": "",
-                    "id": "9c0d378f-6faf-4957-ac9e-a8132b254098",
-                    "path": "<Keyboard>/e",
-                    "interactions": "Hold",
+                    "id": "1e533f31-4891-4abc-9298-6b0725670e5e",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
                     "processors": "",
-                    "groups": "Mouse & Keyboard",
-                    "action": "ThrowHook",
+                    "groups": ";Gamepad",
+                    "action": "Action0",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -246,6 +281,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse & Keyboard",
+                    "action": "Action1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e626ed5a-4c4f-4760-97a2-6db4c8878bc7",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Action1",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -284,39 +330,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "7c4e1909-cf04-496e-bf88-0c2f31ff9b20",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ControlBoat",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Positive",
-                    "id": "03c138e3-2806-4b20-8ff8-63b9b2c4b8f4",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ControlBoat",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Negative",
-                    "id": "5189fc69-d8b8-47f1-8906-6a07df621a82",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ControlBoat",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "fc061be7-b44e-4c5d-a80e-f102b06233d4",
                     "path": "<Keyboard>/escape",
@@ -332,9 +345,20 @@
                     "id": "1ba3ab0e-e0b7-4778-8682-50b491672c8a",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "NormalizeVector2",
+                    "processors": "",
                     "groups": ";Gamepad",
-                    "action": "GamepadHookControl",
+                    "action": "RightStickDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b36e319-f321-446a-bfca-bf5769f21a02",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "LeftStickDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

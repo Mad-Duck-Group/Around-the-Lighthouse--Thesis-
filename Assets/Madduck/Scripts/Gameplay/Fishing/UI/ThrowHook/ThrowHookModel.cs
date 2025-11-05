@@ -14,6 +14,7 @@ namespace Madduck.Fishing.UI
         [field: SerializeField] public SerializableReactiveProperty<UFloat> ThrowHookCurrentMaxValue { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<UFloat> ThrowHookCurrentValue { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<bool> HookThrown { get; private set; }
+        [field: SerializeField] public SerializableReactiveProperty<bool> HookThrownFirstHeld { get; private set; }
         public ReadOnlyReactiveProperty<Percentage> ThrowHookPercent { get; private set; }
         public FishingRodItemInstance FishingRod { get; private set; }
         
@@ -35,6 +36,8 @@ namespace Madduck.Fishing.UI
                 .AddTo(ref disposableBuilder);
             HookThrown = new SerializableReactiveProperty<bool>(false)
                 .AddTo(ref disposableBuilder);
+            HookThrownFirstHeld = new SerializableReactiveProperty<bool>(false)
+                .AddTo(ref disposableBuilder);
             ThrowHookPercent = ThrowHookCurrentValue
                 .CombineLatest(new ReactiveProperty<UFloat>(Percentage.Full.AsPercentage), (current, max) => max <= 0 
                     ? Percentage.FromFraction(0f) 
@@ -49,6 +52,7 @@ namespace Madduck.Fishing.UI
             ThrowHookCurrentValue.Value = 0f;
             ThrowHookCurrentMaxValue.Value = FishingRod.CurrentStats.CurrentMaxThrowPercentage.AsPercentage;
             HookThrown.Value = false;
+            HookThrownFirstHeld.Value = false;
         }
         
         public void Dispose()

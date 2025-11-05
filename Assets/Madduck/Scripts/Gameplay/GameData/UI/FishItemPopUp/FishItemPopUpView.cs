@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Shared;
 using Madduck.Utils;
 using PrimeTween;
 using R3;
@@ -8,6 +9,7 @@ using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Madduck.GameData
@@ -100,6 +102,9 @@ namespace Madduck.GameData
         public async UniTask Show(CancellationToken cancellationToken = default)
         {
             await TransitionIn(cancellationToken);
+            EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
+            Debug.Log($"current selection: {EventSystem.current.currentSelectedGameObject.name}");
+            closeButton.Select();
             OnOpen?.Invoke();
         }
 

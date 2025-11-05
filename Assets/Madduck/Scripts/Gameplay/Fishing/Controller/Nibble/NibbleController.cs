@@ -217,7 +217,10 @@ namespace Madduck.Fishing.Controller
 
         private void OnQteSuccess()
         {
-            _qteActive = false;
+            UniTask.WaitForEndOfFrame().ContinueWith(() =>
+            {
+                _qteActive = false;
+            });
             _qteButtonFactory.Current.OnSuccess -= OnQteSuccess;
             _hookFactory.Current.Nibble(2);
             _currentStageChance[_currentStageIndex] += _model.FishingRod.CurrentStats.CurrentBubbleNibbleBonuses[BubbleType.None]; //TODO: Do bubble later
@@ -245,7 +248,10 @@ namespace Madduck.Fishing.Controller
 
         private void OnQteFail()
         {
-            _qteActive = false;
+            UniTask.WaitForEndOfFrame().ContinueWith(() =>
+            {
+                _qteActive = false;
+            });
             _qteButtonFactory.Current.OnFail -= OnQteFail;
             _currentStageChance[_currentStageIndex] -= _model.FishingRod.CurrentStats.CurrentBubbleNibblePenalties[BubbleType.None]; //TODO: Do bubble later
             _currentStageChance[_currentStageIndex] = Percentage.Clamp01(_currentStageChance[_currentStageIndex]);

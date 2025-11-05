@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: FishingBoardConfig
   m_EditorClassIdentifier: Madduck.UI::Madduck.Scripts.UI.FishingBoard.FishingBoardConfig
   <MouseSensitivity>k__BackingField:
-    value: 50
+    value: 500
+  <GamepadSensitivity>k__BackingField:
+    value: 125
   <MaxFatigueLevel>k__BackingField:
     value: 100
   <FishingLineTensionSfx>k__BackingField:

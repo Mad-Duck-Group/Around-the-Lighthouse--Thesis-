@@ -55,6 +55,7 @@ namespace Madduck.Room
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private AudioReference _bgm;
         private IDisposable _subscriptions;
+        private IDisposable _modalSubscription;
 
         #endregion
         
@@ -121,6 +122,7 @@ namespace Madduck.Room
         public void Dispose()
         {
             _subscriptions?.Dispose();
+            _modalSubscription?.Dispose();
         }
 
         #endregion
@@ -172,18 +174,16 @@ namespace Madduck.Room
             CurrentFishCount.Value =
                 (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
             if (CurrentFishCount.Value != 0) return;
-            ShowCardSelection();
+            //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
+            _modalSubscription = Observable.FromEvent(
+                h => _modalManager.OnAllModalsClosed += h,
+                h => _modalManager.OnAllModalsClosed -= h)
+                .Subscribe(_ => OnAllModalsClosed());
         }
 
-        private void ShowCardSelection()
+        private void OnAllModalsClosed()
         {
-            _cardSelectionController.OnClose += OnCardSelectionClosed;
-            _modalManager.Queue(_cardSelectionController);
-        }
-
-        private void OnCardSelectionClosed()
-        {
-            _cardSelectionController.OnClose -= OnCardSelectionClosed;
+            _modalSubscription?.Dispose();
             _fishingRoomEndedEventPublisher.Publish(new FishingRoomEndedEvent());
         }
 

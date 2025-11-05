@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using Madduck.GameData;
@@ -23,6 +24,7 @@ namespace Madduck.Fishing.Controller
 
         #region Fields
 
+        private readonly ReelingConfig _config;
         private readonly ReelingCommander _commander;
         private readonly ReelingModel _model;
         private readonly IPlayerInputHandler _inputHandler;
@@ -36,6 +38,11 @@ namespace Madduck.Fishing.Controller
         private IDisposable _fatigueTimer;
         private IDisposable _startSlowMo;
         private float _fatigueTimerProgress;
+        private float _previousAngle;
+        private Sign _previousSign = Sign.Zero;
+        private bool _changeDirection;
+        private bool _passedThreshold;
+        private UFloat _accumulatedAngle;
         private CancellationTokenSource _transitionCts = new();
 
         #endregion
@@ -44,6 +51,7 @@ namespace Madduck.Fishing.Controller
 
         [Inject]
         public ReelingController(
+            ReelingConfig config,
             ReelingCommander commander,
             ReelingModel model,
             IPlayerInputHandler inputHandler,
@@ -53,6 +61,7 @@ namespace Madduck.Fishing.Controller
             [Key(FishingStateType.Reeling)] ITransitionable viewTransition,
             ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
+            _config = config;
             _hookFactory = hookFactory;
             _inputHandler = inputHandler;
             _commander = commander;
@@ -70,19 +79,25 @@ namespace Madduck.Fishing.Controller
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _inputHandler.ThrowHookButton.IsDown
-                .IgnoreFirstValueWhenSubscribe()
-                .Subscribe(_ => OnReelingFirstHold())
+            // _inputHandler.Action0Button.IsDown
+            //     .IgnoreFirstValueWhenSubscribe()
+            //     .Subscribe(_ => OnReelingFirstHold())
+            //     .AddTo(ref disposableBuilder);
+            // _inputHandler.Action0Button.IsHeld
+            //     .IgnoreFirstValueWhenSubscribe()
+            //     .DistinctUntilChanged()
+            //     .EveryUpdateWhen(x => x)
+            //     .Subscribe(_ => OnReelingHold())
+            //     .AddTo(ref disposableBuilder);
+            // _inputHandler.Action0Button.IsUp
+            //     .IgnoreFirstValueWhenSubscribe()
+            //     .Subscribe(_ => OnReelingRelease())
+            //     .AddTo(ref disposableBuilder);
+            _inputHandler.MouseDelta
+                .Subscribe(OnRotate)
                 .AddTo(ref disposableBuilder);
-            _inputHandler.ThrowHookButton.IsHeld
-                .IgnoreFirstValueWhenSubscribe()
-                .DistinctUntilChanged()
-                .EveryUpdateWhen(x => x)
-                .Subscribe(_ => OnReelingHold())
-                .AddTo(ref disposableBuilder);
-            _inputHandler.ThrowHookButton.IsUp
-                .IgnoreFirstValueWhenSubscribe()
-                .Subscribe(_ => OnReelingRelease())
+            _inputHandler.RightStickDelta
+                .Subscribe(OnRotate)
                 .AddTo(ref disposableBuilder);
             _model.ReelingPercent
                 .Subscribe(x => _hookFactory.Current.SetPositionX(x.AsInversePercentage))
@@ -119,6 +134,48 @@ namespace Madduck.Fishing.Controller
         {
             _commander.OnReelingRelease.Execute(InputType.NonUI);
         }
+        
+        private void OnRotate(Vector2 delta)
+        {
+            if (delta == Vector2.zero)
+            {
+                _commander.OnReelingRelease.Execute(InputType.NonUI);
+                return;
+            }
+            _commander.OnReelingFirstHold.Execute(InputType.NonUI);
+            var angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
+            var deltaAngle = Mathf.DeltaAngle(_previousAngle, angle);
+            var currentSign = deltaAngle == 0 ? Sign.Zero : (Sign)(int)Mathf.Sign(deltaAngle);
+            if (currentSign is Sign.Negative) return; //NOTE: Only allow counter-clockwise, remove this line to allow both directions
+            var absDeltaAngle = Mathf.Abs(deltaAngle);
+            if (_previousSign == Sign.Zero)
+            {
+                _previousSign = currentSign;
+            }
+            if (!_changeDirection)
+            {
+                _changeDirection = currentSign != _previousSign;
+                _passedThreshold = true;
+            }
+            else
+            {
+                _passedThreshold = false;
+                _accumulatedAngle += absDeltaAngle;
+                _accumulatedAngle = currentSign != _previousSign ? 0 : _accumulatedAngle;
+                if (_accumulatedAngle >= _config.ChangeDirectionThreshold)
+                {
+                    _passedThreshold = true;
+                    _accumulatedAngle = 0f;
+                    _changeDirection = false;
+                }
+            }
+            if (_passedThreshold)
+            {
+                _commander.OnReelingHold.Execute(InputType.NonUI);
+            }
+            _previousAngle = angle;
+            _previousSign = currentSign;
+        }
 
         private void OnWinReeling()
         {
@@ -141,6 +198,10 @@ namespace Madduck.Fishing.Controller
             _bindings?.Dispose();
             _transitionCts.Cancel();
             _transitionCts = new CancellationTokenSource();
+            _previousAngle = 0f;
+            _previousSign = Sign.Zero;
+            _changeDirection = false;
+            _accumulatedAngle = 0f;
             if (active)
             {
                 _model.SetFishInstance(_fishFactory.Current);

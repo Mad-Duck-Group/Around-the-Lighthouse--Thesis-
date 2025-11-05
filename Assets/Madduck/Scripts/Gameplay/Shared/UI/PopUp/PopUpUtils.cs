@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
+using Madduck.Utils;
 using R3;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Madduck.Utils
+namespace Madduck.Shared
 {
     public interface IPopUpObject {}
 

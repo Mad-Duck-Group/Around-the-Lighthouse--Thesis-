@@ -73,6 +73,7 @@ namespace Madduck.Fishing.UI
 
         private async UniTaskVoid OnThrowHookFirstHeld(CancellationToken token)
         {
+            _model.HookThrownFirstHeld.Value = true;
             _playerIdleAnimator.StopIdle();
             await _playerAnimator.Set(PlayerAnimationKey.PrepareThrow, 0, false).WaitUntilComplete(cancellationToken: token);
             _playerAnimator.Set(PlayerAnimationKey.ChargingThrow, 0, true);

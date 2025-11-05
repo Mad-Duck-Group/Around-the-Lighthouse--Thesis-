@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16f9b7eb47c4b41813fc153dead3967, type: 3}
   m_Name: ReelingConfig
   m_EditorClassIdentifier: Madduck.Fishing.Config::Madduck.Scripts.Fishing.Config.Reeling.ReelingConfig
-  <MaxReelingValue>k__BackingField: 100
+  <MaxReelingValue>k__BackingField:
+    value: 100
+  <ChangeDirectionThreshold>k__BackingField:
+    value: 20

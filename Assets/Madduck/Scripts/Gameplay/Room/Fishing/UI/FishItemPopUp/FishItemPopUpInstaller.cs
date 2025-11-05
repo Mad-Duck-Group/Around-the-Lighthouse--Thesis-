@@ -1,5 +1,6 @@
 using System;
 using Madduck.GameData;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -17,7 +18,11 @@ namespace Madduck.Room
         
         public void Install(IContainerBuilder builder)
         {
-            builder.Register(_ => _fishItemPopUpFactory, Lifetime.Singleton)
+            builder.Register(x =>
+                {
+                    x.Inject(_fishItemPopUpFactory);
+                    return _fishItemPopUpFactory;
+                }, Lifetime.Singleton)
                 .As<IPopUpFactory<FishItemPopUpObject>>();
         }
     }

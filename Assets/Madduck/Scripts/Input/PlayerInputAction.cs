@@ -140,15 +140,6 @@ namespace Madduck.Scripts.Input
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ThrowHook"",
-                    ""type"": ""Button"",
-                    ""id"": ""0470eb13-3324-4803-9ebf-21b4ee6f6c9e"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Reeling"",
                     ""type"": ""Button"",
                     ""id"": ""0a0a316c-be20-4dd2-9561-1d1a70bf3298"",
@@ -162,25 +153,25 @@ namespace Madduck.Scripts.Input
                     ""type"": ""Value"",
                     ""id"": ""4b2945ad-866f-479f-a81a-b530976598a2"",
                     ""expectedControlType"": ""Delta"",
-                    ""processors"": """",
+                    ""processors"": ""NormalizeVector2"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""GamepadHookControl"",
+                    ""name"": ""RightStickDelta"",
                     ""type"": ""Value"",
                     ""id"": ""65703e99-9c16-405b-af75-9fa928f14e97"",
-                    ""expectedControlType"": """",
-                    ""processors"": ""StickDeadzone"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": ""StickDeadzone,NormalizeVector2"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""ControlBoat"",
+                    ""name"": ""LeftStickDelta"",
                     ""type"": ""Value"",
-                    ""id"": ""03a0d180-db3a-4626-9c14-62c715a05a32"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
+                    ""id"": ""3d71a682-a100-4216-aebd-79baa11ab996"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": ""StickDeadzone,NormalizeVector2"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
@@ -307,6 +298,50 @@ namespace Madduck.Scripts.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""6cc4f8c7-5b38-4ecf-bfb8-a30e2ca4e255"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""JerkBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e54a1f0-88ff-46e9-acfa-20387f21f240"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""JerkBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4c13cac-99d9-461f-affb-52a994e637d7"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""JerkBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b037c4a-0918-4f49-b35a-a640615fc2c6"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""JerkBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""331aacf1-287c-4795-a4e9-f1b6c623c727"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Hold"",
@@ -318,12 +353,12 @@ namespace Madduck.Scripts.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9c0d378f-6faf-4957-ac9e-a8132b254098"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": ""Hold"",
+                    ""id"": ""1e533f31-4891-4abc-9298-6b0725670e5e"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse & Keyboard"",
-                    ""action"": ""ThrowHook"",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Action0"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -334,6 +369,17 @@ namespace Madduck.Scripts.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse & Keyboard"",
+                    ""action"": ""Action1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e626ed5a-4c4f-4760-97a2-6db4c8878bc7"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""Action1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -372,39 +418,6 @@ namespace Madduck.Scripts.Input
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""7c4e1909-cf04-496e-bf88-0c2f31ff9b20"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ControlBoat"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Positive"",
-                    ""id"": ""03c138e3-2806-4b20-8ff8-63b9b2c4b8f4"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ControlBoat"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Negative"",
-                    ""id"": ""5189fc69-d8b8-47f1-8906-6a07df621a82"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ControlBoat"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""fc061be7-b44e-4c5d-a80e-f102b06233d4"",
                     ""path"": ""<Keyboard>/escape"",
@@ -420,9 +433,20 @@ namespace Madduck.Scripts.Input
                     ""id"": ""1ba3ab0e-e0b7-4778-8682-50b491672c8a"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": ""NormalizeVector2"",
+                    ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""GamepadHookControl"",
+                    ""action"": ""RightStickDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b36e319-f321-446a-bfca-bf5769f21a02"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""LeftStickDelta"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -477,11 +501,10 @@ namespace Madduck.Scripts.Input
             m_Player_JerkBait = m_Player.FindAction("JerkBait", throwIfNotFound: true);
             m_Player_Action0 = m_Player.FindAction("Action0", throwIfNotFound: true);
             m_Player_Action1 = m_Player.FindAction("Action1", throwIfNotFound: true);
-            m_Player_ThrowHook = m_Player.FindAction("ThrowHook", throwIfNotFound: true);
             m_Player_Reeling = m_Player.FindAction("Reeling", throwIfNotFound: true);
             m_Player_MouseDelta = m_Player.FindAction("MouseDelta", throwIfNotFound: true);
-            m_Player_GamepadHookControl = m_Player.FindAction("GamepadHookControl", throwIfNotFound: true);
-            m_Player_ControlBoat = m_Player.FindAction("ControlBoat", throwIfNotFound: true);
+            m_Player_RightStickDelta = m_Player.FindAction("RightStickDelta", throwIfNotFound: true);
+            m_Player_LeftStickDelta = m_Player.FindAction("LeftStickDelta", throwIfNotFound: true);
             m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
         }
 
@@ -568,11 +591,10 @@ namespace Madduck.Scripts.Input
         private readonly InputAction m_Player_JerkBait;
         private readonly InputAction m_Player_Action0;
         private readonly InputAction m_Player_Action1;
-        private readonly InputAction m_Player_ThrowHook;
         private readonly InputAction m_Player_Reeling;
         private readonly InputAction m_Player_MouseDelta;
-        private readonly InputAction m_Player_GamepadHookControl;
-        private readonly InputAction m_Player_ControlBoat;
+        private readonly InputAction m_Player_RightStickDelta;
+        private readonly InputAction m_Player_LeftStickDelta;
         private readonly InputAction m_Player_PauseGame;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
@@ -606,10 +628,6 @@ namespace Madduck.Scripts.Input
             /// </summary>
             public InputAction @Action1 => m_Wrapper.m_Player_Action1;
             /// <summary>
-            /// Provides access to the underlying input action "Player/ThrowHook".
-            /// </summary>
-            public InputAction @ThrowHook => m_Wrapper.m_Player_ThrowHook;
-            /// <summary>
             /// Provides access to the underlying input action "Player/Reeling".
             /// </summary>
             public InputAction @Reeling => m_Wrapper.m_Player_Reeling;
@@ -618,13 +636,13 @@ namespace Madduck.Scripts.Input
             /// </summary>
             public InputAction @MouseDelta => m_Wrapper.m_Player_MouseDelta;
             /// <summary>
-            /// Provides access to the underlying input action "Player/GamepadHookControl".
+            /// Provides access to the underlying input action "Player/RightStickDelta".
             /// </summary>
-            public InputAction @GamepadHookControl => m_Wrapper.m_Player_GamepadHookControl;
+            public InputAction @RightStickDelta => m_Wrapper.m_Player_RightStickDelta;
             /// <summary>
-            /// Provides access to the underlying input action "Player/ControlBoat".
+            /// Provides access to the underlying input action "Player/LeftStickDelta".
             /// </summary>
-            public InputAction @ControlBoat => m_Wrapper.m_Player_ControlBoat;
+            public InputAction @LeftStickDelta => m_Wrapper.m_Player_LeftStickDelta;
             /// <summary>
             /// Provides access to the underlying input action "Player/PauseGame".
             /// </summary>
@@ -670,21 +688,18 @@ namespace Madduck.Scripts.Input
                 @Action1.started += instance.OnAction1;
                 @Action1.performed += instance.OnAction1;
                 @Action1.canceled += instance.OnAction1;
-                @ThrowHook.started += instance.OnThrowHook;
-                @ThrowHook.performed += instance.OnThrowHook;
-                @ThrowHook.canceled += instance.OnThrowHook;
                 @Reeling.started += instance.OnReeling;
                 @Reeling.performed += instance.OnReeling;
                 @Reeling.canceled += instance.OnReeling;
                 @MouseDelta.started += instance.OnMouseDelta;
                 @MouseDelta.performed += instance.OnMouseDelta;
                 @MouseDelta.canceled += instance.OnMouseDelta;
-                @GamepadHookControl.started += instance.OnGamepadHookControl;
-                @GamepadHookControl.performed += instance.OnGamepadHookControl;
-                @GamepadHookControl.canceled += instance.OnGamepadHookControl;
-                @ControlBoat.started += instance.OnControlBoat;
-                @ControlBoat.performed += instance.OnControlBoat;
-                @ControlBoat.canceled += instance.OnControlBoat;
+                @RightStickDelta.started += instance.OnRightStickDelta;
+                @RightStickDelta.performed += instance.OnRightStickDelta;
+                @RightStickDelta.canceled += instance.OnRightStickDelta;
+                @LeftStickDelta.started += instance.OnLeftStickDelta;
+                @LeftStickDelta.performed += instance.OnLeftStickDelta;
+                @LeftStickDelta.canceled += instance.OnLeftStickDelta;
                 @PauseGame.started += instance.OnPauseGame;
                 @PauseGame.performed += instance.OnPauseGame;
                 @PauseGame.canceled += instance.OnPauseGame;
@@ -714,21 +729,18 @@ namespace Madduck.Scripts.Input
                 @Action1.started -= instance.OnAction1;
                 @Action1.performed -= instance.OnAction1;
                 @Action1.canceled -= instance.OnAction1;
-                @ThrowHook.started -= instance.OnThrowHook;
-                @ThrowHook.performed -= instance.OnThrowHook;
-                @ThrowHook.canceled -= instance.OnThrowHook;
                 @Reeling.started -= instance.OnReeling;
                 @Reeling.performed -= instance.OnReeling;
                 @Reeling.canceled -= instance.OnReeling;
                 @MouseDelta.started -= instance.OnMouseDelta;
                 @MouseDelta.performed -= instance.OnMouseDelta;
                 @MouseDelta.canceled -= instance.OnMouseDelta;
-                @GamepadHookControl.started -= instance.OnGamepadHookControl;
-                @GamepadHookControl.performed -= instance.OnGamepadHookControl;
-                @GamepadHookControl.canceled -= instance.OnGamepadHookControl;
-                @ControlBoat.started -= instance.OnControlBoat;
-                @ControlBoat.performed -= instance.OnControlBoat;
-                @ControlBoat.canceled -= instance.OnControlBoat;
+                @RightStickDelta.started -= instance.OnRightStickDelta;
+                @RightStickDelta.performed -= instance.OnRightStickDelta;
+                @RightStickDelta.canceled -= instance.OnRightStickDelta;
+                @LeftStickDelta.started -= instance.OnLeftStickDelta;
+                @LeftStickDelta.performed -= instance.OnLeftStickDelta;
+                @LeftStickDelta.canceled -= instance.OnLeftStickDelta;
                 @PauseGame.started -= instance.OnPauseGame;
                 @PauseGame.performed -= instance.OnPauseGame;
                 @PauseGame.canceled -= instance.OnPauseGame;
@@ -847,13 +859,6 @@ namespace Madduck.Scripts.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnAction1(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "ThrowHook" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnThrowHook(InputAction.CallbackContext context);
-            /// <summary>
             /// Method invoked when associated input action "Reeling" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -868,19 +873,19 @@ namespace Madduck.Scripts.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnMouseDelta(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "GamepadHookControl" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "RightStickDelta" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnGamepadHookControl(InputAction.CallbackContext context);
+            void OnRightStickDelta(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "ControlBoat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "LeftStickDelta" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnControlBoat(InputAction.CallbackContext context);
+            void OnLeftStickDelta(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "PauseGame" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

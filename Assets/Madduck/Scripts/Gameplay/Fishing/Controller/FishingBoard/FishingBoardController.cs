@@ -96,10 +96,12 @@ namespace Madduck.Fishing.Controller
                 })
                 .AddTo(ref disposableBuilder);
             _playerInput.MouseDelta
-                .Subscribe(MoveHook)
+                .Subscribe(x => MoveHook(x, false))
                 .AddTo(ref disposableBuilder);
-            _playerInput.GamepadHookControl
-                .Subscribe(MoveHook)
+            _playerInput.LeftStickDelta
+                .EveryUpdateWhen(x => x != Vector2.zero)
+                .Select(_ => _playerInput.LeftStickDelta.CurrentValue)
+                .Subscribe(x => MoveHook(x, true))
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -301,14 +303,17 @@ namespace Madduck.Fishing.Controller
         #endregion
         
         #region Input
+
         /// <summary>
         /// Move the hook based on mouse delta input.
         /// </summary>
         /// <param name="delta">Mouse delta input.</param>
-        private void MoveHook(Vector2 delta)
+        /// <param name="gamepad"></param>
+        private void MoveHook(Vector2 delta, bool gamepad)
         {
             var hookPosition = _model.HookPosition.Value;
-            var mouseDelta = delta * _config.MouseSensitivity;
+            var sensitivity = gamepad ? _config.GamepadSensitivity : _config.MouseSensitivity;
+            var mouseDelta = delta * sensitivity;
             var circleCenter = _variables.RedBoard.Center;
             var hookToCenter = (circleCenter - hookPosition).normalized;
             var fishUnitCirclePosition = _variables.FishUnitCirclePosition;

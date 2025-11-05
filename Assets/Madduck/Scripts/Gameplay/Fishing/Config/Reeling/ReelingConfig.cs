@@ -10,5 +10,7 @@ namespace Madduck.Fishing.Config
         [PropertyTooltip("Max reeling value, when reached the player wins the reeling.")]
         [field: InlineProperty,
                 SerializeField] public UFloat MaxReelingValue { get; private set; } = 100f;
+        [field: InlineProperty,
+                SerializeField] public UFloat ChangeDirectionThreshold { get; private set; } = 100f;
     }
 }

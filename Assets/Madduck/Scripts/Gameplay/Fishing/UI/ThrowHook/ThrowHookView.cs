@@ -48,6 +48,10 @@ namespace Madduck.Fishing.UI
             _viewModel.LockedRangePercent
                 .Subscribe(OnLockedRangeChanged)
                 .AddTo(ref disposableBuilder);
+            _viewModel.ShowSlider
+                //DistinctUntilChanged()
+                .Subscribe(active => throwHookSlider.gameObject.SetActive(active))
+                .AddTo(ref disposableBuilder);
             throwHookButton.OnFirstHold
                 .AsObservable()
                 .Subscribe(_ => _commander.ThrowHookFirstHeldCommand.Execute(InputType.UI))
@@ -101,6 +105,7 @@ namespace Madduck.Fishing.UI
         private void SetActive(bool active)
         {
             _bindings?.Dispose();
+            throwHookSlider.gameObject.SetActive(false);
             if (active)
             {
                 Bind();

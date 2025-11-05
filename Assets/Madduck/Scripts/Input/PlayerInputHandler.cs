@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Madduck.Scripts.Input;
 using R3;
@@ -28,9 +29,9 @@ namespace Madduck.Input
         [field: ReadOnly, 
                 ShowInInspector] public SerializableReactiveProperty<Vector2> MouseDelta { get; private set; } = new();
         [field: ReadOnly, 
-                ShowInInspector] public SerializableReactiveProperty<Vector2> GamepadHookControl { get; private set; } = new();
+                ShowInInspector] public SerializableReactiveProperty<Vector2> RightStickDelta { get; private set; } = new();
         [field: ReadOnly, 
-                ShowInInspector] public SerializableReactiveProperty<float> BoatInput { get; private set; } = new();
+                ShowInInspector] public SerializableReactiveProperty<Vector2> LeftStickDelta { get; private set; } = new();
         #endregion
 
         #region Buttons
@@ -39,14 +40,21 @@ namespace Madduck.Input
                 ShowInInspector] public InputButton InteractButton { get; private set; }
         [field: ReadOnly, 
                 ShowInInspector] public InputButton JerkBaitButton { get; private set; }
-        [field: ReadOnly, 
-                ShowInInspector] public InputBinding[] JerkBindings { get; private set; }
+        
+        public InputBinding[] JerkBindings
+        {
+            get
+            {
+                return _playerInputAction.Player.JerkBait.bindings
+                    .Where(x => x.groups.Contains(_currentControlScheme))
+                    .ToArray();
+            }
+        }
+        
         [field: ReadOnly, 
                 ShowInInspector] public InputButton Action0Button { get; private set; }
         [field: ReadOnly, 
                 ShowInInspector] public InputButton Action1Button { get; private set; }
-        [field: ReadOnly, 
-                ShowInInspector] public InputButton ThrowHookButton { get; private set; }
         [field: ReadOnly, 
                 ShowInInspector] public InputButton ReelingButton { get; private set; }
         [field: ReadOnly, 
@@ -59,6 +67,7 @@ namespace Madduck.Input
         #region Fields
 
         private PlayerInputAction _playerInputAction;
+        private string _currentControlScheme = "Mouse & Keyboard";
         private IDisposable _anyButtonPressListener;
 
         #endregion
@@ -82,10 +91,9 @@ namespace Madduck.Input
             JerkBaitButton = new InputButton(_playerInputAction.Player.JerkBait);
             Action0Button = new InputButton(_playerInputAction.Player.Action0);
             Action1Button = new InputButton(_playerInputAction.Player.Action1);
-            ThrowHookButton = new InputButton(_playerInputAction.Player.ThrowHook);
             ReelingButton = new InputButton(_playerInputAction.Player.Reeling);
             PauseGameButton = new InputButton(_playerInputAction.Player.PauseGame);
-            JerkBindings = _playerInputAction.Player.JerkBait.bindings.ToArray();
+            //JerkBindings = _playerInputAction.Player.JerkBait.bindings.ToArray();
         }
 
         #endregion
@@ -101,7 +109,7 @@ namespace Madduck.Input
             }
 
             _playerInputAction.Player.Enable();
-            _anyButtonPressListener = InputSystem.onAnyButtonPress.Call(_ => OnAnyButton().Forget());
+            _anyButtonPressListener = InputSystem.onAnyButtonPress.Call(x => OnAnyButton(x).Forget());
         }
 
         private void Unsubscribe()
@@ -114,8 +122,25 @@ namespace Madduck.Input
 
         #region Event Handlers
 
-        private async UniTaskVoid OnAnyButton()
+        private async UniTaskVoid OnAnyButton(InputControl inputControl)
         {
+            switch (inputControl.device)
+            {
+                case Mouse:
+                case Keyboard:
+                    _currentControlScheme = "Mouse & Keyboard";
+                    break;
+                case Gamepad:
+                    _currentControlScheme = "Gamepad";
+                    break;
+                case Touchscreen:
+                    _currentControlScheme = "Touchscreen";
+                    break;
+                default:
+                    Debug.LogWarning("Unknown control scheme detected. Fallback to Mouse & Keyboard.");
+                    _currentControlScheme = "Mouse & Keyboard";
+                    break;
+            }
             AnyButtonPressed.Value = true;
             await UniTask.WaitForEndOfFrame();
             AnyButtonPressed.Value = false;
@@ -124,19 +149,6 @@ namespace Madduck.Input
         public void OnMovement(InputAction.CallbackContext context)
         {
             MovementInput.Value = context.ReadValue<Vector2>();
-        }
-
-        public void OnControlBoat(InputAction.CallbackContext context)
-        {
-            if (context.performed)
-            {
-                float input = context.ReadValue<float>();
-                BoatInput.Value = input;
-            }
-            else if (context.canceled)
-            {
-                BoatInput.Value = 0f;
-            }
         }
 
         public void OnPauseGame(InputAction.CallbackContext context)
@@ -164,11 +176,6 @@ namespace Madduck.Input
             Action1Button.BindPressButton(context);
         }
 
-        public void OnThrowHook(InputAction.CallbackContext context)
-        {
-            ThrowHookButton.BindHoldButton(context);
-        }
-
         public void OnReeling(InputAction.CallbackContext context)
         {
             ReelingButton.BindHoldButton(context);
@@ -177,12 +184,31 @@ namespace Madduck.Input
         public void OnMouseDelta(InputAction.CallbackContext context)
         {
             MouseDelta.Value = context.ReadValue<Vector2>();
+            //Debug.Log($"Mouse Delta: {MouseDelta.Value}");
         }
 
-        public void OnGamepadHookControl(InputAction.CallbackContext context)
+        public void OnRightStickDelta(InputAction.CallbackContext context)
         {
-            GamepadHookControl.Value = context.ReadValue<Vector2>();
+            RightStickDelta.Value = context.ReadValue<Vector2>();
+            //Debug.Log("Gamepad Hook Control: " + GamepadHookControl.Value);
+        }
+        public void OnLeftStickDelta(InputAction.CallbackContext context)
+        {
+            LeftStickDelta.Value = context.ReadValue<Vector2>();
+            //Debug.Log("Gamepad Movement: " + GamepadMovement.Value);
         }
         #endregion
+        
+        public void SetActiveInput(bool active)
+        {
+            if (active)
+            {
+                Subscribe();
+            }
+            else
+            {
+                Unsubscribe();
+            }
+        }
     }
 }
