@@ -149,11 +149,20 @@ namespace Madduck.Room
             popUp.SetPopUpObject(new FishItemPopUpObject(eventData.FishItemInstance));
             _modalManager.Queue(popUp);
             ChangeFishCount(-1);
+            if (CurrentFishCount.Value != 0) return;
+            //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
+            _modalSubscription = Observable.FromEvent(
+                    h => _modalManager.OnAllModalsClosed += h,
+                    h => _modalManager.OnAllModalsClosed -= h)
+                .Subscribe(_ => OnAllModalsClosed());
         }
         
         private void OnFishEscaped()
         {
             ChangeFishCount(-1);
+            if (CurrentFishCount.Value != 0) return;
+            //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
+            OnAllModalsClosed();
         }
 
         #endregion
@@ -173,12 +182,6 @@ namespace Madduck.Room
         {
             CurrentFishCount.Value =
                 (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
-            if (CurrentFishCount.Value != 0) return;
-            //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
-            _modalSubscription = Observable.FromEvent(
-                h => _modalManager.OnAllModalsClosed += h,
-                h => _modalManager.OnAllModalsClosed -= h)
-                .Subscribe(_ => OnAllModalsClosed());
         }
 
         private void OnAllModalsClosed()

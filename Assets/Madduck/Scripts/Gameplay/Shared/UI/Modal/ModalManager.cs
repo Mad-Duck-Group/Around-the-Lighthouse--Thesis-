@@ -22,6 +22,7 @@ namespace Madduck.Shared
         event Action<IModal> OnMadalOpened;
         event Action<IModal> OnModalClosed;
         event Action OnAllModalsClosed;
+        int ModalCount { get; }
         void Queue(IModal modal);
     }
     
@@ -31,6 +32,7 @@ namespace Madduck.Shared
         public event Action<IModal> OnMadalOpened;
         public event Action<IModal> OnModalClosed;
         public event Action OnAllModalsClosed;
+        public int ModalCount => _modalQueue.Count;
         [ShowInInspector] private readonly Queue<IModal> _modalQueue = new();
         [ShowInInspector] private IModal _currentModal;
         private readonly IPlayerInputHandler _inputHandler;

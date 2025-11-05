@@ -281,7 +281,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.050762177
+        value: 0.025
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
   hookIcon: {fileID: 1710082700227665942}
   line: {fileID: 3633826853592955727}
   splineContainer: {fileID: 1932579355175118353}
-  throwRange: {x: -1.5, y: 4}
+  throwRange: {x: -3.98, y: 5.01}
   yOffsetRange: {x: -0.75, y: -0.6}
   div: 4
   power: 0.7
