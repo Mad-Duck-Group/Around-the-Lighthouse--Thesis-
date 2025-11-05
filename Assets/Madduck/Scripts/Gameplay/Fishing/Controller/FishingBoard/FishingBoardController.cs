@@ -171,6 +171,7 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private void Update()
         {
+            UpdateHookToCenter();
             UpdateFatigueLevel();
             UpdateFishingLineDurability();
             _aiController.UpdateBehaviourGraphVariables();
@@ -260,6 +261,24 @@ namespace Madduck.Fishing.Controller
                 LoseFishingBoard();
             }
         }
+
+        private void UpdateHookToCenter()
+        {
+            var hookPosition = _model.HookPosition.Value;
+            var circleCenter = _variables.RedBoard.Center;
+            var hookToCenter = (circleCenter - hookPosition).normalized;
+            var fishUnitCirclePosition = _variables.FishUnitCirclePosition;
+            var hookUnitCirclePosition = _variables.HookUnitCirclePosition;
+            // var inertiaForce = _model.FishingLineDurabilityPercent.CurrentValue.AsInverseFraction * (float)_config.Inertia;
+            var inertiaForce = Vector2.Distance(fishUnitCirclePosition, hookUnitCirclePosition) / 2f 
+                               * (float)_model.FishingRodItemInstance.CurrentStats.CurrentHookToCenterForce;
+            hookPosition += hookToCenter * (inertiaForce * Time.deltaTime);
+            _model.HookPosition.Value = ClampPosition(hookPosition);
+            //rotate toward the center
+            var centerToHook = (circleCenter - hookPosition).normalized;
+            var angle = Mathf.Atan2(centerToHook.y, centerToHook.x) * Mathf.Rad2Deg + 90f;
+            _model.HookRotation.Value = Quaternion.Euler(0, 0, angle);
+        }
         
         /// <summary>
         /// Play the fishing line tension sound based on the durability percentage.
@@ -315,13 +334,6 @@ namespace Madduck.Fishing.Controller
             var sensitivity = gamepad ? _config.GamepadSensitivity : _config.MouseSensitivity;
             var mouseDelta = delta * sensitivity;
             var circleCenter = _variables.RedBoard.Center;
-            var hookToCenter = (circleCenter - hookPosition).normalized;
-            var fishUnitCirclePosition = _variables.FishUnitCirclePosition;
-            var hookUnitCirclePosition = _variables.HookUnitCirclePosition;
-            // var inertiaForce = _model.FishingLineDurabilityPercent.CurrentValue.AsInverseFraction * (float)_config.Inertia;
-            var inertiaForce = Vector2.Distance(fishUnitCirclePosition, hookUnitCirclePosition) / 2f 
-                               * (float)_model.FishingRodItemInstance.CurrentStats.CurrentHookToCenterForce;
-            hookPosition += hookToCenter * (inertiaForce * Time.deltaTime);
             hookPosition += mouseDelta * Time.deltaTime;
             _model.HookPosition.Value = ClampPosition(hookPosition);
             //rotate toward the center

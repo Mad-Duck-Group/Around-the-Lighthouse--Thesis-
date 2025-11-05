@@ -18,7 +18,7 @@ namespace Madduck.Room
     {
         public ReactiveCommand<BaitItemInstance> OnBaitChanged { get; } = new();
         
-        private readonly PlayerInputHandler _inputHandler;
+        private readonly IPlayerInputHandler _inputHandler;
         private readonly PlayerInventory _playerInventory;
         private readonly ISubscriber<FishingStateEvent> _fishingStateSubscriber;
         private readonly GameObject _uiBeforeTriggerBait;
@@ -32,7 +32,7 @@ namespace Madduck.Room
 
 
         [Inject]
-        public BaitController(PlayerInputHandler inputHandler,
+        public BaitController(IPlayerInputHandler inputHandler,
             PlayerInventory playerInventory,
             ISubscriber<FishingStateEvent> fishingStateSubscriber,
             UIBeforeTriggerBait before,
@@ -61,7 +61,11 @@ namespace Madduck.Room
                 .AddTo(ref builder);
             _inputHandler.BaitButton.IsDown
                 .Where(x => x)
-                .Subscribe(_ => { ToggleBaitUI();})
+                .Subscribe(_ => { SetActive(true);})
+                .AddTo(ref builder);
+            _inputHandler.BaitButton.IsUpAfterHeld
+                .Where(x => x)
+                .Subscribe(_ => { SetActive(false);})
                 .AddTo(ref builder);
             _inputHandler.BaitSelectInput
                 .Where(_ => _interactable)
@@ -112,20 +116,11 @@ namespace Madduck.Room
             DebugUtils.Log("test inject");
         }
 
-        private void ToggleBaitUI()
+        private void SetActive(bool active)
         {
-            if (_uiBeforeTriggerBait.activeSelf)
-            {
-                _uiBeforeTriggerBait.SetActive(false);
-                _uiAfterTriggerBait.SetActive(true);
-                DebugUtils.Log("CloseUI");
-            }
-            else
-            {
-                _uiAfterTriggerBait.SetActive(false);
-                _uiBeforeTriggerBait.SetActive(true);
-                DebugUtils.Log("OpenUI");
-            }
+            _uiBeforeTriggerBait.SetActive(!active);
+            _uiAfterTriggerBait.SetActive(active);
+            DebugUtils.Log($"Bait UI Active: {active}");
         }
         private void OnFishingStateEvent(FishingStateEvent evt)
         {

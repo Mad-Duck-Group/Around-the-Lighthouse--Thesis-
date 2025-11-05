@@ -24,11 +24,8 @@ namespace Madduck.GameData
         [field: ReadOnly, 
                 ShowInInspector] public FishingRodItemInstance CurrentFishingRod { get; }
 
-        [field: ReadOnly,
-                ShowInInspector] private ObservableList<CardItemInstance> CurrentCards { get; } = new();
-
-        [field: ReadOnly,
-                ShowInInspector] private ObservableDictionary<BaitType, BaitItemInstance> CurrentBaits { get; } = new();
+        [ShowInInspector] public IReadOnlyList<CardItemInstance> CurrentCards => _currentCards;
+        [ShowInInspector] public IReadOnlyDictionary<BaitType, BaitItemInstance> CurrentBaits => _currentBaits;
 
         [field: ReadOnly,
                 ShowInInspector] private SerializableReactiveProperty<BaitItemInstance> CurrentBait { get; } = new();
@@ -52,6 +49,8 @@ namespace Madduck.GameData
 
         #region Fields
         [ShowInInspector] private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _currentModifiers = new();
+        private readonly ObservableDictionary<BaitType, BaitItemInstance> _currentBaits = new();
+        private readonly ObservableList<CardItemInstance> _currentCards = new();
         private readonly PlayerInventoryConfig _config;
         private readonly IPublisher<ModifierSourceEvent> _modifierSourceEventPublisher;
         private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
@@ -72,9 +71,9 @@ namespace Madduck.GameData
             _config = config;
             _modifierSourceEventPublisher = modifierSourceEventPublisher;
             _fishingRoomStartedEventSubscriber = fishingRoomStartedEventSubscriber;
-            CurrentCardsView = CurrentCards.CreateView(x => x);
+            CurrentCardsView = _currentCards.CreateView(x => x);
             ModifiersView = _currentModifiers.CreateView(x => x);
-            CurrentBaitsView = CurrentBaits.CreateView(x => x);
+            CurrentBaitsView = _currentBaits.CreateView(x => x);
             CurrentBaitView = CurrentBait.ToReadOnlyReactiveProperty();
             CurrentFishingRod = new FishingRodItemInstance(_config.FishingRod, modifierSource);
             Subscribe();
@@ -88,7 +87,7 @@ namespace Madduck.GameData
             _fishingRoomStartedEventSubscriber
                 .Subscribe(_ => OnFishingRoomStarted())
                 .AddTo(ref disposableBuilder);
-            CurrentCards
+            _currentCards
                 .ObserveChanged()
                 .Subscribe(x =>
                 {
@@ -146,24 +145,24 @@ namespace Madduck.GameData
         }
         private void OnFishingRoomStarted()
         {
-            var previousBaits = new ObservableDictionary<BaitType, BaitItemInstance>(CurrentBaits);
-            var previousCards = new ObservableList<CardItemInstance>(CurrentCards);
-            CurrentBaits.Clear();
-            CurrentCards.Clear();
+            var previousBaits = new ObservableDictionary<BaitType, BaitItemInstance>(_currentBaits);
+            var previousCards = new ObservableList<CardItemInstance>(_currentCards);
+            _currentBaits.Clear();
+            _currentCards.Clear();
             if (!_startingAdded)
             {
                 _startingAdded = true;
-                CurrentCards.AddRange(_config.StartingCards.Select(x => new CardItemInstance(x)));
+                _currentCards.AddRange(_config.StartingCards.Select(x => new CardItemInstance(x)));
                 foreach (var bait in _config.StartingBaits)
                 {
-                    CurrentBaits.Add(bait.Key, new BaitItemInstance(bait.Value.ItemData, bait.Value.Count));
+                    _currentBaits.Add(bait.Key, new BaitItemInstance(bait.Value.ItemData, bait.Value.Count));
                 }
             }
             foreach (var bait in previousBaits)
             {
-                CurrentBaits.Add(bait.Key, bait.Value);
+                _currentBaits.Add(bait.Key, bait.Value);
             }
-            CurrentCards.AddRange(previousCards);
+            _currentCards.AddRange(previousCards);
             SetCurrentBait(BaitType.None);
         }
         #endregion
@@ -223,18 +222,18 @@ namespace Madduck.GameData
 
         public void AddCard(CardItemInstance cardItemInstance)
         {
-            CurrentCards.Add(cardItemInstance);
+            _currentCards.Add(cardItemInstance);
         }
 
         public void RemoveCard(Guid cardInstanceGuid)
         {
-            var cardToRemove = CurrentCards.FirstOrDefault(x => x.InstanceGuid == cardInstanceGuid);
+            var cardToRemove = _currentCards.FirstOrDefault(x => x.InstanceGuid == cardInstanceGuid);
             if (cardToRemove is null)
             {
                 DebugUtils.LogWarning($"Card with instance guid {cardInstanceGuid} not found");
                 return;
             }
-            CurrentCards.Remove(cardToRemove);
+            _currentCards.Remove(cardToRemove);
         }
 
         #endregion

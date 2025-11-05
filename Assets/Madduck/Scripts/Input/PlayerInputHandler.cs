@@ -165,7 +165,7 @@ namespace Madduck.Input
 
         public void OnToggleBait(InputAction.CallbackContext context)
         {
-            BaitButton.BindPressButton(context);
+            BaitButton.BindHoldButton(context);
         }
 
         public void OnSelectBait(InputAction.CallbackContext context)

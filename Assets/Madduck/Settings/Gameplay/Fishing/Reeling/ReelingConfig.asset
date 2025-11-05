@@ -16,3 +16,7 @@ MonoBehaviour:
     value: 100
   <ChangeDirectionThreshold>k__BackingField:
     value: 20
+  <GamepadSensitivity>k__BackingField:
+    value: 5
+  <MouseSensitivity>k__BackingField:
+    value: 5

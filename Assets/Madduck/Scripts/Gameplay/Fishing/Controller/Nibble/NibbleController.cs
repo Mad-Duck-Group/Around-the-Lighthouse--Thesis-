@@ -92,7 +92,7 @@ namespace Madduck.Fishing.Controller
             _inputHandler.Action0Button.IsDown
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
-                .Where(x => x && _fishBiting)
+                .Where(x => x && !_qteActive && _fishBiting)
                 .Subscribe(_ => OnPullHook())
                 .AddTo(ref disposableBuilder);
             _inputHandler.Action1Button.IsDown

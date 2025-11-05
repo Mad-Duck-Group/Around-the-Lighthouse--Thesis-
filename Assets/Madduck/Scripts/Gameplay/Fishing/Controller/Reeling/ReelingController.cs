@@ -94,10 +94,32 @@ namespace Madduck.Fishing.Controller
             //     .Subscribe(_ => OnReelingRelease())
             //     .AddTo(ref disposableBuilder);
             _inputHandler.MouseDelta
-                .Subscribe(OnRotate)
+                .Subscribe(x =>
+                {
+                    if (x == Vector2.zero)
+                    {
+                        OnReelingRelease();
+                        return;
+                    }
+                    OnReelingFirstHold();
+                    OnRotate(x, false);
+                })
                 .AddTo(ref disposableBuilder);
             _inputHandler.RightStickDelta
-                .Subscribe(OnRotate)
+                .EveryUpdateWhen(x => x != Vector2.zero)
+                .Select(_ => _inputHandler.RightStickDelta.CurrentValue)
+                .Subscribe(x => OnRotate(x, true))
+                .AddTo(ref disposableBuilder);
+            _inputHandler.RightStickDelta
+                .Select(x => x != Vector2.zero)
+                .DistinctUntilChanged()
+                .Subscribe(x =>
+                {
+                    if (x)
+                        OnReelingFirstHold();
+                    else 
+                        OnReelingRelease();
+                })
                 .AddTo(ref disposableBuilder);
             _model.ReelingPercent
                 .Subscribe(x => _hookFactory.Current.SetPositionX(x.AsInversePercentage))
@@ -135,19 +157,14 @@ namespace Madduck.Fishing.Controller
             _commander.OnReelingRelease.Execute(InputType.NonUI);
         }
         
-        private void OnRotate(Vector2 delta)
+        private void OnRotate(Vector2 delta, bool gamepad)
         {
-            if (delta == Vector2.zero)
-            {
-                _commander.OnReelingRelease.Execute(InputType.NonUI);
-                return;
-            }
-            _commander.OnReelingFirstHold.Execute(InputType.NonUI);
             var angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
             var deltaAngle = Mathf.DeltaAngle(_previousAngle, angle);
             var currentSign = deltaAngle == 0 ? Sign.Zero : (Sign)(int)Mathf.Sign(deltaAngle);
             if (currentSign is Sign.Negative) return; //NOTE: Only allow counter-clockwise, remove this line to allow both directions
             var absDeltaAngle = Mathf.Abs(deltaAngle);
+            var sensitivity = gamepad ? _config.GamepadSensitivity : _config.MouseSensitivity;
             if (_previousSign == Sign.Zero)
             {
                 _previousSign = currentSign;
@@ -160,7 +177,7 @@ namespace Madduck.Fishing.Controller
             else
             {
                 _passedThreshold = false;
-                _accumulatedAngle += absDeltaAngle;
+                _accumulatedAngle += absDeltaAngle * sensitivity;
                 _accumulatedAngle = currentSign != _previousSign ? 0 : _accumulatedAngle;
                 if (_accumulatedAngle >= _config.ChangeDirectionThreshold)
                 {
@@ -171,7 +188,7 @@ namespace Madduck.Fishing.Controller
             }
             if (_passedThreshold)
             {
-                _commander.OnReelingHold.Execute(InputType.NonUI);
+                OnReelingHold();
             }
             _previousAngle = angle;
             _previousSign = currentSign;
