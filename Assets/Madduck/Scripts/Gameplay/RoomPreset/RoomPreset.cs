@@ -22,10 +22,14 @@ namespace Madduck.RoomPreset
          SerializeField] public SpriteRenderer[] rockRenderers;
         [BoxGroup("References"),
          SerializeField] public SpriteRenderer[] waveRenderers;
+        [BoxGroup("References"),
+         SerializeField] public SpriteRenderer[] foregroundRenderers;
     
         [Title("Variants")]
         [BoxGroup("Variants"),
          SerializeField] private Sprite[] rockVariants;
+        [BoxGroup("Variants"),
+         SerializeField] private Sprite[] foregroundVariants;
         [BoxGroup("Variants"),
          SerializeField] private Sprite[] waveVariants;
         [BoxGroup("Variants"),
@@ -99,6 +103,14 @@ namespace Madduck.RoomPreset
                     }
                 }
             }
+            // if (foregroundRenderers != null && foregroundVariants.Length > 0)
+            // {
+            //     foreach (var render in foregroundRenderers)
+            //     {
+            //         if (render)
+            //             render.sprite = foregroundVariants.GetRandomElement();
+            //     }
+            // }
             AnimateWaves();
             //ShakeRock();
         }   
