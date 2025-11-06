@@ -12,7 +12,7 @@ namespace Madduck.GameData
     [Serializable]
     public record WindStrengthWeightRecord : IWeightRecord<WindStrength>, IStatModifiable<WindStrengthWeightRecord>
     {
-        [field: UnflagEnum, 
+        [field: UnflagEnum,
                 Required,
                 SerializeField]
         public WindStrength Item { get; internal set; }

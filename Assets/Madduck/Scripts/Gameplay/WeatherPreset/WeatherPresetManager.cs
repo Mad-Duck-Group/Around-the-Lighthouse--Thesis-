@@ -11,16 +11,18 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using Object = UnityEngine.Object;
+using WindDirection = Madduck.Shared.WindDirection;
 
 namespace Madduck.WeatherPreset
 {
+    
     public class WeatherPresetManager : IStartable, IDisposable
     {
         #region Inspector
 
         [BoxGroup("Debug"),
          HideLabel, Sirenix.OdinInspector.ReadOnly,
-         ShowInInspector] private List<WeatherPreset> _presets;
+         ShowInInspector] private WeatherPreset _preset;
         [BoxGroup("Debug"),
           HideLabel, Sirenix.OdinInspector.ReadOnly,
           ShowInInspector] private WeatherPresetConfig _presetsConfig;
@@ -47,7 +49,6 @@ namespace Madduck.WeatherPreset
             _weatherChangedEventSubscriber = weatherChangedEventSubscriber;
             _weatherFactory = weatherFactory;
             CurrentWeather = new ReactiveProperty<WeatherType>(_currentWeather);
-
             Subscribe();
         }
         #endregion
@@ -89,25 +90,30 @@ namespace Madduck.WeatherPreset
             switch (_currentWeather)
             {
                 case WeatherType.Clear:
-                    _presets = _presetsConfig.clearWeatherPreset;
+                    _preset = _presetsConfig.weatherPreset.TryGetValue(WeatherType.Clear, out var clearPreset)
+                        ? clearPreset : null;
                     break;
                 case WeatherType.Rain:
-                    _presets = _presetsConfig.rainyWeatherPreset;
+                    _preset = _presetsConfig.weatherPreset.TryGetValue(WeatherType.Rain, out var rainPreset)
+                        ? rainPreset : null;
                     break;
                 case WeatherType.Storm:
-                    _presets = _presetsConfig.stormWeatherPreset;
+                    _preset = _presetsConfig.weatherPreset.TryGetValue(WeatherType.Storm, out var stormPreset)
+                        ? stormPreset : null;
                     break;
                 case WeatherType.StrongWinds:
-                    _presets = _presetsConfig.strongWindWeatherPreset;
+                    _preset = _presetsConfig.weatherPreset.TryGetValue(WeatherType.StrongWinds, out var strongPreset)
+                        ? strongPreset : null;
                     break;
                 case WeatherType.Cloudy:
-                    _presets = _presetsConfig.cloudyWeatherPreset;
+                    _preset = _presetsConfig.weatherPreset.TryGetValue(WeatherType.Cloudy ,out var cloudyPreset)
+                        ? cloudyPreset : null;
                     break;
                 default:
                     Debug.LogError("Unsupported weather type: " + _currentWeather);
                     break;
             }
-            WeatherPreset instance = Object.Instantiate(_presets.GetRandomElement(), zero, identity);
+            WeatherPreset instance = Object.Instantiate(_preset, zero, identity);
             instance.SetUpWeatherParticles();
         }
 
