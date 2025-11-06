@@ -6,12 +6,25 @@ using UnityEngine;
 
 namespace Madduck.WeatherPreset
 {
+    [System.Serializable]
     public class WeatherParticlesSettings
     {
+        
         public WindDirection WindDirections;
         public ParticleSystem[] ParticleSystem;
         public Vector2 PositionOffset;
         
+    }
+    [System.Serializable]
+    public class WeatherParticleGroup
+    {
+        [TableList]
+        public List<WeatherParticlesSettings> ParticlesSettings;
+        public bool isStormy;
+        [ShowIf(nameof(isStormy))]
+        public ParticleSystem StormParticleSystem;
+        [ShowIf(nameof(isStormy))]
+        public Vector2 StormPositionOffset;
     }
     [System.Serializable]
     public class WeatherPresetConfig 
@@ -22,7 +35,7 @@ namespace Madduck.WeatherPreset
          ShowInInspector] public SerializableDictionary<WeatherType,WeatherPreset> weatherPreset;
         [BoxGroup("Settings"),
          Required,
-         ShowInInspector]public SerializableDictionary<WeatherType,List<WeatherParticlesSettings>> weatherParticles;
+         ShowInInspector]public SerializableDictionary<WeatherType,WeatherParticleGroup> weatherParticles;
         
     }
 }

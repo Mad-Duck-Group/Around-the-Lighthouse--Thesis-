@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &999490149775628595
+--- !u!1 &3558835323773392807
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,53 +8,53 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6988737753546463948}
-  - component: {fileID: 462862146089652756}
+  - component: {fileID: 6874078051096643240}
+  - component: {fileID: 291875495887687998}
   m_Layer: 0
-  m_Name: WeatherPreset_Strom
+  m_Name: WeatherPreset_Mist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6988737753546463948
+--- !u!4 &6874078051096643240
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999490149775628595}
+  m_GameObject: {fileID: 3558835323773392807}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 573970001222218484}
-  - {fileID: 2805890616742155166}
+  - {fileID: 5619660309210311910}
+  - {fileID: 3505655012099599558}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &462862146089652756
+--- !u!114 &291875495887687998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999490149775628595}
+  m_GameObject: {fileID: 3558835323773392807}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0cc30c9129f8bb449be476e406d4766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeatherPreset
   particleEntries: []
-  isStormy: 1
+  isStormy: 0
   stormTweenSettings:
     startFromCurrent: 0
-    startValue: {r: 0.21000001, g: 0.24000002, b: 0.3, a: 1}
-    endValue: {r: 0.8160377, g: 0.87457114, b: 1, a: 1}
+    startValue: {r: 0, g: 0, b: 0, a: 0}
+    endValue: {r: 0, g: 0, b: 0, a: 0}
     settings:
-      duration: 0.2
-      ease: 4
+      duration: 1
+      ease: 0
       customEase:
         serializedVersion: 2
         m_Curve: []
@@ -62,15 +62,15 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       cycles: 1
-      cycleMode: 1
+      cycleMode: 0
       startDelay: 0
       endDelay: 0
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
-  stormDelayMinMax: {x: 4.807692, y: 10}
-  globalLight: {fileID: 8146313084690830065}
---- !u!1 &2528635942651822413
+  stormDelayMinMax: {x: 1, y: 10}
+  globalLight: {fileID: 1201737317646652231}
+--- !u!1 &4664363139300186873
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,69 +78,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2805890616742155166}
+  - component: {fileID: 8214004052571436623}
+  - component: {fileID: 1201737317646652231}
   m_Layer: 0
-  m_Name: Lighting
+  m_Name: Light 2D_Cleary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2805890616742155166
+--- !u!4 &8214004052571436623
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2528635942651822413}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.2, y: 1.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1455452263767062372}
-  m_Father: {fileID: 6988737753546463948}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5632838908704566213
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1455452263767062372}
-  - component: {fileID: 8146313084690830065}
-  m_Layer: 0
-  m_Name: Light 2D_Rain
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1455452263767062372
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5632838908704566213}
+  m_GameObject: {fileID: 4664363139300186873}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2805890616742155166}
+  m_Father: {fileID: 3505655012099599558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8146313084690830065
+--- !u!114 &1201737317646652231
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5632838908704566213}
+  m_GameObject: {fileID: 4664363139300186873}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
@@ -150,7 +118,7 @@ MonoBehaviour:
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.20862746, g: 0.22894831, b: 0.29803923, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
@@ -186,7 +154,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!1 &7062328139366211952
+--- !u!1 &6997894422797730027
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,7 +162,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 573970001222218484}
+  - component: {fileID: 5619660309210311910}
   m_Layer: 0
   m_Name: Particle
   m_TagString: Untagged
@@ -202,18 +170,50 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &573970001222218484
+--- !u!4 &5619660309210311910
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7062328139366211952}
+  m_GameObject: {fileID: 6997894422797730027}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.9, y: 15.9, z: 0}
+  m_LocalPosition: {x: 9.4, y: 11.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6988737753546463948}
+  m_Father: {fileID: 6874078051096643240}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7338616319012767841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3505655012099599558}
+  m_Layer: 0
+  m_Name: Lighting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3505655012099599558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7338616319012767841}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.2, y: 1.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8214004052571436623}
+  m_Father: {fileID: 6874078051096643240}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

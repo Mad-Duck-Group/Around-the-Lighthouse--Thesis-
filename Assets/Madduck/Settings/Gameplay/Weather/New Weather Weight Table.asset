@@ -22,3 +22,9 @@ MonoBehaviour:
   - <Item>k__BackingField: {fileID: 11400000, guid: 16ced65aac56f3944a1355e2ab729712, type: 2}
     <Weight>k__BackingField:
       value: 1
+  - <Item>k__BackingField: {fileID: 11400000, guid: c37cd929665d1bc48a1821928fd3e329, type: 2}
+    <Weight>k__BackingField:
+      value: 1
+  - <Item>k__BackingField: {fileID: 11400000, guid: d1d1e0119ffb5914f8679a350d508f7b, type: 2}
+    <Weight>k__BackingField:
+      value: 1
