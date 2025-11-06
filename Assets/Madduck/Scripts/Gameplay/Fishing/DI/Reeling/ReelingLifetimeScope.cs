@@ -20,13 +20,15 @@ namespace Madduck.Fishing.DI
         [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
         [ShowInInspector] private FishingState _state;
         [ShowInInspector] private ReelingModel _model;
+        [ShowInInspector] private ReelingController _controller;
         
-        public ReelingStateDebugData(FishingState state, ReelingModel model)
+        public ReelingStateDebugData(FishingState state, ReelingModel model, ReelingController controller)
         {
             AutoCloseWhenPlayModeEnds = true;
             ConstantUpdate = false;
             _state = state;
             _model = model;
+            _controller = controller;
         }
     }
     [Serializable]
@@ -73,7 +75,8 @@ namespace Madduck.Fishing.DI
                 stateMachine.AddState(FishingStateType.Reeling, reelingState);
 #if UNITY_EDITOR
                 var model = x.Resolve<ReelingModel>();
-                _reelingStateDebugData = new ReelingStateDebugData(reelingState, model);
+                var controller = x.Resolve<ReelingController>();
+                _reelingStateDebugData = new ReelingStateDebugData(reelingState, model, controller);
 #endif
             });
         }

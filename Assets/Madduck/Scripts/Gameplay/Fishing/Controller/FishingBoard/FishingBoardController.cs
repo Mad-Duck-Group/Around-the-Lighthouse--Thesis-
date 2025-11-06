@@ -101,7 +101,10 @@ namespace Madduck.Fishing.Controller
             _playerInput.LeftStickDelta
                 .EveryUpdateWhen(x => x != Vector2.zero)
                 .Select(_ => _playerInput.LeftStickDelta.CurrentValue)
-                .Subscribe(x => MoveHook(x, true))
+                .Subscribe(x =>
+                {
+                    MoveHook(x, true);
+                })
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }

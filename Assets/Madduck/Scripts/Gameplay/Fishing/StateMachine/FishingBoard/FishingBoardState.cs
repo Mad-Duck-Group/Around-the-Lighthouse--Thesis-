@@ -46,7 +46,10 @@ namespace Madduck.Fishing.StateMachine
             _fishingBoardResultSubscription.Dispose();
             await _controller.SetActive(false);
             if (_result is Sign.Negative)
+            {
                 await _controller.ReturnHook();
+            }
+                
             _controller.Reset();
             _controller.ResetCircleBoardSprite();
         }
@@ -65,9 +68,9 @@ namespace Madduck.Fishing.StateMachine
             {
                 case Sign.Negative:
                     DebugUtils.Log("Fish escaped, transitioning to NoneState");
+                    _fishEscapedEventPublisher.Publish(new FishEscapedEvent());
                     stateMachine.ChangeState(FishingStateType.None);
                     stateMachine.ResetState(FishingStateType.Reeling);
-                    _fishEscapedEventPublisher.Publish(new FishEscapedEvent());
                     break;
                 case Sign.Positive:
                     DebugUtils.Log("Fish is tired, transitioning to ReelingState");

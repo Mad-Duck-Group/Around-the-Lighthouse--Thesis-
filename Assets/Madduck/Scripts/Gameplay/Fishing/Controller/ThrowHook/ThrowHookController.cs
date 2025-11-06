@@ -72,7 +72,7 @@ namespace Madduck.Fishing.Controller
                 .EveryUpdateWhen(x => x && !_model.HookThrown.Value)
                 .Subscribe(_ => OnHookHeld())
                 .AddTo(ref disposableBuilder);
-            _inputHandler.Action0Button.IsUpAfterHeld
+            _inputHandler.Action0Button.IsUp
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
                 .Where(x => x)

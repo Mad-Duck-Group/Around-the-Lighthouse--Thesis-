@@ -21,7 +21,7 @@ namespace Madduck.Utils
     
             return source
                 .SelectMany(t => predicate(t) 
-                    ? ticker.TakeUntil(source.Where(x => !predicate(x))) 
+                    ? ticker.TakeUntil(source.Where(x => !predicate(x)))
                     : Observable.Empty<Unit>());
         }
 

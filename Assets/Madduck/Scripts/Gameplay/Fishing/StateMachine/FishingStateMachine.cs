@@ -95,8 +95,10 @@ namespace Madduck.Fishing.StateMachine
             if (_states.TryGetValue(stateType, out var nextState))
             {
                 _currentStateType = stateType;
-                _fishingStateEventPublisher?.Publish(new FishingStateEvent(stateType));
-                ChangeState(nextState).Forget();
+                ChangeState(nextState).ContinueWith(() =>
+                {
+                    _fishingStateEventPublisher.Publish(new FishingStateEvent(stateType));
+                });
             }
             else
             {

@@ -15,8 +15,8 @@ MonoBehaviour:
   <MaxReelingValue>k__BackingField:
     value: 100
   <ChangeDirectionThreshold>k__BackingField:
-    value: 20
+    value: 60
   <GamepadSensitivity>k__BackingField:
-    value: 5
+    value: 30
   <MouseSensitivity>k__BackingField:
     value: 5

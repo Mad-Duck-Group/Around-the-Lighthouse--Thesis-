@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using Observable = R3.Observable;
 
 namespace Madduck.Input
 {
@@ -28,6 +29,8 @@ namespace Madduck.Input
                 ShowInInspector] public SerializableReactiveProperty<Vector2> MovementInput { get; private set; } = new();
         [field: ReadOnly, 
                 ShowInInspector] public SerializableReactiveProperty<Vector2> MouseDelta { get; private set; } = new();
+        [field: ReadOnly, 
+                ShowInInspector] public SerializableReactiveProperty<Vector2> MouseUnitCircle { get; private set; } = new();
         [field: ReadOnly, 
                 ShowInInspector] public SerializableReactiveProperty<Vector2> RightStickDelta { get; private set; } = new();
         [field: ReadOnly, 
@@ -67,6 +70,7 @@ namespace Madduck.Input
                 ShowInInspector] public InputButton PauseGameButton { get; private set; }
 
         #endregion
+        [ReadOnly, ShowInInspector] public string CurrentControlScheme => _currentControlScheme;
 
         #endregion
 
@@ -75,6 +79,7 @@ namespace Madduck.Input
         private PlayerInputAction _playerInputAction;
         private string _currentControlScheme = "Mouse & Keyboard";
         private IDisposable _anyButtonPressListener;
+        private IDisposable _mouseMoveListener;
 
         #endregion
 
@@ -117,12 +122,16 @@ namespace Madduck.Input
 
             _playerInputAction.Player.Enable();
             _anyButtonPressListener = InputSystem.onAnyButtonPress.Call(x => OnAnyButton(x).Forget());
+            if (Mouse.current == null) return;
+            _mouseMoveListener = Observable.EveryValueChanged(Mouse.current, x => x.position.ReadValue())
+                .Subscribe(OnMousePositionChanged);
         }
 
         private void Unsubscribe()
         {
             _playerInputAction.Player.Disable();
             _anyButtonPressListener?.Dispose();
+            _mouseMoveListener?.Dispose();
         }
 
         #endregion
@@ -151,6 +160,13 @@ namespace Madduck.Input
             AnyButtonPressed.Value = true;
             await UniTask.WaitForEndOfFrame();
             AnyButtonPressed.Value = false;
+        }
+        
+        private void OnMousePositionChanged(Vector2 position)
+        {
+            Vector2 screenCenter = new(Screen.currentResolution.width / 2f, Screen.currentResolution.height / 2f);
+            var delta = position - screenCenter;
+            MouseUnitCircle.Value = delta.normalized;
         }
 
         public void OnMovement(InputAction.CallbackContext context)

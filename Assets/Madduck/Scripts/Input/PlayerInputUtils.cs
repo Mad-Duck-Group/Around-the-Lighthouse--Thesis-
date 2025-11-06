@@ -15,6 +15,7 @@ namespace Madduck.Input
         public SerializableReactiveProperty<bool> AnyButtonPressed { get; }
         public SerializableReactiveProperty<Vector2> MovementInput { get; }
         public SerializableReactiveProperty<Vector2> MouseDelta { get; }
+        public SerializableReactiveProperty<Vector2> MouseUnitCircle { get; }
         public SerializableReactiveProperty<Vector2> RightStickDelta { get; }
         public SerializableReactiveProperty<Vector2> LeftStickDelta { get; }
         public SerializableReactiveProperty<float> BaitSelectInput { get; }
@@ -33,6 +34,8 @@ namespace Madduck.Input
         public InputButton ConfirmBaitButton { get; }
         #endregion
         
+        public string CurrentControlScheme { get; }
+        
         void SetActiveInput(bool active);
     }
 
@@ -41,6 +44,7 @@ namespace Madduck.Input
         public SerializableReactiveProperty<bool> AnyButtonPressed { get; set; }
         public SerializableReactiveProperty<Vector2> MovementInput { get; set; }
         public SerializableReactiveProperty<Vector2> MouseDelta { get; set; }
+        public SerializableReactiveProperty<Vector2> MouseUnitCircle { get; set; }
         public SerializableReactiveProperty<Vector2> RightStickDelta { get; set; }
         public SerializableReactiveProperty<Vector2> LeftStickDelta { get; set; }
         public SerializableReactiveProperty<float> BaitSelectInput { get; set; }
@@ -53,6 +57,7 @@ namespace Madduck.Input
         public InputButton PauseGameButton { get; set; }
         public InputButton BaitButton { get; set; }
         public InputButton ConfirmBaitButton { get; set; }
+        public string CurrentControlScheme { get; set; }
         public void SetActiveInput(bool active){}
         
     }

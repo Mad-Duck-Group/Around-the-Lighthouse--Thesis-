@@ -23,6 +23,7 @@ namespace Madduck.Fishing.UI
         private readonly IIdleAnimator _playerIdleAnimator;
         
         private bool _hookThrown;
+        private bool _isHolding;
         private CancellationTokenSource _chargeCts = new();
         private InputType? _activeInputType;
         private Sign _throwHookSliderDirection = Sign.Positive;
@@ -49,21 +50,23 @@ namespace Madduck.Fishing.UI
                 .Subscribe(x => _activeInputType = x)
                 .AddTo(ref disposableBuilder);
             ThrowHookFirstHeldCommand
-                .Where(_ => _activeInputType is null && !_hookThrown)
+                .Where(_ => _activeInputType is null && !_hookThrown && !_isHolding)
                 .Subscribe(x =>
                 {
                     _activeInputType = x;
+                    _isHolding = true;
                     OnThrowHookFirstHeld(_chargeCts.Token).Forget();
                 })
                 .AddTo(ref disposableBuilder);
             ThrowHookHeldCommand
-                .Where(x=> x == _activeInputType && !_hookThrown)
+                .Where(x=> x == _activeInputType && !_hookThrown && _isHolding)
                 .Subscribe(_ => OnThrowHookHeld())
                 .AddTo(ref disposableBuilder);
             ThrowHookReleaseCommand
-                .Where(x => x == _activeInputType && !_hookThrown)
+                .Where(x => x == _activeInputType && !_hookThrown && _isHolding)
                 .Subscribe(_ =>
                 {
+                    _isHolding = false;
                     OnThrowHookReleased().Forget();
                     _activeInputType = null;
                 })
@@ -110,6 +113,7 @@ namespace Madduck.Fishing.UI
         {
             _chargeCts = new();
             _hookThrown = false;
+            _isHolding = false;
             _activeInputType = null;
         }
         

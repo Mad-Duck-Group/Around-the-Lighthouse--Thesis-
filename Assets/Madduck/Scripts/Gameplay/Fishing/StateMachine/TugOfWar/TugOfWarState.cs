@@ -44,7 +44,11 @@ namespace Madduck.Fishing.StateMachine
             await base.Exit();
             _subscription.Dispose();
             await _controller.SetActive(false);
-            if (_result is Sign.Negative) await _controller.ReturnHook();
+            if (_result is Sign.Negative)
+            {
+                await _controller.ReturnHook();
+                
+            }
             _controller.Reset();
         }
         
@@ -59,10 +63,10 @@ namespace Madduck.Fishing.StateMachine
                     break;
                 case Sign.Negative:
                     DebugUtils.Log("Fish got away, back to NoneState");
+                    _fishEscapedEventPublisher.Publish(new FishEscapedEvent());
                     stateMachine.ChangeState(FishingStateType.None);
                     stateMachine.ResetState(FishingStateType.FishingBoard);
                     stateMachine.ResetState(FishingStateType.Reeling);
-                    _fishEscapedEventPublisher.Publish(new FishEscapedEvent());
                     break;
                 case Sign.Zero:
                     DebugUtils.Log("Lose Tug of War, back to FishingBoardState");

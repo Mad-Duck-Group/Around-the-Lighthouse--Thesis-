@@ -11,7 +11,9 @@ namespace Madduck.Fishing.Config
         [field: InlineProperty,
                 SerializeField] public UFloat MaxReelingValue { get; private set; } = 100f;
         [field: InlineProperty,
-                SerializeField] public UFloat ChangeDirectionThreshold { get; private set; } = 100f;
+                SerializeField] public UFloat RotationThreshold { get; private set; } = 60f;
+        [field: InlineProperty,
+                SerializeField] public UFloat RotationIdleThreshold { get; private set; } = 5f;
         [field: InlineProperty,
                 SerializeField] public UFloat GamepadSensitivity { get; private set; } = 5;
         [field: InlineProperty,

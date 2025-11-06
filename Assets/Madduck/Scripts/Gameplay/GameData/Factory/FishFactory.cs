@@ -19,7 +19,8 @@ namespace Madduck.GameData
         [field: HideReferenceObjectPicker,
                 ShowInInspector] private readonly FishWeightTableInstance _weightTable;
         
-        private IModifierSource _modifierSource;
+        [field: HideReferenceObjectPicker,
+                ShowInInspector] private readonly IModifierSource _modifierSource;
         
         [Inject]
         public FishFactory(

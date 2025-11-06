@@ -11,6 +11,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;
+using DisposableBag = R3.DisposableBag;
 
 namespace Madduck.Room
 {
@@ -50,12 +51,13 @@ namespace Madduck.Room
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
         private readonly IPublisher<FishingRoomEndedEvent> _fishingRoomEndedEventPublisher;
         private readonly IPublisher<WeatherChangedEvent> _weatherChangedPublisher;
+        private readonly ISubscriber<FishingStateEvent> _fishingStateEventSubscriber;
         private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private AudioReference _bgm;
         private IDisposable _subscriptions;
-        private IDisposable _modalSubscription;
+        private DisposableBag _disposables;
 
         #endregion
         
@@ -74,6 +76,7 @@ namespace Madduck.Room
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
             IPublisher<FishingRoomEndedEvent> fishingRoomEndedEventPublisher,
             IPublisher<WeatherChangedEvent> weatherChangedPublisher,
+            ISubscriber<FishingStateEvent> fishingStateEventSubscriber,
             ISubscriber<FishCaughtEvent> fishCaughtEventSubscriber,
             ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
             ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
@@ -89,6 +92,7 @@ namespace Madduck.Room
             _fishingRoomStartedEventPublisher = fishingRoomStartedEventPublisher;
             _fishingRoomEndedEventPublisher = fishingRoomEndedEventPublisher;
             _weatherChangedPublisher = weatherChangedPublisher;
+            _fishingStateEventSubscriber = fishingStateEventSubscriber;
             _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             _fishEscapedEventSubscriber = fishEscapedEventSubscriber;
             _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
@@ -122,7 +126,7 @@ namespace Madduck.Room
         public void Dispose()
         {
             _subscriptions?.Dispose();
-            _modalSubscription?.Dispose();
+            _disposables.Dispose();
         }
 
         #endregion
@@ -151,10 +155,11 @@ namespace Madduck.Room
             ChangeFishCount(-1);
             if (CurrentFishCount.Value != 0) return;
             //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
-            _modalSubscription = Observable.FromEvent(
+            Observable.FromEvent(
                     h => _modalManager.OnAllModalsClosed += h,
                     h => _modalManager.OnAllModalsClosed -= h)
-                .Subscribe(_ => OnAllModalsClosed());
+                .Subscribe(_ => OnFishingRoomEnded())
+                .AddTo(ref _disposables);
         }
         
         private void OnFishEscaped()
@@ -162,7 +167,11 @@ namespace Madduck.Room
             ChangeFishCount(-1);
             if (CurrentFishCount.Value != 0) return;
             //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
-            OnAllModalsClosed();
+            _fishingStateEventSubscriber
+                .AsObservable().ToObservable()
+                .Where(x => x.StateType is FishingStateType.None)
+                .Subscribe(_ => OnFishingRoomEnded())
+                .AddTo(ref _disposables);
         }
 
         #endregion
@@ -184,9 +193,9 @@ namespace Madduck.Room
                 (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
         }
 
-        private void OnAllModalsClosed()
+        private void OnFishingRoomEnded()
         {
-            _modalSubscription?.Dispose();
+            _disposables.Dispose();
             _fishingRoomEndedEventPublisher.Publish(new FishingRoomEndedEvent());
         }
 
