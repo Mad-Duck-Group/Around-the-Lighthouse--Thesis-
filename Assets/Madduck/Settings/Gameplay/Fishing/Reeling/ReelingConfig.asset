@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Madduck.Fishing.Config::Madduck.Scripts.Fishing.Config.Reeling.ReelingConfig
   <MaxReelingValue>k__BackingField:
     value: 100
-  <ChangeDirectionThreshold>k__BackingField:
-    value: 60
-  <GamepadSensitivity>k__BackingField:
+  <RotationThreshold>k__BackingField:
     value: 30
-  <MouseSensitivity>k__BackingField:
+  <RotationIdleThreshold>k__BackingField:
     value: 5
+  <GamepadSensitivity>k__BackingField:
+    value: 1
+  <MouseSensitivity>k__BackingField:
+    value: 1

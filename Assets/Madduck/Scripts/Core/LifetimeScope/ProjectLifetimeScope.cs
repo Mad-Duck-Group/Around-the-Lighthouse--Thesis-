@@ -17,6 +17,8 @@ namespace Madduck.Core
         
         protected override void Configure(IContainerBuilder builder)
         {
+            Application.targetFrameRate = -1;
+            QualitySettings.vSyncCount = 0;
             builder.RegisterMessagePipe(options =>
             {
                 options.InstanceLifetime = InstanceLifetime.Singleton;

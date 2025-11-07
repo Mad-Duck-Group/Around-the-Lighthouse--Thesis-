@@ -158,6 +158,15 @@ namespace Madduck.Scripts.Input
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""MouseUnitCircle"",
+                    ""type"": ""Value"",
+                    ""id"": ""ecfb3a8d-7794-44fb-8ada-3471b9196e79"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""RightStickDelta"",
                     ""type"": ""Value"",
                     ""id"": ""65703e99-9c16-405b-af75-9fa928f14e97"",
@@ -586,6 +595,17 @@ namespace Madduck.Scripts.Input
                     ""action"": ""ConfirmBait"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c4cd486-2a75-4208-abb9-5fc19616af26"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Mouse & Keyboard"",
+                    ""action"": ""MouseUnitCircle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -640,6 +660,7 @@ namespace Madduck.Scripts.Input
             m_Player_Action1 = m_Player.FindAction("Action1", throwIfNotFound: true);
             m_Player_Reeling = m_Player.FindAction("Reeling", throwIfNotFound: true);
             m_Player_MouseDelta = m_Player.FindAction("MouseDelta", throwIfNotFound: true);
+            m_Player_MouseUnitCircle = m_Player.FindAction("MouseUnitCircle", throwIfNotFound: true);
             m_Player_RightStickDelta = m_Player.FindAction("RightStickDelta", throwIfNotFound: true);
             m_Player_LeftStickDelta = m_Player.FindAction("LeftStickDelta", throwIfNotFound: true);
             m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
@@ -733,6 +754,7 @@ namespace Madduck.Scripts.Input
         private readonly InputAction m_Player_Action1;
         private readonly InputAction m_Player_Reeling;
         private readonly InputAction m_Player_MouseDelta;
+        private readonly InputAction m_Player_MouseUnitCircle;
         private readonly InputAction m_Player_RightStickDelta;
         private readonly InputAction m_Player_LeftStickDelta;
         private readonly InputAction m_Player_PauseGame;
@@ -778,6 +800,10 @@ namespace Madduck.Scripts.Input
             /// Provides access to the underlying input action "Player/MouseDelta".
             /// </summary>
             public InputAction @MouseDelta => m_Wrapper.m_Player_MouseDelta;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/MouseUnitCircle".
+            /// </summary>
+            public InputAction @MouseUnitCircle => m_Wrapper.m_Player_MouseUnitCircle;
             /// <summary>
             /// Provides access to the underlying input action "Player/RightStickDelta".
             /// </summary>
@@ -849,6 +875,9 @@ namespace Madduck.Scripts.Input
                 @MouseDelta.started += instance.OnMouseDelta;
                 @MouseDelta.performed += instance.OnMouseDelta;
                 @MouseDelta.canceled += instance.OnMouseDelta;
+                @MouseUnitCircle.started += instance.OnMouseUnitCircle;
+                @MouseUnitCircle.performed += instance.OnMouseUnitCircle;
+                @MouseUnitCircle.canceled += instance.OnMouseUnitCircle;
                 @RightStickDelta.started += instance.OnRightStickDelta;
                 @RightStickDelta.performed += instance.OnRightStickDelta;
                 @RightStickDelta.canceled += instance.OnRightStickDelta;
@@ -899,6 +928,9 @@ namespace Madduck.Scripts.Input
                 @MouseDelta.started -= instance.OnMouseDelta;
                 @MouseDelta.performed -= instance.OnMouseDelta;
                 @MouseDelta.canceled -= instance.OnMouseDelta;
+                @MouseUnitCircle.started -= instance.OnMouseUnitCircle;
+                @MouseUnitCircle.performed -= instance.OnMouseUnitCircle;
+                @MouseUnitCircle.canceled -= instance.OnMouseUnitCircle;
                 @RightStickDelta.started -= instance.OnRightStickDelta;
                 @RightStickDelta.performed -= instance.OnRightStickDelta;
                 @RightStickDelta.canceled -= instance.OnRightStickDelta;
@@ -1045,6 +1077,13 @@ namespace Madduck.Scripts.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnMouseDelta(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "MouseUnitCircle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnMouseUnitCircle(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "RightStickDelta" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

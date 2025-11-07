@@ -70,6 +70,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "MouseUnitCircle",
+                    "type": "Value",
+                    "id": "ecfb3a8d-7794-44fb-8ada-3471b9196e79",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "RightStickDelta",
                     "type": "Value",
                     "id": "65703e99-9c16-405b-af75-9fa928f14e97",
@@ -496,6 +505,17 @@
                     "processors": "",
                     "groups": ";Mouse & Keyboard",
                     "action": "ConfirmBait",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6c4cd486-2a75-4208-abb9-5fc19616af26",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Mouse & Keyboard",
+                    "action": "MouseUnitCircle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -79,7 +79,6 @@ namespace Madduck.Input
         private PlayerInputAction _playerInputAction;
         private string _currentControlScheme = "Mouse & Keyboard";
         private IDisposable _anyButtonPressListener;
-        private IDisposable _mouseMoveListener;
 
         #endregion
 
@@ -122,16 +121,12 @@ namespace Madduck.Input
 
             _playerInputAction.Player.Enable();
             _anyButtonPressListener = InputSystem.onAnyButtonPress.Call(x => OnAnyButton(x).Forget());
-            if (Mouse.current == null) return;
-            _mouseMoveListener = Observable.EveryValueChanged(Mouse.current, x => x.position.ReadValue())
-                .Subscribe(OnMousePositionChanged);
         }
 
         private void Unsubscribe()
         {
             _playerInputAction.Player.Disable();
             _anyButtonPressListener?.Dispose();
-            _mouseMoveListener?.Dispose();
         }
 
         #endregion
@@ -160,13 +155,6 @@ namespace Madduck.Input
             AnyButtonPressed.Value = true;
             await UniTask.WaitForEndOfFrame();
             AnyButtonPressed.Value = false;
-        }
-        
-        private void OnMousePositionChanged(Vector2 position)
-        {
-            Vector2 screenCenter = new(Screen.currentResolution.width / 2f, Screen.currentResolution.height / 2f);
-            var delta = position - screenCenter;
-            MouseUnitCircle.Value = delta.normalized;
         }
 
         public void OnMovement(InputAction.CallbackContext context)
@@ -228,18 +216,23 @@ namespace Madduck.Input
         public void OnMouseDelta(InputAction.CallbackContext context)
         {
             MouseDelta.Value = context.ReadValue<Vector2>();
-            //Debug.Log($"Mouse Delta: {MouseDelta.Value}");
+        }
+
+        public void OnMouseUnitCircle(InputAction.CallbackContext context)
+        {
+            var position = context.ReadValue<Vector2>();
+            Vector2 screenCenter = new(Screen.currentResolution.width / 2f, Screen.currentResolution.height / 2f);
+            var delta = position - screenCenter;
+            MouseUnitCircle.Value = delta.normalized;
         }
 
         public void OnRightStickDelta(InputAction.CallbackContext context)
         {
             RightStickDelta.Value = context.ReadValue<Vector2>();
-            //Debug.Log("Gamepad Hook Control: " + GamepadHookControl.Value);
         }
         public void OnLeftStickDelta(InputAction.CallbackContext context)
         {
             LeftStickDelta.Value = context.ReadValue<Vector2>();
-            //Debug.Log("Gamepad Movement: " + GamepadMovement.Value);
         }
         #endregion
         
