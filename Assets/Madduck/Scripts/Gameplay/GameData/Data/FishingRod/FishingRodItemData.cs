@@ -30,8 +30,8 @@ namespace Madduck.GameData
         [Title("Nibble Settings"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _nibbleSettingsTitle;
+        [field: SerializeField] public Percentage BubbleSpawnChance { get; private set; } = Percentage.FromPercentage(30f);
         [field: SerializeField] private SerializableDictionary<BubbleType, Percentage> bubbleNibbleBonuses = new();
-
         public IReadOnlyDictionary<BubbleType, Percentage> BubbleNibbleBonuses =>
                 (Dictionary<BubbleType, Percentage>)bubbleNibbleBonuses;
         [field: SerializeField] private SerializableDictionary<BubbleType, Percentage> bubbleNibblePenalties = new();

@@ -42,6 +42,8 @@ namespace Madduck.Fishing.DI
         [Title("References")] 
         [HideReferenceObjectPicker, 
          OdinSerialize] private List<IInstaller> fishingStateInstallers = new();
+        [HideReferenceObjectPicker, 
+         OdinSerialize] private BubbleManagerInstaller bubbleManagerInstaller = new();
         [Required, HideReferenceObjectPicker,
          OdinSerialize] private HookProjectileFactory hookProjectileFactory = new();
         [Required, HideReferenceObjectPicker,
@@ -81,11 +83,14 @@ namespace Madduck.Fishing.DI
                 builder.Register<FishFactory>(Lifetime.Singleton)
                     .As<IGenericFactory<FishItemInstance>>();
             }
+
+            builder.Register<FishingSharedVariable>(Lifetime.Singleton).AsSelf();
             builder.Register(_ => hookProjectileFactory, Lifetime.Singleton).As<IHookFactory>();
             builder.Register(_ => fishSpriteFactory, Lifetime.Singleton).As<IFishSpriteFactory>();
             builder.Register(_ => fishEyesFactory, Lifetime.Singleton).As<IFishEyesFactory>();
             builder.Register<FishingNoneState>(Lifetime.Scoped).AsSelf();
             builder.Register<FishingStateMachine>(Lifetime.Singleton).AsSelf();
+            bubbleManagerInstaller.Install(builder);
             fishingStateInstallers.ForEach(x => x.Install(builder));
             builder.RegisterBuildCallback(x =>
             {

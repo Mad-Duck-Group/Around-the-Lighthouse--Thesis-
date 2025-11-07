@@ -29,6 +29,9 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cfishing_005Cshared_005Cfactory/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cfishing_005Cshared_005Cfishingboard/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cfishing_005Cshared_005Creeling/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cfishing_005Cshared_005Csprite/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cfishing_005Cshared_005Csprite_005Cbubble/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cfishing_005Cshared_005Csprite_005Cfish/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cfishing_005Cshared_005Cthrowhook/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cfishing_005Cstatemachine_005Ccatchfish/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cfishing_005Cstatemachine_005Cfishbite/@EntryIndexedValue">True</s:Boolean>

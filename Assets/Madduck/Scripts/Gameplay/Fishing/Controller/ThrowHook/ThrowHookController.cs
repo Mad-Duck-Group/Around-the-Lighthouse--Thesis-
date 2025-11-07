@@ -27,6 +27,7 @@ namespace Madduck.Fishing.Controller
 
         private readonly ThrowHookCommander _commander;
         private readonly ThrowHookModel _model;
+        private readonly BubbleManager _bubbleManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
         private readonly ITransitionable _viewTransition;
@@ -42,6 +43,7 @@ namespace Madduck.Fishing.Controller
         public ThrowHookController(
             ThrowHookCommander commander,
             ThrowHookModel model,
+            BubbleManager bubbleManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
             [Key(FishingStateType.ThrowHook)] ITransitionable viewTransition)
@@ -49,6 +51,7 @@ namespace Madduck.Fishing.Controller
             _inputHandler = inputHandler;
             _commander = commander;
             _model = model;
+            _bubbleManager = bubbleManager;
             _hookFactory = hookFactory;
             _viewTransition = viewTransition;
         }

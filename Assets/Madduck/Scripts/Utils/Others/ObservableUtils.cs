@@ -1,5 +1,7 @@
 ﻿using System;
+using Org.BouncyCastle.Asn1.X509;
 using R3;
+using Time = UnityEngine.Time;
 
 namespace Madduck.Utils
 {
@@ -34,6 +36,66 @@ namespace Madduck.Utils
         public static Observable<T> IgnoreFirstValueWhenSubscribe<T>(this Observable<T> source)
         {
             return source.Skip(1);
+        }
+    }
+
+    public class PausableTimer : IDisposable
+    {
+        private readonly TimeSpan _duration;
+        private readonly Action _callback;
+        private readonly FrameProvider _frameProvider;
+        private bool IgnoreTimeScale { get; set; }
+        private readonly IDisposable _updateSubscription;
+        
+        private bool _isRunning;
+        private TimeSpan _elapsedTime;
+        
+        public PausableTimer(TimeSpan duration, Action callback, FrameProvider frameProvider = null, bool ignoreTimeScale = false)
+        {
+            _duration = duration;
+            _elapsedTime = TimeSpan.Zero;
+            _isRunning = true;
+            _callback = callback;
+            IgnoreTimeScale = ignoreTimeScale;
+            _frameProvider = frameProvider ?? UnityFrameProvider.Update;
+            _updateSubscription = Observable.EveryUpdate(_frameProvider) 
+                .Where(_ => _isRunning)
+                .Subscribe(_ => Update());
+        }
+        
+        public void Dispose()
+        {
+            _isRunning = false;
+            _updateSubscription.Dispose();
+        }
+        
+        public void Start()
+        {
+            _isRunning = true;
+        }
+        
+        public void Pause()
+        {
+            _isRunning = false;
+        }
+        
+        public void Reset()
+        {
+            _elapsedTime = TimeSpan.Zero;
+            _isRunning = false;
+        }
+        
+        private void Update()
+        {
+            var deltaTime = IgnoreTimeScale ? Time.unscaledDeltaTime : Time.deltaTime;
+            if (_frameProvider.Equals(UnityFrameProvider.FixedUpdate))
+            {
+                deltaTime = IgnoreTimeScale ? Time.fixedUnscaledDeltaTime : Time.fixedDeltaTime;
+            }
+            _elapsedTime += TimeSpan.FromSeconds(deltaTime);
+            if (_elapsedTime < _duration) return;
+            _isRunning = false;
+            _callback?.Invoke();
         }
     }
 }

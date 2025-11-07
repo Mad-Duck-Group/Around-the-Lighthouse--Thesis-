@@ -130,6 +130,7 @@ namespace Madduck.GameData
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _debugStatsTitle;
 
+        #region Throw Hook
         private Percentage _currentMaxThrowPercentage;
 
         [InlineProperty, DisplayAsString,
@@ -146,11 +147,27 @@ namespace Madduck.GameData
         
         [field: InlineProperty, DisplayAsString,
                 SerializeField] public UFloat CurrentThrowSliderSpeed { get; set; }
+        #endregion
+        
+        #region Nibble
+        private Percentage _currentBubbleSpawnChance;
+        [ShowInInspector] public Percentage CurrentBubbleSpawnChance 
+        {
+            get => _currentBubbleSpawnChance;
+            set
+            {
+                var clamp = Percentage.Clamp01(value);
+                _currentBubbleSpawnChance = clamp;
+            }
+        }
         [field: ShowInInspector] public Dictionary<BubbleType, Percentage> CurrentBubbleNibbleBonuses { get; set; } = new();
         [field: ShowInInspector] public Dictionary<BubbleType, Percentage> CurrentBubbleNibblePenalties { get; set; } = new();
         [field: ShowInInspector] public Dictionary<int, Percentage> CurrentNibbleBaseSuccessChances { get; set; } = new(); 
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentFishBiteTimeFrame { get; set; }
+        #endregion
+        
+        #region Fishing Board
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentPower { get; set; }
         [field: DisplayAsString,
@@ -166,19 +183,25 @@ namespace Madduck.GameData
 
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentFishingLineRegenFactor { get; set; }
-
+        #endregion
+        
+        #region Reeling
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentReelingSpeed { get; set; }
+        #endregion
+        
+        #region Tug of War
         [field: DisplayAsString,
                 ShowInInspector] public UFloat CurrentTugOfWarGainRate { get; set; }
         [field: DisplayAsString,
                 ShowInInspector] public Percentage CurrentTugOfWarDecayThreshold { get; set; }
+        #endregion
         
-         
         public FishingRodStats(FishingRodItemData itemData)
         {
             CurrentMaxThrowPercentage = itemData.MaxThrowPercentage;
             CurrentThrowSliderSpeed = itemData.ThrowSliderSpeed;
+            CurrentBubbleSpawnChance = itemData.BubbleSpawnChance;
             CurrentBubbleNibbleBonuses = new(itemData.BubbleNibbleBonuses);
             CurrentBubbleNibblePenalties = new(itemData.BubbleNibblePenalties);
             CurrentNibbleBaseSuccessChances = new(itemData.NibbleBaseSuccessChances);
