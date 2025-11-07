@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d50249af8919475b8f2cc331f39bd1b5, type: 3}
-  m_Name: Clear
+  m_Name: Mist
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.WeatherItemData
   <ItemType>k__BackingField: 0
   serializationData:
@@ -24,7 +24,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Guid>k__BackingField
       Entry: 2
-      Data: f2ca1ee39adb490a9e2da6a36bc5a0fa
+      Data: fc1048705e544f448e8ae8038e0125ce
     - Name: windModifiers
       Entry: 7
       Data: 0|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WindDirection,
@@ -310,6 +310,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <WeatherType>k__BackingField: 1
-  <WindDirectionWeightTable>k__BackingField: {fileID: 11400000, guid: 3f955d49d61c832469233dc6afd15fa2, type: 2}
-  <WindStrengthWeightTable>k__BackingField: {fileID: 11400000, guid: 456bda5cf70f9dc448fc1b563c898dec, type: 2}
+  <WeatherType>k__BackingField: 32
+  <WindDirectionWeightTable>k__BackingField: {fileID: 11400000, guid: 9382c56d05d477c41bcbd5f547f3d247, type: 2}
+  <WindStrengthWeightTable>k__BackingField: {fileID: 11400000, guid: 310c44a1b51227b4ba75b8276e001057, type: 2}

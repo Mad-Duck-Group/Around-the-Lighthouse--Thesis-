@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d50249af8919475b8f2cc331f39bd1b5, type: 3}
-  m_Name: Clear
+  m_Name: StrongWind
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.WeatherItemData
   <ItemType>k__BackingField: 0
   serializationData:
@@ -24,7 +24,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Guid>k__BackingField
       Entry: 2
-      Data: f2ca1ee39adb490a9e2da6a36bc5a0fa
+      Data: cdce2739095b4f7faa6db36f0ffec1ac
     - Name: windModifiers
       Entry: 7
       Data: 0|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WindDirection,
@@ -75,36 +75,33 @@ MonoBehaviour:
       Entry: 3
       Data: 1
     - Name: 
-      Entry: 6
-      Data: 
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 4|Madduck.GameData.RodStatModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 0
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindStrength,
-        Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
-        Madduck.Utils]], mscorlib]], mscorlib
-    - Name: 
+    - Name: <FishingRodStatType>k__BackingField
       Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindStrength,
-        Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
-        Madduck.Utils]], mscorlib]], mscorlib
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 6
-      Data: 
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -118,42 +115,44 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindDirection,
-        Madduck.GameData],[Madduck.GameData.WindStrengthModifier, Madduck.GameData]],
-        mscorlib
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 3|Madduck.GameData.WindStrengthModifier, Madduck.GameData
-    - Name: modifiersDictionary
-      Entry: 7
-      Data: 4|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WindStrength,
-        Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
-        Madduck.Utils]], mscorlib]], Madduck.Utils
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
       Entry: 7
       Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindStrength,
         Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib]], mscorlib
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: 
       Entry: 7
       Data: 5|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 6|Madduck.GameData.RodStatModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
       Data: 0
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <FishingRodStatType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -170,37 +169,43 @@ MonoBehaviour:
         Madduck.Utils]], mscorlib]], mscorlib
     - Name: 
       Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindStrength,
-        Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
-        Madduck.Utils]], mscorlib]], mscorlib
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindStrength,
-        Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
-        Madduck.Utils]], mscorlib]], mscorlib
-    - Name: 
-      Entry: 3
       Data: 3
     - Name: 
-      Entry: 6
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|Madduck.GameData.RodStatModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 0
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <FishingRodStatType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8
@@ -224,13 +229,13 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
-      Data: 6|Madduck.GameData.WindStrengthModifier, Madduck.GameData
+      Data: 9|Madduck.GameData.WindStrengthModifier, Madduck.GameData
     - Name: modifiersDictionary
       Entry: 7
-      Data: 7|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WindStrength,
+      Data: 10|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WindStrength,
         Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib]], Madduck.Utils
     - Name: 
@@ -305,11 +310,227 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindDirection,
+        Madduck.GameData],[Madduck.GameData.WindStrengthModifier, Madduck.GameData]],
+        mscorlib
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 11|Madduck.GameData.WindStrengthModifier, Madduck.GameData
+    - Name: modifiersDictionary
+      Entry: 7
+      Data: 12|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WindStrength,
+        Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib]], Madduck.Utils
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindStrength,
+        Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindStrength,
+        Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 13|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 14|Madduck.GameData.FishStatModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 0
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishSize>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishItemData>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <FishStatType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  <WeatherType>k__BackingField: 1
-  <WindDirectionWeightTable>k__BackingField: {fileID: 11400000, guid: 3f955d49d61c832469233dc6afd15fa2, type: 2}
-  <WindStrengthWeightTable>k__BackingField: {fileID: 11400000, guid: 456bda5cf70f9dc448fc1b563c898dec, type: 2}
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindStrength,
+        Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 15|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 16|Madduck.GameData.FishStatModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 0
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishSize>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishItemData>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <FishStatType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WindStrength,
+        Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 17|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+        Madduck.Utils]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 18|Madduck.GameData.FishStatModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 0
+    - Name: <ModifierPercentage>k__BackingField
+      Entry: 7
+      Data: Madduck.Utils.Percentage, Madduck.Utils
+    - Name: value
+      Entry: 4
+      Data: 20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishSize>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishItemData>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <FishStatType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  <WeatherType>k__BackingField: 16
+  <WindDirectionWeightTable>k__BackingField: {fileID: 11400000, guid: 0f678f94757a66f41970ccc6b20bf022, type: 2}
+  <WindStrengthWeightTable>k__BackingField: {fileID: 11400000, guid: 8c643580477364d40bdad1d559a69ff1, type: 2}

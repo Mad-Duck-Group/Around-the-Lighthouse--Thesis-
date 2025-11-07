@@ -17,7 +17,8 @@ namespace Madduck.GameData
         Storm = 1 << 2,
         Cloudy = 1 << 3,
         StrongWinds = 1 << 4,
-        All = Clear | Rain | Storm | Cloudy | StrongWinds
+        Mist = 1 << 5,
+        All = Clear | Rain | Storm | Cloudy | StrongWinds | Mist
     }
     
     public enum WindStrength

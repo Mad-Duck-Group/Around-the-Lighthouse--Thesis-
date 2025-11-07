@@ -11,22 +11,27 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using Object = UnityEngine.Object;
+using WindDirection = Madduck.GameData.WindDirection;
 
 namespace Madduck.WeatherPreset
 {
+    
     public class WeatherPresetManager : IStartable, IDisposable
     {
         #region Inspector
 
         [BoxGroup("Debug"),
          HideLabel, Sirenix.OdinInspector.ReadOnly,
-         ShowInInspector] private List<WeatherPreset> _presets;
+         ShowInInspector] private WeatherPreset _preset;
         [BoxGroup("Debug"),
           HideLabel, Sirenix.OdinInspector.ReadOnly,
           ShowInInspector] private WeatherPresetConfig _presetsConfig;
         [BoxGroup("Debug")]
         [DisplayAsString, 
          ShowInInspector] private WeatherType _currentWeather;
+        [BoxGroup("Debug")]
+        [DisplayAsString, 
+         ShowInInspector] private WindDirection _currentWindDirection;
         
         [field: DisplayAsString, 
                 ShowInInspector] public ReactiveProperty<WeatherType> CurrentWeather { get; private set; }
@@ -47,7 +52,6 @@ namespace Madduck.WeatherPreset
             _weatherChangedEventSubscriber = weatherChangedEventSubscriber;
             _weatherFactory = weatherFactory;
             CurrentWeather = new ReactiveProperty<WeatherType>(_currentWeather);
-
             Subscribe();
         }
         #endregion
@@ -71,8 +75,10 @@ namespace Madduck.WeatherPreset
         private void OnWeatherChanged(WeatherChangedEvent weatherChangedEvent)
         {
             _currentWeather = weatherChangedEvent.Weather.ItemData.WeatherType;
+            _currentWindDirection = weatherChangedEvent.Weather.CurrentWindDirection.CurrentValue;
             CurrentWeather.Value = _currentWeather;
-            SpawnWeather(Vector3.zero, Quaternion.identity);
+            
+            SpawnWeather();
         }
 
         #endregion
@@ -81,33 +87,55 @@ namespace Madduck.WeatherPreset
         public void Start()
         {
             _currentWeather = _weatherFactory.Current.ItemData.WeatherType;
-            SpawnWeather(Vector3.zero, Quaternion.identity);
+            SpawnWeather();
         }
 
-        private void SpawnWeather(Vector3 zero, Quaternion identity)
+        private void SpawnWeather()
         {
-            switch (_currentWeather)
+            if (!_presetsConfig.weatherPreset.TryGetValue(_currentWeather, out var preset))
             {
-                case WeatherType.Clear:
-                    _presets = _presetsConfig.clearWeatherPreset;
-                    break;
-                case WeatherType.Rain:
-                    _presets = _presetsConfig.rainyWeatherPreset;
-                    break;
-                case WeatherType.Storm:
-                    _presets = _presetsConfig.stormWeatherPreset;
-                    break;
-                case WeatherType.StrongWinds:
-                    _presets = _presetsConfig.strongWindWeatherPreset;
-                    break;
-                case WeatherType.Cloudy:
-                    _presets = _presetsConfig.cloudyWeatherPreset;
-                    break;
-                default:
-                    Debug.LogError("Unsupported weather type: " + _currentWeather);
-                    break;
+                Debug.LogError($"WeatherPreset not found for {_currentWeather}");
+                return;
             }
-            WeatherPreset instance = Object.Instantiate(_presets.GetRandomElement(), zero, identity);
+            if (!_presetsConfig.weatherParticles.TryGetValue(_currentWeather, out var particleGroup))
+            {
+                Debug.LogWarning($"No particle config found for {_currentWeather}");
+                return;
+            }
+            var windDirection = _currentWindDirection;
+            var particleSetting = particleGroup.ParticlesSettings
+                .Find(p => p.WindDirections == windDirection);
+            var instance = Object.Instantiate(preset, Vector3.zero, Quaternion.identity);
+            if (particleGroup.isStormy)
+            {
+                
+                if (particleGroup.StormParticleSystem != null)
+                {
+                    var pos = (Vector2)instance.transform.position + particleGroup.StormPositionOffset;
+                    var rotation = particleGroup.StormParticleSystem.transform.rotation;
+
+                    var stormFX = Object.Instantiate(
+                        particleGroup.StormParticleSystem,
+                        pos,
+                        rotation,
+                        instance.transform
+                    );
+
+                    stormFX.Play();
+                }
+                else
+                {
+                    Debug.LogWarning($"Stormy weather {_currentWeather} has no StormParticleSystem assigned!");
+                }
+                
+            }
+            foreach (var ps in particleSetting.ParticleSystem)
+            {
+                if (ps == null) continue;
+                var pos = (Vector2)instance.transform.position + particleSetting.PositionOffset;
+                var particleInstance = Object.Instantiate(ps, pos,ps.transform.rotation, instance.transform);
+                particleInstance.Play();
+            }
             instance.SetUpWeatherParticles();
         }
 
