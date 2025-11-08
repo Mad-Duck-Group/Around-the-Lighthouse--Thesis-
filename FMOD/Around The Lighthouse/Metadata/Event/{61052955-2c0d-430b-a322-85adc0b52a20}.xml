@@ -5,7 +5,7 @@
 			<value>ChargingBar</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{12e0bc4c-7386-4bb6-99fe-0be25da5c84d}</destination>
@@ -44,6 +44,9 @@
 		<relationship name="automationTracks">
 			<destination>{f74cf3f5-b502-4cab-bd9b-de7210095a1f}</destination>
 		</relationship>
+		<relationship name="modules">
+			<destination>{c8f94f94-7920-4677-82a4-cd209292a2c2}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{9ff11832-6a8a-4956-bb51-28b6ed9f6ede}</destination>
 		</relationship>
@@ -63,6 +66,9 @@
 	<object class="MarkerTrack" id="{d36194dc-92b3-4b90-acff-71ae4c45c833}" />
 	<object class="Timeline" id="{34e45765-34b4-49c2-908c-0039f1b2d749}" />
 	<object class="ParameterProxy" id="{af57cbf2-6475-4818-9636-2c35dea2e049}">
+		<relationship name="modules">
+			<destination>{c8f94f94-7920-4677-82a4-cd209292a2c2}</destination>
+		</relationship>
 		<relationship name="preset">
 			<destination>{2789f28d-ba08-4756-874a-5df3a436ec3a}</destination>
 		</relationship>
@@ -84,6 +90,17 @@
 	<object class="AutomationTrack" id="{f74cf3f5-b502-4cab-bd9b-de7210095a1f}">
 		<relationship name="automator">
 			<destination>{2c80a0e2-f138-48aa-8772-82f98beaa313}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{c8f94f94-7920-4677-82a4-cd209292a2c2}">
+		<property name="length">
+			<value>0.69000000000000006</value>
+		</property>
+		<property name="looping">
+			<value>true</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{24a34663-8dd3-4b04-8b26-6ebd38d4bdc8}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{c6e495ed-0516-49e8-bb5a-938f4263c8ec}">
@@ -128,7 +145,7 @@
 			<value>1</value>
 		</property>
 		<property name="value">
-			<value>1.77999997</value>
+			<value>2</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{e4945b9c-b4e5-46b6-b984-bffa8a71af76}">
@@ -137,6 +154,9 @@
 		</property>
 		<property name="value">
 			<value>1.01999998</value>
+		</property>
+		<property name="curveShape">
+			<value>-0.312028795</value>
 		</property>
 	</object>
 </objects>

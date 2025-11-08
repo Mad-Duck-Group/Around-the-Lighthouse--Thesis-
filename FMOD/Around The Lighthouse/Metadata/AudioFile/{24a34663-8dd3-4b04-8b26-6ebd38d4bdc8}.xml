@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{8d3fe3a9-ec03-4b85-9685-b8b542b17fa9}">
+	<object class="AudioFile" id="{24a34663-8dd3-4b04-8b26-6ebd38d4bdc8}">
 		<property name="assetPath">
-			<value>SFX/SFX_charging_1.mp3</value>
+			<value>SFX/SFX_charging2.mp3</value>
 		</property>
 		<property name="frequencyInKHz">
-			<value>44.0999985</value>
+			<value>24</value>
 		</property>
 		<property name="channelCount">
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>4.12734693877551</value>
+			<value>5.1120000000000001</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{d0370551-250a-46b4-8fe4-9471cc918246}</destination>
