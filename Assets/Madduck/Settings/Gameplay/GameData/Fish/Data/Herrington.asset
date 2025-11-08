@@ -27,7 +27,7 @@ MonoBehaviour:
       Data: 42781fbf8e4c4383862725ebdd846fee
   <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   <Size>k__BackingField: 1
-  <WeatherType>k__BackingField: 7
+  <WeatherType>k__BackingField: 63
   <DayPhaseType>k__BackingField: 1
   <FishName>k__BackingField: Herrington
   <FishDescription>k__BackingField: A long fish with sharp mouth. They are predators

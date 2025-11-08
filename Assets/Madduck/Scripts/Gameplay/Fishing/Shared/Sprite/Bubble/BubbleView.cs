@@ -11,7 +11,6 @@ namespace Madduck.Fishing.Shared
 {
     public interface IBubbleView : ITransitionable
     {
-        event Action OnDisappeared;
         BubbleType BubbleType { get; }
         float BubbleLength { get; }
         
@@ -29,7 +28,6 @@ namespace Madduck.Fishing.Shared
         [Title("Tween")] 
         [SerializeField] private TweenSettings<Vector3> scaleTweenSettings;
         
-        public event Action OnDisappeared;
         public BubbleType BubbleType { get; private set; }
 
         public float BubbleLength
@@ -61,7 +59,6 @@ namespace Madduck.Fishing.Shared
 
         public async UniTask TransitionOut(CancellationToken cancellationToken = default)
         {
-            OnDisappeared?.Invoke();
             cancellationToken.Register(CancelTransition);
             await Transition(forward: false);
             Destroy(gameObject);

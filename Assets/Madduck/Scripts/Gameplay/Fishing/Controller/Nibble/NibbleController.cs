@@ -26,7 +26,8 @@ namespace Madduck.Fishing.Controller
 
         private readonly NibbleConfig _config;
         private readonly NibbleModel _model;
-        private readonly NibbleCommander _commander;
+        private readonly BubbleManager _bubbleManager;
+        private readonly FishingSharedVariable _sharedVariable;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
@@ -59,7 +60,8 @@ namespace Madduck.Fishing.Controller
         public NibbleController(
             NibbleConfig config,
             NibbleModel model, 
-            NibbleCommander commander,
+            BubbleManager bubbleManager,
+            FishingSharedVariable sharedVariable,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
@@ -72,7 +74,8 @@ namespace Madduck.Fishing.Controller
             _config = config;
             _inputHandler = inputHandler;
             _model = model;
-            _commander = commander;
+            _bubbleManager = bubbleManager;
+            _sharedVariable = sharedVariable;
             _hookFactory = hookFactory;
             _fishFactory = fishFactory;
             _fishEyesFactory = fishEyesFactory;
@@ -140,6 +143,7 @@ namespace Madduck.Fishing.Controller
                 var fishSprite = _fishSpriteFactory.Create();
                 fishSprite.SetUp(_hookFactory.CurrentGameObject.transform, _fishFactory.Current);
                 fishSprite.Animator.Set(FishSpriteAnimationKey.Idle, 0, true);
+                _bubbleManager.PauseAllBubbles();
                 await UniTask.WhenAll(
                     fishSprite.TransitionIn(),
                     _hookFactory.Current.MoveY(Percentage.Full));
@@ -223,7 +227,9 @@ namespace Madduck.Fishing.Controller
             });
             _qteButtonFactory.Current.OnSuccess -= OnQteSuccess;
             _hookFactory.Current.Nibble(2);
-            _currentStageChance[_currentStageIndex] += _model.FishingRod.CurrentStats.CurrentBubbleNibbleBonuses[BubbleType.None]; //TODO: Do bubble later
+            var bubbleType = _sharedVariable.CurrentBubbleType.CurrentValue;
+            _currentStageChance[_currentStageIndex] +=
+                _model.FishingRod.CurrentStats.CurrentBubbleNibbleBonuses[bubbleType];
             _currentStageChance[_currentStageIndex] = Percentage.Clamp01(_currentStageChance[_currentStageIndex]);
             var result = Percentage.TryRoll(_currentStageChance[_currentStageIndex]);
             DebugUtils.Log($"Index {_currentStageIndex} Nibble Chance: {_currentStageChance[_currentStageIndex]} Roll Result: {result}");
@@ -253,7 +259,9 @@ namespace Madduck.Fishing.Controller
                 _qteActive = false;
             });
             _qteButtonFactory.Current.OnFail -= OnQteFail;
-            _currentStageChance[_currentStageIndex] -= _model.FishingRod.CurrentStats.CurrentBubbleNibblePenalties[BubbleType.None]; //TODO: Do bubble later
+            var bubbleType = _sharedVariable.CurrentBubbleType.CurrentValue;
+            _currentStageChance[_currentStageIndex] -=
+                _model.FishingRod.CurrentStats.CurrentBubbleNibblePenalties[bubbleType];
             _currentStageChance[_currentStageIndex] = Percentage.Clamp01(_currentStageChance[_currentStageIndex]);
             switch (_currentStageIndex)
             {

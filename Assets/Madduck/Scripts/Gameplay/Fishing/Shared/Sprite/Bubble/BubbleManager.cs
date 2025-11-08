@@ -15,6 +15,17 @@ using VContainer;
 
 namespace Madduck.Fishing.Shared
 {
+    public struct BubbleChangedEvent
+    {
+        public IBubbleView BubbleView { get; private set; }
+        public bool IsSpawned { get; private set; }
+        
+        public BubbleChangedEvent(IBubbleView bubbleView, bool isSpawned)
+        {
+            BubbleView = bubbleView;
+            IsSpawned = isSpawned;
+        }
+    }
     public class BubbleManager : IDisposable
     {
         private record BubbleSpawnInfo
@@ -22,6 +33,8 @@ namespace Madduck.Fishing.Shared
             public Vector2Int occupiedSegments;
             public PausableTimer bubbleTimer;
         }
+
+        public event Action<BubbleChangedEvent> OnBubbleChanged;
         
         private readonly BubbleManagerConfig _config;
         private readonly PlayerInventory _playerInventory;
@@ -29,6 +42,7 @@ namespace Madduck.Fishing.Shared
         private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
 
         private readonly ObservableDictionary<IBubbleView, BubbleSpawnInfo> _bubbles = new();
+        private bool _isPaused;
         private int _currentGuaranteeCount;
         private IDisposable _subscription;
         private IDisposable _bubbleSpawnTimer;
@@ -130,12 +144,14 @@ namespace Madduck.Fishing.Shared
             bubble.SetUp(spawnPosition, BubbleType.Standard);
             var timer = new PausableTimer(TimeSpan.FromSeconds(_config.BubbleStayDuration),
                 () => DespawnBubble(bubble));
+            if (_isPaused) timer.Pause();
             var bubbleInfo = new BubbleSpawnInfo
             {
                 occupiedSegments = randomSegments,
                 bubbleTimer = timer
             };
             _bubbles.Add(bubble, bubbleInfo);
+            OnBubbleChanged?.Invoke(new BubbleChangedEvent(bubble, isSpawned: true));
             bubble.TransitionIn().Forget();
         }
         
@@ -151,11 +167,13 @@ namespace Madduck.Fishing.Shared
                 .ContinueWith(() =>
                 {
                     _bubbles.Remove(bubble);
+                    OnBubbleChanged?.Invoke(new BubbleChangedEvent(bubble, isSpawned: false));
                 });
         }
         
         public void PauseAllBubbles()
         {
+            _isPaused = true;
             foreach (var bubbleInfo in _bubbles.Select(x => x.Value))
             {
                 bubbleInfo.bubbleTimer?.Pause();
@@ -164,6 +182,7 @@ namespace Madduck.Fishing.Shared
         
         public void ResumeAllBubbles()
         {
+            _isPaused = false;
             foreach (var bubbleInfo in _bubbles.Select(x => x.Value))
             {
                 bubbleInfo.bubbleTimer?.Start();
@@ -173,17 +192,28 @@ namespace Madduck.Fishing.Shared
         public bool TryLandOnBubble(Vector2 position, out IBubbleView bubble)
         {
             bubble = null;
-            foreach (var (bubbleView, bubbleInfo) in _bubbles)
+            foreach (var bubbleView in _bubbles.Select(x => x.Key))
             {
-                var bound = SegmentToPosition(bubbleInfo.occupiedSegments);
-                var leftBound = bound.x;
-                var rightBound = bound.y;
-                DebugUtils.Log("[BubbleManager] Checking bubble at bounds: " + leftBound + " to " + rightBound);
-                if (position.x >= leftBound && position.x <= rightBound)
-                {
-                    bubble = bubbleView;
-                    return true;
-                }
+                if (!TryLandOnBubble(position, bubbleView)) continue;
+                bubble = bubbleView;
+                return true;
+            }
+            DebugUtils.Log("[BubbleManager] No bubble landed on.");
+            return false;
+        }
+
+        public bool TryLandOnBubble(Vector2 position, IBubbleView bubble)
+        {
+            var bubbleInfo = _bubbles.GetValueOrDefault(bubble);
+            if (bubbleInfo == null) return false;
+            var bound = SegmentToPosition(bubbleInfo.occupiedSegments);
+            var leftBound = bound.x;
+            var rightBound = bound.y;
+            DebugUtils.Log("[BubbleManager] Checking bubble at bounds: " + leftBound + " to " + rightBound);
+            if (position.x >= leftBound && position.x <= rightBound)
+            {
+                DebugUtils.Log($"[BubbleManager] Landed on bubble. Type: {bubble.BubbleType}");
+                return true;
             }
             return false;
         }

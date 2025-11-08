@@ -27,8 +27,8 @@ MonoBehaviour:
       Data: 24c55428fc8d4e70b8dd4f3706dd202c
   <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   <Size>k__BackingField: 0
-  <WeatherType>k__BackingField: 6
-  <DayPhaseType>k__BackingField: 3
+  <WeatherType>k__BackingField: 63
+  <DayPhaseType>k__BackingField: 2
   <FishName>k__BackingField: Crawling Stone
   <FishDescription>k__BackingField: A fish with shell that looks and feels like a
     rock. How can they even swim with these!? Oh wait... they don't, they just crawl.

@@ -25,6 +25,8 @@ namespace Madduck.GameData
         [field: ShowInInspector] private Dictionary<ModifierId, List<FishStatModifierData>> _modifiers = new();
         [field: ShowInInspector] public FishStats CurrentStats { get; private set; }
         
+        private readonly IModifierSource _modifierSource;
+        
         private DisposableBag _modifierChangedSubscription;
         
         [Inject]
@@ -34,15 +36,16 @@ namespace Madduck.GameData
             : base(itemData)
         {
             CurrentStats = new FishStats(itemData);
-            OnSubscribeModifierSource(modifierSource);
+            _modifierSource = modifierSource;
+            OnSubscribeModifierSource();
         }
 
         #region Modifier 
-        private void OnSubscribeModifierSource(IModifierSource source)
+        private void OnSubscribeModifierSource()
         {
-            source.Modifiers.OnModifierFirstSubscribe(_modifiers);
+            _modifierSource.Modifiers.OnModifierFirstSubscribe(_modifiers);
             ApplyModifiers();
-            source.ModifiersView.ObserveChanged()
+            _modifierSource.ModifiersView.ObserveChanged()
                 .Subscribe(x =>
                 {
                     x.OnModifierChanged(_modifiers);
