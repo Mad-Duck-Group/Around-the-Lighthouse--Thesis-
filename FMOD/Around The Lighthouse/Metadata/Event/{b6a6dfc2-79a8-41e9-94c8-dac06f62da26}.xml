@@ -79,7 +79,10 @@
 	</object>
 	<object class="SingleSound" id="{3650885b-5d87-41fd-9dc2-dfe95189a0c0}">
 		<property name="length">
-			<value>26.783999999999999</value>
+			<value>26.259999999999977</value>
+		</property>
+		<property name="timelockedOffset">
+			<value>0.41000000000000003</value>
 		</property>
 		<property name="volume">
 			<value>-5</value>
@@ -99,7 +102,7 @@
 			<value>0</value>
 		</property>
 		<property name="length">
-			<value>26.783999999999999</value>
+			<value>26.259999999999977</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{455bdbec-d0f9-484c-aeab-7b0030dfbed0}</destination>
