@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{36e9f610-d716-40ee-8ae6-3ff0e1a6d78e}">
+	<object class="AudioFile" id="{a42750da-b53c-49e9-8dc2-8a88f12311d4}">
 		<property name="assetPath">
-			<value>SFX/SFX_Reel_V2.mp3</value>
-		</property>
-		<property name="isStreaming">
-			<value>true</value>
+			<value>SFX/SFX_fishingRod.mp3</value>
 		</property>
 		<property name="frequencyInKHz">
-			<value>24</value>
+			<value>44.0999985</value>
 		</property>
 		<property name="channelCount">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<property name="length">
-			<value>33.527999999999999</value>
+			<value>0.28734693877551021</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{d0370551-250a-46b4-8fe4-9471cc918246}</destination>
