@@ -1,0 +1,419 @@
+
+S_Fish.png
+size: 1873,269
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+S_Bumper/Body
+  rotate: false
+  xy: 1227, 84
+  size: 180, 183
+  orig: 182, 185
+  offset: 1, 1
+  index: -1
+S_Bumper/Chin
+  rotate: false
+  xy: 172, 2
+  size: 29, 28
+  orig: 32, 30
+  offset: 2, 1
+  index: -1
+S_Bumper/Eye
+  rotate: false
+  xy: 1765, 235
+  size: 104, 32
+  orig: 106, 34
+  offset: 1, 1
+  index: -1
+S_Bumper/L_Hand
+  rotate: true
+  xy: 907, 2
+  size: 59, 76
+  orig: 61, 79
+  offset: 1, 1
+  index: -1
+S_Bumper/R_Hand
+  rotate: true
+  xy: 1751, 61
+  size: 56, 62
+  orig: 59, 64
+  offset: 2, 1
+  index: -1
+S_Bumper/Uvula
+  rotate: true
+  xy: 59, 6
+  size: 13, 23
+  orig: 17, 25
+  offset: 2, 1
+  index: -1
+S_DonBranchie/Beard
+  rotate: true
+  xy: 1409, 97
+  size: 170, 124
+  orig: 173, 127
+  offset: 1, 1
+  index: -1
+S_DonBranchie/Body
+  rotate: true
+  xy: 171, 32
+  size: 235, 137
+  orig: 237, 141
+  offset: 1, 2
+  index: -1
+S_DonBranchie/Cup
+  rotate: false
+  xy: 1361, 7
+  size: 115, 75
+  orig: 117, 77
+  offset: 1, 1
+  index: -1
+S_DonBranchie/Eye
+  rotate: true
+  xy: 1569, 8
+  size: 113, 55
+  orig: 116, 57
+  offset: 2, 1
+  index: -1
+S_DonBranchie/L_Hand
+  rotate: false
+  xy: 1304, 4
+  size: 55, 78
+  orig: 57, 80
+  offset: 1, 1
+  index: -1
+S_DonBranchie/R_Hand
+  rotate: false
+  xy: 985, 2
+  size: 74, 59
+  orig: 76, 61
+  offset: 1, 1
+  index: -1
+S_DonBranchie/Smoke_1
+  rotate: false
+  xy: 1716, 74
+  size: 33, 30
+  orig: 35, 32
+  offset: 1, 1
+  index: -1
+S_DonBranchie/Smoke_2
+  rotate: true
+  xy: 1535, 99
+  size: 22, 21
+  orig: 24, 24
+  offset: 1, 1
+  index: -1
+S_DonBranchie/Tube
+  rotate: true
+  xy: 1061, 2
+  size: 59, 32
+  orig: 61, 34
+  offset: 1, 1
+  index: -1
+S_DonBranchie/Uvula
+  rotate: true
+  xy: 106, 8
+  size: 11, 20
+  orig: 13, 26
+  offset: 1, 1
+  index: -1
+S_Drifty/Body
+  rotate: true
+  xy: 310, 48
+  size: 219, 152
+  orig: 221, 154
+  offset: 1, 1
+  index: -1
+S_Drifty/Eye
+  rotate: true
+  xy: 1641, 162
+  size: 105, 30
+  orig: 107, 32
+  offset: 1, 1
+  index: -1
+S_Drifty/L_Hand
+  rotate: true
+  xy: 1095, 2
+  size: 62, 76
+  orig: 64, 79
+  offset: 1, 2
+  index: -1
+S_Drifty/R_Hand
+  rotate: false
+  xy: 1716, 3
+  size: 60, 56
+  orig: 63, 58
+  offset: 2, 1
+  index: -1
+S_Drifty/Uvula
+  rotate: true
+  xy: 128, 8
+  size: 11, 20
+  orig: 13, 23
+  offset: 1, 1
+  index: -1
+S_Hermit/Beard
+  rotate: false
+  xy: 1535, 123
+  size: 72, 144
+  orig: 72, 144
+  offset: 0, 0
+  index: -1
+S_Hermit/Body
+  rotate: true
+  xy: 743, 58
+  size: 209, 152
+  orig: 211, 154
+  offset: 1, 1
+  index: -1
+S_Hermit/Eye
+  rotate: false
+  xy: 472, 4
+  size: 92, 49
+  orig: 94, 51
+  offset: 1, 1
+  index: -1
+S_Hermit/L_Hand
+  rotate: true
+  xy: 566, 5
+  size: 48, 62
+  orig: 50, 65
+  offset: 1, 2
+  index: -1
+S_Hermit/Necklace
+  rotate: true
+  xy: 1673, 163
+  size: 104, 90
+  orig: 106, 93
+  offset: 1, 1
+  index: -1
+S_Hermit/R_Hand
+  rotate: true
+  xy: 1683, 2
+  size: 57, 31
+  orig: 59, 33
+  offset: 1, 1
+  index: -1
+S_Hermit/Uvula
+  rotate: false
+  xy: 15, 4
+  size: 9, 15
+  orig: 11, 18
+  offset: 1, 1
+  index: -1
+S_Paffle/Body
+  rotate: true
+  xy: 897, 63
+  size: 204, 165
+  orig: 204, 166
+  offset: 0, 0
+  index: -1
+S_Paffle/Eye
+  rotate: true
+  xy: 1626, 31
+  size: 113, 55
+  orig: 115, 58
+  offset: 1, 1
+  index: -1
+S_Paffle/L_Hand
+  rotate: true
+  xy: 630, 2
+  size: 53, 57
+  orig: 55, 60
+  offset: 1, 1
+  index: -1
+S_Paffle/R_Hand
+  rotate: false
+  xy: 1751, 119
+  size: 66, 38
+  orig: 69, 41
+  offset: 1, 1
+  index: -1
+S_Paffle/Uvula
+  rotate: true
+  xy: 84, 6
+  size: 13, 20
+  orig: 15, 22
+  offset: 1, 1
+  index: -1
+S_Pebble/Body
+  rotate: true
+  xy: 2, 21
+  size: 246, 167
+  orig: 250, 169
+  offset: 2, 1
+  index: -1
+S_Pebble/Eye
+  rotate: false
+  xy: 1765, 200
+  size: 103, 33
+  orig: 106, 36
+  offset: 1, 1
+  index: -1
+S_Pebble/L_Hand
+  rotate: false
+  xy: 1235, 2
+  size: 67, 80
+  orig: 69, 82
+  offset: 1, 1
+  index: -1
+S_Pebble/R_Hand
+  rotate: true
+  xy: 748, 2
+  size: 54, 80
+  orig: 56, 84
+  offset: 1, 2
+  index: -1
+S_Pebble/Uvula
+  rotate: true
+  xy: 150, 8
+  size: 11, 20
+  orig: 14, 23
+  offset: 2, 1
+  index: -1
+S_Smilo/Body
+  rotate: true
+  xy: 1064, 66
+  size: 201, 161
+  orig: 203, 163
+  offset: 1, 1
+  index: -1
+S_Smilo/Eye
+  rotate: false
+  xy: 1765, 159
+  size: 75, 39
+  orig: 78, 42
+  offset: 2, 2
+  index: -1
+S_Smilo/Hair
+  rotate: false
+  xy: 1819, 53
+  size: 40, 65
+  orig: 42, 69
+  offset: 1, 2
+  index: -1
+S_Smilo/L_Hand
+  rotate: true
+  xy: 1683, 106
+  size: 55, 66
+  orig: 57, 68
+  offset: 1, 1
+  index: -1
+S_Smilo/R_Hand
+  rotate: false
+  xy: 409, 4
+  size: 61, 42
+  orig: 63, 46
+  offset: 1, 2
+  index: -1
+S_Smilo/Uvula
+  rotate: false
+  xy: 2, 3
+  size: 11, 16
+  orig: 13, 18
+  offset: 1, 1
+  index: -1
+S_Toofie/Body
+  rotate: true
+  xy: 464, 55
+  size: 212, 137
+  orig: 214, 139
+  offset: 1, 1
+  index: -1
+S_Toofie/Eye
+  rotate: true
+  xy: 1609, 146
+  size: 121, 30
+  orig: 123, 33
+  offset: 1, 1
+  index: -1
+S_Toofie/L_Hand
+  rotate: true
+  xy: 1173, 2
+  size: 62, 60
+  orig: 64, 63
+  offset: 1, 1
+  index: -1
+S_Toofie/R_Hand
+  rotate: false
+  xy: 328, 3
+  size: 79, 43
+  orig: 81, 47
+  offset: 1, 2
+  index: -1
+S_Toofie/Uvula
+  rotate: true
+  xy: 26, 6
+  size: 13, 31
+  orig: 15, 33
+  offset: 1, 1
+  index: -1
+S_Toofie/mouth
+  rotate: false
+  xy: 1478, 2
+  size: 89, 93
+  orig: 91, 95
+  offset: 1, 1
+  index: -1
+S_Trimplets/Body
+  rotate: true
+  xy: 603, 57
+  size: 210, 138
+  orig: 212, 141
+  offset: 1, 2
+  index: -1
+S_Trimplets/Eye
+  rotate: false
+  xy: 251, 5
+  size: 75, 25
+  orig: 77, 27
+  offset: 1, 1
+  index: -1
+S_Trimplets/L_Hand
+  rotate: true
+  xy: 830, 9
+  size: 47, 75
+  orig: 49, 77
+  offset: 1, 1
+  index: -1
+S_Trimplets/Orange_Eye
+  rotate: true
+  xy: 203, 3
+  size: 27, 46
+  orig: 29, 49
+  offset: 1, 2
+  index: -1
+S_Trimplets/Orange_R_Arm
+  rotate: false
+  xy: 1819, 120
+  size: 42, 35
+  orig: 44, 37
+  offset: 1, 1
+  index: -1
+S_Trimplets/Pink_Eye
+  rotate: false
+  xy: 1778, 24
+  size: 39, 35
+  orig: 41, 38
+  offset: 1, 1
+  index: -1
+S_Trimplets/Pink_R_Arm
+  rotate: true
+  xy: 1842, 157
+  size: 41, 29
+  orig: 43, 32
+  offset: 1, 2
+  index: -1
+S_Trimplets/R_Hand
+  rotate: false
+  xy: 689, 2
+  size: 57, 53
+  orig: 59, 57
+  offset: 1, 2
+  index: -1
+S_Trimplets/Uvula
+  rotate: true
+  xy: 1409, 85
+  size: 10, 20
+  orig: 12, 23
+  offset: 1, 1
+  index: -1

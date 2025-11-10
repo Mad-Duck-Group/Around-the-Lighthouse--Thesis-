@@ -1,0 +1,254 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6cf9913c52449e9bb07700e5274d80, type: 3}
+  m_Name: TestMessagePackSaveObject
+  m_EditorClassIdentifier: Madduck.Core::Madduck.Core.TestMessagePackSaveObject
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: saveData
+      Entry: 7
+      Data: 0|Madduck.Core.TestMessagePackSaveData, Madduck.Core
+    - Name: version
+      Entry: 7
+      Data: 1|Madduck.Core.VersionInfo, Madduck.Core
+    - Name: major
+      Entry: 3
+      Data: 0
+    - Name: minor
+      Entry: 3
+      Data: 0
+    - Name: patch
+      Entry: 3
+      Data: 3
+    - Name: releaseEnvironment
+      Entry: 1
+      Data: Unknown
+    - Name: adjustment
+      Entry: 3
+      Data: 1
+    - Name: platform
+      Entry: 1
+      Data: Unknown
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: testInt
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: migrationResolvers
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[Madduck.Core.ISaveMigrationResolver`1[[Madduck.Core.TestMessagePackSaveData,
+        Madduck.Core]], Madduck.Core]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 3|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
+    - Name: <SourceVersion>k__BackingField
+      Entry: 7
+      Data: 4|Madduck.Core.VersionInfo, Madduck.Core
+    - Name: major
+      Entry: 3
+      Data: 0
+    - Name: minor
+      Entry: 3
+      Data: 0
+    - Name: patch
+      Entry: 3
+      Data: 1
+    - Name: releaseEnvironment
+      Entry: 1
+      Data: Unknown
+    - Name: adjustment
+      Entry: 3
+      Data: 1
+    - Name: platform
+      Entry: 1
+      Data: Unknown
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <TargetVersion>k__BackingField
+      Entry: 7
+      Data: 5|Madduck.Core.VersionInfo, Madduck.Core
+    - Name: major
+      Entry: 3
+      Data: 0
+    - Name: minor
+      Entry: 3
+      Data: 0
+    - Name: patch
+      Entry: 3
+      Data: 2
+    - Name: releaseEnvironment
+      Entry: 1
+      Data: Unknown
+    - Name: adjustment
+      Entry: 3
+      Data: 1
+    - Name: platform
+      Entry: 1
+      Data: Unknown
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: additionalTestInt
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
+    - Name: <SourceVersion>k__BackingField
+      Entry: 7
+      Data: 7|Madduck.Core.VersionInfo, Madduck.Core
+    - Name: major
+      Entry: 3
+      Data: 0
+    - Name: minor
+      Entry: 3
+      Data: 0
+    - Name: patch
+      Entry: 3
+      Data: 2
+    - Name: releaseEnvironment
+      Entry: 1
+      Data: Unknown
+    - Name: adjustment
+      Entry: 3
+      Data: 1
+    - Name: platform
+      Entry: 1
+      Data: Unknown
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <TargetVersion>k__BackingField
+      Entry: 7
+      Data: 8|Madduck.Core.VersionInfo, Madduck.Core
+    - Name: major
+      Entry: 3
+      Data: 0
+    - Name: minor
+      Entry: 3
+      Data: 0
+    - Name: patch
+      Entry: 3
+      Data: 3
+    - Name: releaseEnvironment
+      Entry: 1
+      Data: Unknown
+    - Name: adjustment
+      Entry: 3
+      Data: 1
+    - Name: platform
+      Entry: 1
+      Data: Unknown
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: additionalTestInt
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
+    - Name: <SourceVersion>k__BackingField
+      Entry: 7
+      Data: 10|Madduck.Core.VersionInfo, Madduck.Core
+    - Name: major
+      Entry: 3
+      Data: 0
+    - Name: minor
+      Entry: 3
+      Data: 0
+    - Name: patch
+      Entry: 3
+      Data: 1
+    - Name: releaseEnvironment
+      Entry: 1
+      Data: Unknown
+    - Name: adjustment
+      Entry: 3
+      Data: 1
+    - Name: platform
+      Entry: 1
+      Data: Unknown
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <TargetVersion>k__BackingField
+      Entry: 7
+      Data: 11|Madduck.Core.VersionInfo, Madduck.Core
+    - Name: major
+      Entry: 3
+      Data: 0
+    - Name: minor
+      Entry: 3
+      Data: 0
+    - Name: patch
+      Entry: 3
+      Data: 3
+    - Name: releaseEnvironment
+      Entry: 1
+      Data: Unknown
+    - Name: adjustment
+      Entry: 3
+      Data: 1
+    - Name: platform
+      Entry: 1
+      Data: Unknown
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: additionalTestInt
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  <SaveSeparately>k__BackingField: 0
+  debugMode: 1
+  debugSaveSettings:
+    saveLocation: 2
+    encryptSave: 0
+    encryptionKey: 
+    saveDirectory: C:/Users/thesi/Downloads
+    saveFileName: testSave.txt
+  releaseSaveSettings:
+    saveLocation: 0
+    encryptSave: 0
+    encryptionKey: 
+    saveDirectory: testSave
+    saveFileName: testSave

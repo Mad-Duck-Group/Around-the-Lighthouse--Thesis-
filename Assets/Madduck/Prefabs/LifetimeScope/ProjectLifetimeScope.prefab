@@ -293,6 +293,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 13d8b8b81d81e7f418e3dd81901938ff, type: 2}
     - {fileID: 11400000, guid: 7c0d03f7b5232704e938552a7dec4dd0, type: 2}
     - {fileID: 1202013410736382522}
     - {fileID: 11400000, guid: 9b74cd10328d8d64a98ce1b7f8705086, type: 2}
@@ -314,23 +315,23 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
-      Data: 1|Madduck.Core.LoadSceneManagerInstaller, Madduck.Core
+      Data: 1|Madduck.Core.MessagePackSaveManagerInstaller, Madduck.Core
     - Name: config
       Entry: 10
       Data: 0
-    - Name: transitionScreen
-      Entry: 10
-      Data: 1
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 2|Madduck.Audio.AudioManagerInstaller, Madduck.Audio
-    - Name: audioManagerConfig
+      Data: 2|Madduck.Core.LoadSceneManagerInstaller, Madduck.Core
+    - Name: config
+      Entry: 10
+      Data: 1
+    - Name: transitionScreen
       Entry: 10
       Data: 2
     - Name: 
@@ -338,8 +339,8 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|Madduck.Input.PlayerInputHandlerInstaller, Madduck.Input
-    - Name: playerInputHandler
+      Data: 3|Madduck.Audio.AudioManagerInstaller, Madduck.Audio
+    - Name: audioManagerConfig
       Entry: 10
       Data: 3
     - Name: 
@@ -347,25 +348,34 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|Madduck.Day.DayManagerInstaller, Madduck.Day
-    - Name: dayManagerConfig
+      Data: 4|Madduck.Input.PlayerInputHandlerInstaller, Madduck.Input
+    - Name: playerInputHandler
       Entry: 10
       Data: 4
-    - Name: playerInventoryConfig
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|Madduck.Day.DayManagerInstaller, Madduck.Day
+    - Name: dayManagerConfig
       Entry: 10
       Data: 5
-    - Name: fishWeightTable
+    - Name: playerInventoryConfig
       Entry: 10
       Data: 6
-    - Name: cardWeightTable
+    - Name: fishWeightTable
       Entry: 10
       Data: 7
-    - Name: cardRarityWeightTable
+    - Name: cardWeightTable
       Entry: 10
       Data: 8
-    - Name: fishermanItemData
+    - Name: cardRarityWeightTable
       Entry: 10
       Data: 9
+    - Name: fishermanItemData
+      Entry: 10
+      Data: 10
     - Name: 
       Entry: 8
       Data: 

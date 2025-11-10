@@ -18,11 +18,6 @@ using UnityEngine;
 namespace Madduck.Core
 {
     #region Enums
-    public enum SaveLocation
-    {
-        PersistentDataPath,
-        DataPath
-    }
 
     public enum SaveConflictResolution
     {
@@ -114,16 +109,8 @@ namespace Madduck.Core
         }
     }
 
-    [Serializable]
-    public record VersionInfo : IJTokenDeserializer, IComparable<VersionInfo>
+    public record VersionInfoJson : VersionInfo, IJTokenDeserializer
     {
-        public uint major = 0u;
-        public uint minor = 0u;
-        public uint patch = 0u;
-        public string releaseEnvironment = "Unknown";
-        public uint adjustment = 1u;
-        public string platform = "Unknown";
-
         public void DeserializeJToken(JToken jToken)
         {
             jToken.TryGetAndConvertTo(nameof(major), out major);
@@ -133,69 +120,12 @@ namespace Madduck.Core
             jToken.TryGetAndConvertTo(nameof(adjustment), out adjustment);
             jToken.TryGetAndConvertTo(nameof(platform), out platform);
         }
-
-        public static bool TryParse(string versionString, out VersionInfo versionInfo)
-        {
-            versionInfo = new VersionInfo();
-            if (string.IsNullOrEmpty(versionString)) return false;
-            // Example version string: "1.0.0-release.adjustment-platform"
-            var parts = versionString.Split('-');
-            if (parts.Length == 0) return false;
-            var versionParts = parts[0].Split('.');
-            var releaseParts = parts.Length > 1 ? parts[1].Split('.') : Array.Empty<string>();
-            var majorValue = 0u;
-            var minorValue = 0u;
-            var patchValue = 0u;
-            var releaseEnvironment = "Unknown";
-            var adjustmentValue = 1u;
-            var platform = "Unknown";
-            if (versionParts.Length >= 1) uint.TryParse(versionParts[0], out majorValue);
-            if (versionParts.Length >= 2) uint.TryParse(versionParts[1], out minorValue);
-            if (versionParts.Length >= 3) uint.TryParse(versionParts[2], out patchValue);
-            if (releaseParts.Length >= 1) releaseEnvironment = releaseParts[0];
-            if (releaseParts.Length >= 2)
-                uint.TryParse(releaseParts[1], out adjustmentValue);
-            if (parts.Length >= 3) platform = parts[2];
-            versionInfo = new VersionInfo
-            {
-                major = majorValue,
-                minor = minorValue,
-                patch = patchValue,
-                releaseEnvironment = releaseEnvironment,
-                adjustment = adjustmentValue,
-                platform = platform
-            };
-            return true;
-        }
-
-        public override string ToString()
-        {
-            return $"{major}.{minor}.{patch}-{releaseEnvironment}.{adjustment}-{platform}";
-        }
-
-        public int CompareTo(VersionInfo other)
-        {
-            if (other == null) return 1;
-            int result = major.CompareTo(other.major);
-            if (result != 0) return result;
-            result = minor.CompareTo(other.minor);
-            if (result != 0) return result;
-            result = patch.CompareTo(other.patch);
-            if (result != 0) return result;
-            result = adjustment.CompareTo(other.adjustment);
-            return result;
-        }
-
-        public static bool operator >(VersionInfo left, VersionInfo right) => left.CompareTo(right) > 0;
-        public static bool operator <(VersionInfo left, VersionInfo right) => left.CompareTo(right) < 0;
-        public static bool operator >=(VersionInfo left, VersionInfo right) => left.CompareTo(right) >= 0;
-        public static bool operator <=(VersionInfo left, VersionInfo right) => left.CompareTo(right) <= 0;
     }
 
     [Serializable]
     public record SaveMetadata : IJTokenDeserializer
     {
-        public VersionInfo versionInfo;
+        public VersionInfo versionInfo = new VersionInfoJson();
         public string playerId;
         public DateTime lastModified = DateTime.MinValue;
         public TimeSpan playtime = TimeSpan.Zero;
@@ -209,28 +139,6 @@ namespace Madduck.Core
         }
     }
     #endregion
-    
-    [Serializable]
-    public record SaveSettings
-    {
-        public SaveLocation saveLocation = SaveLocation.DataPath;
-        public bool encryptSave;
-        [ShowIf(nameof(encryptSave))] public string encryptionKey;
-        public string saveDirectory = "TestSave";
-        public string saveFileName = "testSave";
-        
-        public SaveSettings Copy()
-        {
-            return new SaveSettings
-            {
-                saveLocation = this.saveLocation,
-                encryptSave = this.encryptSave,
-                encryptionKey = this.encryptionKey,
-                saveDirectory = this.saveDirectory,
-                saveFileName = this.saveFileName
-            };
-        }
-    }
 
     public struct SaveToServiceEvent
     {
@@ -757,7 +665,7 @@ namespace Madduck.Core
             saveMetadata.lastModified = DateTime.Now;
             Debug.Log("Player ID: " + playerId);
             saveMetadata.playerId = playerId;
-            saveMetadata.versionInfo = VersionInfo.TryParse(Application.version, out var version) ? version : new VersionInfo();
+            saveMetadata.versionInfo = VersionInfo.TryParse(Application.version, out var version) ? version : new VersionInfoJson();
             _timeStampSinceLastSave = Time.time;
             await AddOrUpdateData(SaveMetadataKey, saveMetadata, false, _saveMetadataDictionary);
             await SaveToFile();

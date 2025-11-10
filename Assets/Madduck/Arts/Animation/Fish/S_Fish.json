@@ -1,0 +1,1730 @@
+{
+"skeleton": {
+	"hash": "JMPQ8tNymb0mZglHMPOSshmxx4o",
+	"spine": "3.8.75",
+	"x": -141.92,
+	"y": -120.69,
+	"width": 251.05,
+	"height": 222.42,
+	"images": "../Small fish/S_Fish_Fishing/S_Fish_Fishing/SkinFolder/",
+	"audio": "../Small fish/S_Fish_Fishing/S_Fish_Fishing/S_Bumper/"
+},
+"bones": [
+	{ "name": "Main", "rotation": -0.08 },
+	{ "name": "Body", "parent": "Main", "length": 169.11, "rotation": 0.72, "x": -68.31, "y": -23.16 },
+	{ "name": "Arm_center", "parent": "Body", "rotation": 179.12, "x": 60.39, "y": -9.22 },
+	{ "name": "L_Hand", "parent": "Arm_center", "length": 61.82, "rotation": -116.85, "x": -51.23, "y": 14.33 },
+	{ "name": "Eye", "parent": "Body", "length": 7.79, "rotation": 90.68, "x": 42.78, "y": 20.52 },
+	{ "name": "Uvula", "parent": "Body", "length": 15.77, "rotation": -92.27, "x": 45.39, "y": 12.69 },
+	{ "name": "R_Hand", "parent": "Arm_center", "length": 72.45, "rotation": -42.47, "x": 31.64, "y": 26.99 },
+	{ "name": "AS_Chin", "parent": "Body", "length": 19.97, "rotation": -95.95, "x": 42.57, "y": -25.81 },
+	{ "name": "AS_DonBranchie_Beard", "parent": "Body", "length": 90.06, "rotation": -107.33, "x": 30.9, "y": 38.75 },
+	{ "name": "AS_Tube", "parent": "Body", "length": 37.27, "rotation": -15.1, "x": 32.22, "y": 3.98 },
+	{ "name": "Smoke", "parent": "AS_Tube", "x": 48.72, "y": 41.02 },
+	{ "name": "Smoke2", "parent": "Smoke", "x": 12.68, "y": 27.72 },
+	{ "name": "AS_Cup", "parent": "Body", "length": 42.97, "rotation": 50.75, "x": 41.44, "y": 60.99 },
+	{ "name": "AS_Beard_HM", "parent": "Body", "length": 17.11, "rotation": -100.45, "x": 31.36, "y": 32.36 },
+	{ "name": "AS_Necklace_HM", "parent": "Body", "length": 113.27, "rotation": -136.48, "x": 110.52, "y": 28.69 },
+	{ "name": "AS_Hair_SM", "parent": "Body", "length": 50.57, "rotation": -93.07, "x": 42.59, "y": 54.81 },
+	{ "name": "AS_Mouthlip_TF", "parent": "Body", "length": 65.97, "rotation": -168.53, "x": 73.88, "y": 5.17 },
+	{ "name": "AS_Pinkeye_TP", "parent": "Body", "x": 108.61, "y": 36.95 },
+	{ "name": "AS_PinkArm_TP", "parent": "Body", "length": 29.51, "rotation": 12.25, "x": 116.1, "y": 17.12 },
+	{ "name": "AS_OrangeEye_TP", "parent": "Body", "x": 3.16, "y": 4.84 },
+	{ "name": "AS_OrangeArm_TP", "parent": "Body", "length": 34.35, "rotation": -132.53, "x": 16.27, "y": -16.55 },
+	{ "name": "AS_Beard_HM2", "parent": "AS_Beard_HM", "length": 17.11, "x": 17.11 },
+	{ "name": "AS_Beard_HM3", "parent": "AS_Beard_HM2", "length": 17.11, "x": 17.11 },
+	{ "name": "AS_Beard_HM4", "parent": "AS_Beard_HM3", "length": 17.11, "x": 17.11 },
+	{ "name": "AS_Beard_HM5", "parent": "AS_Beard_HM4", "length": 17.11, "x": 17.11 },
+	{ "name": "AS_Beard_HM6", "parent": "AS_Beard_HM5", "length": 17.11, "x": 17.11 },
+	{ "name": "AS_Beard_HM7", "parent": "AS_Beard_HM6", "length": 17.11, "x": 17.11 }
+],
+"slots": [
+	{ "name": "R_Hand", "bone": "R_Hand", "attachment": "R_Hand" },
+	{ "name": "Body", "bone": "Body", "attachment": "Body" },
+	{ "name": "L_Hand", "bone": "L_Hand", "attachment": "L_Hand" },
+	{ "name": "AS_Mouthlip_TF", "bone": "AS_Mouthlip_TF", "attachment": "S_Toofie/mouth" },
+	{ "name": "Eye", "bone": "Eye", "attachment": "Eye" },
+	{ "name": "AS_Beard_DB", "bone": "AS_DonBranchie_Beard", "attachment": "S_DonBranchie/Beard" },
+	{ "name": "AS_Necklace_HM", "bone": "AS_Necklace_HM", "attachment": "S_Hermit/Necklace" },
+	{ "name": "AS_Beard_HM", "bone": "AS_Beard_HM", "attachment": "S_Hermit/Beard" },
+	{ "name": "Uvula", "bone": "Uvula", "attachment": "Uvula" },
+	{ "name": "AS_Cup", "bone": "AS_Cup", "attachment": "S_DonBranchie/Cup" },
+	{ "name": "AS_Smoke", "bone": "Smoke", "attachment": "S_DonBranchie/Smoke_1" },
+	{ "name": "AS_Smoke2", "bone": "Smoke2", "attachment": "S_DonBranchie/Smoke_2" },
+	{ "name": "AS_Tube", "bone": "AS_Tube", "attachment": "S_DonBranchie/Tube" },
+	{ "name": "AS_Hair_SM", "bone": "AS_Hair_SM", "attachment": "S_Smilo/Hair" },
+	{ "name": "AS_OrangeEye_TP", "bone": "AS_OrangeEye_TP", "attachment": "S_Trimplets/Orange_Eye" },
+	{ "name": "AS_OrangeArm_TP", "bone": "AS_OrangeArm_TP", "attachment": "S_Trimplets/Orange_R_Arm" },
+	{ "name": "AS_PinkEye_TP", "bone": "AS_Pinkeye_TP", "attachment": "S_Trimplets/Pink_Eye" },
+	{ "name": "AS_PinkArm_TP", "bone": "AS_PinkArm_TP", "attachment": "S_Trimplets/Pink_R_Arm" },
+	{ "name": "AS_Chin", "bone": "AS_Chin", "attachment": "S_Bumper/Chin" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"AS_Necklace_HM": {
+				"S_Hermit/Necklace": { "x": 59, "y": -7.82, "rotation": 135.76, "width": 106, "height": 93 }
+			},
+			"AS_Smoke": {
+				"S_DonBranchie/Smoke_1": { "x": -0.23, "y": 0.91, "rotation": 14.39, "width": 35, "height": 32 }
+			},
+			"AS_Tube": {
+				"S_DonBranchie/Tube": { "x": 27.33, "y": 6.05, "rotation": 14.39, "width": 61, "height": 34 }
+			},
+			"AS_Cup": {
+				"S_DonBranchie/Cup": { "x": 26.05, "y": 7.06, "rotation": -51.47, "width": 117, "height": 77 }
+			},
+			"AS_Chin": {
+				"S_Bumper/Chin": { "x": 8.66, "y": -1.18, "rotation": 94.9, "width": 32, "height": 30 }
+			},
+			"AS_OrangeArm_TP": {
+				"S_Trimplets/Orange_R_Arm": { "x": 19.24, "y": 1.61, "rotation": 131.81, "width": 44, "height": 37 }
+			},
+			"AS_Beard_HM": {
+				"S_Hermit/Beard": {
+					"type": "mesh",
+					"uvs": [ 0.15238, 0.03797, 0.00238, 0.11922, 0, 0.25516, 0.01488, 0.30516, 0, 0.40672, 0.03363, 0.51766, 0.09301, 0.58797, 0.09613, 0.65828, 0.09613, 0.71297, 0.10863, 0.80828, 0.14926, 0.91141, 0.19613, 0.97078, 0.27113, 0.99109, 0.35863, 1, 0.43988, 0.97703, 0.47113, 0.90828, 0.47113, 0.86609, 0.48676, 0.80516, 0.49613, 0.77078, 0.51801, 0.70047, 0.48988, 0.67859, 0.53051, 0.62859, 0.66176, 0.58797, 0.79613, 0.52547, 0.79926, 0.45359, 0.80863, 0.42547, 0.92113, 0.39734, 0.97738, 0.33953, 1, 0.27547, 1, 0.19109, 0.96488, 0.10672, 0.88363, 0.05516, 0.76801, 0.01453, 0.53676, 0, 0.32738, 0 ],
+					"triangles": [ 2, 0, 25, 33, 25, 0, 0, 34, 33, 33, 28, 25, 33, 31, 28, 27, 26, 28, 33, 32, 31, 31, 29, 28, 0, 2, 1, 31, 30, 29, 5, 4, 25, 3, 25, 4, 26, 25, 28, 25, 3, 2, 23, 22, 24, 5, 24, 22, 24, 5, 25, 21, 20, 6, 20, 7, 6, 22, 21, 5, 6, 5, 21, 17, 9, 18, 18, 9, 8, 8, 20, 18, 18, 20, 19, 8, 7, 20, 13, 12, 14, 14, 12, 15, 10, 15, 12, 12, 11, 10, 15, 10, 16, 10, 9, 16, 16, 9, 17 ],
+					"vertices": [ 5, 24, -71.21, -32.27, 3.9E-4, 23, -54.1, -32.27, 0.00517, 22, -36.98, -32.27, 0.0937, 21, -19.87, -32.27, 0.13936, 13, -2.76, -32.27, 0.76138, 5, 24, -57.85, -40.94, 0.00246, 23, -40.74, -40.94, 0.02089, 22, -23.63, -40.94, 0.18859, 21, -6.51, -40.94, 0.21247, 13, 10.6, -40.94, 0.57559, 5, 24, -38.53, -37.8, 0.01469, 23, -21.42, -37.8, 0.0673, 22, -4.3, -37.8, 0.30394, 21, 12.81, -37.8, 0.246, 13, 29.92, -37.8, 0.36807, 6, 25, -48.73, -35.52, 0.00247, 24, -31.61, -35.52, 0.06121, 23, -14.5, -35.52, 0.1479, 22, 2.61, -35.52, 0.37146, 21, 19.72, -35.52, 0.21694, 13, 36.84, -35.52, 0.20001, 6, 25, -34.13, -34.1, 0.02088, 24, -17.02, -34.1, 0.16368, 23, 0.09, -34.1, 0.2339, 22, 17.21, -34.1, 0.35643, 21, 34.32, -34.1, 0.14164, 13, 51.43, -34.1, 0.08347, 7, 26, -35.91, -29.02, 0.00178, 25, -18.8, -29.02, 0.09009, 24, -1.68, -29.02, 0.29677, 23, 15.43, -29.02, 0.26432, 22, 32.54, -29.02, 0.25379, 21, 49.65, -29.02, 0.06577, 13, 66.77, -29.02, 0.02747, 7, 26, -26.65, -23.09, 0.01585, 25, -9.54, -23.09, 0.22692, 24, 7.57, -23.09, 0.38537, 23, 24.69, -23.09, 0.21277, 22, 41.8, -23.09, 0.13548, 21, 58.91, -23.09, 0.01948, 13, 76.02, -23.09, 0.00414, 7, 26, -16.71, -21.16, 0.10138, 25, 0.4, -21.16, 0.37, 24, 17.51, -21.16, 0.35857, 23, 34.63, -21.16, 0.11824, 22, 51.74, -21.16, 0.04862, 21, 68.85, -21.16, 0.00308, 13, 85.96, -21.16, 1.2E-4, 6, 26, -8.95, -19.83, 0.29403, 25, 8.16, -19.83, 0.41189, 24, 25.28, -19.83, 0.24004, 23, 42.39, -19.83, 0.04215, 22, 59.5, -19.83, 0.01163, 21, 76.61, -19.83, 2.6E-4, 5, 26, 4.43, -16.62, 0.57323, 25, 21.54, -16.62, 0.31114, 24, 38.65, -16.62, 0.10605, 23, 55.76, -16.62, 0.0081, 22, 72.88, -16.62, 0.00148, 5, 26, 18.57, -11.22, 0.8206, 25, 35.68, -11.22, 0.15008, 24, 52.79, -11.22, 0.02832, 23, 69.91, -11.22, 9.1E-4, 22, 87.02, -11.22, 9.0E-5, 3, 26, 26.42, -6.45, 0.9595, 25, 43.54, -6.45, 0.03897, 24, 60.65, -6.45, 0.00152, 3, 26, 28.39, -0.64, 0.99957, 25, 45.51, -0.64, 4.3E-4, 23, 79.73, -0.64, 0, 3, 26, 28.59, 5.79, 0.99989, 25, 45.7, 5.79, 1.1E-4, 23, 79.93, 5.79, 0, 3, 26, 24.34, 11, 0.99438, 25, 41.46, 11, 0.00562, 23, 75.68, 11, 0, 3, 26, 14.2, 11.54, 0.92972, 25, 31.32, 11.54, 0.07028, 23, 65.54, 11.54, 0, 4, 26, 8.22, 10.51, 0.77032, 25, 25.33, 10.51, 0.22946, 24, 42.44, 10.51, 2.3E-4, 23, 59.56, 10.51, 0, 4, 26, -0.62, 10.14, 0.51059, 25, 16.49, 10.14, 0.45927, 24, 33.6, 10.14, 0.03014, 23, 50.72, 10.14, 0, 4, 26, -5.61, 9.97, 0.25808, 25, 11.5, 9.97, 0.61514, 24, 28.61, 9.97, 0.12665, 23, 45.72, 9.97, 1.4E-4, 4, 26, -15.86, 9.81, 0.08426, 25, 1.25, 9.81, 0.58261, 24, 18.37, 9.81, 0.31765, 23, 35.48, 9.81, 0.01548, 6, 26, -18.62, 7.28, 0.01615, 25, -1.51, 7.28, 0.39262, 24, 15.6, 7.28, 0.48314, 23, 32.72, 7.28, 0.10451, 22, 49.83, 7.28, 0.00357, 21, 66.94, 7.28, 0, 6, 25, -9.1, 8.94, 0.17304, 24, 8.01, 8.94, 0.52208, 23, 25.13, 8.94, 0.27374, 22, 42.24, 8.94, 0.02913, 21, 59.35, 8.94, 0.00186, 13, 76.46, 8.94, 1.4E-4, 6, 25, -16.46, 17.27, 0.04628, 24, 0.65, 17.27, 0.37239, 23, 17.76, 17.27, 0.46528, 22, 34.87, 17.27, 0.09805, 21, 51.99, 17.27, 0.01498, 13, 69.1, 17.27, 0.00302, 6, 25, -26.97, 25.28, 9.5E-4, 24, -9.86, 25.28, 0.18484, 23, 7.26, 25.28, 0.5421, 22, 24.37, 25.28, 0.20929, 21, 41.48, 25.28, 0.05, 13, 58.59, 25.28, 0.01282, 5, 24, -20.1, 23.75, 0.05059, 23, -2.98, 23.75, 0.47097, 22, 14.13, 23.75, 0.3195, 21, 31.24, 23.75, 0.11876, 13, 48.35, 23.75, 0.04018, 5, 24, -24.2, 23.74, 0.00919, 23, -7.09, 23.74, 0.31537, 22, 10.02, 23.74, 0.37525, 21, 27.14, 23.74, 0.20753, 13, 44.25, 23.74, 0.09265, 5, 24, -29.56, 31.03, 0.00135, 23, -12.45, 31.03, 0.16983, 22, 4.66, 31.03, 0.3552, 21, 21.77, 31.03, 0.29243, 13, 38.89, 31.03, 0.18118, 5, 24, -38.45, 33.62, 1.5E-4, 23, -21.34, 33.62, 0.07913, 22, -4.23, 33.62, 0.27824, 21, 12.88, 33.62, 0.32908, 13, 30, 33.62, 0.31339, 4, 23, -30.71, 33.66, 0.02964, 22, -13.6, 33.66, 0.18147, 21, 3.52, 33.66, 0.30112, 13, 20.63, 33.66, 0.48777, 4, 23, -42.68, 31.61, 0.00939, 22, -25.57, 31.61, 0.09524, 21, -8.46, 31.61, 0.21788, 13, 8.65, 31.61, 0.67749, 4, 23, -54.23, 27.06, 0.00185, 22, -37.12, 27.06, 0.03796, 21, -20.01, 27.06, 0.12254, 13, -2.89, 27.06, 0.83765, 4, 23, -60.56, 20.04, 6.0E-5, 22, -43.45, 20.04, 0.01022, 21, -26.33, 20.04, 0.05138, 13, -9.22, 20.04, 0.93833, 3, 22, -47.81, 10.85, 0.00344, 21, -30.69, 10.85, 0.01901, 13, -13.58, 10.85, 0.97755, 3, 22, -47.05, -5.92, 0.01031, 21, -29.94, -5.92, 0.02566, 13, -12.83, -5.92, 0.96403, 4, 23, -61.62, -20.78, 1.7E-4, 22, -44.5, -20.78, 0.03452, 21, -27.39, -20.78, 0.06805, 13, -10.28, -20.78, 0.89727 ],
+					"hull": 35,
+					"edges": [ 0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14, 14, 16, 16, 18, 18, 20, 20, 22, 22, 24, 24, 26, 26, 28, 28, 30, 30, 32, 32, 34, 34, 36, 36, 38, 38, 40, 40, 42, 42, 44, 44, 46, 46, 48, 48, 50, 50, 52, 52, 54, 54, 56, 56, 58, 58, 60, 60, 62, 62, 64, 64, 66, 66, 68, 0, 68 ],
+					"width": 72,
+					"height": 144
+				}
+			},
+			"AS_PinkArm_TP": {
+				"S_Trimplets/Pink_R_Arm": { "x": 16.28, "y": -1.15, "rotation": -12.97, "width": 43, "height": 32 }
+			},
+			"AS_OrangeEye_TP": {
+				"S_Trimplets/Orange_Eye": { "x": 2.74, "y": -7.45, "rotation": -0.72, "width": 29, "height": 49 }
+			},
+			"AS_Hair_SM": {
+				"S_Smilo/Hair": { "x": 27.82, "y": 1.55, "rotation": 92.35, "width": 42, "height": 69 }
+			},
+			"AS_PinkEye_TP": {
+				"S_Trimplets/Pink_Eye": { "x": 0.47, "y": 1.6, "rotation": -0.72, "width": 41, "height": 38 }
+			},
+			"AS_Smoke2": {
+				"S_DonBranchie/Smoke_2": { "x": -0.21, "y": 0.09, "rotation": 14.39, "width": 24, "height": 24 }
+			},
+			"AS_Mouthlip_TF": {
+				"S_Toofie/mouth": { "x": 37.08, "y": 2.71, "rotation": -179.62, "width": 91, "height": 95 }
+			},
+			"AS_Beard_DB": {
+				"S_DonBranchie/Beard": { "x": 52.86, "y": -2.44, "rotation": 106.67, "width": 173, "height": 127 }
+			}
+		}
+	},
+	{
+		"name": "Bumper",
+		"attachments": {
+			"Body": {
+				"Body": { "name": "S_Bumper/Body", "x": 86.58, "y": 20.58, "rotation": -0.72, "width": 182, "height": 185 }
+			},
+			"Uvula": {
+				"Uvula": { "name": "S_Bumper/Uvula", "x": 8.61, "y": -0.19, "rotation": 91.55, "width": 17, "height": 25 }
+			},
+			"Eye": {
+				"Eye": { "name": "S_Bumper/Eye", "x": -9.98, "y": -3.55, "rotation": -91.4, "width": 106, "height": 34 }
+			},
+			"R_Hand": {
+				"R_Hand": { "name": "S_Bumper/R_Hand", "x": 42.85, "y": 0.67, "rotation": -137.37, "width": 59, "height": 64 }
+			},
+			"L_Hand": {
+				"L_Hand": { "name": "S_Bumper/L_Hand", "x": 33.67, "y": 1.32, "rotation": -62.99, "width": 61, "height": 79 }
+			}
+		}
+	},
+	{
+		"name": "DonBranchie",
+		"attachments": {
+			"Body": {
+				"Body": { "name": "S_DonBranchie/Body", "x": 86.58, "y": 20.58, "rotation": -0.72, "width": 237, "height": 141 }
+			},
+			"Uvula": {
+				"Uvula": { "name": "S_DonBranchie/Uvula", "x": 2.45, "y": 0.11, "rotation": 91.55, "width": 13, "height": 26 }
+			},
+			"Eye": {
+				"Eye": { "name": "S_DonBranchie/Eye", "x": 24.45, "y": 10.36, "rotation": -91.4, "width": 116, "height": 57 }
+			},
+			"R_Hand": {
+				"R_Hand": { "name": "S_DonBranchie/R_Hand", "x": 42.85, "y": 0.67, "rotation": -137.37, "width": 76, "height": 61 }
+			},
+			"L_Hand": {
+				"L_Hand": { "name": "S_DonBranchie/L_Hand", "x": 33.67, "y": 1.32, "rotation": -62.99, "width": 57, "height": 80 }
+			}
+		}
+	},
+	{
+		"name": "Drifty",
+		"attachments": {
+			"Body": {
+				"Body": { "name": "S_Drifty/Body", "x": 86.58, "y": 20.58, "rotation": -0.72, "width": 221, "height": 154 }
+			},
+			"Uvula": {
+				"Uvula": { "name": "S_Drifty/Uvula", "x": 6.87, "y": 0.06, "rotation": 91.55, "width": 13, "height": 23 }
+			},
+			"Eye": {
+				"Eye": { "name": "S_Drifty/Eye", "x": 3.14, "y": 7.67, "rotation": -91.4, "width": 107, "height": 32 }
+			},
+			"R_Hand": {
+				"R_Hand": { "name": "S_Drifty/R_Hand", "x": 42.85, "y": 0.67, "rotation": -137.37, "width": 63, "height": 58 }
+			},
+			"L_Hand": {
+				"L_Hand": { "name": "S_Drifty/L_Hand", "x": 33.67, "y": 1.32, "rotation": -62.99, "width": 64, "height": 79 }
+			}
+		}
+	},
+	{
+		"name": "Hermit",
+		"attachments": {
+			"Body": {
+				"Body": { "name": "S_Hermit/Body", "x": 86.58, "y": 20.58, "rotation": -0.72, "width": 211, "height": 154 }
+			},
+			"Uvula": {
+				"Uvula": { "name": "S_Hermit/Uvula", "x": 5.12, "y": -0.82, "rotation": 91.55, "width": 11, "height": 18 }
+			},
+			"Eye": {
+				"Eye": { "name": "S_Hermit/Eye", "x": 27.14, "y": 10.11, "rotation": -91.4, "width": 94, "height": 51 }
+			},
+			"R_Hand": {
+				"R_Hand": { "name": "S_Hermit/R_Hand", "x": 42.85, "y": 0.67, "rotation": -137.37, "width": 59, "height": 33 }
+			},
+			"L_Hand": {
+				"L_Hand": { "name": "S_Hermit/L_Hand", "x": 33.67, "y": 1.32, "rotation": -62.99, "width": 50, "height": 65 }
+			}
+		}
+	},
+	{
+		"name": "Paffle",
+		"attachments": {
+			"Body": {
+				"Body": { "name": "S_Paffle/Body", "x": 86.58, "y": 20.58, "rotation": -0.72, "width": 204, "height": 166 }
+			},
+			"Uvula": {
+				"Uvula": { "name": "S_Paffle/Uvula", "x": 7.09, "y": -0.66, "rotation": 91.55, "width": 15, "height": 22 }
+			},
+			"Eye": {
+				"Eye": { "name": "S_Paffle/Eye", "x": 7.78, "y": 14.98, "rotation": -91.4, "width": 115, "height": 58 }
+			},
+			"R_Hand": {
+				"R_Hand": { "name": "S_Paffle/R_Hand", "x": 28.17, "y": 0.84, "rotation": 177.91, "width": 69, "height": 41 }
+			},
+			"L_Hand": {
+				"L_Hand": { "name": "S_Paffle/L_Hand", "x": 25.94, "y": 2.28, "rotation": -41.09, "width": 55, "height": 60 }
+			}
+		}
+	},
+	{
+		"name": "Pebble",
+		"attachments": {
+			"Body": {
+				"Body": { "name": "S_Pebble/Body", "x": 86.58, "y": 20.58, "rotation": -0.72, "width": 250, "height": 169 }
+			},
+			"Uvula": {
+				"Uvula": { "name": "S_Pebble/Uvula", "x": 6.75, "y": -0.67, "rotation": 91.55, "width": 14, "height": 23 }
+			},
+			"Eye": {
+				"Eye": { "name": "S_Pebble/Eye", "x": 8.34, "y": -2.69, "rotation": -91.4, "width": 106, "height": 36 }
+			},
+			"R_Hand": {
+				"R_Hand": { "name": "S_Pebble/R_Hand", "x": 38.95, "y": -0.96, "rotation": -125.24, "width": 56, "height": 84 }
+			},
+			"L_Hand": {
+				"L_Hand": { "name": "S_Pebble/L_Hand", "x": 35.88, "y": 4.11, "rotation": -45.6, "width": 69, "height": 82 }
+			}
+		}
+	},
+	{
+		"name": "Smilo",
+		"attachments": {
+			"Body": {
+				"Body": { "name": "S_Smilo/Body", "x": 86.58, "y": 20.58, "rotation": -0.72, "width": 203, "height": 163 }
+			},
+			"Uvula": {
+				"Uvula": { "name": "S_Smilo/Uvula", "x": 4.55, "y": 0.19, "rotation": 91.55, "width": 13, "height": 18 }
+			},
+			"Eye": {
+				"Eye": { "name": "S_Smilo/Eye", "x": -0.59, "y": 5.68, "rotation": -91.4, "width": 78, "height": 42 }
+			},
+			"R_Hand": {
+				"R_Hand": { "name": "S_Smilo/R_Hand", "x": 25.77, "y": 0.32, "rotation": -171.02, "width": 63, "height": 46 }
+			},
+			"L_Hand": {
+				"L_Hand": { "name": "S_Smilo/L_Hand", "x": 30.34, "y": 4.99, "rotation": -43.36, "width": 57, "height": 68 }
+			}
+		}
+	},
+	{
+		"name": "Toofie",
+		"attachments": {
+			"Body": {
+				"Body": { "name": "S_Toofie/Body", "x": 86.58, "y": 20.58, "rotation": -0.72, "width": 214, "height": 139 }
+			},
+			"Uvula": {
+				"Uvula": { "name": "S_Toofie/Uvula", "x": 4.72, "y": 0.09, "rotation": 91.55, "width": 15, "height": 33 }
+			},
+			"Eye": {
+				"Eye": { "name": "S_Toofie/Eye", "x": 13.44, "y": 9.71, "rotation": -91.4, "width": 123, "height": 33 }
+			},
+			"R_Hand": {
+				"R_Hand": { "name": "S_Toofie/R_Hand", "x": 30.26, "y": 1, "rotation": -177.28, "width": 81, "height": 47 }
+			},
+			"L_Hand": {
+				"L_Hand": { "name": "S_Toofie/L_Hand", "x": 28.15, "y": -0.57, "rotation": -38.76, "width": 64, "height": 63 }
+			}
+		}
+	},
+	{
+		"name": "Trimplets",
+		"attachments": {
+			"Body": {
+				"Body": { "name": "S_Trimplets/Body", "x": 86.58, "y": 20.58, "rotation": -0.72, "width": 212, "height": 141 }
+			},
+			"Uvula": {
+				"Uvula": { "name": "S_Trimplets/Uvula", "x": 5.55, "y": -1.1, "rotation": 91.55, "width": 12, "height": 23 }
+			},
+			"Eye": {
+				"Eye": { "name": "S_Trimplets/Eye", "x": 8.19, "y": -0.66, "rotation": -91.4, "width": 77, "height": 27 }
+			},
+			"R_Hand": {
+				"R_Hand": { "name": "S_Trimplets/R_Hand", "x": 25.2, "y": 0.12, "rotation": -137.37, "width": 59, "height": 57 }
+			},
+			"L_Hand": {
+				"L_Hand": { "name": "S_Trimplets/L_Hand", "x": 28.77, "y": -0.81, "rotation": -62.99, "width": 49, "height": 77 }
+			}
+		}
+	}
+],
+"animations": {
+	"S_Bumper": {
+		"slots": {
+			"AS_PinkEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Necklace_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_DB": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Mouthlip_TF": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Hair_SM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Tube": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Cup": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Body": {
+				"rotate": [
+					{},
+					{ "time": 0.1, "angle": -7.69 },
+					{ "time": 0.5, "angle": -9.62 },
+					{ "time": 0.6, "angle": -2.56 },
+					{ "time": 1 }
+				]
+			},
+			"L_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": -92.32 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": -92.32 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": -92.32 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": -92.32 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": -92.32 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": -92.32 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": -92.32 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": -92.32 }
+				]
+			},
+			"Eye": {
+				"translate": [
+					{},
+					{ "time": 0.5, "x": 0.76, "y": -4.84 },
+					{ "time": 1 }
+				]
+			},
+			"Uvula": {
+				"rotate": [
+					{ "angle": -18.96 },
+					{ "time": 0.5, "angle": 22.42 },
+					{ "time": 1, "angle": -18.96 }
+				]
+			},
+			"R_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": 53.84 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": 53.84 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": 53.84 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": 53.84 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": 53.84 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": 53.84 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": 53.84 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": 53.84 }
+				]
+			},
+			"AS_Chin": {
+				"rotate": [
+					{ "angle": -0.72 }
+				]
+			}
+		}
+	},
+	"S_DonBranchie": {
+		"slots": {
+			"AS_Chin": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Necklace_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Mouthlip_TF": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Hair_SM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Body": {
+				"rotate": [
+					{},
+					{ "time": 0.1, "angle": -7.69 },
+					{ "time": 0.5, "angle": -9.62 },
+					{ "time": 0.6, "angle": -2.56 },
+					{ "time": 1 }
+				]
+			},
+			"L_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": -89.93 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": -89.93 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": -89.93 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": -89.93 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": -89.93 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": -89.93 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": -89.93 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": -89.93 }
+				]
+			},
+			"Eye": {
+				"translate": [
+					{},
+					{ "time": 0.5, "x": -5.55, "y": -11.11 },
+					{ "time": 1 }
+				]
+			},
+			"Uvula": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 12.94 },
+					{ "time": 1 }
+				],
+				"translate": [
+					{ "x": -14.49, "y": 13.3 }
+				]
+			},
+			"R_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": 33.4 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": 33.4 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": 33.4 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": 33.4 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": 33.4 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": 33.4 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": 33.4 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": 33.4 }
+				]
+			},
+			"AS_DonBranchie_Beard": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 16.58 },
+					{ "time": 1 }
+				]
+			},
+			"AS_Tube": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": -15.7 },
+					{ "time": 1 }
+				]
+			},
+			"AS_Cup": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": -15.18 },
+					{ "time": 1 }
+				]
+			}
+		}
+	},
+	"S_Drifty": {
+		"slots": {
+			"AS_Chin": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Necklace_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_DB": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Mouthlip_TF": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Hair_SM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Tube": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Cup": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Body": {
+				"rotate": [
+					{},
+					{ "time": 0.1, "angle": -7.69 },
+					{ "time": 0.5, "angle": -9.62 },
+					{ "time": 0.6, "angle": -2.56 },
+					{ "time": 1 }
+				]
+			},
+			"L_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": -87.44 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": -87.44 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": -87.44 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": -87.44 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": -87.44 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": -87.44 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": -87.44 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": -87.44 }
+				]
+			},
+			"Eye": {
+				"translate": [
+					{},
+					{ "time": 0.5, "x": 0.67, "y": -4.23 },
+					{ "time": 1 }
+				]
+			},
+			"Uvula": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 25.49 },
+					{ "time": 1 }
+				],
+				"translate": [
+					{ "x": -11.59, "y": -6.04 }
+				]
+			},
+			"R_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": 41.87 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": 41.87 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": 41.87 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": 41.87 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": 41.87 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": 41.87 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": 41.87 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": 41.87 }
+				]
+			}
+		}
+	},
+	"S_Hermit": {
+		"slots": {
+			"AS_Chin": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_DB": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Mouthlip_TF": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Hair_SM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Tube": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Cup": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Body": {
+				"rotate": [
+					{},
+					{ "time": 0.1, "angle": -7.69 },
+					{ "time": 0.5, "angle": -9.62 },
+					{ "time": 0.6, "angle": -2.56 },
+					{ "time": 1 }
+				]
+			},
+			"L_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": -73.39 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": -73.39 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": -73.39 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": -73.39 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": -73.39 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": -73.39 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": -73.39 },
+					{ "time": 0.9333 }
+				]
+			},
+			"Eye": {
+				"translate": [
+					{},
+					{ "time": 0.5, "x": 1.2, "y": -7.61 },
+					{ "time": 1 }
+				]
+			},
+			"Uvula": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 26.44 },
+					{ "time": 1 }
+				],
+				"translate": [
+					{ "x": -21.65, "y": 21.9 }
+				]
+			},
+			"R_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": 24.46 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": 24.46 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": 24.46 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": 24.46 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": 24.46 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": 24.46 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": 24.46 },
+					{ "time": 0.9333 }
+				]
+			},
+			"AS_Necklace_HM": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 8.88 },
+					{ "time": 1 }
+				]
+			},
+			"AS_Beard_HM": {
+				"rotate": [
+					{ "angle": -10.09 },
+					{ "time": 0.2667, "angle": 10.84 },
+					{ "time": 0.4333, "angle": 7.62 },
+					{ "time": 0.7667, "angle": -11.04 },
+					{ "time": 1, "angle": -10.09 }
+				]
+			},
+			"AS_Pinkeye_TP": {
+				"rotate": [
+					{ "angle": 0.08 }
+				]
+			},
+			"AS_Beard_HM2": {
+				"rotate": [
+					{ "angle": -10.09 },
+					{ "time": 0.2667, "angle": 10.84 },
+					{ "time": 0.4333, "angle": 7.62 },
+					{ "time": 0.7667, "angle": -11.04 },
+					{ "time": 1, "angle": -10.09 }
+				]
+			},
+			"AS_Beard_HM3": {
+				"rotate": [
+					{ "angle": -10.09 },
+					{ "time": 0.2667, "angle": 10.84 },
+					{ "time": 0.4333, "angle": 7.62 },
+					{ "time": 0.7667, "angle": -11.04 },
+					{ "time": 1, "angle": -10.09 }
+				]
+			},
+			"AS_Beard_HM4": {
+				"rotate": [
+					{ "angle": -10.09 },
+					{ "time": 0.2667, "angle": 10.84 },
+					{ "time": 0.4333, "angle": 7.62 },
+					{ "time": 0.7667, "angle": -11.04 },
+					{ "time": 1, "angle": -10.09 }
+				]
+			},
+			"AS_Beard_HM5": {
+				"rotate": [
+					{ "angle": -10.09 },
+					{ "time": 0.2667, "angle": 10.84 },
+					{ "time": 0.4333, "angle": 7.62 },
+					{ "time": 0.7667, "angle": -11.04 },
+					{ "time": 1, "angle": -10.09 }
+				]
+			},
+			"AS_Beard_HM6": {
+				"rotate": [
+					{ "angle": -30 },
+					{ "time": 0.2667, "angle": 32.91 },
+					{ "time": 0.4333, "angle": 21.29 },
+					{ "time": 0.7667, "angle": -30.95 },
+					{ "time": 1, "angle": -30 }
+				]
+			},
+			"AS_Beard_HM7": {
+				"rotate": [
+					{ "angle": -30 },
+					{ "time": 0.2667, "angle": 32.91 },
+					{ "time": 0.4333, "angle": 21.29 },
+					{ "time": 0.7667, "angle": -41.26 },
+					{ "time": 1, "angle": -30 }
+				]
+			}
+		}
+	},
+	"S_Paffle": {
+		"slots": {
+			"AS_Chin": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Necklace_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_DB": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Mouthlip_TF": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Hair_SM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Tube": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Cup": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Body": {
+				"rotate": [
+					{},
+					{ "time": 0.1, "angle": -7.69 },
+					{ "time": 0.5, "angle": -9.62 },
+					{ "time": 0.6, "angle": -2.56 },
+					{ "time": 1 }
+				]
+			},
+			"L_Hand": {
+				"rotate": [
+					{ "angle": -20.46 },
+					{ "time": 0.0667, "angle": -99.23 },
+					{ "time": 0.1333, "angle": -20.46 },
+					{ "time": 0.2, "angle": -99.23 },
+					{ "time": 0.2667, "angle": -20.46 },
+					{ "time": 0.3333, "angle": -99.23 },
+					{ "time": 0.4, "angle": -20.46 },
+					{ "time": 0.4667, "angle": -99.23 },
+					{ "time": 0.5333, "angle": -20.46 },
+					{ "time": 0.6, "angle": -99.23 },
+					{ "time": 0.6667, "angle": -20.46 },
+					{ "time": 0.7333, "angle": -99.23 },
+					{ "time": 0.8, "angle": -20.46 },
+					{ "time": 0.8667, "angle": -99.23 },
+					{ "time": 0.9333, "angle": -20.46 },
+					{ "time": 1, "angle": -99.23 }
+				],
+				"translate": [
+					{ "x": 5.4, "y": -25.74 }
+				]
+			},
+			"Eye": {
+				"translate": [
+					{},
+					{ "time": 0.5, "x": 1.32, "y": -8.38 },
+					{ "time": 1 }
+				]
+			},
+			"Uvula": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 35.16 },
+					{ "time": 1 }
+				],
+				"translate": [
+					{ "x": 23.76, "y": 1.45 }
+				]
+			},
+			"R_Hand": {
+				"rotate": [
+					{ "angle": 40.8 },
+					{ "time": 0.0667, "angle": 70.18 },
+					{ "time": 0.1333, "angle": 40.8 },
+					{ "time": 0.2, "angle": 70.18 },
+					{ "time": 0.2667, "angle": 40.8 },
+					{ "time": 0.3333, "angle": 70.18 },
+					{ "time": 0.4, "angle": 40.8 },
+					{ "time": 0.4667, "angle": 70.18 },
+					{ "time": 0.5333, "angle": 40.8 },
+					{ "time": 0.6, "angle": 70.18 },
+					{ "time": 0.6667, "angle": 40.8 },
+					{ "time": 0.7333, "angle": 70.18 },
+					{ "time": 0.8, "angle": 40.8 },
+					{ "time": 0.8667, "angle": 70.18 },
+					{ "time": 0.9333, "angle": 40.8 },
+					{ "time": 1, "angle": 70.18 }
+				],
+				"translate": [
+					{ "x": -30.51, "y": -18.53 }
+				]
+			}
+		}
+	},
+	"S_Pebble": {
+		"slots": {
+			"AS_Chin": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Necklace_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_DB": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Mouthlip_TF": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Hair_SM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Tube": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Cup": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Body": {
+				"rotate": [
+					{},
+					{ "time": 0.1, "angle": -7.69 },
+					{ "time": 0.5, "angle": -9.62 },
+					{ "time": 0.6, "angle": -2.56 },
+					{ "time": 1 }
+				]
+			},
+			"L_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": -101.36 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": -101.36 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": -101.36 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": -101.36 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": -101.36 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": -101.36 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": -101.36 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": -101.36 }
+				],
+				"translate": [
+					{ "x": -15.24, "y": -43.42 }
+				]
+			},
+			"Eye": {
+				"translate": [
+					{},
+					{ "time": 0.5, "x": -1.83, "y": -5.09 },
+					{ "time": 1 }
+				]
+			},
+			"Uvula": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 23.33 },
+					{ "time": 1 }
+				],
+				"translate": [
+					{ "x": 1.02, "y": 13.17 }
+				]
+			},
+			"R_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": 88.12 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": 88.12 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": 88.12 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": 88.12 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": 88.12 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": 88.12 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": 88.12 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": 88.12 }
+				],
+				"translate": [
+					{ "x": 24.47, "y": -62.41 }
+				]
+			}
+		}
+	},
+	"S_Smilo": {
+		"slots": {
+			"AS_Chin": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Necklace_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_DB": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Mouthlip_TF": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Tube": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Cup": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Body": {
+				"rotate": [
+					{},
+					{ "time": 0.1, "angle": -7.69 },
+					{ "time": 0.5, "angle": -9.62 },
+					{ "time": 0.6, "angle": -2.56 },
+					{ "time": 1 }
+				]
+			},
+			"L_Hand": {
+				"rotate": [
+					{ "angle": -20.76 },
+					{ "time": 0.0667, "angle": -89.97 },
+					{ "time": 0.1333, "angle": -20.76 },
+					{ "time": 0.2, "angle": -89.97 },
+					{ "time": 0.2667, "angle": -20.76 },
+					{ "time": 0.3333, "angle": -89.97 },
+					{ "time": 0.4, "angle": -20.76 },
+					{ "time": 0.4667, "angle": -89.97 },
+					{ "time": 0.5333, "angle": -20.76 },
+					{ "time": 0.6, "angle": -89.97 },
+					{ "time": 0.6667, "angle": -20.76 },
+					{ "time": 0.7333, "angle": -89.97 },
+					{ "time": 0.8, "angle": -20.76 },
+					{ "time": 0.8667, "angle": -89.97 },
+					{ "time": 0.9333, "angle": -20.76 },
+					{ "time": 1, "angle": -89.97 }
+				],
+				"translate": [
+					{ "x": 5.03, "y": -14.88 }
+				]
+			},
+			"Eye": {
+				"translate": [
+					{ "x": -30.03, "y": -19.72 },
+					{ "time": 0.5, "x": -28.86, "y": -27.12 },
+					{ "time": 1, "x": -30.03, "y": -19.72 }
+				]
+			},
+			"Uvula": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 27.12 },
+					{ "time": 1 }
+				],
+				"translate": [
+					{ "x": 36.74, "y": 11.37 }
+				]
+			},
+			"R_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": 67.99 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": 67.99 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": 67.99 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": 67.99 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": 67.99 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": 67.99 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": 67.99 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": 67.99 }
+				],
+				"translate": [
+					{ "x": -40.94, "y": -22.44 }
+				]
+			},
+			"AS_Hair_SM": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 21.08 },
+					{ "time": 1 }
+				]
+			}
+		}
+	},
+	"S_Toofie": {
+		"slots": {
+			"AS_Chin": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Necklace_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_DB": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Hair_SM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Tube": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeEye_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Cup": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_OrangeArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_PinkArm_TP": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Body": {
+				"rotate": [
+					{},
+					{ "time": 0.1, "angle": -7.69 },
+					{ "time": 0.5, "angle": -9.62 },
+					{ "time": 0.6, "angle": -2.56 },
+					{ "time": 1 }
+				]
+			},
+			"L_Hand": {
+				"rotate": [
+					{ "angle": -35.61 },
+					{ "time": 0.0667, "angle": -110.64 },
+					{ "time": 0.1333, "angle": -35.61 },
+					{ "time": 0.2, "angle": -110.64 },
+					{ "time": 0.2667, "angle": -35.61 },
+					{ "time": 0.3333, "angle": -110.64 },
+					{ "time": 0.4, "angle": -35.61 },
+					{ "time": 0.4667, "angle": -110.64 },
+					{ "time": 0.5333, "angle": -35.61 },
+					{ "time": 0.6, "angle": -110.64 },
+					{ "time": 0.6667, "angle": -35.61 },
+					{ "time": 0.7333, "angle": -110.64 },
+					{ "time": 0.8, "angle": -35.61 },
+					{ "time": 0.8667, "angle": -110.64 },
+					{ "time": 0.9333, "angle": -35.61 },
+					{ "time": 1, "angle": -110.64 }
+				],
+				"translate": [
+					{ "x": 6.49, "y": -34.62 }
+				]
+			},
+			"Eye": {
+				"translate": [
+					{},
+					{ "time": 0.5, "x": -1.15, "y": -3.64 },
+					{ "time": 1 }
+				]
+			},
+			"Uvula": {
+				"rotate": [
+					{ "angle": 0.08 },
+					{ "time": 0.5, "angle": 24.86 },
+					{ "time": 1 }
+				]
+			},
+			"R_Hand": {
+				"rotate": [
+					{ "angle": 20.2 },
+					{ "time": 0.0667, "angle": 81.3 },
+					{ "time": 0.1333, "angle": 20.2 },
+					{ "time": 0.2, "angle": 81.3 },
+					{ "time": 0.2667, "angle": 20.2 },
+					{ "time": 0.3333, "angle": 81.3 },
+					{ "time": 0.4, "angle": 20.2 },
+					{ "time": 0.4667, "angle": 81.3 },
+					{ "time": 0.5333, "angle": 20.2 },
+					{ "time": 0.6, "angle": 81.3 },
+					{ "time": 0.6667, "angle": 20.2 },
+					{ "time": 0.7333, "angle": 81.3 },
+					{ "time": 0.8, "angle": 20.2 },
+					{ "time": 0.8667, "angle": 81.3 },
+					{ "time": 0.9333, "angle": 20.2 },
+					{ "time": 1, "angle": 81.3 }
+				],
+				"translate": [
+					{ "x": -1.63, "y": -19.53 }
+				]
+			},
+			"AS_Mouthlip_TF": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": -9.81 },
+					{ "time": 1 }
+				],
+				"translate": [
+					{ "x": 3.23, "y": -0.04 }
+				]
+			}
+		},
+		"drawOrder": [
+			{
+				"offsets": [
+					{ "slot": "Uvula", "offset": -5 }
+				]
+			}
+		]
+	},
+	"S_Trimplets": {
+		"slots": {
+			"AS_Chin": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Necklace_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_DB": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Beard_HM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Mouthlip_TF": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Hair_SM": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Smoke2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Tube": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"AS_Cup": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Body": {
+				"rotate": [
+					{},
+					{ "time": 0.1, "angle": -7.69 },
+					{ "time": 0.5, "angle": -9.62 },
+					{ "time": 0.6, "angle": -2.56 },
+					{ "time": 1 }
+				]
+			},
+			"L_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": -76.33 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": -76.33 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": -76.33 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": -76.33 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": -76.33 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": -76.33 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": -76.33 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": -76.33 }
+				],
+				"translate": [
+					{ "x": 38.23, "y": -66.61 }
+				]
+			},
+			"Eye": {
+				"translate": [
+					{ "x": 3.51, "y": 31.58 },
+					{ "time": 0.5, "x": 6.43, "y": 27.64 },
+					{ "time": 1, "x": 3.51, "y": 31.58 }
+				]
+			},
+			"Uvula": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 31 },
+					{ "time": 1 }
+				],
+				"translate": [
+					{ "x": -2.13, "y": 33.88 }
+				]
+			},
+			"R_Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": 67.45 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": 67.45 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": 67.45 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": 67.45 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": 67.45 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": 67.45 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": 67.45 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": 67.45 }
+				],
+				"translate": [
+					{ "x": 6.96, "y": -62.65 }
+				]
+			},
+			"AS_OrangeArm_TP": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": 69.7 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": 69.7 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": 69.7 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": 69.7 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": 69.7 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": 69.7 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": 69.7 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": 69.7 }
+				]
+			},
+			"AS_OrangeEye_TP": {
+				"translate": [
+					{},
+					{ "time": 0.5, "x": 4, "y": -1.57 },
+					{ "time": 1 }
+				]
+			},
+			"AS_PinkArm_TP": {
+				"rotate": [
+					{},
+					{ "time": 0.0667, "angle": -55.8 },
+					{ "time": 0.1333 },
+					{ "time": 0.2, "angle": -55.8 },
+					{ "time": 0.2667 },
+					{ "time": 0.3333, "angle": -55.8 },
+					{ "time": 0.4 },
+					{ "time": 0.4667, "angle": -55.8 },
+					{ "time": 0.5333 },
+					{ "time": 0.6, "angle": -55.8 },
+					{ "time": 0.6667 },
+					{ "time": 0.7333, "angle": -55.8 },
+					{ "time": 0.8 },
+					{ "time": 0.8667, "angle": -55.8 },
+					{ "time": 0.9333 },
+					{ "time": 1, "angle": -55.8 }
+				]
+			},
+			"AS_Pinkeye_TP": {
+				"translate": [
+					{},
+					{ "time": 0.5, "x": -1.85, "y": -2.28 },
+					{ "time": 1 }
+				]
+			}
+		},
+		"drawOrder": [
+			{
+				"offsets": [
+					{ "slot": "AS_OrangeArm_TP", "offset": -13 },
+					{ "slot": "AS_PinkEye_TP", "offset": -12 },
+					{ "slot": "AS_PinkArm_TP", "offset": -17 }
+				]
+			}
+		]
+	}
+}
+}

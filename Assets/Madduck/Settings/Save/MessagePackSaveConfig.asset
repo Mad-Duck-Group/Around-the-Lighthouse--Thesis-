@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac35d0cd2e80432aac7d724913b3628f, type: 3}
+  m_Name: MessagePackSaveConfig
+  m_EditorClassIdentifier: Madduck.Core::Madduck.Core.MessagePackSaveConfig
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  <LoadAtStart>k__BackingField: 1
+  initialSaveObjects:
+  - {fileID: 11400000, guid: 747b038e3c0e379438e327ab4af92b4f, type: 2}
+  debugMode: 1
+  debugSaveSettings:
+    saveLocation: 2
+    encryptSave: 0
+    encryptionKey: 
+    saveDirectory: C:/Users/thesi/Downloads
+    saveFileName: testSaveZip
+  releaseSaveSettings:
+    saveLocation: 1
+    encryptSave: 0
+    encryptionKey: 
+    saveDirectory: TestSave
+    saveFileName: testSave

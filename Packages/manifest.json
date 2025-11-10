@@ -6,6 +6,7 @@
     "com.cysharp.unitask": "2.5.10",
     "com.esotericsoftware.spine.urp-shaders": "file:../com.esotericsoftware.spine.urp-shaders-3.8-2019.3",
     "com.github-glitchenzo.nugetforunity": "4.5.0",
+    "com.github.messagepack-csharp": "https://github.com/MessagePack-CSharp/MessagePack-CSharp.git?path=src/MessagePack.UnityClient/Assets/Scripts/MessagePack",
     "com.kyrylokuzyk.primetween": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
     "com.luca3317.tmpeffects": "0.2.2",
     "com.unity.2d.animation": "12.0.2",
