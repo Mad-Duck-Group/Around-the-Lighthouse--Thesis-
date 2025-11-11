@@ -116,9 +116,8 @@ namespace Madduck.Core
             jToken.TryGetAndConvertTo(nameof(major), out major);
             jToken.TryGetAndConvertTo(nameof(minor), out minor);
             jToken.TryGetAndConvertTo(nameof(patch), out patch);
-            jToken.TryGetAndConvertTo(nameof(releaseEnvironment), out releaseEnvironment);
-            jToken.TryGetAndConvertTo(nameof(adjustment), out adjustment);
-            jToken.TryGetAndConvertTo(nameof(platform), out platform);
+            jToken.TryGetAndConvertTo(nameof(preReleaseIdentifier), out preReleaseIdentifier);
+            jToken.TryGetAndConvertTo(nameof(buildIdentifier), out buildIdentifier);
         }
     }
 

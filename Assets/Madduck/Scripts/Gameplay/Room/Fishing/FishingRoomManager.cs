@@ -42,12 +42,14 @@ namespace Madduck.Room
 
         private readonly FishWeightTableInstance _fishWeightTableInstance;
         private readonly FishingRoomConfig _config;
+        private readonly FishCatalogue _fishCatalogue;
         private readonly IModal _cardSelectionController;
         private readonly IAudioManager _audioManager;
         private readonly IModalManager _modalManager;
         private readonly IGenericFactory<WeatherItemInstance> _weatherFactory;
         private readonly IGenericFactory<uint> _maxFishCountFactory;
         private readonly IPopUpFactory<FishItemPopUpObject> _fishItemPopUpFactory;
+        private readonly IPopUpFactory<NewFishPopUpObject> _newFishPopUpFactory;
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
         private readonly IPublisher<FishingRoomEndedEvent> _fishingRoomEndedEventPublisher;
         private readonly IPublisher<WeatherChangedEvent> _weatherChangedPublisher;
@@ -67,12 +69,14 @@ namespace Madduck.Room
         public FishingRoomManager(
             FishWeightTableInstance fishWeightTableInstanceInstance,
             FishingRoomConfig config,
+            FishCatalogue fishCatalogue,
             IModal cardSelectionController,
             IAudioManager audioManager,
             IModalManager modalManager,
             IGenericFactory<WeatherItemInstance> weatherFactory,
             [Key(DIConstants.MaxFishCountFactoryId)] IGenericFactory<uint> maxFishCountFactory,
             IPopUpFactory<FishItemPopUpObject> fishItemPopUpFactory,
+            IPopUpFactory<NewFishPopUpObject> newFishPopUpFactory,
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
             IPublisher<FishingRoomEndedEvent> fishingRoomEndedEventPublisher,
             IPublisher<WeatherChangedEvent> weatherChangedPublisher,
@@ -83,10 +87,12 @@ namespace Madduck.Room
         {
             _fishWeightTableInstance = fishWeightTableInstanceInstance;
             _config = config;
+            _fishCatalogue = fishCatalogue;
             _cardSelectionController = cardSelectionController;
             _weatherFactory = weatherFactory;
             _maxFishCountFactory = maxFishCountFactory;
             _fishItemPopUpFactory = fishItemPopUpFactory;
+            _newFishPopUpFactory = newFishPopUpFactory;
             _audioManager = audioManager;
             _modalManager = modalManager;
             _fishingRoomStartedEventPublisher = fishingRoomStartedEventPublisher;
@@ -149,9 +155,21 @@ namespace Madduck.Room
         
         private void OnFishCaught(FishCaughtEvent eventData)
         {
-            var popUp = _fishItemPopUpFactory.Create();
-            popUp.SetPopUpObject(new FishItemPopUpObject(eventData.FishItemInstance));
-            _modalManager.Queue(popUp);
+            var fishGuid = eventData.FishItemInstance.ItemData.Guid;
+            if (_fishCatalogue.HasCaught(fishGuid))
+            {
+                var popUp = _fishItemPopUpFactory.Create();
+                popUp.SetPopUpObject(new FishItemPopUpObject(eventData.FishItemInstance));
+                _modalManager.Queue(popUp);
+            }
+            else
+            {
+                var popUp = _newFishPopUpFactory.Create();
+                popUp.SetPopUpObject(new NewFishPopUpObject(eventData.FishItemInstance));
+                _modalManager.Queue(popUp);
+                _fishCatalogue.SetCaught(fishGuid);
+                _fishCatalogue.Save();
+            }
             ChangeFishCount(-1);
             if (CurrentFishCount.Value != 0) return;
             //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now

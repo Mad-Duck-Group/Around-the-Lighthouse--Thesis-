@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c5152ed4cf47a5a03efe35066e66d7, type: 3}
+  m_Name: FishCatalogueSaveObject
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.FishCatalogueSaveObject
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: saveData
+      Entry: 7
+      Data: 0|Madduck.GameData.FishCatalogueSaveData, Madduck.GameData
+    - Name: <Version>k__BackingField
+      Entry: 1
+      Data: 0.5.0-alpha.1+windows
+    - Name: <FishCatalogueEntries>k__BackingField
+      Entry: 7
+      Data: 1|System.Collections.Generic.Dictionary`2[[System.Guid, mscorlib],[Madduck.GameData.FishCatalogueEntry,
+        Madduck.GameData]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 2|System.Collections.Generic.GenericEqualityComparer`1[[System.Guid,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 24c55428fc8d4e70b8dd4f3706dd202c
+    - Name: $v
+      Entry: 7
+      Data: 3|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 42781fbf8e4c4383862725ebdd846fee
+    - Name: $v
+      Entry: 7
+      Data: 4|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: c4337b776ec34a6081df151c6dafadd4
+    - Name: $v
+      Entry: 7
+      Data: 5|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 33792c8bb9dc4b518af7c4738aa32af0
+    - Name: $v
+      Entry: 7
+      Data: 6|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 73594529a4a1469eb069ff6b3196401a
+    - Name: $v
+      Entry: 7
+      Data: 7|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: migrationResolvers
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[Madduck.Core.ISaveMigrationResolver`1[[Madduck.GameData.FishCatalogueSaveData,
+        Madduck.GameData]], Madduck.Core]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  <SaveSeparately>k__BackingField: 0
+  saveAsJson: 0
+  debugMode: 1
+  debugSaveSettings:
+    saveLocation: 2
+    encryptSave: 0
+    encryptionKey: 
+    saveDirectory: C:/Users/thesi/Downloads
+    saveFileName: FishCatalogue.bin
+  releaseSaveSettings:
+    saveLocation: 0
+    encryptSave: 0
+    encryptionKey: 
+    saveDirectory: Save
+    saveFileName: FishCatalogue.bin

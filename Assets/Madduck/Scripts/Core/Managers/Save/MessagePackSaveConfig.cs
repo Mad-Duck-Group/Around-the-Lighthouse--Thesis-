@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,8 +9,8 @@ namespace Madduck.Core
     public class MessagePackSaveConfig : SerializedScriptableObject
     {
         [field: SerializeField] public bool LoadAtStart { get; private set; } = true;
-        [field: SerializeField] private List<MessagePackSaveObject> initialSaveObjects = new();
-        public IReadOnlyList<MessagePackSaveObject> InitialSaveObjects => initialSaveObjects.AsReadOnly();
+        [field: SerializeField] private SerializableDictionary<string, MessagePackSaveObject> initialSaveObjects = new();
+        public IReadOnlyDictionary<string, MessagePackSaveObject> InitialSaveObjects => (Dictionary<string, MessagePackSaveObject>)initialSaveObjects;
         [SerializeField] private bool debugMode = true;
         [ShowIf(nameof(debugMode)), 
          SerializeField] private SaveSettings debugSaveSettings;

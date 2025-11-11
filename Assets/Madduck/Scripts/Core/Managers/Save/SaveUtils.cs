@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MessagePack;
 using Newtonsoft.Json.Linq;
 using Sirenix.OdinInspector;
@@ -22,52 +23,54 @@ namespace Madduck.Core
         public uint minor = 0u;
         [Key("Patch")]
         public uint patch = 0u;
-        [Key("ReleaseEnvironment")]
-        public string releaseEnvironment = "Unknown";
-        [Key("Adjustment")]
-        public uint adjustment = 1u;
-        [Key("Platform")]
-        public string platform = "Unknown";
+        [Key("PreReleaseIdentifiers")]
+        public List<string> preReleaseIdentifier = new();
+        [Key("BuildIdentifiers")]
+        public List<string> buildIdentifier = new();
         
         [ShowInInspector, DisplayAsString] private string FullVersionString => ToString();
 
         public static bool TryParse(string versionString, out VersionInfo versionInfo)
         {
-            versionInfo = new VersionInfo();
+            versionInfo = null;
             if (string.IsNullOrEmpty(versionString)) return false;
-            // Example version string: "1.0.0-release.adjustment-platform"
+            // Example version string: "1.0.0-alpha+windows"
             var parts = versionString.Split('-');
-            if (parts.Length == 0) return false;
-            var versionParts = parts[0].Split('.');
-            var releaseParts = parts.Length > 1 ? parts[1].Split('.') : Array.Empty<string>();
+            var coreVersionParts = parts[0].Split('.');
+            var preReleaseAndBuildPart = parts[1].Split('+');
+            var preReleaseParts = preReleaseAndBuildPart[0].Split('.');
+            var buildParts = preReleaseAndBuildPart.Length > 1 ? preReleaseAndBuildPart[1].Split('.') : Array.Empty<string>();
             var majorValue = 0u;
             var minorValue = 0u;
             var patchValue = 0u;
-            var releaseEnvironment = "Unknown";
-            var adjustmentValue = 1u;
-            var platform = "Unknown";
-            if (versionParts.Length >= 1) uint.TryParse(versionParts[0], out majorValue);
-            if (versionParts.Length >= 2) uint.TryParse(versionParts[1], out minorValue);
-            if (versionParts.Length >= 3) uint.TryParse(versionParts[2], out patchValue);
-            if (releaseParts.Length >= 1) releaseEnvironment = releaseParts[0];
-            if (releaseParts.Length >= 2)
-                uint.TryParse(releaseParts[1], out adjustmentValue);
-            if (parts.Length >= 3) platform = parts[2];
+            var preReleaseIdentifiers = new List<string>(preReleaseParts);
+            var buildIdentifier = new List<string>(buildParts);
+            if (coreVersionParts.Length >= 1)
+            {
+                if (!uint.TryParse(coreVersionParts[0], out majorValue)) return false;
+            }
+            if (coreVersionParts.Length >= 2)
+            {
+                if (!uint.TryParse(coreVersionParts[1], out minorValue)) return false;
+            }
+            if (coreVersionParts.Length >= 3)
+            {
+                if (!uint.TryParse(coreVersionParts[2], out patchValue)) return false;
+            }
             versionInfo = new VersionInfo
             {
                 major = majorValue,
                 minor = minorValue,
                 patch = patchValue,
-                releaseEnvironment = releaseEnvironment,
-                adjustment = adjustmentValue,
-                platform = platform
+                preReleaseIdentifier = preReleaseIdentifiers,
+                buildIdentifier = buildIdentifier
             };
             return true;
         }
 
         public override string ToString()
         {
-            return $"{major}.{minor}.{patch}-{releaseEnvironment}.{adjustment}-{platform}";
+            return $"{major}.{minor}.{patch}-{string.Join(".", preReleaseIdentifier)}+{string.Join(".", buildIdentifier)}";
         }
 
         public int CompareTo(VersionInfo other)
@@ -79,7 +82,20 @@ namespace Madduck.Core
             if (result != 0) return result;
             result = patch.CompareTo(other.patch);
             if (result != 0) return result;
-            result = adjustment.CompareTo(other.adjustment);
+            result = preReleaseIdentifier.Count.CompareTo(other.preReleaseIdentifier.Count);
+            if (result != 0) return result;
+            for (int i = 0; i < preReleaseIdentifier.Count; i++)
+            {
+                result = string.Compare(preReleaseIdentifier[i], other.preReleaseIdentifier[i], StringComparison.Ordinal);
+                if (result != 0) return result;
+            }
+            result = buildIdentifier.Count.CompareTo(other.buildIdentifier.Count);
+            if (result != 0) return result;
+            for (int i = 0; i < buildIdentifier.Count; i++)
+            {
+                result = string.Compare(buildIdentifier[i], other.buildIdentifier[i], StringComparison.Ordinal);
+                if (result != 0) return result;
+            }
             return result;
         }
 

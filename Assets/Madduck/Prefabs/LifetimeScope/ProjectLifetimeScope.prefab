@@ -304,6 +304,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9e6ce87e201f71e4ead48630fe2dd231, type: 2}
     - {fileID: 11400000, guid: fe0e6d807531c3a4f8b054c682df0644, type: 2}
     - {fileID: 11400000, guid: 3d31df75f659d3946966c5ae84c26e9f, type: 2}
+    - {fileID: 11400000, guid: f53a6d2d8805c974785e88e97c9bbd6f, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -315,7 +316,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 6
     - Name: 
       Entry: 7
       Data: 1|Madduck.Core.MessagePackSaveManagerInstaller, Madduck.Core
@@ -376,6 +377,15 @@ MonoBehaviour:
     - Name: fishermanItemData
       Entry: 10
       Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|Madduck.GameData.FishCatalogueInstaller, Madduck.GameData
+    - Name: fishCatalogueConfig
+      Entry: 10
+      Data: 11
     - Name: 
       Entry: 8
       Data: 

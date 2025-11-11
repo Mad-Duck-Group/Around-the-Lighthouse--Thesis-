@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using MessagePack;
+using Semver;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,8 +10,11 @@ namespace Madduck.Core
 {
     [MessagePackObject]
     [Serializable]
-    public class TestMessagePackSaveData : MessagePackSaveData
+    public class TestMessagePackSaveData : IMessagePackSaveData
     {
+        [Key("Version")] 
+        [field: SerializeField] public string Version { get; set; }
+        
         [Key("TestInt")]
         public int testInt;
     }
@@ -19,9 +23,9 @@ namespace Madduck.Core
     public class TestMessagePackMigrationResolver : ISaveMigrationResolver<TestMessagePackSaveData>
     {
         [field: HideReferenceObjectPicker, 
-                SerializeField] public VersionInfo SourceVersion { get; private set; } = new VersionInfo();
+                SerializeField] public string SourceVersion { get; private set; }
         [field: HideReferenceObjectPicker, 
-                SerializeField] public VersionInfo TargetVersion { get; private set; } = new VersionInfo();
+                SerializeField] public string TargetVersion { get; private set; }
 
         [SerializeField] private int additionalTestInt;
 
@@ -36,14 +40,9 @@ namespace Madduck.Core
         public TestMessagePackSaveData Finalize(ExpandoObject expando)
         {
             IDictionary<string, object> dict = expando;
-            if (!VersionInfo.TryParse(dict["Version"].ToString(), out var version))
-            {
-                version = SourceVersion;
-                Debug.LogWarning("Failed to parse version during finalization. Using source version as fallback.");
-            }
             var final = new TestMessagePackSaveData
             {
-                version = version,
+                Version = TargetVersion,
                 testInt = Convert.ToInt32(dict["TestInt"])
             };
             return final;

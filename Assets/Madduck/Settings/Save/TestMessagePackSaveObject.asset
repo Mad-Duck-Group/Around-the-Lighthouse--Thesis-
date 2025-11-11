@@ -24,94 +24,46 @@ MonoBehaviour:
     - Name: saveData
       Entry: 7
       Data: 0|Madduck.Core.TestMessagePackSaveData, Madduck.Core
-    - Name: version
-      Entry: 7
-      Data: 1|Madduck.Core.VersionInfo, Madduck.Core
-    - Name: major
-      Entry: 3
-      Data: 0
-    - Name: minor
-      Entry: 3
-      Data: 0
-    - Name: patch
-      Entry: 3
-      Data: 3
-    - Name: releaseEnvironment
+    - Name: <Version>k__BackingField
       Entry: 1
-      Data: Unknown
-    - Name: adjustment
-      Entry: 3
-      Data: 1
-    - Name: platform
-      Entry: 1
-      Data: Unknown
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0.5.0-alpha.1+windows
     - Name: testInt
       Entry: 3
-      Data: 4
+      Data: 4532
     - Name: 
       Entry: 8
       Data: 
     - Name: migrationResolvers
       Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[Madduck.Core.ISaveMigrationResolver`1[[Madduck.Core.TestMessagePackSaveData,
+      Data: 1|System.Collections.Generic.List`1[[Madduck.Core.ISaveMigrationResolver`1[[Madduck.Core.TestMessagePackSaveData,
         Madduck.Core]], Madduck.Core]], mscorlib
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
+      Data: 2|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
+    - Name: <SourceVersion>k__BackingField
+      Entry: 1
+      Data: 0
+    - Name: <TargetVersion>k__BackingField
+      Entry: 1
+      Data: 0
+    - Name: additionalTestInt
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
       Data: 3|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
     - Name: <SourceVersion>k__BackingField
-      Entry: 7
-      Data: 4|Madduck.Core.VersionInfo, Madduck.Core
-    - Name: major
-      Entry: 3
-      Data: 0
-    - Name: minor
-      Entry: 3
-      Data: 0
-    - Name: patch
-      Entry: 3
-      Data: 1
-    - Name: releaseEnvironment
       Entry: 1
-      Data: Unknown
-    - Name: adjustment
-      Entry: 3
-      Data: 1
-    - Name: platform
-      Entry: 1
-      Data: Unknown
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: <TargetVersion>k__BackingField
-      Entry: 7
-      Data: 5|Madduck.Core.VersionInfo, Madduck.Core
-    - Name: major
-      Entry: 3
-      Data: 0
-    - Name: minor
-      Entry: 3
-      Data: 0
-    - Name: patch
-      Entry: 3
-      Data: 2
-    - Name: releaseEnvironment
       Entry: 1
-      Data: Unknown
-    - Name: adjustment
-      Entry: 3
-      Data: 1
-    - Name: platform
-      Entry: 1
-      Data: Unknown
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: additionalTestInt
       Entry: 3
       Data: 1
@@ -120,112 +72,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 6|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
+      Data: 4|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
     - Name: <SourceVersion>k__BackingField
-      Entry: 7
-      Data: 7|Madduck.Core.VersionInfo, Madduck.Core
-    - Name: major
-      Entry: 3
-      Data: 0
-    - Name: minor
-      Entry: 3
-      Data: 0
-    - Name: patch
-      Entry: 3
-      Data: 2
-    - Name: releaseEnvironment
       Entry: 1
-      Data: Unknown
-    - Name: adjustment
-      Entry: 3
-      Data: 1
-    - Name: platform
-      Entry: 1
-      Data: Unknown
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: <TargetVersion>k__BackingField
-      Entry: 7
-      Data: 8|Madduck.Core.VersionInfo, Madduck.Core
-    - Name: major
-      Entry: 3
-      Data: 0
-    - Name: minor
-      Entry: 3
-      Data: 0
-    - Name: patch
-      Entry: 3
-      Data: 3
-    - Name: releaseEnvironment
       Entry: 1
-      Data: Unknown
-    - Name: adjustment
-      Entry: 3
-      Data: 1
-    - Name: platform
-      Entry: 1
-      Data: Unknown
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: additionalTestInt
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 9|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
-    - Name: <SourceVersion>k__BackingField
-      Entry: 7
-      Data: 10|Madduck.Core.VersionInfo, Madduck.Core
-    - Name: major
-      Entry: 3
       Data: 0
-    - Name: minor
-      Entry: 3
-      Data: 0
-    - Name: patch
-      Entry: 3
-      Data: 1
-    - Name: releaseEnvironment
-      Entry: 1
-      Data: Unknown
-    - Name: adjustment
-      Entry: 3
-      Data: 1
-    - Name: platform
-      Entry: 1
-      Data: Unknown
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: <TargetVersion>k__BackingField
-      Entry: 7
-      Data: 11|Madduck.Core.VersionInfo, Madduck.Core
-    - Name: major
-      Entry: 3
-      Data: 0
-    - Name: minor
-      Entry: 3
-      Data: 0
-    - Name: patch
-      Entry: 3
-      Data: 3
-    - Name: releaseEnvironment
-      Entry: 1
-      Data: Unknown
-    - Name: adjustment
-      Entry: 3
-      Data: 1
-    - Name: platform
-      Entry: 1
-      Data: Unknown
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: additionalTestInt
       Entry: 3
       Data: 2
@@ -239,6 +92,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   <SaveSeparately>k__BackingField: 0
+  saveAsJson: 0
   debugMode: 1
   debugSaveSettings:
     saveLocation: 2

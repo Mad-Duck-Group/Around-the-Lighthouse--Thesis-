@@ -6,26 +6,24 @@ using System.Linq;
 using Madduck.Utils;
 using MessagePack;
 using MessagePack.Resolvers;
+using Semver;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Madduck.Core
 {
-    [MessagePackObject]
     [Union(0, typeof(TestMessagePackSaveData))]
-    [Serializable]
-    public abstract class MessagePackSaveData
+    public interface IMessagePackSaveData
     {
-        [Key("Version")] 
-        public VersionInfo version;
+        public string Version { get; set; }
     }
     
     public interface ISaveMigrationResolver<out T>
-        where T : MessagePackSaveData
+        where T : IMessagePackSaveData
     {
-        VersionInfo SourceVersion { get; }
-        VersionInfo TargetVersion { get; }
+        string SourceVersion { get; }
+        string TargetVersion { get; }
         ExpandoObject Migrate(ExpandoObject fullResolve);
         T Finalize(ExpandoObject expando);
     }
@@ -48,9 +46,9 @@ namespace Madduck.Core
         [HideIf(nameof(debugMode)), GUIColor("red"),
          SerializeField] protected SaveSettings releaseSaveSettings;
         
-        public abstract T GetSaveData<T>() where T : MessagePackSaveData;
+        public abstract T GetSaveData<T>() where T : IMessagePackSaveData;
 
-        public abstract byte[] SerializeSaveData();
+        public abstract bool TrySerializeSaveData(out byte[] bytes);
         
         public abstract void Save();
         
@@ -72,7 +70,7 @@ namespace Madduck.Core
     }
     
     public abstract class MessagePackSaveObject<T> : MessagePackSaveObject
-        where T : MessagePackSaveData
+        where T : IMessagePackSaveData
     {
         [Title("Save Management")]
         [OdinSerialize] protected T saveData;
@@ -139,9 +137,25 @@ namespace Madduck.Core
 #endif
         }
         
-        public override byte[] SerializeSaveData()
+        public override bool TrySerializeSaveData(out byte[] bytes)
         {
-            return MessagePackSerializer.Serialize(saveData, ContractlessStandardResolver.Options);
+            bytes = null;
+            if (!SemVersion.TryParse(Application.version, out _))
+            {
+                Debug.LogError("Application version is not in valid SemVer format. Aborting serialization.");
+                return false;
+            }
+            saveData.Version = Application.version;
+            try
+            {
+                bytes = MessagePackSerializer.Serialize(saveData, ContractlessStandardResolver.Options);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Failed to serialize save data: {e.Message}");
+                return false;
+            }
+            return true;
         }
 
         public override void Save() 
@@ -156,7 +170,11 @@ namespace Madduck.Core
 
         private void SaveInternal()
         {
-            var bytes = SerializeSaveData();
+            if (!TrySerializeSaveData(out var bytes))
+            {
+                Debug.LogError("Failed to serialize save data. Save operation aborted.");
+                return;
+            }
             WriteToFile(bytes);
         }
         
@@ -183,43 +201,66 @@ namespace Madduck.Core
         
         public override void LoadFromBytes(byte[] bytes)
         {
-            if (TryMigrateSave(bytes, out var migratedSave))
+            T deserializedSave;
+            try
+            {
+                deserializedSave = MessagePackSerializer.Deserialize<T>(bytes, ContractlessStandardResolver.Options);
+            } 
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to deserialize save data: {ex.Message}");
+                return;
+            }
+            SemVersion.TryParse(saveData.Version, out var currentVersion);
+            SemVersion.TryParse(deserializedSave.Version, out var deserializedVersion);
+            if (SemVersion.ComparePrecedence(currentVersion, deserializedVersion) == 0)
+            {
+                saveData = deserializedSave;
+                Debug.Log("Save version matches current version. No migration needed.");
+                return;
+            }
+            if (TryMigrateSave(deserializedSave.Version, saveData.Version, bytes, out var migratedSave))
             {
                 saveData = migratedSave;
                 Debug.Log("Save data loaded successfully.");
             }
             else
             {
-                Debug.LogError("Failed to migrate save data. Load aborted.");
+                saveData = deserializedSave;
+                Debug.LogWarning("Failed to migrate save data. Using deserialized data as fallback.");
             }
         }
 
-        protected virtual bool TryMigrateSave(byte[] bytes, out T migratedSave)
+        protected virtual bool TryMigrateSave(string from, string to, byte[] bytes, out T migratedSave)
         {
-            migratedSave = MessagePackSerializer.Deserialize<T>(bytes, ContractlessStandardResolver.Options);
-            if (migratedSave.version == saveData.version)
+            migratedSave = default;
+            Debug.Log($"Save version ({from}) is different from current version ({to}). Attempting migration.");
+            if (!TryFindShortestMigrationPath(from, to, out var path))
             {
-                Debug.Log("Save version matches current version. No migration needed.");
-                return true;
-            }
-            Debug.Log($"Save version ({migratedSave.version}) is different from current version ({saveData.version}). Attempting migration.");
-            if (!TryFindShortestMigrationPath(migratedSave.version, saveData.version, out var path))
-            {
-                Debug.LogWarning($"No migration path found from version {migratedSave.version} to {saveData.version}. Migration aborted.");
+                Debug.LogWarning($"No migration path found from version {from} to {to}. Migration aborted.");
                 return false;
             }
-            var expando = MessagePackSerializer.Deserialize<ExpandoObject>(bytes, ExpandoObjectResolver.Options);
+            ExpandoObject expando;
+            try
+            {
+                expando = MessagePackSerializer.Deserialize<ExpandoObject>(bytes, ExpandoObjectResolver.Options);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to deserialize save data to ExpandoObject for migration: {ex.Message}");
+                return false;
+            }
             foreach (var resolver in path)
             {
                 expando = resolver.Migrate(expando);
                 Debug.Log($"Migration successful from version {resolver.SourceVersion} to {resolver.TargetVersion}.");
             }
-            Debug.Log("All migrations completed.");
             migratedSave = path.Last().Finalize(expando);
+            Debug.Log("All migrations completed.");
             return true;
         }
 
-        private bool TryFindShortestMigrationPath(VersionInfo sourceVersion, VersionInfo targetVersion, out List<ISaveMigrationResolver<T>> path)
+        private bool TryFindShortestMigrationPath(string sourceVersion, string targetVersion, out List<ISaveMigrationResolver<T>> path)
         {
             path = new List<ISaveMigrationResolver<T>>();
             if (migrationResolvers == null)
@@ -241,7 +282,7 @@ namespace Madduck.Core
 
             // BFS setup
             var queue = new Queue<MigrationPath>();
-            var visited = new Dictionary<VersionInfo, MigrationPath>();
+            var visited = new Dictionary<string, MigrationPath>();
 
             var initialPath = new MigrationPath(sourceVersion, new List<ISaveMigrationResolver<T>>());
             queue.Enqueue(initialPath);
@@ -256,7 +297,7 @@ namespace Madduck.Core
 
                 foreach (var resolver in value1)
                 {
-                    VersionInfo nextVersion = resolver.TargetVersion;
+                    string nextVersion = resolver.TargetVersion;
 
                     // Skip if we've found a better path to this version already
                     if (visited.ContainsKey(nextVersion) &&
@@ -309,10 +350,10 @@ namespace Madduck.Core
         // Helper class to track paths during BFS
         private class MigrationPath
         {
-            public VersionInfo Version { get; }
+            public string Version { get; }
             public List<ISaveMigrationResolver<T>> Path { get; }
     
-            public MigrationPath(VersionInfo version, List<ISaveMigrationResolver<T>> path)
+            public MigrationPath(string version, List<ISaveMigrationResolver<T>> path)
             {
                 Version = version;
                 Path = path;

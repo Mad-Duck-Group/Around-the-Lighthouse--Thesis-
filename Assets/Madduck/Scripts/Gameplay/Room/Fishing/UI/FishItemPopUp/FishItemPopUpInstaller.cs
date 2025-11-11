@@ -16,6 +16,10 @@ namespace Madduck.Room
         [Required, HideReferenceObjectPicker,
          OdinSerialize] private FishItemPopUpFactory _fishItemPopUpFactory = new();
         
+        [Title("New Fish Pop Up")]
+        [Required, HideReferenceObjectPicker,
+         OdinSerialize] private NewFishPopUpFactory _newFishPopUpFactory = new();
+        
         public void Install(IContainerBuilder builder)
         {
             builder.Register(x =>
@@ -24,6 +28,13 @@ namespace Madduck.Room
                     return _fishItemPopUpFactory;
                 }, Lifetime.Singleton)
                 .As<IPopUpFactory<FishItemPopUpObject>>();
+            
+            builder.Register(x =>
+                {
+                    x.Inject(_newFishPopUpFactory);
+                    return _newFishPopUpFactory;
+                }, Lifetime.Singleton)
+                .As<IPopUpFactory<NewFishPopUpObject>>();
         }
     }
 }

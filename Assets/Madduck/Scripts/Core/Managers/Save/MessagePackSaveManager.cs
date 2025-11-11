@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
@@ -14,7 +15,7 @@ namespace Madduck.Core
     public class MessagePackSaveManager : IPostInitializable
     {
         private readonly MessagePackSaveConfig _config;
-        [ShowInInspector, ReadOnly] private Dictionary<Type, MessagePackSaveObject> _saveObjects = new();
+        [ShowInInspector, ReadOnly] private Dictionary<string, MessagePackSaveObject> _saveObjects = new();
         
         [Button("Test Save All")]
         private void TestSaveAll()
@@ -34,7 +35,7 @@ namespace Madduck.Core
             _config = config;
             foreach (var saveObject in _config.InitialSaveObjects)
             {
-                RegisterSaveObject(saveObject);
+                RegisterSaveObject(saveObject.Key, saveObject.Value);
             }
         }
         
@@ -44,40 +45,71 @@ namespace Madduck.Core
             LoadAll();
         }
         
-        public void RegisterSaveObject<T>(MessagePackSaveObject<T> saveObject)
-            where T : MessagePackSaveData
+        public void RegisterSaveObject(string key, MessagePackSaveObject saveObject)
         {
-            var type = typeof(T);
-            _saveObjects[type] = saveObject;
+            _saveObjects[key] = saveObject;
         }
         
-        public void RegisterSaveObject(MessagePackSaveObject saveObject)
+        public void UnregisterSaveObject(string key)
         {
-            var type = saveObject.GetType();
-            _saveObjects[type] = saveObject;
+            _saveObjects.Remove(key);
         }
         
-        public void UnregisterSaveObject<T>() 
-            where T : MessagePackSaveData
+        public MessagePackSaveObject GetSaveObject(string key)
         {
-            var type = typeof(T);
-            _saveObjects.Remove(type);
+            if (_saveObjects.TryGetValue(key, out var saveObject))
+            {
+                return saveObject;
+            }
+            Debug.LogError($"Save object with key {key} not found.");
+            return null;
         }
         
-        public void UnregisterSaveObject(Type type)
+        public T GetSaveObject<T>(string key) where T : MessagePackSaveObject
         {
-            _saveObjects.Remove(type);
+            if (_saveObjects.TryGetValue(key, out var saveObject))
+            {
+                if (saveObject is T typedSaveObject)
+                {
+                    return typedSaveObject;
+                }
+                Debug.LogError($"Save object with key {key} is not of type {typeof(T)}.");
+                return null;
+            }
+            Debug.LogError($"Save object with key {key} not found.");
+            return null;
         }
 
-        public MessagePackSaveObject<T> GetSaveObject<T>() where T : MessagePackSaveData
+        public T GetFirstSaveObjectOfType<T>() where T : MessagePackSaveObject
         {
             var type = typeof(T);
-            if (_saveObjects.TryGetValue(type, out var saveObject))
+            foreach (var saveObject in _saveObjects.Values)
             {
-                return saveObject as MessagePackSaveObject<T>;
+                if (saveObject is T typedSaveObject)
+                {
+                    return typedSaveObject;
+                }
             }
             Debug.LogError($"Save object of type {type} not found.");
             return null;
+        }
+        
+        public T[] GetAllSaveObjectsOfType<T>() where T : MessagePackSaveObject
+        {
+            var type = typeof(T);
+            var result = new List<T>();
+            foreach (var saveObject in _saveObjects.Values)
+            {
+                if (saveObject is T typedSaveObject)
+                {
+                    result.Add(typedSaveObject);
+                }
+            }
+            if (result.Count == 0)
+            {
+                Debug.LogError($"No save objects of type {type} found.");
+            }
+            return result.ToArray();
         }
         
         public void LoadAll()
@@ -96,9 +128,10 @@ namespace Madduck.Core
             }
         }
         
-        public void Save<T>() where T : MessagePackSaveData
+        public void Save(string key)
         {
-            var saveObject = GetSaveObject<T>();
+            var saveObject = GetSaveObject(key);
+            if (!saveObject) return;
             Save(saveObject);
         }
 
@@ -111,13 +144,22 @@ namespace Madduck.Core
                 saveObject.Save();
                 return;
             }
-            var name = saveObject.CurrentSaveSettings.saveFileName;
-            ZipAndSave(name, saveObject.SerializeSaveData());
+            var entryName = _saveObjects.FirstOrDefault(x => x.Value == saveObject).Key;
+            if (string.IsNullOrEmpty(entryName))
+            {
+                Debug.LogError("Save object not registered in the save manager.");
+                return;
+            }
+            if (!saveObject.TrySerializeSaveData(out var data))
+            {
+                return;
+            }
+            ZipAndSave(entryName, data);
         }
         
-        public void Load<T>() where T : MessagePackSaveData
+        public void Load(string key)
         {
-            var saveObject = GetSaveObject<T>();
+            var saveObject = GetSaveObject(key);
             Load(saveObject);
         }
 
@@ -130,8 +172,13 @@ namespace Madduck.Core
                 saveObject.Load();
                 return;
             }
-            var name = saveObject.CurrentSaveSettings.saveFileName;
-            var data = LoadFromZip(name);
+            var entryName = _saveObjects.FirstOrDefault(x => x.Value == saveObject).Key;
+            if (string.IsNullOrEmpty(entryName))
+            {
+                Debug.LogError("Save object not registered in the save manager.");
+                return;
+            }
+            var data = LoadFromZip(entryName);
             if (data != null)
             {
                 saveObject.LoadFromBytes(data);
