@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using Spine.Unity;
 using UnityEngine;
 
@@ -14,7 +16,7 @@ namespace Madduck.Shared
     }
     
     [CreateAssetMenu(fileName = "FishSpriteAnimatorConfig", menuName = "Madduck/Animation/FishSpriteAnimatorConfig")]
-    public class FishSpriteAnimatorConfig : ScriptableObject
+    public class FishSpriteAnimatorConfig : SerializedScriptableObject
     {
         [Title("References"),
          HideLabel,

@@ -101,7 +101,10 @@ namespace Madduck.Fishing.Controller
         
         private async UniTask ReturnHook()
         {
-            _fishSpriteFactory.Current.Detach();
+            var currentFish = _fishFactory.Current;
+            var isBoss = currentFish.ItemData.EnemyType is FishEnemyType.Boss;
+            var sprite = _fishSpriteFactory.Current;
+            if (isBoss) sprite.Detach();
             await _playerAnimator.Set(PlayerAnimationKey.GotFish, 0, false).WaitUntilEvent(ThrowEventName);
             _audioManager.PlayAudioOneShot(_config.PullHookUpSfx, Vector3.zero);
             var hook = _hookFactory.Current;
@@ -116,8 +119,16 @@ namespace Madduck.Fishing.Controller
                 });
             await UniTask.WhenAll(
                 hook.DramaticReturn(),
-                _fishSpriteFactory.Current.TransitionOut());
-            _fishSpriteFactory.DestroyFishSprite();
+                isBoss ? sprite.TransitionOut() : UniTask.CompletedTask);
+            if (!isBoss)
+            {
+                sprite.Detach();
+                _hookFactory.DestroyHook();
+                OnCatchFishCompleted?.Invoke();
+                await sprite.TransitionOut();
+                _fishSpriteFactory.DestroyFishSprite();
+                return;
+            }
             _hookFactory.DestroyHook();
             OnCatchFishCompleted?.Invoke();
         }

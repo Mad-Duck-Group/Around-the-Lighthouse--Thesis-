@@ -12,10 +12,11 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using DisposableBag = R3.DisposableBag;
 
 namespace Madduck.Room
 {
-    public class BaitController : IDisposable ,IStartable
+    public class BaitController : IDisposable, IStartable
     {
         public ReactiveCommand<BaitItemInstance> OnBaitChanged { get; } = new();
         
@@ -25,15 +26,15 @@ namespace Madduck.Room
         private readonly GameObject _uiBeforeTriggerBait;
         private readonly GameObject _uiAfterTriggerBait;
         private readonly CarouselController<LocationData> _carousel;
-        private  BaitItemInstance _pendingBait;
+        
+        private BaitItemInstance _pendingBait;
         private bool _interactable = true;
-
         private IDisposable _bindings;
-        private readonly CompositeDisposable _confirmDisposables = new();
-
+        private DisposableBag _confirmDisposables;
 
         [Inject]
-        public BaitController(IPlayerInputHandler inputHandler,
+        public BaitController(
+            IPlayerInputHandler inputHandler,
             PlayerInventory playerInventory,
             ISubscriber<FishingStateEvent> fishingStateSubscriber,
             UIBeforeTriggerBait before,
@@ -51,9 +52,8 @@ namespace Madduck.Room
         public void Start()
         {
             Bind();
-            DebugUtils.Log("test start");
-
         }
+        
         private void Bind()
         {
             var builder = Disposable.CreateBuilder();
@@ -61,67 +61,69 @@ namespace Madduck.Room
                 .Subscribe(OnFishingStateEvent)
                 .AddTo(ref builder);
             _inputHandler.BaitButton.IsDown
+                .IgnoreFirstValueWhenSubscribe()
                 .Where(x => x)
                 .Subscribe(_ => { SetActive(true);})
                 .AddTo(ref builder);
             _inputHandler.BaitButton.IsUpAfterHeld
+                .IgnoreFirstValueWhenSubscribe()
                 .Where(x => x)
                 .Subscribe(_ => { SetActive(false);})
                 .AddTo(ref builder);
             _inputHandler.BaitSelectInput
+                .IgnoreFirstValueWhenSubscribe()
+                .ThrottleFirst(TimeSpan.FromMilliseconds(100))//block spam
                 .Where(_ => _interactable)
-                .ThrottleFirst(TimeSpan.FromMilliseconds(200))//block spam
                 .Subscribe(value =>
-            {
-                if (value > 0 && _interactable)
                 {
-                    OnNextBait();
-                    _carousel.Next();
-                }
-                else if (value < 0&& _interactable)
-                {
-                    OnPreviousBait();
-                    _carousel.Previous();
-                }
-            })
+                    switch (value)
+                    {
+                        case > 0:
+                            OnNextBait();
+                            _carousel.Next();
+                            break;
+                        case < 0:
+                            OnPreviousBait();
+                            _carousel.Previous();
+                            break;
+                    }
+                })
                 .AddTo(ref builder);
             _carousel.OnInitialized
                 .Where(_ => _carousel.HasItems)
                 .Subscribe(_ =>
                 {
+                    _confirmDisposables.Dispose();
                     _confirmDisposables.Clear(); // กัน double bind
+                    _confirmDisposables = new DisposableBag();
 
                     _inputHandler.ConfirmBaitButton.IsDown
                         .Where(x => x && _interactable && _uiAfterTriggerBait.activeSelf)
                         .Subscribe(__ =>
                         {
-                            if (_pendingBait == null)
-                            {
-                                _pendingBait = _playerInventory.CurrentBaitsView.FirstOrDefault().Value;
-                            }
+                            _pendingBait ??= _playerInventory.CurrentBaitsView.FirstOrDefault().Value;
                             _playerInventory.SetCurrentBait(_pendingBait.ItemData.BaitType);
                             OnBaitChanged.Execute(_pendingBait);
-                        }
-                            )
-                        .AddTo(_confirmDisposables);
+                        })
+                        .AddTo(ref _confirmDisposables);
                 })
                 .AddTo(ref builder);
             
-             _carousel.OnCurrentItemUpdated
-                 .Where(_ => _uiAfterTriggerBait.activeSelf)
-                 .Subscribe(data =>
-                 {
-                     //
-                 })
-                 .AddTo(ref builder);
-            
-             _carousel.OnItemSelected
-                 .Where(_ => _interactable)
-                 .Subscribe(data =>
-                 {
-                     // DebugUtils.Log($"Selected bait from carousel: {data.sprite}");
-                 })
-                 .AddTo(ref builder);
+             // _carousel.OnCurrentItemUpdated
+             //     .Where(_ => _uiAfterTriggerBait.activeSelf)
+             //     .Subscribe(data =>
+             //     {
+             //         //
+             //     })
+             //     .AddTo(ref builder);
+             //
+             // _carousel.OnItemSelected
+             //     .Where(_ => _interactable)
+             //     .Subscribe(data =>
+             //     {
+             //         // DebugUtils.Log($"Selected bait from carousel: {data.sprite}");
+             //     })
+             //     .AddTo(ref builder);
              _bindings = builder.Build();
         }
 
@@ -181,9 +183,6 @@ namespace Madduck.Room
         {
             _bindings?.Dispose();
         }
-
-
-        
     }
     public class UIBeforeTriggerBait
     {

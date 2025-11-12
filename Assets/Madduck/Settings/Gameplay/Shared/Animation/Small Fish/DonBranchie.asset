@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa9b785f5e3344e586d314b7bb12009a, type: 3}
-  m_Name: Boss_FishSpriteAnimatorConfig
+  m_Name: DonBranchie
   m_EditorClassIdentifier: Madduck.Shared::Madduck.Shared.FishSpriteAnimatorConfig
   serializationData:
     SerializedFormat: 2
@@ -21,11 +21,11 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  skeletonDataAsset: {fileID: 11400000, guid: b30bb1cfde387bb47bd8ef3142a9f219, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: fc8f4bb8e4ab5da4eb4bad15f794307c, type: 2}
   <Animations>k__BackingField:
     keys: 000000000100000002000000
     values:
-    - Idle
-    - GotHook
-    - Exhuasted
+    - S_DonBranchie
+    - S_DonBranchie
+    - S_DonBranchie
   deconstructedAnimations: []

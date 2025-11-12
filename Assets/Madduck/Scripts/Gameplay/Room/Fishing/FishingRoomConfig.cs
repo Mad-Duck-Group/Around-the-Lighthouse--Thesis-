@@ -17,6 +17,8 @@ namespace Madduck.Room
         [field: SerializeField] public EventReference SeaAmbient { get; private set; }
         [field: InlineProperty, 
                 SerializeField] public Percentage BgmChance { get; private set; }
+        [field: InlineProperty, 
+                SerializeField] public UFloat BgmDelay { get; private set; }
         [field: SerializeField] public List<EventReference> BgmPlaylist { get; private set; } = new();
     }
 }

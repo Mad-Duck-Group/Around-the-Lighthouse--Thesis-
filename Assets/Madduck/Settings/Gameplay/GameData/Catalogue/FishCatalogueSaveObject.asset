@@ -124,7 +124,7 @@ MonoBehaviour:
       Data: 7|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
     - Name: <IsCaught>k__BackingField
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 

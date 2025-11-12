@@ -27,7 +27,9 @@ MonoBehaviour:
       Data4: 1695925833
     Path: event:/Ambient/GameplayAmbient
   <BgmChance>k__BackingField:
-    value: 30
+    value: 100
+  <BgmDelay>k__BackingField:
+    value: 8
   <BgmPlaylist>k__BackingField:
   - Guid:
       Data1: 1334222840

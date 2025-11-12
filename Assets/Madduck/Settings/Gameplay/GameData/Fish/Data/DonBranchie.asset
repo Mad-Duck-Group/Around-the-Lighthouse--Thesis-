@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a5f5ea7babc8264a8be61994ba02323, type: 3}
-  m_Name: Sadina
+  m_Name: DonBranchie
   m_EditorClassIdentifier: 
   <ItemType>k__BackingField: 0
   serializationData:
@@ -26,17 +26,20 @@ MonoBehaviour:
       Entry: 2
       Data: 33792c8bb9dc4b518af7c4738aa32af0
   <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  <EnemyType>k__BackingField: 0
   <Size>k__BackingField: 0
   <WeatherType>k__BackingField: 63
   <DayPhaseType>k__BackingField: 3
-  <FishName>k__BackingField: Sadina
+  <FishName>k__BackingField: DonBranchie
   <FishDescription>k__BackingField: A fish with wings. They can "fly" in a small
     distance. They unfortunately are likey to be scoop away by seagull.
   <FishIcon>k__BackingField: {fileID: 21300000, guid: b85dabca159f3a84bbf9b5a7275208c8, type: 3}
   <FishSprite>k__BackingField: {fileID: 21300000, guid: 929f03e5661698744bb82347b1955f0c, type: 3}
-  <FishSpriteAnimatorConfig>k__BackingField: {fileID: 11400000, guid: 27e818c32360bb94fa38cd88fa750c87, type: 2}
-  <FishSkeletonDataAsset>k__BackingField: {fileID: 11400000, guid: b30bb1cfde387bb47bd8ef3142a9f219, type: 2}
-  <SpriteAnchorOffset>k__BackingField: {x: -2.47, y: 2}
+  <FishSpriteAnimatorConfig>k__BackingField: {fileID: 11400000, guid: c26be8061ad6a6d45aa686573a1051f9, type: 2}
+  <FishSkeletonDataAsset>k__BackingField: {fileID: 11400000, guid: fc8f4bb8e4ab5da4eb4bad15f794307c, type: 2}
+  <FishSkin>k__BackingField: DonBranchie
+  <FatigueSliderOffset>k__BackingField: {x: 0, y: 390}
+  <SpriteAnchorOffset>k__BackingField: {x: -0.24, y: -0.19}
   <BasePrice>k__BackingField: 10
   <Power>k__BackingField:
     value: 5

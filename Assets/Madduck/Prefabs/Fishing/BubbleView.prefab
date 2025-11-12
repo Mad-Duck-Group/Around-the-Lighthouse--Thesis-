@@ -136,11 +136,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.Fishing::Madduck.Fishing.Shared.BubbleView
   bubbleSpriteRenderer: {fileID: 9205716522774032747}
-  lengthRange: {x: -1.25, y: 1.25}
+  lengthRange: {x: -0.8, y: 1.01}
   scaleTweenSettings:
     startFromCurrent: 0
     startValue: {x: 0, y: 0, z: 0}
-    endValue: {x: 1, y: 1, z: 1}
+    endValue: {x: 0.8, y: 0.8, z: 0.8}
     settings:
       duration: 1
       ease: 0

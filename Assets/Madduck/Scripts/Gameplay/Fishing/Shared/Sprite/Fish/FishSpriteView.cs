@@ -46,7 +46,9 @@ namespace Madduck.Fishing.Shared
             transform.localScale = scaleTween.startValue;
             transform.position = hook.position;
             transform.position -= (Vector3)fishItemInstance.ItemData.SpriteAnchorOffset;
+            skeletonAnimation.initialSkinName = fishItemInstance.ItemData.FishSkin;
             skeletonAnimation.skeletonDataAsset = fishItemInstance.ItemData.FishSkeletonDataAsset;
+            ((RectTransform)fatigueTimerView.transform).anchoredPosition -= fishItemInstance.ItemData.FatigueSliderOffset;
             skeletonAnimation.Initialize(true);
             Animator = new FishSpriteAnimator(fishItemInstance.ItemData.FishSpriteAnimatorConfig, skeletonAnimation);
             transform.SetParent(hook);
@@ -86,8 +88,11 @@ namespace Madduck.Fishing.Shared
         private void OnDrawGizmosSelected()
         {
             var anchoredPos = transform.position + (Vector3)debugFish.SpriteAnchorOffset;
+            var fatiguePos = ((RectTransform)fatigueTimerView.transform).anchoredPosition + debugFish.FatigueSliderOffset;
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(anchoredPos, 0.5f);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(fatiguePos, 0.5f);
         }
     }
 }

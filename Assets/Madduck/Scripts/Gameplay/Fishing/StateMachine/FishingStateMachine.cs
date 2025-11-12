@@ -97,6 +97,7 @@ namespace Madduck.Fishing.StateMachine
                 _currentStateType = stateType;
                 ChangeState(nextState).ContinueWith(() =>
                 {
+                    DebugUtils.Log("FishingStateMachine changed to state: " + stateType);
                     _fishingStateEventPublisher.Publish(new FishingStateEvent(stateType));
                 });
             }

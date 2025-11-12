@@ -148,7 +148,10 @@ namespace Madduck.Room
             if (Percentage.TryRoll(_config.BgmChance))
             {
                 var randomBgm = _config.BgmPlaylist[UnityEngine.Random.Range(0, _config.BgmPlaylist.Count)];
-                _bgm = _audioManager.PlayAudio(randomBgm, Vector3.zero);
+                UniTask.WaitForSeconds(_config.BgmDelay).ContinueWith(() =>
+                {
+                    _bgm = _audioManager.PlayAudio(randomBgm, Vector3.zero);
+                });
             }
             _ambient = _audioManager.PlayAudio(_config.SeaAmbient, Vector3.zero);
             RandomWeather();

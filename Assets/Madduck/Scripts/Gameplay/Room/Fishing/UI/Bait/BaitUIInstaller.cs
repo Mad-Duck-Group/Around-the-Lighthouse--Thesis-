@@ -28,9 +28,7 @@ namespace Madduck.Room
             builder.Register(_ => baitButtonViewFactory, Lifetime.Singleton)
                 .As<IGenericFactory<BaitButtonView>>();
             builder.Register<BaitSelectionViewModel>(Lifetime.Singleton);
-            builder.RegisterEntryPoint<BaitController>()
-                .As<IStartable>()
-                .AsSelf();
+            builder.RegisterEntryPoint<BaitController>(Lifetime.Singleton).AsSelf();
             builder.Register<ICarouselItemPositioner, HorizontalCarouselItemPositioner>(Lifetime.Singleton);
             builder.RegisterComponent(_carouselController);
             builder.RegisterInstance(new UIBeforeTriggerBait(uiBeforeTriggerBait));

@@ -33,6 +33,12 @@ namespace Madduck.Fishing.StateMachine
             await base.Enter();
             _playerAnimator.StartIdle();
             _bubbleManager.ResumeAllBubbles();
+            CheckForFishingContinuation().Forget();
+        }
+
+        private async UniTaskVoid CheckForFishingContinuation()
+        {
+            await UniTask.WaitForEndOfFrame(); // Delay to prevent state transition issues
             if (_canContinueFishingRequestHandler.Invoke(new CanContinueFishingRequest()))
             {
                 DebugUtils.Log("Can continue fishing, going to next state.");

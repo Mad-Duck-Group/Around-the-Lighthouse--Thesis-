@@ -68,6 +68,10 @@ namespace Madduck.GameData
                 SerializeField] public FishSpriteAnimatorConfig FishSpriteAnimatorConfig { get; private set; }
         [field: Required, 
                 SerializeField] public SkeletonDataAsset FishSkeletonDataAsset { get; private set; }
+        [field: ShowIf(nameof(EnemyType), FishEnemyType.Normal), 
+                SpineSkin(dataField: "<FishSkeletonDataAsset>k__BackingField"),
+                SerializeField] public string FishSkin { get; private set; }
+        [field: SerializeField] public Vector2 FatigueSliderOffset { get; private set; }
         [field: SerializeField] public Vector2 SpriteAnchorOffset { get; private set; }
         [field: SerializeField] public uint BasePrice { get; private set; } = 10;
         

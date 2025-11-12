@@ -19,16 +19,16 @@ namespace Madduck.Fishing.StateMachine
         {
             _controller = controller;
         }
-        
+
         public override async UniTask Enter()
         {
             await base.Enter();
-            await _controller.ThrowHook();
-            OnHookHitWater();
+            ThrowHook().Forget();
         }
-        
-        private void OnHookHitWater()
+
+        private async UniTaskVoid ThrowHook()
         {
+            await _controller.ThrowHook();
             DebugUtils.Log("Hook hit water, transitioning to NibbleState");
             stateMachine.NextState();
         }
