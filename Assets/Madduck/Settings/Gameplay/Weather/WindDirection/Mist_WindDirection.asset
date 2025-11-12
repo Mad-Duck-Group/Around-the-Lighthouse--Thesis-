@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Mist_WindDirection
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.WindDirectionWeightTable
   <Records>k__BackingField:
-  - <Item>k__BackingField: 0
+  - <Item>k__BackingField: 1
     <Weight>k__BackingField:
       value: 1

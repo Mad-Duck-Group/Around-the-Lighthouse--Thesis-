@@ -29,6 +29,7 @@ namespace Madduck.GameData
 
         [field: ReadOnly,
                 ShowInInspector] private SerializableReactiveProperty<BaitItemInstance> CurrentBait { get; } = new();
+        
         #endregion
         
         #region Properties
@@ -112,7 +113,6 @@ namespace Madduck.GameData
                 var next = GetNextBait();
                 if (next != null)
                 {
-                    SetCurrentBait(next.ItemData.BaitType);
                     BaitChanged.Execute(next);
                 }
             }).AddTo(ref disposableBuilder);
@@ -122,7 +122,6 @@ namespace Madduck.GameData
                 var prev = GetPreviousBait();
                 if (prev != null)
                 {
-                    SetCurrentBait(prev.ItemData.BaitType);
                     BaitChanged.Execute(prev);
                 }
             }).AddTo(ref disposableBuilder);
@@ -181,6 +180,7 @@ namespace Madduck.GameData
                 return;
             }
             CurrentBait.Value = bait;
+            DebugUtils.Log($"Current bait: {CurrentBait.Value.ItemData.BaitName}");
         }
 
         public void ChangeCurrentBaitAmount(int change)

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using HasanSadikin.Carousel;
 using Madduck.GameData;
 using Madduck.GameData.Bait;
@@ -24,7 +25,7 @@ namespace Madduck.Room
         private readonly GameObject _uiBeforeTriggerBait;
         private readonly GameObject _uiAfterTriggerBait;
         private readonly CarouselController<LocationData> _carousel;
-        
+        private  BaitItemInstance _pendingBait;
         private bool _interactable = true;
 
         private IDisposable _bindings;
@@ -92,7 +93,16 @@ namespace Madduck.Room
 
                     _inputHandler.ConfirmBaitButton.IsDown
                         .Where(x => x && _interactable && _uiAfterTriggerBait.activeSelf)
-                        .Subscribe(__ => _carousel.Select())
+                        .Subscribe(__ =>
+                        {
+                            if (_pendingBait == null)
+                            {
+                                _pendingBait = _playerInventory.CurrentBaitsView.FirstOrDefault().Value;
+                            }
+                            _playerInventory.SetCurrentBait(_pendingBait.ItemData.BaitType);
+                            OnBaitChanged.Execute(_pendingBait);
+                        }
+                            )
                         .AddTo(_confirmDisposables);
                 })
                 .AddTo(ref builder);
@@ -101,7 +111,7 @@ namespace Madduck.Room
                  .Where(_ => _uiAfterTriggerBait.activeSelf)
                  .Subscribe(data =>
                  {
-                     DebugUtils.Log($"Current bait: {data.sprite}");
+                     //
                  })
                  .AddTo(ref builder);
             
@@ -109,18 +119,16 @@ namespace Madduck.Room
                  .Where(_ => _interactable)
                  .Subscribe(data =>
                  {
-                     DebugUtils.Log($"Selected bait from carousel: {data.sprite}");
+                     // DebugUtils.Log($"Selected bait from carousel: {data.sprite}");
                  })
                  .AddTo(ref builder);
              _bindings = builder.Build();
-            DebugUtils.Log("test inject");
         }
 
         private void SetActive(bool active)
         {
             _uiBeforeTriggerBait.SetActive(!active);
             _uiAfterTriggerBait.SetActive(active);
-            DebugUtils.Log($"Bait UI Active: {active}");
         }
         private void OnFishingStateEvent(FishingStateEvent evt)
         {
@@ -130,27 +138,37 @@ namespace Madduck.Room
         private void OnCarouselItemUpdated(BaitItemInstance bait)
         {
             if (bait == null) return;
-            _playerInventory.SetCurrentBait(bait.ItemData.BaitType);
+            _playerInventory.SetCurrentBait(bait.ItemData.BaitType);//เปลี่ยนใหม่
             OnBaitChanged.Execute(bait);
         }
         private void OnNextBait()
         {
-            var next = _playerInventory.GetNextBait();
-            if (next != null)
-            {
-                OnCarouselItemUpdated(next);
-                DebugUtils.Log($"Next bait: {next.ItemData.BaitType}");
-            }
+            var baseBait = _pendingBait ?? _playerInventory.CurrentBaitView.CurrentValue;
+            var baitList = _playerInventory.CurrentBaitsView.Select(x => x.Value).ToList();
+
+            if (baitList.Count == 0) return;
+
+            int currentIndex = baseBait == null ? -1 : baitList.IndexOf(baseBait);
+            int nextIndex = (currentIndex + 1) % baitList.Count;
+
+            _pendingBait = baitList[nextIndex];
+            DebugUtils.Log($"Pending Next bait: {_pendingBait.ItemData.BaitType}");
+
         }
 
         private void OnPreviousBait()
         {
-            var prev = _playerInventory.GetPreviousBait();
-            if (prev != null)
-            {
-                OnCarouselItemUpdated(prev);
-                DebugUtils.Log($"Previous bait: {prev.ItemData.BaitType}");
-            }
+            var baseBait = _pendingBait ?? _playerInventory.CurrentBaitView.CurrentValue;
+            var baitList = _playerInventory.CurrentBaitsView.Select(x => x.Value).ToList();
+
+            if (baitList.Count == 0) return;
+
+            int currentIndex = baseBait == null ? 0 : baitList.IndexOf(baseBait);
+            int prevIndex = (currentIndex - 1 + baitList.Count) % baitList.Count;
+
+            _pendingBait = baitList[prevIndex];
+            DebugUtils.Log($"Pending Previous bait: {_pendingBait.ItemData.BaitType}");
+
         }
         private void OnCarouselItemSelected(BaitItemInstance bait)
         {

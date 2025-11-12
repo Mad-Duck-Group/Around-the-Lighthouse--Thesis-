@@ -31,7 +31,6 @@ namespace HasanSadikin.Carousel
 
         internal virtual void SetActive(bool value)
         {
-            Debug.Log($"{_data} SetActive({value})");
             
             if (value) OnActivated();
             else OnDeactivated();

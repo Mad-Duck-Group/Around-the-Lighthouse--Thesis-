@@ -70,6 +70,9 @@ namespace Madduck.GameData
                             if (modifier.FishSize != record.Item.Size) break;
                             dictionary[record].Add(modifier);
                             break;
+                        case FishModifierType.All:
+                            dictionary[record].Add(modifier);
+                            break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
