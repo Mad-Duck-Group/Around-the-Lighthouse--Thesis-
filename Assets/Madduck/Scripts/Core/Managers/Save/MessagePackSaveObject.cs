@@ -40,10 +40,13 @@ namespace Madduck.Core
             SerializeField] public bool SaveSeparately { get; private set; } = false;
         [GUIColor("red"), 
          SerializeField] protected bool saveAsJson = false;
-        [SerializeField] protected bool debugMode = true;
-        [ShowIf(nameof(debugMode)),
+        [ShowIfGroup(nameof(SaveSeparately)),
+            SerializeField] protected bool debugMode = true;
+        [ShowIfGroup(nameof(SaveSeparately)),
+         ShowIf(nameof(debugMode)),
          SerializeField] protected SaveSettings debugSaveSettings;
-        [HideIf(nameof(debugMode)), GUIColor("red"),
+        [ShowIfGroup(nameof(SaveSeparately)),
+         HideIf(nameof(debugMode)), GUIColor("red"),
          SerializeField] protected SaveSettings releaseSaveSettings;
         
         public abstract T GetSaveData<T>() where T : IMessagePackSaveData;
