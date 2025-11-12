@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
 using Madduck.Input;
 using Madduck.Utils;
 using R3;
 using Redcode.Extensions;
 using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
 using Time = UnityEngine.Time;
@@ -27,6 +29,7 @@ namespace Madduck.Shared
         public ReadOnlyReactiveProperty<Percentage> RemainingPercentage { get; }
 
         private readonly QteButtonConfigInstance _configInstance;
+        private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _input;
         private readonly IQteElement _view;
         private readonly ReactiveProperty<InputBinding> _currentBinding = new();
@@ -42,10 +45,12 @@ namespace Madduck.Shared
         [Inject]
         public QteButtonController(
             QteButtonConfigInstance configInstance,
+            IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IQteElement view)
         {
             _configInstance = configInstance;
+            _audioManager = audioManager;
             _input = inputHandler;
             _view = view;
             CurrentElement = view;
@@ -63,7 +68,7 @@ namespace Madduck.Shared
                 .DistinctUntilChanged()
                 .Where(x => x && _active)
                 .Select(_ => _input.JerkBaitButton)
-                .Subscribe(OnJerkBaitButtonDown)
+                .Subscribe(OnQteButtonDown)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -124,8 +129,9 @@ namespace Madduck.Shared
             }
         }
         
-        private void OnJerkBaitButtonDown(InputButton button)
+        private void OnQteButtonDown(InputButton button)
         {
+            _audioManager.PlayAudioOneShot(_configInstance.BaseConfig.QtePressSfx, Vector3.zero);
             if (!_timeFrameOpen)
             {
                 Fail();

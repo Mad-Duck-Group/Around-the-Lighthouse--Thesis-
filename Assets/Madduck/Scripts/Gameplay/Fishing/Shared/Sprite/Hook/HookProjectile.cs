@@ -138,15 +138,22 @@ namespace Madduck.Fishing.Shared
             splineContainer.transform.position = Vector3.zero;
             var spline = splineContainer[0];
             var knots = spline.Knots.ToList();
-            var middleKnot = knots[1];
             var hookPos = transform.position;
             var landingPos = _landingPoint.position;
+            
+            var firstKnot = knots[0];
+            firstKnot.Position = hookPos;
+            knots[0] = firstKnot;
+            
+            var middleKnot = knots[1];
             var middleX = Mathf.Lerp(hookPos.x, landingPos.x, Percentage.Half.AsFraction);
             middleKnot.Position = new float3(middleX, dramaticReturnHeight, middleKnot.Position.z);
             knots[1] = middleKnot;
+            
             var lastKnot = knots[^1];
             lastKnot.Position = landingPos;
             knots[^1] = lastKnot;
+            
             for (var i = 0; i < knots.Count; i++)
             {
                 var previousKnot = i == 0 ? knots[i] : knots[i - 1];

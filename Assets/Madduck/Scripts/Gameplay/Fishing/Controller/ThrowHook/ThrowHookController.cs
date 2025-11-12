@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
 using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
@@ -25,16 +26,19 @@ namespace Madduck.Fishing.Controller
 
         #region Fields
 
+        private readonly ThrowHookConfig _config;
         private readonly ThrowHookCommander _commander;
         private readonly ThrowHookModel _model;
         private readonly BubbleManager _bubbleManager;
         private readonly FishingSharedVariable _fishingSharedVariable;
+        private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
         private readonly ITransitionable _viewTransition;
         
         private IDisposable _bindings;
         private CancellationTokenSource _transitionCts = new();
+        private AudioReference _fishingLineCastReference;
 
         #endregion
 
@@ -42,19 +46,23 @@ namespace Madduck.Fishing.Controller
 
         [Inject]
         public ThrowHookController(
+            ThrowHookConfig config,
             ThrowHookCommander commander,
             ThrowHookModel model,
             BubbleManager bubbleManager,
             FishingSharedVariable fishingSharedVariable,
+            IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
             [Key(FishingStateType.ThrowHook)] ITransitionable viewTransition)
         {
+            _config = config;
             _inputHandler = inputHandler;
             _commander = commander;
             _model = model;
             _bubbleManager = bubbleManager;
             _fishingSharedVariable = fishingSharedVariable;
+            _audioManager = audioManager;
             _hookFactory = hookFactory;
             _viewTransition = viewTransition;
         }
@@ -119,6 +127,7 @@ namespace Madduck.Fishing.Controller
         private void OnThrownHook()
         {
             OnHookThrown?.Invoke();
+            _fishingLineCastReference = _audioManager.PlayAudio(_config.FishingLineCastSfx, Vector3.zero);
         }
 
         #endregion
@@ -146,6 +155,8 @@ namespace Madduck.Fishing.Controller
             var projectile = _hookFactory.Create();
             var throwPercent = _model.ThrowHookPercent.CurrentValue;
             await projectile.Throw(throwPercent);
+            _audioManager.PlayAudioOneShot(_config.HookHitWaterSfx, Vector3.zero);
+            _audioManager.StopAudio(_fishingLineCastReference);
             if (_bubbleManager.TryLandOnBubble(_hookFactory.CurrentGameObject.transform.position, out var bubble))
             {
                 _fishingSharedVariable.SetBubble(bubble);

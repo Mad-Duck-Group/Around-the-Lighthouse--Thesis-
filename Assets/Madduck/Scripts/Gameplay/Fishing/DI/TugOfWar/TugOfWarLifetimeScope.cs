@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Fishing.Config;
 using Madduck.Fishing.Controller;
 using Madduck.Fishing.StateMachine;
 using Madduck.Fishing.UI;
@@ -33,6 +34,8 @@ namespace Madduck.Fishing.DI
     {
         [Title("References")] 
         [Required, 
+         SerializeField] private TugOfWarConfig tugOfWarConfig;
+        [Required, 
          SerializeField] private TugOfWarView tugOfWarView;
         
 #if UNITY_EDITOR
@@ -49,6 +52,7 @@ namespace Madduck.Fishing.DI
         
         public void Install(IContainerBuilder builder)
         {
+            builder.RegisterInstance(tugOfWarConfig).AsSelf();
             builder.Register(x =>
                 {
                     x.Inject(tugOfWarView);

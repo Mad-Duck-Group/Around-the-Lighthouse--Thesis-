@@ -12,8 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12353115219942e9848509fd893ca12b, type: 3}
   m_Name: ThrowHookConfig
   m_EditorClassIdentifier: Madduck.Fishing.Config::Madduck.Scripts.Fishing.Config.ThrowHook.ThrowHookConfig
-  <ThrowHookMaxValue>k__BackingField:
-    value: 100
-  <ThrowHookSliderSpeed>k__BackingField:
-    value: 150
-  <ThrowRange>k__BackingField: {x: 0, y: 7}
+  <ThrowHookSfx>k__BackingField:
+    Guid:
+      Data1: -2058507790
+      Data2: 1171866810
+      Data3: -1659544414
+      Data4: -1419514041
+    Path: event:/SFX/FishingRod
+  <FishingLineCastSfx>k__BackingField:
+    Guid:
+      Data1: -2014453631
+      Data2: 1139330241
+      Data3: 485180565
+      Data4: 1991090104
+    Path: event:/SFX/FishLineRod
+  <HookHitWaterSfx>k__BackingField:
+    Guid:
+      Data1: 1794268489
+      Data2: 1327763968
+      Data3: 741671611
+      Data4: -1920945036
+    Path: event:/SFX/HookHitWater

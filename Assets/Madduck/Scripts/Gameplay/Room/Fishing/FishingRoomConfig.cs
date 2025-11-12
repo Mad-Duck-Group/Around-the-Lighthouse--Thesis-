@@ -1,4 +1,6 @@
-﻿using FMODUnity;
+﻿using System.Collections.Generic;
+using FMODUnity;
+using Madduck.Audio;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,6 +13,10 @@ namespace Madduck.Room
         [Title("Audio"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _audioTitle;
-        [field: SerializeField] public EventReference FishingRoomBGM { get; private set; }
+        [field: SerializeField] public EventReference BoatSfx { get; private set; }
+        [field: SerializeField] public EventReference SeaAmbient { get; private set; }
+        [field: InlineProperty, 
+                SerializeField] public Percentage BgmChance { get; private set; }
+        [field: SerializeField] public List<EventReference> BgmPlaylist { get; private set; } = new();
     }
 }

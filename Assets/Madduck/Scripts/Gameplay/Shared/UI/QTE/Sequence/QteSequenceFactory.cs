@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Audio;
 using Madduck.Input;
 using Madduck.Utils;
 using R3;
@@ -23,6 +24,7 @@ namespace Madduck.Shared
         [Required, 
          SerializeField] private QteButtonFactory buttonFactory;
 
+        private IAudioManager _audioManager;
         private IPlayerInputHandler _inputHandler;
         private IDisposable _disposables;
         
@@ -30,10 +32,12 @@ namespace Madduck.Shared
         
         [Inject]
         public void SetUp(
+            IAudioManager audioManager,
             IPlayerInputHandler inputHandler)
         {
             _inputHandler = inputHandler;
-            buttonFactory.SetUp(inputHandler);
+            _audioManager = audioManager;
+            buttonFactory.SetUp(_audioManager, _inputHandler);
         }
         
         public IQuickTimeEvent Create()

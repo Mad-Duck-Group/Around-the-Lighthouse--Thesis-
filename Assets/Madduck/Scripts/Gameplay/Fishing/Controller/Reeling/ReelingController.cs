@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
 using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
@@ -30,6 +31,7 @@ namespace Madduck.Fishing.Controller
         private readonly ReelingConfig _config;
         private readonly ReelingCommander _commander;
         private readonly ReelingModel _model;
+        private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
@@ -45,6 +47,7 @@ namespace Madduck.Fishing.Controller
         [ShowInInspector] private float _previousAngle;
         [ShowInInspector, InlineProperty] private float _accumulatedAngle;
         private CancellationTokenSource _transitionCts = new();
+        private AudioReference _reelingAudioReference;
 
         #endregion
 
@@ -55,6 +58,7 @@ namespace Madduck.Fishing.Controller
             ReelingConfig config,
             ReelingCommander commander,
             ReelingModel model,
+            IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
@@ -65,6 +69,7 @@ namespace Madduck.Fishing.Controller
             _config = config;
             _hookFactory = hookFactory;
             _inputHandler = inputHandler;
+            _audioManager = audioManager;
             _commander = commander;
             _model = model;
             _fishFactory = fishFactory;
@@ -145,11 +150,13 @@ namespace Madduck.Fishing.Controller
             if (_accumulatedAngle >= (float)_config.RotationThreshold && !_reeling)
             {
                 _reeling = true;
+                _reelingAudioReference = _audioManager.PlayAudio(_config.ReelingSfx, Vector3.zero);
                 OnReelingFirstHold();
             }
             else if (_accumulatedAngle < (float)_config.RotationThreshold && _reeling)
             {
                 _reeling = false;
+                _audioManager.StopAudio(_reelingAudioReference);
                 OnReelingRelease();
             }
             _accumulatedAngle = 0;
@@ -170,6 +177,7 @@ namespace Madduck.Fishing.Controller
 
         private void OnWinReeling()
         {
+            _audioManager.StopAudio(_reelingAudioReference);
             _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
             _model.Inventory.ChangeCurrentBaitAmount(-1);
             OnReelingResult?.Invoke(Sign.Positive);
@@ -177,6 +185,7 @@ namespace Madduck.Fishing.Controller
         
         private void OnFishRegainConsciousness()
         {
+            _audioManager.StopAudio(_reelingAudioReference);
             OnReelingResult?.Invoke(Sign.Negative);
         }
 

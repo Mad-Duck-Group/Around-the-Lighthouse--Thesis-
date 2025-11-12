@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
 using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
@@ -10,6 +11,7 @@ using Madduck.Input;
 using Madduck.Shared;
 using Madduck.Utils;
 using R3;
+using UnityEngine;
 using VContainer;
 
 namespace Madduck.Fishing.Controller
@@ -28,6 +30,7 @@ namespace Madduck.Fishing.Controller
         private readonly NibbleModel _model;
         private readonly BubbleManager _bubbleManager;
         private readonly FishingSharedVariable _sharedVariable;
+        private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
@@ -62,6 +65,7 @@ namespace Madduck.Fishing.Controller
             NibbleModel model, 
             BubbleManager bubbleManager,
             FishingSharedVariable sharedVariable,
+            IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
@@ -76,6 +80,7 @@ namespace Madduck.Fishing.Controller
             _model = model;
             _bubbleManager = bubbleManager;
             _sharedVariable = sharedVariable;
+            _audioManager = audioManager;
             _hookFactory = hookFactory;
             _fishFactory = fishFactory;
             _fishEyesFactory = fishEyesFactory;
@@ -164,7 +169,10 @@ namespace Madduck.Fishing.Controller
         public async UniTask ReturnHook()
         {
             _playerAnimator.Set(PlayerAnimationKey.Reeling, 0, true);
+            var reelingSfx = _audioManager.PlayAudio(_config.ReelingSfx, Vector3.zero);
             await _hookFactory.Current.ReelBack();
+            _audioManager.StopAudio(reelingSfx);
+            _audioManager.PlayAudioOneShot(_config.PullHookSfx, Vector3.zero);
             var track = _playerAnimator.Set(PlayerAnimationKey.PullHookUp, 0, false);
             await track.WaitUntilEvent(ThrowEventName);
             await UniTask.WhenAny(_hookFactory.Current.Return(), 
@@ -245,6 +253,7 @@ namespace Madduck.Fishing.Controller
                     fishEyes.TransitionIn();
                     break;
                 case 1 when result:
+                    _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
                     _fishEyesFactory.Current.Bite();
                     StartFishBiteTimer(_fishBiteCts.Token).Forget();
                     return;

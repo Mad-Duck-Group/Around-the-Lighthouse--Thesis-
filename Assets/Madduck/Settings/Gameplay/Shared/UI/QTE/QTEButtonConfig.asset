@@ -22,3 +22,10 @@ MonoBehaviour:
     value: 0.25
   <LateSuccessTimeFrame>k__BackingField:
     value: 0.15
+  <QtePressSfx>k__BackingField:
+    Guid:
+      Data1: -294713435
+      Data2: 1323253903
+      Data3: -1184105066
+      Data4: 1704632016
+    Path: event:/SFX/UIClickQTE

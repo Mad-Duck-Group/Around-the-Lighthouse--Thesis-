@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
 using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.Input;
@@ -18,7 +19,9 @@ namespace Madduck.Fishing.UI
         public ReactiveCommand<InputType> ThrowHookFirstHeldCommand { get; } = new();
         public ReactiveCommand<InputType> ThrowHookHeldCommand { get; } = new();
         public ReactiveCommand<InputType> ThrowHookReleaseCommand { get; } = new();
+        private readonly ThrowHookConfig _config;
         private readonly ThrowHookModel _model;
+        private readonly IAudioManager _audioManager;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         private readonly IIdleAnimator _playerIdleAnimator;
         
@@ -32,11 +35,15 @@ namespace Madduck.Fishing.UI
         
         [Inject]
         public ThrowHookCommander(
+            ThrowHookConfig config,
             ThrowHookModel model, 
+            IAudioManager audioManager,
             ISpineAnimator<PlayerAnimationKey> playerAnimator,
             IIdleAnimator playerIdleAnimator)
         {
+            _config = config;
             _model = model;
+            _audioManager = audioManager;
             _playerAnimator = playerAnimator;
             _playerIdleAnimator = playerIdleAnimator;
             Bind();
@@ -104,6 +111,7 @@ namespace Madduck.Fishing.UI
             _hookThrown = true;
             var track = _playerAnimator.Set(PlayerAnimationKey.ReleaseThrow, 0, false);
             await track.WaitUntilEvent(ThrowEventName);
+            _audioManager.PlayAudioOneShot(_config.ThrowHookSfx, Vector3.zero);
             _model.HookThrown.Value = true;
             await track.WaitUntilComplete();
             _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);

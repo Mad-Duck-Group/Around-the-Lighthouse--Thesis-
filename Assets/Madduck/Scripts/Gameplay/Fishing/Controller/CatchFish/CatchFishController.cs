@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
 using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.GameData;
@@ -18,6 +19,7 @@ namespace Madduck.Fishing.Controller
         public event Action OnCatchFishCompleted;
         
         private readonly CatchFishConfig _config;
+        private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
@@ -36,6 +38,7 @@ namespace Madduck.Fishing.Controller
         [Inject]
         public CatchFishController(
             CatchFishConfig config,
+            IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
             IGenericFactory<FishItemInstance> fishFactory,
@@ -44,6 +47,7 @@ namespace Madduck.Fishing.Controller
             ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
             _config = config;
+            _audioManager = audioManager;
             _inputHandler = inputHandler;
             _hookFactory = hookFactory;
             _fishFactory = fishFactory;
@@ -99,6 +103,7 @@ namespace Madduck.Fishing.Controller
         {
             _fishSpriteFactory.Current.Detach();
             await _playerAnimator.Set(PlayerAnimationKey.GotFish, 0, false).WaitUntilEvent(ThrowEventName);
+            _audioManager.PlayAudioOneShot(_config.PullHookUpSfx, Vector3.zero);
             var hook = _hookFactory.Current;
             _startSlowMo = Observable.FromEvent<Percentage>(
                     h => hook.OnDramaticReturnProgress += h,

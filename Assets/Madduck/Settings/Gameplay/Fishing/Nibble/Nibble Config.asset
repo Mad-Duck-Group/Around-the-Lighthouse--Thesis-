@@ -13,3 +13,24 @@ MonoBehaviour:
   m_Name: Nibble Config
   m_EditorClassIdentifier: Madduck.Fishing::Madduck.Fishing.Config.NibbleConfig
   <QteIntervalRange>k__BackingField: {x: 3, y: 8}
+  <ReelingSfx>k__BackingField:
+    Guid:
+      Data1: -1326929951
+      Data2: 1232384226
+      Data3: -1789717065
+      Data4: -1675316277
+    Path: event:/SFX/FishingReel
+  <PullHookSfx>k__BackingField:
+    Guid:
+      Data1: -2058507790
+      Data2: 1171866810
+      Data3: -1659544414
+      Data4: -1419514041
+    Path: event:/SFX/FishingRod
+  <FishBiteSfx>k__BackingField:
+    Guid:
+      Data1: 406865060
+      Data2: 1211597858
+      Data3: -1544861012
+      Data4: -1182722561
+    Path: event:/SFX/FishBitten

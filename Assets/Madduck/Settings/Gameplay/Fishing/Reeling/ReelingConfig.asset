@@ -22,3 +22,10 @@ MonoBehaviour:
     value: 1
   <MouseSensitivity>k__BackingField:
     value: 1
+  <ReelingSfx>k__BackingField:
+    Guid:
+      Data1: -1326929951
+      Data2: 1232384226
+      Data3: -1789717065
+      Data4: -1675316277
+    Path: event:/SFX/FishingReel

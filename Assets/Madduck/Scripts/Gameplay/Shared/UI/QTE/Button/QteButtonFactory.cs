@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Audio;
 using Madduck.Input;
 using Madduck.Utils;
 using R3;
@@ -19,21 +20,29 @@ namespace Madduck.Shared
          SerializeField] private QteButtonView viewPrefab;
         [SerializeField] private Transform parent;
 
+        private IAudioManager _audioManager;
         private IPlayerInputHandler _inputHandler;
         private IDisposable _disposables;
         
         public IQuickTimeEvent Current { get; private set; }
         
         [Inject]
-        public void SetUp(IPlayerInputHandler inputHandler)
+        public void SetUp(
+            IAudioManager audioManager,
+            IPlayerInputHandler inputHandler)
         {
+            _audioManager = audioManager;
             _inputHandler = inputHandler;
         }
         
         public IQuickTimeEvent Create()
         {
             var view = Object.Instantiate(viewPrefab, parent);
-            var controller = new QteButtonController(new QteButtonConfigInstance(config), _inputHandler, view);
+            var controller = new QteButtonController(
+                new QteButtonConfigInstance(config), 
+                _audioManager, 
+                _inputHandler, 
+                view);
             view.SetUp(controller);
             Current = controller;
             return controller;

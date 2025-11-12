@@ -16,6 +16,12 @@ namespace Madduck.GameData
         Large
     }
 
+    public enum FishEnemyType
+    {
+            Normal,
+            Boss,
+    }
+
     public enum FishModifierType
     { 
         All,
@@ -45,6 +51,7 @@ namespace Madduck.GameData
         [Title("Fish Settings"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _fishSettingsTitle;
+        [field: SerializeField] public FishEnemyType EnemyType { get; private set; } = FishEnemyType.Normal;
         [field: SerializeField] public FishSize Size { get; private set; } = FishSize.Small;
         [field: NoNoneFlag,
             SerializeField] public WeatherType WeatherType { get; private set; } = WeatherType.Clear;

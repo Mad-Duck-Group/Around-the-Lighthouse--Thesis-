@@ -58,6 +58,7 @@ namespace Madduck.Room
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private AudioReference _bgm;
+        private AudioReference _ambient;
         private IDisposable _subscriptions;
         private DisposableBag _disposables;
 
@@ -144,13 +145,19 @@ namespace Madduck.Room
             MaxFishCount.Value = _maxFishCountFactory.Create();
             CurrentFishCount.Value = MaxFishCount.Value;
             _fishingRoomStartedEventPublisher?.Publish(new FishingRoomStartedEvent());
-            _bgm = _audioManager.PlayAudio(_config.FishingRoomBGM, Vector3.zero);
+            if (Percentage.TryRoll(_config.BgmChance))
+            {
+                var randomBgm = _config.BgmPlaylist[UnityEngine.Random.Range(0, _config.BgmPlaylist.Count)];
+                _bgm = _audioManager.PlayAudio(randomBgm, Vector3.zero);
+            }
+            _ambient = _audioManager.PlayAudio(_config.SeaAmbient, Vector3.zero);
             RandomWeather();
         }
 
         private void OnEndFishingRoom()
         {
             _audioManager.StopAudio(_bgm);
+            _audioManager.StopAudio(_ambient);
         }
         
         private void OnFishCaught(FishCaughtEvent eventData)

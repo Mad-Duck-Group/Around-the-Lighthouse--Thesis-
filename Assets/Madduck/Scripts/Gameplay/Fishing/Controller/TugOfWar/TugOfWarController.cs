@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
+using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
 using Madduck.GameData;
@@ -17,8 +19,10 @@ namespace Madduck.Fishing.Controller
     {
         public event Action<Sign> OnTugOfWarResult;
         
+        private readonly TugOfWarConfig _config;
         private readonly TugOfWarModel _model;
         private readonly ReelingModel _reelingModel;
+        private readonly IAudioManager _audioManager;
         private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
@@ -35,8 +39,10 @@ namespace Madduck.Fishing.Controller
         
         [Inject]
         public TugOfWarController(
+            TugOfWarConfig config,
             TugOfWarModel model,
             ReelingModel reelingModel,
+            IAudioManager audioManager,
             IGenericFactory<FishItemInstance> fishFactory,
             IFishSpriteFactory fishSpriteFactory,
             ISpineAnimator<PlayerAnimationKey> playerAnimator,
@@ -44,7 +50,9 @@ namespace Madduck.Fishing.Controller
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory)
         {
+            _config = config;
             _model = model;
+            _audioManager = audioManager;
             _reelingModel = reelingModel;
             _fishFactory = fishFactory;
             _fishSpriteFactory = fishSpriteFactory;
