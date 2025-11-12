@@ -143,20 +143,32 @@ namespace Madduck.Room
         }
         private void OnNextBait()
         {
-            var next = _playerInventory.GetNextBait();
-            if (next != null)
-            {
-                _pendingBait = next;
-            }
+            var baseBait = _pendingBait ?? _playerInventory.CurrentBaitView.CurrentValue;
+            var baitList = _playerInventory.CurrentBaitsView.Select(x => x.Value).ToList();
+
+            if (baitList.Count == 0) return;
+
+            int currentIndex = baseBait == null ? -1 : baitList.IndexOf(baseBait);
+            int nextIndex = (currentIndex + 1) % baitList.Count;
+
+            _pendingBait = baitList[nextIndex];
+            DebugUtils.Log($"Pending Next bait: {_pendingBait.ItemData.BaitType}");
+
         }
 
         private void OnPreviousBait()
         {
-            var prev = _playerInventory.GetPreviousBait();
-            if (prev != null)
-            {
-                _pendingBait = prev;
-            }
+            var baseBait = _pendingBait ?? _playerInventory.CurrentBaitView.CurrentValue;
+            var baitList = _playerInventory.CurrentBaitsView.Select(x => x.Value).ToList();
+
+            if (baitList.Count == 0) return;
+
+            int currentIndex = baseBait == null ? 0 : baitList.IndexOf(baseBait);
+            int prevIndex = (currentIndex - 1 + baitList.Count) % baitList.Count;
+
+            _pendingBait = baitList[prevIndex];
+            DebugUtils.Log($"Pending Previous bait: {_pendingBait.ItemData.BaitType}");
+
         }
         private void OnCarouselItemSelected(BaitItemInstance bait)
         {
