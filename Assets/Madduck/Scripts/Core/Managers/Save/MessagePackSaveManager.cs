@@ -191,6 +191,10 @@ namespace Madduck.Core
 
             try
             {
+                if (!Directory.Exists(zipPath))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(zipPath)!);
+                }
                 using (var zipArchive = ZipFile.Open(zipPath, ZipArchiveMode.Update))
                 {
                     var finalName = Path.ChangeExtension(entryName, ".bin");

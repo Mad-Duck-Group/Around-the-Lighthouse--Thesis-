@@ -384,7 +384,7 @@ MonoBehaviour:
   line: {fileID: 3633826853592955727}
   splineContainer: {fileID: 1932579355175118353}
   throwRange: {x: -3.98, y: 5.01}
-  yOffsetRange: {x: -1.2, y: -0.5}
+  yOffsetRange: {x: -1.2, y: -0.6}
   div: 4
   power: 0.7
   dramaticReturnHeight: 4

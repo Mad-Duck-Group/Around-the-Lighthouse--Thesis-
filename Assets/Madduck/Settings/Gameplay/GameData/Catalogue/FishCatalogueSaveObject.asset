@@ -155,7 +155,7 @@ MonoBehaviour:
       Data: 
   <SaveSeparately>k__BackingField: 0
   saveAsJson: 0
-  debugMode: 1
+  debugMode: 0
   debugSaveSettings:
     saveLocation: 2
     encryptSave: 0

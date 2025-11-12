@@ -168,7 +168,7 @@ MonoBehaviour:
     materialColor: 0
   - folderName: Settings
     folderColor: {r: 0.98823535, g: 0.427451, b: 0.2509804, a: 1}
-    fullPath: 
+    fullPath: Assets/Madduck/Settings
     icon: {fileID: 0}
     applyToAllFolders: 1
     applyColorToSubfolders: 1
@@ -204,5 +204,13 @@ MonoBehaviour:
     icon: {fileID: 0}
     applyToAllFolders: 1
     applyColorToSubfolders: 1
+    applyIconToSubfolders: 0
+    materialColor: 0
+  - folderName: GameData
+    folderColor: {r: 1, g: 1, b: 1, a: 1}
+    fullPath: Assets/Madduck/Settings/Gameplay/GameData
+    icon: {fileID: 2800000, guid: 3ddabd368b85b384abe8de3271fc4226, type: 3}
+    applyToAllFolders: 0
+    applyColorToSubfolders: 0
     applyIconToSubfolders: 0
     materialColor: 0

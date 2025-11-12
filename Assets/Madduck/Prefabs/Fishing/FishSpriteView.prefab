@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: spine-unity::Spine.Unity.SkeletonAnimation
   skeletonDataAsset: {fileID: 11400000, guid: fc8f4bb8e4ab5da4eb4bad15f794307c, type: 2}
-  initialSkinName: Bumper
+  initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
   updateWhenInvisible: 3
@@ -590,7 +590,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: S_Bumper
+  _animationName: 
   loop: 1
   timeScale: 1
 --- !u!114 &6138834243139567398
