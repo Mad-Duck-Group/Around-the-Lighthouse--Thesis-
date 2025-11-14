@@ -1,6 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Madduck.Fishing.Controller;
+using Madduck.Fishing.Shared;
 using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
@@ -13,7 +14,7 @@ namespace Madduck.Fishing.StateMachine
     public class CatchFishState : FishingState
     {
         private readonly CatchFishController _controller;
-        private readonly IGenericFactory<FishItemInstance> _fishFactory;
+        private readonly FishingSharedVariable _sharedVariable;
         private readonly IPublisher<FishCaughtEvent> _fishCaughtEventPublisher;
         
         private IDisposable _catchFishSubscription;
@@ -22,12 +23,12 @@ namespace Madduck.Fishing.StateMachine
         public CatchFishState(
             FishingStateMachine stateMachine,
             CatchFishController controller,
-            IGenericFactory<FishItemInstance> fishFactory,
+            FishingSharedVariable sharedVariable,
             IPublisher<FishCaughtEvent> fishCaughtEventPublisher)
             : base(stateMachine)
         {
             _controller = controller;
-            _fishFactory = fishFactory;
+            _sharedVariable = sharedVariable;
             _fishCaughtEventPublisher = fishCaughtEventPublisher;
         }
         
@@ -52,7 +53,7 @@ namespace Madduck.Fishing.StateMachine
         private void OnCatchFishCompleted()
         {
             DebugUtils.Log("Catch fish completed, transitioning to NoneState");
-            _fishCaughtEventPublisher.Publish(new FishCaughtEvent(_fishFactory.Current));
+            _fishCaughtEventPublisher.Publish(new FishCaughtEvent(_sharedVariable.CurrentFish));
             stateMachine.ChangeState(FishingStateType.None);
             stateMachine.ResetState(FishingStateType.FishingBoard);
             stateMachine.ResetState(FishingStateType.Reeling);

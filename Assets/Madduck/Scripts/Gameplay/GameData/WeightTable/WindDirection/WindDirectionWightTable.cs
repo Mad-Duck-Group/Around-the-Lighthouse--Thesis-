@@ -22,5 +22,10 @@ namespace Madduck.GameData
                 fishProbability.Probability = Percentage.FromFraction(fishProbability.Weight / totalWeight);
             }
         }
+        
+        public IWeightTableInstance CreateInstance()
+        {
+            return new WindDirectionWeightTableInstance(this, null!);
+        }
     }
 }

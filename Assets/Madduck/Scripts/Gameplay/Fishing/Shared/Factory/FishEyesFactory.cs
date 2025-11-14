@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace Madduck.Fishing.Shared
 {
-    public interface IFishEyesFactory : IGenericFactory<IFishEyesView>
+    public interface IFishEyesFactory : IFactory<IFishEyesView>
     {
         void DestroyFishEyes();
     }

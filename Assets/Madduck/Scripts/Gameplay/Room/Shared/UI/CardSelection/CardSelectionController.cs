@@ -20,7 +20,7 @@ namespace Madduck.Room
         private readonly CardSelectionScreenViewModel _viewModel;
         private readonly CardWeightTableInstance _cardWeightTableInstance;
         private readonly CardRarityWeightTableInstance _cardRarityWeightTableInstance;
-        private readonly IGenericFactory<CardSelectionView> _cardSelectionFactory;
+        private readonly IFactory<CardSelectionView> _cardSelectionFactory;
         private readonly ITransitionable _cardSelectionScreen;
         private readonly List<CardSelectionView> _cardSelectionViews = new();
         
@@ -31,7 +31,7 @@ namespace Madduck.Room
             CardSelectionScreenViewModel viewModel,
             CardWeightTableInstance cardWeightTableInstance,
             CardRarityWeightTableInstance cardRarityWeightTableInstance,
-            IGenericFactory<CardSelectionView> cardSelectionFactory,
+            IFactory<CardSelectionView> cardSelectionFactory,
             ITransitionable cardSelectionScreen)
         {
             _viewModel = viewModel;

@@ -62,15 +62,15 @@ namespace Madduck.GameData
                 {
                     switch (modifier.ModifierType)
                     {
+                        case FishModifierType.All:
+                            dictionary[record].Add(modifier);
+                            break;
                         case FishModifierType.Name:
                             if (!modifier.FishItemData.Guid.Equals(record.Item.Guid)) break;
                             dictionary[record].Add(modifier);
                             break;
                         case FishModifierType.Size:
                             if (modifier.FishSize != record.Item.Size) break;
-                            dictionary[record].Add(modifier);
-                            break;
-                        case FishModifierType.All:
                             dictionary[record].Add(modifier);
                             break;
                         default:

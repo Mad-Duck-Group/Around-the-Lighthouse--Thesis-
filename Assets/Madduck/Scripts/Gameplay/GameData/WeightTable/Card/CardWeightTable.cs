@@ -12,7 +12,7 @@ namespace Madduck.GameData
         [field: OnValueChanged(nameof(CalculateProbabilities)), 
                 TableList,
                 SerializeField] public List<CardWeightRecord> Records { get; private set; } = new();
-        
+
         [Button("Refresh")]
         public void CalculateProbabilities()
         {
@@ -21,6 +21,11 @@ namespace Madduck.GameData
             {
                 probability.Probability = Percentage.FromFraction(probability.Weight / totalWeight);
             }
+        }
+        
+        public IWeightTableInstance CreateInstance()
+        {
+            return new CardWeightTableInstance(this, null!);
         }
     }
 }

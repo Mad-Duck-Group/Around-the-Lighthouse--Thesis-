@@ -53,6 +53,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 1
+      Data: Fishable
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: <ModifierType>k__BackingField
       Entry: 3
       Data: 2
@@ -67,7 +82,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 2|Madduck.GameData.FishWeightModifierData, Madduck.GameData
+      Data: 3|Madduck.GameData.FishWeightModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
@@ -80,6 +95,21 @@ MonoBehaviour:
     - Name: value
       Entry: 4
       Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 1
+      Data: Fishable
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 

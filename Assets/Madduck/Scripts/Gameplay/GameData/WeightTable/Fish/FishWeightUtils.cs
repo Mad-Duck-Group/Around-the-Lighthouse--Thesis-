@@ -14,10 +14,17 @@ namespace Madduck.GameData
     {
         [field: Required, 
                 SerializeField] public FishItemData Item { get; internal set; }
+
         [field: MinValue(0f), 
                 SerializeField] public UFloat Weight { get; set; } = 1f;
         [field: DisplayAsString(TextAlignment.Center), 
                 ShowInInspector] public Percentage Probability { get; internal set; }
+        
+        public FishWeightRecord(FishItemData item, UFloat weight)
+        {
+            Item = item;
+            Weight = weight;
+        }
 
         public FishWeightRecord Copy() => this with {};
     }

@@ -99,6 +99,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: <FishingRodStatType>k__BackingField
       Entry: 3
       Data: 0
@@ -124,14 +136,14 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+      Data: 6|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 6|Madduck.GameData.RodStatModifierData, Madduck.GameData
+      Data: 7|Madduck.GameData.RodStatModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
@@ -147,6 +159,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: <FishingRodStatType>k__BackingField
       Entry: 3
       Data: 0
@@ -172,14 +196,14 @@ MonoBehaviour:
       Data: 3
     - Name: 
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+      Data: 9|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 8|Madduck.GameData.RodStatModifierData, Madduck.GameData
+      Data: 10|Madduck.GameData.RodStatModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
@@ -195,6 +219,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 11|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: <FishingRodStatType>k__BackingField
       Entry: 3
       Data: 0
@@ -232,10 +268,10 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 9|Madduck.GameData.WindStrengthModifier, Madduck.GameData
+      Data: 12|Madduck.GameData.WindStrengthModifier, Madduck.GameData
     - Name: modifiersDictionary
       Entry: 7
-      Data: 10|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WindStrength,
+      Data: 13|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WindStrength,
         Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib]], Madduck.Utils
     - Name: 
@@ -319,10 +355,10 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 7
-      Data: 11|Madduck.GameData.WindStrengthModifier, Madduck.GameData
+      Data: 14|Madduck.GameData.WindStrengthModifier, Madduck.GameData
     - Name: modifiersDictionary
       Entry: 7
-      Data: 12|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WindStrength,
+      Data: 15|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WindStrength,
         Madduck.GameData],[System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib]], Madduck.Utils
     - Name: 
@@ -352,14 +388,14 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 13|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+      Data: 16|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 14|Madduck.GameData.FishStatModifierData, Madduck.GameData
+      Data: 17|Madduck.GameData.FishStatModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
@@ -375,6 +411,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 18|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: <ModifierType>k__BackingField
       Entry: 3
       Data: 0
@@ -409,14 +457,14 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+      Data: 19|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 16|Madduck.GameData.FishStatModifierData, Madduck.GameData
+      Data: 20|Madduck.GameData.FishStatModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
@@ -429,6 +477,18 @@ MonoBehaviour:
     - Name: value
       Entry: 4
       Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 21|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -466,14 +526,14 @@ MonoBehaviour:
       Data: 3
     - Name: 
       Entry: 7
-      Data: 17|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
+      Data: 22|System.Collections.Generic.List`1[[Madduck.Utils.BaseModifierData,
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 18|Madduck.GameData.FishStatModifierData, Madduck.GameData
+      Data: 23|Madduck.GameData.FishStatModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
@@ -486,6 +546,18 @@ MonoBehaviour:
     - Name: value
       Entry: 4
       Data: 20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 24|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 

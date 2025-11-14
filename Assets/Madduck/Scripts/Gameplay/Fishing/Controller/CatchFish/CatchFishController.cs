@@ -19,11 +19,11 @@ namespace Madduck.Fishing.Controller
         public event Action OnCatchFishCompleted;
         
         private readonly CatchFishConfig _config;
+        private readonly FishingSharedVariable _sharedVariable;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
-        private readonly IGenericFactory<FishItemInstance> _fishFactory;
-        private readonly IGenericFactory<IQuickTimeEvent> _qteButtonFactory;
+        private readonly IFactory<IQuickTimeEvent> _qteButtonFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         
@@ -38,19 +38,19 @@ namespace Madduck.Fishing.Controller
         [Inject]
         public CatchFishController(
             CatchFishConfig config,
+            FishingSharedVariable sharedVariable,
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
-            IGenericFactory<FishItemInstance> fishFactory,
-            [Key(FishingStateType.CatchFish)] IGenericFactory<IQuickTimeEvent> qteButtonFactory,
+            [Key(FishingStateType.CatchFish)] IFactory<IQuickTimeEvent> qteButtonFactory,
             IFishSpriteFactory fishSpriteFactory,
             ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
             _config = config;
+            _sharedVariable = sharedVariable;
             _audioManager = audioManager;
             _inputHandler = inputHandler;
             _hookFactory = hookFactory;
-            _fishFactory = fishFactory;
             _qteButtonFactory = qteButtonFactory;
             _fishSpriteFactory = fishSpriteFactory;
             _playerAnimator = playerAnimator;
@@ -101,7 +101,7 @@ namespace Madduck.Fishing.Controller
         
         private async UniTask ReturnHook()
         {
-            var currentFish = _fishFactory.Current;
+            var currentFish = _sharedVariable.CurrentFish;
             var isBoss = currentFish.ItemData.EnemyType is FishEnemyType.Boss;
             var sprite = _fishSpriteFactory.Current;
             if (isBoss) sprite.Detach();
@@ -144,7 +144,7 @@ namespace Madduck.Fishing.Controller
                     h => qte.OnSuccess -= h)
                 .Subscribe(_ =>
                 {
-                    var currentFish = _fishFactory.Current;
+                    var currentFish = _sharedVariable.CurrentFish;
                     currentFish.UpgradeFishQuality();
                     tcs.TrySetResult();
                 })
@@ -154,7 +154,7 @@ namespace Madduck.Fishing.Controller
                     h => qte.OnFail -= h)
                 .Subscribe(_ =>
                 {
-                    var currentFish = _fishFactory.Current;
+                    var currentFish = _sharedVariable.CurrentFish;
                     currentFish.DowngradeFishQuality();
                     tcs.TrySetResult();
                 })

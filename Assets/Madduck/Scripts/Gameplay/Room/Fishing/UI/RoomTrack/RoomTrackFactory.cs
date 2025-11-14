@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 namespace Madduck.Room
 {
     [Serializable]
-    public class RoomTrackFactory : IGenericFactory<RoomTrackView>
+    public class RoomTrackFactory : IFactory<RoomTrackView>
     {
         [FormerlySerializedAs("_prefab")]
         [Required,

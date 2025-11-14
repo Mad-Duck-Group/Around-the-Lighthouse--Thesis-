@@ -18,7 +18,7 @@ namespace Madduck.Room
 	    #region Fields
 
 	    private readonly PlayerInventory _inventory;
-	    private readonly IGenericFactory<CardView> _cardViewFactory;
+	    private readonly IFactory<CardView> _cardViewFactory;
 	    private readonly Dictionary<Guid, CardView> _cardViewDictionary = new();
 	    private IDisposable _bindings;
 
@@ -29,7 +29,7 @@ namespace Madduck.Room
 	    [Inject]
 	    public CardRackViewModel(
 		    PlayerInventory inventory,
-		    IGenericFactory<CardView> cardViewFactory)
+		    IFactory<CardView> cardViewFactory)
 	    {
 		    _inventory = inventory;
 		    _cardViewFactory = cardViewFactory;

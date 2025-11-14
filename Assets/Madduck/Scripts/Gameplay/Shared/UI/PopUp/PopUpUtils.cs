@@ -20,7 +20,7 @@ namespace Madduck.Shared
         public void SetPopUpObject(T popUpObject);
     }
 
-    public interface IPopUpFactory<in T> : IGenericFactory<IPopUpView<T>>
+    public interface IPopUpFactory<in T> : IFactory<IPopUpView<T>>
         where T : IPopUpObject
     {
         void DestroyPopUp();

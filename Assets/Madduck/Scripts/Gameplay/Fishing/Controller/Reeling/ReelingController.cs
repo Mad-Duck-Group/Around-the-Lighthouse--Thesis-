@@ -31,10 +31,10 @@ namespace Madduck.Fishing.Controller
         private readonly ReelingConfig _config;
         private readonly ReelingCommander _commander;
         private readonly ReelingModel _model;
+        private readonly FishingSharedVariable _sharedVariable;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
-        private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ITransitionable _viewTransition;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
@@ -58,10 +58,10 @@ namespace Madduck.Fishing.Controller
             ReelingConfig config,
             ReelingCommander commander,
             ReelingModel model,
+            FishingSharedVariable sharedVariable,
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
-            IGenericFactory<FishItemInstance> fishFactory,
             IFishSpriteFactory fishSpriteFactory,
             [Key(FishingStateType.Reeling)] ITransitionable viewTransition,
             ISpineAnimator<PlayerAnimationKey> playerAnimator)
@@ -69,10 +69,10 @@ namespace Madduck.Fishing.Controller
             _config = config;
             _hookFactory = hookFactory;
             _inputHandler = inputHandler;
+            _sharedVariable = sharedVariable;
             _audioManager = audioManager;
             _commander = commander;
             _model = model;
-            _fishFactory = fishFactory;
             _fishSpriteFactory = fishSpriteFactory;
             _viewTransition = viewTransition;
             _playerAnimator = playerAnimator;
@@ -202,7 +202,7 @@ namespace Madduck.Fishing.Controller
             _accumulatedAngle = 0f;
             if (active)
             {
-                _model.SetFishInstance(_fishFactory.Current);
+                _model.SetFishInstance(_sharedVariable.CurrentFish);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 Bind();
                 StartFatigueTimer();

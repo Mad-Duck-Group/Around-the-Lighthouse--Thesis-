@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 namespace Madduck.Shared
 {
     [Serializable]
-    public class QteSequenceFactory : IGenericFactory<IQuickTimeEvent>
+    public class QteSequenceFactory : IFactory<IQuickTimeEvent>
     {
         [Title("References")]
         [Required, 

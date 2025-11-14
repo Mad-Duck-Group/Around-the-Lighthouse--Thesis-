@@ -25,9 +25,9 @@ namespace Madduck.Room
             builder.Register(_ => sprites, Lifetime.Scoped)
                 .As<SerializableDictionary<DayRoomKey, Sprite>>();
             builder.Register(_ => roomTrackFactory, Lifetime.Singleton)
-                .As<IGenericFactory<RoomTrackView>>();
+                .As<IFactory<RoomTrackView>>();
             builder.Register(_ => boatTrackViewFactory, Lifetime.Singleton)
-                .As<IGenericFactory<BoatTrackView>>();
+                .As<IFactory<BoatTrackView>>();
             builder.Register<RoomTrackViewModel>(Lifetime.Singleton);
             builder.Register<RoomTrackColumnViewModel>(Lifetime.Singleton);
             builder.RegisterBuildCallback(x =>

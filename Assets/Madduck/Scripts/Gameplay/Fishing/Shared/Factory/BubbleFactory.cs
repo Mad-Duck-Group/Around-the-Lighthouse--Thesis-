@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Madduck.Fishing.Shared
 {
-    public interface IBubbleViewFactory : IGenericFactory<IBubbleView>
+    public interface IBubbleViewFactory : IFactory<IBubbleView>
     {
         IBubbleView Prototype { get; }
     }

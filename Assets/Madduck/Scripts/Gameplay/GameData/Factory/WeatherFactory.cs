@@ -11,7 +11,7 @@ using VContainer;
 
 namespace Madduck.GameData
 {
-    public class WeatherFactory : IGenericFactory<WeatherItemInstance>
+    public class WeatherFactory : IFactory<WeatherItemInstance>
     {
         private readonly WeatherWeightTableInstance _weatherWeightTable;
 
@@ -50,7 +50,7 @@ namespace Madduck.GameData
     }
 
     [Serializable]
-    public class WeatherFactoryMock : IGenericFactory<WeatherItemInstance>
+    public class WeatherFactoryMock : IFactory<WeatherItemInstance>
     {
         [SerializeField] private WeatherItemData fixedWeather;
         [SerializeField] private bool spoofDirection;

@@ -10,7 +10,7 @@ namespace Madduck.GameData
     {
         uint GetMaxFishCount();
     }
-    public class MaxFishCountFactory : IGenericFactory<uint>
+    public class MaxFishCountFactory : IFactory<uint>
     {
         private readonly IMaxFishCountProvider _dayManager;
         
@@ -30,7 +30,7 @@ namespace Madduck.GameData
     }
     
     [Serializable]
-    public class MaxFishCountFactoryMock : IGenericFactory<uint>
+    public class MaxFishCountFactoryMock : IFactory<uint>
     {
         [SerializeField] private uint fixedMaxFishCount;
         

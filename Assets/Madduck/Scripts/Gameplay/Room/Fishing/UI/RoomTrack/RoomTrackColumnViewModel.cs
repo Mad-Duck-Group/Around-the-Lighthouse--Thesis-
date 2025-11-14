@@ -21,8 +21,8 @@ namespace Madduck.Room
         private readonly DayManagerConfig _dayManagerConfig;
         private readonly ReadOnlyReactiveProperty<uint> _currentRoomIndex;
         private readonly LoadSceneManager _loadSceneManager;
-        private readonly IGenericFactory<RoomTrackView> _roomTrackFactory;
-        private readonly IGenericFactory<BoatTrackView> _boatTrackFactory;
+        private readonly IFactory<RoomTrackView> _roomTrackFactory;
+        private readonly IFactory<BoatTrackView> _boatTrackFactory;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private readonly IPublisher<LoadingSceneAnimationFinishedEvent> _loadingSceneAnimationFinishedPublisher;
         private BoatTrackView _boatTrackView;
@@ -37,8 +37,8 @@ namespace Madduck.Room
             DayManagerConfig dayManagerConfig,
             RoomTrackViewModel roomTrackViewModel,
             LoadSceneManager loadSceneManager,
-            IGenericFactory<RoomTrackView> roomTrackFactory,
-            IGenericFactory<BoatTrackView> boatTrackFactory,
+            IFactory<RoomTrackView> roomTrackFactory,
+            IFactory<BoatTrackView> boatTrackFactory,
             ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber,
             IPublisher<LoadingSceneAnimationFinishedEvent> loadingSceneAnimationFinishedPublisher
             )

@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 namespace Madduck.Room
 {
     [Serializable]
-    public class CardSelectionFactory : IGenericFactory<CardSelectionView>
+    public class CardSelectionFactory : IFactory<CardSelectionView>
     {
         [SerializeField] private CardSelectionView prefab;
         [SerializeField] private Transform parent;

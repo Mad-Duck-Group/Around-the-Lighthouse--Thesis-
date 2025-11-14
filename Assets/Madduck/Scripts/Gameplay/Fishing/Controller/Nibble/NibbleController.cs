@@ -33,10 +33,10 @@ namespace Madduck.Fishing.Controller
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
-        private readonly IGenericFactory<FishItemInstance> _fishFactory;
+        private readonly IFactory<ItemInstance> _fishableFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly IFishEyesFactory _fishEyesFactory;
-        private readonly IGenericFactory<IQuickTimeEvent> _qteButtonFactory;
+        private readonly IFactory<IQuickTimeEvent> _qteButtonFactory;
         private readonly ITransitionable _viewTransition;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         
@@ -68,10 +68,10 @@ namespace Madduck.Fishing.Controller
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
-            IGenericFactory<FishItemInstance> fishFactory,
+            IFactory<ItemInstance> fishableFactory,
             IFishSpriteFactory fishSpriteFactory,
             IFishEyesFactory fishEyesFactory,
-            [Key(FishingStateType.Nibble)] IGenericFactory<IQuickTimeEvent> qteButtonFactory,
+            [Key(FishingStateType.Nibble)] IFactory<IQuickTimeEvent> qteButtonFactory,
             [Key(FishingStateType.Nibble)] ITransitionable viewTransition,
             ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
@@ -82,7 +82,7 @@ namespace Madduck.Fishing.Controller
             _sharedVariable = sharedVariable;
             _audioManager = audioManager;
             _hookFactory = hookFactory;
-            _fishFactory = fishFactory;
+            _fishableFactory = fishableFactory;
             _fishEyesFactory = fishEyesFactory;
             _qteButtonFactory = qteButtonFactory;
             _fishSpriteFactory = fishSpriteFactory;
@@ -146,7 +146,7 @@ namespace Madduck.Fishing.Controller
             if (result is Sign.Positive)
             {
                 var fishSprite = _fishSpriteFactory.Create();
-                fishSprite.SetUp(_hookFactory.CurrentGameObject.transform, _fishFactory.Current);
+                fishSprite.SetUp(_hookFactory.CurrentGameObject.transform, _sharedVariable.CurrentFish);
                 fishSprite.Animator.Set(FishSpriteAnimationKey.Idle, 0, true);
                 _bubbleManager.PauseAllBubbles();
                 await UniTask.WhenAll(
@@ -246,11 +246,20 @@ namespace Madduck.Fishing.Controller
                 case 0 when result:
                     _currentStageChance[_currentStageIndex] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[0];
                     _currentStageIndex++;
-                    var fish = _fishFactory.Create();
-                    _model.SetFishInstance(fish);
-                    var fishEyes = _fishEyesFactory.Create();
-                    fishEyes.SetUp(_hookFactory.CurrentGameObject.transform);
-                    fishEyes.TransitionIn();
+                    var fishable = _fishableFactory.Create();
+                    if (fishable is FishItemInstance fish)
+                    {
+                        DebugUtils.Log("Got Fish!");
+                        _sharedVariable.CurrentFish = fish;
+                        _model.SetFishInstance(fish);
+                        var fishEyes = _fishEyesFactory.Create();
+                        fishEyes.SetUp(_hookFactory.CurrentGameObject.transform);
+                        fishEyes.TransitionIn();
+                    }
+                    else
+                    {
+                        DebugUtils.Log("Got Trash!");
+                    }
                     break;
                 case 1 when result:
                     _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);

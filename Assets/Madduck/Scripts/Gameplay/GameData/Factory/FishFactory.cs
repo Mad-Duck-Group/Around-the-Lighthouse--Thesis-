@@ -11,7 +11,7 @@ namespace Madduck.GameData
 {
     
     [Serializable]
-    public class FishFactory : IGenericFactory<FishItemInstance>, IDisposable
+    public class FishFactory : IFactory<FishItemInstance>, IDisposable
     {
         [field: ReadOnly, HideReferenceObjectPicker,
                 ShowInInspector] public FishItemInstance Current { get; private set; }
@@ -45,7 +45,7 @@ namespace Madduck.GameData
     }
     
     [Serializable]
-    public class FishFactoryMock : IGenericFactory<FishItemInstance>, IDisposable
+    public class FishFactoryMock : IFactory<FishItemInstance>, IDisposable
     {
         [Required, 
          SerializeField] private FishItemData testFishData;

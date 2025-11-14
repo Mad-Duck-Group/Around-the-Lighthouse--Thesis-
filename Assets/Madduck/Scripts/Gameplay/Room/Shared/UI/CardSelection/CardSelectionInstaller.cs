@@ -20,7 +20,7 @@ namespace Madduck.Room
         public void Install(IContainerBuilder builder)
         {
             builder.RegisterInstance(cardSelectionFactory)
-                .As<IGenericFactory<CardSelectionView>>();
+                .As<IFactory<CardSelectionView>>();
             builder.RegisterComponent(cardSelectionScreenView)
                 .As<ITransitionable>();
             builder.Register<CardSelectionScreenViewModel>(Lifetime.Scoped)

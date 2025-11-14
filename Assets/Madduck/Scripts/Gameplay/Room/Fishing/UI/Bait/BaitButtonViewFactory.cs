@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Madduck.Room
 {
     [Serializable]
-    public class BaitButtonViewFactory : IGenericFactory<BaitButtonView>
+    public class BaitButtonViewFactory : IFactory<BaitButtonView>
     {
         [Required, 
          SerializeField] private Transform baitButtonsParent;

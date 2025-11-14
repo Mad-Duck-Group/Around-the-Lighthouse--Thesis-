@@ -37,14 +37,14 @@ namespace Madduck.WeatherPreset
                 ShowInInspector] public ReactiveProperty<WeatherType> CurrentWeather { get; private set; }
         #endregion
         
-        private readonly IGenericFactory<WeatherItemInstance> _weatherFactory;
+        private readonly IFactory<WeatherItemInstance> _weatherFactory;
         private readonly ISubscriber<WeatherChangedEvent> _weatherChangedEventSubscriber;
         private IDisposable _subscriptions;
         
         #region Inject
         [Inject]
         public WeatherPresetManager(
-            IGenericFactory<WeatherItemInstance> weatherFactory,
+            IFactory<WeatherItemInstance> weatherFactory,
             ISubscriber<WeatherChangedEvent> weatherChangedEventSubscriber,
             WeatherPresetConfig weatherPresetConfig)
         {

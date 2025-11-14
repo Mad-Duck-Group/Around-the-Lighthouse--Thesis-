@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace Madduck.Fishing.Shared
 {
-    public interface IHookFactory : IGenericFactory<IHookProjectile>
+    public interface IHookFactory : IFactory<IHookProjectile>
     {
         GameObject CurrentGameObject { get; }
         void DestroyHook();

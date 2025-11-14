@@ -300,7 +300,7 @@ MonoBehaviour:
     - {fileID: 5540994867124524877}
     - {fileID: 11400000, guid: bb8d3aacfcff685459c88790344b8f4d, type: 2}
     - {fileID: 11400000, guid: 81a55ff5f491372458739e4baa1dc32a, type: 2}
-    - {fileID: 11400000, guid: 039c3ad4efc03e345afdc51f750988fa, type: 2}
+    - {fileID: 11400000, guid: eda397201a501854c93df3f281418394, type: 2}
     - {fileID: 11400000, guid: 9e6ce87e201f71e4ead48630fe2dd231, type: 2}
     - {fileID: 11400000, guid: fe0e6d807531c3a4f8b054c682df0644, type: 2}
     - {fileID: 11400000, guid: 3d31df75f659d3946966c5ae84c26e9f, type: 2}
@@ -365,7 +365,7 @@ MonoBehaviour:
     - Name: playerInventoryConfig
       Entry: 10
       Data: 6
-    - Name: fishWeightTable
+    - Name: fishableWeightTable
       Entry: 10
       Data: 7
     - Name: cardWeightTable

@@ -22,5 +22,10 @@ namespace Madduck.GameData
                 probability.Probability = Percentage.FromFraction(probability.Weight / totalWeight);
             }
         }
+        
+        public IWeightTableInstance CreateInstance()
+        {
+            return new CardRarityWeightTableInstance(this, null!);
+        }
     }
 }

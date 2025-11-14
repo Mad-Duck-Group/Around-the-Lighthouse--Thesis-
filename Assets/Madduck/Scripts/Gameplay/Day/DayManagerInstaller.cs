@@ -16,14 +16,15 @@ namespace Madduck.Day
         [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
         [ShowInInspector] private DayManager _manager;
         [ShowInInspector] private PlayerInventory _playerInventory;
-        [ShowInInspector] private FishWeightTableInstance _fishWeightTable;
+        //[ShowInInspector] private FishWeightTableInstance _fishWeightTable;
+        [ShowInInspector] private CompositeWeightTableInstance _fishableWeightTable;
         [ShowInInspector] private FishermanItemInstance _fishermanItemData;
         [ShowInInspector] private ModifierContainer _modifierContainer;
         
         public DayManagerDebugData(
             DayManager manager, 
             PlayerInventory playerInventory,
-            FishWeightTableInstance fishWeightTable,
+            CompositeWeightTableInstance fishableWeightTable,
             FishermanItemInstance fishermanItemData,
             ModifierContainer modifierContainer)
         {
@@ -31,7 +32,7 @@ namespace Madduck.Day
             AutoCloseWhenPlayModeEnds = true;
             _playerInventory = playerInventory;
             _manager = manager;
-            _fishWeightTable = fishWeightTable;
+            _fishableWeightTable = fishableWeightTable;
             _fishermanItemData = fishermanItemData;
             _modifierContainer = modifierContainer;
         }
@@ -45,8 +46,10 @@ namespace Madduck.Day
          SerializeField] private DayManagerConfig dayManagerConfig;
         [Required,
          SerializeField] private PlayerInventoryConfig playerInventoryConfig;
+        // [Required,
+        //  SerializeField] private FishWeightTable fishWeightTable;
         [Required,
-         SerializeField] private FishWeightTable fishWeightTable;
+         SerializeField] private CompositeWeightTable fishableWeightTable;
         [Required,
          SerializeField] private CardWeightTable cardWeightTable;
         [Required,
@@ -72,8 +75,14 @@ namespace Madduck.Day
                 .AsSelf()
                 .As<IModifierSource>();
             builder.RegisterInstance(dayManagerConfig).AsSelf();
-            builder.RegisterInstance(fishWeightTable).As<IWeightTable<FishWeightRecord>>();
-            builder.Register<FishWeightTableInstance>(Lifetime.Singleton).AsSelf();
+            builder.Register(x =>
+            {
+                var modifierSource = x.Resolve<IModifierSource>();
+                var instance = new CompositeWeightTableInstance(fishableWeightTable, modifierSource);
+                instance.SetKeys(ModifierKeys.FishableKey);
+                return instance;
+            }, Lifetime.Singleton)
+                .AsSelf();
             builder.RegisterInstance(cardWeightTable).As<IWeightTable<CardWeightRecord>>();
             builder.Register<CardWeightTableInstance>(Lifetime.Singleton).AsSelf();
             builder.RegisterInstance(cardRarityWeightTable).As<IWeightTable<CardRarityWeightRecord>>();
@@ -91,7 +100,8 @@ namespace Madduck.Day
 #if UNITY_EDITOR
                 var fishermanItemInstance = x.Resolve<FishermanItemInstance>();
                 var manager = x.Resolve<DayManager>();
-                var table = x.Resolve<FishWeightTableInstance>();
+                //var table = x.Resolve<FishWeightTableInstance>();
+                var table = x.Resolve<CompositeWeightTableInstance>();
                 var playerInventory = x.Resolve<PlayerInventory>();
                 var modifierContainer = x.Resolve<ModifierContainer>();
                 _dayManagerDebugData = new DayManagerDebugData(manager, playerInventory, table, fishermanItemInstance, modifierContainer);

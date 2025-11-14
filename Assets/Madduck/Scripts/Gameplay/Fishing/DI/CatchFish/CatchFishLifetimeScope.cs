@@ -59,7 +59,7 @@ namespace Madduck.Fishing.DI
                     return qteButtonFactory;
                 }, Lifetime.Scoped)
                 .Keyed(FishingStateType.CatchFish)
-                .As<IGenericFactory<IQuickTimeEvent>>();
+                .As<IFactory<IQuickTimeEvent>>();
             builder.RegisterBuildCallback(x =>
             {
                 var stateMachine = x.Resolve<FishingStateMachine>();

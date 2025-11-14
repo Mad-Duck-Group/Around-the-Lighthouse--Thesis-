@@ -25,7 +25,7 @@ namespace Madduck.Room
         #region Fields
 
         private readonly PlayerInventory _playerInventory;
-        private readonly IGenericFactory<BaitButtonView> _baitButtonViewFactory;
+        private readonly IFactory<BaitButtonView> _baitButtonViewFactory;
         private readonly ISubscriber<FishingStateEvent> _fishingStateEventSubscriber;
         private readonly Dictionary<BaitType, BaitButtonView> _baitButtonViews = new();
         private readonly ReactiveProperty<bool> _interactable = new(true);
@@ -38,7 +38,7 @@ namespace Madduck.Room
         [Inject]
         public BaitSelectionViewModel(
             PlayerInventory playerInventory,
-            IGenericFactory<BaitButtonView> baitButtonViewFactory,
+            IFactory<BaitButtonView> baitButtonViewFactory,
             ISubscriber<FishingStateEvent> fishingStateEventSubscriber)
         {
             _playerInventory = playerInventory;

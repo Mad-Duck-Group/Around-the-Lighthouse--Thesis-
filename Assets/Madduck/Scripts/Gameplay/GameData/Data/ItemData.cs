@@ -13,6 +13,7 @@ namespace Madduck.GameData
         Fisherman,
         Card,
         Bait,
+        Resource,
     }
     [ShowOdinSerializedPropertiesInInspector]
     public abstract class ItemData : ScriptableObject, ISerializationCallbackReceiver, ISupportsPrefabSerialization

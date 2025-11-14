@@ -11,7 +11,7 @@ using Object = UnityEngine.Object;
 namespace Madduck.Shared
 {
     [Serializable]
-    public class QteButtonFactory : IGenericFactory<IQuickTimeEvent>
+    public class QteButtonFactory : IFactory<IQuickTimeEvent>
     {
         [Title("References")]
         [Required, 

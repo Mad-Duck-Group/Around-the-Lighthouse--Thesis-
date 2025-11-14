@@ -22,8 +22,8 @@ namespace Madduck.Fishing.Controller
         private readonly TugOfWarConfig _config;
         private readonly TugOfWarModel _model;
         private readonly ReelingModel _reelingModel;
+        private readonly FishingSharedVariable _sharedVariable;
         private readonly IAudioManager _audioManager;
-        private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         private readonly ITransitionable _viewTransition;
@@ -42,8 +42,8 @@ namespace Madduck.Fishing.Controller
             TugOfWarConfig config,
             TugOfWarModel model,
             ReelingModel reelingModel,
+            FishingSharedVariable sharedVariable,
             IAudioManager audioManager,
-            IGenericFactory<FishItemInstance> fishFactory,
             IFishSpriteFactory fishSpriteFactory,
             ISpineAnimator<PlayerAnimationKey> playerAnimator,
             [Key(FishingStateType.TugOfWar)] ITransitionable viewTransition,
@@ -53,8 +53,8 @@ namespace Madduck.Fishing.Controller
             _config = config;
             _model = model;
             _audioManager = audioManager;
+            _sharedVariable = sharedVariable;
             _reelingModel = reelingModel;
-            _fishFactory = fishFactory;
             _fishSpriteFactory = fishSpriteFactory;
             _playerAnimator = playerAnimator;
             _viewTransition = viewTransition;
@@ -133,7 +133,7 @@ namespace Madduck.Fishing.Controller
             _transitionCts = new CancellationTokenSource();
             if (active)
             {
-                _model.SetFishInstance(_fishFactory.Current);
+                _model.SetFishInstance(_sharedVariable.CurrentFish);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 _inputActive = true;
                 Bind();

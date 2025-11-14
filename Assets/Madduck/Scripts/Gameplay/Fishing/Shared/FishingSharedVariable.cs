@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
@@ -12,6 +13,8 @@ namespace Madduck.Fishing.Shared
     {
         private readonly IHookFactory _hookFactory;
         private readonly BubbleManager _bubbleManager;
+        
+        public FishItemInstance CurrentFish { get; set; }
         public ReadOnlyReactiveProperty<BubbleType> CurrentBubbleType { get; }
         private readonly ReactiveProperty<IBubbleView> _currentBubbleView = new(null);
         private IDisposable _subscriptions;

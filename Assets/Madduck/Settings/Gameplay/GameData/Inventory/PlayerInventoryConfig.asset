@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: PlayerInventoryConfig
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.PlayerInventoryConfig
   <FishingRod>k__BackingField: {fileID: 11400000, guid: e2eb69998c820924bb850e118fe4f8e3, type: 2}
-  <StartingCards>k__BackingField: []
+  <StartingCards>k__BackingField:
+  - {fileID: 11400000, guid: 8c1952bd3bfdcc0499ebb86156b6f2f6, type: 2}
+  - {fileID: 11400000, guid: 592baf82f71cc8a4295741ecffb32e5c, type: 2}
   <StartingBaits>k__BackingField:
     keys: 01000000020000000400000008000000
     values:

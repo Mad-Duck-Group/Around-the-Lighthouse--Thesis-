@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 namespace Madduck.Room
 {
     [Serializable]
-    public class CardViewFactory : IGenericFactory<CardView>
+    public class CardViewFactory : IFactory<CardView>
     {
         [Required, 
          SerializeField] private CardView cardViewPrefab;

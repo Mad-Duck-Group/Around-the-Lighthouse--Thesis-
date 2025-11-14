@@ -40,14 +40,14 @@ namespace Madduck.Room
 
         #region Fields
 
-        private readonly FishWeightTableInstance _fishWeightTableInstance;
+        private readonly CompositeWeightTableInstance _fishableWeightTable;
         private readonly FishingRoomConfig _config;
         private readonly FishCatalogue _fishCatalogue;
         private readonly IModal _cardSelectionController;
         private readonly IAudioManager _audioManager;
         private readonly IModalManager _modalManager;
-        private readonly IGenericFactory<WeatherItemInstance> _weatherFactory;
-        private readonly IGenericFactory<uint> _maxFishCountFactory;
+        private readonly IFactory<WeatherItemInstance> _weatherFactory;
+        private readonly IFactory<uint> _maxFishCountFactory;
         private readonly IPopUpFactory<FishItemPopUpObject> _fishItemPopUpFactory;
         private readonly IPopUpFactory<NewFishPopUpObject> _newFishPopUpFactory;
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
@@ -68,14 +68,14 @@ namespace Madduck.Room
 
         [Inject]
         public FishingRoomManager(
-            FishWeightTableInstance fishWeightTableInstanceInstance,
+            CompositeWeightTableInstance fishableWeightTable,
             FishingRoomConfig config,
             FishCatalogue fishCatalogue,
             IModal cardSelectionController,
             IAudioManager audioManager,
             IModalManager modalManager,
-            IGenericFactory<WeatherItemInstance> weatherFactory,
-            [Key(DIConstants.MaxFishCountFactoryId)] IGenericFactory<uint> maxFishCountFactory,
+            IFactory<WeatherItemInstance> weatherFactory,
+            [Key(DIConstants.MaxFishCountFactoryId)] IFactory<uint> maxFishCountFactory,
             IPopUpFactory<FishItemPopUpObject> fishItemPopUpFactory,
             IPopUpFactory<NewFishPopUpObject> newFishPopUpFactory,
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
@@ -86,7 +86,7 @@ namespace Madduck.Room
             ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
             ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
         {
-            _fishWeightTableInstance = fishWeightTableInstanceInstance;
+            _fishableWeightTable = fishableWeightTable;
             _config = config;
             _fishCatalogue = fishCatalogue;
             _cardSelectionController = cardSelectionController;
@@ -236,9 +236,11 @@ namespace Madduck.Room
         
         private void FilterFishByWeather()
         {
-            _fishWeightTableInstance.PersistentFilters.Remove("WeatherFilter");
+            if (!_fishableWeightTable.TryGetFirstInstanceOfType<FishWeightTableInstance>(out var fishWeightTableInstance)) return;
+            if (fishWeightTableInstance == null) return;
+            fishWeightTableInstance.PersistentFilters.Remove("WeatherFilter");
             var filter = new FishWeightFilter(record => record.Item.WeatherType.HasFlag(_currentWeather.ItemData.WeatherType));
-            _fishWeightTableInstance.PersistentFilters.TryAdd("WeatherFilter", filter);
+            fishWeightTableInstance.PersistentFilters.TryAdd("WeatherFilter", filter);
         }
 
         #endregion

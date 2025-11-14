@@ -39,7 +39,7 @@ namespace Madduck.Day
 
         #region Fields
 
-        private FishWeightTableInstance FishWeightTable { get; }
+        private readonly CompositeWeightTableInstance _fishableWeightTable;
         private readonly DayManagerConfig _config;
         private readonly ISubscriber<FishingRoomEndedEvent> _outOfFishEventSubscriber;
         private readonly IPublisher<DayStateChangedEvent> _dayStatePublisher;
@@ -52,12 +52,12 @@ namespace Madduck.Day
 
         [Inject]
         public DayManager(
-            FishWeightTableInstance fishWeightTable, 
+            CompositeWeightTableInstance fishableWeightTable,
             DayManagerConfig config,
             LoadSceneManager loadSceneManager,
             ISubscriber<FishingRoomEndedEvent> outOfFishEventSubscriber)
         {
-            FishWeightTable = fishWeightTable;
+            _fishableWeightTable = fishableWeightTable;
             _config = config;
             _outOfFishEventSubscriber = outOfFishEventSubscriber;
             _loadSceneManager = loadSceneManager;
@@ -175,9 +175,11 @@ namespace Madduck.Day
         /// </summary>
         private void FilterFishByDayPhase()
         {
-            FishWeightTable.PersistentFilters.Remove("DayPhaseFilter");
+            if (!_fishableWeightTable.TryGetFirstInstanceOfType<FishWeightTableInstance>(out var fishWeightTableInstance)) return;
+            if (fishWeightTableInstance == null) return;
+            fishWeightTableInstance.PersistentFilters.Remove("DayPhaseFilter");
             var filter = new FishWeightFilter(record => record.Item.DayPhaseType.HasFlag(CurrentDayPhase));
-            FishWeightTable.PersistentFilters.TryAdd("DayPhaseFilter", filter);
+            fishWeightTableInstance.PersistentFilters.TryAdd("DayPhaseFilter", filter);
         }
         #endregion
         

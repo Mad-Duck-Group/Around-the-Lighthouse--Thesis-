@@ -18,7 +18,7 @@ namespace Madduck.Room
         public void Install(IContainerBuilder builder)
         {
             builder.Register(_ => cardViewFactory, Lifetime.Singleton)
-                .As<IGenericFactory<CardView>>();
+                .As<IFactory<CardView>>();
             builder.Register<CardRackViewModel>(Lifetime.Singleton);
             builder.RegisterBuildCallback(x =>
             {

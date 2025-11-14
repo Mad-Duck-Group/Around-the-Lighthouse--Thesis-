@@ -25,11 +25,11 @@ namespace Madduck.Fishing.Controller
         private readonly FishingBoardModel _model;
         private readonly FishingBoardVariables _variables;
         private readonly FishingBoardConfig _config;
+        private readonly FishingSharedVariable _sharedVariables;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _playerInput;
         private readonly IFishingBoardAIController _aiController;
         private readonly IHookFactory _hookFactory;
-        private readonly IGenericFactory<FishItemInstance> _fishFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ITransitionable _viewTransition;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
@@ -48,11 +48,11 @@ namespace Madduck.Fishing.Controller
             FishingBoardModel model, 
             FishingBoardVariables variables,
             FishingBoardConfig config,
+            FishingSharedVariable sharedVariables,
             IAudioManager audioManager,
             IPlayerInputHandler playerInput,
             IFishingBoardAIController aiController,
             IHookFactory hookFactory,
-            IGenericFactory<FishItemInstance> fishFactory,
             IFishSpriteFactory fishSpriteFactory,
             [Key(FishingStateType.FishingBoard)] ITransitionable viewTransition,
             ISpineAnimator<PlayerAnimationKey> playerAnimator)
@@ -61,10 +61,10 @@ namespace Madduck.Fishing.Controller
             _variables = variables;
             _playerInput = playerInput;
             _config = config;
+            _sharedVariables = sharedVariables;
             _hookFactory = hookFactory;
             _audioManager = audioManager;
             _aiController = aiController;
-            _fishFactory = fishFactory;
             _fishSpriteFactory = fishSpriteFactory;
             _viewTransition = viewTransition;
             _playerAnimator = playerAnimator;
@@ -129,7 +129,7 @@ namespace Madduck.Fishing.Controller
                 _aiController.SetFishPosition(Vector2.zero);
                 SetHookPosition(Vector2.zero);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
-                _model.SetFishInstance(_fishFactory.Current);
+                _model.SetFishInstance(_sharedVariables.CurrentFish);
                 Bind();
                 StartFishingBoard();
                 _playerAnimator.Set(PlayerAnimationKey.Pulling, 0, true);

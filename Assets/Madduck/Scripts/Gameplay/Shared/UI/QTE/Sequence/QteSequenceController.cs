@@ -17,7 +17,7 @@ namespace Madduck.Shared
         public bool DestroyWhenFinished { get; set; } = true;
         
         private readonly QteSequenceConfigInstance _configInstance;
-        private readonly IGenericFactory<IQuickTimeEvent> _qteElementFactory;
+        private readonly IFactory<IQuickTimeEvent> _qteElementFactory;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IQteElement _view;
         private readonly List<IQuickTimeEvent> _elements = new();
@@ -31,7 +31,7 @@ namespace Madduck.Shared
 
         public QteSequenceController(
             QteSequenceConfigInstance configInstance,
-            IGenericFactory<IQuickTimeEvent> qteElementFactory,
+            IFactory<IQuickTimeEvent> qteElementFactory,
             IPlayerInputHandler inputHandler,
             IQteElement view)
         {

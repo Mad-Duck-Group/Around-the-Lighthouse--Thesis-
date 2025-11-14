@@ -51,6 +51,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: <ModifierType>k__BackingField
       Entry: 3
       Data: 0
