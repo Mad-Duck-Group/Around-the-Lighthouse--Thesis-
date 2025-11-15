@@ -26,7 +26,9 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cgamedata_005Cinventory/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cgamedata_005Cui/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cgamedata_005Cui_005Cdisplayfish/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cgamedata_005Cui_005Cfishableitempopup/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cgamedata_005Cui_005Cfishitempopup/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cgamedata_005Cui_005Citemicon/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cgamedata_005Cui_005Cnewfishpopup/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cgamedata_005Cweighttable/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cmadduck_005Cscripts_005Cgameplay_005Cgamedata_005Cweighttable_005Ccard/@EntryIndexedValue">True</s:Boolean>

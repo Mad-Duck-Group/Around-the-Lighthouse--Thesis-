@@ -6,8 +6,22 @@ using UnityEngine;
 
 namespace Madduck.GameData
 {
+    public interface IItemInstance
+    {
+        Guid InstanceGuid { get; }
+        uint CurrentCount { get; }
+        void ChangeCurrentCount(int change);
+        object ItemData { get; }
+    }
+    
+    public interface IItemInstance<out T> : IItemInstance
+        where T : ItemData
+    {
+        new T ItemData { get; }
+    }
+    
     [Serializable]
-    public abstract class ItemInstance : IDisposable
+    public abstract class ItemInstance : IItemInstance, IDisposable
     {
         [Title("Base References"), 
          HideLabel, 
@@ -19,6 +33,8 @@ namespace Madduck.GameData
                 ShowInInspector] public uint CurrentCount { get; protected set; }
         
         public ReadOnlyReactiveProperty<uint> CurrentCountView { get; protected set; }
+
+        public object ItemData => null;
         
         public void ChangeCurrentCount(int change)
         {
@@ -36,11 +52,13 @@ namespace Madduck.GameData
     }
     
     [Serializable]
-    public abstract class ItemInstance<T> : ItemInstance
+    public abstract class ItemInstance<T> : ItemInstance, IItemInstance<T>
         where T : ItemData
     {
         [field: InlineEditor, 
-                SerializeField] public T ItemData { get; private set; }
+                SerializeField] public new T ItemData { get; private set; }
+        
+        object IItemInstance.ItemData => ItemData;
         
         protected ItemInstance(T itemData, uint count = 1)
         {

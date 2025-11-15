@@ -16,7 +16,7 @@ namespace Madduck.GameData
         [Inject]
         public WeatherWeightTableInstance(
             IWeightTable<WeatherWeightRecord> weatherWeightTable,
-            IModifierSource modifierSource)
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource)
             : base(weatherWeightTable, modifierSource) { }
 
         #endregion

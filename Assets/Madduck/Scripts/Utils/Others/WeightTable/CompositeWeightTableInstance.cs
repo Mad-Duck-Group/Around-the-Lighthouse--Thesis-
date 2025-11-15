@@ -40,7 +40,7 @@ namespace Madduck.Utils
         [Inject]
         public CompositeWeightTableInstance(
             CompositeWeightTable compositeWeightTable,
-            IModifierSource modifierSource)
+            [Key("ModifierContainer")] IModifierSource modifierSource)
         {
             _modifierSource = modifierSource;
             foreach (var subTable in compositeWeightTable.SubTables)

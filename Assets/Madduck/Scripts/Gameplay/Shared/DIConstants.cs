@@ -8,5 +8,7 @@ namespace Madduck.Shared
         #region Factory IDs
         public const string MaxFishCountFactoryId = "MaxFishCountFactory";
         #endregion
+        
+        public const string ModifierContainerKey = "ModifierContainer";
     }
 }

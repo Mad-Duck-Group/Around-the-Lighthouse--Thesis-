@@ -62,9 +62,9 @@ namespace Madduck.GameData
             canvasGroup.transform.localScale = scaleTweenSettings.startValue;
             backgroundImage.color = backgroundImage.color.WithA(backgroundAlphaTweenSettings.startValue);
             fishNameText.text = popUpObject.FishItemInstance.ItemData.FishName;
-            // fishDescriptionText.text = popUpObject.FishItemInstance.ItemData.FishDescription;
-            // fishWeightText.text = $"Weight:\n{popUpObject.FishItemInstance.ItemData.FishWeight:F2} kg";
-            // fishRarityText.text = $"Rarity:\n{popUpObject.FishItemInstance.CurrentFishQuality}";
+            // fishDescriptionText.text = popUpObject.FishableItemInstance.ItemData.FishDescription;
+            // fishWeightText.text = $"Weight:\n{popUpObject.FishableItemInstance.ItemData.FishWeight:F2} kg";
+            // fishRarityText.text = $"Rarity:\n{popUpObject.FishableItemInstance.CurrentFishQuality}";
             fishIcon.sprite = popUpObject.FishItemInstance.ItemData.FishIcon;
             Bind();
         }

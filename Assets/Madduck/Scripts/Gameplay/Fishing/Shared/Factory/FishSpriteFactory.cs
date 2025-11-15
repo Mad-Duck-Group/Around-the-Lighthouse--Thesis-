@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace Madduck.Fishing.Shared
 {
-    public interface IFishSpriteFactory : IFactory<IFishSpriteView>
+    public interface IFishSpriteFactory : IGameObjectFactory<IFishSpriteView>
     {
         void DestroyFishSprite();
     }
@@ -20,6 +20,7 @@ namespace Madduck.Fishing.Shared
          OdinSerialize] private IFishSpriteView prefab;
         
         public IFishSpriteView Current { get; private set; }
+        public GameObject CurrentGameObject { get; private set; }
         private GameObject _currentObject;
         public IFishSpriteView Create()
         {
@@ -27,7 +28,16 @@ namespace Madduck.Fishing.Shared
             Current = prefab.InstantiateAsInterface(new InstantiateParameters
             {
             }, out _currentObject);
+            CurrentGameObject = _currentObject;
             return Current;
+        }
+        
+        public IFishSpriteView Create(out GameObject gameObject)
+        {
+            var fishSprite = Create();
+            gameObject = _currentObject;
+            CurrentGameObject = _currentObject;
+            return fishSprite;
         }
 
         public void DestroyFishSprite()

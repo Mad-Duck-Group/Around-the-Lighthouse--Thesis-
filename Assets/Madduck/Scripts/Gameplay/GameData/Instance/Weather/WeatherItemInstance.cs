@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using ObservableCollections;
@@ -40,7 +41,7 @@ namespace Madduck.GameData
         [Inject]
         public WeatherItemInstance(
             WeatherItemData itemData, 
-            IModifierSource modifierSource,
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource,
             IPublisher<ModifierSourceEvent> modifierSourceEventPublisher)
             : this(
                 itemData, 

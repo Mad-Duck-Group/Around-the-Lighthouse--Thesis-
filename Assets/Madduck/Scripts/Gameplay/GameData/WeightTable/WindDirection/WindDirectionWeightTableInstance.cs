@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Madduck.Shared;
 using Madduck.Utils;
 using VContainer;
 
@@ -14,7 +15,7 @@ namespace Madduck.GameData
         [Inject]
         public WindDirectionWeightTableInstance(
             IWeightTable<WindDirectionWeightRecord> windDirectionWeightTable,
-            IModifierSource modifierSource)
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource)
             : base(windDirectionWeightTable, modifierSource) { }
 
         #endregion

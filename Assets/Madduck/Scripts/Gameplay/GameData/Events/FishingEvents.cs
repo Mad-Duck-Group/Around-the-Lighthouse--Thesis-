@@ -1,15 +1,16 @@
-﻿using Madduck.Shared;
+﻿using System.Collections.Generic;
+using Madduck.Shared;
 
 namespace Madduck.GameData
 {
     public struct FishingRoomStartedEvent{ }
-    public struct FishCaughtEvent
+    public struct FishableCaughtEvent
     {
-        public FishItemInstance FishItemInstance { get; private set; }
+        public List<IFishableItemInstance> FishableItemInstances { get; private set; }
 
-        public FishCaughtEvent(FishItemInstance fishItemInstance)
+        public FishableCaughtEvent(params IFishableItemInstance[] fishableItemInstances)
         {
-            FishItemInstance = fishItemInstance;
+            FishableItemInstances = new List<IFishableItemInstance>(fishableItemInstances);
         }
     }
     public struct FishEscapedEvent { }

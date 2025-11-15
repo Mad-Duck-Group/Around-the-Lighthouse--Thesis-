@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Madduck.GameData.Bait;
+using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using ObservableCollections;
@@ -65,7 +66,7 @@ namespace Madduck.GameData
         [Inject]
         public PlayerInventory(
             PlayerInventoryConfig config,
-            IModifierSource modifierSource,
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource,
             IPublisher<ModifierSourceEvent> modifierSourceEventPublisher,
             ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventSubscriber)
         {

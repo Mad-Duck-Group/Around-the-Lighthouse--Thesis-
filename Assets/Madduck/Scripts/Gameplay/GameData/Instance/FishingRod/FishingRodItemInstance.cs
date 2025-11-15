@@ -40,7 +40,7 @@ namespace Madduck.GameData
         [Inject]
         public FishingRodItemInstance(
             FishingRodItemData itemData,
-            IModifierSource modifierSource)
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource)
             : base(itemData)
         {
             CurrentStats = new FishingRodStats(itemData);

@@ -1,6 +1,6 @@
 ﻿namespace Madduck.GameData
 {
-    public class ResourceItemInstance : ItemInstance<ResourceItemData>
+    public class ResourceItemInstance : ItemInstance<ResourceItemData>, IFishableItemInstance
     {
         public ResourceItemInstance(ResourceItemData itemData, uint count = 1) : base(itemData, count)
         {

@@ -40,7 +40,7 @@ namespace Madduck.GameData
     }
     
     [CreateAssetMenu(fileName = "New Fish Item Data", menuName = "Madduck/Fish/Fish Item Data")]
-    public class FishItemData : ItemData, IFishableItemData
+    public class FishItemData : ItemData, IFishableItemData, IItemIconData
     {
         [Title("References"), 
          HideLabel,
@@ -99,5 +99,9 @@ namespace Madduck.GameData
                 SerializeField] public UFloat TugOfWarDecayRate { get; private set; } = 30f;
         [field: InlineProperty,
                 SerializeField] public UFloat TugOfWarRegression { get; private set; } = 20f;
+
+        public string Name => FishName;
+        public string Description => FishDescription;
+        public Sprite Icon => FishIcon;
     }
 }

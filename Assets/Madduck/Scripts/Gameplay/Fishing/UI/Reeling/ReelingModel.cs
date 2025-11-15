@@ -16,6 +16,7 @@ namespace Madduck.Fishing.UI
         [field: SerializeField] public SerializableReactiveProperty<UFloat> CurrentReelingProgress { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<UFloat> MaxReelingProgress { get; private set; }
         [field: SerializeField] public ReadOnlyReactiveProperty<Percentage> ReelingPercent { get; private set; }
+        [field: SerializeField] public ReadOnlyReactiveProperty<Percentage> HookPositionXPercent { get; private set; }
         [field: SerializeField] public PlayerInventory Inventory { get; private set; }
         [field: SerializeField] public FishingRodItemInstance FishingRodInstance { get; private set; }
         [field: SerializeField] public FishItemInstance FishInstance { get; private set; }
@@ -44,8 +45,12 @@ namespace Madduck.Fishing.UI
                 .AddTo(ref disposableBuilder);
             ReelingPercent = CurrentReelingProgress
                 .CombineLatest(MaxReelingProgress, (current, max) => max == 0f
-                    ? Percentage.Zero
+                    ? Percentage.Full
                     : Percentage.FromFraction(Mathf.Clamp01(current / max)))
+                .ToReadOnlyReactiveProperty()
+                .AddTo(ref disposableBuilder);
+            HookPositionXPercent = CurrentReelingProgress
+                .CombineLatest(MaxReelingProgress, (current, max) => Percentage.FromPercentage(max - current))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
@@ -54,6 +59,11 @@ namespace Madduck.Fishing.UI
         public void SetFishInstance(FishItemInstance fishItemInstance)
         {
             FishInstance = fishItemInstance;
+        }
+        
+        public void SetMaxProgress(UFloat maxProgress)
+        {
+            MaxReelingProgress.Value = maxProgress;
         }
 
         public void Reset()

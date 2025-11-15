@@ -129,7 +129,7 @@ namespace Madduck.Fishing.Controller
                 _aiController.SetFishPosition(Vector2.zero);
                 SetHookPosition(Vector2.zero);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
-                _model.SetFishInstance(_sharedVariables.CurrentFish);
+                _model.SetFishInstance(_sharedVariables.CurrentFishable as FishItemInstance);
                 Bind();
                 StartFishingBoard();
                 _playerAnimator.Set(PlayerAnimationKey.Pulling, 0, true);

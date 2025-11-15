@@ -100,7 +100,7 @@ namespace Madduck.Fishing.Controller
             var reelingProgress = (float)_reelingModel.CurrentReelingProgress.Value;
             var newProgress = reelingProgress - regression;
             _reelingModel.CurrentReelingProgress.Value = newProgress;
-            _reelingModel.Inventory.ChangeCurrentBaitAmount(-1);
+            if (newProgress < 0) _reelingModel.Inventory.ChangeCurrentBaitAmount(-1);
             var newPercent = _reelingModel.ReelingPercent.CurrentValue;
             await _hookFactory.Current.MoveX(newPercent.AsInversePercentage);
             OnTugOfWarResult?.Invoke(newProgress < 0 ? Sign.Negative : Sign.Zero);
@@ -133,7 +133,7 @@ namespace Madduck.Fishing.Controller
             _transitionCts = new CancellationTokenSource();
             if (active)
             {
-                _model.SetFishInstance(_sharedVariable.CurrentFish);
+                _model.SetFishInstance(_sharedVariable.CurrentFishable as FishItemInstance);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 _inputActive = true;
                 Bind();

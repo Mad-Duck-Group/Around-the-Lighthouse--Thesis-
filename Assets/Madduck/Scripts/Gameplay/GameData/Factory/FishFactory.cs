@@ -24,7 +24,7 @@ namespace Madduck.GameData
         
         [Inject]
         public FishFactory(
-            IModifierSource modifierSource,
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource,
             FishWeightTableInstance weightTable)
         {
             _modifierSource = modifierSource;

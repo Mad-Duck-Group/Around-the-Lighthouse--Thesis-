@@ -1,6 +1,7 @@
 ﻿using System;
 using Madduck.GameData;
 using Madduck.GameData.Fisherman;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -72,17 +73,18 @@ namespace Madduck.Day
         public void Install(IContainerBuilder builder)
         {
             builder.Register<ModifierContainer>(Lifetime.Singleton)
+                .Keyed(DIConstants.ModifierContainerKey)
                 .AsSelf()
                 .As<IModifierSource>();
             builder.RegisterInstance(dayManagerConfig).AsSelf();
             builder.Register(x =>
             {
-                var modifierSource = x.Resolve<IModifierSource>();
+                var modifierSource = x.Resolve<IModifierSource>(DIConstants.ModifierContainerKey);
                 var instance = new CompositeWeightTableInstance(fishableWeightTable, modifierSource);
                 instance.SetKeys(ModifierKeys.FishableKey);
                 return instance;
             }, Lifetime.Singleton)
-                .AsSelf();
+            .Keyed(ModifierKeys.FishableKey).AsSelf();
             builder.RegisterInstance(cardWeightTable).As<IWeightTable<CardWeightRecord>>();
             builder.Register<CardWeightTableInstance>(Lifetime.Singleton).AsSelf();
             builder.RegisterInstance(cardRarityWeightTable).As<IWeightTable<CardRarityWeightRecord>>();
@@ -101,9 +103,9 @@ namespace Madduck.Day
                 var fishermanItemInstance = x.Resolve<FishermanItemInstance>();
                 var manager = x.Resolve<DayManager>();
                 //var table = x.Resolve<FishWeightTableInstance>();
-                var table = x.Resolve<CompositeWeightTableInstance>();
+                var table = x.Resolve<CompositeWeightTableInstance>(ModifierKeys.FishableKey);
                 var playerInventory = x.Resolve<PlayerInventory>();
-                var modifierContainer = x.Resolve<ModifierContainer>();
+                var modifierContainer = x.Resolve<ModifierContainer>(DIConstants.ModifierContainerKey);
                 _dayManagerDebugData = new DayManagerDebugData(manager, playerInventory, table, fishermanItemInstance, modifierContainer);
 #endif
             });

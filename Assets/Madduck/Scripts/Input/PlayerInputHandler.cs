@@ -228,10 +228,12 @@ namespace Madduck.Input
 
         public void OnRightStickDelta(InputAction.CallbackContext context)
         {
+            //_currentControlScheme = "Gamepad";
             RightStickDelta.Value = context.ReadValue<Vector2>();
         }
         public void OnLeftStickDelta(InputAction.CallbackContext context)
         {
+            //_currentControlScheme = "Gamepad";
             LeftStickDelta.Value = context.ReadValue<Vector2>();
         }
         #endregion

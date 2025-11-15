@@ -31,7 +31,7 @@ namespace Madduck.Fishing.Controller
         private IDisposable _startSlowMo;
         private DisposableBag _qteSubscription;
         private Sequence _slowMoSequence;
-        private bool _isCatchingFish;
+        private bool _isCatching;
         private const string ThrowEventName = "After_Throw";
         
         
@@ -62,7 +62,7 @@ namespace Madduck.Fishing.Controller
             _inputHandler.Action0Button.IsDown
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
-                .Where(x => x && !_isCatchingFish)
+                .Where(x => x && !_isCatching)
                 .Subscribe(_ => OnPullHookUp())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
@@ -79,9 +79,8 @@ namespace Madduck.Fishing.Controller
 
         private void OnPullHookUp()
         {
-            //TODO: Check for fish type
-            _isCatchingFish = true;
-            ReturnHook().Forget();
+            _isCatching = true;
+            DramaticReturn().Forget();
         }
         
         public void SetActive(bool active)
@@ -90,18 +89,35 @@ namespace Madduck.Fishing.Controller
             if (active)
             {
                 Bind();
+                if (_sharedVariable.CurrentFishable is FishItemInstance) return;
+                _isCatching = true;
+                Return().Forget();
             }
         }
 
         public void Reset()
         {
-            _isCatchingFish = false;
+            _isCatching = false;
             Time.timeScale = 1f;  
         }
-        
-        private async UniTask ReturnHook()
+
+        private async UniTask Return()
         {
-            var currentFish = _sharedVariable.CurrentFish;
+            await _playerAnimator.Set(PlayerAnimationKey.GotFish, 0, false).WaitUntilEvent(ThrowEventName);
+            _audioManager.PlayAudioOneShot(_config.PullHookUpSfx, Vector3.zero);
+            var hook = _hookFactory.Current;
+            await hook.Return();
+            _hookFactory.DestroyHook();
+            OnCatchFishCompleted?.Invoke();
+        }
+        
+        private async UniTask DramaticReturn()
+        {
+            if (_sharedVariable.CurrentFishable is not FishItemInstance currentFish)
+            {
+                DebugUtils.LogError("Current fish is null or not a FishItemInstance!");
+                return;
+            }
             var isBoss = currentFish.ItemData.EnemyType is FishEnemyType.Boss;
             var sprite = _fishSpriteFactory.Current;
             if (isBoss) sprite.Detach();
@@ -144,7 +160,11 @@ namespace Madduck.Fishing.Controller
                     h => qte.OnSuccess -= h)
                 .Subscribe(_ =>
                 {
-                    var currentFish = _sharedVariable.CurrentFish;
+                    if (_sharedVariable.CurrentFishable is not FishItemInstance currentFish)
+                    {
+                        DebugUtils.LogError("Current fish is null or not a FishItemInstance!");
+                        return;
+                    }
                     currentFish.UpgradeFishQuality();
                     tcs.TrySetResult();
                 })
@@ -154,7 +174,11 @@ namespace Madduck.Fishing.Controller
                     h => qte.OnFail -= h)
                 .Subscribe(_ =>
                 {
-                    var currentFish = _sharedVariable.CurrentFish;
+                    if (_sharedVariable.CurrentFishable is not FishItemInstance currentFish)
+                    {
+                        DebugUtils.LogError("Current fish is null or not a FishItemInstance!");
+                        return;
+                    }
                     currentFish.DowngradeFishQuality();
                     tcs.TrySetResult();
                 })

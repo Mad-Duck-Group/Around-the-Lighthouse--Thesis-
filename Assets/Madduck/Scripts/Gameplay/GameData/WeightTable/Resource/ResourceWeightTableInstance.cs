@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Madduck.Shared;
 using Madduck.Utils;
 using VContainer;
 
@@ -15,7 +16,7 @@ namespace Madduck.GameData
         [Inject]
         public ResourceWeightTableInstance(
             IWeightTable<ResourceWeightRecord> resourceWeightTable,
-            IModifierSource modifierSource) 
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource) 
             : base(resourceWeightTable, modifierSource) { }
 
         #endregion

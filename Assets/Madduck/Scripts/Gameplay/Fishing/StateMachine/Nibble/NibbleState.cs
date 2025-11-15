@@ -48,7 +48,7 @@ namespace Madduck.Fishing.StateMachine
             switch (result)
             {
                 case Sign.Positive:
-                    DebugUtils.Log("Hook pulled while nibbling, transitioning to FishingBoardState");
+                    DebugUtils.Log("Got fish, transitioning to FishingBoardState");
                     stateMachine.NextState();
                     break;
                 case Sign.Negative:
@@ -56,6 +56,9 @@ namespace Madduck.Fishing.StateMachine
                     stateMachine.ChangeState(FishingStateType.None);
                     break;
                 case Sign.Zero:
+                    DebugUtils.Log("Got trash, transitioning to ReelingState");
+                    stateMachine.ChangeState(FishingStateType.Reeling);
+                    break;
                 default:
                     DebugUtils.LogError($"Unexpected PullHookResult value: {result}");
                     break;

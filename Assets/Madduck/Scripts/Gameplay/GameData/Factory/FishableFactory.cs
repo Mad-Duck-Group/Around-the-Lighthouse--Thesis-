@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -6,10 +7,10 @@ using VContainer;
 
 namespace Madduck.GameData
 {
-    public class FishableFactory : IFactory<ItemInstance>
+    public class FishableFactory : IFactory<IFishableItemInstance>
     {
         [field: ReadOnly, HideReferenceObjectPicker,
-                ShowInInspector] public ItemInstance Current { get; private set; }
+                ShowInInspector] public IFishableItemInstance Current { get; private set; }
 
         [field: HideReferenceObjectPicker,
                 ShowInInspector] private readonly CompositeWeightTableInstance _weightTable;
@@ -19,20 +20,20 @@ namespace Madduck.GameData
         
         [Inject]
         public FishableFactory(
-            IModifierSource modifierSource,
-            CompositeWeightTableInstance weightTable)
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource,
+            [Key(ModifierKeys.FishableKey)] CompositeWeightTableInstance weightTable)
         {
             _modifierSource = modifierSource;
             _weightTable = weightTable;
         }
 
-        public ItemInstance Create()
+        public IFishableItemInstance Create()
         {
             if (!_weightTable.TryGetRandomItem<IFishableItemData>(out var fishable))
             { 
                 return null;
             }
-            ItemInstance instance;
+            IFishableItemInstance instance;
             switch (fishable)
             {
                 case FishItemData fishItemData:
@@ -50,21 +51,21 @@ namespace Madduck.GameData
     }
     
     [Serializable]
-    public class FishableFactoryMock : IFactory<ItemInstance>
+    public class FishableFactoryMock : IFactory<IFishableItemInstance>
     {
         [Required, 
          OdinSerialize] private IFishableItemData _testFishableItemData;
         [field: ReadOnly, HideReferenceObjectPicker,
-                ShowInInspector] public ItemInstance Current { get; private set; }
+                ShowInInspector] public IFishableItemInstance Current { get; private set; }
         public FishableFactoryMock(){} // For inspector serialization
         public FishableFactoryMock(IFishableItemData testFishableItemData)
         {
             this._testFishableItemData = testFishableItemData;
         }
         
-        public ItemInstance Create()
+        public IFishableItemInstance Create()
         {
-            ItemInstance instance;
+            IFishableItemInstance instance;
             var fishable = _testFishableItemData;
             switch (fishable)
             {

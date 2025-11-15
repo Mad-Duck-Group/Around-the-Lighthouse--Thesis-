@@ -15,7 +15,7 @@ namespace Madduck.Fishing.UI
         public ReactiveCommand<InputType> OnReelingHold { get; } = new();
         public ReactiveCommand<InputType> OnReelingRelease { get; } = new();
         
-        private readonly ReelingModel _reelingModel;
+        private readonly ReelingModel _model;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
         private bool _isHolding;
         private InputType? _activeInputType;
@@ -23,10 +23,10 @@ namespace Madduck.Fishing.UI
         
         [Inject]
         public ReelingCommander(
-            ReelingModel reelingModel,
+            ReelingModel model,
             ISpineAnimator<PlayerAnimationKey> playerAnimator)
         {
-            _reelingModel = reelingModel;
+            _model = model;
             _playerAnimator = playerAnimator;
             Bind();
         }
@@ -74,10 +74,10 @@ namespace Madduck.Fishing.UI
 
         private void OnReelingHeld()
         {
-            var reelingSpeed = (float)_reelingModel.FishingRodInstance.CurrentStats.CurrentReelingSpeed;
-            var fishWeight = (float)_reelingModel.FishInstance.CurrentStats.CurrentFishWeight;
+            var reelingSpeed = (float)_model.FishingRodInstance.CurrentStats.CurrentReelingSpeed;
+            var fishWeight = _model.FishInstance is null ? 0 : (float)_model.FishInstance.CurrentStats.CurrentFishWeight;
             var final = Mathf.Max(0, reelingSpeed - fishWeight);
-            _reelingModel.CurrentReelingProgress.Value += final * Time.deltaTime;
+            _model.CurrentReelingProgress.Value += final * Time.deltaTime;
         }
 
         private void OnReelingReleased()

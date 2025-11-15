@@ -23,11 +23,11 @@ namespace Madduck.Fishing.DI
         [field: SerializeField] public bool AutoCloseWhenPlayModeEnds { get; private set; }
         
         [ShowInInspector] private FishingStateMachine _stateMachine;
-        [ShowInInspector] private IFactory<ItemInstance> _fishableFactory;
+        [ShowInInspector] private IFactory<IFishableItemInstance> _fishableFactory;
         
         public FishingStateMachineDebugData(
             FishingStateMachine stateMachine,
-            IFactory<ItemInstance> fishableFactory)
+            IFactory<IFishableItemInstance> fishableFactory)
         {
             ConstantUpdate = false;
             AutoCloseWhenPlayModeEnds = true;
@@ -76,12 +76,12 @@ namespace Madduck.Fishing.DI
             if (spoofFishable && fishableFactoryMock != null)
             { 
                 builder.Register(_ => fishableFactoryMock, Lifetime.Singleton)
-                    .As<IFactory<ItemInstance>>();
+                    .As<IFactory<IFishableItemInstance>>();
             }
             else
             {
                 builder.Register<FishableFactory>(Lifetime.Singleton)
-                    .As<IFactory<ItemInstance>>();
+                    .As<IFactory<IFishableItemInstance>>();
             }
 
             builder.Register<FishingSharedVariable>(Lifetime.Singleton).AsSelf();
@@ -98,7 +98,7 @@ namespace Madduck.Fishing.DI
                 var noneState = x.Resolve<FishingNoneState>();
                 stateMachine.AddState(FishingStateType.None, noneState);
 #if UNITY_EDITOR
-                var fishItemInstanceFactory = x.Resolve<IFactory<ItemInstance>>();
+                var fishItemInstanceFactory = x.Resolve<IFactory<IFishableItemInstance>>();
                 _fishingStateMachineDebugData = new FishingStateMachineDebugData(stateMachine, fishItemInstanceFactory);
 #endif
             });

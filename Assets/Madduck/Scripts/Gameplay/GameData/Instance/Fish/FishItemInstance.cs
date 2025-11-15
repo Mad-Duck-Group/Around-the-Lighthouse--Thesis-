@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Madduck.Shared;
 using Madduck.Utils;
 using ObservableCollections;
 using R3;
@@ -18,7 +19,7 @@ namespace Madduck.GameData
     }
     
     [Serializable]
-    public class FishItemInstance : ItemInstance<FishItemData>
+    public class FishItemInstance : ItemInstance<FishItemData>, IFishableItemInstance
     {
         [field: DisplayAsString, 
                 ShowInInspector] public FishQuality CurrentFishQuality { get; set; }
@@ -32,7 +33,7 @@ namespace Madduck.GameData
         [Inject]
         public FishItemInstance(
             FishItemData itemData, 
-            IModifierSource modifierSource) 
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource) 
             : base(itemData)
         {
             CurrentStats = new FishStats(itemData);

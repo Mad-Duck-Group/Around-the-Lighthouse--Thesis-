@@ -31,6 +31,13 @@ namespace Madduck.Utils
             gameObject = clone.gameObject;
             return clone as T;
         }
+        
+        public static GameObject GetGameObject<T>(this T obj) where T : class
+        {
+            if (obj is MonoBehaviour monoBehaviour) return monoBehaviour.gameObject;
+            DebugUtils.LogError($"Object of type {typeof(T)} is not a MonoBehaviour. Cannot get GameObject.");
+            return null;
+        }
 
         public static void SetParent<T1, T2>(this T1 child, T2 parent) 
             where T1 : class

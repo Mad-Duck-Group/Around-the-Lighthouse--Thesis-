@@ -10,11 +10,11 @@ using VContainer.Unity;
 namespace Madduck.Room
 {
     [Serializable]
-    public class FishItemPopUpInstaller : IInstaller
+    public class ItemPopUpInstaller : IInstaller
     {
         [Title("Fish Item Pop Up")]
         [Required, HideReferenceObjectPicker,
-         OdinSerialize] private FishItemPopUpFactory _fishItemPopUpFactory = new();
+         OdinSerialize] private FishableItemPopUpFactory _fishableItemPopUpFactory = new();
         
         [Title("New Fish Pop Up")]
         [Required, HideReferenceObjectPicker,
@@ -24,10 +24,10 @@ namespace Madduck.Room
         {
             builder.Register(x =>
                 {
-                    x.Inject(_fishItemPopUpFactory);
-                    return _fishItemPopUpFactory;
+                    x.Inject(_fishableItemPopUpFactory);
+                    return _fishableItemPopUpFactory;
                 }, Lifetime.Singleton)
-                .As<IPopUpFactory<FishItemPopUpObject>>();
+                .As<IPopUpFactory<FishableItemPopUpObject>>();
             
             builder.Register(x =>
                 {

@@ -52,7 +52,7 @@ namespace Madduck.Day
 
         [Inject]
         public DayManager(
-            CompositeWeightTableInstance fishableWeightTable,
+            [Key(ModifierKeys.FishableKey)] CompositeWeightTableInstance fishableWeightTable,
             DayManagerConfig config,
             LoadSceneManager loadSceneManager,
             ISubscriber<FishingRoomEndedEvent> outOfFishEventSubscriber)

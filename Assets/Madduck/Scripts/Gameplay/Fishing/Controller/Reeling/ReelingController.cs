@@ -41,7 +41,6 @@ namespace Madduck.Fishing.Controller
         
         private IDisposable _bindings;
         private IDisposable _fatigueTimer;
-        private IDisposable _startSlowMo;
         private float _fatigueTimerProgress;
         [ShowInInspector] private bool _reeling;
         [ShowInInspector] private float _previousAngle;
@@ -99,8 +98,8 @@ namespace Madduck.Fishing.Controller
                     OnRotate(_inputHandler.RightStickDelta.CurrentValue, true);
                 })
                 .AddTo(ref disposableBuilder);
-            _model.ReelingPercent
-                .Subscribe(x => _hookFactory.Current.SetPositionX(x.AsInversePercentage))
+            _model.HookPositionXPercent
+                .Subscribe(x => _hookFactory.Current.SetPositionX(x))
                 .AddTo(ref disposableBuilder);
             _model.ReelingPercent
                 .Where(x => x == Percentage.Full)
@@ -108,12 +107,15 @@ namespace Madduck.Fishing.Controller
                 .AddTo(ref disposableBuilder);
             Observable.EveryUpdate(UnityFrameProvider.Update)
                 .Where(_ => _reeling)
-                .Subscribe(_ => OnReelingHold())
+                .Subscribe(_ =>
+                {
+                    OnReelingHold();
+                })
                 .AddTo(ref disposableBuilder);
             Observable.Interval(TimeSpan.FromMilliseconds(100f))
                .Subscribe(_ =>
                {
-                  OnAngleCheck();
+                   OnAngleCheck();
                })
                .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
@@ -123,7 +125,6 @@ namespace Madduck.Fishing.Controller
         {
             _bindings?.Dispose();
             _fatigueTimer?.Dispose();
-            _startSlowMo?.Dispose();
         }
 
         #endregion
@@ -180,7 +181,8 @@ namespace Madduck.Fishing.Controller
             _audioManager.StopAudio(_reelingAudioReference);
             _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
             _model.Inventory.ChangeCurrentBaitAmount(-1);
-            OnReelingResult?.Invoke(Sign.Positive);
+            UniTask.WaitForEndOfFrame()
+                .ContinueWith(() => OnReelingResult?.Invoke(Sign.Positive)); // Delay to avoid race condition
         }
         
         private void OnFishRegainConsciousness()
@@ -200,27 +202,34 @@ namespace Madduck.Fishing.Controller
             _transitionCts = new CancellationTokenSource();
             _previousAngle = 0f;
             _accumulatedAngle = 0f;
+            var currentFishable = _sharedVariable.CurrentFishable;
+            var isFish = currentFishable is FishItemInstance;
             if (active)
             {
-                _model.SetFishInstance(_sharedVariable.CurrentFish);
+                _model.SetFishInstance(currentFishable as FishItemInstance);
+                _model.SetMaxProgress(_hookFactory.Current.CurrentX.AsPercentage);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 Bind();
-                StartFatigueTimer();
+                if (isFish) StartFatigueTimer();
             }
             else
             {
+                _reeling = false;
                 _commander.Reset();
                 _fatigueTimer?.Dispose();
-                var fatigueSlider = _fishSpriteFactory.Current.FatigueTimerView;
-                fatigueSlider.TransitionOut().Forget();
+                if (isFish)
+                {
+                    var fatigueSlider = _fishSpriteFactory.Current.FatigueTimerView;
+                    fatigueSlider.TransitionOut().Forget();
+                }
                 await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
             }
         }
         
         public void Reset()
         {
-            _model.Reset();
             _commander.Reset();
+            _model.Reset();
         }
 
         private void StartFatigueTimer()

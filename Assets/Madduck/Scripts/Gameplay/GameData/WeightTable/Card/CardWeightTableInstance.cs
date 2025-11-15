@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using VContainer;
@@ -13,7 +14,7 @@ namespace Madduck.GameData
         [Inject]
         public CardWeightTableInstance(
             IWeightTable<CardWeightRecord> cardWeightTable,
-            IModifierSource modifierSource)
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource)
             : base(cardWeightTable, modifierSource) { }
 
         #endregion

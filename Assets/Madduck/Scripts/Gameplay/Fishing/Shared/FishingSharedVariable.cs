@@ -14,7 +14,7 @@ namespace Madduck.Fishing.Shared
         private readonly IHookFactory _hookFactory;
         private readonly BubbleManager _bubbleManager;
         
-        public FishItemInstance CurrentFish { get; set; }
+        public IFishableItemInstance CurrentFishable { get; set; }
         public ReadOnlyReactiveProperty<BubbleType> CurrentBubbleType { get; }
         private readonly ReactiveProperty<IBubbleView> _currentBubbleView = new(null);
         private IDisposable _subscriptions;

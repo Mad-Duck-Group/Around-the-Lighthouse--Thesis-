@@ -50,7 +50,7 @@ namespace Madduck.Utils
         [Inject]
         protected WeightTableInstance(
             IWeightTable<TRecord> weightTable,
-            IModifierSource modifierSource)
+            [Key("ModifierContainer")] IModifierSource modifierSource)
         {
             BaseRecords = weightTable.Records.Select(x => x.Copy()).ToList();
             PersistentFilters = new Dictionary<string, IWeightFilter<TRecord>>();

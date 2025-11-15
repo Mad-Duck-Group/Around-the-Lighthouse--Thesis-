@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Shared;
@@ -14,30 +16,38 @@ using UnityEngine.UI;
 
 namespace Madduck.GameData
 {
-    public record FishItemPopUpObject(FishItemInstance FishItemInstance) : IPopUpObject
+    public record FishableItemPopUpObject : IPopUpObject
     {
-        public FishItemInstance FishItemInstance { get; private set; } = FishItemInstance;
+        public List<IFishableItemInstance> FishItemInstances { get; private set; }
+        public FishableItemPopUpObject(List<IFishableItemInstance> FishItemInstances)
+        {
+            this.FishItemInstances = FishItemInstances.ToList();
+        }
     }
     
-    public class FishItemPopUpView : MonoBehaviour, IPopUpView<FishItemPopUpObject>, ITransitionable
+    public class FishableItemPopUpView : MonoBehaviour, IPopUpView<FishableItemPopUpObject>, ITransitionable
     {
         #region Inspector
 
         [Title("References")]
+        [Required, AssetsOnly,
+         SerializeField] private ItemIconView itemIconViewPrefab;
         [Required,
          SerializeField] private CanvasGroup canvasGroup;
         [Required,
          SerializeField] private Image backgroundImage;
         [Required,
-         SerializeField] private TMP_Text fishNameText;
-        [Required,
-         SerializeField] private TMP_Text fishDescriptionText;
-        [Required,
-         SerializeField] private TMP_Text fishWeightText;
-        [Required,
-         SerializeField] private TMP_Text fishRarityText;
-        [Required,
-         SerializeField] private Image fishIcon;
+         SerializeField] private LayoutGroup layoutGroup;
+        // [Required,
+        //  SerializeField] private TMP_Text fishNameText;
+        // [Required,
+        //  SerializeField] private TMP_Text fishDescriptionText;
+        // [Required,
+        //  SerializeField] private TMP_Text fishWeightText;
+        // [Required,
+        //  SerializeField] private TMP_Text fishRarityText;
+        // [Required,
+        //  SerializeField] private Image fishIcon;
         [Required,
          SerializeField] private Button closeButton;
         
@@ -51,21 +61,35 @@ namespace Madduck.GameData
         
         public event Action OnOpen;
         public event Action OnClose;
+        private readonly List<ItemIconView> _itemIconViews = new();
         private Sequence _transitionSequence;
         private IDisposable _bindings;
         
         #endregion
 
         #region Injection
-        public void SetPopUpObject(FishItemPopUpObject popUpObject)
+        public void SetPopUpObject(FishableItemPopUpObject popUpObject)
         {
             canvasGroup.transform.localScale = scaleTweenSettings.startValue;
             backgroundImage.color = backgroundImage.color.WithA(backgroundAlphaTweenSettings.startValue);
-            fishNameText.text = popUpObject.FishItemInstance.ItemData.FishName;
-            fishDescriptionText.text = popUpObject.FishItemInstance.ItemData.FishDescription;
-            fishWeightText.text = $"Weight:\n{popUpObject.FishItemInstance.ItemData.FishWeight:F2} kg";
-            fishRarityText.text = $"Rarity:\n{popUpObject.FishItemInstance.CurrentFishQuality}";
-            fishIcon.sprite = popUpObject.FishItemInstance.ItemData.FishIcon;
+            // fishNameText.text = popUpObject.FishItemInstance.ItemData.FishName;
+            // fishDescriptionText.text = popUpObject.FishItemInstance.ItemData.FishDescription;
+            // fishWeightText.text = $"Weight:\n{popUpObject.FishItemInstance.ItemData.FishWeight:F2} kg";
+            // fishRarityText.text = $"Rarity:\n{popUpObject.FishItemInstance.CurrentFishQuality}";
+            // fishIcon.sprite = popUpObject.FishItemInstance.ItemData.FishIcon;
+            foreach (var fishItemInstance in popUpObject.FishItemInstances)
+            {
+                var itemIconView = Instantiate(itemIconViewPrefab, layoutGroup.transform);
+                var itemInstance = fishItemInstance as IItemInstance;
+                var itemData = itemInstance?.ItemData;
+                if (itemData is not IItemIconData itemDisplay)
+                {
+                    DebugUtils.LogError($"ItemData of {fishItemInstance.GetType()} does not implement IItemIconData");
+                    continue;
+                }
+                itemIconView.SetItem(itemDisplay);
+                _itemIconViews.Add(itemIconView);
+            }
             Bind();
         }
         #endregion

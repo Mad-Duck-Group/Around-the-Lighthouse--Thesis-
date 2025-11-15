@@ -32,7 +32,7 @@ namespace Madduck.GameData
         [Inject]
         public WeatherFactory(
             WeatherWeightTableInstance weatherWeightTable,
-            IModifierSource modifierSource,
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource,
             IPublisher<ModifierSourceEvent> modifierSourceEventPublisher)
 
         {

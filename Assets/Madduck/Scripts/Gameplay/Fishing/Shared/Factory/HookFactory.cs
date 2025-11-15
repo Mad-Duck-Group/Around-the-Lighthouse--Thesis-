@@ -7,9 +7,8 @@ using Object = UnityEngine.Object;
 
 namespace Madduck.Fishing.Shared
 {
-    public interface IHookFactory : IFactory<IHookProjectile>
+    public interface IHookFactory : IGameObjectFactory<IHookProjectile>
     {
-        GameObject CurrentGameObject { get; }
         void DestroyHook();
     }
 
@@ -23,9 +22,9 @@ namespace Madduck.Fishing.Shared
         [Required, 
          SerializeField] private Transform landingPoint;
         public IHookProjectile Current { get; private set; }
+        public GameObject CurrentGameObject { get; private set; }
         
         private GameObject _currentObject;
-        public GameObject CurrentGameObject => _currentObject;
 
         public IHookProjectile Create()
         {
@@ -38,7 +37,16 @@ namespace Madduck.Fishing.Shared
             {
                 hook.SetUp(parent, landingPoint);
             }
+            CurrentGameObject = _currentObject;
             return Current;
+        }
+        
+        public IHookProjectile Create(out GameObject gameObject)
+        {
+            var hook = Create();
+            gameObject = _currentObject;
+            CurrentGameObject = _currentObject;
+            return hook;
         }
         
         public void DestroyHook()
@@ -56,8 +64,14 @@ namespace Madduck.Fishing.Shared
         public IHookProjectile Create()
         {
             Current = new HookProjectileMock();
-            CurrentGameObject = null;
             return Current;
+        }
+        
+        public IHookProjectile Create(out GameObject gameObject)
+        {
+            var hook = Create();
+            gameObject = null;
+            return hook;
         }
 
         public void DestroyHook()

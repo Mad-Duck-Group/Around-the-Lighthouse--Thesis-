@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
 using Madduck.Core;
@@ -48,13 +49,13 @@ namespace Madduck.Room
         private readonly IModalManager _modalManager;
         private readonly IFactory<WeatherItemInstance> _weatherFactory;
         private readonly IFactory<uint> _maxFishCountFactory;
-        private readonly IPopUpFactory<FishItemPopUpObject> _fishItemPopUpFactory;
+        private readonly IPopUpFactory<FishableItemPopUpObject> _fishableItemPopUpFactory;
         private readonly IPopUpFactory<NewFishPopUpObject> _newFishPopUpFactory;
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
         private readonly IPublisher<FishingRoomEndedEvent> _fishingRoomEndedEventPublisher;
         private readonly IPublisher<WeatherChangedEvent> _weatherChangedPublisher;
         private readonly ISubscriber<FishingStateEvent> _fishingStateEventSubscriber;
-        private readonly ISubscriber<FishCaughtEvent> _fishCaughtEventSubscriber;
+        private readonly ISubscriber<FishableCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private AudioReference _bgm;
@@ -68,7 +69,7 @@ namespace Madduck.Room
 
         [Inject]
         public FishingRoomManager(
-            CompositeWeightTableInstance fishableWeightTable,
+            [Key(ModifierKeys.FishableKey)] CompositeWeightTableInstance fishableWeightTable,
             FishingRoomConfig config,
             FishCatalogue fishCatalogue,
             IModal cardSelectionController,
@@ -76,13 +77,13 @@ namespace Madduck.Room
             IModalManager modalManager,
             IFactory<WeatherItemInstance> weatherFactory,
             [Key(DIConstants.MaxFishCountFactoryId)] IFactory<uint> maxFishCountFactory,
-            IPopUpFactory<FishItemPopUpObject> fishItemPopUpFactory,
+            IPopUpFactory<FishableItemPopUpObject> fishableItemPopUpFactory,
             IPopUpFactory<NewFishPopUpObject> newFishPopUpFactory,
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
             IPublisher<FishingRoomEndedEvent> fishingRoomEndedEventPublisher,
             IPublisher<WeatherChangedEvent> weatherChangedPublisher,
             ISubscriber<FishingStateEvent> fishingStateEventSubscriber,
-            ISubscriber<FishCaughtEvent> fishCaughtEventSubscriber,
+            ISubscriber<FishableCaughtEvent> fishCaughtEventSubscriber,
             ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
             ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
         {
@@ -92,7 +93,7 @@ namespace Madduck.Room
             _cardSelectionController = cardSelectionController;
             _weatherFactory = weatherFactory;
             _maxFishCountFactory = maxFishCountFactory;
-            _fishItemPopUpFactory = fishItemPopUpFactory;
+            _fishableItemPopUpFactory = fishableItemPopUpFactory;
             _newFishPopUpFactory = newFishPopUpFactory;
             _audioManager = audioManager;
             _modalManager = modalManager;
@@ -163,31 +164,61 @@ namespace Madduck.Room
             _audioManager.StopAudio(_ambient);
         }
         
-        private void OnFishCaught(FishCaughtEvent eventData)
-        {
-            var fishGuid = eventData.FishItemInstance.ItemData.Guid;
-            if (_fishCatalogue.HasCaught(fishGuid))
-            {
-                var popUp = _fishItemPopUpFactory.Create();
-                popUp.SetPopUpObject(new FishItemPopUpObject(eventData.FishItemInstance));
-                _modalManager.Queue(popUp);
-            }
-            else
-            {
-                var popUp = _newFishPopUpFactory.Create();
-                popUp.SetPopUpObject(new NewFishPopUpObject(eventData.FishItemInstance));
-                _modalManager.Queue(popUp);
-                _fishCatalogue.SetCaught(fishGuid);
-                _fishCatalogue.Save();
-            }
-            ChangeFishCount(-1);
-            if (CurrentFishCount.Value != 0) return;
+        private void OnFishCaught(FishableCaughtEvent eventData)
+        { 
+            HandlePopUp(eventData.FishableItemInstances);
             //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
+            if (CurrentFishCount.Value != 0) return;
             Observable.FromEvent(
                     h => _modalManager.OnAllModalsClosed += h,
                     h => _modalManager.OnAllModalsClosed -= h)
                 .Subscribe(_ => OnFishingRoomEnded())
                 .AddTo(ref _disposables);
+        }
+
+        private void HandlePopUp(List<IFishableItemInstance> fishableItemInstances)
+        {
+            var unCaughtFishItems = new List<FishItemInstance>();
+            var others = new List<IFishableItemInstance>();
+            var fishCount = 0;
+            foreach (var fishable in fishableItemInstances)
+            {
+                switch (fishable)
+                {
+                    case FishItemInstance fishItemInstance:
+                        var fishGuid = fishItemInstance.ItemData.Guid;
+                        if (_fishCatalogue.HasCaught(fishGuid))
+                        {
+                            others.Add(fishItemInstance);
+                        }
+                        else
+                        {
+                            unCaughtFishItems.Add(fishItemInstance);
+                        }
+                        fishCount++;
+                        break;
+                    case ResourceItemInstance resourceItemInstance:
+                        others.Add(resourceItemInstance);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(fishable));
+                }
+            }
+            foreach (var unCaught in unCaughtFishItems)
+            {
+                var popUp = _newFishPopUpFactory.Create();
+                popUp.SetPopUpObject(new NewFishPopUpObject(unCaught));
+                _modalManager.Queue(popUp);
+                _fishCatalogue.SetCaught(unCaught.ItemData.Guid);
+                _fishCatalogue.Save();
+            }
+            if (others.Count > 0)
+            {
+                var popUp = _fishableItemPopUpFactory.Create();
+                popUp.SetPopUpObject(new FishableItemPopUpObject(others));
+                _modalManager.Queue(popUp);
+            }
+            ChangeFishCount(-fishCount);
         }
         
         private void OnFishEscaped()

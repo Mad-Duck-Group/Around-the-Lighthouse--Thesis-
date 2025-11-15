@@ -16,6 +16,8 @@ namespace Madduck.Fishing.Shared
     public interface IHookProjectile
     {
         event Action<Percentage> OnDramaticReturnProgress;
+        Percentage CurrentX { get; }
+        Percentage CurrentY { get; }
         UniTask Throw(Percentage percent);
         UniTask Return();
         UniTask DramaticReturn();
@@ -58,6 +60,8 @@ namespace Madduck.Fishing.Shared
         #endregion
         
         public event Action<Percentage> OnDramaticReturnProgress;
+        public Percentage CurrentX => Percentage.FromFraction(Mathf.InverseLerp(throwRange.x, throwRange.y, transform.position.x));
+        public Percentage CurrentY => Percentage.FromFraction(Mathf.InverseLerp(yOffsetRange.x, yOffsetRange.y, transform.position.y));
 
         #region Fields
 
@@ -360,6 +364,8 @@ namespace Madduck.Fishing.Shared
     public class HookProjectileMock : IHookProjectile
     {
         public event Action<Percentage> OnDramaticReturnProgress;
+        public Percentage CurrentX => Percentage.Zero;
+        public Percentage CurrentY => Percentage.Zero;
         public UniTask Throw(Percentage percent) => UniTask.CompletedTask;
 
         public UniTask Return() => UniTask.CompletedTask;

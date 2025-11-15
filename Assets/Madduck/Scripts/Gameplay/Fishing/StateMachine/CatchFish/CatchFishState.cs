@@ -15,7 +15,7 @@ namespace Madduck.Fishing.StateMachine
     {
         private readonly CatchFishController _controller;
         private readonly FishingSharedVariable _sharedVariable;
-        private readonly IPublisher<FishCaughtEvent> _fishCaughtEventPublisher;
+        private readonly IPublisher<FishableCaughtEvent> _fishCaughtEventPublisher;
         
         private IDisposable _catchFishSubscription;
         
@@ -24,7 +24,7 @@ namespace Madduck.Fishing.StateMachine
             FishingStateMachine stateMachine,
             CatchFishController controller,
             FishingSharedVariable sharedVariable,
-            IPublisher<FishCaughtEvent> fishCaughtEventPublisher)
+            IPublisher<FishableCaughtEvent> fishCaughtEventPublisher)
             : base(stateMachine)
         {
             _controller = controller;
@@ -53,7 +53,7 @@ namespace Madduck.Fishing.StateMachine
         private void OnCatchFishCompleted()
         {
             DebugUtils.Log("Catch fish completed, transitioning to NoneState");
-            _fishCaughtEventPublisher.Publish(new FishCaughtEvent(_sharedVariable.CurrentFish));
+            _fishCaughtEventPublisher.Publish(new FishableCaughtEvent(_sharedVariable.CurrentFishable));
             stateMachine.ChangeState(FishingStateType.None);
             stateMachine.ResetState(FishingStateType.FishingBoard);
             stateMachine.ResetState(FishingStateType.Reeling);

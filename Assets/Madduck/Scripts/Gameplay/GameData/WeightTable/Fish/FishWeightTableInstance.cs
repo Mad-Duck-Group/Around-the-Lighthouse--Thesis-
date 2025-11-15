@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
 using VContainer;
@@ -16,7 +17,7 @@ namespace Madduck.GameData
         [Inject]
         public FishWeightTableInstance(
             IWeightTable<FishWeightRecord> fishWeightTable,
-            IModifierSource modifierSource) 
+            [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource) 
             : base(fishWeightTable, modifierSource) { }
 
         #endregion
