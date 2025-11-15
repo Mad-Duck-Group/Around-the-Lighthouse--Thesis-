@@ -1,0 +1,1352 @@
+fileFormatVersion: 2
+guid: a04d8ce060a106f4281fdfbe6a89c425
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1894124241342091489
+    second: R_Analog_Spritesheet_0
+  - first:
+      213: 8874781693038345585
+    second: R_Analog_Spritesheet_1
+  - first:
+      213: -5953613489809399010
+    second: R_Analog_Spritesheet_2
+  - first:
+      213: -3724245871147217721
+    second: R_Analog_Spritesheet_3
+  - first:
+      213: 4747662390239148782
+    second: R_Analog_Spritesheet_4
+  - first:
+      213: -6531992029349959005
+    second: R_Analog_Spritesheet_5
+  - first:
+      213: 7808910019001812319
+    second: R_Analog_Spritesheet_6
+  - first:
+      213: -3169269208774735100
+    second: R_Analog_Spritesheet_7
+  - first:
+      213: 7205908388349049954
+    second: R_Analog_Spritesheet_8
+  - first:
+      213: -2872357662088717945
+    second: R_Analog_Spritesheet_9
+  - first:
+      213: -4126968117142978342
+    second: R_Analog_Spritesheet_10
+  - first:
+      213: 8137980405526487241
+    second: R_Analog_Spritesheet_11
+  - first:
+      213: -4773292464114144232
+    second: R_Analog_Spritesheet_12
+  - first:
+      213: 6437632176475466761
+    second: R_Analog_Spritesheet_13
+  - first:
+      213: 845838175818685690
+    second: R_Analog_Spritesheet_14
+  - first:
+      213: 7213828029843704243
+    second: R_Analog_Spritesheet_15
+  - first:
+      213: 3331823126860777220
+    second: R_Analog_Spritesheet_16
+  - first:
+      213: 6129720785513969637
+    second: R_Analog_Spritesheet_17
+  - first:
+      213: 397242877075197797
+    second: R_Analog_Spritesheet_18
+  - first:
+      213: 5655066663342380809
+    second: R_Analog_Spritesheet_19
+  - first:
+      213: 2816494500201218640
+    second: R_Analog_Spritesheet_20
+  - first:
+      213: -3820364795317571255
+    second: R_Analog_Spritesheet_21
+  - first:
+      213: 4062185530162353214
+    second: R_Analog_Spritesheet_22
+  - first:
+      213: -178486999838737939
+    second: R_Analog_Spritesheet_23
+  - first:
+      213: -8236119880890931197
+    second: R_Analog_Spritesheet_24
+  - first:
+      213: 1707251529666877211
+    second: R_Analog_Spritesheet_25
+  - first:
+      213: -2394563616787041879
+    second: R_Analog_Spritesheet_26
+  - first:
+      213: 5136951019466349137
+    second: R_Analog_Spritesheet_27
+  - first:
+      213: 6754661939410366551
+    second: R_Analog_Spritesheet_28
+  - first:
+      213: 1334337963559485524
+    second: R_Analog_Spritesheet_29
+  - first:
+      213: -7407653446530917669
+    second: R_Analog_Spritesheet_30
+  - first:
+      213: -3751671076942201860
+    second: R_Analog_Spritesheet_31
+  - first:
+      213: -8359307187113035243
+    second: R_Analog_Spritesheet_32
+  - first:
+      213: 105062428096026536
+    second: R_Analog_Spritesheet_33
+  - first:
+      213: -3539788917119957587
+    second: R_Analog_Spritesheet_34
+  - first:
+      213: 5960016454757095355
+    second: R_Analog_Spritesheet_35
+  - first:
+      213: 4186179847485515033
+    second: R_Analog_Spritesheet_36
+  - first:
+      213: -6311673609180720450
+    second: R_Analog_Spritesheet_37
+  - first:
+      213: -3834080715119494053
+    second: R_Analog_Spritesheet_38
+  - first:
+      213: -8445811376930395920
+    second: R_Analog_Spritesheet_39
+  - first:
+      213: 349873984080743198
+    second: R_Analog_Spritesheet_40
+  - first:
+      213: 9116170540171580503
+    second: R_Analog_Spritesheet_41
+  - first:
+      213: -7341527769230236672
+    second: R_Analog_Spritesheet_42
+  - first:
+      213: -2294014763412565033
+    second: R_Analog_Spritesheet_43
+  - first:
+      213: 6966202132051575770
+    second: R_Analog_Spritesheet_44
+  - first:
+      213: 5915144208659899881
+    second: R_Analog_Spritesheet_45
+  - first:
+      213: -8894443753839893101
+    second: R_Analog_Spritesheet_46
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 701
+        width: 159
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1f295ab908b6b5e0800000000000000
+      internalID: -1894124241342091489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 836
+        width: 174
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17db0b0edee892b70800000000000000
+      internalID: 8874781693038345585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 701
+        width: 159
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e13efe91314806da0800000000000000
+      internalID: -5953613489809399010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 836
+        width: 174
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cc0e02bc12d05cc0800000000000000
+      internalID: -3724245871147217721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 701
+        width: 176
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeabfab2ac513e140800000000000000
+      internalID: 4747662390239148782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 836
+        width: 174
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3aaa9e67bd3b955a0800000000000000
+      internalID: -6531992029349959005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 1099
+        y: 701
+        width: 176
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f558795f942de5c60800000000000000
+      internalID: 7808910019001812319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 836
+        width: 174
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40b0665327e7404d0800000000000000
+      internalID: -3169269208774735100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 1433
+        y: 701
+        width: 191
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26c7d8b2087800460800000000000000
+      internalID: 7205908388349049954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 1497
+        y: 836
+        width: 174
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 789945bbce55328d0800000000000000
+      internalID: -2872357662088717945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 1767
+        y: 701
+        width: 191
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad08452fc501ab6c0800000000000000
+      internalID: -4126968117142978342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 1831
+        y: 836
+        width: 173
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c0ee7cdf0aefe070800000000000000
+      internalID: 8137980405526487241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 641
+        width: 161
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81c6d6b3bcbd1cdb0800000000000000
+      internalID: -4773292464114144232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 515
+        width: 174
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90ce1714b50175950800000000000000
+      internalID: 6437632176475466761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 641
+        width: 161
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afc1327e6550dbb00800000000000000
+      internalID: 845838175818685690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 485
+        width: 291
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b907956f5aac1460800000000000000
+      internalID: 7213828029843704243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 641
+        width: 161
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 407c7fa2b730d3e20800000000000000
+      internalID: 3331823126860777220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 1016
+        y: 641
+        width: 161
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e773e8e394211550800000000000000
+      internalID: 6129720785513969637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 641
+        width: 161
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56f0f91ca4a438500800000000000000
+      internalID: 397242877075197797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 1684
+        y: 641
+        width: 161
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9071da12b25da7e40800000000000000
+      internalID: 5655066663342380809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 380
+        width: 173
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 052c55453d2361720800000000000000
+      internalID: 2816494500201218640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 380
+        width: 173
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94130b6b5765bfac0800000000000000
+      internalID: -3820364795317571255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 380
+        width: 159
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e341f01a738cf5830800000000000000
+      internalID: 4062185530162353214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 1001
+        y: 485
+        width: 119
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de93691f403e58df0800000000000000
+      internalID: -178486999838737939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 1099
+        y: 380
+        width: 159
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 308a6fbea9c63bd80800000000000000
+      internalID: -8236119880890931197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 1335
+        y: 485
+        width: 119
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b175908883061b710800000000000000
+      internalID: 1707251529666877211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 1415
+        y: 380
+        width: 177
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a17555d31dc4ced0800000000000000
+      internalID: -2394563616787041879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 1669
+        y: 485
+        width: 119
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15a5fd74cbd1a4740800000000000000
+      internalID: 5136951019466349137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 1749
+        y: 380
+        width: 177
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 750f7640f316dbd50800000000000000
+      internalID: 6754661939410366551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 320
+        width: 161
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4500848ee45848210800000000000000
+      internalID: 1334337963559485524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 320
+        width: 161
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bda9354107ab23990800000000000000
+      internalID: -7407653446530917669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 337
+        width: 99
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfbb0c068036febc0800000000000000
+      internalID: -3751671076942201860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 337
+        width: 99
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51af1cf1766cdfb80800000000000000
+      internalID: -8359307187113035243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_33
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 337
+        width: 99
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a757e1c8b1457100800000000000000
+      internalID: 105062428096026536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_34
+      rect:
+        serializedVersion: 2
+        x: 1902
+        y: 337
+        width: 99
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da543370cb420eec0800000000000000
+      internalID: -3539788917119957587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 164
+        width: 118
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb79749536b36b250800000000000000
+      internalID: 5960016454757095355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 59
+        width: 196
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 915e547546c481a30800000000000000
+      internalID: 4186179847485515033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_37
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 164
+        width: 119
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb2539a0b4e6868a0800000000000000
+      internalID: -6311673609180720450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_38
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 59
+        width: 196
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5c702747eb9acac0800000000000000
+      internalID: -3834080715119494053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_39
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 164
+        width: 119
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f86c1eec437aca80800000000000000
+      internalID: -8445811376930395920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_40
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 59
+        width: 182
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1b8849e8800bd400800000000000000
+      internalID: 349873984080743198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_41
+      rect:
+        serializedVersion: 2
+        x: 1001
+        y: 164
+        width: 119
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 754dec68ec4238e70800000000000000
+      internalID: 9116170540171580503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_42
+      rect:
+        serializedVersion: 2
+        x: 1076
+        y: 59
+        width: 182
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 004ad561467ad1a90800000000000000
+      internalID: -7341527769230236672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_43
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 16
+        width: 99
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d3da451ab50a20e0800000000000000
+      internalID: -2294014763412565033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_44
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 16
+        width: 99
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad3c08a3eebeca060800000000000000
+      internalID: 6966202132051575770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_45
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 16
+        width: 99
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e5e1686150d61250800000000000000
+      internalID: 5915144208659899881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R_Analog_Spritesheet_46
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 16
+        width: 99
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3956ea9d786909480800000000000000
+      internalID: -8894443753839893101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      R_Analog_Spritesheet_0: -1894124241342091489
+      R_Analog_Spritesheet_1: 8874781693038345585
+      R_Analog_Spritesheet_10: -4126968117142978342
+      R_Analog_Spritesheet_11: 8137980405526487241
+      R_Analog_Spritesheet_12: -4773292464114144232
+      R_Analog_Spritesheet_13: 6437632176475466761
+      R_Analog_Spritesheet_14: 845838175818685690
+      R_Analog_Spritesheet_15: 7213828029843704243
+      R_Analog_Spritesheet_16: 3331823126860777220
+      R_Analog_Spritesheet_17: 6129720785513969637
+      R_Analog_Spritesheet_18: 397242877075197797
+      R_Analog_Spritesheet_19: 5655066663342380809
+      R_Analog_Spritesheet_2: -5953613489809399010
+      R_Analog_Spritesheet_20: 2816494500201218640
+      R_Analog_Spritesheet_21: -3820364795317571255
+      R_Analog_Spritesheet_22: 4062185530162353214
+      R_Analog_Spritesheet_23: -178486999838737939
+      R_Analog_Spritesheet_24: -8236119880890931197
+      R_Analog_Spritesheet_25: 1707251529666877211
+      R_Analog_Spritesheet_26: -2394563616787041879
+      R_Analog_Spritesheet_27: 5136951019466349137
+      R_Analog_Spritesheet_28: 6754661939410366551
+      R_Analog_Spritesheet_29: 1334337963559485524
+      R_Analog_Spritesheet_3: -3724245871147217721
+      R_Analog_Spritesheet_30: -7407653446530917669
+      R_Analog_Spritesheet_31: -3751671076942201860
+      R_Analog_Spritesheet_32: -8359307187113035243
+      R_Analog_Spritesheet_33: 105062428096026536
+      R_Analog_Spritesheet_34: -3539788917119957587
+      R_Analog_Spritesheet_35: 5960016454757095355
+      R_Analog_Spritesheet_36: 4186179847485515033
+      R_Analog_Spritesheet_37: -6311673609180720450
+      R_Analog_Spritesheet_38: -3834080715119494053
+      R_Analog_Spritesheet_39: -8445811376930395920
+      R_Analog_Spritesheet_4: 4747662390239148782
+      R_Analog_Spritesheet_40: 349873984080743198
+      R_Analog_Spritesheet_41: 9116170540171580503
+      R_Analog_Spritesheet_42: -7341527769230236672
+      R_Analog_Spritesheet_43: -2294014763412565033
+      R_Analog_Spritesheet_44: 6966202132051575770
+      R_Analog_Spritesheet_45: 5915144208659899881
+      R_Analog_Spritesheet_46: -8894443753839893101
+      R_Analog_Spritesheet_5: -6531992029349959005
+      R_Analog_Spritesheet_6: 7808910019001812319
+      R_Analog_Spritesheet_7: -3169269208774735100
+      R_Analog_Spritesheet_8: 7205908388349049954
+      R_Analog_Spritesheet_9: -2872357662088717945
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
