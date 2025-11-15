@@ -85,14 +85,14 @@ namespace Madduck.Fishing.Controller
         {
             var disposableBuilder = Disposable.CreateBuilder();
             Observable.EveryUpdate(UnityFrameProvider.Update)
-                .Where(_ => _inputHandler.CurrentControlScheme == "Mouse & Keyboard")
+                .Where(_ => _inputHandler.CurrentControlScheme.CurrentValue == "Mouse & Keyboard")
                 .Subscribe(_ =>
                 {
                     OnRotate(_inputHandler.MouseUnitCircle.CurrentValue, false);
                 })
                 .AddTo(ref disposableBuilder);
             Observable.EveryUpdate(UnityFrameProvider.Update)
-                .Where(_ => _inputHandler.CurrentControlScheme == "Gamepad")
+                .Where(_ => _inputHandler.CurrentControlScheme.CurrentValue == "Gamepad")
                 .Subscribe(_ =>
                 {
                     OnRotate(_inputHandler.RightStickDelta.CurrentValue, true);

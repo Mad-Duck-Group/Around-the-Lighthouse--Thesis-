@@ -34,7 +34,7 @@ namespace Madduck.Input
         public InputButton ConfirmBaitButton { get; }
         #endregion
         
-        public string CurrentControlScheme { get; }
+        public ReadOnlyReactiveProperty<string> CurrentControlScheme { get; }
         
         void SetActiveInput(bool active);
     }
@@ -57,7 +57,7 @@ namespace Madduck.Input
         public InputButton PauseGameButton { get; set; }
         public InputButton BaitButton { get; set; }
         public InputButton ConfirmBaitButton { get; set; }
-        public string CurrentControlScheme { get; set; }
+        public ReadOnlyReactiveProperty<string> CurrentControlScheme { get; set; }
         public void SetActiveInput(bool active){}
         
     }

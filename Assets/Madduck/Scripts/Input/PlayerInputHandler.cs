@@ -51,7 +51,7 @@ namespace Madduck.Input
             get
             {
                 return _playerInputAction.Player.JerkBait.bindings
-                    .Where(x => x.groups.Contains(_currentControlScheme))
+                    .Where(x => x.groups.Contains(_currentControlScheme.CurrentValue))
                     .ToArray();
             }
         }
@@ -70,14 +70,14 @@ namespace Madduck.Input
                 ShowInInspector] public InputButton PauseGameButton { get; private set; }
 
         #endregion
-        [ReadOnly, ShowInInspector] public string CurrentControlScheme => _currentControlScheme;
+        [ReadOnly, ShowInInspector] public ReadOnlyReactiveProperty<string> CurrentControlScheme { get; private set; }
 
         #endregion
 
         #region Fields
 
         private PlayerInputAction _playerInputAction;
-        private string _currentControlScheme = "Mouse & Keyboard";
+        private ReactiveProperty<string> _currentControlScheme = new("Mouse & Keyboard");
         private IDisposable _anyButtonPressListener;
 
         #endregion
@@ -139,17 +139,17 @@ namespace Madduck.Input
             {
                 case Mouse:
                 case Keyboard:
-                    _currentControlScheme = "Mouse & Keyboard";
+                    _currentControlScheme.Value = "Mouse & Keyboard";
                     break;
                 case Gamepad:
-                    _currentControlScheme = "Gamepad";
+                    _currentControlScheme.Value  = "Gamepad";
                     break;
                 case Touchscreen:
-                    _currentControlScheme = "Touchscreen";
+                    _currentControlScheme.Value  = "Touchscreen";
                     break;
                 default:
                     Debug.LogWarning("Unknown control scheme detected. Fallback to Mouse & Keyboard.");
-                    _currentControlScheme = "Mouse & Keyboard";
+                    _currentControlScheme.Value  = "Mouse & Keyboard";
                     break;
             }
             AnyButtonPressed.Value = true;

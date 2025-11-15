@@ -15,8 +15,9 @@ namespace Madduck.GameData
         Bait,
         Resource,
     }
+    
     [ShowOdinSerializedPropertiesInInspector]
-    public abstract class ItemData : ScriptableObject, ISerializationCallbackReceiver, ISupportsPrefabSerialization
+    public abstract class ItemData : SerializedScriptableObject
     {
         [Title("Base Settings"), 
          HideLabel,
@@ -26,26 +27,5 @@ namespace Madduck.GameData
         // [field: SerializeField] public bool IsStackable { get; private set; }
         // [field: ShowIf(nameof(IsStackable)), 
         //         SerializeField] public uint MaxStackSize { get; private set; } = 2;
-        
-        #region Serialization
-        [SerializeField, HideInInspector]
-        private SerializationData serializationData;
-
-        SerializationData ISupportsPrefabSerialization.SerializationData 
-        { 
-            get => serializationData;
-            set => serializationData = value;
-        }
-
-        void ISerializationCallbackReceiver.OnAfterDeserialize()
-        {
-            UnitySerializationUtility.DeserializeUnityObject(this, ref serializationData);
-        }
-
-        void ISerializationCallbackReceiver.OnBeforeSerialize()
-        {
-            UnitySerializationUtility.SerializeUnityObject(this, ref serializationData);
-        }
-        #endregion
     }
 }
