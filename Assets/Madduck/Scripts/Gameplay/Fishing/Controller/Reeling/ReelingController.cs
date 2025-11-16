@@ -96,6 +96,7 @@ namespace Madduck.Fishing.Controller
                 .Subscribe(_ =>
                 {
                     OnRotate(_inputHandler.RightStickDelta.CurrentValue, true);
+                    
                 })
                 .AddTo(ref disposableBuilder);
             _model.HookPositionXPercent

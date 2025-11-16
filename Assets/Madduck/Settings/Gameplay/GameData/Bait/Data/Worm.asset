@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1dfd96b8ccd6a4b832bde6a9af841d, type: 3}
   m_Name: Worm
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.BaitItemData
-  <ItemType>k__BackingField: 4
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -81,8 +80,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  <ItemType>k__BackingField: 4
   <BaitType>k__BackingField: 2
   <BaitName>k__BackingField: Worm
   <BaitDescription>k__BackingField: A worm smiling at you warmly, knowing that this
     will be its last day...
-  <BaitIcon>k__BackingField: {fileID: 21300000, guid: 025cd5e75fbbda04b85396e14942b4e6, type: 3}
+  <BaitIcon>k__BackingField: {fileID: -3112340867723947499, guid: 66d14f55725c750438d3f6db3a70e873, type: 3}
+  <BaitSelectedIcon>k__BackingField: {fileID: -6539044821704079259, guid: 94626c1366d8e774ab47bb2c322b1287, type: 3}

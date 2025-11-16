@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace Madduck.Shared
 {
     [Flags]
@@ -7,11 +6,45 @@ namespace Madduck.Shared
     {
         Day = 1 << 0,
         Night = 1 << 1,
-        Both = Day | Night
+        
+        Both = Day | Night 
     }
     
-    
+    public enum RoomHistoryState {
+        Past,
+        Future     
+    }
 
+    public enum SelectionIcon
+    {
+        Unselected,
+        Selected,
+    }
+    public enum UITriggerType
+    {
+        Show,
+        Hide
+    }
+    public enum InputIconType
+    {
+        X,
+        A,
+        B,
+        Y,
+        Lb,
+        Rb,
+        Lt,
+        Rt,
+        AnalogLeft,
+        AnalogRight,
+        Dpad,
+    }
+    public enum InputControllerDevice
+    {
+        MouseKeyboard,
+        Gamepad,
+        Touch
+    }
     public enum WindDirection
     {
         Left,

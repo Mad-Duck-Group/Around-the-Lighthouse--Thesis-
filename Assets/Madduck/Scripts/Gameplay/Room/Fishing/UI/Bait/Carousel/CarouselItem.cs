@@ -35,7 +35,8 @@ namespace HasanSadikin.Carousel
             if (value) OnActivated();
             else OnDeactivated();
         }
-
+        
+        public virtual void SetSelected(bool isSelected) { }
         protected virtual void OnActivated() { }
         protected virtual void OnDeactivated() { }
     }

@@ -30,7 +30,8 @@ namespace Madduck.GameData
 
         [field: ReadOnly,
                 ShowInInspector] private SerializableReactiveProperty<BaitItemInstance> CurrentBait { get; } = new();
-        
+         private readonly ObservableDictionary<BaitType, BaitItemInstance> _allBaits = new();
+        public IReadOnlyDictionary<BaitType, BaitItemInstance> AllBaits => _allBaits;
         #endregion
         
         #region Properties
@@ -155,7 +156,9 @@ namespace Madduck.GameData
                 _currentCards.AddRange(_config.StartingCards.Select(x => new CardItemInstance(x)));
                 foreach (var bait in _config.StartingBaits)
                 {
-                    _currentBaits.Add(bait.Key, new BaitItemInstance(bait.Value.ItemData, bait.Value.Count));
+                    var instance = new BaitItemInstance(bait.Value.ItemData, bait.Value.Count);
+                    _currentBaits.Add(bait.Key, instance);
+                    _allBaits.Add(bait.Key, instance); 
                 }
             }
             foreach (var bait in previousBaits)
@@ -190,6 +193,7 @@ namespace Madduck.GameData
             CurrentBait.Value.ChangeCurrentCount(change);
             if (CurrentBait.Value.CurrentCount == 0) 
                 SetCurrentBait(BaitType.None);
+            _allBaits[CurrentBait.Value.ItemData.BaitType].ChangeCurrentCount(change);
         }
         public BaitItemInstance GetNextBait()
         {

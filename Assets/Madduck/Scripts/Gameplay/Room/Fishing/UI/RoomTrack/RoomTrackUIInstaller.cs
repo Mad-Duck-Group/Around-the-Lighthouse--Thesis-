@@ -13,21 +13,23 @@ namespace Madduck.Room
     public class RoomTrackUIInstaller : IInstaller
     {
         [Title("Room Track")]
-        [Required,
-         SerializeField] private SerializableDictionary<DayRoomKey, Sprite> sprites;
+        
         [Required,
          SerializeField] private RoomTrackFactory roomTrackFactory;
         [Required,
          SerializeField] private BoatTrackViewFactory boatTrackViewFactory;
+        [Required,
+         SerializeField] private DayRoomSpriteConfig dayRoomSpriteConfig;
 
         public void Install(IContainerBuilder builder)
         {
-            builder.Register(_ => sprites, Lifetime.Scoped)
-                .As<SerializableDictionary<DayRoomKey, Sprite>>();
+            
             builder.Register(_ => roomTrackFactory, Lifetime.Singleton)
                 .As<IFactory<RoomTrackView>>();
+            
             builder.Register(_ => boatTrackViewFactory, Lifetime.Singleton)
                 .As<IFactory<BoatTrackView>>();
+            builder.RegisterInstance(dayRoomSpriteConfig).AsSelf();
             builder.Register<RoomTrackViewModel>(Lifetime.Singleton);
             builder.Register<RoomTrackColumnViewModel>(Lifetime.Singleton);
             builder.RegisterBuildCallback(x =>
