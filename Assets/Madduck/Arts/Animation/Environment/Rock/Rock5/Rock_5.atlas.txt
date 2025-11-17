@@ -1,0 +1,48 @@
+
+Rock_5.png
+size: 658,130
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+L_Rock copy
+  rotate: false
+  xy: 2, 2
+  size: 505, 126
+  orig: 507, 128
+  offset: 1, 1
+  index: -1
+wood_1
+  rotate: false
+  xy: 580, 9
+  size: 19, 119
+  orig: 21, 122
+  offset: 1, 1
+  index: -1
+wood_1 copy
+  rotate: false
+  xy: 580, 9
+  size: 19, 119
+  orig: 21, 122
+  offset: 1, 1
+  index: -1
+wood_2 copy
+  rotate: false
+  xy: 601, 32
+  size: 30, 96
+  orig: 32, 99
+  offset: 1, 1
+  index: -1
+wood_Rope_1
+  rotate: false
+  xy: 633, 43
+  size: 23, 85
+  orig: 25, 88
+  offset: 1, 1
+  index: -1
+wood_Rope_3 copy
+  rotate: false
+  xy: 509, 9
+  size: 69, 119
+  orig: 71, 121
+  offset: 1, 1
+  index: -1

@@ -826,8 +826,8 @@ MonoBehaviour:
   spoofWeather: 0
   spoofMaxFishCount: 1
   serializationData:
-    SerializedFormat: 0
-    SerializedBytes: 01010c0000007500690049006e007300740061006c006c006500720073002f000000000156000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004c00690073007400600031005b005b00560043006f006e007400610069006e00650072002e0055006e006900740079002e00490049006e007300740061006c006c00650072002c002000560043006f006e007400610069006e00650072005d005d002c0020006d00730063006f0072006c006900620000000000060800000000000000022f0100000001330000004d00610064006400750063006b002e005500740069006c0073002e004d006f00640061006c004d0061006e00610067006500720049006e007300740061006c006c00650072002c0020004d00610064006400750063006b002e005300680061007200650064000100000005022f02000000012d0000004d00610064006400750063006b002e0052006f006f006d002e0057006500610074006800650072005500490049006e007300740061006c006c00650072002c0020004d00610064006400750063006b002e0052006f006f006d00020000000b010e000000770065006100740068006500720048005500440056006900650077000000000001010c0000007700650061007400680065007200490063006f006e0073002f0300000001940000004d00610064006400750063006b002e005500740069006c0073002e00530065007200690061006c0069007a00610062006c006500440069006300740069006f006e00610072007900600032005b005b004d00610064006400750063006b002e00470061006d00650044006100740061002e00570065006100740068006500720054007900700065002c0020004d00610064006400750063006b002e00470061006d00650044006100740061005d002c005b0055006e0069007400790045006e00670069006e0065002e005300700072006900740065002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065005d005d002c0020004d00610064006400750063006b002e005500740069006c00730003000000060300000000000000042f040000000192000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004b0065007900560061006c00750065005000610069007200600032005b005b004d00610064006400750063006b002e00470061006d00650044006100740061002e00570065006100740068006500720054007900700065002c0020004d00610064006400750063006b002e00470061006d00650044006100740061005d002c005b0055006e0069007400790045006e00670069006e0065002e005300700072006900740065002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065005d005d002c0020006d00730063006f0072006c00690062001e01000000000000000c01000000050430040000001e02000000000000000c02000000050430040000001e04000000000000000c0200000005070505022f05000000012a0000004d00610064006400750063006b002e0052006f006f006d002e0042006100690074005500490049006e007300740061006c006c00650072002c0020004d00610064006400750063006b002e0052006f006f006d0004000000010115000000620061006900740042007500740074006f006e00560069006500770046006100630074006f00720079002f0600000001300000004d00610064006400750063006b002e0052006f006f006d002e00420061006900740042007500740074006f006e00560069006500770046006100630074006f00720079002c0020004d00610064006400750063006b002e0052006f006f006d00050000000b0111000000620061006900740042007500740074006f006e00730050006100720065006e007400030000000b010d00000074006f006f006c00740069007000430061006e00760061007300040000000b0114000000620061006900740042007500740074006f006e005600690065007700500072006500660061006200050000000b010d00000074006f006f006c0074006900700050006100720065006e00740006000000050b01130000005f006300610072006f007500730065006c0043006f006e00740072006f006c006c0065007200070000000b0113000000750069004200650066006f007200650054007200690067006700650072004200610069007400080000000b01120000007500690041006600740065007200540072006900670067006500720042006100690074000900000005022f07000000012a0000004d00610064006400750063006b002e0052006f006f006d002e0043006100720064005500490049006e007300740061006c006c00650072002c0020004d00610064006400750063006b002e0052006f006f006d000600000001010f0000006300610072006400560069006500770046006100630074006f00720079002f08000000012a0000004d00610064006400750063006b002e0052006f006f006d002e004300610072006400560069006500770046006100630074006f00720079002c0020004d00610064006400750063006b002e0052006f006f006d00070000000b010e000000630061007200640056006900650077005000720065006600610062000a0000000b010600000070006100720065006e0074000b0000000b010d00000074006f006f006c00740069007000430061006e00760061007300040000000b010d00000074006f006f006c0074006900700050006100720065006e007400060000000505022f09000000012f0000004d00610064006400750063006b002e0052006f006f006d002e00460069007300680043006f0075006e0074005500490049006e007300740061006c006c00650072002c0020004d00610064006400750063006b002e0052006f006f006d00080000000b010d000000660069007300680043006f0075006e00740056006900650077000c00000005022f0a00000001310000004d00610064006400750063006b002e0052006f006f006d002e0046006900730068004900740065006d0050006f0070005500700049006e007300740061006c006c00650072002c0020004d00610064006400750063006b002e0052006f006f006d00090000000101150000005f0066006900730068004900740065006d0050006f0070005500700046006100630074006f00720079002f0b00000001370000004d00610064006400750063006b002e00470061006d00650044006100740061002e0046006900730068004900740065006d0050006f0070005500700046006100630074006f00720079002c0020004d00610064006400750063006b002e00470061006d00650044006100740061000a0000000b010b00000070006f0070005500700050006100720065006e0074000d0000000b011c0000003c0050006f00700055007000430061006e007600610073003e006b005f005f004200610063006b0069006e0067004600690065006c0064000e0000002b010a0000007000720065006600610062004d006f0064006500012d010900000070006f0070005500700056006900650077000b010f00000070006f0070005500700056006900650077005000720065006600610062000f0000000505022f0c000000012f0000004d00610064006400750063006b002e0052006f006f006d002e0052006f006f006d0054007200610063006b005500490049006e007300740061006c006c00650072002c0020004d00610064006400750063006b002e0052006f006f006d000b00000001010700000073007000720069007400650073002f0d00000001890000004d00610064006400750063006b002e005500740069006c0073002e00530065007200690061006c0069007a00610062006c006500440069006300740069006f006e00610072007900600032005b005b004d00610064006400750063006b002e004400610079002e0044006100790052006f006f006d004b00650079002c0020004d00610064006400750063006b002e004400610079005d002c005b0055006e0069007400790045006e00670069006e0065002e005300700072006900740065002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065005d005d002c0020004d00610064006400750063006b002e005500740069006c0073000c000000060300000000000000042f0e0000000187000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004b0065007900560061006c00750065005000610069007200600032005b005b004d00610064006400750063006b002e004400610079002e0044006100790052006f006f006d004b00650079002c0020004d00610064006400750063006b002e004400610079005d002c005b0055006e0069007400790045006e00670069006e0065002e005300700072006900740065002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065005d005d002c0020006d00730063006f0072006c0069006200042f0f00000001230000004d00610064006400750063006b002e004400610079002e0044006100790052006f006f006d004b00650079002c0020004d00610064006400750063006b002e004400610079001d01080000006400610079005000680061007300650001000000000000001d010400000072006f006f006d000000000000000000050c100000000504300e00000004300f0000001d01080000006400610079005000680061007300650002000000000000001d010400000072006f006f006d000000000000000000050c110000000504300e00000004300f0000001d01080000006400610079005000680061007300650003000000000000001d010400000072006f006f006d000300000000000000050c1200000005070501011000000072006f006f006d0054007200610063006b0046006100630074006f00720079002f10000000012b0000004d00610064006400750063006b002e0052006f006f006d002e0052006f006f006d0054007200610063006b0046006100630074006f00720079002c0020004d00610064006400750063006b002e0052006f006f006d000d0000000b0106000000700072006500660061006200130000000b010600000070006100720065006e007400140000000501011400000062006f006100740054007200610063006b00560069006500770046006100630074006f00720079002f11000000012f0000004d00610064006400750063006b002e0052006f006f006d002e0042006f006100740054007200610063006b00560069006500770046006100630074006f00720079002c0020004d00610064006400750063006b002e0052006f006f006d000e0000000b0106000000700072006500660061006200150000000b010600000070006100720065006e007400160000000b0111000000640065006600610075006c00740042006f0061007400530070007200690074006500170000000505022f1200000001310000004d00610064006400750063006b002e0052006f006f006d002e004300610072006400530065006c0065006300740069006f006e0049006e007300740061006c006c00650072002c0020004d00610064006400750063006b002e0052006f006f006d000f0000000b01170000006300610072006400530065006c0065006300740069006f006e00530063007200650065006e005600690065007700180000000101140000006300610072006400530065006c0065006300740069006f006e0046006100630074006f00720079002f13000000012f0000004d00610064006400750063006b002e0052006f006f006d002e004300610072006400530065006c0065006300740069006f006e0046006100630074006f00720079002c0020004d00610064006400750063006b002e0052006f006f006d00100000000b0106000000700072006500660061006200190000000b010600000070006100720065006e0074001a00000005050705010112000000770065006100740068006500720046006100630074006f00720079004d006f0063006b002f1400000001350000004d00610064006400750063006b002e00470061006d00650044006100740061002e00570065006100740068006500720046006100630074006f00720079004d006f0063006b002c0020004d00610064006400750063006b002e00470061006d0065004400610074006100110000000b010c0000006600690078006500640057006500610074006800650072001b0000002b010e000000730070006f006f00660044006900720065006300740069006f006e00011d011200000066006900780065006400570069006e00640044006900720065006300740069006f006e0002000000000000002b010d000000730070006f006f00660053007400720065006e00670074006800011d011100000066006900780065006400570069006e00640053007400720065006e006700740068000300000000000000050101170000006d0061007800460069007300680043006f0075006e00740046006100630074006f00720079004d006f0063006b002f15000000013a0000004d00610064006400750063006b002e00470061006d00650044006100740061002e004d0061007800460069007300680043006f0075006e00740046006100630074006f00720079004d006f0063006b002c0020004d00610064006400750063006b002e00470061006d006500440061007400610012000000190111000000660069007800650064004d0061007800460069007300680043006f0075006e0074000100000005
+    SerializedFormat: 2
+    SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 638901543}
     - {fileID: 21300000, guid: bc4a16ba7d4f553428b56bb0c2c7b81b, type: 3}
@@ -861,7 +861,343 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: uiInstallers
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[VContainer.Unity.IInstaller, VContainer]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 8
+    - Name: 
+      Entry: 7
+      Data: 1|Madduck.Utils.ModalManagerInstaller, Madduck.Shared
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|Madduck.Room.WeatherUIInstaller, Madduck.Room
+    - Name: weatherHUDView
+      Entry: 10
+      Data: 0
+    - Name: weatherIcons
+      Entry: 7
+      Data: 3|Madduck.Utils.SerializableDictionary`2[[Madduck.GameData.WeatherType,
+        Madduck.GameData],[UnityEngine.Sprite, UnityEngine.CoreModule]], Madduck.Utils
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WeatherType,
+        Madduck.GameData],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WeatherType,
+        Madduck.GameData],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.GameData.WeatherType,
+        Madduck.GameData],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|Madduck.Room.BaitUIInstaller, Madduck.Room
+    - Name: baitButtonViewFactory
+      Entry: 7
+      Data: 5|Madduck.Room.BaitButtonViewFactory, Madduck.Room
+    - Name: baitButtonsParent
+      Entry: 10
+      Data: 3
+    - Name: tooltipCanvas
+      Entry: 10
+      Data: 4
+    - Name: baitButtonViewPrefab
+      Entry: 10
+      Data: 5
+    - Name: tooltipParent
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _carouselController
+      Entry: 10
+      Data: 7
+    - Name: uiBeforeTriggerBait
+      Entry: 10
+      Data: 8
+    - Name: uiAfterTriggerBait
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|Madduck.Room.CardUIInstaller, Madduck.Room
+    - Name: cardViewFactory
+      Entry: 7
+      Data: 7|Madduck.Room.CardViewFactory, Madduck.Room
+    - Name: cardViewPrefab
+      Entry: 10
+      Data: 10
+    - Name: parent
+      Entry: 10
+      Data: 11
+    - Name: tooltipCanvas
+      Entry: 10
+      Data: 4
+    - Name: tooltipParent
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 8|Madduck.Room.FishCountUIInstaller, Madduck.Room
+    - Name: fishCountView
+      Entry: 10
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|Madduck.Room.FishItemPopUpInstaller, Madduck.Room
+    - Name: _fishItemPopUpFactory
+      Entry: 7
+      Data: 10|Madduck.GameData.FishItemPopUpFactory, Madduck.GameData
+    - Name: popUpParent
+      Entry: 10
+      Data: 13
+    - Name: <PopUpCanvas>k__BackingField
+      Entry: 10
+      Data: 14
+    - Name: prefabMode
+      Entry: 5
+      Data: true
+    - Name: popUpView
+      Entry: 6
+      Data: 
+    - Name: popUpViewPrefab
+      Entry: 10
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|Madduck.Room.RoomTrackUIInstaller, Madduck.Room
+    - Name: sprites
+      Entry: 7
+      Data: 12|Madduck.Utils.SerializableDictionary`2[[Madduck.Day.DayRoomKey, Madduck.Day],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], Madduck.Utils
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 7
+      Data: Madduck.Day.DayRoomKey, Madduck.Day
+    - Name: dayPhase
+      Entry: 3
+      Data: 1
+    - Name: room
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 10
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 7
+      Data: Madduck.Day.DayRoomKey, Madduck.Day
+    - Name: dayPhase
+      Entry: 3
+      Data: 2
+    - Name: room
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 10
+      Data: 17
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 7
+      Data: Madduck.Day.DayRoomKey, Madduck.Day
+    - Name: dayPhase
+      Entry: 3
+      Data: 3
+    - Name: room
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 10
+      Data: 18
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: roomTrackFactory
+      Entry: 7
+      Data: 13|Madduck.Room.RoomTrackFactory, Madduck.Room
+    - Name: prefab
+      Entry: 10
+      Data: 19
+    - Name: parent
+      Entry: 10
+      Data: 20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: boatTrackViewFactory
+      Entry: 7
+      Data: 14|Madduck.Room.BoatTrackViewFactory, Madduck.Room
+    - Name: prefab
+      Entry: 10
+      Data: 21
+    - Name: parent
+      Entry: 10
+      Data: 22
+    - Name: defaultBoatSprite
+      Entry: 10
+      Data: 23
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 15|Madduck.Room.CardSelectionInstaller, Madduck.Room
+    - Name: cardSelectionScreenView
+      Entry: 10
+      Data: 24
+    - Name: cardSelectionFactory
+      Entry: 7
+      Data: 16|Madduck.Room.CardSelectionFactory, Madduck.Room
+    - Name: prefab
+      Entry: 10
+      Data: 25
+    - Name: parent
+      Entry: 10
+      Data: 26
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: weatherFactoryMock
+      Entry: 7
+      Data: 17|Madduck.GameData.WeatherFactoryMock, Madduck.GameData
+    - Name: fixedWeather
+      Entry: 10
+      Data: 27
+    - Name: spoofDirection
+      Entry: 5
+      Data: true
+    - Name: fixedWindDirection
+      Entry: 3
+      Data: 2
+    - Name: spoofStrength
+      Entry: 5
+      Data: true
+    - Name: fixedWindStrength
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: maxFishCountFactoryMock
+      Entry: 7
+      Data: 18|Madduck.GameData.MaxFishCountFactoryMock, Madduck.GameData
+    - Name: fixedMaxFishCount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!1 &166110747
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,7 +1324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 1731515871}
+  m_Material: {fileID: 1105049732}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1477,7 +1813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 1953952571}
+  m_Material: {fileID: 1652878035}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -5652,6 +5988,101 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!21 &1105049732
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shapes2D Material
+  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - FILL_SOLID_COLOR
+  - POLYGON_8
+  m_InvalidKeywords:
+  - _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BumpScale: 1
+    - _ColorMask: 15
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _Shapes2D_DstAlpha: 1
+    - _Shapes2D_DstBlend: 10
+    - _Shapes2D_SrcAlpha: 1
+    - _Shapes2D_SrcBlend: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1147610537
 GameObject:
   m_ObjectHideFlags: 0
@@ -5958,8 +6389,8 @@ MonoBehaviour:
   autoInjectGameObjects: []
   spoofFish: 0
   serializationData:
-    SerializedFormat: 0
-    SerializedBytes: 010116000000660069007300680069006e0067005300740061007400650049006e007300740061006c006c006500720073002f000000000156000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004c00690073007400600031005b005b00560043006f006e007400610069006e00650072002e0055006e006900740079002e00490049006e007300740061006c006c00650072002c002000560043006f006e007400610069006e00650072005d005d002c0020006d00730063006f0072006c006900620000000000060600000000000000022f01000000013a0000004d00610064006400750063006b002e00460069007300680069006e0067002e00440049002e005400680072006f00770048006f006f006b004c00690066006500740069006d006500530063006f00700065002c0020004d00610064006400750063006b002e00460069007300680069006e006700010000000b010f0000007400680072006f00770048006f006f006b0043006f006e00660069006700000000000b010d0000007400680072006f00770048006f006f006b0056006900650077000100000005022f0200000001370000004d00610064006400750063006b002e00460069007300680069006e0067002e00440049002e004e006900620062006c0065004c00690066006500740069006d006500530063006f00700065002c0020004d00610064006400750063006b002e00460069007300680069006e006700020000000b010a0000006e006900620062006c0065005600690065007700020000000b010c0000006e006900620062006c00650043006f006e0066006900670003000000010112000000710074006500530065007100750065006e006300650046006100630074006f00720079002f0300000001310000004d00610064006400750063006b002e005300680061007200650064002e00510074006500530065007100750065006e006300650046006100630074006f00720079002c0020004d00610064006400750063006b002e00530068006100720065006400030000000b010600000063006f006e00660069006700040000000b010a0000007600690065007700500072006500660061006200050000000b010600000070006100720065006e0074000600000001010d00000062007500740074006f006e0046006100630074006f00720079002f04000000012f0000004d00610064006400750063006b002e005300680061007200650064002e0051007400650042007500740074006f006e0046006100630074006f00720079002c0020004d00610064006400750063006b002e00530068006100720065006400040000000b010600000063006f006e00660069006700070000000b010a0000007600690065007700500072006500660061006200080000002d010600000070006100720065006e007400050505022f05000000013d0000004d00610064006400750063006b002e00460069007300680069006e0067002e00440049002e00460069007300680069006e00670042006f006100720064004c00690066006500740069006d006500530063006f00700065002c0020004d00610064006400750063006b002e00460069007300680069006e006700050000000b01120000006200650068006100760069006f007200470072006100700068004100670065006e007400090000000b0110000000660069007300680069006e00670042006f0061007200640056006900650077000a0000000b0112000000660069007300680069006e00670042006f0061007200640043006f006e006600690067000b00000005022f0600000001380000004d00610064006400750063006b002e00460069007300680069006e0067002e00440049002e005200650065006c0069006e0067004c00690066006500740069006d006500530063006f00700065002c0020004d00610064006400750063006b002e00460069007300680069006e006700060000000b010b0000007200650065006c0069006e00670056006900650077000c0000000b010d0000007200650065006c0069006e00670043006f006e006600690067000d00000005022f0700000001390000004d00610064006400750063006b002e00460069007300680069006e0067002e00440049002e005400750067004f0066005700610072004c00690066006500740069006d006500530063006f00700065002c0020004d00610064006400750063006b002e00460069007300680069006e006700070000000b010c0000007400750067004f00660057006100720056006900650077000e00000005022f08000000013a0000004d00610064006400750063006b002e00460069007300680069006e0067002e00440049002e004300610074006300680046006900730068004c00690066006500740069006d006500530063006f00700065002c0020004d00610064006400750063006b002e00460069007300680069006e006700080000000b010f00000063006100740063006800460069007300680043006f006e006600690067000f00000001011000000071007400650042007500740074006f006e0046006100630074006f00720079003004000000090000000b010600000063006f006e00660069006700070000000b010a0000007600690065007700500072006500660061006200080000000b010600000070006100720065006e007400100000000505070501011500000068006f006f006b00500072006f006a0065006300740069006c00650046006100630074006f00720079002f09000000013d0000004d00610064006400750063006b002e00460069007300680069006e0067002e005300680061007200650064002e0048006f006f006b00500072006f006a0065006300740069006c00650046006100630074006f00720079002c0020004d00610064006400750063006b002e00460069007300680069006e0067000a0000000b0106000000700072006500660061006200110000000b010600000070006100720065006e007400120000000b010c0000006c0061006e00640069006e00670050006f0069006e0074001300000005010111000000660069007300680053007000720069007400650046006100630074006f00720079002f0a00000001390000004d00610064006400750063006b002e00460069007300680069006e0067002e005300680061007200650064002e00460069007300680053007000720069007400650046006100630074006f00720079002c0020004d00610064006400750063006b002e00460069007300680069006e0067000b0000000b0106000000700072006500660061006200140000000501010f0000006600690073006800450079006500730046006100630074006f00720079002f0b00000001370000004d00610064006400750063006b002e00460069007300680069006e0067002e005300680061007200650064002e004600690073006800450079006500730046006100630074006f00720079002c0020004d00610064006400750063006b002e00460069007300680069006e0067000c0000000b0106000000700072006500660061006200150000000501010f000000660069007300680046006100630074006f00720079004d006f0063006b002f0c00000001320000004d00610064006400750063006b002e00470061006d00650044006100740061002e00460069007300680046006100630074006f00720079004d006f0063006b002c0020004d00610064006400750063006b002e00470061006d00650044006100740061000d0000000b010c0000007400650073007400460069007300680044006100740061001600000005
+    SerializedFormat: 2
+    SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: e7748b66ef7a6e948a33e652f3b7cd71, type: 2}
     - {fileID: 1696129434}
@@ -5988,7 +6419,176 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: fishingStateInstallers
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[VContainer.Unity.IInstaller, VContainer]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 7
+      Data: 1|Madduck.Fishing.DI.ThrowHookLifetimeScope, Madduck.Fishing
+    - Name: throwHookConfig
+      Entry: 10
+      Data: 0
+    - Name: throwHookView
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|Madduck.Fishing.DI.NibbleLifetimeScope, Madduck.Fishing
+    - Name: nibbleView
+      Entry: 10
+      Data: 2
+    - Name: nibbleConfig
+      Entry: 10
+      Data: 3
+    - Name: qteSequenceFactory
+      Entry: 7
+      Data: 3|Madduck.Shared.QteSequenceFactory, Madduck.Shared
+    - Name: config
+      Entry: 10
+      Data: 4
+    - Name: viewPrefab
+      Entry: 10
+      Data: 5
+    - Name: parent
+      Entry: 10
+      Data: 6
+    - Name: buttonFactory
+      Entry: 7
+      Data: 4|Madduck.Shared.QteButtonFactory, Madduck.Shared
+    - Name: config
+      Entry: 10
+      Data: 7
+    - Name: viewPrefab
+      Entry: 10
+      Data: 8
+    - Name: parent
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|Madduck.Fishing.DI.FishingBoardLifetimeScope, Madduck.Fishing
+    - Name: behaviorGraphAgent
+      Entry: 10
+      Data: 9
+    - Name: fishingBoardView
+      Entry: 10
+      Data: 10
+    - Name: fishingBoardConfig
+      Entry: 10
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|Madduck.Fishing.DI.ReelingLifetimeScope, Madduck.Fishing
+    - Name: reelingView
+      Entry: 10
+      Data: 12
+    - Name: reelingConfig
+      Entry: 10
+      Data: 13
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|Madduck.Fishing.DI.TugOfWarLifetimeScope, Madduck.Fishing
+    - Name: tugOfWarView
+      Entry: 10
+      Data: 14
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 8|Madduck.Fishing.DI.CatchFishLifetimeScope, Madduck.Fishing
+    - Name: catchFishConfig
+      Entry: 10
+      Data: 15
+    - Name: qteButtonFactory
+      Entry: 7
+      Data: 9|Madduck.Shared.QteButtonFactory, Madduck.Shared
+    - Name: config
+      Entry: 10
+      Data: 7
+    - Name: viewPrefab
+      Entry: 10
+      Data: 8
+    - Name: parent
+      Entry: 10
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: hookProjectileFactory
+      Entry: 7
+      Data: 10|Madduck.Fishing.Shared.HookProjectileFactory, Madduck.Fishing
+    - Name: prefab
+      Entry: 10
+      Data: 17
+    - Name: parent
+      Entry: 10
+      Data: 18
+    - Name: landingPoint
+      Entry: 10
+      Data: 19
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: fishSpriteFactory
+      Entry: 7
+      Data: 11|Madduck.Fishing.Shared.FishSpriteFactory, Madduck.Fishing
+    - Name: prefab
+      Entry: 10
+      Data: 20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: fishEyesFactory
+      Entry: 7
+      Data: 12|Madduck.Fishing.Shared.FishEyesFactory, Madduck.Fishing
+    - Name: prefab
+      Entry: 10
+      Data: 21
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: fishFactoryMock
+      Entry: 7
+      Data: 13|Madduck.GameData.FishFactoryMock, Madduck.GameData
+    - Name: testFishData
+      Entry: 10
+      Data: 22
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!114 &1243495077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7889,6 +8489,101 @@ MonoBehaviour:
     rgba: 4278190335
   colorLerpSpeed: 2
   offset: {x: 0, y: 35}
+--- !u!21 &1652878035
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shapes2D Material
+  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - FILL_SOLID_COLOR
+  - POLYGON_8
+  m_InvalidKeywords:
+  - _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BumpScale: 1
+    - _ColorMask: 15
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _Shapes2D_DstAlpha: 1
+    - _Shapes2D_DstBlend: 10
+    - _Shapes2D_SrcAlpha: 1
+    - _Shapes2D_SrcBlend: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1661912611
 GameObject:
   m_ObjectHideFlags: 0
@@ -8428,101 +9123,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724515382}
   m_CullTransparentMesh: 1
---- !u!21 &1731515871
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Shapes2D Material
-  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - FILL_SOLID_COLOR
-  - POLYGON_8
-  m_InvalidKeywords:
-  - _EMISSION
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _BumpScale: 1
-    - _ColorMask: 15
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _GlossyReflections: 1
-    - _Metallic: 0
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _Shapes2D_DstAlpha: 1
-    - _Shapes2D_DstBlend: 10
-    - _Shapes2D_SrcAlpha: 1
-    - _Shapes2D_SrcBlend: 1
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UVSec: 0
-    - _ZWrite: 1
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1740710829
 GameObject:
   m_ObjectHideFlags: 0
@@ -9636,101 +10236,6 @@ MonoBehaviour:
   zPosition: 1
   overrideAlpha: 1
   hierarchy: {fileID: 1049064795}
---- !u!21 &1953952571
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Shapes2D Material
-  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - FILL_SOLID_COLOR
-  - POLYGON_8
-  m_InvalidKeywords:
-  - _EMISSION
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _BumpScale: 1
-    - _ColorMask: 15
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _GlossyReflections: 1
-    - _Metallic: 0
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _Shapes2D_DstAlpha: 1
-    - _Shapes2D_DstBlend: 10
-    - _Shapes2D_SrcAlpha: 1
-    - _Shapes2D_SrcBlend: 1
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UVSec: 0
-    - _ZWrite: 1
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1970221127
 GameObject:
   m_ObjectHideFlags: 0

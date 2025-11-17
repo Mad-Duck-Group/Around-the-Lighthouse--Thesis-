@@ -1,0 +1,27 @@
+
+Coast_Sand_Bird_S.png
+size: 290,134
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+L_Bird
+  rotate: false
+  xy: 261, 101
+  size: 27, 31
+  orig: 29, 33
+  offset: 1, 1
+  index: -1
+L_Bird_Shadow_Sand
+  rotate: true
+  xy: 261, 82
+  size: 17, 5
+  orig: 19, 7
+  offset: 1, 1
+  index: -1
+S_Sand_Ori
+  rotate: false
+  xy: 2, 2
+  size: 257, 130
+  orig: 259, 133
+  offset: 1, 1
+  index: -1

@@ -1,0 +1,34 @@
+
+Prop_Sand_L.png
+size: 798,326
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Coconut
+  rotate: true
+  xy: 741, 265
+  size: 59, 55
+  orig: 61, 57
+  offset: 1, 1
+  index: -1
+Layer 1
+  rotate: true
+  xy: 577, 7
+  size: 137, 192
+  orig: 137, 192
+  offset: 0, 0
+  index: -1
+Leaf
+  rotate: false
+  xy: 577, 146
+  size: 162, 178
+  orig: 162, 179
+  offset: 0, 1
+  index: -1
+Sand
+  rotate: false
+  xy: 2, 2
+  size: 573, 322
+  orig: 576, 324
+  offset: 2, 1
+  index: -1

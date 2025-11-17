@@ -1,0 +1,27 @@
+
+Prop_Coast_S.png
+size: 413,347
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Layer 1
+  rotate: false
+  xy: 237, 25
+  size: 174, 106
+  orig: 174, 106
+  offset: 0, 0
+  index: -1
+Leaf
+  rotate: true
+  xy: 237, 133
+  size: 212, 155
+  orig: 213, 159
+  offset: 1, 4
+  index: -1
+Sand
+  rotate: true
+  xy: 2, 2
+  size: 343, 233
+  orig: 346, 237
+  offset: 2, 2
+  index: -1
