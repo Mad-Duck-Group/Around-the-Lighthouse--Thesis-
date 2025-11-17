@@ -1,0 +1,27 @@
+
+Prop_Mud_Plant_M.png
+size: 314,346
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Baby_Mangrove1
+  rotate: false
+  xy: 268, 2
+  size: 33, 156
+  orig: 34, 158
+  offset: 0, 1
+  index: -1
+Baby_Mangrove2
+  rotate: false
+  xy: 268, 160
+  size: 44, 184
+  orig: 45, 185
+  offset: 1, 1
+  index: -1
+M_Mud
+  rotate: true
+  xy: 2, 16
+  size: 328, 264
+  orig: 331, 273
+  offset: 2, 7
+  index: -1

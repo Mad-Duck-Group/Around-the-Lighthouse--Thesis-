@@ -1,0 +1,27 @@
+
+Coast_Coconut3.png
+size: 186,247
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Body
+  rotate: true
+  xy: 2, 133
+  size: 112, 182
+  orig: 112, 182
+  offset: 0, 0
+  index: -1
+Coconut2
+  rotate: true
+  xy: 139, 70
+  size: 61, 45
+  orig: 64, 47
+  offset: 1, 1
+  index: -1
+Leaf
+  rotate: false
+  xy: 2, 2
+  size: 135, 129
+  orig: 135, 129
+  offset: 0, 0
+  index: -1

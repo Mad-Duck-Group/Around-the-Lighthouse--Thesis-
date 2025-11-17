@@ -1,0 +1,76 @@
+{
+"skeleton": {
+	"hash": "WaKRzuUHzoOcb+S5T/ROp5R8TZ4",
+	"spine": "3.8.75",
+	"x": -131,
+	"y": -1.91,
+	"width": 265,
+	"height": 196,
+	"images": "../Environment/CosatRock_Fix/Rock/3/images/",
+	"audio": "../Environment/CosatRock_Fix/Rock/3/"
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "bone", "parent": "root", "length": 107.43, "rotation": 91.12, "x": 62.91, "y": 53.78 },
+	{ "name": "bone2", "parent": "root", "length": 92.5, "rotation": 92.17, "x": -41.69, "y": 94.5 }
+],
+"slots": [
+	{ "name": "S_L_Rock", "bone": "root", "attachment": "S_L_Rock" },
+	{ "name": "wood_2", "bone": "bone2", "attachment": "wood_2" },
+	{ "name": "Wood_Rope_Bird_3", "bone": "bone", "attachment": "Wood_Rope_Bird_3" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"S_L_Rock": {
+				"S_L_Rock": { "x": 1.5, "y": 69.09, "width": 265, "height": 142 }
+			},
+			"wood_2": {
+				"wood_2": { "x": 46.11, "y": -0.44, "rotation": -92.17, "width": 32, "height": 99 }
+			},
+			"Wood_Rope_Bird_3": {
+				"Wood_Rope_Bird_3": { "x": 67.19, "y": -6.41, "rotation": -91.12, "width": 72, "height": 146 }
+			}
+		}
+	}
+],
+"animations": {
+	"Rock_3_Bird_Storm": {
+		"bones": {
+			"bone": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 2, "angle": -2.04, "curve": 0.25, "c3": 0.75 },
+					{ "time": 4 }
+				]
+			},
+			"bone2": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 2, "angle": 4.86, "curve": 0.25, "c3": 0.75 },
+					{ "time": 4 }
+				]
+			}
+		}
+	},
+	"Rock_3_Bird_Sway": {
+		"bones": {
+			"bone": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 2, "angle": -2.04, "curve": 0.25, "c3": 0.75 },
+					{ "time": 4 }
+				]
+			},
+			"bone2": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 2, "angle": 4.86, "curve": 0.25, "c3": 0.75 },
+					{ "time": 4 }
+				]
+			}
+		}
+	}
+}
+}

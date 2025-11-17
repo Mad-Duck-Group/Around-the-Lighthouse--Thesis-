@@ -1,0 +1,34 @@
+
+Mangrove3.png
+size: 715,178
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Body
+  rotate: true
+  xy: 2, 2
+  size: 174, 253
+  orig: 174, 253
+  offset: 0, 0
+  index: -1
+Laef_1
+  rotate: false
+  xy: 573, 28
+  size: 140, 148
+  orig: 142, 151
+  offset: 1, 1
+  index: -1
+Laef_2
+  rotate: false
+  xy: 415, 20
+  size: 156, 156
+  orig: 160, 159
+  offset: 2, 1
+  index: -1
+Laef_3
+  rotate: false
+  xy: 257, 18
+  size: 156, 158
+  orig: 159, 161
+  offset: 1, 1
+  index: -1
