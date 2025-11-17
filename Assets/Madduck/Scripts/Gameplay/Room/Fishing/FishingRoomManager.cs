@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
 using Madduck.Core;
@@ -212,10 +213,12 @@ namespace Madduck.Room
                 _fishCatalogue.SetCaught(unCaught.ItemData.Guid);
                 _fishCatalogue.Save();
             }
-            if (others.Count > 0)
+            var chunked = others.Chunk(3).Select(x => x.ToList()).ToList();
+            foreach (var chunk in chunked)
             {
+                if (chunk.Count <= 0) continue;
                 var popUp = _fishableItemPopUpFactory.Create();
-                popUp.SetPopUpObject(new FishableItemPopUpObject(others));
+                popUp.SetPopUpObject(new FishableItemPopUpObject(chunk));
                 _modalManager.Queue(popUp);
             }
             ChangeFishCount(-fishCount);

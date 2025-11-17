@@ -13,6 +13,7 @@ namespace Madduck.Input
     {
         #region Values
         public SerializableReactiveProperty<bool> AnyButtonPressed { get; }
+        public SerializableReactiveProperty<Vector2> JerkBaitDirection { get; }
         public SerializableReactiveProperty<Vector2> MovementInput { get; }
         public SerializableReactiveProperty<Vector2> MouseDelta { get; }
         public SerializableReactiveProperty<Vector2> MouseUnitCircle { get; }
@@ -42,6 +43,7 @@ namespace Madduck.Input
     public class PlayerInputHandlerMock : IPlayerInputHandler
     {
         public SerializableReactiveProperty<bool> AnyButtonPressed { get; set; }
+        public SerializableReactiveProperty<Vector2> JerkBaitDirection { get; }
         public SerializableReactiveProperty<Vector2> MovementInput { get; set; }
         public SerializableReactiveProperty<Vector2> MouseDelta { get; set; }
         public SerializableReactiveProperty<Vector2> MouseUnitCircle { get; set; }
@@ -103,6 +105,19 @@ namespace Madduck.Input
             {
                 InputBinding = context.action.GetBindingForControl(context.control);
                 var down = context.ReadValueAsButton();
+                IsDown.Value = down;
+                IsUp.Value = !down;
+                IsHeld.Value = down;
+                IsUpAfterHeld.Value = !down;
+                _heldLastTime = down;
+                _cts = new();
+                ButtonPressTask(_cts.Token).Forget();
+            }
+            
+            public void BindPassThroughVector2(InputAction.CallbackContext context)
+            {
+                InputBinding = context.action.GetBindingForControl(context.control);
+                var down = context.ReadValue<Vector2>() != Vector2.zero;
                 IsDown.Value = down;
                 IsUp.Value = !down;
                 IsHeld.Value = down;

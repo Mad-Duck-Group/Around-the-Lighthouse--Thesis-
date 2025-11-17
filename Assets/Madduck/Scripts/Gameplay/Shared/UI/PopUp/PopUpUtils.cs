@@ -1,9 +1,11 @@
 ﻿using System;
+using Madduck.Input;
 using Madduck.Utils;
 using R3;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
+using VContainer;
 using Object = UnityEngine.Object;
 
 namespace Madduck.Shared
@@ -18,6 +20,7 @@ namespace Madduck.Shared
     public interface IPopUpView<in T> : IModal where T : IPopUpObject
     {
         public void SetPopUpObject(T popUpObject);
+        public void SetUp(IPlayerInputHandler inputHandler);
     }
 
     public interface IPopUpFactory<in T> : IFactory<IPopUpView<T>>
@@ -42,9 +45,11 @@ namespace Madduck.Shared
         
         public IPopUpView<T> Current { get; private set; }
         protected GameObject currentPopUpViewObject;
-        protected IDisposable subscriptions;
+        //protected IDisposable subscriptions;
         
-        public IPopUpView<T> Create()
+        [Inject] private readonly IPlayerInputHandler _inputHandler;
+        
+        public virtual IPopUpView<T> Create()
         {
             if (prefabMode)
             {
@@ -53,28 +58,30 @@ namespace Madduck.Shared
                     parent = popUpParent,
                     worldSpace = false
                 }, out currentPopUpViewObject);
+                currentPopUpViewObject.transform.SetAsFirstSibling();
             }
             else
             {
                 Current = popUpView;
             }
-            subscriptions = Observable.FromEvent(
-                h => Current.OnClose += h,
-                h => Current.OnClose -= h)
-                .Subscribe(_ => DestroyPopUp());
+            // subscriptions = Observable.FromEvent(
+            //     h => Current.OnClose += h,
+            //     h => Current.OnClose -= h)
+            //     .Subscribe(_ => DestroyPopUp());
+            Current.SetUp(_inputHandler);
             return Current;
         }
         
         public void DestroyPopUp()
         {
-            subscriptions?.Dispose();
+            //subscriptions?.Dispose();
             if (currentPopUpViewObject) Object.Destroy(currentPopUpViewObject);
             Current = null;
         }
 
         public void Dispose()
         {
-            subscriptions?.Dispose();
+            //subscriptions?.Dispose();
         }
     }
 }

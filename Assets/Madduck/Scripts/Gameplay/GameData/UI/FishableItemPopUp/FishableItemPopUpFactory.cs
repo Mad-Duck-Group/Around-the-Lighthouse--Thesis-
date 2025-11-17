@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
+using Madduck.Input;
 using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
@@ -14,7 +16,7 @@ namespace Madduck.GameData
         [Inject] private readonly IModalManager _modalManager;
         
         [Title("Debug")]
-        [HideInEditorMode,
+        [HideInEditorMode, HideReferenceObjectPicker,
          Button("Test Show")]
         public void TestShow(List<IFishableItemData> itemData)
         {
@@ -36,10 +38,15 @@ namespace Madduck.GameData
                         throw new ArgumentOutOfRangeException(nameof(itemData));
                 }
             }
-            var popUpObject = new FishableItemPopUpObject(instances);
-            var popUp = Create();
-            popUp.SetPopUpObject(popUpObject);
-            _modalManager.Queue(popUp);
+            var chunked = instances.Chunk(3).Select(x => x.ToList()).ToList();
+            foreach (var chunk in chunked)
+            {
+                if (chunk.Count <= 0) continue;
+                var popUpObject = new FishableItemPopUpObject(chunk);
+                var popUp = Create();
+                popUp.SetPopUpObject(popUpObject);
+                _modalManager.Queue(popUp);
+            }
         }
     }
 }

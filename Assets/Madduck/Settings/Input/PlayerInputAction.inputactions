@@ -28,8 +28,8 @@
                     "name": "JerkBait",
                     "type": "PassThrough",
                     "id": "17dde90e-3b81-4d2d-a83e-7d3a7b1fa4db",
-                    "expectedControlType": "Button",
-                    "processors": "",
+                    "expectedControlType": "Vector2",
+                    "processors": "NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": false
                 },
@@ -135,61 +135,6 @@
             ],
             "bindings": [
                 {
-                    "name": "WASD",
-                    "id": "db9663d4-bb91-4d1b-a808-0da9b529b924",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "072b3d2e-99a3-473a-9b91-d4c8eaab1961",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse & Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "4f1ad69c-f265-448e-9ae9-ad958cfa34d5",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse & Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "06c8d7db-14fa-422a-8444-1cf25da37720",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse & Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "8f7c4c27-bcc8-4d11-80ad-039bad4ce2aa",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse & Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "56afe49a-671a-4719-aa3c-462f3d86db59",
                     "path": "<Keyboard>/e",
@@ -201,92 +146,169 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "00d0aa15-9f5c-4092-aa2e-dba01cf7d662",
+                    "name": "WASD",
+                    "id": "52671403-98e8-472b-b55a-4f0c87fee212",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "cb275fdc-a222-489d-9bc2-bad73d12356f",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse & Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "3cf6b9e2-264e-4f36-999f-90a7d2c3daa3",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse & Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "fdbff6b8-6b5c-4507-bfda-db17f46525b6",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse & Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "369b6b75-4ddd-4f09-bd02-4d22b75a7f67",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse & Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Keyboard",
+                    "id": "eba7af9c-4159-42c6-87f8-14f6ff050c72",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JerkBait",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "4b58a367-709b-4723-9b76-12daf1b42ab5",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse & Keyboard",
                     "action": "JerkBait",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "6ffba892-427f-4add-977e-a2cfb794c39b",
+                    "name": "down",
+                    "id": "e6c44e62-b4fe-4e85-be68-dc4d16a61dda",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse & Keyboard",
                     "action": "JerkBait",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "701b3a12-a03c-4f31-8c48-ca0858fd4d38",
+                    "name": "left",
+                    "id": "cf4a9e91-a181-4d5f-886f-b1d7cd4e0aed",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse & Keyboard",
                     "action": "JerkBait",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "e614673a-a7d6-4d7c-b13f-17094bb9e639",
+                    "name": "right",
+                    "id": "f131255a-220d-4f0f-a267-f6d05d18e0e5",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse & Keyboard",
                     "action": "JerkBait",
                     "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Gamepad",
+                    "id": "6b7222c3-338a-44e3-b398-036d5955d895",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JerkBait",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "6cc4f8c7-5b38-4ecf-bfb8-a30e2ca4e255",
+                    "name": "up",
+                    "id": "ba7b75fd-7072-4dea-9c64-0ff31762a6a5",
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad",
                     "action": "JerkBait",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "5e54a1f0-88ff-46e9-acfa-20387f21f240",
+                    "name": "down",
+                    "id": "75025e97-58ae-4753-862e-23e362a05867",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "JerkBait",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "b4c13cac-99d9-461f-affb-52a994e637d7",
+                    "name": "left",
+                    "id": "e6cc1338-1bdd-4cff-9092-a135ad48ecee",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "JerkBait",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "5b037c4a-0918-4f49-b35a-a640615fc2c6",
+                    "name": "right",
+                    "id": "6b91355e-484e-4e48-a561-fb3b6306a5be",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "JerkBait",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",

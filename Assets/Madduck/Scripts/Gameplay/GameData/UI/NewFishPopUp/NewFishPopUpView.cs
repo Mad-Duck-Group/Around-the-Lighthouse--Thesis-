@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Input;
 using Madduck.Shared;
 using Madduck.Utils;
 using PrimeTween;
@@ -38,8 +39,8 @@ namespace Madduck.GameData
         //  SerializeField] private TMP_Text fishRarityText;
         [Required,
          SerializeField] private Image fishIcon;
-        [Required,
-         SerializeField] private Button closeButton;
+        // [Required,
+        //  SerializeField] private Button closeButton;
         
         [Title("Tween")]
         [SerializeField] private TweenSettings<float> backgroundAlphaTweenSettings;
@@ -51,12 +52,17 @@ namespace Madduck.GameData
         
         public event Action OnOpen;
         public event Action OnClose;
+        private IPlayerInputHandler _inputHandler;
         private Sequence _transitionSequence;
         private IDisposable _bindings;
         
         #endregion
 
         #region Injection
+        public void SetUp(IPlayerInputHandler inputHandler)
+        {
+            _inputHandler = inputHandler;
+        }
         public void SetPopUpObject(NewFishPopUpObject popUpObject)
         {
             canvasGroup.transform.localScale = scaleTweenSettings.startValue;
@@ -75,7 +81,12 @@ namespace Madduck.GameData
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            closeButton.OnClickAsObservable()
+            // closeButton.OnClickAsObservable()
+            //     .Subscribe(_ => OnCloseButtonClicked())
+            //     .AddTo(ref disposableBuilder);
+            _inputHandler.AnyButtonPressed
+                .IgnoreFirstValueWhenSubscribe()
+                .Where(x => x)
                 .Subscribe(_ => OnCloseButtonClicked())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
@@ -102,15 +113,16 @@ namespace Madduck.GameData
         public async UniTask Show(CancellationToken cancellationToken = default)
         {
             await TransitionIn(cancellationToken);
-            EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
-            Debug.Log($"current selection: {EventSystem.current.currentSelectedGameObject.name}");
-            closeButton.Select();
+            // EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
+            // Debug.Log($"current selection: {EventSystem.current.currentSelectedGameObject.name}");
+            // closeButton.Select();
             OnOpen?.Invoke();
         }
 
         public async UniTask Hide(CancellationToken cancellationToken = default)
         {
             await TransitionOut(cancellationToken);
+            Destroy(gameObject);
             OnClose?.Invoke();
         }
 

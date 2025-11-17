@@ -8,6 +8,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using VContainer;
 
 namespace Madduck.Shared
@@ -20,22 +21,28 @@ namespace Madduck.Shared
         [Required,
          SerializeField] private TMP_Text buttonNameText;
         [Required,
-         SerializeField] private RectTransform outerRing;
+         SerializeField] private Image buttonImage;
         [Required,
-         SerializeField] private RectTransform middleRing;
+         SerializeField] private Image outerRing;
         [Required,
-         SerializeField] private RectTransform innerRing;
+         SerializeField] private Image middleRing;
+        [Required,
+         SerializeField] private Image innerRing;
 
         [Title("Settings")] 
         [SerializeField] private Vector2 outerRingSize;
         [SerializeField] private Vector2 innerRingSize;
+        [SerializeField] private SerializableDictionary<string, Color> ringColors = new();
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings<Vector3> scaleTweenSettings;
-        [SerializeField] private TweenSettings<Vector3> successTween;
+        [SerializeField] private TweenSettings<Vector3> successShrinkTween;
+        [SerializeField] private TweenSettings<Vector2> successExpandTween;
+        [SerializeField] private TweenSettings<float> successFadeOutTween;
         [SerializeField] private ShakeSettings failShakeSettings;
 
-        [ShowInInspector] private QteButtonController _controller;
+        [HideInEditorMode, 
+         ShowInInspector] private QteButtonController _controller;
         private IDisposable _bindings;
         private Sequence _transitionSequence;
         
@@ -44,9 +51,9 @@ namespace Madduck.Shared
         {
             _controller = controller;
             canvasGroup.alpha = 0;
-            outerRing.sizeDelta = outerRingSize;
-            innerRing.sizeDelta = innerRingSize;
-            middleRing.sizeDelta = innerRingSize;
+            ((RectTransform)outerRing.transform).sizeDelta = outerRingSize;
+            ((RectTransform)innerRing.transform).sizeDelta = innerRingSize;
+            ((RectTransform)middleRing.transform).sizeDelta = innerRingSize;
             Bind();
         }
 
@@ -54,9 +61,15 @@ namespace Madduck.Shared
         {
             var disposableBuilder = Disposable.CreateBuilder();
             _controller.CurrentBinding
+                .IgnoreFirstValueWhenSubscribe()
                 .Subscribe(button =>
                 {
-                    buttonNameText.text = button.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+                    var buttonDirection = button.name;
+                    var color = ringColors.TryGetValue(buttonDirection, out var c) ? c : Color.white;
+                    innerRing.color = color;
+                    outerRing.color = color;
+                    buttonNameText.text =
+                        button.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
                 })
                 .AddTo(ref disposableBuilder);
             _controller.RemainingPercentage
@@ -64,14 +77,14 @@ namespace Madduck.Shared
                 .Subscribe(remaining =>
                 {
                     var size = Vector2.Lerp(outerRingSize, innerRingSize, remaining.AsFraction);
-                    outerRing.sizeDelta = size;
+                    ((RectTransform)outerRing.transform).sizeDelta = size;
                 })
                 .AddTo(ref disposableBuilder);
             _controller.TimeFramePercentage
                 .Subscribe(x =>
                 {
                     var size = Vector2.Lerp(innerRingSize, outerRingSize, x.AsFraction);
-                    middleRing.sizeDelta = size;
+                    ((RectTransform)middleRing.transform).sizeDelta = size;
                 })
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
@@ -84,7 +97,13 @@ namespace Madduck.Shared
 
         public async UniTask OnSuccess(CancellationToken cancellationToken = default)
         {
-            await Tween.Scale(transform, successTween).ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
+            outerRing.enabled = false;
+            middleRing.enabled = false;
+            var sequence = Sequence.Create()
+                .Group(Tween.Scale(buttonImage.transform, successShrinkTween))
+                .Group(Tween.UISizeDelta((RectTransform)innerRing.transform, successExpandTween))
+                .Group(Tween.Alpha(innerRing, successFadeOutTween));
+            await sequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
 
         public async UniTask OnFail(CancellationToken cancellationToken = default)

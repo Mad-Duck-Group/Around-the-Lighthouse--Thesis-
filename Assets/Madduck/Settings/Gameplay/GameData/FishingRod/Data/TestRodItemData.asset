@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73adda8fefa4f398efe9ff3744d88ea, type: 3}
   m_Name: TestRodItemData
   m_EditorClassIdentifier: 
-  <ItemType>k__BackingField: 1
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -25,6 +24,7 @@ MonoBehaviour:
     - Name: <Guid>k__BackingField
       Entry: 2
       Data: 58005c04492c4799ab2ad56006843831
+  <ItemType>k__BackingField: 1
   <MaxThrowPercentage>k__BackingField:
     value: 50
   <ThrowSliderSpeed>k__BackingField:
@@ -46,8 +46,8 @@ MonoBehaviour:
   nibbleBaseSuccessChances:
     keys: 0000000001000000
     values:
-    - value: 20
-    - value: 30
+    - value: 100
+    - value: 100
   <FishBiteTimeFrame>k__BackingField:
     value: 3
   <Power>k__BackingField:

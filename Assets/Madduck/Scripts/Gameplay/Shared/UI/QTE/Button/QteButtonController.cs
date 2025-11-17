@@ -139,8 +139,8 @@ namespace Madduck.Shared
             }
             if (button.InputBinding.HasValue)
                 DebugUtils.Log(
-                button.InputBinding.Value.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions));
-            if (button.InputBinding.HasValue && button.InputBinding.Value == _currentBinding.Value)
+                button.InputBinding.Value.name);
+            if (button.InputBinding.HasValue && button.InputBinding.Value.name == _currentBinding.Value.name)
             {
                 Success();
             }

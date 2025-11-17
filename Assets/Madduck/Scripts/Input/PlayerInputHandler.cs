@@ -26,6 +26,8 @@ namespace Madduck.Input
         [field: ReadOnly, 
                 ShowInInspector] public SerializableReactiveProperty<bool> AnyButtonPressed { get; private set; } = new();
         [field: ReadOnly, 
+                ShowInInspector] public SerializableReactiveProperty<Vector2> JerkBaitDirection { get; private set; } = new();
+        [field: ReadOnly, 
                 ShowInInspector] public SerializableReactiveProperty<Vector2> MovementInput { get; private set; } = new();
         [field: ReadOnly, 
                 ShowInInspector] public SerializableReactiveProperty<Vector2> MouseDelta { get; private set; } = new();
@@ -50,9 +52,11 @@ namespace Madduck.Input
         {
             get
             {
-                return _playerInputAction.Player.JerkBait.bindings
-                    .Where(x => x.groups.Contains(_currentControlScheme.CurrentValue))
-                    .ToArray();
+                var action = _playerInputAction.Player.JerkBait;
+                var bindings = action.bindings;
+                var composites = bindings.Where(x => x.isPartOfComposite && x.groups
+                    .Split(';').Any(s => s == _currentControlScheme.CurrentValue)).ToList();
+                return composites.ToArray();
             }
         }
         
@@ -86,6 +90,7 @@ namespace Madduck.Input
 
         private void OnEnable()
         {
+            _anyButtonPressListener = InputSystem.onAnyButtonPress.Call(x => OnAnyButton(x).Forget());
             Subscribe();
             RegisterInputAction();
         }
@@ -105,6 +110,7 @@ namespace Madduck.Input
             PauseGameButton = new InputButton(_playerInputAction.Player.PauseGame);
             BaitButton = new InputButton(_playerInputAction.Player.ToggleBait);
             ConfirmBaitButton = new InputButton(_playerInputAction.Player.ConfirmBait);
+            CurrentControlScheme = _currentControlScheme.ToReadOnlyReactiveProperty();
         }
 
         #endregion
@@ -120,12 +126,18 @@ namespace Madduck.Input
             }
 
             _playerInputAction.Player.Enable();
-            _anyButtonPressListener = InputSystem.onAnyButtonPress.Call(x => OnAnyButton(x).Forget());
         }
 
         private void Unsubscribe()
         {
             _playerInputAction.Player.Disable();
+            //_anyButtonPressListener?.Dispose();
+        }
+
+        private void OnDestroy()
+        {
+            _playerInputAction.Player.Disable();
+            _playerInputAction?.Dispose();
             _anyButtonPressListener?.Dispose();
         }
 
@@ -195,7 +207,8 @@ namespace Madduck.Input
 
         public void OnJerkBait(InputAction.CallbackContext context)
         {
-            JerkBaitButton.BindPassThroughButton(context);
+            JerkBaitDirection.Value = context.ReadValue<Vector2>();
+            JerkBaitButton.BindPassThroughVector2(context);
         }
 
         public void OnAction0(InputAction.CallbackContext context)
