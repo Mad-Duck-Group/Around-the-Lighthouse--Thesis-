@@ -66,7 +66,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.Shared::Madduck.Shared.QTEButtonView
   canvasGroup: {fileID: 6812006178108880672}
-  buttonNameText: {fileID: 8337528055940594555}
+  spriteLibraryAssets:
+    keys:
+    - Mouse & Keyboard
+    - Gamepad
+    values:
+    - {fileID: 7108339969198208228, guid: 6db27f354a8328649885299244ce3aee, type: 3}
+    - {fileID: 7108339969198208228, guid: 19cb0f2ce4ca3904399cf792937cf1a7, type: 3}
   buttonImage: {fileID: 6293672105835759331}
   outerRing: {fileID: 3527885276557923734}
   middleRing: {fileID: 6526807989099183702}
@@ -201,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2710726571586768303
 RectTransform:
   m_ObjectHideFlags: 0
@@ -386,7 +392,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: 8a57713bcdcc09d48b32a9b12e20a7b6, type: 3}
+  m_Sprite: {fileID: 3959922740387019359, guid: 222450a841e22fe4e916c00cfafe8467, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -529,7 +535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.30588236, g: 0.38431373, b: 0.05490196, a: 0.7490196}
+  m_Color: {r: 0.32941177, g: 0.9137255, b: 0.32941177, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

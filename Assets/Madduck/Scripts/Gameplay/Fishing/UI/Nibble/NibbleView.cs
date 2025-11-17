@@ -78,14 +78,12 @@ namespace Madduck.Fishing.UI
         private void SetActive(bool active)
         {
             _bindings?.Dispose();
+            catchChanceRadial.fillAmount = 0;
             if (active)
             {
                 Bind();
             }
-            else
-            {
-                catchChanceRadial.fillAmount = 0;
-            }
+
             gameObject.SetActive(active);
         }
         

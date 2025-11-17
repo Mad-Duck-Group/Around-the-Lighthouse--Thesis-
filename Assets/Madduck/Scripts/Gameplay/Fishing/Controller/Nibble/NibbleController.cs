@@ -260,6 +260,7 @@ namespace Madduck.Fishing.Controller
             switch (_currentStageIndex)
             {
                 case 0 when result:
+                    DebugUtils.Log("Nibble Stage 1 Success");
                     var fishable = _fishableFactory.Create();
                     _sharedVariable.CurrentFishable = fishable;
                     switch (fishable)
@@ -282,6 +283,8 @@ namespace Madduck.Fishing.Controller
                             _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
                             StartFishBiteTimer(_fishBiteCts.Token).Forget();
                             return;
+                        default:
+                            throw new ArgumentOutOfRangeException();
                     }
                     break;
                 case 1 when result:

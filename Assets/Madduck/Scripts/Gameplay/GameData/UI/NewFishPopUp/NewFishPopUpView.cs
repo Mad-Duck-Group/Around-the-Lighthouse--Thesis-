@@ -72,7 +72,6 @@ namespace Madduck.GameData
             // fishWeightText.text = $"Weight:\n{popUpObject.FishableItemInstance.ItemData.FishWeight:F2} kg";
             // fishRarityText.text = $"Rarity:\n{popUpObject.FishableItemInstance.CurrentFishQuality}";
             fishIcon.sprite = popUpObject.FishItemInstance.ItemData.FishIcon;
-            Bind();
         }
         #endregion
 
@@ -113,6 +112,7 @@ namespace Madduck.GameData
         public async UniTask Show(CancellationToken cancellationToken = default)
         {
             await TransitionIn(cancellationToken);
+            Bind();
             // EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
             // Debug.Log($"current selection: {EventSystem.current.currentSelectedGameObject.name}");
             // closeButton.Select();

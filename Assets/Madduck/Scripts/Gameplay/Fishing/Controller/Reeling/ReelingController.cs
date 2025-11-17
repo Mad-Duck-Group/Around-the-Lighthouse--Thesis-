@@ -208,7 +208,7 @@ namespace Madduck.Fishing.Controller
             if (active)
             {
                 _model.SetFishInstance(currentFishable as FishItemInstance);
-                _model.SetMaxProgress(_hookFactory.Current.CurrentX.AsPercentage);
+                if (!isFish) _model.SetMaxProgress(_hookFactory.Current.CurrentX.AsPercentage);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 Bind();
                 if (isFish) StartFatigueTimer();

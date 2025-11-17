@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Utils;
@@ -8,6 +9,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 using VContainer;
 
@@ -18,8 +20,10 @@ namespace Madduck.Shared
         [Title("References")]
         [Required,
          SerializeField] private CanvasGroup canvasGroup;
+        // [Required,
+        //  SerializeField] private TMP_Text buttonNameText;
         [Required,
-         SerializeField] private TMP_Text buttonNameText;
+         SerializeField] private SerializableDictionary<string, SpriteLibraryAsset> spriteLibraryAssets = new();
         [Required,
          SerializeField] private Image buttonImage;
         [Required,
@@ -43,8 +47,17 @@ namespace Madduck.Shared
 
         [HideInEditorMode, 
          ShowInInspector] private QteButtonController _controller;
+        private string _currentDirection;
+        private string _currentControlScheme;
         private IDisposable _bindings;
         private Sequence _transitionSequence;
+        private readonly Dictionary<string, string> _directionButtonMapping = new()
+        {
+            {"up", "Y"},
+            {"down", "A"},
+            {"left", "X"},
+            {"right", "B"}
+        };
         
         [Inject]
         public void SetUp(QteButtonController controller)
@@ -54,6 +67,7 @@ namespace Madduck.Shared
             ((RectTransform)outerRing.transform).sizeDelta = outerRingSize;
             ((RectTransform)innerRing.transform).sizeDelta = innerRingSize;
             ((RectTransform)middleRing.transform).sizeDelta = innerRingSize;
+            innerRing.enabled = false;
             Bind();
         }
 
@@ -62,14 +76,19 @@ namespace Madduck.Shared
             var disposableBuilder = Disposable.CreateBuilder();
             _controller.CurrentBinding
                 .IgnoreFirstValueWhenSubscribe()
-                .Subscribe(button =>
+                .Subscribe(binding =>
                 {
-                    var buttonDirection = button.name;
-                    var color = ringColors.TryGetValue(buttonDirection, out var c) ? c : Color.white;
-                    innerRing.color = color;
-                    outerRing.color = color;
-                    buttonNameText.text =
-                        button.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+                    _currentControlScheme = _controller.CurrentControlScheme.CurrentValue;
+                    CurrentBindingChanged(binding);
+                    CurrentControlSchemeChanged(_currentControlScheme, _currentDirection);
+                })
+                .AddTo(ref disposableBuilder);
+            _controller.CurrentControlScheme
+                .IgnoreFirstValueWhenSubscribe()
+                .Subscribe(scheme =>
+                {
+                    _currentControlScheme = scheme;
+                    CurrentControlSchemeChanged(scheme, _currentDirection);
                 })
                 .AddTo(ref disposableBuilder);
             _controller.RemainingPercentage
@@ -94,11 +113,42 @@ namespace Madduck.Shared
         {
             _bindings?.Dispose();
         }
+        
+        private void CurrentBindingChanged(InputBinding binding)
+        {
+            var buttonDirection = binding.name;
+            _currentDirection = buttonDirection;
+            var color = ringColors.TryGetValue(buttonDirection, out var c) ? c : Color.white;
+            innerRing.color = color;
+            outerRing.color = color;
+            // buttonNameText.text =
+            //     button.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+        }
+
+        private void CurrentControlSchemeChanged(string scheme, string currentDirection)
+        {
+            if (scheme == null || currentDirection == null)
+            {
+                return;
+            }
+            if (!spriteLibraryAssets.TryGetValue(scheme, out var libraryAsset))
+            {
+                Debug.LogWarning($"SpriteLibraryAsset for control scheme {scheme} not found!");
+                return;
+            }
+            if (!_directionButtonMapping.TryGetValue(currentDirection, out var spriteKey))
+            {
+                Debug.LogWarning($"Sprite key for direction {currentDirection} not found!");
+                return;
+            }
+            buttonImage.sprite = libraryAsset.GetSprite("Control", spriteKey);
+        }
 
         public async UniTask OnSuccess(CancellationToken cancellationToken = default)
         {
             outerRing.enabled = false;
             middleRing.enabled = false;
+            innerRing.enabled = true;
             var sequence = Sequence.Create()
                 .Group(Tween.Scale(buttonImage.transform, successShrinkTween))
                 .Group(Tween.UISizeDelta((RectTransform)innerRing.transform, successExpandTween))

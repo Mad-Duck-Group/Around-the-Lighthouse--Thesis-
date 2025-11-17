@@ -24,6 +24,7 @@ namespace Madduck.Shared
 
         public bool DestroyWhenFinished { get; set; } = true;
         
+        public ReadOnlyReactiveProperty<string> CurrentControlScheme { get; }
         public ReadOnlyReactiveProperty<InputBinding> CurrentBinding { get; }
         public ReadOnlyReactiveProperty<Percentage> TimeFramePercentage { get;  }
         public ReadOnlyReactiveProperty<Percentage> RemainingPercentage { get; }
@@ -57,6 +58,7 @@ namespace Madduck.Shared
             CurrentBinding = _currentBinding.ToReadOnlyReactiveProperty();
             RemainingPercentage = _remainingPercentage.ToReadOnlyReactiveProperty();
             TimeFramePercentage = _timeFramePercentage.ToReadOnlyReactiveProperty();
+            CurrentControlScheme = _input.CurrentControlScheme.ToReadOnlyReactiveProperty();
             ChangeInputActiveState(true);
         }
 

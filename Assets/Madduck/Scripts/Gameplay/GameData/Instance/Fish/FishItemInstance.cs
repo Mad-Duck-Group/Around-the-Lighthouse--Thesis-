@@ -36,8 +36,8 @@ namespace Madduck.GameData
             [Key(DIConstants.ModifierContainerKey)] IModifierSource modifierSource) 
             : base(itemData)
         {
+            _modifierSource = modifierSource ?? throw new ArgumentNullException(nameof(modifierSource));
             CurrentStats = new FishStats(itemData);
-            _modifierSource = modifierSource;
             OnSubscribeModifierSource();
         }
 

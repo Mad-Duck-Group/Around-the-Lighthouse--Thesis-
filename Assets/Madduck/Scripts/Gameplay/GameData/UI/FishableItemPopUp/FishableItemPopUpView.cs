@@ -101,8 +101,6 @@ namespace Madduck.GameData
                 }
                 _itemIconViews.Add(itemIconView);
             }
-
-            Bind();
         }
         #endregion
 
@@ -143,6 +141,7 @@ namespace Madduck.GameData
         public async UniTask Show(CancellationToken cancellationToken = default)
         {
             await TransitionIn(cancellationToken);
+            Bind();
             canvasGroup.blocksRaycasts = true;
             canvasGroup.interactable = true;
             // EventSystem.current.SetSelectedGameObject(closeButton.gameObject);

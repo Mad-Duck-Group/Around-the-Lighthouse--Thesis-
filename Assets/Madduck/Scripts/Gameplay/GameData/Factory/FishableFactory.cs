@@ -70,7 +70,7 @@ namespace Madduck.GameData
             switch (fishable)
             {
                 case FishItemData fishItemData:
-                    instance = new FishItemInstance(fishItemData, null);
+                    instance = new FishItemInstance(fishItemData, new ModifierSourceMock());
                     break;
                 case ResourceItemData resourceItemData:
                     instance = new ResourceItemInstance(resourceItemData);
