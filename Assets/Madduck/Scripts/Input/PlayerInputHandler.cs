@@ -74,7 +74,9 @@ namespace Madduck.Input
                 ShowInInspector] public InputButton PauseGameButton { get; private set; }
 
         #endregion
-        [ReadOnly, ShowInInspector] public ReadOnlyReactiveProperty<string> CurrentControlScheme => _currentControlScheme;
+
+        [ReadOnly, ShowInInspector]
+        public ReadOnlyReactiveProperty<string> CurrentControlScheme => _currentControlScheme;
 
         #endregion
 
@@ -110,7 +112,6 @@ namespace Madduck.Input
             PauseGameButton = new InputButton(_playerInputAction.Player.PauseGame);
             BaitButton = new InputButton(_playerInputAction.Player.ToggleBait);
             ConfirmBaitButton = new InputButton(_playerInputAction.Player.ConfirmBait);
-            CurrentControlScheme = _currentControlScheme.ToReadOnlyReactiveProperty();
         }
 
         #endregion

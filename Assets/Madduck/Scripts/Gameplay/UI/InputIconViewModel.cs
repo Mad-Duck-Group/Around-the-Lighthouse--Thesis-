@@ -10,7 +10,7 @@ using VContainer.Unity;
 
 namespace Madduck.Input
 {
-    public class InputIconViewModel : IStartable,IDisposable
+    public class InputIconViewModel : IDisposable
     {
         public ReadOnlyReactiveProperty<string> CurrentScheme { get; private set; } 
         private readonly CompositeDisposable _disposables = new ();
@@ -26,10 +26,6 @@ namespace Madduck.Input
             CurrentScheme = _input.CurrentControlScheme
                 .ToReadOnlyReactiveProperty()
                 .AddTo(_disposables);
-        }
-        public void Start()
-        {
-            
         }
 
         

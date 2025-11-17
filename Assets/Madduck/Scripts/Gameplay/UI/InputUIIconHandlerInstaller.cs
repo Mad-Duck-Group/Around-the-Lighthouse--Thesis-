@@ -21,9 +21,8 @@ namespace Madduck.Room
         {
             builder.Register(_ => inputIconData, Lifetime.Singleton)
                 .As<InputIconData>();
-            builder.Register<InputIconViewModel>(Lifetime.Singleton);
+            builder.Register<InputIconViewModel>(Lifetime.Singleton).AsSelf();
             builder.RegisterComponent(inputUIIconView).As<InputUIIconView>();
-
             builder.RegisterBuildCallback(x =>
             {
                 var vm = x.Resolve<InputIconViewModel>();
