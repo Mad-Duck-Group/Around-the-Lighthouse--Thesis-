@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Input;
 using Madduck.Utils;
 using R3;
 using UnityEngine;
@@ -9,14 +10,17 @@ namespace Madduck.Fishing.UI
     public class ReelingViewModel : IDisposable
     {
         public ReadOnlyReactiveProperty<Percentage> ReelingProgressPercent { get; private set; }
-
+        public ReadOnlyReactiveProperty<string> CurrentScheme { get; private set; } 
         private readonly ReelingModel _model;
+        private readonly IPlayerInputHandler _inputHandler;
         private IDisposable _bindings;
         
         [Inject]
-        public ReelingViewModel(ReelingModel model)
+        public ReelingViewModel(ReelingModel model,
+            IPlayerInputHandler inputHandler)
         {
             _model = model;
+            _inputHandler = inputHandler;
             Bind();
         }
         
@@ -26,9 +30,11 @@ namespace Madduck.Fishing.UI
             ReelingProgressPercent = _model.ReelingPercent
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
+            CurrentScheme = _inputHandler.CurrentControlScheme
+                .ToReadOnlyReactiveProperty()
+                .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
-        
         public void Dispose()
         {
             _bindings.Dispose();

@@ -41,13 +41,6 @@ namespace Madduck.Input
             return isGamepad ? data.gamepadSprite : data.keyboardSprite;
         }
         
-        public AnimationClip GetAnimation(InputIconType type, bool isGamepad)
-        {
-            if (!_Icondata.iconMap.TryGetValue(type, out var data))
-                return null;
-
-            return isGamepad ? data.gamepadAnimation : data.keyboardAnimation;
-        }
         public void Dispose()
         {
             _disposables.Dispose();
