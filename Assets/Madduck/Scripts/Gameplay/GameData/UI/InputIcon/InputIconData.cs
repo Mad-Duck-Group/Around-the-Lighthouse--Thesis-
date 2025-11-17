@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Madduck.Shared;
 using Madduck.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Madduck.GameData
@@ -16,5 +17,11 @@ namespace Madduck.GameData
     {
         public Sprite keyboardSprite;
         public Sprite gamepadSprite;
+        
+        public bool useAnimation;
+        [ShowIf("useAnimation")]
+        public AnimationClip keyboardAnimation;
+        [ShowIf("useAnimation")]
+        public AnimationClip gamepadAnimation;
     }
 }

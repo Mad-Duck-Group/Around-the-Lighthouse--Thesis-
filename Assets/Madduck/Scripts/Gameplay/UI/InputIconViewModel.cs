@@ -15,12 +15,13 @@ namespace Madduck.Input
         public ReadOnlyReactiveProperty<string> CurrentScheme { get; private set; } 
         private readonly CompositeDisposable _disposables = new ();
         private readonly IPlayerInputHandler _input;
-        private readonly InputIconData _data;
+        private readonly InputIconData _Icondata;
+       
         
         [Inject]
         public InputIconViewModel(IPlayerInputHandler input, InputIconData data)
         {
-            _data = data;
+            _Icondata= data;
             _input = input;
             CurrentScheme = _input.CurrentControlScheme
                 .ToReadOnlyReactiveProperty()
@@ -34,12 +35,19 @@ namespace Madduck.Input
         
         public Sprite GetIcon(InputIconType type, bool isGamepad)
         {
-            if (!_data.iconMap.TryGetValue(type, out var data))
+            if (!_Icondata.iconMap.TryGetValue(type, out var data))
                 return null;
 
             return isGamepad ? data.gamepadSprite : data.keyboardSprite;
         }
+        
+        public AnimationClip GetAnimation(InputIconType type, bool isGamepad)
+        {
+            if (!_Icondata.iconMap.TryGetValue(type, out var data))
+                return null;
 
+            return isGamepad ? data.gamepadAnimation : data.keyboardAnimation;
+        }
         public void Dispose()
         {
             _disposables.Dispose();

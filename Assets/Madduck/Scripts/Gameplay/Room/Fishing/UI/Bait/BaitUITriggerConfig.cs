@@ -6,9 +6,9 @@ using UnityEngine;
 namespace Madduck.Room
 {
     [Serializable]
-    public class BaitUITriggerConfig
+    public struct BaitUITriggerConfig
     {
-        public UITriggerType uiTriggerType;
-        public GameObject Value { get; }
+        public GameObject before;
+        public GameObject after;
     }
 }

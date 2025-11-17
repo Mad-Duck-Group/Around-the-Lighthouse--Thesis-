@@ -20,10 +20,10 @@ namespace Madduck.Shared
         Unselected,
         Selected,
     }
-    public enum UITriggerType
+    public enum IconAnimationEvent
     {
-        Show,
-        Hide
+        TugOfWar ,
+        Reeling
     }
     public enum InputIconType
     {
@@ -38,6 +38,8 @@ namespace Madduck.Shared
         AnalogLeft,
         AnalogRight,
         Dpad,
+        Reeling,
+        TugOfWar
     }
     public enum InputControllerDevice
     {

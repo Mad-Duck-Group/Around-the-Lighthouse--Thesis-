@@ -12,20 +12,21 @@ namespace Madduck.Room
     [Serializable]
     public class InputUIIconHandlerInstaller : IInstaller
     {
-        [Title("InputIconView")]
         [Required,
          SerializeField] private InputUIIconView inputUIIconView;
         [Required,
          SerializeField] private InputIconData  inputIconData;
+        
         public void Install(IContainerBuilder builder)
         {
             builder.Register(_ => inputIconData, Lifetime.Singleton)
                 .As<InputIconData>();
             builder.Register<InputIconViewModel>(Lifetime.Singleton);
             builder.RegisterComponent(inputUIIconView).As<InputUIIconView>();
+
             builder.RegisterBuildCallback(x =>
             {
-                x.Resolve<InputIconViewModel>();
+                var vm = x.Resolve<InputIconViewModel>();
             });
         }
     }

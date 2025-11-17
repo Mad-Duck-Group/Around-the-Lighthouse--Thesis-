@@ -43,8 +43,8 @@ namespace Madduck.Room
             _inputHandler = inputHandler;
             _playerInventory = playerInventory;
             _fishingStateSubscriber = fishingStateSubscriber;
-            
-            _uiAfterTriggerBait = baitTriggerConfig.Value;
+            _uiBeforeTriggerBait = baitTriggerConfig.before;
+            _uiAfterTriggerBait = baitTriggerConfig.after;
             _carousel = carousel;
         }
         
@@ -145,13 +145,7 @@ namespace Madduck.Room
         {
             _interactable = evt.StateType is FishingStateType.ThrowHook;
         }
-
-        private void OnCarouselItemUpdated(BaitItemInstance bait)
-        {
-            if (bait == null) return;
-            _playerInventory.SetCurrentBait(bait.ItemData.BaitType);//เปลี่ยนใหม่
-            OnBaitChanged.Execute(bait);
-        }
+        
         private void OnNextBait()
         {
             var baseBait = _pendingBait ?? _playerInventory.CurrentBaitView.CurrentValue;
@@ -179,13 +173,6 @@ namespace Madduck.Room
             _pendingBait = baitList[prevIndex];
 
         }
-        private void OnCarouselItemSelected(BaitItemInstance bait)
-        {
-            if (!_interactable || bait == null) return;
-            _playerInventory.SetCurrentBait(bait.ItemData.BaitType);
-            DebugUtils.Log($"Selected bait: {bait.ItemData.BaitType}");
-        }
-
         public void Dispose()
         {
             _bindings?.Dispose();
