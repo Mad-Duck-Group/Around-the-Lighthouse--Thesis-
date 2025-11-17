@@ -17,15 +17,12 @@ namespace Madduck.Fishing.Shared
         [Title("References")]
         [Required,
          SerializeField] private SpriteRenderer spriteRenderer;
-        [Required,
-         SerializeField] private SpriteRenderer alertSpriteRenderer;
 
         [Title("Settings")] 
         [SerializeField] private Vector2 offset;
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings<Vector2> positionTweenSettings;
-        [SerializeField] private TweenSettings<Vector3> alertScaleTweenSettings;
         [SerializeField] private TweenSettings biteSettings;
 
         private Transform _hook;
@@ -38,7 +35,6 @@ namespace Madduck.Fishing.Shared
             _hook = hook;
             transform.position = hook.position + (Vector3)offset;
             _relativeSettings = positionTweenSettings.ToVector3().ToRelative(transform.position);
-            alertSpriteRenderer.transform.localScale = alertScaleTweenSettings.startValue;
         }
         
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
@@ -50,11 +46,7 @@ namespace Madduck.Fishing.Shared
         public async UniTask TransitionOut(CancellationToken cancellationToken = default)
         {
             cancellationToken.Register(CancelTransition);
-            await UniTask.WhenAll(
-                Tween.Scale(alertSpriteRenderer.transform, alertScaleTweenSettings.WithDirection(false))
-                    .ToYieldInstruction()
-                    .ToUniTask(cancellationToken: cancellationToken),
-                Transition(false));
+            await UniTask.WhenAll(Transition(false));
         }
 
         private async UniTask Transition(bool forward)
@@ -74,8 +66,7 @@ namespace Madduck.Fishing.Shared
             cancellationToken.Register(() => _biteSequence.Complete());
             _biteSequence = Sequence.Create()
                 .Group(Tween.Position(transform, transform.position, _hook.position,
-                    biteSettings))
-                .Group(Tween.Scale(alertSpriteRenderer.transform, alertScaleTweenSettings));
+                    biteSettings));
             await _biteSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
     }

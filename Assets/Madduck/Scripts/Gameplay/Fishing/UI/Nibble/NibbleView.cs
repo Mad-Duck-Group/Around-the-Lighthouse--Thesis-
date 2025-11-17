@@ -2,8 +2,10 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Utils;
+using PrimeTween;
 using R3;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -13,10 +15,15 @@ namespace Madduck.Fishing.UI
     public class NibbleView : MonoBehaviour, ITransitionable
     {
         [Title("References")]
-        [Required]
-        [SerializeField] private Button pullHookButton;
-        [Required]
-        [SerializeField] private Image nibbleNotificationImage;
+        [Required,
+         SerializeField] private Button pullHookButton;
+        [Required,
+         SerializeField] private Image catchChanceRadial;
+        [Required,
+         SerializeField] private TMP_Text catchChanceText;
+        
+        [Title("Tween")]
+        [SerializeField] private TweenSettings catchChanceLerpTweenSettings;
         
         private NibbleCommander _commander;
         private NibbleViewModel _viewModel;
@@ -32,8 +39,8 @@ namespace Madduck.Fishing.UI
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _viewModel.IsNibbling
-                .Subscribe(OnNibble)
+            _viewModel.CatchChange
+                .Subscribe(OnCatchChanceChanged)
                 .AddTo(ref disposableBuilder);
             pullHookButton.onClick
                 .AsObservable()
@@ -77,19 +84,25 @@ namespace Madduck.Fishing.UI
             }
             else
             {
-                OnNibble(false);
+                catchChanceRadial.fillAmount = 0;
             }
             gameObject.SetActive(active);
-        }
-
-        private void OnNibble(bool isNibbling)
-        {
-            nibbleNotificationImage.gameObject.SetActive(isNibbling);
         }
         
         private void OnPullHook()
         {
             _commander.PullHookCommand.Execute(Unit.Default);
+        }
+        
+        private void OnCatchChanceChanged(Percentage percentage)
+        {
+            TweenRadial(percentage);
+            catchChanceText.text = percentage.ToPercentageString("F0");
+        }
+
+        private void TweenRadial(Percentage percentage)
+        {
+            Tween.UIFillAmount(catchChanceRadial, percentage.AsFraction, catchChanceLerpTweenSettings);
         }
     }
 }

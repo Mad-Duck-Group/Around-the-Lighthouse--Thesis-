@@ -13,6 +13,7 @@ namespace Madduck.Fishing.UI
     {
         [field: SerializeField] public SerializableReactiveProperty<bool> IsNibbling { get; private set; }
         [field: SerializeField] public SerializableReactiveProperty<Sign> PullHookResult { get; private set; }
+        [field: SerializeField] public SerializableReactiveProperty<Percentage> CatchChance { get; private set; }
         [field: SerializeField] public FishingRodItemInstance FishingRod { get; private set; }
         [field: SerializeField] public FishItemInstance FishItemInstance { get; private set; }
         private IDisposable _bindings;
@@ -30,6 +31,8 @@ namespace Madduck.Fishing.UI
             IsNibbling = new SerializableReactiveProperty<bool>(false)
                 .AddTo(ref disposableBuilder);
             PullHookResult = new SerializableReactiveProperty<Sign>(Sign.Zero)
+                .AddTo(ref disposableBuilder);
+            CatchChance = new SerializableReactiveProperty<Percentage>(Percentage.Zero)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }

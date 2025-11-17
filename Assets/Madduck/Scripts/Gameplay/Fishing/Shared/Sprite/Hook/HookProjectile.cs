@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.GameData;
 using Madduck.Utils;
@@ -25,6 +26,7 @@ namespace Madduck.Fishing.Shared
         UniTask MoveX(Percentage percent);
         UniTask MoveY(Percentage percent);
         UniTask Nibble(int? cycle);
+        UniTask Alert(bool active, CancellationToken cancellationToken = default);
         void SetPositionX(Percentage percent);
         void SetPositionY(Percentage percent);
         void StopNibble();
@@ -40,6 +42,8 @@ namespace Madduck.Fishing.Shared
          SerializeField] private VerletFishingLine2D line;
         [Required,
          SerializeField] private SplineContainer splineContainer;
+        [Required,
+         SerializeField] private SpriteRenderer alertSpriteRenderer;
         
         [Title("Settings")]
         [PropertyTooltip("Range of the throw distance when the throw hook value is between 0 and max."), 
@@ -56,6 +60,7 @@ namespace Madduck.Fishing.Shared
          SerializeField] private TweenSettings reelBackTweenX;
         [SerializeField] private TweenSettings<Vector2> nibbleTween;
         [SerializeField] private TweenSettings dramaticReturnTween;
+        [SerializeField] private TweenSettings<Vector3> alertScaleTweenSettings;
 
         #endregion
         
@@ -94,6 +99,7 @@ namespace Madduck.Fishing.Shared
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
+            alertSpriteRenderer.transform.localScale = alertScaleTweenSettings.startValue;
         }
 
         #endregion
@@ -298,6 +304,13 @@ namespace Madduck.Fishing.Shared
             var distance = Vector2.Distance(transform.position, targetPos);
             line.SetLength(distance);
         }
+        
+        public UniTask Alert(bool active, CancellationToken cancellationToken = default)
+        {
+            var sequence = Sequence.Create()
+                .Group(Tween.Scale(alertSpriteRenderer.transform, alertScaleTweenSettings.WithDirection(active)));
+            return sequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
+        }
 
         public void StopNibble()
         {
@@ -376,6 +389,8 @@ namespace Madduck.Fishing.Shared
         public UniTask MoveY(Percentage percent) => UniTask.CompletedTask;
 
         public UniTask Nibble(int? cycle) => UniTask.CompletedTask;
+        public UniTask Alert(bool active, CancellationToken cancellationToken = default) => UniTask.CompletedTask;
+
         public void SetPositionX(Percentage percent){}
         public void SetPositionY(Percentage percent){}
         public void StopNibble(){}

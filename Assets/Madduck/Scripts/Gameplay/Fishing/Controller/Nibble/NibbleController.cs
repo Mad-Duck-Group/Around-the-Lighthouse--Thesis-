@@ -154,6 +154,7 @@ namespace Madduck.Fishing.Controller
                     var fishSprite = _fishSpriteFactory.Create();
                     fishSprite.SetUp(_hookFactory.CurrentGameObject.transform, _sharedVariable.CurrentFishable as FishItemInstance);
                     fishSprite.Animator.Set(FishSpriteAnimationKey.Idle, 0, true);
+                    _hookFactory.Current.Alert(false).Forget();
                     _bubbleManager.PauseAllBubbles();
                     await UniTask.WhenAll(
                         fishSprite.TransitionIn(),
@@ -162,6 +163,7 @@ namespace Madduck.Fishing.Controller
                     break;
                 }
                 case Sign.Zero:
+                    _hookFactory.Current.Alert(false).Forget();
                     _bubbleManager.PauseAllBubbles();
                     //await _hookFactory.Current.MoveY(Percentage.Full);
                     break;
@@ -206,6 +208,7 @@ namespace Madduck.Fishing.Controller
                 _currentStageChance[0] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[0];
                 _currentStageChance[1] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[1];
                 _currentStageIndex = 0;
+                _model.CatchChance.Value = _currentStageChance[0];
                 _fishBiting = false;
                 _qteActive = false;
                 Bind();
@@ -251,13 +254,12 @@ namespace Madduck.Fishing.Controller
             _currentStageChance[_currentStageIndex] +=
                 _model.FishingRod.CurrentStats.CurrentBubbleNibbleBonuses[bubbleType];
             _currentStageChance[_currentStageIndex] = Percentage.Clamp01(_currentStageChance[_currentStageIndex]);
+            _model.CatchChance.Value = _currentStageChance[_currentStageIndex];
             var result = Percentage.TryRoll(_currentStageChance[_currentStageIndex]);
             DebugUtils.Log($"Index {_currentStageIndex} Nibble Chance: {_currentStageChance[_currentStageIndex]} Roll Result: {result}");
             switch (_currentStageIndex)
             {
                 case 0 when result:
-                    _currentStageChance[_currentStageIndex] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[0];
-                    _currentStageIndex++;
                     var fishable = _fishableFactory.Create();
                     _sharedVariable.CurrentFishable = fishable;
                     switch (fishable)
@@ -265,7 +267,9 @@ namespace Madduck.Fishing.Controller
                         case FishItemInstance fish:
                         {
                             DebugUtils.Log("Got Fish!");
-                            _sharedVariable.CurrentFishable = fish;
+                            _currentStageChance[_currentStageIndex] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[0];
+                            _currentStageIndex++;
+                            _model.CatchChance.Value = _currentStageChance[_currentStageIndex];
                             _model.SetFishInstance(fish);
                             var fishEyes = _fishEyesFactory.Create();
                             fishEyes.SetUp(_hookFactory.CurrentGameObject.transform);
@@ -274,6 +278,7 @@ namespace Madduck.Fishing.Controller
                         }
                         case ResourceItemInstance resource:
                             DebugUtils.Log("Got Trash!");
+                            _hookFactory.Current.Alert(true);
                             _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
                             StartFishBiteTimer(_fishBiteCts.Token).Forget();
                             return;
@@ -281,6 +286,7 @@ namespace Madduck.Fishing.Controller
                     break;
                 case 1 when result:
                     _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
+                    _hookFactory.Current.Alert(true);
                     _fishEyesFactory.Current.Bite();
                     StartFishBiteTimer(_fishBiteCts.Token).Forget();
                     return;
@@ -299,6 +305,7 @@ namespace Madduck.Fishing.Controller
             _currentStageChance[_currentStageIndex] -=
                 _model.FishingRod.CurrentStats.CurrentBubbleNibblePenalties[bubbleType];
             _currentStageChance[_currentStageIndex] = Percentage.Clamp01(_currentStageChance[_currentStageIndex]);
+            _model.CatchChance.Value = _currentStageChance[_currentStageIndex];
             switch (_currentStageIndex)
             {
                 case 0:
@@ -306,6 +313,7 @@ namespace Madduck.Fishing.Controller
                 case 1 when _currentStageChance[_currentStageIndex] <= Percentage.Zero:
                     _currentStageChance[_currentStageIndex] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[1];
                     _currentStageIndex--;
+                    _model.CatchChance.Value = _currentStageChance[_currentStageIndex];
                     TransitionOutFishEyes();
                     break;
             }
@@ -321,6 +329,7 @@ namespace Madduck.Fishing.Controller
             await UniTask.WaitForSeconds(_model.FishingRod.CurrentStats.CurrentFishBiteTimeFrame, cancellationToken: token);
             _fishBiting = false;
             DebugUtils.Log("Fish got away with the bait");
+            _hookFactory.Current.Alert(false, token).Forget();
             OnPullHookResultChanged(Sign.Negative).Forget();
         }
 
