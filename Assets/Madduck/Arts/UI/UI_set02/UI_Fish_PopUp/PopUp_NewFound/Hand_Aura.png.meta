@@ -1,0 +1,1196 @@
+fileFormatVersion: 2
+guid: eee6c0a633603574f8ee2f9eb9629d95
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8636534994739126108
+    second: Hand_Aura_0
+  - first:
+      213: -3318279825774900805
+    second: Hand_Aura_1
+  - first:
+      213: -3444142651088207675
+    second: Hand_Aura_2
+  - first:
+      213: -9149715588057358518
+    second: Hand_Aura_3
+  - first:
+      213: 3850379081256163694
+    second: Hand_Aura_4
+  - first:
+      213: -6566325809698333660
+    second: Hand_Aura_5
+  - first:
+      213: -8899765980054234143
+    second: Hand_Aura_6
+  - first:
+      213: -9008757196174014965
+    second: Hand_Aura_7
+  - first:
+      213: -2979916960316829858
+    second: Hand_Aura_8
+  - first:
+      213: -6089940930732132431
+    second: Hand_Aura_9
+  - first:
+      213: -1393254648544313198
+    second: Hand_Aura_10
+  - first:
+      213: 1586370810110944176
+    second: Hand_Aura_11
+  - first:
+      213: 8913754419807289104
+    second: Hand_Aura_12
+  - first:
+      213: -3930044354630768188
+    second: Hand_Aura_13
+  - first:
+      213: 24385229448050516
+    second: Hand_Aura_14
+  - first:
+      213: 8809647310758072138
+    second: Hand_Aura_15
+  - first:
+      213: -8967581229187408441
+    second: Hand_Aura_16
+  - first:
+      213: 5607714909970258030
+    second: Hand_Aura_17
+  - first:
+      213: -732033325338331681
+    second: Hand_Aura_18
+  - first:
+      213: 8494320918937388298
+    second: Hand_Aura_19
+  - first:
+      213: -4119237656835266524
+    second: Hand_Aura_20
+  - first:
+      213: -3316470829565658319
+    second: Hand_Aura_21
+  - first:
+      213: -5255455936844775845
+    second: Hand_Aura_22
+  - first:
+      213: -5571575441924417885
+    second: Hand_Aura_23
+  - first:
+      213: 1809132512139252035
+    second: Hand_Aura_24
+  - first:
+      213: 6896879163675036311
+    second: Hand_Aura_25
+  - first:
+      213: -6992491906984958327
+    second: Hand_Aura_26
+  - first:
+      213: -6860945958782191720
+    second: Hand_Aura_27
+  - first:
+      213: 5474492480062532681
+    second: Hand_Aura_28
+  - first:
+      213: 7527523619104017163
+    second: Hand_Aura_29
+  - first:
+      213: 7887118908133847259
+    second: Hand_Aura_30
+  - first:
+      213: 331924609447162161
+    second: Hand_Aura_31
+  - first:
+      213: -3731893325409418655
+    second: Hand_Aura_32
+  - first:
+      213: 1825798165966792962
+    second: Hand_Aura_33
+  - first:
+      213: 1107824483135254406
+    second: Hand_Aura_34
+  - first:
+      213: -6944235961279846885
+    second: Hand_Aura_35
+  - first:
+      213: 6028953431608971419
+    second: Hand_Aura_36
+  - first:
+      213: 7457258759241459869
+    second: Hand_Aura_37
+  - first:
+      213: 9201446414945227064
+    second: Hand_Aura_38
+  - first:
+      213: -2581080845605181796
+    second: Hand_Aura_39
+  - first:
+      213: 461422860735828740
+    second: Hand_Aura_40
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Hand_Aura_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 230
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5fd7a3c1d22bd770800000000000000
+      internalID: 8636534994739126108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_1
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 241
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb98757541a13f1d0800000000000000
+      internalID: -3318279825774900805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_2
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 232
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c08d16b182f330d0800000000000000
+      internalID: -3444142651088207675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_3
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 227
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4f9cf1662ea50180800000000000000
+      internalID: -9149715588057358518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_4
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 237
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e695edccf5b4f6530800000000000000
+      internalID: 3850379081256163694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_5
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 220
+        width: 20
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42c93794779bfd4a0800000000000000
+      internalID: -6566325809698333660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_6
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 218
+        width: 15
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ebd2ce7efdad7480800000000000000
+      internalID: -8899765980054234143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_7
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 207
+        width: 18
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b06cd4e7f077af280800000000000000
+      internalID: -9008757196174014965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_8
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 239
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5f4728105535a6d0800000000000000
+      internalID: -2979916960316829858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_9
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 186
+        width: 40
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b779984dfe2c7ba0800000000000000
+      internalID: -6089940930732132431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_10
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 237
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 290cad7674a2aace0800000000000000
+      internalID: -1393254648544313198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_11
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 234
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b326bac8dbe30610800000000000000
+      internalID: 1586370810110944176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_12
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 221
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01f7eafea6404bb70800000000000000
+      internalID: 8913754419807289104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_13
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 183
+        width: 52
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c924b25b7da579c0800000000000000
+      internalID: -3930044354630768188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_14
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 217
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 457740bac32a65000800000000000000
+      internalID: 24385229448050516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_15
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 215
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4fc53abd87224a70800000000000000
+      internalID: 8809647310758072138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_16
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 164
+        width: 24
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cdd2d36260cc8380800000000000000
+      internalID: -8967581229187408441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_17
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 207
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e68507aeffa92dd40800000000000000
+      internalID: 5607714909970258030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_18
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 219
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd5f57fa19b47d5f0800000000000000
+      internalID: -732033325338331681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_19
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 211
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a05ce65fed3e1e570800000000000000
+      internalID: 8494320918937388298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_20
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 198
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 428ebeefc2785d6c0800000000000000
+      internalID: -4119237656835266524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_21
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 159
+        width: 35
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13b3bc71a5789f1d0800000000000000
+      internalID: -3316470829565658319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_22
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 210
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5e36a78baed017b0800000000000000
+      internalID: -5255455936844775845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_23
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 180
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a61ec0b7a9cda2b0800000000000000
+      internalID: -5571575441924417885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_24
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 165
+        width: 45
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3419ba14f645b1910800000000000000
+      internalID: 1809132512139252035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_25
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 192
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79ac4a1ee03a6bf50800000000000000
+      internalID: 6896879163675036311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_26
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 195
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9862e5d88ada5fe90800000000000000
+      internalID: -6992491906984958327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_27
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 204
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 897b2a7500609c0a0800000000000000
+      internalID: -6860945958782191720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_28
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 149
+        width: 16
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94cacafc7ed49fb40800000000000000
+      internalID: 5474492480062532681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 105
+        width: 31
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0bce0b59d2277860800000000000000
+      internalID: 7527523619104017163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_30
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 100
+        width: 22
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd0b594fbdca47d60800000000000000
+      internalID: 7887118908133847259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_31
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 91
+        width: 27
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 131fe467cab3b9400800000000000000
+      internalID: 331924609447162161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_32
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 97
+        width: 22
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 162025ffac6a53cc0800000000000000
+      internalID: -3731893325409418655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_33
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 118
+        width: 20
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 209a20a22c9865910800000000000000
+      internalID: 1825798165966792962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_34
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 146
+        width: 25
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68fe1c67f78cf5f00800000000000000
+      internalID: 1107824483135254406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_35
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 114
+        width: 21
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b16eb637f2e11af90800000000000000
+      internalID: -6944235961279846885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_36
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 155
+        width: 54
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b90dc6a04352ba350800000000000000
+      internalID: 6028953431608971419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_37
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 151
+        width: 44
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d98e1cec4518d7760800000000000000
+      internalID: 7457258759241459869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_38
+      rect:
+        serializedVersion: 2
+        x: 1022
+        y: 130
+        width: 40
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8311a9653ca12bf70800000000000000
+      internalID: 9201446414945227064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_39
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 69
+        width: 18
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c96632565a82e2cd0800000000000000
+      internalID: -2581080845605181796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand_Aura_40
+      rect:
+        serializedVersion: 2
+        x: 814
+        y: 118
+        width: 53
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4035769a5ad476600800000000000000
+      internalID: 461422860735828740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Hand_Aura_0: 8636534994739126108
+      Hand_Aura_1: -3318279825774900805
+      Hand_Aura_10: -1393254648544313198
+      Hand_Aura_11: 1586370810110944176
+      Hand_Aura_12: 8913754419807289104
+      Hand_Aura_13: -3930044354630768188
+      Hand_Aura_14: 24385229448050516
+      Hand_Aura_15: 8809647310758072138
+      Hand_Aura_16: -8967581229187408441
+      Hand_Aura_17: 5607714909970258030
+      Hand_Aura_18: -732033325338331681
+      Hand_Aura_19: 8494320918937388298
+      Hand_Aura_2: -3444142651088207675
+      Hand_Aura_20: -4119237656835266524
+      Hand_Aura_21: -3316470829565658319
+      Hand_Aura_22: -5255455936844775845
+      Hand_Aura_23: -5571575441924417885
+      Hand_Aura_24: 1809132512139252035
+      Hand_Aura_25: 6896879163675036311
+      Hand_Aura_26: -6992491906984958327
+      Hand_Aura_27: -6860945958782191720
+      Hand_Aura_28: 5474492480062532681
+      Hand_Aura_29: 7527523619104017163
+      Hand_Aura_3: -9149715588057358518
+      Hand_Aura_30: 7887118908133847259
+      Hand_Aura_31: 331924609447162161
+      Hand_Aura_32: -3731893325409418655
+      Hand_Aura_33: 1825798165966792962
+      Hand_Aura_34: 1107824483135254406
+      Hand_Aura_35: -6944235961279846885
+      Hand_Aura_36: 6028953431608971419
+      Hand_Aura_37: 7457258759241459869
+      Hand_Aura_38: 9201446414945227064
+      Hand_Aura_39: -2581080845605181796
+      Hand_Aura_4: 3850379081256163694
+      Hand_Aura_40: 461422860735828740
+      Hand_Aura_5: -6566325809698333660
+      Hand_Aura_6: -8899765980054234143
+      Hand_Aura_7: -9008757196174014965
+      Hand_Aura_8: -2979916960316829858
+      Hand_Aura_9: -6089940930732132431
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

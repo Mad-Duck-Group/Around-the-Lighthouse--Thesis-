@@ -1,0 +1,137 @@
+{
+"skeleton": {
+	"hash": "bC++MrWXI+1YUoyjyC+w2vrPsKs",
+	"spine": "3.8.75",
+	"x": -14,
+	"y": -1.02,
+	"width": 29,
+	"height": 33,
+	"images": "../Environment/json/json/Bird/images/",
+	"audio": "../Environment/json/json/Bird/"
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "bone", "parent": "root", "length": 20.31, "rotation": 90.4, "x": -0.79, "y": 4.77 }
+],
+"slots": [
+	{ "name": "L_Bird_Shadow_Sand", "bone": "root", "attachment": "R_Bird_Shadow_Sand" },
+	{ "name": "R_Bird_Shadow_Sand", "bone": "root" },
+	{ "name": "L_Bird_Shadow_Rock", "bone": "root", "attachment": "R_Bird_Shadow_Rock" },
+	{ "name": "R_Bird_Shadow_Rock", "bone": "root" },
+	{ "name": "L_Bird", "bone": "bone", "attachment": "R_Bird" },
+	{ "name": "R_Bird", "bone": "root" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"L_Bird_Shadow_Rock": {
+				"L_Bird_Shadow_Rock": { "x": 0.5, "y": 2.48, "width": 19, "height": 7 },
+				"R_Bird_Shadow_Rock": { "x": 0.5, "y": 2.48, "width": 19, "height": 7 }
+			},
+			"L_Bird": {
+				"L_Bird": { "x": 10.7, "y": -1.36, "rotation": -90.4, "width": 29, "height": 33 },
+				"R_Bird": { "x": 10.7, "y": -1.36, "rotation": -90.4, "width": 29, "height": 33 }
+			},
+			"L_Bird_Shadow_Sand": {
+				"L_Bird_Shadow_Sand": { "x": 0.5, "y": 2.48, "width": 19, "height": 7 },
+				"R_Bird_Shadow_Sand": { "x": 0.5, "y": 2.48, "width": 19, "height": 7 }
+			}
+		}
+	}
+],
+"animations": {
+	"Bird_Left_Rock": {
+		"slots": {
+			"L_Bird": {
+				"attachment": [
+					{ "name": "L_Bird" }
+				]
+			},
+			"L_Bird_Shadow_Sand": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"L_Bird_Shadow_Rock": {
+				"attachment": [
+					{ "name": "L_Bird_Shadow_Rock" }
+				]
+			}
+		},
+		"bones": {
+			"bone": {
+				"translate": [
+					{},
+					{ "time": 0.1667, "y": 4.51 },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Bird_Left_Sand": {
+		"slots": {
+			"L_Bird": {
+				"attachment": [
+					{ "name": "L_Bird" }
+				]
+			},
+			"L_Bird_Shadow_Sand": {
+				"attachment": [
+					{ "name": "L_Bird_Shadow_Sand" }
+				]
+			},
+			"L_Bird_Shadow_Rock": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"bone": {
+				"translate": [
+					{},
+					{ "time": 0.1667, "y": 4.51 },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Bird_Right_Rock": {
+		"slots": {
+			"L_Bird_Shadow_Sand": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"bone": {
+				"translate": [
+					{},
+					{ "time": 0.1667, "y": 4.51 },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Bird_Right_Sand": {
+		"slots": {
+			"L_Bird_Shadow_Rock": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"bone": {
+				"translate": [
+					{},
+					{ "time": 0.1667, "y": 4.51 },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	}
+}
+}

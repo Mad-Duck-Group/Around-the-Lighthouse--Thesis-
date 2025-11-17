@@ -1,4 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Madduck.GameData;
+using Madduck.GameData.Bait;
+using Madduck.Room;
+using Madduck.Shared;
 using Madduck.Utils;
 using R3;
 using UnityEngine;
@@ -21,60 +27,84 @@ namespace HasanSadikin.Carousel
     }
 
     [RequireComponent(typeof(Image), typeof(Mask))]
-    public class CarouselController<T> : MonoBehaviour
+    public class CarouselController : MonoBehaviour
     {
         [Header("Carousel Data")]
-        [SerializeField] protected T[] _data;
-
+        private List<BaitItemInstance> BaitList
+        {
+            get
+            {
+                if (_playerInventory == null) return new List<BaitItemInstance>();
+                return _playerInventory.AllBaits.Values
+                    .Where(b => b.CurrentCount > 0) 
+                    .ToList();
+            }
+        }
         [Header("Carousel Item")]
-        [SerializeField] protected CarouselItem<T> _carouselItemPrefab;
+        [SerializeField] protected CarouselItem<BaitItemInstance> _carouselItemPrefab;
 
         [Header("Carousel Settings")]
         [SerializeField] protected Origin _childOrigin;
-        [SerializeField] protected bool _isInfinity = false;
+        [SerializeField] protected bool _isInfinity = true;
         [SerializeField] protected int _repeat = 2;
         [SerializeField] protected int _indexRepeatOffset = 1;
-        
+        public ReactiveProperty<int> CurrentIndex { get; } = new(0);
         public int TotalItems => _carouselItems.Count;
         public bool HasItems => _carouselItems.Count > 0;
         public ReactiveCommand<Unit> OnInitialized { get; } = new();
-        public ReactiveCommand<T> OnItemSelected { get; } = new();
-        public ReactiveCommand<T> OnCurrentItemUpdated { get; } = new();
+        public ReactiveCommand<SelectionIcon> OnPointingStateChanged { get; } = new();
+        public ReactiveCommand<BaitItemInstance> OnItemSelected { get; } = new();
+        public ReactiveCommand<BaitItemInstance> OnCurrentItemUpdated { get; } = new();
         public ReactiveCommand<Unit> OnNext { get; } = new();
         public ReactiveCommand<Unit> OnPrev { get; } = new();
+        public bool HasConfirmedItem => _confirmedBait != null;
+        public PointingBaitConfig PointingBaitConfig => _pointingBaitConfig;
         protected int _currentIndex;
         protected ICarouselItemPositioner _positioner;
-        protected List<CarouselItem<T>> _carouselItems = new List<CarouselItem<T>>();
+        protected List<CarouselItem<BaitItemInstance>> _carouselItems = new List<CarouselItem<BaitItemInstance>>();
 
         private readonly CompositeDisposable _disposables = new();
+        private PointingBaitConfig _pointingBaitConfig;
+        private PlayerInventory _playerInventory;
+        private BaitItemInstance _confirmedBait;
+        private BaitItemInstance _pointingBait;
         
 
-        // 🧩 Reactive State
-        public ReactiveProperty<int> CurrentIndex { get; } = new(0);
+       
 
         [Inject]
-        public void Construct(ICarouselItemPositioner positioner)
+        public void Construct(ICarouselItemPositioner positioner,PlayerInventory playerInventory,PointingBaitConfig pointingBaitConfig)
         {
             _positioner = positioner;
+            _playerInventory = playerInventory;
+            _pointingBaitConfig = pointingBaitConfig;
             Bind();
+            CreateCarouselItems();
+            var baitList = BaitList;
+            if (HasItems && baitList.Count > 0)
+                UpdateData();
+            OnInitialized.Execute(Unit.Default);
         }
         
         public void Bind()
         {
             CurrentIndex.Subscribe(_ => UpdateData()).AddTo(_disposables);
-            
         }
         
         protected virtual void OnValidate()
         {
-            if (_repeat < 2) _repeat = 2;
-            if (Application.isPlaying) UpdateData();
+            if (_repeat < 2) _repeat = 3;
+            if (!Application.isPlaying) return; 
+            UpdateData();
         }
 
         protected virtual void Start()
         {
+            _currentIndex = 0;
+            CurrentIndex.Value = 0;
             CreateCarouselItems();
-            if (HasItems && _data != null && _data.Length > 0)
+            var baitList = BaitList;
+            if (!HasItems || baitList.Count == 0) return;
                 UpdateData();
 
             OnInitialized.Execute(Unit.Default);
@@ -82,13 +112,14 @@ namespace HasanSadikin.Carousel
 
         protected virtual void CreateCarouselItems()
         {
-            int itemsCount = _isInfinity ? _data.Length * _repeat : _data.Length;
+            var baitList = BaitList;
+            int itemsCount = _isInfinity ? baitList.Count * _repeat : baitList.Count;
             _carouselItems.Capacity = itemsCount;
 
             for (int i = 0; i < itemsCount; i++)
             {
                 var newItem = Instantiate(_carouselItemPrefab, transform);
-                newItem.Data = _data[i % _data.Length];
+                newItem.Data = baitList[i % Math.Max(1, baitList.Count)];
 
                 var rect = newItem.transform as RectTransform;
                 SetChildOrigin(rect);
@@ -166,11 +197,14 @@ namespace HasanSadikin.Carousel
             }
         }
 
-        protected CarouselItem<T> GetCarouselItemAt(int index)
+        protected CarouselItem<BaitItemInstance> GetCarouselItemAt(int index)
         {
             return _carouselItems[GetCarouselIndex(index)];
         }
-
+        public BaitItemInstance GetCurrentBaitVisual()
+        {
+            return GetCarouselItemAt(_currentIndex).Data;
+        }
         protected int GetCarouselIndex(int index)
         {
             var count = _carouselItems.Count;
@@ -181,31 +215,40 @@ namespace HasanSadikin.Carousel
 
         protected virtual void UpdateData()
         {
-            if (!HasItems || _data == null || _data.Length == 0) return;
+            if (_playerInventory == null) 
+                return;
+            var baitList = BaitList;
+            if (!HasItems || baitList.Count == 0) return;
 
             for (int i = 0; i < _carouselItems.Count; i++)
             {
                 var item = GetCarouselItemAt(i);
-                bool isActive = _isInfinity ? i == GetCarouselIndex(_currentIndex + _data.Length * _indexRepeatOffset) : i == _currentIndex;
+                int visualIndex = _isInfinity
+                    ? GetCarouselIndex(i - _currentIndex) - baitList.Count * _indexRepeatOffset
+                    : i - _currentIndex;
+
+                bool isActive = visualIndex == 0;
                 item.SetActive(isActive);
             
                 if (isActive)
                 {
+                    _pointingBait = item.Data;
                     OnCurrentItemUpdated.Execute(item.Data);
+                    UpdatePointing();
                 }
-
-                MoveItemToPositionAtIndex(item, _isInfinity ? GetCarouselIndex(i - _currentIndex) - _data.Length * _indexRepeatOffset : i - _currentIndex);
+                MoveItemToPositionAtIndex(item, _isInfinity ? GetCarouselIndex(i - _currentIndex) - baitList.Count * _indexRepeatOffset : i - _currentIndex);
             }
         }
 
-        protected virtual void MoveItemToPositionAtIndex(CarouselItem<T> item, int index)
+        protected virtual void MoveItemToPositionAtIndex(CarouselItem<BaitItemInstance> item, int index)
         {
             _positioner?.SetPosition(item._rectTransform, index);
         }
 
         public virtual void Next()
         {
-            if (!_isInfinity && _currentIndex + 1 >= _data.Length) return;
+            var list = BaitList;
+            if (!_isInfinity && _currentIndex + 1 >= list.Count) return;
 
             _currentIndex++;
           
@@ -223,34 +266,49 @@ namespace HasanSadikin.Carousel
             OnPrev.Execute(Unit.Default);
         }
 
-        public virtual void Select()
+        public void ToggleSelection(BaitItemInstance bait)
         {
-            OnItemSelected.Execute(_carouselItems[GetCarouselIndex(_currentIndex)].Data);
-        }
-
-        protected virtual void OnCarouselItemClicked(CarouselItem<T> clickedItem)
-        {
-            if (_isInfinity)
+            var iconState = SelectionIcon.Unselected;
+            if (_confirmedBait == bait)
             {
-                AdjustIndexForClickedItem(clickedItem);
+                _confirmedBait = null;
+                UpdateIconSelection();
+                UpdatePointing();
+                return;
             }
+            
+            _confirmedBait = bait;
+            UpdateIconSelection();
+            UpdatePointing();
+        }
+        private void UpdatePointing()
+        {
+            if (_confirmedBait != null && _pointingBait == _confirmedBait)
+                OnPointingStateChanged.Execute(SelectionIcon.Selected);
             else
-            {
-                _currentIndex = _carouselItems.IndexOf(clickedItem);
-                UpdateData();
-            }
+                OnPointingStateChanged.Execute(SelectionIcon.Unselected);
         }
 
-        protected virtual void AdjustIndexForClickedItem(CarouselItem<T> clickedItem)
+        private void UpdateIconSelection()
         {
-            var targetItem = GetCarouselItemAt(_currentIndex + _data.Length);
+            foreach (var item in _carouselItems)
+            {
+                bool isSelected = (item.Data == _confirmedBait);
+                item.SetSelected(isSelected);
+            }
+        }
+        
+
+        protected virtual void AdjustIndexForClickedItem(CarouselItem<BaitItemInstance> clickedItem)
+        {
+            var baitList = BaitList;
+            var targetItem = GetCarouselItemAt(_currentIndex + baitList.Count);
             int direction = _positioner.IsItemAfter(targetItem._rectTransform, clickedItem._rectTransform) ? -1 : 1;
 
-            while (GetCarouselItemAt(_currentIndex + _data.Length) != clickedItem)
+            while (GetCarouselItemAt(_currentIndex + baitList.Count) != clickedItem)
             {
                 _currentIndex += direction;
             }
-
             UpdateData();
         }
     }

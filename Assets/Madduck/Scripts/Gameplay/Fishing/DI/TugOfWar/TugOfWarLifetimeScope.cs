@@ -38,6 +38,7 @@ namespace Madduck.Fishing.DI
         [Required, 
          SerializeField] private TugOfWarView tugOfWarView;
         
+        
 #if UNITY_EDITOR
         [Title("Debug")]
         [HideInEditorMode]

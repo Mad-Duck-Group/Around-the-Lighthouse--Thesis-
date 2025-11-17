@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b602278afce3c64dbee272c88b7a73a, type: 3}
+  m_Name: New Input Icon Data
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.InputIconData
+  iconMap:
+    keys: 0000000001000000040000000a00000005000000
+    values:
+    - keyboardSprite: {fileID: 21300000, guid: 3c3c7b805a350be43b2eaac87a9be234, type: 3}
+      gamepadSprite: {fileID: 3959922740387019359, guid: 6c545046a2b2be94693273cf2d73a691, type: 3}
+      useAnimation: 0
+      keyboardAnimation: {fileID: 0}
+      gamepadAnimation: {fileID: 0}
+    - keyboardSprite: {fileID: -3409739189899373789, guid: f10c6fb01ddd6ac4e8de6dcd119e0f2e, type: 3}
+      gamepadSprite: {fileID: -8680797543115379092, guid: 4b13567ae8d1b5f42a38960314f4dd9f, type: 3}
+      useAnimation: 0
+      keyboardAnimation: {fileID: 0}
+      gamepadAnimation: {fileID: 0}
+    - keyboardSprite: {fileID: 5752458621984790144, guid: 8007d7e647c18774093f22ce8fa1fad0, type: 3}
+      gamepadSprite: {fileID: 21300000, guid: db48c8c12645ea04ea084cbe1ba2df07, type: 3}
+      useAnimation: 0
+      keyboardAnimation: {fileID: 0}
+      gamepadAnimation: {fileID: 0}
+    - keyboardSprite: {fileID: -8912760082684505365, guid: 4dbcbf21f57d57340baabb0a2cbd164b, type: 3}
+      gamepadSprite: {fileID: 6373515198640873212, guid: ad2a8e1eb619d0142be1ea513dd711f0, type: 3}
+      useAnimation: 0
+      keyboardAnimation: {fileID: 0}
+      gamepadAnimation: {fileID: 0}
+    - keyboardSprite: {fileID: 8212722582853689398, guid: 2cfe81d796a3e8641bf8f4df980e9e0f, type: 3}
+      gamepadSprite: {fileID: 21300000, guid: de4b476cb009eb94bb7ddce1f1210282, type: 3}
+      useAnimation: 0
+      keyboardAnimation: {fileID: 0}
+      gamepadAnimation: {fileID: 0}

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Madduck.Day;
+using Madduck.Utils;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -15,8 +17,8 @@ namespace Madduck.Room
          OdinSerialize] private List<IInstaller> uiInstallers = new();
         [Required,
          SerializeField] private LoadingView loadingView;
-
-
+        
+        
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(loadingView)

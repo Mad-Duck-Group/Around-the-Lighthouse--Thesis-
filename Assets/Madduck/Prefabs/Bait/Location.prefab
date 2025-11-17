@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 181.25, y: 109.375}
+  m_SizeDelta: {x: 124, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3324240162127337423
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 20cbb866243715b4eafe2722a3e5d2c9, type: 3}
+  m_Sprite: {fileID: 5005491855573668707, guid: 4ee3414ec01581d4f9c4ccd62a40511b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocationCarouselItem
   _data:
-    sprite: {fileID: 0}
+    <ItemData>k__BackingField: {fileID: 11400000, guid: 669eb58ab25a3ab4e9d9996a52b1c32f, type: 2}
   _rectTransform: {fileID: 8599606533523844460}
   _image: {fileID: 629929232283119923}
   fadeTween:

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1dfd96b8ccd6a4b832bde6a9af841d, type: 3}
   m_Name: Cheese
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.BaitItemData
-  <ItemType>k__BackingField: 4
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -81,8 +80,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  <ItemType>k__BackingField: 4
   <BaitType>k__BackingField: 1
   <BaitName>k__BackingField: Cheese
   <BaitDescription>k__BackingField: Cheese from your own pantry. Sorry, rat, but
     I need it for fishing.
-  <BaitIcon>k__BackingField: {fileID: 21300000, guid: 20cbb866243715b4eafe2722a3e5d2c9, type: 3}
+  <BaitIcon>k__BackingField: {fileID: 5005491855573668707, guid: 4ee3414ec01581d4f9c4ccd62a40511b, type: 3}
+  <BaitSelectedIcon>k__BackingField: {fileID: -4910352831653650050, guid: ffab6b88891b7614bb9f9a0a6eea6714, type: 3}

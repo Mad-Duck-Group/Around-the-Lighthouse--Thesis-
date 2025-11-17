@@ -1,0 +1,114 @@
+{
+"skeleton": {
+	"hash": "JcIHQ0vVhfEFbKPjl/kfQBmyQCk",
+	"spine": "3.8.75",
+	"x": -256,
+	"y": -3.6,
+	"width": 507,
+	"height": 236,
+	"images": "../Environment/CosatRock_Fix/Rock/1/images/",
+	"audio": "../Environment/CosatRock_Fix/Rock/1/"
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "bone", "parent": "root", "length": 110, "rotation": 90.98, "x": -95.92, "y": 46.97 },
+	{ "name": "bone2", "parent": "root", "length": 80.37, "rotation": 89.5, "x": -124.59, "y": 78.23 },
+	{ "name": "bone3", "parent": "root", "length": 130.67, "rotation": 90.82, "x": -24.48, "y": 88.8 },
+	{ "name": "bone4", "parent": "root", "length": 74.73, "rotation": 89.64, "x": 103.6, "y": 53.79 }
+],
+"slots": [
+	{ "name": "L_Rock", "bone": "root", "attachment": "L_Rock" },
+	{ "name": "wood_1", "bone": "bone", "attachment": "wood_1" },
+	{ "name": "wood_2 copy", "bone": "bone4", "attachment": "wood_2 copy" },
+	{ "name": "wood_Rope_1", "bone": "bone2", "attachment": "wood_Rope_1" },
+	{ "name": "Wood_Bird_1", "bone": "bone3", "attachment": "Wood_Bird_1" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"wood_Rope_1": {
+				"wood_Rope_1": { "x": 41.19, "y": -1.73, "rotation": -89.5, "width": 25, "height": 88 }
+			},
+			"L_Rock": {
+				"L_Rock": { "x": -2.5, "y": 60.4, "width": 507, "height": 128 }
+			},
+			"wood_1": {
+				"wood_1": { "x": 56.44, "y": 0.62, "rotation": -90.98, "width": 21, "height": 122 }
+			},
+			"wood_2 copy": {
+				"wood_2 copy": { "x": 44.14, "y": -4.13, "rotation": -89.64, "width": 32, "height": 99 }
+			},
+			"Wood_Bird_1": {
+				"Wood_Bird_1": { "x": 69.6, "y": 0.02, "rotation": -90.82, "width": 29, "height": 148 }
+			}
+		}
+	}
+],
+"animations": {
+	"Rock_1_Bird_Storm": {
+		"bones": {
+			"bone": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4, "angle": 2.17, "curve": 0.25, "c3": 0.75 },
+					{ "time": 1 }
+				]
+			},
+			"bone2": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5333, "angle": -4.05, "curve": 0.25, "c3": 0.75 },
+					{ "time": 1 }
+				]
+			},
+			"bone3": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "angle": 1.59, "curve": 0.25, "c3": 0.75 },
+					{ "time": 1 }
+				]
+			},
+			"bone4": {
+				"rotate": [
+					{ "curve": 0.264, "c3": 0.618, "c4": 0.43 },
+					{ "time": 0.6667, "angle": -4.22, "curve": 0.25, "c3": 0.75 },
+					{ "time": 1 }
+				]
+			}
+		}
+	},
+	"Rock_1_Bird_Sway": {
+		"bones": {
+			"bone": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 1.7333, "angle": 2.17, "curve": 0.25, "c3": 0.75 },
+					{ "time": 4 }
+				]
+			},
+			"bone2": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 2.0333, "angle": -4.05, "curve": 0.25, "c3": 0.75 },
+					{ "time": 4 }
+				]
+			},
+			"bone3": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 1.4333, "angle": 1.59, "curve": 0.25, "c3": 0.75 },
+					{ "time": 4 }
+				]
+			},
+			"bone4": {
+				"rotate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 2.2667, "angle": -4.22, "curve": 0.25, "c3": 0.75 },
+					{ "time": 4 }
+				]
+			}
+		}
+	}
+}
+}

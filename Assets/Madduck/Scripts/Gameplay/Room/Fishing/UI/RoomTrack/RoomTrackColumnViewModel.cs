@@ -16,7 +16,7 @@ namespace Madduck.Room
     public class RoomTrackColumnViewModel : IDisposable
     {
         #region Fields
-        private readonly Dictionary<DayRoomKey, Sprite> _spriteMap;
+        
         private readonly List<RoomTrackView> _rooms = new();
         private readonly DayManagerConfig _dayManagerConfig;
         private readonly ReadOnlyReactiveProperty<uint> _currentRoomIndex;
@@ -25,6 +25,8 @@ namespace Madduck.Room
         private readonly IFactory<BoatTrackView> _boatTrackFactory;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private readonly IPublisher<LoadingSceneAnimationFinishedEvent> _loadingSceneAnimationFinishedPublisher;
+        private readonly SerializableDictionary<DayRoomKey, Sprite> _futureSprites;
+        private readonly SerializableDictionary<DayRoomKey, Sprite> _pastSprites;
         private BoatTrackView _boatTrackView;
         private IDisposable _binding;
         #endregion
@@ -33,7 +35,7 @@ namespace Madduck.Room
 
         [Inject]
         public RoomTrackColumnViewModel(
-            SerializableDictionary<DayRoomKey, Sprite> spriteMap,
+            DayRoomSpriteConfig spriteMap,
             DayManagerConfig dayManagerConfig,
             RoomTrackViewModel roomTrackViewModel,
             LoadSceneManager loadSceneManager,
@@ -49,7 +51,8 @@ namespace Madduck.Room
             _loadSceneManager = loadSceneManager;
             _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
             _loadingSceneAnimationFinishedPublisher = loadingSceneAnimationFinishedPublisher;
-            _spriteMap = spriteMap;
+            _futureSprites = spriteMap.FutureSprites;
+            _pastSprites = spriteMap.PastSprites;
             _currentRoomIndex = roomTrackViewModel.CurrentRoomIndex.ToReadOnlyReactiveProperty();
             Bind();
         }
@@ -82,28 +85,35 @@ namespace Madduck.Room
             var roomCount = CalculateIndexRoom();
             for (int i = 0; i <= roomCount; i++)
             {
-                CreateRoom(new DayRoomKey(DayPhaseType.Day, RoomType.Fishing));
+                CreateRoom(new DayRoomKey(DayPhaseType.Day, RoomType.Fishing), i);
             }
 
             var maxRoomCount = _dayManagerConfig.MaxRoomCount;
             for (int i = roomCount + 1; i < maxRoomCount; i++)
             {
+                var state = CalculateRoomState(i);
                 if (i == maxRoomCount - 1)
                 {
-                    CreateRoom(new DayRoomKey(DayPhaseType.Both, RoomType.Event));
+                    CreateRoom(new DayRoomKey(DayPhaseType.Both, RoomType.Event),i);
                     break;
                 }
-                CreateRoom(new DayRoomKey(DayPhaseType.Night, RoomType.Fishing));
+                CreateRoom(new DayRoomKey(DayPhaseType.Night, RoomType.Fishing),i);
             }
             await UniTask.WaitForEndOfFrame();
             CreateBoatTrack().Forget();
         }
         
-        private void CreateRoom(DayRoomKey dayRoomKey)
+        private void CreateRoom(DayRoomKey roomKey,int index)
         {
+            
+            var state = CalculateRoomState(index);
+            Sprite sprite = null;
+            if (state == RoomHistoryState.Past)
+                _pastSprites.TryGetValue(roomKey, out sprite);
+            else
+                _futureSprites.TryGetValue(roomKey, out sprite);
             var view = _roomTrackFactory.Create();
-            if (_spriteMap.TryGetValue(dayRoomKey, out var sprite))
-                view.SetUp(sprite);
+            view.SetUp(sprite);
             _rooms.Add(view);
         }
         
@@ -112,7 +122,18 @@ namespace Madduck.Room
             var percentIndex = Mathf.FloorToInt(_dayManagerConfig.MaxRoomCount * _dayManagerConfig.DayNightRatio.AsFraction) - 1;
             return percentIndex;
         }
-
+        private RoomHistoryState CalculateRoomState(int roomIndex)
+        {
+            var current = (int)_currentRoomIndex.CurrentValue;
+            
+            if (roomIndex < current)
+            {
+                return RoomHistoryState.Past;
+            }
+            return RoomHistoryState.Future;
+            
+            
+        }
         #endregion
 
         #region BoatTrackControl

@@ -380,14 +380,16 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 21300000, guid: 82f559744d1318646a13bf4c41dd851b, type: 3}
-    - {fileID: 21300000, guid: 6931070f8a17ece48881684da370903e, type: 3}
-    - {fileID: 21300000, guid: febbf57961d93e54da95c8801adf662a, type: 3}
     - {fileID: 4707579084269760461, guid: 4c617c35d01dd7647bc39d8557bdbf98, type: 3}
     - {fileID: 349563653}
     - {fileID: -870817957565304975, guid: 407117ad6923fcf4ea77d2d987602397, type: 3}
     - {fileID: 658182851}
     - {fileID: 21300000, guid: 345ac025f293c2e45a33f50f5629c2c2, type: 3}
+    - {fileID: 21300000, guid: fdfaad8990d6f3f4b8fa6a20e3fff27c, type: 3}
+    - {fileID: 21300000, guid: 8aea214f2db32be4aa07090291f5c99e, type: 3}
+    - {fileID: 21300000, guid: c965b3138a1d91a45a6b2e34b7ab55b6, type: 3}
+    - {fileID: 21300000, guid: 1491cb222f73ecb408bbccc6ea794d22, type: 3}
+    - {fileID: 21300000, guid: cdc4068ba3b6d804dafd61f80a46a337, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -403,9 +405,39 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|Madduck.Room.RoomTrackUIInstaller, Madduck.Room
-    - Name: sprites
+    - Name: roomTrackFactory
       Entry: 7
-      Data: 2|Madduck.Utils.SerializableDictionary`2[[Madduck.Day.DayRoomKey, Madduck.Day],[UnityEngine.Sprite,
+      Data: 2|Madduck.Room.RoomTrackFactory, Madduck.Room
+    - Name: prefab
+      Entry: 10
+      Data: 0
+    - Name: parent
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: boatTrackViewFactory
+      Entry: 7
+      Data: 3|Madduck.Room.BoatTrackViewFactory, Madduck.Room
+    - Name: prefab
+      Entry: 10
+      Data: 2
+    - Name: parent
+      Entry: 10
+      Data: 3
+    - Name: defaultBoatSprite
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: dayRoomSpriteConfig
+      Entry: 7
+      Data: 4|Madduck.Room.DayRoomSpriteConfig, Madduck.Room
+    - Name: FutureSprites
+      Entry: 7
+      Data: 5|Madduck.Utils.SerializableDictionary`2[[Madduck.Day.DayRoomKey, Madduck.Day],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], Madduck.Utils
     - Name: 
       Entry: 12
@@ -428,7 +460,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 10
-      Data: 0
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -450,7 +482,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 10
-      Data: 1
+      Data: 6
     - Name: 
       Entry: 8
       Data: 
@@ -472,7 +504,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 10
-      Data: 2
+      Data: 7
     - Name: 
       Entry: 8
       Data: 
@@ -482,30 +514,63 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: roomTrackFactory
+    - Name: PastSprites
       Entry: 7
-      Data: 3|Madduck.Room.RoomTrackFactory, Madduck.Room
-    - Name: prefab
-      Entry: 10
-      Data: 3
-    - Name: parent
-      Entry: 10
-      Data: 4
+      Data: 6|Madduck.Utils.SerializableDictionary`2[[Madduck.Day.DayRoomKey, Madduck.Day],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], Madduck.Utils
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 7
+      Data: Madduck.Day.DayRoomKey, Madduck.Day
+    - Name: dayPhase
+      Entry: 3
+      Data: 1
+    - Name: room
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
-    - Name: boatTrackViewFactory
+    - Name: 
+      Entry: 10
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
-      Data: 4|Madduck.Room.BoatTrackViewFactory, Madduck.Room
-    - Name: prefab
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 7
+      Data: Madduck.Day.DayRoomKey, Madduck.Day
+    - Name: dayPhase
+      Entry: 3
+      Data: 2
+    - Name: room
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 10
-      Data: 5
-    - Name: parent
-      Entry: 10
-      Data: 6
-    - Name: defaultBoatSprite
-      Entry: 10
-      Data: 7
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -647,7 +712,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 120
+  m_Spacing: 40
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -891,7 +956,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 903694630}
-  - component: {fileID: 903694631}
   m_Layer: 0
   m_Name: LoadingManager
   m_TagString: Untagged
@@ -914,18 +978,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &903694631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903694629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b2c4db2b70e484fb0a7333c45bb9e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LoadingManager
 --- !u!1 &1158284381
 GameObject:
   m_ObjectHideFlags: 0

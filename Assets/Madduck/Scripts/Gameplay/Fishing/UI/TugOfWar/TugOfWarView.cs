@@ -16,6 +16,8 @@ namespace Madduck.Fishing.UI
         [Title("References")]
         [Required, 
          SerializeField] private Slider tugOfWarSlider;
+        [Required,
+         SerializeField] private Image inputIconImage;
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings<Vector3> scaleTweenSettings;

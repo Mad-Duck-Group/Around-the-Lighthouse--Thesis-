@@ -1,0 +1,27 @@
+
+Rock_6.png
+size: 370,144
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+S_L_Rock copy
+  rotate: false
+  xy: 2, 2
+  size: 263, 140
+  orig: 265, 142
+  offset: 1, 1
+  index: -1
+wood_2
+  rotate: false
+  xy: 338, 46
+  size: 30, 96
+  orig: 32, 99
+  offset: 1, 1
+  index: -1
+wood_Rope_3
+  rotate: false
+  xy: 267, 23
+  size: 69, 119
+  orig: 71, 121
+  offset: 1, 1
+  index: -1

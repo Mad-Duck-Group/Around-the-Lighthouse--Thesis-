@@ -1,0 +1,41 @@
+
+Rock_1_Bird.png
+size: 509,162
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+L_Rock
+  rotate: false
+  xy: 2, 2
+  size: 505, 126
+  orig: 507, 128
+  offset: 1, 1
+  index: -1
+Wood_Bird_1
+  rotate: true
+  xy: 210, 133
+  size: 27, 146
+  orig: 29, 148
+  offset: 1, 1
+  index: -1
+wood_1
+  rotate: true
+  xy: 2, 141
+  size: 19, 119
+  orig: 21, 122
+  offset: 1, 1
+  index: -1
+wood_2 copy
+  rotate: true
+  xy: 358, 130
+  size: 30, 96
+  orig: 32, 99
+  offset: 1, 1
+  index: -1
+wood_Rope_1
+  rotate: true
+  xy: 123, 137
+  size: 23, 85
+  orig: 25, 88
+  offset: 1, 1
+  index: -1

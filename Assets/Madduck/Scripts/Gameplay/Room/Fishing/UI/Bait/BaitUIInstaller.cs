@@ -1,6 +1,7 @@
 ﻿using System;
 using HasanSadikin.Carousel;
 using Madduck.Input;
+using Madduck.Room.PointingBait;
 using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
@@ -16,23 +17,29 @@ namespace Madduck.Room
         [Title("Bait")]
         [Required,
          SerializeField] private BaitButtonViewFactory baitButtonViewFactory;
+
         [Required,
-         SerializeField] private CarouselController<LocationData> _carouselController;
+         SerializeField]private PointingBaitView pointingBaitView;
         [Required,
-         SerializeField]private GameObject uiBeforeTriggerBait;
+         SerializeField] private PointingBaitConfig pointingBaitConfig;
         [Required,
-         SerializeField] private GameObject uiAfterTriggerBait;
+         SerializeField] private CarouselController _carouselController;
+        [Required,
+         SerializeField]private BaitUITriggerConfig baitUITriggerConfig;
         
         public void Install(IContainerBuilder builder)
         {
             builder.Register(_ => baitButtonViewFactory, Lifetime.Singleton)
                 .As<IFactory<BaitButtonView>>();
+            builder.Register(_ => pointingBaitConfig, Lifetime.Singleton).As<PointingBaitConfig>();
+            builder.Register(_ => baitUITriggerConfig, Lifetime.Singleton).As<BaitUITriggerConfig>();
             builder.Register<BaitSelectionViewModel>(Lifetime.Singleton);
             builder.RegisterEntryPoint<BaitController>(Lifetime.Singleton).AsSelf();
             builder.Register<ICarouselItemPositioner, HorizontalCarouselItemPositioner>(Lifetime.Singleton);
             builder.RegisterComponent(_carouselController);
-            builder.RegisterInstance(new UIBeforeTriggerBait(uiBeforeTriggerBait));
-            builder.RegisterInstance(new UIAfterTriggerBait(uiAfterTriggerBait));
+            builder.RegisterComponent(pointingBaitView).As<PointingBaitView>();
+            
+            
             builder.RegisterBuildCallback(x =>
             {
                 x.Resolve<BaitSelectionViewModel>();

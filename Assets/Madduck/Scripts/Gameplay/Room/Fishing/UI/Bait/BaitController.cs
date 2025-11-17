@@ -25,7 +25,7 @@ namespace Madduck.Room
         private readonly ISubscriber<FishingStateEvent> _fishingStateSubscriber;
         private readonly GameObject _uiBeforeTriggerBait;
         private readonly GameObject _uiAfterTriggerBait;
-        private readonly CarouselController<LocationData> _carousel;
+        private readonly CarouselController _carousel;
         
         private BaitItemInstance _pendingBait;
         private bool _interactable = true;
@@ -37,15 +37,14 @@ namespace Madduck.Room
             IPlayerInputHandler inputHandler,
             PlayerInventory playerInventory,
             ISubscriber<FishingStateEvent> fishingStateSubscriber,
-            UIBeforeTriggerBait before,
-            UIAfterTriggerBait after,
-            CarouselController<LocationData> carousel)
+            BaitUITriggerConfig baitTriggerConfig,
+            CarouselController carousel)
         {
             _inputHandler = inputHandler;
             _playerInventory = playerInventory;
             _fishingStateSubscriber = fishingStateSubscriber;
-            _uiBeforeTriggerBait = before.Value;
-            _uiAfterTriggerBait = after.Value;
+            _uiBeforeTriggerBait = baitTriggerConfig.before;
+            _uiAfterTriggerBait = baitTriggerConfig.after;
             _carousel = carousel;
         }
         
@@ -101,9 +100,19 @@ namespace Madduck.Room
                         .Where(x => x && _interactable && _uiAfterTriggerBait.activeSelf)
                         .Subscribe(__ =>
                         {
-                            _pendingBait ??= _playerInventory.CurrentBaitsView.FirstOrDefault().Value;
-                            _playerInventory.SetCurrentBait(_pendingBait.ItemData.BaitType);
-                            OnBaitChanged.Execute(_pendingBait);
+                            var bait = _carousel.GetCurrentBaitVisual();
+                            _carousel.ToggleSelection(bait);
+                            if (!_carousel.HasConfirmedItem)
+                            {
+                                _pendingBait = null;
+                                _playerInventory.SetCurrentBait(BaitType.None);
+                                OnBaitChanged.Execute(null);
+                                return;
+                            }
+                            _pendingBait = bait;
+                            _playerInventory.SetCurrentBait(bait.ItemData.BaitType);
+                            OnBaitChanged.Execute(bait);
+                            
                         })
                         .AddTo(ref _confirmDisposables);
                 })
@@ -136,13 +145,7 @@ namespace Madduck.Room
         {
             _interactable = evt.StateType is FishingStateType.ThrowHook;
         }
-
-        private void OnCarouselItemUpdated(BaitItemInstance bait)
-        {
-            if (bait == null) return;
-            _playerInventory.SetCurrentBait(bait.ItemData.BaitType);//เปลี่ยนใหม่
-            OnBaitChanged.Execute(bait);
-        }
+        
         private void OnNextBait()
         {
             var baseBait = _pendingBait ?? _playerInventory.CurrentBaitView.CurrentValue;
@@ -154,7 +157,6 @@ namespace Madduck.Room
             int nextIndex = (currentIndex + 1) % baitList.Count;
 
             _pendingBait = baitList[nextIndex];
-            DebugUtils.Log($"Pending Next bait: {_pendingBait.ItemData.BaitType}");
 
         }
 
@@ -169,30 +171,12 @@ namespace Madduck.Room
             int prevIndex = (currentIndex - 1 + baitList.Count) % baitList.Count;
 
             _pendingBait = baitList[prevIndex];
-            DebugUtils.Log($"Pending Previous bait: {_pendingBait.ItemData.BaitType}");
 
         }
-        private void OnCarouselItemSelected(BaitItemInstance bait)
-        {
-            if (!_interactable || bait == null) return;
-            _playerInventory.SetCurrentBait(bait.ItemData.BaitType);
-            DebugUtils.Log($"Selected bait: {bait.ItemData.BaitType}");
-        }
-
         public void Dispose()
         {
             _bindings?.Dispose();
         }
     }
-    public class UIBeforeTriggerBait
-    {
-        public GameObject Value { get; }
-        public UIBeforeTriggerBait(GameObject value) => Value = value;
-    }
-
-    public class UIAfterTriggerBait
-    {
-        public GameObject Value { get; }
-        public UIAfterTriggerBait(GameObject value) => Value = value;
-    }
+    
 }

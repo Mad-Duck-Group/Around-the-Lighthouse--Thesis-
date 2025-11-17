@@ -37,7 +37,7 @@ namespace Madduck.Room
 
         [Button("Change Fish Count")]
         private void DebugChangeFishCount(int change) => ChangeFishCount(change);
-
+    
         #endregion
 
         #region Fields

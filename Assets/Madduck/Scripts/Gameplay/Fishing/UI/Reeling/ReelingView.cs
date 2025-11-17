@@ -19,15 +19,20 @@ namespace Madduck.Fishing.UI
          SerializeField] private Slider reelingSlider;
         [Required, 
          SerializeField] private HoldButton reelingButton;
+        [Required,
+         SerializeField] private Animator reelingAnimator;
+        
         
         private ReelingViewModel _viewModel;
         private ReelingCommander _commander;
+        private IPlayerInputHandler _inputHandler;
         private IDisposable _bindings;
         
         [Inject]
         public void SetUp(
             ReelingViewModel viewModel, 
-            ReelingCommander commander)
+            ReelingCommander commander
+            )
         {
             _viewModel = viewModel;
             _commander = commander;
@@ -51,6 +56,11 @@ namespace Madduck.Fishing.UI
                 .AsObservable()
                 .Subscribe(_ => _commander.OnReelingRelease.Execute(InputType.UI))
                 .AddTo(ref disposableBuilder);
+            _viewModel.CurrentScheme
+                .Subscribe(onNext: scheme =>
+                {
+                    UpdateAnimation(scheme);
+                }).AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
         
@@ -79,7 +89,7 @@ namespace Madduck.Fishing.UI
             // Implement if there are any ongoing animations or transitions to cancel
         }
         #endregion
-
+    
         private void SetActive(bool active)
         {
             _bindings?.Dispose();
@@ -92,11 +102,28 @@ namespace Madduck.Fishing.UI
                 SetReelingProgress(Percentage.Zero);
             }
             gameObject.SetActive(active);
+            UpdateAnimation("Mouse & Keyboard");
         }
         
         private void SetReelingProgress(Percentage progressPercent)
         {
             reelingSlider.value = progressPercent.AsFraction;
+        }
+        private void UpdateAnimation(string scheme)
+        {
+            switch (scheme)
+            {
+                case "Gamepad":
+                    reelingAnimator.Play("AnalogReeling");
+                    break;
+                case "Mouse & Keyboard":
+                    reelingAnimator.Play("MouseReeling");
+                    break;
+                default:
+                    reelingAnimator.Play("MouseReeling");
+                    break;
+                
+            }
         }
     }
 }

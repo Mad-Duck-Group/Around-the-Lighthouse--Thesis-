@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: ddd7a1296220124468e35bfd140f7f93
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5152414275964619244
+    second: Star_Gold-15fps_0
+  - first:
+      213: -8978615380685008900
+    second: Star_Gold-15fps_1
+  - first:
+      213: 7757426384821114521
+    second: Star_Gold-15fps_2
+  - first:
+      213: -4564542281026968759
+    second: Star_Gold-15fps_3
+  - first:
+      213: 6187882941274785874
+    second: Star_Gold-15fps_4
+  - first:
+      213: -5770533994161746497
+    second: Star_Gold-15fps_5
+  - first:
+      213: 1479274593064792366
+    second: Star_Gold-15fps_6
+  - first:
+      213: 2001105941807510725
+    second: Star_Gold-15fps_7
+  - first:
+      213: -5772433101969106964
+    second: Star_Gold-15fps_8
+  - first:
+      213: -5240363221303114039
+    second: Star_Gold-15fps_9
+  - first:
+      213: 6218815455284932466
+    second: Star_Gold-15fps_10
+  - first:
+      213: -165872770040984757
+    second: Star_Gold-15fps_11
+  - first:
+      213: 9186940518987168019
+    second: Star_Gold-15fps_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Star_Gold-15fps_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 134
+        width: 120
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce9c58e3c7d018740800000000000000
+      internalID: 5152414275964619244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_1
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 134
+        width: 120
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cff496bc1ec856380800000000000000
+      internalID: -8978615380685008900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_2
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 134
+        width: 120
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9965186423ae7ab60800000000000000
+      internalID: 7757426384821114521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_3
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 134
+        width: 120
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 943e229bafc77a0c0800000000000000
+      internalID: -4564542281026968759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_4
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 131
+        width: 129
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 258026210c6cfd550800000000000000
+      internalID: 6187882941274785874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_5
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 131
+        width: 129
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbd4ca9e7e1faefa0800000000000000
+      internalID: -5770533994161746497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_6
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 131
+        width: 128
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2133e4a760778410800000000000000
+      internalID: 1479274593064792366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_7
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 2
+        width: 120
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c43c53704b55cb10800000000000000
+      internalID: 2001105941807510725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_8
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 2
+        width: 120
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce7dc6b6da234efa0800000000000000
+      internalID: -5772433101969106964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_9
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 2
+        width: 120
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c6c4343a6d7647b0800000000000000
+      internalID: -5240363221303114039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_10
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 3
+        width: 123
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27fa7f735bbad4650800000000000000
+      internalID: 6218815455284932466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_11
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 3
+        width: 123
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b0ccf2893b2bdf0800000000000000
+      internalID: -165872770040984757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Gold-15fps_12
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 3
+        width: 123
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3197fde3ab19e7f70800000000000000
+      internalID: 9186940518987168019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Star_Gold-15fps_0: 5152414275964619244
+      Star_Gold-15fps_1: -8978615380685008900
+      Star_Gold-15fps_10: 6218815455284932466
+      Star_Gold-15fps_11: -165872770040984757
+      Star_Gold-15fps_12: 9186940518987168019
+      Star_Gold-15fps_2: 7757426384821114521
+      Star_Gold-15fps_3: -4564542281026968759
+      Star_Gold-15fps_4: 6187882941274785874
+      Star_Gold-15fps_5: -5770533994161746497
+      Star_Gold-15fps_6: 1479274593064792366
+      Star_Gold-15fps_7: 2001105941807510725
+      Star_Gold-15fps_8: -5772433101969106964
+      Star_Gold-15fps_9: -5240363221303114039
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

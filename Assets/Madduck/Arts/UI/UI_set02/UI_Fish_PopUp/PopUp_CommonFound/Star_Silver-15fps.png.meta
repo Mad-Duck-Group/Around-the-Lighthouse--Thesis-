@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: d8f6332de749e8a4697e33c396ebd959
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5371847562797700979
+    second: Star_Silver-15fps_0
+  - first:
+      213: -4118939742274542264
+    second: Star_Silver-15fps_1
+  - first:
+      213: -2275390124821795617
+    second: Star_Silver-15fps_2
+  - first:
+      213: 3622901644271218231
+    second: Star_Silver-15fps_3
+  - first:
+      213: -4149794511618962481
+    second: Star_Silver-15fps_4
+  - first:
+      213: -3742476476629468827
+    second: Star_Silver-15fps_5
+  - first:
+      213: -8044849564242839413
+    second: Star_Silver-15fps_6
+  - first:
+      213: -6308375730662320501
+    second: Star_Silver-15fps_7
+  - first:
+      213: 6879616395683601412
+    second: Star_Silver-15fps_8
+  - first:
+      213: 752326295452814825
+    second: Star_Silver-15fps_9
+  - first:
+      213: 1446325075664988361
+    second: Star_Silver-15fps_10
+  - first:
+      213: -1362189357438465658
+    second: Star_Silver-15fps_11
+  - first:
+      213: 890813928135218253
+    second: Star_Silver-15fps_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Star_Silver-15fps_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 134
+        width: 113
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8825e75a1d5375b0800000000000000
+      internalID: -5371847562797700979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_1
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 134
+        width: 113
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 845ac72a02696d6c0800000000000000
+      internalID: -4118939742274542264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_2
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 134
+        width: 113
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdca09cacb03c60e0800000000000000
+      internalID: -2275390124821795617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_3
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 134
+        width: 113
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73ee6fab9d1274230800000000000000
+      internalID: 3622901644271218231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 133
+        width: 120
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcb0614d0e7f866c0800000000000000
+      internalID: -4149794511618962481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_5
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 133
+        width: 120
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 569be36197d001cc0800000000000000
+      internalID: -3742476476629468827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_6
+      rect:
+        serializedVersion: 2
+        x: 766
+        y: 133
+        width: 120
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8879dbd1f3fa5090800000000000000
+      internalID: -8044849564242839413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_7
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 2
+        width: 113
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b865d2832b52478a0800000000000000
+      internalID: -6308375730662320501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_8
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 2
+        width: 113
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40c9caf79ae497f50800000000000000
+      internalID: 6879616395683601412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_9
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 2
+        width: 113
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ed86ab97ccc07a00800000000000000
+      internalID: 752326295452814825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_10
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 4
+        width: 116
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c860cc4ef0621410800000000000000
+      internalID: 1446325075664988361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_11
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 4
+        width: 116
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68900112ff7881de0800000000000000
+      internalID: -1362189357438465658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star_Silver-15fps_12
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 4
+        width: 116
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4458734c8ecc5c00800000000000000
+      internalID: 890813928135218253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Star_Silver-15fps_0: -5371847562797700979
+      Star_Silver-15fps_1: -4118939742274542264
+      Star_Silver-15fps_10: 1446325075664988361
+      Star_Silver-15fps_11: -1362189357438465658
+      Star_Silver-15fps_12: 890813928135218253
+      Star_Silver-15fps_2: -2275390124821795617
+      Star_Silver-15fps_3: 3622901644271218231
+      Star_Silver-15fps_4: -4149794511618962481
+      Star_Silver-15fps_5: -3742476476629468827
+      Star_Silver-15fps_6: -8044849564242839413
+      Star_Silver-15fps_7: -6308375730662320501
+      Star_Silver-15fps_8: 6879616395683601412
+      Star_Silver-15fps_9: 752326295452814825
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

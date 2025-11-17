@@ -30,6 +30,8 @@ namespace Madduck.GameData
             SerializeField] public string BaitDescription { get; private set; }
         [field: PreviewField,
             SerializeField] public Sprite BaitIcon { get; private set; }
+        [field: PreviewField,
+                SerializeField] public Sprite BaitSelectedIcon { get; private set; }
         [field: OdinSerialize] public List<BaseModifierData> Modifiers { get; private set; }
     }
 }

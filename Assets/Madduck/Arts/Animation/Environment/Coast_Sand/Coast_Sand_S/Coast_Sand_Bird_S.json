@@ -1,0 +1,85 @@
+{
+"skeleton": {
+	"hash": "Xfe0LKTovxBkhQDKNX1tB/pDYZc",
+	"spine": "3.8.75",
+	"x": -129,
+	"y": -2.14,
+	"width": 259,
+	"height": 142,
+	"images": "../Environment/json/json/BG_Prop/BG_Coast/S_Sand_Bird/images/",
+	"audio": "../Environment/json/json/BG_Prop/BG_Coast/S_Sand_Bird/"
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "Bird", "parent": "root", "length": 23.72, "rotation": 88.82, "x": -20.77, "y": 110.32 },
+	{ "name": "bone", "parent": "root", "x": -23.35, "y": 111.23 }
+],
+"slots": [
+	{ "name": "S_Sand_Ori", "bone": "root", "attachment": "S_Sand_Ori" },
+	{ "name": "L_Bird_Shadow_Sand", "bone": "bone", "attachment": "L_Bird_Shadow_Sand" },
+	{ "name": "L_Bird", "bone": "Bird", "attachment": "L_Bird" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"S_Sand_Ori": {
+				"S_Sand_Ori": { "x": 0.5, "y": 64.36, "width": 259, "height": 133 }
+			},
+			"L_Bird": {
+				"L_Bird": { "x": 13.03, "y": 1, "rotation": -88.82, "width": 29, "height": 33 }
+			},
+			"L_Bird_Shadow_Sand": {
+				"L_Bird_Shadow_Sand": { "x": 1.85, "y": -0.86, "width": 19, "height": 7 }
+			}
+		}
+	}
+],
+"animations": {
+	"Sand_Bird_S_Normal": {
+		"bones": {
+			"Bird": {
+				"translate": [
+					{},
+					{ "time": 0.1667, "x": -5.36, "y": 6.91 },
+					{ "time": 0.3333, "x": -9.59, "curve": "stepped" },
+					{ "time": 2, "x": -9.59 },
+					{ "time": 2.1667, "x": -5.36, "y": 6.91 },
+					{ "time": 2.3333 }
+				],
+				"shear": [
+					{ "time": 1.1667, "curve": "stepped" },
+					{ "time": 1.2, "y": 177.28, "curve": "stepped" },
+					{ "time": 3.1667, "y": 177.28, "curve": "stepped" },
+					{ "time": 3.2, "curve": "stepped" },
+					{ "time": 4 }
+				]
+			},
+			"bone": {
+				"translate": [
+					{},
+					{ "time": 0.3333, "x": -7.63, "curve": "stepped" },
+					{ "time": 2, "x": -7.63 },
+					{ "time": 2.3333, "x": 1.64 }
+				]
+			}
+		}
+	},
+	"Sand_Bird_S_Storm": {
+		"bones": {
+			"Bird": {
+				"translate": [
+					{},
+					{ "time": 0.0333, "x": 1.48 },
+					{ "time": 0.0667 },
+					{ "time": 0.1, "x": 1.48 },
+					{ "time": 0.1333 }
+				],
+				"scale": [
+					{ "x": 0.854 }
+				]
+			}
+		}
+	}
+}
+}

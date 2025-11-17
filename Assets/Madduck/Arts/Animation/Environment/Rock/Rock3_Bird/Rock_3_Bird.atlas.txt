@@ -1,0 +1,27 @@
+
+Rock_3_Bird.png
+size: 371,148
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+S_L_Rock
+  rotate: false
+  xy: 2, 6
+  size: 263, 140
+  orig: 265, 142
+  offset: 1, 1
+  index: -1
+Wood_Rope_Bird_3
+  rotate: false
+  xy: 267, 2
+  size: 70, 144
+  orig: 72, 146
+  offset: 1, 1
+  index: -1
+wood_2
+  rotate: false
+  xy: 339, 50
+  size: 30, 96
+  orig: 32, 99
+  offset: 1, 1
+  index: -1
