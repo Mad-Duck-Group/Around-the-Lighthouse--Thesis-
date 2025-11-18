@@ -37,8 +37,8 @@ MonoBehaviour:
   <FishSpriteAnimatorConfig>k__BackingField: {fileID: 11400000, guid: 27e818c32360bb94fa38cd88fa750c87, type: 2}
   <FishSkeletonDataAsset>k__BackingField: {fileID: 11400000, guid: b30bb1cfde387bb47bd8ef3142a9f219, type: 2}
   <FishSkin>k__BackingField: Hermit
-  <FatigueSliderOffset>k__BackingField: {x: 0, y: 390}
-  <SpriteAnchorOffset>k__BackingField: {x: -0.24, y: -0.19}
+  <FatigueSliderOffset>k__BackingField: {x: 0, y: 0}
+  <SpriteAnchorOffset>k__BackingField: {x: -2.26, y: 1.83}
   <BasePrice>k__BackingField: 10
   <Power>k__BackingField:
     value: 0

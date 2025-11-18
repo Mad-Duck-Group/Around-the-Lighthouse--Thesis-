@@ -13,7 +13,7 @@ namespace Madduck.GameData
     public class FishCatalogueSaveData : IMessagePackSaveData
     {
         [Key("Version")]
-        [field: SerializeField] public string Version { get; set; }
+        [field: SerializeField] public string Version { get; set; } = string.Empty;
         
         [Key("FishCatalogueEntries")]
         [field: OdinSerialize] public Dictionary<Guid, FishCatalogueEntry> FishCatalogueEntries { get; set; }

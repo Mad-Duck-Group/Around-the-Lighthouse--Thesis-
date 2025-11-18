@@ -46,7 +46,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 2
-      Data: 24c55428fc8d4e70b8dd4f3706dd202c
+      Data: 42781fbf8e4c4383862725ebdd846fee
     - Name: $v
       Entry: 7
       Data: 3|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
@@ -64,7 +64,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 2
-      Data: 42781fbf8e4c4383862725ebdd846fee
+      Data: 33792c8bb9dc4b518af7c4738aa32af0
     - Name: $v
       Entry: 7
       Data: 4|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
@@ -88,7 +88,7 @@ MonoBehaviour:
       Data: 5|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
     - Name: <IsCaught>k__BackingField
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -100,7 +100,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 2
-      Data: 33792c8bb9dc4b518af7c4738aa32af0
+      Data: 24c55428fc8d4e70b8dd4f3706dd202c
     - Name: $v
       Entry: 7
       Data: 6|Madduck.GameData.FishCatalogueEntry, Madduck.GameData

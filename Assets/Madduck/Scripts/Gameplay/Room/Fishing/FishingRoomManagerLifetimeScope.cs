@@ -4,6 +4,7 @@ using Madduck.Core;
 using Madduck.Day;
 using Madduck.GameData;
 using Madduck.GameData.Fisherman;
+using Madduck.Input;
 using Madduck.RoomPreset;
 using Madduck.Shared;
 using Madduck.Utils;

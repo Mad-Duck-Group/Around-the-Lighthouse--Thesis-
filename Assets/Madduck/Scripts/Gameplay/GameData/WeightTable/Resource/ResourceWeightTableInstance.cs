@@ -45,7 +45,7 @@ namespace Madduck.GameData
             var bucket = BucketModifiers(copy, flattenedModifiers);
             foreach (var pair in bucket)
             {
-                pair.Key.Weight = pair.Value.CalculateStat(pair.Key.Weight);
+                pair.Key.Weight = pair.Value.Calculate(pair.Key.Weight);
             }
             return copy;
         }

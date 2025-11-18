@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f88e80974044c6bae6e81f599d2018a, type: 3}
+  m_Name: BossChanceMod
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.Card.CardItemData
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: <Guid>k__BackingField
+      Entry: 2
+      Data: ea42b490aa764e3b80b4427ae79952f3
+  <ItemType>k__BackingField: 3
+  <RarityData>k__BackingField:
+    keys: 00000000
+    values:
+    - {fileID: 11400000, guid: d1e0fe83e4afd6547b17c09f4c77fb6a, type: 2}

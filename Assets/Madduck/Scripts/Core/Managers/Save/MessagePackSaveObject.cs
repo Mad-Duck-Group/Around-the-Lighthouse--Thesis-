@@ -56,6 +56,8 @@ namespace Madduck.Core
         public abstract void Save();
         
         public abstract void Load();
+
+        public abstract void Reset();
         
         public abstract void LoadFromBytes(byte[] bytes);
         
@@ -103,6 +105,13 @@ namespace Madduck.Core
         protected virtual void TestLoad()
         {
             DebugLoad();
+        }
+        
+        [ButtonGroup("Save&Load")]
+        [Button("Test Reset", ButtonSizes.Large)]
+        protected virtual void TestReset()
+        {
+            Reset();
         }
         
         [ButtonGroup("JSON")]
@@ -221,6 +230,8 @@ namespace Madduck.Core
             }
             LoadFromBytes(bytes);
         }
+        
+        public override void Reset() { } // Implement reset logic in derived classes if needed
         
         public override void LoadFromBytes(byte[] bytes)
         {
@@ -343,9 +354,10 @@ namespace Madduck.Core
                     queue.Enqueue(newMigrationPath);
                 }
             }
-
-            path = visited.TryGetValue(targetVersion, out var value) ? value.Path : null;
-            return path != null;
+            if (!visited.TryGetValue(targetVersion, out var pathData))
+                return false;
+            path = pathData.Path;
+            return true;
         }
 
         protected virtual void WriteToFile(byte[] bytes)

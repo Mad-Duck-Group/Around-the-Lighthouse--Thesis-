@@ -35,7 +35,7 @@ namespace Madduck.Utils
                 if (!recordGroup.TryGetValue(modifier.Key, out var value)) continue;
                 foreach (var record in value)
                 {
-                    record.Weight = modifier.Value.CalculateStat(record.Weight);
+                    record.Weight = modifier.Value.Calculate(record.Weight);
                 }
             }
             return recordGroup.SelectMany(x => x.Value).ToList();

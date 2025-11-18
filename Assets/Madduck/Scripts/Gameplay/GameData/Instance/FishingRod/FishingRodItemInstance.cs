@@ -100,19 +100,19 @@ namespace Madduck.GameData
                 switch (group.Key)
                 {
                     case FishingRodStatType.Power:
-                        CurrentStats.CurrentPower = group.CalculateStat(CurrentStats.CurrentPower);
+                        CurrentStats.CurrentPower = group.Calculate(CurrentStats.CurrentPower);
                         break;
                     case FishingRodStatType.Resistance:
-                        CurrentStats.CurrentResistance = group.CalculateStat(CurrentStats.CurrentResistance);
+                        CurrentStats.CurrentResistance = group.Calculate(CurrentStats.CurrentResistance);
                         break;
                     case FishingRodStatType.FishingLineDurability:
-                        CurrentStats.CurrentFishingLineDurability = group.CalculateStat(CurrentStats.CurrentFishingLineDurability);
+                        CurrentStats.CurrentFishingLineDurability = group.Calculate(CurrentStats.CurrentFishingLineDurability);
                         break;
                     case FishingRodStatType.FishingLineRegenFactor:
-                        CurrentStats.CurrentFishingLineRegenFactor = group.CalculateStat(CurrentStats.CurrentFishingLineRegenFactor);
+                        CurrentStats.CurrentFishingLineRegenFactor = group.Calculate(CurrentStats.CurrentFishingLineRegenFactor);
                         break;
                     case FishingRodStatType.ReelingSpeed:
-                        CurrentStats.CurrentReelingSpeed = group.CalculateStat(CurrentStats.CurrentReelingSpeed);
+                        CurrentStats.CurrentReelingSpeed = group.Calculate(CurrentStats.CurrentReelingSpeed);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

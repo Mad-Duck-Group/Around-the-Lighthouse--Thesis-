@@ -35,6 +35,13 @@ namespace Madduck.Day
         [Button("Next Room")]
         private void NextRoom() => OnOutOfFish();
 
+        [Button("Next Day")]
+        private void NextDay()
+        {
+            ChangeDayIndex(1);
+            _loadSceneManager.LoadScene(SceneType.Gameplay, LoadSceneMode.Single, true).Forget();
+        }
+
         #endregion
 
         #region Fields
@@ -198,5 +205,70 @@ namespace Madduck.Day
             return 1;
         }
         #endregion
+    }
+    
+    
+    [Serializable]
+    public class DayModifierContextProvider : IModifierContextProvider
+    {
+        [SerializeField] private int everyDay = 1;
+        private DayManager _dayManager;
+
+        public void Inject(IObjectResolver objectResolver)
+        {
+            objectResolver.TryResolve(out _dayManager);
+        }
+        
+        public bool TryGetEvaluationParameter(ModifierValueType modifierValueType, out float parameter)
+        {
+            parameter = 0;
+            if (_dayManager == null) return false;
+            if (everyDay <= 0) return false;
+            switch (modifierValueType)
+            {
+                case ModifierValueType.Constant:
+                case ModifierValueType.Curve:
+                case ModifierValueType.Step:
+                    return false;
+                case ModifierValueType.Incremental:
+                    parameter = Mathf.Floor(_dayManager.CurrentDayIndex.Value / (float)everyDay);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(modifierValueType), modifierValueType, null);
+            }
+            return true;
+        }
+    }
+    
+    [Serializable]
+    public class RoomModifierContextProvider : IModifierContextProvider
+    {
+        [SerializeField] private int everyRoom = 1;
+        private DayManager _dayManager;
+
+        public void Inject(IObjectResolver objectResolver)
+        {
+            objectResolver.TryResolve(out _dayManager);
+        }
+        
+        public bool TryGetEvaluationParameter(ModifierValueType modifierValueType, out float parameter)
+        {
+            parameter = 0;
+            if (_dayManager == null) return false;
+            if (everyRoom <= 0) return false;
+            switch (modifierValueType)
+            {
+                case ModifierValueType.Constant:
+                case ModifierValueType.Curve:
+                case ModifierValueType.Step:
+                    return false;
+                case ModifierValueType.Incremental:
+                    parameter = Mathf.Floor(_dayManager.CurrentRoomIndex.Value / (float)everyRoom);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(modifierValueType), modifierValueType, null);
+            }
+            return true;
+        }
     }
 }

@@ -30,7 +30,8 @@ namespace Madduck.Input
         {
             var disposableBuilder = Disposable.CreateBuilder();
             _viewModel.CurrentScheme
-                .Subscribe(onNext: scheme => UpdateIcon(scheme)).AddTo(ref disposableBuilder);
+                .Subscribe(onNext: UpdateIcon)
+                .AddTo(ref disposableBuilder);
             _binding = disposableBuilder.Build();
         }
 

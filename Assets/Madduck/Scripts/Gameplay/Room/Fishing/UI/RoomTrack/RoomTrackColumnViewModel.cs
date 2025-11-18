@@ -141,17 +141,18 @@ namespace Madduck.Room
         {
             var boatTrackView = _boatTrackFactory.Create();
             _boatTrackView = boatTrackView;
-
+            var shouldNotify = _loadSceneManager.CurrentSceneType == SceneType.Loading;
             var boatRectTransform = (RectTransform)_boatTrackView.transform;
             if (_currentRoomIndex.CurrentValue == 0)
             {
                 boatRectTransform.anchoredPosition = boatRectTransform.parent.InverseTransformPoint(_rooms[0].transform.position);
+                if (shouldNotify) 
+                    _loadingSceneAnimationFinishedPublisher.Publish(new LoadingSceneAnimationFinishedEvent());
                 return;
             }
             var previousPos = _rooms[(int)_currentRoomIndex.CurrentValue - 1].transform.position;
             var currentPos = _rooms[(int)_currentRoomIndex.CurrentValue].transform.position;
             boatRectTransform.anchoredPosition = boatRectTransform.parent.InverseTransformPoint(previousPos);
-            var shouldNotify = _loadSceneManager.CurrentSceneType == SceneType.Loading;
             await _boatTrackView.AnimateBoatTrack(currentPos);
             if (shouldNotify) 
                 _loadingSceneAnimationFinishedPublisher.Publish(new LoadingSceneAnimationFinishedEvent());

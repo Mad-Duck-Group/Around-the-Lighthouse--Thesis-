@@ -7,6 +7,7 @@ using ObservableCollections;
 using R3;
 using Redcode.Extensions;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 using VContainer;
 using DisposableBag = R3.DisposableBag;
@@ -35,6 +36,14 @@ namespace Madduck.Utils
         /// Flat increase to the total value after base modifiers have been applied.
         /// </summary>
         TotalFlat,
+    }
+
+    public enum ModifierValueType
+    {
+        Constant,
+        Curve,
+        Step,
+        Incremental
     }
 
     public interface IStatModifiable<out T>
@@ -83,6 +92,7 @@ namespace Madduck.Utils
         [ShowInInspector] private readonly ObservableDictionary<ModifierId, List<BaseModifierData>> _modifiers = new();
         private readonly Dictionary<IModifierSource, IDisposable> _disposeDictionary = new();
         private readonly ISubscriber<ModifierSourceEvent> _modifierSourceEvent;
+        private List<IObjectResolver> _containers = new();
         
         private DisposableBag _disposableBag;
 
@@ -113,10 +123,27 @@ namespace Madduck.Utils
                     h => source.OnDisposed -= h)
                 .Subscribe(_ => OnSourceDisposed(source));
             _disposeDictionary.Add(source, disposable);
+            foreach (var modifierData in source.Modifiers.SelectMany(x => x.Value))
+            {
+                foreach (var container in _containers)
+                {
+                    modifierData.ModifierContextProvider?.Inject(container);
+                }
+            }
             source.Modifiers.OnModifierFirstSubscribe(_modifiers);
             source.ModifiersView.ObserveChanged()
                 .Subscribe(x =>
                 {
+                    if (x.NewItem.View.Value is { Count: > 0 })
+                    {
+                        foreach (var modifierData in x.NewItem.View.Value)
+                        {
+                            foreach (var container in _containers)
+                            {
+                                modifierData.ModifierContextProvider?.Inject(container);
+                            }
+                        }
+                    }
                     x.OnModifierChanged(_modifiers);
                 })
                 .AddTo(ref _disposableBag);
@@ -133,6 +160,12 @@ namespace Madduck.Utils
         {
             OnDisposed?.Invoke();
             _disposableBag.Dispose();
+        }
+        
+        public void AddContainer(IObjectResolver container)
+        {
+            if (!_containers.Contains(container))
+                _containers.Add(container);
         }
     }
     
@@ -157,36 +190,99 @@ namespace Madduck.Utils
     public record ModifierId(Guid SourceId, string DisplayName = null)
     {
         [DisplayAsString, HideLabel,
-         ShowInInspector] public Guid SourceId { get; private set; } = SourceId;
+         ShowInInspector]
+        public Guid SourceId { get; private set; } = SourceId;
+
         [DisplayAsString, HideLabel,
-         ShowInInspector] public string DisplayName { get; private set; } = DisplayName;
+         ShowInInspector]
+        public string DisplayName { get; private set; } = DisplayName;
     }
-    
-    
+
+    public interface IModifierContextProvider
+    {
+        void Inject(IObjectResolver resolver);
+        bool TryGetEvaluationParameter(ModifierValueType modifierValueType, out float parameter);
+    }
+
+
     [Serializable]
     public abstract class BaseModifierData
     {
         [field: SerializeField] public ModifierMethod ModifierMethod { get; internal set; }
+        [field: SerializeField] public ModifierValueType ModifierValueType { get; internal set; } = ModifierValueType.Constant;
         [field: ShowIf(nameof(ShowValue)),
+                InlineProperty,
             SerializeField] public float ModifierValue { get; internal set; }
-        [field: ShowIf(nameof(ShowPercent)), InlineProperty,
-                SerializeField] public Percentage ModifierPercentage { get; internal set; }
+        [field: ShowIf(nameof(ModifierValueType), ModifierValueType.Curve),
+                SerializeField] public Vector2 ModifierCurveRange { get; internal set; } = new(0, 1);
+        [field: ShowIf(nameof(ModifierValueType), ModifierValueType.Curve),
+                SerializeField] public AnimationCurve ModifierCurve { get; internal set; } = AnimationCurve.Linear(0, 0, 1, 1);
+        [field: ShowIf(nameof(ModifierValueType), ModifierValueType.Step),
+                SerializeField] public List<float> StepValues { get; internal set; } = new();
+        [field: ShowIf(nameof(ModifierValueType), ModifierValueType.Incremental),
+                SerializeField] public bool HasMaxIncrementCount { get; internal set; } = false;
+        [field: ShowIf(nameof(ShowMaxIncrementCount)),
+                SerializeField] public uint MaxIncrementCount { get; internal set; } = 5;
+        [field: HideIf(nameof(ModifierValueType), ModifierValueType.Constant),
+            OdinSerialize] public IModifierContextProvider ModifierContextProvider { get; internal set; }
 
         [field: ValueDropdown("@ModifierKeys.Keys"),
             SerializeField] public List<string> Keys { get; internal set; } = new();
-
-        private bool ShowPercent()
-        {
-            if (ModifierMethod is ModifierMethod.BasePercent or ModifierMethod.TotalPercent)
-                return true;
-            return false;
-        }
         
         private bool ShowValue()
         {
-            if (ModifierMethod is ModifierMethod.BasePercent or ModifierMethod.TotalPercent)
-                return false;
-            return true;
+            return ModifierValueType is not (ModifierValueType.Curve or ModifierValueType.Step);
+        }
+        
+        private bool ShowMaxIncrementCount()
+        {
+            return ModifierValueType == ModifierValueType.Incremental && HasMaxIncrementCount;
+        }
+        
+        public float GetCurveValue(float t)
+        {
+            if (ModifierValueType != ModifierValueType.Curve)
+            {
+                DebugUtils.LogWarning("ModifierValueType is not Curve, returning 0");
+                return 0f;
+            }
+            var normalized = Mathf.Clamp01(t);
+            var value = ModifierCurve.Evaluate(normalized);
+            return Mathf.Lerp(ModifierCurveRange.x, ModifierCurveRange.y, value);
+        }
+        
+        public float GetStepValue(int stepIndex)
+        {
+            if (ModifierValueType != ModifierValueType.Step)
+            {
+                DebugUtils.LogWarning("ModifierValueType is not Step, returning 0");
+                return 0f;
+            }
+            if (StepValues == null || StepValues.Count == 0)
+            {
+                DebugUtils.LogWarning("StepValues is null or empty, returning 0");
+                return 0f;
+            }
+            if (stepIndex < 0 || stepIndex >= StepValues.Count)
+            {
+                DebugUtils.LogWarning("Step index out of range, returning last value");
+                return StepValues[^1];
+            }
+            return StepValues[stepIndex];
+        }
+        
+        public float GetIncrementalValue(int incrementIndex)
+        {
+            if (ModifierValueType != ModifierValueType.Incremental)
+            {
+                DebugUtils.LogWarning("ModifierValueType is not Incremental, returning 0");
+                return 0f;
+            }
+            if (HasMaxIncrementCount)
+            {
+                incrementIndex = Mathf.Clamp(incrementIndex, 0, (int)MaxIncrementCount);
+            }
+            return ModifierValue * incrementIndex;
         }
         
         public BaseModifierData Copy()
@@ -216,7 +312,7 @@ namespace Madduck.Utils
                 modifierData.ModifierValue = percentage.AsFraction;
                 return this;
             }
-            modifierData.ModifierPercentage = percentage;
+            modifierData.ModifierValue = percentage.AsPercentage;
             return this;
         }
 
@@ -225,10 +321,50 @@ namespace Madduck.Utils
             if (modifierData.ModifierMethod is (ModifierMethod.BasePercent or ModifierMethod.TotalPercent))
             {
                 DebugUtils.LogWarning("Modifier method is based on percent, converting to percent from float as fraction instead");
-                modifierData.ModifierPercentage = Percentage.FromFraction(value);
+                modifierData.ModifierValue = Percentage.FromFraction(value).AsPercentage;
                 return this;
             }
             modifierData.ModifierValue = value;
+            return this;
+        }
+        
+        public ModifierDataBuilder<T> WithCurve(AnimationCurve curve, Vector2 range)
+        {
+            if (modifierData.ModifierValueType != ModifierValueType.Curve)
+            {
+                DebugUtils.LogWarning("Modifier value type is not Curve, setting it to Curve");
+                modifierData.ModifierValueType = ModifierValueType.Curve;
+            }
+            modifierData.ModifierCurve = curve;
+            modifierData.ModifierCurveRange = range;
+            return this;
+        }
+        
+        public ModifierDataBuilder<T> WithStepValues(List<float> stepValues)
+        {
+            if (modifierData.ModifierValueType != ModifierValueType.Step)
+            {
+                DebugUtils.LogWarning("Modifier value type is not Step, setting it to Step");
+                modifierData.ModifierValueType = ModifierValueType.Step;
+            }
+            modifierData.StepValues = stepValues;
+            return this;
+        }
+        
+        public ModifierDataBuilder<T> WithIncrementalValue(float incrementalValue)
+        {
+            if (modifierData.ModifierValueType != ModifierValueType.Incremental)
+            {
+                DebugUtils.LogWarning("Modifier value type is not Incremental, setting it to Incremental");
+                modifierData.ModifierValueType = ModifierValueType.Incremental;
+            }
+            modifierData.ModifierValue = incrementalValue;
+            return this;
+        }
+        
+        public ModifierDataBuilder<T> WithContextProvider(IModifierContextProvider contextProvider)
+        {
+            modifierData.ModifierContextProvider = contextProvider;
             return this;
         }
         
@@ -249,17 +385,74 @@ namespace Madduck.Utils
     #region Utils
     public static class ModifierUtils
     {
-        /// <summary>
-        /// Calculates a new value based on the provided base value and a list of modifiers.
-        /// </summary>
-        /// <param name="modifiers">A list of modifiers to apply to the base value.</param>
-        /// <param name="baseValue">The base value to which the modifiers will be applied.</param>
-        /// <returns>A new value calculated based on the provided base value and modifiers.</returns>
-        /// <remarks>
-        /// Modifiers are applied in the order of their <see cref="ModifierMethod"/>.
-        /// If a modifier with <see cref="ModifierMethod.Override"/> is found, its value will be returned immediately.
-        /// </remarks>
-        public static float CalculateStat(this IEnumerable<BaseModifierData> modifiers, float baseValue)
+        public static float Calculate(this IEnumerable<BaseModifierData> modifiers, float baseValue)
+        {
+            var evaluationGroup = modifiers.GroupBy(m => m.ModifierValueType);
+            float result = baseValue;
+            foreach (var group in evaluationGroup)
+            {
+                switch (group.Key)
+                {
+                    case ModifierValueType.Constant:
+                        result += group.CalculateConstant(baseValue);
+                        break;
+                    case ModifierValueType.Curve:
+                        result += group.CalculateCurve(baseValue);
+                        break;
+                    case ModifierValueType.Step:
+                        result += group.CalculateStep(baseValue);
+                        break;
+                    case ModifierValueType.Incremental:
+                        result += group.CalculateIncremental(baseValue);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            return result;
+        }
+        private static float CalculateConstant(this IEnumerable<BaseModifierData> modifiers, float baseValue)
+        {
+            return CalculateInternal(modifiers, baseValue, modifier => modifier.ModifierValue);
+        }
+        
+        private static float CalculateCurve(this IEnumerable<BaseModifierData> modifiers, float baseValue)
+        {
+            return CalculateInternal(modifiers, baseValue, modifier =>
+            {
+                if (modifier.ModifierContextProvider is null 
+                    || !modifier.ModifierContextProvider.TryGetEvaluationParameter(ModifierValueType.Curve, out var t)) 
+                    return modifier.ModifierValue;
+                return modifier.GetCurveValue(t);
+            });
+        }
+        
+        private static float CalculateStep(this IEnumerable<BaseModifierData> modifiers, float baseValue)
+        {
+            return CalculateInternal(modifiers, baseValue, modifier => 
+            {
+                if (modifier.ModifierContextProvider is null 
+                    || !modifier.ModifierContextProvider.TryGetEvaluationParameter(ModifierValueType.Step, out var parameter)) 
+                    return modifier.ModifierValue;
+                var stepIndex = Mathf.FloorToInt(parameter);
+                return modifier.GetStepValue(stepIndex);
+            });
+        }
+        
+        private static float CalculateIncremental(this IEnumerable<BaseModifierData> modifiers, float baseValue)
+        {
+            return CalculateInternal(modifiers, baseValue, modifier => 
+            {
+                if (modifier.ModifierContextProvider is null 
+                    || !modifier.ModifierContextProvider.TryGetEvaluationParameter(ModifierValueType.Incremental, out var parameter)) 
+                    return modifier.ModifierValue;
+                var incrementIndex = Mathf.FloorToInt(parameter);
+                return modifier.GetIncrementalValue(incrementIndex);
+            });
+        }
+
+        private static float CalculateInternal(IEnumerable<BaseModifierData> modifiers, float baseValue,
+            Func<BaseModifierData, float> modifierValueGetter)
         {
             var modifierList = modifiers.OrderBy(m => m.ModifierMethod).ToList();
             
@@ -273,25 +466,25 @@ namespace Madduck.Utils
         
             foreach (var modifier in modifierList)
             {
+                var modifierValue = modifierValueGetter(modifier);
                 switch (modifier.ModifierMethod)
                 {
                     case ModifierMethod.BasePercent:
-                        baseContributions += baseValue * modifier.ModifierPercentage.AsFraction;
+                        baseContributions += baseValue * Percentage.FromPercentage(modifierValue).AsFraction;
                         result += baseContributions;
                         break;
                     case ModifierMethod.BaseFlat:
-                        baseContributions += modifier.ModifierValue;
+                        baseContributions += modifierValue;
                         result += baseContributions;
                         break;
                     case ModifierMethod.TotalPercent:
-                        result *= modifier.ModifierPercentage.AsMultiplier;
+                        result *= Percentage.FromPercentage(modifierValue).AsMultiplier;
                         break;
                     case ModifierMethod.TotalFlat:
-                        result += modifier.ModifierValue; 
+                        result += modifierValue; 
                         break;
                 }
             }
-        
             return result;
         }
 

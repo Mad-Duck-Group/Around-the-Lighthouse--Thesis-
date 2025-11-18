@@ -46,7 +46,8 @@ namespace Madduck.Fishing.Shared
             transform.localScale = scaleTween.startValue;
             transform.position = hook.position;
             transform.position -= (Vector3)fishItemInstance.ItemData.SpriteAnchorOffset;
-            skeletonAnimation.initialSkinName = fishItemInstance.ItemData.FishSkin;
+            var isBoss = fishItemInstance.ItemData.EnemyType is FishEnemyType.Boss;
+            skeletonAnimation.initialSkinName = isBoss ? string.Empty : fishItemInstance.ItemData.FishSkin;
             skeletonAnimation.skeletonDataAsset = fishItemInstance.ItemData.FishSkeletonDataAsset;
             ((RectTransform)fatigueTimerView.transform).anchoredPosition -= fishItemInstance.ItemData.FatigueSliderOffset;
             skeletonAnimation.Initialize(true);

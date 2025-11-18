@@ -66,22 +66,22 @@ namespace Madduck.GameData
                 switch (group.Key)
                 {
                     case FishStatType.Power:
-                        CurrentStats.CurrentPower = group.CalculateStat(CurrentStats.CurrentPower);
+                        CurrentStats.CurrentPower = group.Calculate(CurrentStats.CurrentPower);
                         break;
                     case FishStatType.Resistance:
-                        CurrentStats.CurrentResistance = group.CalculateStat(CurrentStats.CurrentResistance);
+                        CurrentStats.CurrentResistance = group.Calculate(CurrentStats.CurrentResistance);
                         break;
                     case FishStatType.FishWeight:
-                        CurrentStats.CurrentFishWeight = group.CalculateStat(CurrentStats.CurrentFishWeight);
+                        CurrentStats.CurrentFishWeight = group.Calculate(CurrentStats.CurrentFishWeight);
                         break;
                     case FishStatType.FatigueDuration:
-                        CurrentStats.CurrentFatigueDuration = group.CalculateStat(CurrentStats.CurrentFatigueDuration);
+                        CurrentStats.CurrentFatigueDuration = group.Calculate(CurrentStats.CurrentFatigueDuration);
                         break;
                     case FishStatType.TugOfWarDecayRate:
-                        CurrentStats.CurrentTugOfWarDecayRate = group.CalculateStat(CurrentStats.CurrentTugOfWarDecayRate);
+                        CurrentStats.CurrentTugOfWarDecayRate = group.Calculate(CurrentStats.CurrentTugOfWarDecayRate);
                         break;
                     case FishStatType.TugOfWarRegression:
-                        CurrentStats.CurrentTugOfWarRegression = group.CalculateStat(CurrentStats.CurrentTugOfWarRegression);
+                        CurrentStats.CurrentTugOfWarRegression = group.Calculate(CurrentStats.CurrentTugOfWarRegression);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

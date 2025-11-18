@@ -57,10 +57,8 @@ namespace Madduck.Fishing.UI
                 .Subscribe(_ => _commander.OnReelingRelease.Execute(InputType.UI))
                 .AddTo(ref disposableBuilder);
             _viewModel.CurrentScheme
-                .Subscribe(onNext: scheme =>
-                {
-                    UpdateAnimation(scheme);
-                }).AddTo(ref disposableBuilder);
+                .Subscribe(UpdateAnimation)
+                .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
         
@@ -93,6 +91,7 @@ namespace Madduck.Fishing.UI
         private void SetActive(bool active)
         {
             _bindings?.Dispose();
+            gameObject.SetActive(active);
             if (active)
             {
                 Bind();
@@ -101,8 +100,6 @@ namespace Madduck.Fishing.UI
             {
                 SetReelingProgress(Percentage.Zero);
             }
-            gameObject.SetActive(active);
-            UpdateAnimation("Mouse & Keyboard");
         }
         
         private void SetReelingProgress(Percentage progressPercent)

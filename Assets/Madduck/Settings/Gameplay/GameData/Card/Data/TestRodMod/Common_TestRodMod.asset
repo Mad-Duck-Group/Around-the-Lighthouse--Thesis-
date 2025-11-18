@@ -40,17 +40,29 @@ MonoBehaviour:
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 0
-    - Name: <ModifierPercentage>k__BackingField
-      Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
-      Entry: 4
       Data: 10
+    - Name: <ModifierCurveRange>k__BackingField
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
       Entry: 7
@@ -76,17 +88,29 @@ MonoBehaviour:
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 4
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
       Data: 1
-    - Name: <ModifierPercentage>k__BackingField
+    - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
       Entry: 4
       Data: 0
     - Name: 
       Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
       Entry: 7

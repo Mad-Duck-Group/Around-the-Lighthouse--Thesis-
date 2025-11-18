@@ -30,6 +30,12 @@ namespace Madduck.Core
             LoadAll();
         }
         
+        [Button("Test Reset All")]
+        private void TestResetAll()
+        {
+            ResetAll();
+        }
+        
         [Inject]
         public MessagePackSaveManager(MessagePackSaveConfig config)
         {
@@ -129,6 +135,14 @@ namespace Madduck.Core
             }
         }
         
+        public void ResetAll()
+        {
+            foreach (var saveObject in _saveObjects.Values)
+            {
+                Reset(saveObject);
+            }
+        }
+        
         public void Save(string key)
         {
             var saveObject = GetSaveObject(key);
@@ -184,6 +198,19 @@ namespace Madduck.Core
             {
                 saveObject.LoadFromBytes(data);
             }
+        }
+        
+        public void Reset(string key)
+        {
+            var saveObject = GetSaveObject(key);
+            Reset(saveObject);
+        }
+
+        public void Reset(MessagePackSaveObject saveObject)
+        {
+            if (!saveObject) 
+                return;
+            saveObject.Reset();
         }
         
         private void ZipAndSave(string entryName, byte[] data)

@@ -10,7 +10,7 @@ namespace Madduck.Utils
     [Serializable]
     public class CompositeWeightTableInstance
     {
-        private readonly Dictionary<string, IWeightTableInstance> _weightTableInstances = new();
+        [ShowInInspector] private readonly Dictionary<string, IWeightTableInstance> _weightTableInstances = new();
         private readonly IModifierSource _modifierSource = null!;
         
         [ReadOnly, TableList,

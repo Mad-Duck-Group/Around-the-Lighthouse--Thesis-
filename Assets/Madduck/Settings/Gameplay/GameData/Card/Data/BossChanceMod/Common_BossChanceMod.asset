@@ -10,19 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c7cfa35056b436a934e45615276bf7d, type: 3}
-  m_Name: Common_TestFishMod
+  m_Name: Common_BossChanceMod
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.CardRarityData
-  <CardName>k__BackingField: Luck of the Sea
-  <CardDescription>k__BackingField: 'Increase the chance of getting Small fish moderately.
-
-    +10%
-    chance of getting Hermit.'
-  <CardIcon>k__BackingField: {fileID: 7365031340990435738, guid: 94a8a45dbd6df66468fa90d260612c2e, type: 3}
+  <CardName>k__BackingField: Boss Chance Mod
+  <CardDescription>k__BackingField: Increase the chance of boss appearing every day.
+  <CardIcon>k__BackingField: {fileID: -7403225922231255738, guid: 9de2ba106c38cca409900777e6195b3f, type: 3}
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: fe2409ffe21a66f489b88b6cf7b663eb, type: 2}
+    - {fileID: 11400000, guid: c272284a26889c94cb0ccfb2fc87b14d, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -34,7 +31,7 @@ MonoBehaviour:
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 1|Madduck.GameData.FishWeightModifierData, Madduck.GameData
@@ -43,10 +40,10 @@ MonoBehaviour:
       Data: 4
     - Name: <ModifierValueType>k__BackingField
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 0.5
+      Data: 1
     - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -65,72 +62,24 @@ MonoBehaviour:
     - Name: <StepValues>k__BackingField
       Entry: 6
       Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: <ModifierContextProvider>k__BackingField
-      Entry: 6
+      Entry: 7
+      Data: 2|Madduck.Day.DayModifierContextProvider, Madduck.Day
+    - Name: everyDay
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
       Data: 
     - Name: <Keys>k__BackingField
       Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 1
-      Data: Fishable
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: <ModifierType>k__BackingField
-      Entry: 3
-      Data: 2
-    - Name: <FishSize>k__BackingField
-      Entry: 3
-      Data: 0
-    - Name: <FishItemData>k__BackingField
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 3|Madduck.GameData.FishWeightModifierData, Madduck.GameData
-    - Name: <ModifierMethod>k__BackingField
-      Entry: 3
-      Data: 1
-    - Name: <ModifierValueType>k__BackingField
-      Entry: 3
-      Data: 0
-    - Name: <ModifierValue>k__BackingField
-      Entry: 4
-      Data: 10
-    - Name: <ModifierCurveRange>k__BackingField
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: <ModifierCurve>k__BackingField
-      Entry: 6
-      Data: 
-    - Name: <StepValues>k__BackingField
-      Entry: 6
-      Data: 
-    - Name: <ModifierContextProvider>k__BackingField
-      Entry: 6
-      Data: 
-    - Name: <Keys>k__BackingField
-      Entry: 7
-      Data: 4|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 3|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 1

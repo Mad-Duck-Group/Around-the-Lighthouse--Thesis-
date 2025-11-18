@@ -106,6 +106,7 @@ namespace Madduck.Day
                 var table = x.Resolve<CompositeWeightTableInstance>(ModifierKeys.FishableKey);
                 var playerInventory = x.Resolve<PlayerInventory>();
                 var modifierContainer = x.Resolve<ModifierContainer>(DIConstants.ModifierContainerKey);
+                modifierContainer.AddContainer(x);
                 _dayManagerDebugData = new DayManagerDebugData(manager, playerInventory, table, fishermanItemInstance, modifierContainer);
 #endif
             });

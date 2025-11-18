@@ -327,7 +327,7 @@ MonoBehaviour:
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
-  debugFish: {fileID: 11400000, guid: fe2409ffe21a66f489b88b6cf7b663eb, type: 2}
+  debugFish: {fileID: 11400000, guid: c272284a26889c94cb0ccfb2fc87b14d, type: 2}
 --- !u!1 &3506547979795517748
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,7 +685,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1ca256ac9904c7b4c8f2388e5f8a2158, type: 2}
+  - {fileID: 2100000, guid: bcce18ff2c1ee49469f091a394a8a788, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

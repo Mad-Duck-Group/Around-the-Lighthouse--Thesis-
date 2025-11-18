@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
 using Madduck.Core;
@@ -45,6 +46,7 @@ namespace Madduck.Room
         private readonly CompositeWeightTableInstance _fishableWeightTable;
         private readonly FishingRoomConfig _config;
         private readonly FishCatalogue _fishCatalogue;
+        private readonly MessagePackSaveManager _saveManager;
         private readonly IModal _cardSelectionController;
         private readonly IAudioManager _audioManager;
         private readonly IModalManager _modalManager;
@@ -52,6 +54,7 @@ namespace Madduck.Room
         private readonly IFactory<uint> _maxFishCountFactory;
         private readonly IPopUpFactory<FishableItemPopUpObject> _fishableItemPopUpFactory;
         private readonly IPopUpFactory<NewFishPopUpObject> _newFishPopUpFactory;
+        private readonly IPopUpFactory<EndGamePopUpObject> _endGamePopUpFactory;
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
         private readonly IPublisher<FishingRoomEndedEvent> _fishingRoomEndedEventPublisher;
         private readonly IPublisher<WeatherChangedEvent> _weatherChangedPublisher;
@@ -59,6 +62,7 @@ namespace Madduck.Room
         private readonly ISubscriber<FishableCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
+        private CancellationTokenSource _bgmCts = new();
         private AudioReference _bgm;
         private AudioReference _ambient;
         private IDisposable _subscriptions;
@@ -73,6 +77,7 @@ namespace Madduck.Room
             [Key(ModifierKeys.FishableKey)] CompositeWeightTableInstance fishableWeightTable,
             FishingRoomConfig config,
             FishCatalogue fishCatalogue,
+            MessagePackSaveManager saveManager,
             IModal cardSelectionController,
             IAudioManager audioManager,
             IModalManager modalManager,
@@ -80,6 +85,7 @@ namespace Madduck.Room
             [Key(DIConstants.MaxFishCountFactoryId)] IFactory<uint> maxFishCountFactory,
             IPopUpFactory<FishableItemPopUpObject> fishableItemPopUpFactory,
             IPopUpFactory<NewFishPopUpObject> newFishPopUpFactory,
+            IPopUpFactory<EndGamePopUpObject> endGamePopUpFactory,
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
             IPublisher<FishingRoomEndedEvent> fishingRoomEndedEventPublisher,
             IPublisher<WeatherChangedEvent> weatherChangedPublisher,
@@ -91,11 +97,13 @@ namespace Madduck.Room
             _fishableWeightTable = fishableWeightTable;
             _config = config;
             _fishCatalogue = fishCatalogue;
+            _saveManager = saveManager;
             _cardSelectionController = cardSelectionController;
             _weatherFactory = weatherFactory;
             _maxFishCountFactory = maxFishCountFactory;
             _fishableItemPopUpFactory = fishableItemPopUpFactory;
             _newFishPopUpFactory = newFishPopUpFactory;
+            _endGamePopUpFactory = endGamePopUpFactory;
             _audioManager = audioManager;
             _modalManager = modalManager;
             _fishingRoomStartedEventPublisher = fishingRoomStartedEventPublisher;
@@ -150,7 +158,7 @@ namespace Madduck.Room
             if (Percentage.TryRoll(_config.BgmChance))
             {
                 var randomBgm = _config.BgmPlaylist[UnityEngine.Random.Range(0, _config.BgmPlaylist.Count)];
-                UniTask.WaitForSeconds(_config.BgmDelay).ContinueWith(() =>
+                UniTask.WaitForSeconds(_config.BgmDelay, cancellationToken: _bgmCts.Token).ContinueWith(() =>
                 {
                     _bgm = _audioManager.PlayAudio(randomBgm, Vector3.zero);
                 });
@@ -161,24 +169,43 @@ namespace Madduck.Room
 
         private void OnEndFishingRoom()
         {
+            _bgmCts.Cancel();
+            _bgmCts = new();
             _audioManager.StopAudio(_bgm);
             _audioManager.StopAudio(_ambient);
+        }
+
+        private void ToMainMenu()
+        {
+            DebugUtils.Log("Returning to Main Menu...");
+            _saveManager.ResetAll();
+            _saveManager.SaveAll();
         }
         
         private void OnFishCaught(FishableCaughtEvent eventData)
         { 
-            HandlePopUp(eventData.FishableItemInstances);
+            HandlePopUp(eventData.FishableItemInstances, out var gotBoss);
+            if (gotBoss)
+            {
+                Observable.FromEvent(
+                        h => _modalManager.OnAllModalsClosed += h,
+                        h => _modalManager.OnAllModalsClosed -= h)
+                    .Subscribe(_ => ToMainMenu())
+                    .AddTo(ref _disposables);
+                return;
+            }
             //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
             if (CurrentFishCount.Value != 0) return;
             Observable.FromEvent(
                     h => _modalManager.OnAllModalsClosed += h,
                     h => _modalManager.OnAllModalsClosed -= h)
-                .Subscribe(_ => OnFishingRoomEnded())
+                .Subscribe(_ => EndFishingRoom())
                 .AddTo(ref _disposables);
         }
 
-        private void HandlePopUp(List<IFishableItemInstance> fishableItemInstances)
+        private void HandlePopUp(List<IFishableItemInstance> fishableItemInstances, out bool gotBoss)
         {
+            gotBoss = false;
             var unCaughtFishItems = new List<FishItemInstance>();
             var others = new List<IFishableItemInstance>();
             var fishCount = 0;
@@ -187,6 +214,14 @@ namespace Madduck.Room
                 switch (fishable)
                 {
                     case FishItemInstance fishItemInstance:
+                        if (fishItemInstance.ItemData.EnemyType is FishEnemyType.Boss)
+                        {
+                            gotBoss = true;
+                            var popUp = _endGamePopUpFactory.Create();
+                            popUp.SetPopUpObject(new EndGamePopUpObject());
+                            _modalManager.Queue(popUp);
+                            return;
+                        }
                         var fishGuid = fishItemInstance.ItemData.Guid;
                         if (_fishCatalogue.HasCaught(fishGuid))
                         {
@@ -232,7 +267,7 @@ namespace Madduck.Room
             _fishingStateEventSubscriber
                 .AsObservable().ToObservable()
                 .Where(x => x.StateType is FishingStateType.None)
-                .Subscribe(_ => OnFishingRoomEnded())
+                .Subscribe(_ => EndFishingRoom())
                 .AddTo(ref _disposables);
         }
 
@@ -255,7 +290,7 @@ namespace Madduck.Room
                 (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
         }
 
-        private void OnFishingRoomEnded()
+        private void EndFishingRoom()
         {
             _disposables.Dispose();
             _fishingRoomEndedEventPublisher.Publish(new FishingRoomEndedEvent());

@@ -30,9 +30,11 @@ namespace Madduck.Fishing.UI
             ReelingProgressPercent = _model.ReelingPercent
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
-            CurrentScheme = _inputHandler.CurrentControlScheme
-                .ToReadOnlyReactiveProperty()
-                .AddTo(ref disposableBuilder);
+            CurrentScheme = Observable.FromEvent<string>(
+                        h => _inputHandler.OnControlSchemeChanged += h,
+                        h => _inputHandler.OnControlSchemeChanged -= h)
+                    .ToReadOnlyReactiveProperty(_inputHandler.CurrentControlScheme)
+                    .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
         public void Dispose()

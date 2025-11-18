@@ -58,7 +58,10 @@ namespace Madduck.Shared
             CurrentBinding = _currentBinding.ToReadOnlyReactiveProperty();
             RemainingPercentage = _remainingPercentage.ToReadOnlyReactiveProperty();
             TimeFramePercentage = _timeFramePercentage.ToReadOnlyReactiveProperty();
-            CurrentControlScheme = _input.CurrentControlScheme.ToReadOnlyReactiveProperty();
+            CurrentControlScheme = Observable.FromEvent<string>(
+                    h => _input.OnControlSchemeChanged += h,
+                    h => _input.OnControlSchemeChanged -= h)
+                .ToReadOnlyReactiveProperty(_input.CurrentControlScheme);
             ChangeInputActiveState(true);
         }
 

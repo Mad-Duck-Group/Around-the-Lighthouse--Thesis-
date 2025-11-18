@@ -12,8 +12,8 @@ namespace Madduck.Core
     [Serializable]
     public class TestMessagePackSaveData : IMessagePackSaveData
     {
-        [Key("Version")] 
-        [field: SerializeField] public string Version { get; set; }
+        [Key("Version")]
+        [field: SerializeField] public string Version { get; set; } = string.Empty;
         
         [Key("TestInt")]
         public int testInt;
@@ -52,6 +52,13 @@ namespace Madduck.Core
     [CreateAssetMenu(fileName = "TestMessagePackSaveObject", menuName = "Madduck/Save/TestMessagePackSaveObject", order = 0)]
     public class TestMessagePackSaveObject : MessagePackSaveObject<TestMessagePackSaveData>
     {
-        
+        public override void Reset()
+        {
+            base.Reset();
+            saveData = new TestMessagePackSaveData
+            {
+                Version = string.Empty
+            };
+        }
     }
 }

@@ -23,9 +23,11 @@ namespace Madduck.Input
         {
             _Icondata= data;
             _input = input;
-            CurrentScheme = _input.CurrentControlScheme
-                .ToReadOnlyReactiveProperty()
-                .AddTo(_disposables);
+            CurrentScheme = Observable.FromEvent<string>(
+                        h => _input.OnControlSchemeChanged += h,
+                        h => _input.OnControlSchemeChanged -= h)
+                    .ToReadOnlyReactiveProperty()
+                    .AddTo(_disposables);
         }
 
         

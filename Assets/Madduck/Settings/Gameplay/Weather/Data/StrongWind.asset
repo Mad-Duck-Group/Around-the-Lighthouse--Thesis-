@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50249af8919475b8f2cc331f39bd1b5, type: 3}
   m_Name: StrongWind
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.WeatherItemData
-  <ItemType>k__BackingField: 0
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -87,17 +86,29 @@ MonoBehaviour:
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 0
-    - Name: <ModifierPercentage>k__BackingField
+      Data: 5
+    - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
       Entry: 4
-      Data: 10
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
       Entry: 7
@@ -147,17 +158,29 @@ MonoBehaviour:
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 0
-    - Name: <ModifierPercentage>k__BackingField
+      Data: 10
+    - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
       Entry: 4
-      Data: 15
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
       Entry: 7
@@ -207,17 +230,29 @@ MonoBehaviour:
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 0
-    - Name: <ModifierPercentage>k__BackingField
+      Data: 15
+    - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
       Entry: 4
-      Data: 20
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
       Entry: 7
@@ -399,17 +434,29 @@ MonoBehaviour:
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 0
-    - Name: <ModifierPercentage>k__BackingField
+      Data: 5
+    - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
       Entry: 4
-      Data: 10
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
       Entry: 7
@@ -468,17 +515,29 @@ MonoBehaviour:
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 0
-    - Name: <ModifierPercentage>k__BackingField
+      Data: 10
+    - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
       Entry: 4
-      Data: 15
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
       Entry: 7
@@ -537,17 +596,29 @@ MonoBehaviour:
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 1
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 0
-    - Name: <ModifierPercentage>k__BackingField
+      Data: 15
+    - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
       Entry: 4
-      Data: 20
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
       Entry: 7
@@ -603,6 +674,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  <ItemType>k__BackingField: 0
   <WeatherType>k__BackingField: 16
   <WindDirectionWeightTable>k__BackingField: {fileID: 11400000, guid: 0f678f94757a66f41970ccc6b20bf022, type: 2}
   <WindStrengthWeightTable>k__BackingField: {fileID: 11400000, guid: 8c643580477364d40bdad1d559a69ff1, type: 2}

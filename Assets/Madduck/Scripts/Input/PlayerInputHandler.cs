@@ -74,9 +74,9 @@ namespace Madduck.Input
                 ShowInInspector] public InputButton PauseGameButton { get; private set; }
 
         #endregion
-
-        [ReadOnly, ShowInInspector]
-        public ReadOnlyReactiveProperty<string> CurrentControlScheme => _currentControlScheme;
+        
+        public event Action<string> OnControlSchemeChanged;
+        public string CurrentControlScheme => _currentControlScheme.Value;
 
         #endregion
 
@@ -84,6 +84,7 @@ namespace Madduck.Input
 
         private PlayerInputAction _playerInputAction;
         private ReactiveProperty<string> _currentControlScheme = new("Mouse & Keyboard");
+        private IDisposable _currentControlSchemeSubscription;
         private IDisposable _anyButtonPressListener;
 
         #endregion
@@ -93,6 +94,9 @@ namespace Madduck.Input
         private void OnEnable()
         {
             _anyButtonPressListener = InputSystem.onAnyButtonPress.Call(x => OnAnyButton(x).Forget());
+            _currentControlSchemeSubscription = _currentControlScheme
+                .DistinctUntilChanged()
+                .Subscribe(scheme => OnControlSchemeChanged?.Invoke(scheme));
             Subscribe();
             RegisterInputAction();
         }
@@ -100,6 +104,7 @@ namespace Madduck.Input
         private void OnDisable()
         {
             Unsubscribe();
+            _currentControlSchemeSubscription?.Dispose();
         }
 
         private void RegisterInputAction()
