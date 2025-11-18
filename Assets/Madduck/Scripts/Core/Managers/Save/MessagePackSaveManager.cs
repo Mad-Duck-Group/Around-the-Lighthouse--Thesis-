@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -15,7 +16,7 @@ namespace Madduck.Core
     public class MessagePackSaveManager : IPostInitializable
     {
         private readonly MessagePackSaveConfig _config;
-        [ShowInInspector, ReadOnly] private Dictionary<string, MessagePackSaveObject> _saveObjects = new();
+        [OdinSerialize, ReadOnly] private Dictionary<string, MessagePackSaveObject> _saveObjects = new();
         
         [Button("Test Save All")]
         private void TestSaveAll()

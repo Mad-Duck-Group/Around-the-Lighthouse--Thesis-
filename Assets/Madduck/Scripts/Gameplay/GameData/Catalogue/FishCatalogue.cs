@@ -42,7 +42,7 @@ namespace Madduck.GameData
         {
             _fishCatalogueSaveObject = _saveManager.GetFirstSaveObjectOfType<FishCatalogueSaveObject>();
             _fishCatalogueData = _fishCatalogueSaveObject.GetSaveData<FishCatalogueSaveData>();
-            _fishCatalogueEntries = _config.AllFishItems.ToDictionary(x => x.Guid, _ => new FishCatalogueEntry());
+            _fishCatalogueEntries = FishRegistry.Instance.AllFishItemData.ToDictionary(x => x.Guid, _ => new FishCatalogueEntry());
             Load();
         }
 

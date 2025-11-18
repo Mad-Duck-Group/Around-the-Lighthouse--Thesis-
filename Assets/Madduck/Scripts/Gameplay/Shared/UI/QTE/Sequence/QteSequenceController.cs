@@ -23,6 +23,7 @@ namespace Madduck.Shared
         private readonly List<IQuickTimeEvent> _elements = new();
         private readonly CancellationTokenSource _qteCts = new();
         private CancellationTokenSource _elementCts = new();
+        private UniTask _lastElementTask = UniTask.CompletedTask;
         
         
         private int _currentElementIndex;
@@ -86,7 +87,7 @@ namespace Madduck.Shared
                     h => current.OnFail -= h)
                 .Subscribe(_ =>
                 {
-                    current.ChangeViewResult(false, _elementCts.Token);
+                    _lastElementTask = current.ChangeViewResult(false, _elementCts.Token);
                     OnElementFail();
                 }));
             _subscription.Add(Observable.FromEvent(
@@ -94,7 +95,7 @@ namespace Madduck.Shared
                     h => current.OnSuccess -= h)
                 .Subscribe(_ =>
                 {
-                    current.ChangeViewResult(true, _elementCts.Token);
+                    _lastElementTask = current.ChangeViewResult(true, _elementCts.Token);
                     OnElementSuccess();
                 }));
         }
@@ -167,6 +168,7 @@ namespace Madduck.Shared
         
         public async UniTask ChangeViewResult(bool result, CancellationToken cancellationToken = default)
         {
+            await _lastElementTask;
             _elementCts.Cancel();
             _elementCts = new();
             if (result)

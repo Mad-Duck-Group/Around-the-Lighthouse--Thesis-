@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ba3be7332ca35bf47b9b10c73e993840
+guid: d708abfc8a9040547bc551fa22e6ac44
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4482751488081036712
-    second: PB_Background_0
+      213: 181068352999841561
+    second: Percentage_Circle_Full 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PB_Background_0
+      name: Percentage_Circle_Full 1_0
       rect:
         serializedVersion: 2
-        x: 47
+        x: 0
         y: 0
-        width: 461
-        height: 56
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8a58c6f4abee53e30800000000000000
-      internalID: 4482751488081036712
+      spriteID: 91fde9c25b8438200800000000000000
+      internalID: 181068352999841561
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PB_Background_0: 4482751488081036712
+      Percentage_Circle_Full 1_0: 181068352999841561
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

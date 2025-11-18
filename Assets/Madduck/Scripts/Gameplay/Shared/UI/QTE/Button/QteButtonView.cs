@@ -29,6 +29,8 @@ namespace Madduck.Shared
         [Required,
          SerializeField] private Image outerRing;
         [Required,
+         SerializeField] private Image outerRingIcon;
+        [Required,
          SerializeField] private Image middleRing;
         [Required,
          SerializeField] private Image innerRing;
@@ -120,7 +122,7 @@ namespace Madduck.Shared
             _currentDirection = buttonDirection;
             var color = ringColors.TryGetValue(buttonDirection, out var c) ? c : Color.white;
             innerRing.color = color;
-            outerRing.color = color;
+            outerRingIcon.color = color;
             // buttonNameText.text =
             //     button.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
         }
@@ -147,6 +149,7 @@ namespace Madduck.Shared
         public async UniTask OnSuccess(CancellationToken cancellationToken = default)
         {
             outerRing.enabled = false;
+            outerRingIcon.enabled = false;
             middleRing.enabled = false;
             innerRing.enabled = true;
             var sequence = Sequence.Create()

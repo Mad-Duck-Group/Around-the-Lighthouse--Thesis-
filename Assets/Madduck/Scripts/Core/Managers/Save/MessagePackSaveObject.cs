@@ -95,14 +95,14 @@ namespace Madduck.Core
         [Button("Test Save", ButtonSizes.Large)]
         protected virtual void TestSave()
         {
-            SaveInternal();
+            DebugSave();
         }
         
         [ButtonGroup("Save&Load")]
         [Button("Test Load", ButtonSizes.Large)]
         protected virtual void TestLoad()
         {
-            LoadInternal();
+            DebugLoad();
         }
         
         [ButtonGroup("JSON")]
@@ -170,6 +170,16 @@ namespace Madduck.Core
             } 
             SaveInternal();
         }
+        
+        private void DebugSave()
+        {
+            if (SaveSeparately)
+            {
+                SaveInternal();
+                return;
+            }
+            DebugSaveManager.Instance.SaveManager.Save(this);
+        }
 
         private void SaveInternal()
         {
@@ -189,6 +199,16 @@ namespace Madduck.Core
                 return;
             } 
             LoadInternal();
+        }
+        
+        private void DebugLoad()
+        {
+            if (SaveSeparately)
+            {
+                LoadInternal();
+                return;
+            }
+            DebugSaveManager.Instance.SaveManager.Load(this);
         }
         
         private void LoadInternal()
