@@ -10,7 +10,8 @@
         "PrimeTween.Runtime",
         "Extensions",
         "UniTask",
-        "Madduck.GameData"
+        "Madduck.GameData",
+        "spine-unity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

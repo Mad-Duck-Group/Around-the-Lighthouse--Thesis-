@@ -295,12 +295,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2933514526069652695}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5120684388071049760}
+  m_Father: {fileID: 2389646877411653951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6125843932394267178
 SpriteRenderer:
@@ -940,6 +940,40 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6969298091143277428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2389646877411653951}
+  m_Layer: 0
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2389646877411653951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969298091143277428}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7661347614428637596}
+  - {fileID: 500496040400665774}
+  - {fileID: 7657398618310242199}
+  m_Father: {fileID: 5120684388071049760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8413600816275951315
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,7 +1004,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7661347614428637596}
+  - {fileID: 2389646877411653951}
   - {fileID: 2448343552371094426}
   - {fileID: 6580824350063721554}
   m_Father: {fileID: 0}
@@ -988,44 +1022,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPreset
   skyRenderer: {fileID: 6125843932394267178}
-  rockRenderers:
-  - {fileID: 6343306993501973101}
-  - {fileID: 2273619263833192181}
   waveRenderers:
   - {fileID: 5905381949242714235}
   - {fileID: 3358616666421454292}
   - {fileID: 6414353580581560775}
   - {fileID: 2197860862268810946}
   - {fileID: 8521002615447927864}
-  foregroundRenderers:
-  - {fileID: 4038999228958129438}
-  - {fileID: 6266784204389046587}
-  rockVariants:
-  - {fileID: 21300000, guid: f0b5226b99f33cc4581eb238ad110562, type: 3}
-  - {fileID: 21300000, guid: fb66d221df288ef43aa16d6e0435105e, type: 3}
-  - {fileID: 21300000, guid: 047dcf959333b9947a28a017990e7a19, type: 3}
-  - {fileID: 21300000, guid: f26099a96da60a34ba7d41dffe1f6820, type: 3}
-  - {fileID: 21300000, guid: 038f07f969541404cb54e703cd91ce89, type: 3}
-  - {fileID: 21300000, guid: 4a3ea7ddf73d6844c90c5798de0ee9f1, type: 3}
-  - {fileID: 21300000, guid: 970e7dc02ab804446a8d7fa97701df2e, type: 3}
-  - {fileID: 21300000, guid: afad3e2755e1acf4490b070956f5082d, type: 3}
-  - {fileID: 21300000, guid: 5771a113534872c46b441c85efa5463f, type: 3}
-  foregroundVariants:
-  - {fileID: 21300000, guid: ae87f6679624c6649a6120bc2ee665c0, type: 3}
-  - {fileID: 21300000, guid: eb148e8def1c3f04a98e3e2fe8d8672f, type: 3}
-  - {fileID: 21300000, guid: 401ab822ecb93e845aacc5cfbcd77430, type: 3}
-  - {fileID: 21300000, guid: 7ec6109042ea8484589a165e7e10c71d, type: 3}
-  - {fileID: 21300000, guid: 035af993f370204439ce8ac9511f5bd5, type: 3}
-  - {fileID: 21300000, guid: 3745a48fb1acb174d8b193247bfa80ab, type: 3}
-  - {fileID: 21300000, guid: 900030f941fe0b64e900c72c6f0dc683, type: 3}
-  - {fileID: 21300000, guid: 449c011ff46c942479beee997f32683f, type: 3}
-  - {fileID: 21300000, guid: a16a07407a7a35a46bc40b8ed1cd0d83, type: 3}
-  - {fileID: 21300000, guid: b4d82503ab2674b4e9ee6b1169d11395, type: 3}
-  - {fileID: 21300000, guid: 25d3fe86c8e44424ba9f0757aa6810d0, type: 3}
-  - {fileID: 21300000, guid: 43ab2a7a1fedfdc44b5f47b717be3448, type: 3}
-  - {fileID: 21300000, guid: 7735f0f3fe867254ca6e602f419c8230, type: 3}
-  - {fileID: 21300000, guid: 892648005b7221e4c9532e53dc67aecd, type: 3}
-  - {fileID: 21300000, guid: 8cec7f0c78c741540b16109135f8aa43, type: 3}
+  environmentAnims:
+  - {fileID: 3374273852600030812}
+  - {fileID: 2805042328686317160}
   waveVariants:
   - {fileID: 21300000, guid: 13ca9289f8e9fba42a274397a1303e54, type: 3}
   - {fileID: 21300000, guid: feda78a13a985f54ca4b91bc70343cd1, type: 3}
@@ -1225,3 +1230,149 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &5838668911088988489
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2389646877411653951}
+    m_Modifications:
+    - target: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.6435626
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2964487
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649963740136178664, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+      propertyPath: m_Name
+      value: Spine Mangrove2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+--- !u!114 &3374273852600030812 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9211209515474511637, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+  m_PrefabInstance: {fileID: 5838668911088988489}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1dcdc7f22204f84c950d7b0f32c895b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Madduck.RoomPreset::Madduck.RoomPreset.EnvironmentAnim
+--- !u!4 &7657398618310242199 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4270420740339244766, guid: 20549ba7a8e681f48a8195d693d26cdc, type: 3}
+  m_PrefabInstance: {fileID: 5838668911088988489}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6639802808301104369
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2389646877411653951}
+    m_Modifications:
+    - target: {fileID: 1691348522889902222, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_Name
+      value: Spine Mangrove3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.556141
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8744309
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+--- !u!4 &500496040400665774 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6545787473497133151, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+  m_PrefabInstance: {fileID: 6639802808301104369}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2805042328686317160 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -375819279357582695, guid: b2a011a51a072454bbf8e5a70376ebe2, type: 3}
+  m_PrefabInstance: {fileID: 6639802808301104369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1dcdc7f22204f84c950d7b0f32c895b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Madduck.RoomPreset::Madduck.RoomPreset.EnvironmentAnim

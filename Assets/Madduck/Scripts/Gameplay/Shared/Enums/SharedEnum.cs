@@ -41,6 +41,7 @@ namespace Madduck.Shared
         Reeling,
         TugOfWar
     }
+    
     public enum InputControllerDevice
     {
         MouseKeyboard,

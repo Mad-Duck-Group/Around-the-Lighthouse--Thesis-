@@ -10,5 +10,12 @@ namespace Madduck.Fishing
     {
         public SerializableDictionary<SelectionIcon, Sprite> keyBoardMouseTugOfWarIconSprites;
         public SerializableDictionary<SelectionIcon, Sprite> gamePadTugOfWarIconSprites;
+        public Sprite GetIcon(SelectionIcon icon, bool isGamepad)
+        {
+            return isGamepad
+                ? gamePadTugOfWarIconSprites[icon]
+                : keyBoardMouseTugOfWarIconSprites[icon];
+        }
     }
+   
 }

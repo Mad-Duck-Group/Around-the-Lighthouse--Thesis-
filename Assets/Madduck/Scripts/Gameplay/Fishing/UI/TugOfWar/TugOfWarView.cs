@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Shared;
 using Madduck.Utils;
 using PrimeTween;
 using R3;
@@ -24,11 +25,13 @@ namespace Madduck.Fishing.UI
 
         private TugOfWarViewModel _viewModel;
         private IDisposable _bindings;
+        private TugOfWarUIIconConfig _tugOfWarUIIconConfig;
         private Sequence _transitionSequence;
 
         [Inject]
-        public void SetUp(TugOfWarViewModel viewModel)
+        public void SetUp(TugOfWarViewModel viewModel, TugOfWarUIIconConfig tugOfWarUIIconConfig)
         {
+            _tugOfWarUIIconConfig = tugOfWarUIIconConfig;
             _viewModel = viewModel;
         }
 
@@ -38,6 +41,25 @@ namespace Madduck.Fishing.UI
             _viewModel.TugOfWarPercent
                 .Subscribe(x => tugOfWarSlider.value = x.AsFraction)
                 .AddTo(ref disposableBuilder);
+            Observable.CombineLatest(
+                    _viewModel.CurrentScheme,
+                    _viewModel.IsTugButtonDown,
+                    (scheme, isDown) => (scheme, isDown)
+                )
+                .Subscribe(values =>
+                {
+                    var (scheme, isDown) = values;
+
+                    SelectionIcon icon = isDown
+                        ? SelectionIcon.Selected
+                        : SelectionIcon.Unselected;
+
+                    bool isGamepad = scheme == "Gamepad";
+
+                    inputIconImage.sprite = _tugOfWarUIIconConfig.GetIcon(icon, isGamepad);
+                })  
+                .AddTo(ref disposableBuilder);
+            
             _bindings = disposableBuilder.Build();
         }
 

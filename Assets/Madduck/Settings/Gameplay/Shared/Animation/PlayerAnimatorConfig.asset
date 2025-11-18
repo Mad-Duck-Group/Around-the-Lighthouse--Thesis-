@@ -26,5 +26,35 @@ MonoBehaviour:
     - Idle_Rod
     - PullHookUp
     - Reeling
-  deconstructedAnimations: []
+  deconstructedAnimations:
+  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
+    key: 0
+    animation: Idle1
+  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
+    key: 1
+    animation: Idle2
+  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
+    key: 3
+    animation: Throw1
+  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
+    key: 4
+    animation: Throw2
+  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
+    key: 5
+    animation: Throw3
+  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
+    key: 8
+    animation: Pulling
+  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
+    key: 9
+    animation: GotFish
+  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
+    key: 2
+    animation: Idle_Rod
+  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
+    key: 6
+    animation: PullHookUp
+  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
+    key: 7
+    animation: Reeling
   <IdleSwitchInterval>k__BackingField: {x: 5, y: 10}
