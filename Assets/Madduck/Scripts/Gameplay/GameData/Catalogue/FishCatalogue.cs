@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Madduck.Core;
 using MessagePack;
+using MessagePipe;
+using R3;
 using Sirenix.Serialization;
 using UnityEngine;
 using VContainer;
@@ -19,23 +21,42 @@ namespace Madduck.GameData
     }
     
     [Serializable]
-    public class FishCatalogue : IPostInitializable
+    public class FishCatalogue : IPostInitializable, IDisposable
     {
         private readonly FishCatalogueConfig _config;
         private readonly MessagePackSaveManager _saveManager;
+        private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
         private FishCatalogueSaveObject _fishCatalogueSaveObject;
         private FishCatalogueSaveData _fishCatalogueData;
         
         private Dictionary<Guid, FishCatalogueEntry> _fishCatalogueEntries = new();
         [OdinSerialize] public IReadOnlyDictionary<Guid, FishCatalogueEntry> FishCatalogueEntries => _fishCatalogueEntries;
+        private IDisposable _disposables;
         
         [Inject]
         public FishCatalogue(
             FishCatalogueConfig config,
-            MessagePackSaveManager saveManager)
+            MessagePackSaveManager saveManager,
+            ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventPublisher)
         {
             _config = config;
             _saveManager = saveManager;
+            _fishingRoomStartedEventPublisher = fishingRoomStartedEventPublisher;
+            Subscribe();
+        }
+
+        private void Subscribe()
+        {
+            var disposableBuilder = Disposable.CreateBuilder();
+            _fishingRoomStartedEventPublisher
+                .Subscribe(_ => Load())
+                .AddTo(ref disposableBuilder);
+            _disposables = disposableBuilder.Build();
+        }
+        
+        public void Dispose()
+        {
+            _disposables.Dispose();
         }
 
         public void PostInitialize()
@@ -52,7 +73,7 @@ namespace Madduck.GameData
             _saveManager.Save(_fishCatalogueSaveObject);
         }
 
-        private void Load()
+        public void Load()
         {
             foreach (var kvp in _fishCatalogueData.FishCatalogueEntries)
             {
