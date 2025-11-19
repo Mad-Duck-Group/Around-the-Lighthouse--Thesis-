@@ -302,6 +302,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5799013264767838139}
+  - {fileID: 8720110886832457447}
+  - {fileID: 8958179058526519442}
   m_Father: {fileID: 2535639998092906871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2326193278063179744
@@ -352,39 +354,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPreset
   skyRenderer: {fileID: 4185583467123631957}
-  rockRenderers:
-  - {fileID: 2317221462102304356}
-  - {fileID: 501395614971851851}
-  - {fileID: 6829667239533222970}
   waveRenderers:
   - {fileID: 2957068440481621796}
   - {fileID: 4211100945043047884}
   - {fileID: 8488998414933262107}
   - {fileID: 3446063414533135315}
   - {fileID: 7021541627992936123}
-  foregroundRenderers:
-  - {fileID: 3798631598741286249}
-  - {fileID: 5696896374559203101}
-  rockVariants:
-  - {fileID: 21300000, guid: f0b5226b99f33cc4581eb238ad110562, type: 3}
-  - {fileID: 21300000, guid: fb66d221df288ef43aa16d6e0435105e, type: 3}
-  - {fileID: 21300000, guid: 047dcf959333b9947a28a017990e7a19, type: 3}
-  foregroundVariants:
-  - {fileID: 21300000, guid: ae87f6679624c6649a6120bc2ee665c0, type: 3}
-  - {fileID: 21300000, guid: eb148e8def1c3f04a98e3e2fe8d8672f, type: 3}
-  - {fileID: 21300000, guid: 401ab822ecb93e845aacc5cfbcd77430, type: 3}
-  - {fileID: 21300000, guid: 7ec6109042ea8484589a165e7e10c71d, type: 3}
-  - {fileID: 21300000, guid: 035af993f370204439ce8ac9511f5bd5, type: 3}
-  - {fileID: 21300000, guid: 3745a48fb1acb174d8b193247bfa80ab, type: 3}
-  - {fileID: 21300000, guid: 900030f941fe0b64e900c72c6f0dc683, type: 3}
-  - {fileID: 21300000, guid: 449c011ff46c942479beee997f32683f, type: 3}
-  - {fileID: 21300000, guid: a16a07407a7a35a46bc40b8ed1cd0d83, type: 3}
-  - {fileID: 21300000, guid: b4d82503ab2674b4e9ee6b1169d11395, type: 3}
-  - {fileID: 21300000, guid: 25d3fe86c8e44424ba9f0757aa6810d0, type: 3}
-  - {fileID: 21300000, guid: 43ab2a7a1fedfdc44b5f47b717be3448, type: 3}
-  - {fileID: 21300000, guid: 7735f0f3fe867254ca6e602f419c8230, type: 3}
-  - {fileID: 21300000, guid: 892648005b7221e4c9532e53dc67aecd, type: 3}
-  - {fileID: 21300000, guid: 8cec7f0c78c741540b16109135f8aa43, type: 3}
+  environmentAnims:
+  - {fileID: 633237134023098446}
+  - {fileID: 5557626079482189716}
   waveVariants:
   - {fileID: 21300000, guid: 13ca9289f8e9fba42a274397a1303e54, type: 3}
   - {fileID: 21300000, guid: feda78a13a985f54ca4b91bc70343cd1, type: 3}
@@ -1343,3 +1321,149 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &18209644114728005
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5697740529353330487}
+    m_Modifications:
+    - target: {fileID: 7384410899541108667, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_Name
+      value: Spine Coast_Coconut2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.0980327
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2901368
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+--- !u!114 &5557626079482189716 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3647890502062554159, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+  m_PrefabInstance: {fileID: 18209644114728005}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1dcdc7f22204f84c950d7b0f32c895b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Madduck.RoomPreset::Madduck.RoomPreset.EnvironmentAnim
+--- !u!4 &8958179058526519442 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8940043244903912663, guid: 12b9404d8508bcf4eb8ab930c3331beb, type: 3}
+  m_PrefabInstance: {fileID: 18209644114728005}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4022672121799468502
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5697740529353330487}
+    m_Modifications:
+    - target: {fileID: 3691325950317046254, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_Name
+      value: Spine Coast_Coconut3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.6135485
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1381503
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+--- !u!114 &633237134023098446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4676193082177100392, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+  m_PrefabInstance: {fileID: 4022672121799468502}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1dcdc7f22204f84c950d7b0f32c895b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Madduck.RoomPreset::Madduck.RoomPreset.EnvironmentAnim
+--- !u!4 &8720110886832457447 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5681124207083332401, guid: 7537f845e1704eb41ae5c112be69c4ed, type: 3}
+  m_PrefabInstance: {fileID: 4022672121799468502}
+  m_PrefabAsset: {fileID: 0}

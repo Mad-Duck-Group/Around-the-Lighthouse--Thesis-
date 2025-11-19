@@ -16,6 +16,6 @@ MonoBehaviour:
   <Animations>k__BackingField:
     keys: 0100000000000000
     values:
-    - Sand_Bird_S_Normal
     - Sand_Bird_S_Storm
+    - Sand_Bird_S_Normal
   deconstructedAnimations: []

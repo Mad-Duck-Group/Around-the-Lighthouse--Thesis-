@@ -26,7 +26,9 @@ namespace Madduck.Fishing.UI
         private TugOfWarViewModel _viewModel;
         private IDisposable _bindings;
         private TugOfWarUIIconConfig _tugOfWarUIIconConfig;
+        private bool _isDown;
         private Sequence _transitionSequence;
+        private string _currentScheme;
 
         [Inject]
         public void SetUp(TugOfWarViewModel viewModel, TugOfWarUIIconConfig tugOfWarUIIconConfig)
@@ -41,27 +43,53 @@ namespace Madduck.Fishing.UI
             _viewModel.TugOfWarPercent
                 .Subscribe(x => tugOfWarSlider.value = x.AsFraction)
                 .AddTo(ref disposableBuilder);
-            Observable.CombineLatest(
-                    _viewModel.CurrentScheme,
-                    _viewModel.IsTugButtonDown,
-                    (scheme, isDown) => (scheme, isDown)
-                )
-                .Subscribe(values =>
+            // Observable.CombineLatest(
+            //         _viewModel.CurrentScheme,
+            //         _viewModel.IsTugButtonDown,
+            //         (scheme, isDown) => (scheme, isDown)
+            //     )
+            //     .ThrottleLast(TimeSpan.FromMilliseconds(300))
+            //     .Subscribe(values =>
+            //     {
+            //         var (scheme, isDown) = values;
+            //         SetIconDelay(scheme, isDown).Forget();
+            //     })  
+            //     .AddTo(ref disposableBuilder);
+            _viewModel.CurrentScheme
+                .Subscribe(scheme =>
                 {
-                    var (scheme, isDown) = values;
-
-                    SelectionIcon icon = isDown
-                        ? SelectionIcon.Selected
-                        : SelectionIcon.Unselected;
-
-                    bool isGamepad = scheme == "Gamepad";
-
-                    inputIconImage.sprite = _tugOfWarUIIconConfig.GetIcon(icon, isGamepad);
-                })  
+                    _currentScheme = scheme;
+                    SetIconScheme(scheme);
+                })
                 .AddTo(ref disposableBuilder);
-            
+            _viewModel.IsTugButtonDown
+                .Where(x => x)
+                .SubscribeAwait((b, token) => SetIconIsDown(),AwaitOperation.Drop);
             _bindings = disposableBuilder.Build();
         }
+
+        private void SetIconScheme(string scheme)
+        {
+            bool isGamepad = scheme == "Gamepad";
+            SelectionIcon selectionIcon = _isDown ? SelectionIcon.Selected : SelectionIcon.Unselected;
+            var sprite = _tugOfWarUIIconConfig.GetSelectedIcon(selectionIcon,isGamepad);
+            inputIconImage.sprite = sprite;
+        }
+
+        private async UniTask SetIconIsDown()
+        {
+            _isDown = true;
+            bool isGamepad = _currentScheme == "Gamepad";
+            var spriteSelected = _tugOfWarUIIconConfig.GetSelectedIcon(SelectionIcon.Selected, isGamepad);
+            inputIconImage.sprite = spriteSelected;
+            await UniTask.WaitForSeconds(_tugOfWarUIIconConfig.iconSwitchDelay / 2);
+            _isDown = false;
+            var spriteUnselected = _tugOfWarUIIconConfig.GetSelectedIcon(SelectionIcon.Unselected, isGamepad);
+            inputIconImage.sprite = spriteUnselected;
+            await UniTask.WaitForSeconds(_tugOfWarUIIconConfig.iconSwitchDelay / 2);
+            
+        }
+            
 
         private void OnDestroy()
         {

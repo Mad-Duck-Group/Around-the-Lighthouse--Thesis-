@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Madduck.RoomPreset::Madduck.RoomPreset.EnvironmentAnimConfig
   skeletonDataAsset: {fileID: 11400000, guid: e4da1460800177043b48cd76e6af8986, type: 2}
   <Animations>k__BackingField:
-    keys: 0000000001000000
+    keys: 0100000000000000
     values:
     - Mangrove2_Storm
     - Mangrove2_Sway
