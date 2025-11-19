@@ -60,7 +60,7 @@ namespace Madduck.GameData
         [ShowIf(nameof(spoofStrength)),
          SerializeField] private WindStrength fixedWindStrength;
         
-        [Inject] private readonly IModifierSource _modifierSource;
+        [Inject][Key(DIConstants.ModifierContainerKey)] private readonly IModifierSource _modifierSource;
         [Inject] private readonly IPublisher<ModifierSourceEvent> _modifierSourceEventPublisher;
 
         public WeatherItemInstance Current { get; private set; }

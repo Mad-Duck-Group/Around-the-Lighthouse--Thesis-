@@ -71,6 +71,11 @@ namespace Madduck.Fishing.Controller
                 .Where(x => x && _inputActive)
                 .Subscribe(_ => OnTugButtonDown())
                 .AddTo(ref disposableBuilder);
+            _inputHandler.JerkBaitButton.IsDown
+                .IgnoreFirstValueWhenSubscribe()
+                .DistinctUntilChanged()
+                .Subscribe(isDown => _model.IsTugButtonDown.Value = isDown)
+                .AddTo(ref disposableBuilder);
             _model.TugOfWarPercent
                 .Where(x => x >= _model.FishingRodInstance.CurrentStats.CurrentTugOfWarDecayThreshold)
                 .Subscribe(_ => _thresholdReached = true)
@@ -90,6 +95,7 @@ namespace Madduck.Fishing.Controller
         {
             _model.CurrentTugOfWarProgress.Value += _model.FishingRodInstance.CurrentStats.CurrentTugOfWarGainRate;
         }
+        
         
         private async UniTaskVoid OnLoseTugOfWar()
         {

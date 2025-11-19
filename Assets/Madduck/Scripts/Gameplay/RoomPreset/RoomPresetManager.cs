@@ -37,7 +37,6 @@ namespace Madduck.RoomPreset
             _weatherPresetManager = weatherPresetManager;
         }
         #endregion
-
         
         #region Lifecycle
 
@@ -57,6 +56,7 @@ namespace Madduck.RoomPreset
             instance.SetDayPhase(_dayManager.CurrentDayPhase);
             instance.SetDynamicElements(_weatherPresetManager.CurrentWeather.Value);
             instance.ApplySprites();
+            instance.ApplyAnimation();
         }
 
         #endregion

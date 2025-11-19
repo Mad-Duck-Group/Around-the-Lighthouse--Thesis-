@@ -20,17 +20,13 @@ namespace Madduck.RoomPreset
          BoxGroup("References"),
          SerializeField] public SpriteRenderer skyRenderer;
         [BoxGroup("References"),
-         SerializeField] public SpriteRenderer[] rockRenderers;
-        [BoxGroup("References"),
          SerializeField] public SpriteRenderer[] waveRenderers;
         [BoxGroup("References"),
-         SerializeField] public SpriteRenderer[] foregroundRenderers;
+         SerializeField] public EnvironmentAnim[] environmentAnims;
+        
     
         [Title("Variants")]
-        [BoxGroup("Variants"),
-         SerializeField] private Sprite[] rockVariants;
-        [BoxGroup("Variants"),
-         SerializeField] private Sprite[] foregroundVariants;
+        
         [BoxGroup("Variants"),
          SerializeField] private Sprite[] waveVariants;
         [BoxGroup("Variants"),
@@ -80,15 +76,6 @@ namespace Madduck.RoomPreset
                 }
             }
         
-            if (rockRenderers != null && rockVariants.Length > 0)
-            {
-                foreach (var render in rockRenderers)
-                {
-                    if (render)
-                        render.sprite = rockVariants.GetRandomElement();
-                }
-            }
-        
             if (waveRenderers != null && waveVariants.Length > 0)
             {
                 for (int i = 0; i < waveRenderers.Length; i++)
@@ -104,17 +91,17 @@ namespace Madduck.RoomPreset
                     }
                 }
             }
-            // if (foregroundRenderers != null && foregroundVariants.Length > 0)
-            // {
-            //     foreach (var render in foregroundRenderers)
-            //     {
-            //         if (render)
-            //             render.sprite = foregroundVariants.GetRandomElement();
-            //     }
-            // }
             AnimateWaves();
-            //ShakeRock();
-        }   
+            
+        }
+
+        public void ApplyAnimation()
+        {
+            foreach (var environment in environmentAnims)
+            {
+                environment.SetAnimator(_currentWeather);
+            }
+        }
         #endregion
 
         #region Tween

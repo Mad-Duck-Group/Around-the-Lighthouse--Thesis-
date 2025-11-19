@@ -13,6 +13,7 @@ namespace Madduck.Fishing.UI
         [field: ShowInInspector] public ReactiveProperty<UFloat> CurrentTugOfWarProgress { get; private set; }
         [field: ShowInInspector] public ReactiveProperty<UFloat> MaxTugOfWarProgress { get; private set; }
         [field: ShowInInspector] public ReadOnlyReactiveProperty<Percentage> TugOfWarPercent { get; private set; }
+        public ReactiveProperty<bool> IsTugButtonDown { get; }= new ReactiveProperty<bool>(false);
         [field: ShowInInspector] public FishingRodItemInstance FishingRodInstance { get; private set; }
         [field: ShowInInspector] public FishItemInstance FishInstance { get; private set; }
         

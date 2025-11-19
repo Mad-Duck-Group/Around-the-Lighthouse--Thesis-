@@ -37,6 +37,8 @@ namespace Madduck.Fishing.DI
          SerializeField] private TugOfWarConfig tugOfWarConfig;
         [Required, 
          SerializeField] private TugOfWarView tugOfWarView;
+        [Required,
+        SerializeField] private TugOfWarUIIconConfig tugOfWarUIIconConfig;
         
         
 #if UNITY_EDITOR
@@ -54,6 +56,7 @@ namespace Madduck.Fishing.DI
         public void Install(IContainerBuilder builder)
         {
             builder.RegisterInstance(tugOfWarConfig).AsSelf();
+            builder.RegisterInstance(tugOfWarUIIconConfig).AsSelf();
             builder.Register(x =>
                 {
                     x.Inject(tugOfWarView);
