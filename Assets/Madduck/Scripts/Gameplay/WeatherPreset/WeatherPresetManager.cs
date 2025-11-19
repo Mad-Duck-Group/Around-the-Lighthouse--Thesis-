@@ -129,12 +129,15 @@ namespace Madduck.WeatherPreset
                 }
                 
             }
-            foreach (var ps in particleSetting.ParticleSystem)
+            if (particleSetting is not null && particleSetting.ParticleSystem.Length > 0)
             {
-                if (ps == null) continue;
-                var pos = (Vector2)instance.transform.position + particleSetting.PositionOffset;
-                var particleInstance = Object.Instantiate(ps, pos,ps.transform.rotation, instance.transform);
-                particleInstance.Play();
+                foreach (var ps in particleSetting.ParticleSystem)
+                {
+                    if (!ps) continue;
+                    var pos = (Vector2)instance.transform.position + particleSetting.PositionOffset;
+                    var particleInstance = Object.Instantiate(ps, pos,ps.transform.rotation, instance.transform);
+                    particleInstance.Play();
+                }
             }
             instance.SetUpWeatherParticles();
         }

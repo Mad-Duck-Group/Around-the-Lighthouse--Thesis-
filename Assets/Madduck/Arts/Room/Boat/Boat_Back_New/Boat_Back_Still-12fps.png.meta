@@ -1,0 +1,874 @@
+fileFormatVersion: 2
+guid: 8e24ee26766dea840b146aa5b0a22681
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1226289455854349463
+    second: Boat_Back_Still-12fps_0
+  - first:
+      213: -548718670847388118
+    second: Boat_Back_Still-12fps_1
+  - first:
+      213: 4122961125391094731
+    second: Boat_Back_Still-12fps_2
+  - first:
+      213: -1687998370741353732
+    second: Boat_Back_Still-12fps_3
+  - first:
+      213: 8502757775302939141
+    second: Boat_Back_Still-12fps_4
+  - first:
+      213: -8210733928323947870
+    second: Boat_Back_Still-12fps_5
+  - first:
+      213: -590278592860409075
+    second: Boat_Back_Still-12fps_6
+  - first:
+      213: -320204248799542680
+    second: Boat_Back_Still-12fps_7
+  - first:
+      213: -4711805328313777235
+    second: Boat_Back_Still-12fps_8
+  - first:
+      213: 2354291805365424311
+    second: Boat_Back_Still-12fps_9
+  - first:
+      213: -100586813007265746
+    second: Boat_Back_Still-12fps_10
+  - first:
+      213: -992478855731317257
+    second: Boat_Back_Still-12fps_11
+  - first:
+      213: -6425097910724943806
+    second: Boat_Back_Still-12fps_12
+  - first:
+      213: 1035253666003709954
+    second: Boat_Back_Still-12fps_13
+  - first:
+      213: 2476870924457739907
+    second: Boat_Back_Still-12fps_14
+  - first:
+      213: -2407058332840334623
+    second: Boat_Back_Still-12fps_15
+  - first:
+      213: 4102566142963731847
+    second: Boat_Back_Still-12fps_16
+  - first:
+      213: -4920260034645282553
+    second: Boat_Back_Still-12fps_17
+  - first:
+      213: 5867475507648109865
+    second: Boat_Back_Still-12fps_18
+  - first:
+      213: 5729963248914440598
+    second: Boat_Back_Still-12fps_19
+  - first:
+      213: 5042801431805270280
+    second: Boat_Back_Still-12fps_20
+  - first:
+      213: -8695409803749495956
+    second: Boat_Back_Still-12fps_21
+  - first:
+      213: -2169283906959094884
+    second: Boat_Back_Still-12fps_22
+  - first:
+      213: 5604772207314408001
+    second: Boat_Back_Still-12fps_23
+  - first:
+      213: 322280871331834181
+    second: Boat_Back_Still-12fps_24
+  - first:
+      213: 6119662490884221434
+    second: Boat_Back_Still-12fps_25
+  - first:
+      213: 7392187321646003626
+    second: Boat_Back_Still-12fps_26
+  - first:
+      213: 3166998771212169126
+    second: Boat_Back_Still-12fps_27
+  - first:
+      213: 5874178495529305692
+    second: Boat_Back_Still-12fps_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3900
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79c610053c7a40110800000000000000
+      internalID: 1226289455854349463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_1
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 3900
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a26548ea64f8268f0800000000000000
+      internalID: -548718670847388118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_2
+      rect:
+        serializedVersion: 2
+        x: 1794
+        y: 3900
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc35ea59c43b73930800000000000000
+      internalID: 4122961125391094731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_3
+      rect:
+        serializedVersion: 2
+        x: 2691
+        y: 3900
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf2068adc660398e0800000000000000
+      internalID: -1687998370741353732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_4
+      rect:
+        serializedVersion: 2
+        x: 3588
+        y: 3900
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5025f18a52ddff570800000000000000
+      internalID: 8502757775302939141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3120
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a2e0099efc9d0e80800000000000000
+      internalID: -8210733928323947870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_6
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 3120
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d03b90a4fb8eec7f0800000000000000
+      internalID: -590278592860409075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_7
+      rect:
+        serializedVersion: 2
+        x: 1794
+        y: 3120
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8628bb6aee76e8bf0800000000000000
+      internalID: -320204248799542680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_8
+      rect:
+        serializedVersion: 2
+        x: 2691
+        y: 3120
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da38013a40e4c9eb0800000000000000
+      internalID: -4711805328313777235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_9
+      rect:
+        serializedVersion: 2
+        x: 3588
+        y: 3120
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b05b646cef1ca020800000000000000
+      internalID: 2354291805365424311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2340
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e200d9593d4aa9ef0800000000000000
+      internalID: -100586813007265746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_11
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 2340
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f57c053db10a32f0800000000000000
+      internalID: -992478855731317257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_12
+      rect:
+        serializedVersion: 2
+        x: 1794
+        y: 2340
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 240a228ed7775d6a0800000000000000
+      internalID: -6425097910724943806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_13
+      rect:
+        serializedVersion: 2
+        x: 2691
+        y: 2340
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 200729669b5fd5e00800000000000000
+      internalID: 1035253666003709954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_14
+      rect:
+        serializedVersion: 2
+        x: 3588
+        y: 2340
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3860cc69bfc9f5220800000000000000
+      internalID: 2476870924457739907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1560
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ea686d0339689ed0800000000000000
+      internalID: -2407058332840334623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_16
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 1560
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78dc5e2bb2e3fe830800000000000000
+      internalID: 4102566142963731847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_17
+      rect:
+        serializedVersion: 2
+        x: 1794
+        y: 1560
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 701ba603199b7bbb0800000000000000
+      internalID: -4920260034645282553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_18
+      rect:
+        serializedVersion: 2
+        x: 2691
+        y: 1560
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92d9ba113e57d6150800000000000000
+      internalID: 5867475507648109865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_19
+      rect:
+        serializedVersion: 2
+        x: 3588
+        y: 1560
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 691a69b573be48f40800000000000000
+      internalID: 5729963248914440598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 780
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 809959f2f21abf540800000000000000
+      internalID: 5042801431805270280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_21
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 780
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6bef0f8ad2b35780800000000000000
+      internalID: -8695409803749495956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_22
+      rect:
+        serializedVersion: 2
+        x: 1794
+        y: 780
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9b4bbca7c725e1e0800000000000000
+      internalID: -2169283906959094884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_23
+      rect:
+        serializedVersion: 2
+        x: 2691
+        y: 780
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14215ff80a628cd40800000000000000
+      internalID: 5604772207314408001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_24
+      rect:
+        serializedVersion: 2
+        x: 3588
+        y: 780
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54923a5beb8f87400800000000000000
+      internalID: 322280871331834181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af9af62bc986de450800000000000000
+      internalID: 6119662490884221434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_26
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 0
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa53bdb1433569660800000000000000
+      internalID: 7392187321646003626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_27
+      rect:
+        serializedVersion: 2
+        x: 1794
+        y: 0
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6af233a5a9073fb20800000000000000
+      internalID: 3166998771212169126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Back_Still-12fps_28
+      rect:
+        serializedVersion: 2
+        x: 2691
+        y: 0
+        width: 897
+        height: 780
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c56434d0836458150800000000000000
+      internalID: 5874178495529305692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1fe7777b62538eb4d89a74624ecb444a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":6.0},"gridSpriteSize":{"x":897.0,"y":780.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Boat_Back_Still-12fps_0: 1226289455854349463
+      Boat_Back_Still-12fps_1: -548718670847388118
+      Boat_Back_Still-12fps_10: -100586813007265746
+      Boat_Back_Still-12fps_11: -992478855731317257
+      Boat_Back_Still-12fps_12: -6425097910724943806
+      Boat_Back_Still-12fps_13: 1035253666003709954
+      Boat_Back_Still-12fps_14: 2476870924457739907
+      Boat_Back_Still-12fps_15: -2407058332840334623
+      Boat_Back_Still-12fps_16: 4102566142963731847
+      Boat_Back_Still-12fps_17: -4920260034645282553
+      Boat_Back_Still-12fps_18: 5867475507648109865
+      Boat_Back_Still-12fps_19: 5729963248914440598
+      Boat_Back_Still-12fps_2: 4122961125391094731
+      Boat_Back_Still-12fps_20: 5042801431805270280
+      Boat_Back_Still-12fps_21: -8695409803749495956
+      Boat_Back_Still-12fps_22: -2169283906959094884
+      Boat_Back_Still-12fps_23: 5604772207314408001
+      Boat_Back_Still-12fps_24: 322280871331834181
+      Boat_Back_Still-12fps_25: 6119662490884221434
+      Boat_Back_Still-12fps_26: 7392187321646003626
+      Boat_Back_Still-12fps_27: 3166998771212169126
+      Boat_Back_Still-12fps_28: 5874178495529305692
+      Boat_Back_Still-12fps_29: -1213218239
+      Boat_Back_Still-12fps_3: -1687998370741353732
+      Boat_Back_Still-12fps_4: 8502757775302939141
+      Boat_Back_Still-12fps_5: -8210733928323947870
+      Boat_Back_Still-12fps_6: -590278592860409075
+      Boat_Back_Still-12fps_7: -320204248799542680
+      Boat_Back_Still-12fps_8: -4711805328313777235
+      Boat_Back_Still-12fps_9: 2354291805365424311
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

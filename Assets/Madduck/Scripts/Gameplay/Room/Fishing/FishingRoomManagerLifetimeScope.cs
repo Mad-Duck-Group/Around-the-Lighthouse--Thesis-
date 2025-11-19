@@ -125,7 +125,7 @@ namespace Madduck.Room
             builder.Register<WeatherPresetManager>(Lifetime.Singleton).AsSelf();
             playerAnimatorInstaller?.Install(builder);
             foreach (var uiInstaller in uiInstallers)
-            {
+            {   
                 uiInstaller.Install(builder);
             }
             builder.RegisterBuildCallback(x =>

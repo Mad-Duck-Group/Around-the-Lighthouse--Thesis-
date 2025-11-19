@@ -10,7 +10,7 @@ namespace Madduck.Fishing.UI
     {
         public ReadOnlyReactiveProperty<Percentage> TugOfWarPercent { get; private set; }
         public ReadOnlyReactiveProperty<bool> IsTugButtonDown { get; private set; }
-        private ReactiveProperty<bool> _isTugButtonDown = new(false);
+        private readonly ReactiveProperty<bool> _isTugButtonDown = new(false);
         public ReadOnlyReactiveProperty<string> CurrentScheme { get; private set; } 
 
         private readonly TugOfWarModel _model;
@@ -34,14 +34,13 @@ namespace Madduck.Fishing.UI
             TugOfWarPercent = _model.TugOfWarPercent
                 .ToReadOnlyReactiveProperty()
                 .AddTo(ref disposableBuilder);
-            CurrentScheme = _inputHandler.CurrentControlScheme
-                .ToReadOnlyReactiveProperty()
-                .AddTo(ref disposableBuilder);
+            CurrentScheme = Observable.FromEvent<string>(
+                        h => _inputHandler.OnControlSchemeChanged += h,
+                        h => _inputHandler.OnControlSchemeChanged -= h)
+                    .ToReadOnlyReactiveProperty(_inputHandler.CurrentControlScheme)
+                    .AddTo(ref disposableBuilder);
             _model.IsTugButtonDown
-                .Subscribe(isDown =>
-                {
-                    OnTugButtonDown(isDown) ;
-                })
+                .Subscribe(OnTugButtonDown)
                 .AddTo(ref disposableBuilder);
             IsTugButtonDown = _isTugButtonDown
                 .ToReadOnlyReactiveProperty()
@@ -53,15 +52,8 @@ namespace Madduck.Fishing.UI
         private void OnTugButtonDown(bool isDown)
         {
             _isTugButtonDown.Value = isDown;
-            if (isDown)
-            {
-                DebugUtils.Log("Tug Button Down");
-            }
-            else
-            {
-                DebugUtils.Log("Tug Button Up");
-            }
         }
+        
         public void Dispose()
         {
             _bindings.Dispose();
