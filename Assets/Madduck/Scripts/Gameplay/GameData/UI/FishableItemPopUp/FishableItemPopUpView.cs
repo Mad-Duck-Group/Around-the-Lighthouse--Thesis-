@@ -39,22 +39,17 @@ namespace Madduck.GameData
          SerializeField] private LayoutGroup layoutGroup;
         [Required,
          SerializeField] private Vector2 evenItemOffset;
-        // [Required,
-        //  SerializeField] private TMP_Text fishNameText;
-        // [Required,
-        //  SerializeField] private TMP_Text fishDescriptionText;
-        // [Required,
-        //  SerializeField] private TMP_Text fishWeightText;
-        // [Required,
-        //  SerializeField] private TMP_Text fishRarityText;
-        // [Required,
-        //  SerializeField] private Image fishIcon;
-        // [Required,
-        //  SerializeField] private Button closeButton;
         
         [Title("Tween")]
+        [SerializeField] private TweenSettings<float> canvasAlphaTweenSettings;
         [SerializeField] private TweenSettings<float> backgroundAlphaTweenSettings;
-        [SerializeField] private TweenSettings<Vector3> scaleTweenSettings;
+        
+        [Title("Debug")]
+        [Button("Preview Transition")]
+        private void PreviewTransition(bool active)
+        {
+            Transition(active).Forget();
+        }
         
         #endregion
         
@@ -77,7 +72,6 @@ namespace Madduck.GameData
         
         public void SetPopUpObject(FishableItemPopUpObject popUpObject)
         {
-            canvasGroup.transform.localScale = scaleTweenSettings.startValue;
             canvasGroup.blocksRaycasts = false;
             canvasGroup.interactable = false;
             backgroundImage.color = backgroundImage.color.WithA(backgroundAlphaTweenSettings.startValue);
@@ -102,9 +96,6 @@ namespace Madduck.GameData
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            // closeButton.OnClickAsObservable()
-            //     .Subscribe(_ => OnCloseButtonClicked())
-            //     .AddTo(ref disposableBuilder);
             _inputHandler.AnyButtonPressed
                 .IgnoreFirstValueWhenSubscribe()
                 .Where(x => x)
@@ -134,6 +125,7 @@ namespace Madduck.GameData
         public async UniTask Show(CancellationToken cancellationToken = default)
         {
             await TransitionIn(cancellationToken);
+            await _itemIconViews.Select(x => x.TransitionIn(cancellationToken));
             Bind();
             canvasGroup.blocksRaycasts = true;
             canvasGroup.interactable = true;
@@ -143,6 +135,7 @@ namespace Madduck.GameData
         public async UniTask Hide(CancellationToken cancellationToken = default)
         {
             _bindings?.Dispose();
+            await UniTask.WhenAll(_itemIconViews.Select(x => x.TransitionOut(cancellationToken)));
             await TransitionOut(cancellationToken);
             Destroy(gameObject);
             OnClose?.Invoke();
@@ -166,7 +159,7 @@ namespace Madduck.GameData
         {
             cancellationToken.Register(CancelTransition);
             _transitionSequence = Sequence.Create()
-                .Group(Tween.Scale(canvasGroup.transform, scaleTweenSettings.WithDirection(active)))
+                .Group(Tween.Alpha(canvasGroup, canvasAlphaTweenSettings.WithDirection(active)))
                 .Group(Tween.Alpha(backgroundImage, backgroundAlphaTweenSettings.WithDirection(active)));
             await _transitionSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }

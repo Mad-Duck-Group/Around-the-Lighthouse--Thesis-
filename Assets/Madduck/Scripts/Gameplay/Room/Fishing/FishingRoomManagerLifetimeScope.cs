@@ -130,6 +130,7 @@ namespace Madduck.Room
             }
             builder.RegisterBuildCallback(x =>
             {
+                x.Resolve<FishingRoomPopUpHandler>();
 #if UNITY_EDITOR
                 var fishingRoomManager = x.Resolve<FishingRoomManager>();
                 var table = x.Resolve<WeatherWeightTableInstance>();

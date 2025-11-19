@@ -28,6 +28,10 @@ namespace Madduck.GameData
         [Required,
          SerializeField] private CanvasGroup canvasGroup;
         [Required,
+         SerializeField] private RectTransform elementParent;
+        [Required,
+         SerializeField] private RectTransform sign;
+        [Required,
          SerializeField] private Image backgroundImage;
         [Required,
          SerializeField] private TMP_Text fishNameText;
@@ -37,9 +41,17 @@ namespace Madduck.GameData
          SerializeField] private Image fishIcon;
         
         [Title("Tween")]
+        [SerializeField] private TweenSettings<float> canvasAlphaTweenSettings;
         [SerializeField] private TweenSettings<float> backgroundAlphaTweenSettings;
-        [SerializeField] private TweenSettings<Vector3> scaleTweenSettings;
-        
+        [SerializeField] private TweenSettings<Vector2> signPositionTweenSettings;
+        [SerializeField] private TweenSettings<Vector3> elementParentScaleTweenSettings;
+
+        [Title("Debug")]
+        [Button("Preview Transition")]
+        private void PreviewTransition(bool active)
+        {
+            Transition(active).Forget();
+        }
         #endregion
         
         #region Fields
@@ -59,7 +71,9 @@ namespace Madduck.GameData
         }
         public void SetPopUpObject(NewFishPopUpObject popUpObject)
         {
-            canvasGroup.transform.localScale = scaleTweenSettings.startValue;
+            elementParent.transform.localScale = elementParentScaleTweenSettings.startValue;
+            sign.anchoredPosition = signPositionTweenSettings.startValue;
+            canvasGroup.alpha = canvasAlphaTweenSettings.startValue;
             backgroundImage.color = backgroundImage.color.WithA(backgroundAlphaTweenSettings.startValue);
             fishNameText.text = popUpObject.FishItemInstance.ItemData.FishName;
             fishIcon.sprite = popUpObject.FishItemInstance.ItemData.FishIcon;
@@ -149,7 +163,9 @@ namespace Madduck.GameData
         {
             cancellationToken.Register(CancelTransition);
             _transitionSequence = Sequence.Create()
-                .Group(Tween.Scale(canvasGroup.transform, scaleTweenSettings.WithDirection(active)))
+                .Group(Tween.Scale(elementParent, elementParentScaleTweenSettings.WithDirection(active)))
+                .Group(Tween.UIAnchoredPosition(sign, signPositionTweenSettings.WithDirection(active)))
+                .Group(Tween.Alpha(canvasGroup, canvasAlphaTweenSettings.WithDirection(active)))
                 .Group(Tween.Alpha(backgroundImage, backgroundAlphaTweenSettings.WithDirection(active)));
             await _transitionSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }

@@ -250,12 +250,14 @@ namespace Madduck.Room
             IPopUpFactory<EndGamePopUpObject> endGamePopUpFactory,
             ISubscriber<FishableCaughtEvent> fishCaughtEventSubscriber)
         {
+            _fishingRoomManager = fishingRoomManager;
             _fishCatalogue = fishCatalogue;
             _modalManager = modalManager;
             _cardSelectionController = cardSelectionController;
             _fishableItemPopUpFactory = fishableItemPopUpFactory;
             _newFishPopUpFactory = newFishPopUpFactory;
             _endGamePopUpFactory = endGamePopUpFactory;
+            _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             Subscribe();
         }
         

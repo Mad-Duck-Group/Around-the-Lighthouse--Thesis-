@@ -134,11 +134,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14322395a184547bef2b9b729df4989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.ItemIconView
-  elementParent: {fileID: 3222722285420384461}
+  elementParent: {fileID: 99270750407761366}
+  sign: {fileID: 2226607268761130553}
   iconImage: {fileID: 6562635619936129490}
   qualityStarImage: {fileID: 264488841204988031}
   qualityStarAnimator: {fileID: 8800541904974125575}
   itemNameText: {fileID: 2303217311655005596}
+  elementScaleTweenSettings:
+    startFromCurrent: 0
+    startValue: {x: 0, y: 0, z: 0}
+    endValue: {x: 1, y: 1, z: 1}
+    settings:
+      duration: 0.5
+      ease: 12
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
+  signPositionTweenSettings:
+    startFromCurrent: 0
+    startValue: {x: 0, y: 1000}
+    endValue: {x: 0, y: 375}
+    settings:
+      duration: 0.5
+      ease: 12
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
 --- !u!1 &4009895136177726342
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +305,7 @@ RectTransform:
   m_GameObject: {fileID: 5327704515924491579}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.0126582, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8410386786968716240}
@@ -272,7 +313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 373}
+  m_AnchoredPosition: {x: 0, y: 379.02682}
   m_SizeDelta: {x: 491, y: 972}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4282684997278273699
@@ -338,7 +379,7 @@ RectTransform:
   m_GameObject: {fileID: 6394277928269514983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.9875, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2226607268761130553}
@@ -347,7 +388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030517578, y: 46.24022}
+  m_AnchoredPosition: {x: -0.000030517578, y: 45.711}
   m_SizeDelta: {x: 248.9509, y: 671.1195}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7098498416556262856

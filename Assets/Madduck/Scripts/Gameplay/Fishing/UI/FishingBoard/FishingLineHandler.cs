@@ -128,13 +128,13 @@ namespace Madduck.Fishing.UI
             var percent = durabilityPercent.AsPercentage;
             switch (percent)
             {
-                case <= 30f:
+                case <= 25f:
                     _fishlineTension = FishLineTension.High;
                     break;
                 case <= 50f:
                     _fishlineTension = FishLineTension.Medium;
                     break;
-                case <= 70f:
+                case <= 75f:
                     _fishlineTension = FishLineTension.Low;
                     break;
                 default:

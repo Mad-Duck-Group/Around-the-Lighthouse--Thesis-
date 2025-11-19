@@ -31,11 +31,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8493710126669237705}
-  m_Father: {fileID: 6671441220524862555}
+  m_Father: {fileID: 1131924520059180192}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -12.872}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7441177981167709377
@@ -76,6 +76,43 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1662827786871630219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1131924520059180192}
+  m_Layer: 5
+  m_Name: ElementParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1131924520059180192
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662827786871630219}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 668789190918509413}
+  - {fileID: 4692558443899005309}
+  m_Father: {fileID: 6671441220524862555}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -12.872002}
+  m_SizeDelta: {x: 500, y: 500}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2678786602967458159
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,8 +142,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 668789190918509413}
-  - {fileID: 4692558443899005309}
+  - {fileID: 1131924520059180192}
   - {fileID: 1978692863776262521}
   m_Father: {fileID: 8489701944026860963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -192,16 +228,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.NewFishPopUpView
   canvasGroup: {fileID: 1107917216451311066}
+  elementParent: {fileID: 1131924520059180192}
+  sign: {fileID: 1978692863776262521}
   backgroundImage: {fileID: 2138274104476779336}
   fishNameText: {fileID: 1164399145035279140}
   qualityStarAnimator: {fileID: 8877071856600643438}
   fishIcon: {fileID: 6798507395897092867}
+  canvasAlphaTweenSettings:
+    startFromCurrent: 0
+    startValue: 0
+    endValue: 1
+    settings:
+      duration: 0.5
+      ease: 12
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
   backgroundAlphaTweenSettings:
     startFromCurrent: 0
     startValue: 0
     endValue: 0.4
     settings:
-      duration: 0.25
+      duration: 0.5
       ease: 13
       customEase:
         serializedVersion: 2
@@ -216,13 +274,33 @@ MonoBehaviour:
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
-  scaleTweenSettings:
+  signPositionTweenSettings:
+    startFromCurrent: 0
+    startValue: {x: 0, y: 1054}
+    endValue: {x: 0, y: 668}
+    settings:
+      duration: 0.5
+      ease: 12
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
+  elementParentScaleTweenSettings:
     startFromCurrent: 0
     startValue: {x: 0, y: 0, z: 0}
     endValue: {x: 1, y: 1, z: 1}
     settings:
-      duration: 0.25
-      ease: 30
+      duration: 0.5
+      ease: 12
       customEase:
         serializedVersion: 2
         m_Curve: []
@@ -267,12 +345,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7678724001995763336}
-  m_Father: {fileID: 6671441220524862555}
+  m_Father: {fileID: 1131924520059180192}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 12.872009}
+  m_SizeDelta: {x: 391.02667, y: 96.53717}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5722945698008801208
 CanvasRenderer:
@@ -347,7 +425,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00000095367, y: 668}
+  m_AnchoredPosition: {x: 0, y: 887.7091}
   m_SizeDelta: {x: 916, y: 972}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5234539813407049930

@@ -45,6 +45,13 @@ namespace Madduck.GameData
         [SerializeField] private TweenSettings<float> backgroundAlphaTweenSettings;
         [SerializeField] private TweenSettings<float> textAlphaTweenSettings;
         
+        [Title("Debug")]
+        [Button("Preview Transition")]
+        private void PreviewTransition(bool active)
+        {
+            Transition(active).Forget();
+        }
+        
         #endregion
         
         #region Fields
@@ -128,18 +135,13 @@ namespace Madduck.GameData
         private async UniTaskVoid ShowMessage(CancellationToken cancellationToken = default)
         {
             await UniTask.WaitForSeconds(startDelay, cancellationToken: cancellationToken);
-            for (var i = 0; i < endGameMessages.Count; i++)
+            foreach (var message in endGameMessages)
             {
-                var message = endGameMessages[i];
                 endGameText.text = message;
                 var textTransitionSequence = Sequence.Create()
-                    .Group(Tween.Alpha(endGameText, textAlphaTweenSettings.WithDirection(true)));
-                if (i < endGameMessages.Count - 1)
-                {
-                    _ = textTransitionSequence
-                            .ChainDelay(messageStayDuration) 
-                            .Chain(Tween.Alpha(endGameText, textAlphaTweenSettings.WithDirection(false)));
-                }
+                    .Group(Tween.Alpha(endGameText, textAlphaTweenSettings.WithDirection(true)))
+                    .ChainDelay(messageStayDuration) 
+                    .Chain(Tween.Alpha(endGameText, textAlphaTweenSettings.WithDirection(false)));
                 await textTransitionSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
             }
             await UniTask.WaitForSeconds(endDelay, cancellationToken: cancellationToken);
