@@ -15,42 +15,10 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: fe2409ffe21a66f489b88b6cf7b663eb, type: 2}
-    - {fileID: 11400000, guid: 0369377454aa07a4181e2aeccae60320, type: 2}
-    - {fileID: 11400000, guid: 826ca38ca0eeb7e4fa2e023df6f586a0, type: 2}
-    - {fileID: 11400000, guid: 09e05137d53d8d74882aa881f15e2984, type: 2}
-    - {fileID: 11400000, guid: 4897a77c72a48064bbeaaba5d7169e13, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: allFishItems
-      Entry: 7
-      Data: 0|System.Collections.Generic.HashSet`1[[Madduck.GameData.FishItemData,
-        Madduck.GameData]], System.Core
-    - Name: 
-      Entry: 12
-      Data: 5
-    - Name: 
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 10
-      Data: 3
-    - Name: 
-      Entry: 10
-      Data: 4
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
+  <FishRegistry>k__BackingField: {fileID: 11400000, guid: 0beb13fe3049d204190c1a68dc7fe0b1, type: 2}

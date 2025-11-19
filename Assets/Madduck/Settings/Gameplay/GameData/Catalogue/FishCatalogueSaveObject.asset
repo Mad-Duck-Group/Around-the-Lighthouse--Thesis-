@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: 0|Madduck.GameData.FishCatalogueSaveData, Madduck.GameData
     - Name: <Version>k__BackingField
       Entry: 1
-      Data: 0.5.0-alpha.1+windows
+      Data: 0.6.0-alpha.1+windows
     - Name: <FishCatalogueEntries>k__BackingField
       Entry: 7
       Data: 1|System.Collections.Generic.Dictionary`2[[System.Guid, mscorlib],[Madduck.GameData.FishCatalogueEntry,
@@ -40,7 +40,205 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 11
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 42781fbf8e4c4383862725ebdd846fee
+    - Name: $v
+      Entry: 7
+      Data: 3|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 33792c8bb9dc4b518af7c4738aa32af0
+    - Name: $v
+      Entry: 7
+      Data: 4|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: c4337b776ec34a6081df151c6dafadd4
+    - Name: $v
+      Entry: 7
+      Data: 5|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 24c55428fc8d4e70b8dd4f3706dd202c
+    - Name: $v
+      Entry: 7
+      Data: 6|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: d7887c1f25764f059ff0c702f0627e1f
+    - Name: $v
+      Entry: 7
+      Data: 7|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 73594529a4a1469eb069ff6b3196401a
+    - Name: $v
+      Entry: 7
+      Data: 8|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 0eb678044e1e4b80b272357af57701ff
+    - Name: $v
+      Entry: 7
+      Data: 9|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 9bae33c262e343ac81a93c64fbabea9b
+    - Name: $v
+      Entry: 7
+      Data: 10|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 6e593351dd8d4462a6cf89d3583cb83b
+    - Name: $v
+      Entry: 7
+      Data: 11|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: de6e5ecc10dc493cac98b541dd6c32f9
+    - Name: $v
+      Entry: 7
+      Data: 12|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 2
+      Data: 2e93d819dad24cf480211f8243b2f576
+    - Name: $v
+      Entry: 7
+      Data: 13|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
+    - Name: <IsCaught>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -52,7 +250,7 @@ MonoBehaviour:
       Data: 
     - Name: migrationResolvers
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[Madduck.Core.ISaveMigrationResolver`1[[Madduck.GameData.FishCatalogueSaveData,
+      Data: 14|System.Collections.Generic.List`1[[Madduck.Core.ISaveMigrationResolver`1[[Madduck.GameData.FishCatalogueSaveData,
         Madduck.GameData]], Madduck.Core]], mscorlib
     - Name: 
       Entry: 12

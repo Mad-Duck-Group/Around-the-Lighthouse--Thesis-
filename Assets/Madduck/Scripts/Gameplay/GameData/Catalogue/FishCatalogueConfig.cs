@@ -10,5 +10,6 @@ namespace Madduck.GameData
     {
         // [OdinSerialize] private HashSet<FishItemData> allFishItems = new();
         // public IReadOnlyCollection<FishItemData> AllFishItems => allFishItems;
+        [field: SerializeField] public FishRegistry FishRegistry { get; private set; }
     }
 }

@@ -80,7 +80,7 @@ namespace Madduck.RoomPreset
             {
                 for (int i = 0; i < waveRenderers.Length; i++)
                 {
-                    if (_currentWeather == WeatherType.Rain || _currentWeather == WeatherType.Storm )
+                    if (_currentWeather is WeatherType.Rain or WeatherType.Storm )
                     {
                         waveRenderers[i].sprite = waveRainVariants[i];
                     }

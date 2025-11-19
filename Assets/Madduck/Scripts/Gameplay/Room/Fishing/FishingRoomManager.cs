@@ -64,6 +64,8 @@ namespace Madduck.Room
         private IDisposable _subscriptions;
         private DisposableBag _disposables;
 
+        public bool bossCaught;
+
         #endregion
         
         #region Injection
@@ -187,7 +189,7 @@ namespace Madduck.Room
 
         public bool Invoke(CanContinueFishingRequest request)
         {
-            return CurrentFishCount.Value > 0;
+            return CurrentFishCount.Value > 0 && !bossCaught;
         }
 
         #endregion
@@ -281,6 +283,7 @@ namespace Madduck.Room
             HandlePopUp(eventData.FishableItemInstances, out var gotBoss);
             if (gotBoss)
             {
+                _fishingRoomManager.bossCaught = true;
                 Observable.FromEvent(
                         h => _modalManager.OnAllModalsClosed += h,
                         h => _modalManager.OnAllModalsClosed -= h)

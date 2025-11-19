@@ -74,6 +74,7 @@ MonoBehaviour:
   - See you at the lighthouse...
   startDelay: 1
   messageStayDuration: 2
+  endDelay: 1
   canvasAlphaTweenSettings:
     startFromCurrent: 0
     startValue: 0

@@ -30,7 +30,8 @@ namespace Madduck.RoomPreset
         [Inject]
         public RoomPresetManager(
             List<RoomPreset> presets,
-            DayManager dayManager,WeatherPresetManager weatherPresetManager)
+            DayManager dayManager,
+            WeatherPresetManager weatherPresetManager)
         {
             _presets = presets;
             _dayManager = dayManager;
@@ -60,28 +61,5 @@ namespace Madduck.RoomPreset
         }
 
         #endregion
-        
-
-        // #if UNITY_EDITOR
-        //         
-        //         [Button("Save Current Room As Prefab")]
-        //         public void SaveRoomPrefab()
-        //         {
-        //             foreach (var preset in roomPresets)
-        //             {
-        //                 if (preset == null) continue;
-        //
-        //                 string path = $"Assets/Prefabs/Rooms/{preset.presetName}.prefab";
-        //                 PrefabUtility.SaveAsPrefabAssetAndConnect(
-        //                     preset.gameObject, 
-        //                     path, 
-        //                     InteractionMode.UserAction
-        //                 );
-        //                 Debug.Log($"Room prefab saved at {path}");
-        //             }
-        //         }
-        // #endif
-
-        
     }
 }

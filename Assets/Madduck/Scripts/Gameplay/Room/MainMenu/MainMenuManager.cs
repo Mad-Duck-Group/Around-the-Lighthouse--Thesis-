@@ -16,6 +16,7 @@ namespace Madduck.Room
         private readonly IAudioManager _audioManager;
 
         private AudioReference _bgm;
+        private bool _isSwitchingScene;
         
         [Inject]
         public MainMenuManager(
@@ -30,12 +31,15 @@ namespace Madduck.Room
         
         public void Start()
         {
+            _isSwitchingScene = false;
             var randomBgm = _config.MainMenuBGMPlaylist[UnityEngine.Random.Range(0, _config.MainMenuBGMPlaylist.Count)];
             _bgm = _audioManager.PlayAudio(randomBgm, Vector3.zero);
         }
 
         public void GoToGameplay()
         {
+            if (_isSwitchingScene) return;
+            _isSwitchingScene = true;
             _audioManager.StopAudio(_bgm);
             _loadSceneManager.LoadScene(SceneType.Gameplay, LoadSceneMode.Single, false).Forget();
         }

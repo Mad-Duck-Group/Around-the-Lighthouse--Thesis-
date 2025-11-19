@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Common_BossChanceMod
   m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.CardRarityData
   <CardName>k__BackingField: Boss Chance Mod
-  <CardDescription>k__BackingField: Increase the chance of boss appearing every day.
+  <CardDescription>k__BackingField: Increase the chance of boss appearing every encounter.
   <CardIcon>k__BackingField: {fileID: -7403225922231255738, guid: 9de2ba106c38cca409900777e6195b3f, type: 3}
   serializationData:
     SerializedFormat: 2
@@ -37,13 +37,13 @@ MonoBehaviour:
       Data: 1|Madduck.GameData.FishWeightModifierData, Madduck.GameData
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
-      Data: 4
+      Data: 2
     - Name: <ModifierValueType>k__BackingField
       Entry: 3
       Data: 3
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 1
+      Data: 0.5
     - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -67,11 +67,11 @@ MonoBehaviour:
       Data: false
     - Name: <MaxIncrementCount>k__BackingField
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: <ModifierContextProvider>k__BackingField
       Entry: 7
-      Data: 2|Madduck.Day.DayModifierContextProvider, Madduck.Day
-    - Name: everyDay
+      Data: 2|Madduck.Day.RoomModifierContextProvider, Madduck.Day
+    - Name: everyRoom
       Entry: 3
       Data: 1
     - Name: 

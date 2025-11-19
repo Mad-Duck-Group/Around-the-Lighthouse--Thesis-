@@ -17,7 +17,7 @@ MonoBehaviour:
   <RotationThreshold>k__BackingField:
     value: 30
   <RotationIdleThreshold>k__BackingField:
-    value: 5
+    value: 1
   <GamepadSensitivity>k__BackingField:
     value: 1
   <MouseSensitivity>k__BackingField:

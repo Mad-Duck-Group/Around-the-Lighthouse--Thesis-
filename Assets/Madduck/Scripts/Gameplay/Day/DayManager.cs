@@ -98,7 +98,7 @@ namespace Madduck.Day
         {
             DebugUtils.Log("Out of fish, moving to next room.");
             ChangeRoom(1);
-            if (CurrentDayIndex.Value >= _config.MaxDayCount)
+            if (CurrentRoomIndex.CurrentValue >= _config.MaxRoomCount)
             {
                 ChangeDayIndex(1);
             }
@@ -158,7 +158,6 @@ namespace Madduck.Day
             CurrentDayIndex.Value = (uint)Mathf.Clamp(CurrentDayIndex.Value, 0, _config.MaxRoomCount - 1);
             RandomRoom();
             SetDayPhase();
-
         }
 
         private void RandomRoom()

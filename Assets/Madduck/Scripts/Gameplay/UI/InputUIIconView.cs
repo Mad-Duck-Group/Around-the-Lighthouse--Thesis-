@@ -40,7 +40,8 @@ namespace Madduck.Input
             bool isGamepad = scheme == "Gamepad";
             foreach (var pair in iconImages)
             {
-                var sprite = _viewModel.GetIcon(pair.Key, isGamepad); pair.Value.sprite = sprite;
+                var sprite = _viewModel.GetIcon(pair.Key, isGamepad); 
+                pair.Value.sprite = sprite;
             }
             
         }

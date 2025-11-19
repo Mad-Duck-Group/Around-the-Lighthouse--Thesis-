@@ -13,27 +13,35 @@ namespace Madduck.Input
     public class InputIconViewModel : IDisposable
     {
         public ReadOnlyReactiveProperty<string> CurrentScheme { get; private set; } 
-        private readonly CompositeDisposable _disposables = new ();
         private readonly IPlayerInputHandler _input;
-        private readonly InputIconData _Icondata;
-       
+        private readonly InputIconData _icondata;
+        private IDisposable _disposables;
         
         [Inject]
-        public InputIconViewModel(IPlayerInputHandler input, InputIconData data)
+        public InputIconViewModel(
+            IPlayerInputHandler input, 
+            InputIconData data)
         {
-            _Icondata= data;
+            _icondata= data;
             _input = input;
+            Bind();
+        }
+
+        private void Bind()
+        {
+            var disposableBuilder = Disposable.CreateBuilder();
             CurrentScheme = Observable.FromEvent<string>(
-                        h => _input.OnControlSchemeChanged += h,
-                        h => _input.OnControlSchemeChanged -= h)
-                    .ToReadOnlyReactiveProperty()
-                    .AddTo(_disposables);
+                    h => _input.OnControlSchemeChanged += h,
+                    h => _input.OnControlSchemeChanged -= h)
+                .ToReadOnlyReactiveProperty(_input.CurrentControlScheme)
+                .AddTo(ref disposableBuilder);
+            _disposables = disposableBuilder.Build();
         }
 
         
         public Sprite GetIcon(InputIconType type, bool isGamepad)
         {
-            if (!_Icondata.iconMap.TryGetValue(type, out var data))
+            if (!_icondata.iconMap.TryGetValue(type, out var data))
                 return null;
 
             return isGamepad ? data.gamepadSprite : data.keyboardSprite;
@@ -43,9 +51,6 @@ namespace Madduck.Input
         {
             _disposables.Dispose();
         }
-
-
-        
     }
     
 }

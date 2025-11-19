@@ -522,7 +522,7 @@ namespace Madduck.Scripts.Input
                 {
                     ""name"": """",
                     ""id"": ""635c3e34-bfe1-4483-9665-a65717e3335d"",
-                    ""path"": ""<Keyboard>/x"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Mouse & Keyboard"",
@@ -531,40 +531,7 @@ namespace Madduck.Scripts.Input
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""8ce499dd-3cbe-41fa-a77a-10c9163ab51b"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectBait"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""3618194e-61d0-4546-aa64-f423e3933fb4"",
-                    ""path"": ""<XInputController>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectBait"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""8b95be3c-9426-44de-9be3-1b945fe66800"",
-                    ""path"": ""<XInputController>/dpad/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""SelectBait"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""1D Axis"",
+                    ""name"": ""Keyboard"",
                     ""id"": ""3d386a45-a89b-4dd7-a895-d9c4ba3d339a"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
@@ -577,7 +544,7 @@ namespace Madduck.Scripts.Input
                 {
                     ""name"": ""negative"",
                     ""id"": ""34f97cf7-e662-4bf3-a28b-7c12a1885c70"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -588,7 +555,7 @@ namespace Madduck.Scripts.Input
                 {
                     ""name"": ""positive"",
                     ""id"": ""18e46bf0-463f-48ef-87cc-c06a3886e320"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -597,9 +564,42 @@ namespace Madduck.Scripts.Input
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""8ce499dd-3cbe-41fa-a77a-10c9163ab51b"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectBait"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""3618194e-61d0-4546-aa64-f423e3933fb4"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""8b95be3c-9426-44de-9be3-1b945fe66800"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""SelectBait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""cd09ad07-126a-4d52-8ace-4905572db5ac"",
-                    ""path"": ""<XInputController>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -610,7 +610,7 @@ namespace Madduck.Scripts.Input
                 {
                     ""name"": """",
                     ""id"": ""1561da61-86c2-4212-9311-79f903b9037f"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Mouse & Keyboard"",

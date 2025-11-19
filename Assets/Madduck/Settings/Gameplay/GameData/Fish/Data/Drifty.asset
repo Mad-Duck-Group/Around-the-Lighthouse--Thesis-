@@ -41,7 +41,7 @@ MonoBehaviour:
   <SpriteAnchorOffset>k__BackingField: {x: -0.24, y: -0.19}
   <BasePrice>k__BackingField: 10
   <Power>k__BackingField:
-    value: 4
+    value: 9
   <Resistance>k__BackingField:
     value: 1
   <FishWeight>k__BackingField:
@@ -49,6 +49,6 @@ MonoBehaviour:
   <FatigueDuration>k__BackingField:
     value: 10
   <TugOfWarDecayRate>k__BackingField:
-    value: 10
+    value: 25
   <TugOfWarRegression>k__BackingField:
     value: 20

@@ -160,6 +160,11 @@ namespace Madduck.Fishing.UI
             }
             _previousTension = _fishlineTension;
             var currentColor = _currentColor;
+            // var lerpColor = Color32.Lerp(currentColor, targetColor, durabilityPercent.AsInverseFraction);
+            // foreach (var s in shapes)
+            // {
+            //     s.settings.fillColor = lerpColor;
+            // }
             _colorTween.Stop();
             _colorTween = Tween.Custom(currentColor, targetColor, colorLerpSpeed, color =>
             {

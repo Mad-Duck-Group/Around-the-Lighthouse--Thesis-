@@ -84,6 +84,7 @@ namespace Madduck.Input
 
         private PlayerInputAction _playerInputAction;
         private ReactiveProperty<string> _currentControlScheme = new("Mouse & Keyboard");
+        private string _beforeDeactivateControlScheme = "Mouse & Keyboard";
         private IDisposable _currentControlSchemeSubscription;
         private IDisposable _anyButtonPressListener;
 
@@ -170,7 +171,7 @@ namespace Madduck.Input
                     _currentControlScheme.Value  = "Mouse & Keyboard";
                     break;
             }
-            
+            _beforeDeactivateControlScheme = _currentControlScheme.Value;
             AnyButtonPressed.Value = true;
             await UniTask.WaitForEndOfFrame();
             AnyButtonPressed.Value = false;
@@ -235,11 +236,13 @@ namespace Madduck.Input
 
         public void OnMouseDelta(InputAction.CallbackContext context)
         {
+            _currentControlScheme.Value = "Mouse & Keyboard";
             MouseDelta.Value = context.ReadValue<Vector2>();
         }
 
         public void OnMouseUnitCircle(InputAction.CallbackContext context)
         {
+            _currentControlScheme.Value = "Mouse & Keyboard";
             var position = context.ReadValue<Vector2>();
             Vector2 screenCenter = new(Screen.currentResolution.width / 2f, Screen.currentResolution.height / 2f);
             var delta = position - screenCenter;
@@ -248,12 +251,12 @@ namespace Madduck.Input
 
         public void OnRightStickDelta(InputAction.CallbackContext context)
         {
-            //_currentControlScheme = "Gamepad";
+            _currentControlScheme.Value = "Gamepad";
             RightStickDelta.Value = context.ReadValue<Vector2>();
         }
         public void OnLeftStickDelta(InputAction.CallbackContext context)
         {
-            //_currentControlScheme = "Gamepad";
+            _currentControlScheme.Value = "Gamepad";
             LeftStickDelta.Value = context.ReadValue<Vector2>();
         }
         #endregion
@@ -266,8 +269,14 @@ namespace Madduck.Input
             }
             else
             {
+                _beforeDeactivateControlScheme = _currentControlScheme.Value;
                 Unsubscribe();
             }
+            Observable.TimerFrame(1)
+                .Subscribe(_ => 
+            {
+                _currentControlScheme.Value = _beforeDeactivateControlScheme;
+            });
         }
     }
 }
