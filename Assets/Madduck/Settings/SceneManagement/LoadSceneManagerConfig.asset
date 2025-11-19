@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: LoadSceneManagerConfig
   m_EditorClassIdentifier: Madduck.Core::Madduck.Core.LoadSceneManagerConfig
   <SceneReferences>k__BackingField:
-    keys: 0200000001000000
+    keys: 020000000100000000000000
     values:
     - _sceneObject: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
       _path: Assets/Madduck/Scenes/Gameplay.unity
     - _sceneObject: {fileID: 102900000, guid: 08c0caca02b44fe4d87f8df370e44026, type: 3}
       _path: Assets/Madduck/Scenes/LoadSceneTransition/LoadSceneTransition.unity
+    - _sceneObject: {fileID: 102900000, guid: 4383a6c3b29b3d14d989607362150373, type: 3}
+      _path: Assets/Madduck/Scenes/MainMenu.unity
   <MinimumLoadingScreenDuration>k__BackingField: 1
   <LoadingScreenDuration>k__BackingField: 1

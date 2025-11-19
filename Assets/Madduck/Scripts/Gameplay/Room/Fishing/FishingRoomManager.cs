@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
 using Madduck.Core;
+using Madduck.Day;
 using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
@@ -45,21 +46,16 @@ namespace Madduck.Room
 
         private readonly CompositeWeightTableInstance _fishableWeightTable;
         private readonly FishingRoomConfig _config;
-        private readonly FishCatalogue _fishCatalogue;
         private readonly MessagePackSaveManager _saveManager;
-        private readonly IModal _cardSelectionController;
+        private readonly LoadSceneManager _loadSceneManager;
+        private readonly DayManager _dayManager;
         private readonly IAudioManager _audioManager;
-        private readonly IModalManager _modalManager;
         private readonly IFactory<WeatherItemInstance> _weatherFactory;
         private readonly IFactory<uint> _maxFishCountFactory;
-        private readonly IPopUpFactory<FishableItemPopUpObject> _fishableItemPopUpFactory;
-        private readonly IPopUpFactory<NewFishPopUpObject> _newFishPopUpFactory;
-        private readonly IPopUpFactory<EndGamePopUpObject> _endGamePopUpFactory;
         private readonly IPublisher<FishingRoomStartedEvent> _fishingRoomStartedEventPublisher;
         private readonly IPublisher<FishingRoomEndedEvent> _fishingRoomEndedEventPublisher;
         private readonly IPublisher<WeatherChangedEvent> _weatherChangedPublisher;
         private readonly ISubscriber<FishingStateEvent> _fishingStateEventSubscriber;
-        private readonly ISubscriber<FishableCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private CancellationTokenSource _bgmCts = new();
@@ -76,41 +72,31 @@ namespace Madduck.Room
         public FishingRoomManager(
             [Key(ModifierKeys.FishableKey)] CompositeWeightTableInstance fishableWeightTable,
             FishingRoomConfig config,
-            FishCatalogue fishCatalogue,
             MessagePackSaveManager saveManager,
-            IModal cardSelectionController,
+            LoadSceneManager loadSceneManager,
+            DayManager dayManager,
             IAudioManager audioManager,
-            IModalManager modalManager,
             IFactory<WeatherItemInstance> weatherFactory,
             [Key(DIConstants.MaxFishCountFactoryId)] IFactory<uint> maxFishCountFactory,
-            IPopUpFactory<FishableItemPopUpObject> fishableItemPopUpFactory,
-            IPopUpFactory<NewFishPopUpObject> newFishPopUpFactory,
-            IPopUpFactory<EndGamePopUpObject> endGamePopUpFactory,
             IPublisher<FishingRoomStartedEvent> fishingRoomStartedEventPublisher,
             IPublisher<FishingRoomEndedEvent> fishingRoomEndedEventPublisher,
             IPublisher<WeatherChangedEvent> weatherChangedPublisher,
             ISubscriber<FishingStateEvent> fishingStateEventSubscriber,
-            ISubscriber<FishableCaughtEvent> fishCaughtEventSubscriber,
             ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
             ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
         {
             _fishableWeightTable = fishableWeightTable;
             _config = config;
-            _fishCatalogue = fishCatalogue;
             _saveManager = saveManager;
-            _cardSelectionController = cardSelectionController;
+            _loadSceneManager = loadSceneManager;
+            _dayManager = dayManager;
             _weatherFactory = weatherFactory;
             _maxFishCountFactory = maxFishCountFactory;
-            _fishableItemPopUpFactory = fishableItemPopUpFactory;
-            _newFishPopUpFactory = newFishPopUpFactory;
-            _endGamePopUpFactory = endGamePopUpFactory;
             _audioManager = audioManager;
-            _modalManager = modalManager;
             _fishingRoomStartedEventPublisher = fishingRoomStartedEventPublisher;
             _fishingRoomEndedEventPublisher = fishingRoomEndedEventPublisher;
             _weatherChangedPublisher = weatherChangedPublisher;
             _fishingStateEventSubscriber = fishingStateEventSubscriber;
-            _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             _fishEscapedEventSubscriber = fishEscapedEventSubscriber;
             _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
             Subscribe();
@@ -123,8 +109,6 @@ namespace Madduck.Room
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _fishCaughtEventSubscriber.Subscribe(OnFishCaught)
-                .AddTo(ref disposableBuilder);
             _fishEscapedEventSubscriber.Subscribe(_ => OnFishEscaped())
                 .AddTo(ref disposableBuilder);
             _loadSceneStageEventSubscriber
@@ -175,31 +159,139 @@ namespace Madduck.Room
             _audioManager.StopAudio(_ambient);
         }
 
-        private void ToMainMenu()
+        [Button("To Main Menu")]
+        internal void ToMainMenu()
         {
             DebugUtils.Log("Returning to Main Menu...");
             _saveManager.ResetAll();
             _saveManager.SaveAll();
+            _dayManager.SetDayIndex(0);
+            _loadSceneManager.LoadScene(SceneType.MainMenu, LoadSceneMode.Single, false).Forget();
         }
         
-        private void OnFishCaught(FishableCaughtEvent eventData)
-        { 
+        private void OnFishEscaped()
+        {
+            ChangeFishCount(-1);
+            if (CurrentFishCount.Value != 0) return;
+            //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
+            _fishingStateEventSubscriber
+                .AsObservable().ToObservable()
+                .Where(x => x.StateType is FishingStateType.None)
+                .Subscribe(_ => EndFishingRoom())
+                .AddTo(ref _disposables);
+        }
+
+        #endregion
+
+        #region Request
+
+        public bool Invoke(CanContinueFishingRequest request)
+        {
+            return CurrentFishCount.Value > 0;
+        }
+
+        #endregion
+
+        #region Utils
+
+        internal void ChangeFishCount(int change)
+        {
+            CurrentFishCount.Value =
+                (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
+        }
+
+        internal void EndFishingRoom()
+        {
+            _disposables.Dispose();
+            _fishingRoomEndedEventPublisher.Publish(new FishingRoomEndedEvent());
+        }
+
+        private void RandomWeather()
+        {
+            _currentWeather = _weatherFactory.Create();
+            _weatherChangedPublisher.Publish(new WeatherChangedEvent(_currentWeather));
+            FilterFishByWeather();
+        }
+        
+        private void FilterFishByWeather()
+        {
+            if (!_fishableWeightTable.TryGetFirstInstanceOfType<FishWeightTableInstance>(out var fishWeightTableInstance)) return;
+            if (fishWeightTableInstance == null) return;
+            fishWeightTableInstance.PersistentFilters.Remove("WeatherFilter");
+            var filter = new FishWeightFilter(record => record.Item.WeatherType.HasFlag(_currentWeather.ItemData.WeatherType));
+            fishWeightTableInstance.PersistentFilters.TryAdd("WeatherFilter", filter);
+        }
+
+        #endregion
+    }
+
+    public class FishingRoomPopUpHandler : IDisposable
+    {
+        private readonly FishingRoomManager _fishingRoomManager;
+        private readonly FishCatalogue _fishCatalogue;
+        private readonly IModalManager _modalManager;
+        private readonly IModal _cardSelectionController;
+        private readonly IPopUpFactory<FishableItemPopUpObject> _fishableItemPopUpFactory;
+        private readonly IPopUpFactory<NewFishPopUpObject> _newFishPopUpFactory;
+        private readonly IPopUpFactory<EndGamePopUpObject> _endGamePopUpFactory;
+        private readonly ISubscriber<FishableCaughtEvent> _fishCaughtEventSubscriber;
+        
+        private IDisposable _subscriptions;
+        private DisposableBag _disposables = new();
+
+        [Inject]
+        public FishingRoomPopUpHandler(
+            FishingRoomManager fishingRoomManager,
+            FishCatalogue fishCatalogue,
+            IModalManager modalManager,
+            IModal cardSelectionController,
+            IPopUpFactory<FishableItemPopUpObject> fishableItemPopUpFactory,
+            IPopUpFactory<NewFishPopUpObject> newFishPopUpFactory,
+            IPopUpFactory<EndGamePopUpObject> endGamePopUpFactory,
+            ISubscriber<FishableCaughtEvent> fishCaughtEventSubscriber)
+        {
+            _fishCatalogue = fishCatalogue;
+            _modalManager = modalManager;
+            _cardSelectionController = cardSelectionController;
+            _fishableItemPopUpFactory = fishableItemPopUpFactory;
+            _newFishPopUpFactory = newFishPopUpFactory;
+            _endGamePopUpFactory = endGamePopUpFactory;
+            Subscribe();
+        }
+        
+        private void Subscribe()
+        {
+            var disposableBuilder = Disposable.CreateBuilder();
+            _fishCaughtEventSubscriber
+                .Subscribe(OnFishableCaught)
+                .AddTo(ref disposableBuilder);
+            _subscriptions = disposableBuilder.Build();
+        }
+        
+        public void Dispose()
+        {
+            _subscriptions?.Dispose();
+            _disposables.Dispose();
+        }
+
+        private void OnFishableCaught(FishableCaughtEvent eventData)
+        {
             HandlePopUp(eventData.FishableItemInstances, out var gotBoss);
             if (gotBoss)
             {
                 Observable.FromEvent(
                         h => _modalManager.OnAllModalsClosed += h,
                         h => _modalManager.OnAllModalsClosed -= h)
-                    .Subscribe(_ => ToMainMenu())
+                    .Subscribe(_ => _fishingRoomManager.ToMainMenu())
                     .AddTo(ref _disposables);
                 return;
             }
             //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
-            if (CurrentFishCount.Value != 0) return;
+            if (_fishingRoomManager.CurrentFishCount.Value != 0) return;
             Observable.FromEvent(
                     h => _modalManager.OnAllModalsClosed += h,
                     h => _modalManager.OnAllModalsClosed -= h)
-                .Subscribe(_ => EndFishingRoom())
+                .Subscribe(_ => _fishingRoomManager.EndFishingRoom())
                 .AddTo(ref _disposables);
         }
 
@@ -256,62 +348,7 @@ namespace Madduck.Room
                 popUp.SetPopUpObject(new FishableItemPopUpObject(chunk));
                 _modalManager.Queue(popUp);
             }
-            ChangeFishCount(-fishCount);
+            _fishingRoomManager.ChangeFishCount(-fishCount);
         }
-        
-        private void OnFishEscaped()
-        {
-            ChangeFishCount(-1);
-            if (CurrentFishCount.Value != 0) return;
-            //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
-            _fishingStateEventSubscriber
-                .AsObservable().ToObservable()
-                .Where(x => x.StateType is FishingStateType.None)
-                .Subscribe(_ => EndFishingRoom())
-                .AddTo(ref _disposables);
-        }
-
-        #endregion
-
-        #region Request
-
-        public bool Invoke(CanContinueFishingRequest request)
-        {
-            return CurrentFishCount.Value > 0;
-        }
-
-        #endregion
-
-        #region Utils
-
-        private void ChangeFishCount(int change)
-        {
-            CurrentFishCount.Value =
-                (uint)Mathf.Clamp((int)CurrentFishCount.Value + change, 0, (int)MaxFishCount.Value);
-        }
-
-        private void EndFishingRoom()
-        {
-            _disposables.Dispose();
-            _fishingRoomEndedEventPublisher.Publish(new FishingRoomEndedEvent());
-        }
-
-        private void RandomWeather()
-        {
-            _currentWeather = _weatherFactory.Create();
-            _weatherChangedPublisher.Publish(new WeatherChangedEvent(_currentWeather));
-            FilterFishByWeather();
-        }
-        
-        private void FilterFishByWeather()
-        {
-            if (!_fishableWeightTable.TryGetFirstInstanceOfType<FishWeightTableInstance>(out var fishWeightTableInstance)) return;
-            if (fishWeightTableInstance == null) return;
-            fishWeightTableInstance.PersistentFilters.Remove("WeatherFilter");
-            var filter = new FishWeightFilter(record => record.Item.WeatherType.HasFlag(_currentWeather.ItemData.WeatherType));
-            fishWeightTableInstance.PersistentFilters.TryAdd("WeatherFilter", filter);
-        }
-
-        #endregion
     }
 }

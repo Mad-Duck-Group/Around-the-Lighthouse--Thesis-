@@ -119,6 +119,8 @@ namespace Madduck.Room
             builder.Register<FishingRoomManager>(Lifetime.Singleton)
                 .As<IRequestHandler<CanContinueFishingRequest, bool>>()
                 .AsSelf();
+            builder.Register<FishingRoomPopUpHandler>(Lifetime.Singleton)
+                .AsSelf();
             builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
             builder.Register<WeatherPresetManager>(Lifetime.Singleton).AsSelf();
             playerAnimatorInstaller?.Install(builder);

@@ -31,16 +31,10 @@ namespace Madduck.GameData
          SerializeField] private Image backgroundImage;
         [Required,
          SerializeField] private TMP_Text fishNameText;
-        // [Required,
-        //  SerializeField] private TMP_Text fishDescriptionText;
-        // [Required,
-        //  SerializeField] private TMP_Text fishWeightText;
-        // [Required,
-        //  SerializeField] private TMP_Text fishRarityText;
+        [Required, 
+         SerializeField] private Animator qualityStarAnimator;
         [Required,
          SerializeField] private Image fishIcon;
-        // [Required,
-        //  SerializeField] private Button closeButton;
         
         [Title("Tween")]
         [SerializeField] private TweenSettings<float> backgroundAlphaTweenSettings;
@@ -68,10 +62,26 @@ namespace Madduck.GameData
             canvasGroup.transform.localScale = scaleTweenSettings.startValue;
             backgroundImage.color = backgroundImage.color.WithA(backgroundAlphaTweenSettings.startValue);
             fishNameText.text = popUpObject.FishItemInstance.ItemData.FishName;
-            // fishDescriptionText.text = popUpObject.FishableItemInstance.ItemData.FishDescription;
-            // fishWeightText.text = $"Weight:\n{popUpObject.FishableItemInstance.ItemData.FishWeight:F2} kg";
-            // fishRarityText.text = $"Rarity:\n{popUpObject.FishableItemInstance.CurrentFishQuality}";
             fishIcon.sprite = popUpObject.FishItemInstance.ItemData.FishIcon;
+            AnimateQualityStar(popUpObject.FishItemInstance.CurrentFishQuality);
+        }
+        
+        private void AnimateQualityStar(FishQuality fishQuality)
+        {
+            switch (fishQuality)
+            {
+                case FishQuality.Common:
+                    qualityStarAnimator.Play("Copper");
+                    break;
+                case FishQuality.Good:
+                    qualityStarAnimator.Play("Silver");
+                    break;
+                case FishQuality.Premium:
+                    qualityStarAnimator.Play("Gold");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(fishQuality), fishQuality, null);
+            }
         }
         #endregion
 
@@ -80,9 +90,6 @@ namespace Madduck.GameData
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            // closeButton.OnClickAsObservable()
-            //     .Subscribe(_ => OnCloseButtonClicked())
-            //     .AddTo(ref disposableBuilder);
             _inputHandler.AnyButtonPressed
                 .IgnoreFirstValueWhenSubscribe()
                 .Where(x => x)
@@ -113,14 +120,12 @@ namespace Madduck.GameData
         {
             await TransitionIn(cancellationToken);
             Bind();
-            // EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
-            // Debug.Log($"current selection: {EventSystem.current.currentSelectedGameObject.name}");
-            // closeButton.Select();
             OnOpen?.Invoke();
         }
 
         public async UniTask Hide(CancellationToken cancellationToken = default)
         {
+            _bindings?.Dispose();
             await TransitionOut(cancellationToken);
             Destroy(gameObject);
             OnClose?.Invoke();

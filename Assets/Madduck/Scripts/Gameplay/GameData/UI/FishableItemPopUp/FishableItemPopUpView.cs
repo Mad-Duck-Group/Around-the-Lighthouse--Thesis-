@@ -86,14 +86,7 @@ namespace Madduck.GameData
             {
                 var fishItemInstance = popUpObject.FishItemInstances[i];
                 var itemIconView = Instantiate(itemIconViewPrefab, layoutGroup.transform);
-                var itemInstance = fishItemInstance as IItemInstance;
-                var itemData = itemInstance?.ItemData;
-                if (itemData is not IItemIconData itemDisplay)
-                {
-                    DebugUtils.LogError($"ItemData of {fishItemInstance.GetType()} does not implement IItemIconData");
-                    continue;
-                }
-                itemIconView.SetItem(itemDisplay);
+                itemIconView.SetItem(fishItemInstance);
                 //indent even item if the number of items is odd
                 if (itemCount % 2 != 0 && i % 2 != 0)
                 {
@@ -144,14 +137,12 @@ namespace Madduck.GameData
             Bind();
             canvasGroup.blocksRaycasts = true;
             canvasGroup.interactable = true;
-            // EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
-            // Debug.Log($"current selection: {EventSystem.current.currentSelectedGameObject.name}");
-            // closeButton.Select();
             OnOpen?.Invoke();
         }
 
         public async UniTask Hide(CancellationToken cancellationToken = default)
         {
+            _bindings?.Dispose();
             await TransitionOut(cancellationToken);
             Destroy(gameObject);
             OnClose?.Invoke();

@@ -24,14 +24,6 @@ namespace Madduck.GameData
          MenuItem("ATL/Fish Registry")]
         public static void OpenFishRegistryWindow()
         {
-            if (!Instance)
-            {
-                Debug.LogWarning("FishRegistry instance is null. Creating a new one");
-                var asset = CreateInstance<FishRegistry>();
-                AssetDatabase.CreateAsset(asset, "Assets/Madduck/Resources/FishRegistry.asset");
-                AssetDatabase.SaveAssets();
-                Instance = asset;
-            }
             Sirenix.OdinInspector.Editor.OdinEditorWindow.InspectObject(Instance);
         }
 #endif
@@ -40,6 +32,20 @@ namespace Madduck.GameData
         {
             return Instance.AllFishItemData.FirstOrDefault(fishItemData => fishItemData.Guid.Equals(id));
         }
+
+#if UNITY_EDITOR
+        [InitializeOnLoadMethod]
+        private static void OnProjectLoaded()
+        {
+            Instance = Resources.Load<FishRegistry>("FishRegistry");
+            if (Instance) return;
+            Debug.LogWarning("FishRegistry instance is null. Creating a new one");
+            var asset = CreateInstance<FishRegistry>();
+            AssetDatabase.CreateAsset(asset, "Assets/Madduck/Resources/FishRegistry.asset");
+            AssetDatabase.SaveAssets();
+            Instance = asset;
+        }
+#endif
         
         private void OnEnable()
         {

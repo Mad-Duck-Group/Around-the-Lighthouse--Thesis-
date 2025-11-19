@@ -42,15 +42,19 @@ namespace Madduck.Core
         [MenuItem("ATL/Save Manager")]
         public static void OpenFishRegistryWindow()
         {
-            if (!Instance)
-            {
-                Debug.LogWarning("FishRegistry instance is null. Creating a new one");
-                var asset = CreateInstance<DebugSaveManager>();
-                AssetDatabase.CreateAsset(asset, "Assets/Madduck/Resources/DebugSaveManager.asset");
-                AssetDatabase.SaveAssets();
-                Instance = asset;
-            }
             Sirenix.OdinInspector.Editor.OdinEditorWindow.InspectObject(Instance);
+        }
+
+        [InitializeOnLoadMethod]
+        private static void OnProjectLoaded()
+        {
+            Instance = Resources.Load<DebugSaveManager>("DebugSaveManager");
+            if (Instance) return;
+            Debug.LogWarning("FishRegistry instance is null. Creating a new one");
+            var asset = CreateInstance<DebugSaveManager>();
+            AssetDatabase.CreateAsset(asset, "Assets/Madduck/Resources/DebugSaveManager.asset");
+            AssetDatabase.SaveAssets();
+            Instance = asset;
         }
 #endif
         

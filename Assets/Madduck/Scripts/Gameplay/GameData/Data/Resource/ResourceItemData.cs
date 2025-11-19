@@ -17,7 +17,7 @@ namespace Madduck.GameData
     }
     
     [CreateAssetMenu(fileName = "New Resource Item Data", menuName = "Madduck/Resource/Resource Item Data")]
-    public class ResourceItemData : ItemData, IFishableItemData, IItemIconData
+    public class ResourceItemData : ItemData, IFishableItemData
     {
         [Title("Resource Settings"),
          HideLabel,

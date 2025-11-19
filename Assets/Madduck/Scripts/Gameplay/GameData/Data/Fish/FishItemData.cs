@@ -40,7 +40,7 @@ namespace Madduck.GameData
     }
     
     [CreateAssetMenu(fileName = "New Fish Item Data", menuName = "Madduck/Fish/Fish Item Data")]
-    public class FishItemData : ItemData, IFishableItemData, IItemIconData
+    public class FishItemData : ItemData, IFishableItemData
     {
         [Title("References"), 
          HideLabel,

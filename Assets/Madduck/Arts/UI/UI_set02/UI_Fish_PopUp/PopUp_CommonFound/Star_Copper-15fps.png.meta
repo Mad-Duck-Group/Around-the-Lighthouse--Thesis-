@@ -153,11 +153,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 144
-        width: 128
-        height: 120
+        y: 132
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -175,11 +175,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 127
-        y: 144
-        width: 128
-        height: 120
+        y: 132
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -197,11 +197,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 254
-        y: 144
-        width: 128
-        height: 120
+        y: 132
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -219,11 +219,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 381
-        y: 144
-        width: 128
-        height: 120
+        y: 132
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -240,12 +240,12 @@ TextureImporter:
       name: Star_Copper-15fps_4
       rect:
         serializedVersion: 2
-        x: 507
-        y: 135
-        width: 128
-        height: 127
+        x: 508
+        y: 132
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -262,12 +262,12 @@ TextureImporter:
       name: Star_Copper-15fps_5
       rect:
         serializedVersion: 2
-        x: 634
-        y: 135
-        width: 128
-        height: 127
+        x: 635
+        y: 132
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -284,12 +284,12 @@ TextureImporter:
       name: Star_Copper-15fps_6
       rect:
         serializedVersion: 2
-        x: 761
-        y: 135
-        width: 128
-        height: 127
+        x: 762
+        y: 132
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -307,11 +307,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 12
-        width: 128
-        height: 121
+        y: 0
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -329,11 +329,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 127
-        y: 12
-        width: 128
-        height: 121
+        y: 0
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -351,11 +351,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 254
-        y: 12
-        width: 128
-        height: 121
+        y: 0
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -372,12 +372,12 @@ TextureImporter:
       name: Star_Copper-15fps_10
       rect:
         serializedVersion: 2
-        x: 385
-        y: 1
-        width: 120
-        height: 129
+        x: 381
+        y: 0
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -394,12 +394,12 @@ TextureImporter:
       name: Star_Copper-15fps_11
       rect:
         serializedVersion: 2
-        x: 512
-        y: 1
-        width: 120
-        height: 129
+        x: 508
+        y: 0
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -416,12 +416,12 @@ TextureImporter:
       name: Star_Copper-15fps_12
       rect:
         serializedVersion: 2
-        x: 639
-        y: 1
-        width: 120
-        height: 129
+        x: 635
+        y: 0
+        width: 127
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -438,7 +438,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f3fcc38f49b29604c878909f6afa75b7
     internalID: 0
     vertices: []
     indices: 
@@ -446,7 +446,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":7.0,"y":2.0},"gridSpriteSize":{"x":127.0,"y":132.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Star_Copper-15fps_0: 3058524360995577167
       Star_Copper-15fps_1: 8593057448085343020

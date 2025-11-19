@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a755f8acea49a7ac237c66a6b5607b, type: 3}
+  m_Name: MainMenuConfig
+  m_EditorClassIdentifier: Madduck.Room::Madduck.Room.MainMenuConfig
+  <MainMenuBGMPlaylist>k__BackingField:
+  - Guid:
+      Data1: -1504404193
+      Data2: 1199020955
+      Data3: -469951333
+      Data4: -1412494506
+    Path: event:/BGM/MainMenuBGM

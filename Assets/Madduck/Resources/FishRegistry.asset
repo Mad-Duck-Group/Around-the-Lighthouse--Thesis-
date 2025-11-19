@@ -20,6 +20,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 09e05137d53d8d74882aa881f15e2984, type: 2}
     - {fileID: 11400000, guid: 826ca38ca0eeb7e4fa2e023df6f586a0, type: 2}
     - {fileID: 11400000, guid: fe2409ffe21a66f489b88b6cf7b663eb, type: 2}
+    - {fileID: 11400000, guid: c272284a26889c94cb0ccfb2fc87b14d, type: 2}
     - {fileID: 11400000, guid: 4897a77c72a48064bbeaaba5d7169e13, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -32,7 +33,7 @@ MonoBehaviour:
         Madduck.GameData]], System.Core
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 6
     - Name: 
       Entry: 10
       Data: 0
@@ -48,6 +49,9 @@ MonoBehaviour:
     - Name: 
       Entry: 10
       Data: 4
+    - Name: 
+      Entry: 10
+      Data: 5
     - Name: 
       Entry: 13
       Data: 
