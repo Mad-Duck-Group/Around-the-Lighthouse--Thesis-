@@ -63,7 +63,7 @@
 			<destination>{ec0109cb-22ec-4cce-92fc-b4ee217cd8db}</destination>
 		</relationship>
 		<relationship name="markers">
-			<destination>{4672d420-3929-45cd-a627-3f768a833bce}</destination>
+			<destination>{a047e975-258a-4455-a182-2acc58989899}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{f9dee779-a7b6-42f5-8c31-f32dda01c943}">
@@ -71,7 +71,7 @@
 			<value>-15</value>
 		</property>
 		<relationship name="modulators">
-			<destination>{672c055f-876e-4d10-9b05-1461abcc77a1}</destination>
+			<destination>{a0db1fcd-dc90-446f-8baf-05e8092103d2}</destination>
 		</relationship>
 		<relationship name="effectChain">
 			<destination>{337db19c-9e80-4104-9bed-3f16fba453a3}</destination>
@@ -85,10 +85,10 @@
 	</object>
 	<object class="SingleSound" id="{ec0109cb-22ec-4cce-92fc-b4ee217cd8db}">
 		<property name="length">
-			<value>122.38200000000001</value>
+			<value>122.43200000000003</value>
 		</property>
 		<property name="timelockedOffset">
-			<value>0.44999999999999996</value>
+			<value>0.40000000000000013</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{497830b6-47fb-4810-bac7-869e1b175cf8}</destination>
@@ -100,12 +100,12 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{1e84b843-4dd2-4c6a-8257-326a6521a724}" />
-	<object class="LoopRegion" id="{4672d420-3929-45cd-a627-3f768a833bce}">
+	<object class="LoopRegion" id="{a047e975-258a-4455-a182-2acc58989899}">
 		<property name="position">
 			<value>0</value>
 		</property>
 		<property name="length">
-			<value>122.38199999999999</value>
+			<value>122.43199999999999</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{c0c14804-3e0f-4ad8-b54b-adaabd201d49}</destination>
@@ -114,7 +114,7 @@
 			<destination>{cb9cc383-9b3f-4a7c-b848-9502961ea036}</destination>
 		</relationship>
 	</object>
-	<object class="ADSRModulator" id="{672c055f-876e-4d10-9b05-1461abcc77a1}">
+	<object class="ADSRModulator" id="{a0db1fcd-dc90-446f-8baf-05e8092103d2}">
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>
 		</property>
@@ -125,7 +125,7 @@
 			<value>8800</value>
 		</property>
 		<property name="attackShape">
-			<value>-0.550516248</value>
+			<value>-0.628728509</value>
 		</property>
 		<property name="finalValue">
 			<value>-80</value>
