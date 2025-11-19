@@ -40,97 +40,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 5
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 2
-      Data: 42781fbf8e4c4383862725ebdd846fee
-    - Name: $v
-      Entry: 7
-      Data: 3|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
-    - Name: <IsCaught>k__BackingField
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 2
-      Data: 33792c8bb9dc4b518af7c4738aa32af0
-    - Name: $v
-      Entry: 7
-      Data: 4|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
-    - Name: <IsCaught>k__BackingField
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 2
-      Data: c4337b776ec34a6081df151c6dafadd4
-    - Name: $v
-      Entry: 7
-      Data: 5|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
-    - Name: <IsCaught>k__BackingField
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 2
-      Data: 24c55428fc8d4e70b8dd4f3706dd202c
-    - Name: $v
-      Entry: 7
-      Data: 6|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
-    - Name: <IsCaught>k__BackingField
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 2
-      Data: 73594529a4a1469eb069ff6b3196401a
-    - Name: $v
-      Entry: 7
-      Data: 7|Madduck.GameData.FishCatalogueEntry, Madduck.GameData
-    - Name: <IsCaught>k__BackingField
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -142,7 +52,7 @@ MonoBehaviour:
       Data: 
     - Name: migrationResolvers
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[Madduck.Core.ISaveMigrationResolver`1[[Madduck.GameData.FishCatalogueSaveData,
+      Data: 3|System.Collections.Generic.List`1[[Madduck.Core.ISaveMigrationResolver`1[[Madduck.GameData.FishCatalogueSaveData,
         Madduck.GameData]], Madduck.Core]], mscorlib
     - Name: 
       Entry: 12

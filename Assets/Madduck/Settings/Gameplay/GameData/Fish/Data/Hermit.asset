@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5f5ea7babc8264a8be61994ba02323, type: 3}
   m_Name: Hermit
   m_EditorClassIdentifier: 
-  <ItemType>k__BackingField: 0
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -25,15 +24,16 @@ MonoBehaviour:
     - Name: <Guid>k__BackingField
       Entry: 2
       Data: 24c55428fc8d4e70b8dd4f3706dd202c
+  <ItemType>k__BackingField: 0
   <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   <EnemyType>k__BackingField: 0
   <Size>k__BackingField: 0
   <WeatherType>k__BackingField: 63
   <DayPhaseType>k__BackingField: 2
   <FishName>k__BackingField: Hermit
-  <FishDescription>k__BackingField: A fish with shell that looks and feels like a
-    rock. How can they even swim with these!? Oh wait... they don't, they just crawl.
-  <FishIcon>k__BackingField: {fileID: 21300000, guid: d16600549bf6d3f44b4cd6da9e7beeb2, type: 3}
+  <FishDescription>k__BackingField: A calm hermit amidst the storm. Sorry to interrupt
+    your meditation, old man.
+  <FishIcon>k__BackingField: {fileID: 21300000, guid: 8ac9fbd71e8e90843b1a6325d8146212, type: 3}
   <FishSprite>k__BackingField: {fileID: 21300000, guid: 929f03e5661698744bb82347b1955f0c, type: 3}
   <FishSpriteAnimatorConfig>k__BackingField: {fileID: 11400000, guid: b38b737ddb00bbf47aecb8e96cc09afc, type: 2}
   <FishSkeletonDataAsset>k__BackingField: {fileID: 11400000, guid: fc8f4bb8e4ab5da4eb4bad15f794307c, type: 2}

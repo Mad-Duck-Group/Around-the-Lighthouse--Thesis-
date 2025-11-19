@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a5f5ea7babc8264a8be61994ba02323, type: 3}
+  m_Name: Toofie
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: <Guid>k__BackingField
+      Entry: 2
+      Data: de6e5ecc10dc493cac98b541dd6c32f9
+  <ItemType>k__BackingField: 0
+  <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  <EnemyType>k__BackingField: 0
+  <Size>k__BackingField: 1
+  <WeatherType>k__BackingField: 63
+  <DayPhaseType>k__BackingField: 1
+  <FishName>k__BackingField: Toofie
+  <FishDescription>k__BackingField: Toofie
+  <FishIcon>k__BackingField: {fileID: 21300000, guid: 0d30c9421fee5614aab935b5a63c4481, type: 3}
+  <FishSprite>k__BackingField: {fileID: 21300000, guid: 929f03e5661698744bb82347b1955f0c, type: 3}
+  <FishSpriteAnimatorConfig>k__BackingField: {fileID: 11400000, guid: 94ef9605cf82df641ab8995b6c6be217, type: 2}
+  <FishSkeletonDataAsset>k__BackingField: {fileID: 11400000, guid: fc8f4bb8e4ab5da4eb4bad15f794307c, type: 2}
+  <FishSkin>k__BackingField: Toofie
+  <FatigueSliderOffset>k__BackingField: {x: 0, y: 390}
+  <SpriteAnchorOffset>k__BackingField: {x: -0.24, y: -0.19}
+  <BasePrice>k__BackingField: 10
+  <Power>k__BackingField:
+    value: 6
+  <Resistance>k__BackingField:
+    value: 1
+  <FishWeight>k__BackingField:
+    value: 2
+  <FatigueDuration>k__BackingField:
+    value: 10
+  <TugOfWarDecayRate>k__BackingField:
+    value: 10
+  <TugOfWarRegression>k__BackingField:
+    value: 20

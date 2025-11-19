@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 436e0d079fe24b08b0dd34c5b37718aa, type: 3}
-  m_Name: New Day Manager Config
+  m_Name: DayManagerConfig
   m_EditorClassIdentifier: Madduck.Day::Madduck.Day.DayManagerConfig
   <MaxDayCount>k__BackingField: 7
   <MaxRoomCount>k__BackingField: 7

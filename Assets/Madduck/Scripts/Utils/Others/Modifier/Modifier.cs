@@ -389,27 +389,28 @@ namespace Madduck.Utils
         {
             var evaluationGroup = modifiers.GroupBy(m => m.ModifierValueType);
             float result = baseValue;
+            float differences = 0f;
             foreach (var group in evaluationGroup)
             {
                 switch (group.Key)
                 {
                     case ModifierValueType.Constant:
-                        result += group.CalculateConstant(baseValue);
+                        differences += group.CalculateConstant(baseValue) - baseValue;
                         break;
                     case ModifierValueType.Curve:
-                        result += group.CalculateCurve(baseValue);
+                        differences += group.CalculateCurve(baseValue) - baseValue;
                         break;
                     case ModifierValueType.Step:
-                        result += group.CalculateStep(baseValue);
+                        differences += group.CalculateStep(baseValue) - baseValue;
                         break;
                     case ModifierValueType.Incremental:
-                        result += group.CalculateIncremental(baseValue);
+                        differences += group.CalculateIncremental(baseValue) - baseValue;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
-            return result;
+            return result + differences;
         }
         private static float CalculateConstant(this IEnumerable<BaseModifierData> modifiers, float baseValue)
         {

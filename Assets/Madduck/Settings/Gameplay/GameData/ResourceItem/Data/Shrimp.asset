@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6fb513bccd44d1a9ffd32f957f97fb, type: 3}
+  m_Name: Shrimp
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.ResourceItemData
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: <Guid>k__BackingField
+      Entry: 2
+      Data: 09cd076edf284777ad275f9a4292d401
+  <ItemType>k__BackingField: 5
+  <ResourceType>k__BackingField: 0
+  <ResourceName>k__BackingField: Shrimp
+  <ResourceDescription>k__BackingField: Shrimp
+  <ResourceIcon>k__BackingField: {fileID: 21300000, guid: 010d8cff6b60079458f20421b09a047b, type: 3}
