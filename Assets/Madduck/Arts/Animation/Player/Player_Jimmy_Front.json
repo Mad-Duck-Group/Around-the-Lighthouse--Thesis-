@@ -1,6 +1,6 @@
 {
 "skeleton": {
-	"hash": "frzTuBxd8EU6gBF1KpL1u/KY9gs",
+	"hash": "fyQeW1xbTM4B/irCcgrBeVBbEmI",
 	"spine": "3.8.75",
 	"x": -86,
 	"y": -1,
@@ -126,7 +126,8 @@
 	}
 ],
 "events": {
-	"After_Throw": {}
+	"After_Throw": {},
+	"Ending": {}
 },
 "animations": {
 	"GotFish": {
@@ -814,7 +815,7 @@
 		},
 		"events": [
 			{ "time": 0.2, "name": "After_Throw" },
-			{ "time": 0.7, "name": "After_Throw" }
+			{ "time": 0.7, "name": "Ending" }
 		]
 	},
 	"Pulling": {
