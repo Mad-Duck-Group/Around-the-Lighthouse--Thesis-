@@ -14,12 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Madduck.Room::Madduck.Room.MainMenuConfig
   <MainMenuBGMPlaylist>k__BackingField:
   - Guid:
-      Data1: -1504404193
-      Data2: 1199020955
-      Data3: -469951333
-      Data4: -1412494506
-    Path: event:/BGM/MainMenuBGM
-  - Guid:
       Data1: 235311766
       Data2: 1191262595
       Data3: 357868939

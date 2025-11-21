@@ -29,6 +29,7 @@ namespace Madduck.Room
         
         private BaitItemInstance _pendingBait;
         private bool _interactable = true;
+        private bool _isActive = false;
         private IDisposable _bindings;
         private DisposableBag _confirmDisposables;
 
@@ -62,13 +63,13 @@ namespace Madduck.Room
             _inputHandler.BaitButton.IsDown
                 .IgnoreFirstValueWhenSubscribe()
                 .Where(x => x)
-                .Subscribe(_ => { SetActive(true);})
+                .Subscribe(_ => { SetActive(!_isActive);})
                 .AddTo(ref builder);
-            _inputHandler.BaitButton.IsUpAfterHeld
-                .IgnoreFirstValueWhenSubscribe()
-                .Where(x => x)
-                .Subscribe(_ => { SetActive(false);})
-                .AddTo(ref builder);
+            // _inputHandler.BaitButton.IsUpAfterHeld
+            //     .IgnoreFirstValueWhenSubscribe()
+            //     .Where(x => x)
+            //     .Subscribe(_ => { SetActive(false);})
+            //     .AddTo(ref builder);
             _inputHandler.BaitSelectInput
                 .IgnoreFirstValueWhenSubscribe()
                 .ThrottleFirst(TimeSpan.FromMilliseconds(100))//block spam
@@ -138,6 +139,7 @@ namespace Madduck.Room
 
         private void SetActive(bool active)
         {
+            _isActive = active;
             _uiBeforeTriggerBait.SetActive(!active);
             _uiAfterTriggerBait.SetActive(active);
         }

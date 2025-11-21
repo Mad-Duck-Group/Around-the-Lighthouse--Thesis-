@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: 58005c04492c4799ab2ad56006843831
   <ItemType>k__BackingField: 1
   <MaxThrowPercentage>k__BackingField:
-    value: 50
+    value: 100
   <ThrowSliderSpeed>k__BackingField:
     value: 150
   <BubbleSpawnChance>k__BackingField:

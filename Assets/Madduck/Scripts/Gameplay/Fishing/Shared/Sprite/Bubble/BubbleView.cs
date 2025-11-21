@@ -26,7 +26,24 @@ namespace Madduck.Fishing.Shared
         [SerializeField] private Vector2 lengthRange;
         
         [Title("Tween")] 
-        [SerializeField] private TweenSettings<Vector3> scaleTweenSettings;
+        [SerializeField] private TweenSettings<Vector2> relativePositionTweenSettings;
+        [SerializeField] private TweenSettings<float> fadeOutTweenSettings;
+
+        private TweenSettings<Vector2> _relativePositionTweenSettings;
+        
+        [Title("Debug")]
+        [Button("Preview Transition")]
+        private void PreviewTransitionIn(bool active)
+        {
+            if (active)
+            {
+                TransitionIn().Forget();
+            }
+            else
+            {
+                TransitionOut().Forget();
+            }
+        }
         
         public BubbleType BubbleType { get; private set; }
 
@@ -48,27 +65,25 @@ namespace Madduck.Fishing.Shared
         {
             transform.position = position;
             BubbleType = bubbleType;
+            _relativePositionTweenSettings = relativePositionTweenSettings.ToRelative(bubbleSpriteRenderer.transform.localPosition);
         }
         
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
-            bubbleSpriteRenderer.transform.localScale = scaleTweenSettings.startValue;
+            bubbleSpriteRenderer.transform.localPosition = _relativePositionTweenSettings.startValue;
             cancellationToken.Register(CancelTransition);
-            await Transition(forward: true);
+            _transitionSequence = Sequence.Create()
+                .Group(Tween.LocalPosition(bubbleSpriteRenderer.transform, _relativePositionTweenSettings.ToVector3()));
+            await _transitionSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
 
         public async UniTask TransitionOut(CancellationToken cancellationToken = default)
         {
             cancellationToken.Register(CancelTransition);
-            await Transition(forward: false);
-            Destroy(gameObject);
-        }
-
-        private async UniTask Transition(bool forward)
-        {
             _transitionSequence = Sequence.Create()
-                .Group(Tween.Scale(bubbleSpriteRenderer.transform, scaleTweenSettings.WithDirection(forward)));
-            await _transitionSequence.ToYieldInstruction().ToUniTask();
+                .Group(Tween.Alpha(bubbleSpriteRenderer, fadeOutTweenSettings));
+            await _transitionSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
+            Destroy(gameObject);
         }
 
         private void CancelTransition()

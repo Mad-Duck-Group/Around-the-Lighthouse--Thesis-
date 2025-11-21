@@ -73,11 +73,11 @@ namespace Madduck.Fishing.UI
             var sizeDelta = rectTransform.sizeDelta;
             if (throwHookSlider.direction is Slider.Direction.BottomToTop or Slider.Direction.TopToBottom)
             {
-                rectTransform.sizeDelta = sizeDelta.WithY(throwHookSliderMaxLength * current.AsFraction);
+                rectTransform.sizeDelta = sizeDelta.WithY(throwHookSliderMaxLength * current.AsInverseFraction);
             }
             else
             {
-                rectTransform.sizeDelta = sizeDelta.WithX(throwHookSliderMaxLength * current.AsFraction);
+                rectTransform.sizeDelta = sizeDelta.WithX(throwHookSliderMaxLength * current.AsInverseFraction);
             }
         }
         

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 728799868036675419}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.412, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.65878177, y: 0.65878177, z: 0.65878177}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -160,10 +160,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Madduck.Fishing::Madduck.Fishing.Shared.BubbleView
   bubbleSpriteRenderer: {fileID: 9205716522774032747}
   lengthRange: {x: -0.8, y: 1.01}
-  scaleTweenSettings:
+  relativePositionTweenSettings:
     startFromCurrent: 0
-    startValue: {x: 0, y: 0, z: 0}
-    endValue: {x: 0.8, y: 0.8, z: 0.8}
+    startValue: {x: 0, y: -1.25}
+    endValue: {x: 0, y: -0.5}
+    settings:
+      duration: 3
+      ease: 0
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
+  fadeOutTweenSettings:
+    startFromCurrent: 0
+    startValue: 1
+    endValue: 0
     settings:
       duration: 1
       ease: 0

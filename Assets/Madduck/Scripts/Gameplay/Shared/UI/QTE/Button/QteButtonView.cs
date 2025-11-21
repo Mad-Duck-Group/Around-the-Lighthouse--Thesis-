@@ -17,6 +17,13 @@ namespace Madduck.Shared
 {
     public class QteButtonView : MonoBehaviour, IQteElement
     {
+        [Serializable]
+        private struct QteButtonColor
+        {
+            public Color ringColor;
+            public Color bgColor;
+        }
+        
         [Title("References")]
         [Required,
          SerializeField] private CanvasGroup canvasGroup;
@@ -24,6 +31,8 @@ namespace Madduck.Shared
         //  SerializeField] private TMP_Text buttonNameText;
         [Required,
          SerializeField] private SerializableDictionary<string, SpriteLibraryAsset> spriteLibraryAssets = new();
+        [Required,
+         SerializeField] private Image backgroundImage;
         [Required,
          SerializeField] private Image buttonImage;
         [Required,
@@ -38,7 +47,7 @@ namespace Madduck.Shared
         [Title("Settings")] 
         [SerializeField] private Vector2 outerRingSize;
         [SerializeField] private Vector2 innerRingSize;
-        [SerializeField] private SerializableDictionary<string, Color> ringColors = new();
+        [SerializeField] private SerializableDictionary<string, QteButtonColor> ringColors = new();
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings<Vector3> scaleTweenSettings;
@@ -120,11 +129,15 @@ namespace Madduck.Shared
         {
             var buttonDirection = binding.name;
             _currentDirection = buttonDirection;
-            var color = ringColors.TryGetValue(buttonDirection, out var c) ? c : Color.white;
-            innerRing.color = color;
-            outerRingIcon.color = color;
-            // buttonNameText.text =
-            //     button.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+            if (!ringColors.TryGetValue(buttonDirection, out var qteButtonColor))
+            {
+                Debug.LogWarning($"QTE Button color for direction {buttonDirection} not found!");
+                return;
+            }
+            outerRing.color = qteButtonColor.ringColor;
+            innerRing.color = qteButtonColor.ringColor;
+            outerRingIcon.color = qteButtonColor.ringColor;
+            backgroundImage.color = qteButtonColor.bgColor;
         }
 
         private void CurrentControlSchemeChanged(string scheme, string currentDirection)
@@ -161,6 +174,12 @@ namespace Madduck.Shared
 
         public async UniTask OnFail(CancellationToken cancellationToken = default)
         {
+            outerRing.color = Color.darkRed;
+            outerRingIcon.color = Color.darkRed;
+            middleRing.color = Color.darkRed;
+            innerRing.color = Color.darkRed;
+            buttonImage.color = Color.darkRed;
+            backgroundImage.color = Color.darkRed;
             await Tween.ShakeLocalPosition(transform, failShakeSettings).ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
 

@@ -38,17 +38,38 @@ MonoBehaviour:
     - Name: <ModifierMethod>k__BackingField
       Entry: 3
       Data: 4
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
       Data: 1
-    - Name: <ModifierPercentage>k__BackingField
+    - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
-      Data: Madduck.Utils.Percentage, Madduck.Utils
-    - Name: value
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
       Entry: 4
       Data: 0
     - Name: 
       Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierContextProvider>k__BackingField
+      Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
       Entry: 7
@@ -88,5 +109,5 @@ MonoBehaviour:
   <BaitName>k__BackingField: Sock
   <BaitDescription>k__BackingField: A smelly sock. Some fish might mistaken it for
     a dead bait.
-  <BaitIcon>k__BackingField: {fileID: 7574228676995196076, guid: 34bcca6e6de6d9f4080a2b4980c3c361, type: 3}
-  <BaitSelectedIcon>k__BackingField: {fileID: -5073554799394624420, guid: e65375ea1cd922e4a9b3e18ef582e35e, type: 3}
+  <BaitIcon>k__BackingField: {fileID: 21300000, guid: 34bcca6e6de6d9f4080a2b4980c3c361, type: 3}
+  <BaitSelectedIcon>k__BackingField: {fileID: 21300000, guid: e65375ea1cd922e4a9b3e18ef582e35e, type: 3}
