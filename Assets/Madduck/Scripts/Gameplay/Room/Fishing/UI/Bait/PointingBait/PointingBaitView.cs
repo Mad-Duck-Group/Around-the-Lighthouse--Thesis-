@@ -1,5 +1,7 @@
 using System;
+using Cysharp.Threading.Tasks;
 using HasanSadikin.Carousel;
+using Madduck.Input;
 using Madduck.Shared;
 using R3;
 using Sirenix.OdinInspector;
@@ -18,41 +20,51 @@ namespace Madduck.Room.PointingBait
          SerializeField] private Image leftPointingImage;
         
         private CarouselController _carouselController;
-        
+        private PointingBaitViewModel _viewModel;
+
         private IDisposable _bindings;
         [Inject]
-        public void SetUp(CarouselController carouselController)
+        public void SetUp(PointingBaitViewModel viewModel,CarouselController carouselController, IPlayerInputHandler playerInputHandler)
         {
             _carouselController = carouselController;
+            _viewModel = viewModel;
             Bind();
         }
-
+        
         public void Bind()
         {
             var builder = Disposable.CreateBuilder();
 
-            _carouselController.OnPointingStateChanged
-                .Subscribe(selectionIcon =>
-                {
-                    SetPointing(_carouselController.PointingBaitConfig, selectionIcon);
-                })
-                .AddTo(ref builder);
+            _viewModel.LeftPressed
+                .Where(x => x)
+                .SubscribeAwait((b, token) => SetPointingLeft(_carouselController.PointingBaitConfig),AwaitOperation.Drop);
 
+            _viewModel.RightPressed
+                .Where(x => x)
+                .SubscribeAwait((b, token) => SetPointingRight(_carouselController.PointingBaitConfig),AwaitOperation.Drop);
             _bindings = builder.Build();
         }
         
-
-        public void SetPointing(PointingBaitConfig config, SelectionIcon selectionIcon)
+        
+        public async UniTask SetPointingLeft(PointingBaitConfig config)
         {
-            if (config.pointintRightBaitIconSprites.TryGetValue(selectionIcon, out var rightSprite))
-            {
-                rightPointingImage.sprite = rightSprite;
-            }
+            var spriteSelected = config.GetLeftSelectedIcon(SelectionIcon.Selected);
+            leftPointingImage.sprite = spriteSelected;
+            await UniTask.WaitForSeconds(config.iconSwitchDelay / 2);
+            var spriteUnSelected = config.GetLeftSelectedIcon(SelectionIcon.Unselected);
+            leftPointingImage.sprite = spriteUnSelected;
+            await UniTask.WaitForSeconds(config.iconSwitchDelay / 2);
+        }
 
-            if (config.pointintLeftBaitIconSprites.TryGetValue(selectionIcon, out var leftSprite))
-            {
-                leftPointingImage.sprite = leftSprite;
-            }
+        public async UniTask SetPointingRight(PointingBaitConfig config)
+        {
+            var spriteSelected = config.GetRightSelectedIcon(SelectionIcon.Selected);
+            rightPointingImage.sprite = spriteSelected;
+            await UniTask.WaitForSeconds(config.iconSwitchDelay / 2);
+            var spriteUnSelected = config.GetRightSelectedIcon(SelectionIcon.Unselected);
+            rightPointingImage.sprite = spriteUnSelected;
+            await UniTask.WaitForSeconds(config.iconSwitchDelay / 2);
+                
         }
         
     }

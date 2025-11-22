@@ -52,7 +52,6 @@ namespace HasanSadikin.Carousel
         public int TotalItems => _carouselItems.Count;
         public bool HasItems => _carouselItems.Count > 0;
         public ReactiveCommand<Unit> OnInitialized { get; } = new();
-        public ReactiveCommand<SelectionIcon> OnPointingStateChanged { get; } = new();
         public ReactiveCommand<BaitItemInstance> OnItemSelected { get; } = new();
         public ReactiveCommand<BaitItemInstance> OnCurrentItemUpdated { get; } = new();
         public ReactiveCommand<Unit> OnNext { get; } = new();
@@ -70,12 +69,12 @@ namespace HasanSadikin.Carousel
         private BaitItemInstance _pointingBait;
         
 
-       
-
         [Inject]
         public void Construct(ICarouselItemPositioner positioner,PlayerInventory playerInventory,PointingBaitConfig pointingBaitConfig)
         {
+            
             _positioner = positioner;
+            Debug.Log(_positioner);
             _playerInventory = playerInventory;
             _pointingBaitConfig = pointingBaitConfig;
             Bind();
@@ -234,7 +233,7 @@ namespace HasanSadikin.Carousel
                 {
                     _pointingBait = item.Data;
                     OnCurrentItemUpdated.Execute(item.Data);
-                    UpdatePointing();
+                    //UpdatePointing();
                 }
                 MoveItemToPositionAtIndex(item, _isInfinity ? GetCarouselIndex(i - _currentIndex) - baitList.Count * _indexRepeatOffset : i - _currentIndex);
             }
@@ -273,21 +272,15 @@ namespace HasanSadikin.Carousel
             {
                 _confirmedBait = null;
                 UpdateIconSelection();
-                UpdatePointing();
+                //UpdatePointing();
                 return;
             }
             
             _confirmedBait = bait;
             UpdateIconSelection();
-            UpdatePointing();
+            //UpdatePointing();
         }
-        private void UpdatePointing()
-        {
-            if (_confirmedBait != null && _pointingBait == _confirmedBait)
-                OnPointingStateChanged.Execute(SelectionIcon.Selected);
-            else
-                OnPointingStateChanged.Execute(SelectionIcon.Unselected);
-        }
+        
 
         private void UpdateIconSelection()
         {

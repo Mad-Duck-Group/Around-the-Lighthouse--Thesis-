@@ -26,6 +26,7 @@ namespace Madduck.Room
         private readonly GameObject _uiBeforeTriggerBait;
         private readonly GameObject _uiAfterTriggerBait;
         private readonly CarouselController _carousel;
+        private readonly PointingBaitViewModel _pointingBaitViewModel;
         
         private BaitItemInstance _pendingBait;
         private bool _interactable = true;
@@ -39,7 +40,8 @@ namespace Madduck.Room
             PlayerInventory playerInventory,
             ISubscriber<FishingStateEvent> fishingStateSubscriber,
             BaitUITriggerConfig baitTriggerConfig,
-            CarouselController carousel)
+            CarouselController carousel,
+            PointingBaitViewModel pointingBaitViewModel)
         {
             _inputHandler = inputHandler;
             _playerInventory = playerInventory;
@@ -47,6 +49,7 @@ namespace Madduck.Room
             _uiBeforeTriggerBait = baitTriggerConfig.before;
             _uiAfterTriggerBait = baitTriggerConfig.after;
             _carousel = carousel;
+            _pointingBaitViewModel = pointingBaitViewModel;
         }
         
         public void Start()
@@ -72,10 +75,11 @@ namespace Madduck.Room
             //     .AddTo(ref builder);
             _inputHandler.BaitSelectInput
                 .IgnoreFirstValueWhenSubscribe()
-                .ThrottleFirst(TimeSpan.FromMilliseconds(100))//block spam
+                .DistinctUntilChanged()
                 .Where(_ => _interactable)
                 .Subscribe(value =>
                 {
+                    _pointingBaitViewModel.UpdateInput(value);
                     switch (value)
                     {
                         case > 0:
@@ -87,8 +91,8 @@ namespace Madduck.Room
                             _carousel.Previous();
                             break;
                     }
-                })
-                .AddTo(ref builder);
+                });
+            
             _carousel.OnInitialized
                 .Where(_ => _carousel.HasItems)
                 .Subscribe(_ =>

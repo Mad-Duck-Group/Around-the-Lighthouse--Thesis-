@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Madduck/Scenes/LoadSceneTransition/LoadSceneTransition.unity
     guid: 08c0caca02b44fe4d87f8df370e44026
   - enabled: 1
-    path: Assets/Madduck/Scenes/Gameplay.unity
+    path: Assets/Madduck/Scenes/FixArt.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type: 2}

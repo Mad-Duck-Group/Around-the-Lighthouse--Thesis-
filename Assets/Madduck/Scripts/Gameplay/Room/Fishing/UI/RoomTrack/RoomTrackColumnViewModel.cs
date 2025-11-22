@@ -25,8 +25,8 @@ namespace Madduck.Room
         private readonly IFactory<BoatTrackView> _boatTrackFactory;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private readonly IPublisher<LoadingSceneAnimationFinishedEvent> _loadingSceneAnimationFinishedPublisher;
-        private readonly SerializableDictionary<DayRoomKey, Sprite> _futureSprites;
-        private readonly SerializableDictionary<DayRoomKey, Sprite> _pastSprites;
+        private readonly SerializableDictionary<DayRoomKey, DayRoomSprite> _futureSprites;
+        private readonly SerializableDictionary<DayRoomKey, DayRoomSprite> _pastSprites;
         private BoatTrackView _boatTrackView;
         private IDisposable _binding;
         #endregion
@@ -107,13 +107,13 @@ namespace Madduck.Room
         {
             
             var state = CalculateRoomState(index);
-            Sprite sprite = null;
+            DayRoomSprite sprite = null;
             if (state == RoomHistoryState.Past)
                 _pastSprites.TryGetValue(roomKey, out sprite);
             else
                 _futureSprites.TryGetValue(roomKey, out sprite);
             var view = _roomTrackFactory.Create();
-            view.SetUp(sprite);
+            view.SetUp(sprite.iconSprite, sprite.auraSprite);
             _rooms.Add(view);
         }
         

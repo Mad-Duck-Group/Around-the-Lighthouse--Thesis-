@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a315e08eedc32904ca2dfffe2a493cd4
+guid: 52517e323b8c5b047af080960fc230e2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6874489997996780285
-    second: L_Pressing_0
+      213: -2379115645492298204
+    second: DN_Day_SD_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +48,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: L_Pressing_0
+      name: DN_Day_SD_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 155
-        height: 130
+        x: 10
+        y: 15
+        width: 95
+        height: 98
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dfae2960b38176f50800000000000000
-      internalID: 6874489997996780285
+      spriteID: 42e7bdeeceeabfed0800000000000000
+      internalID: -2379115645492298204
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      L_Pressing_0: 6874489997996780285
+      DN_Day_SD_0: -2379115645492298204
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

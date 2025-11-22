@@ -15,14 +15,14 @@ namespace HasanSadikin.Carousel
         [SerializeField] bool _isStatic = false;
         [SerializeField] float _duration = .25f;
         [SerializeField] float _offsetX;
-        [SerializeField] float _gap = 100;
+        [SerializeField] float _gap ;
         [SerializeField] int _visibleItem = 3;
         [SerializeField] Ease _ease;
 
 
         [Header("For Debugging")]
         [SerializeField] bool _debugCarouselArea;
-        
+        [SerializeField]
         Image _image;
         bool _realIsStatic = false;
         private readonly SerializableDictionary<RectTransform, Sequence> _seqLookup = new();
@@ -37,7 +37,6 @@ namespace HasanSadikin.Carousel
 
         private void OnValidate()
         {
-            
             if(_isStatic)
             {
                 return;
@@ -51,7 +50,7 @@ namespace HasanSadikin.Carousel
         {
              if(_realIsStatic) return;
 
-            float endValue = index * _gap + _offsetX;
+            float endValue = (index * _gap) + _offsetX;
 
             float duration = Mathf.Abs(endValue - rectTransform.anchoredPosition.x) > _gap * _visibleItem ? 0 : _duration;
 
@@ -59,7 +58,7 @@ namespace HasanSadikin.Carousel
                 oldSeq.Stop();
             }
             Vector2 targetPos = new Vector2(endValue, rectTransform.anchoredPosition.y);
-            
+            Debug.Log("[Pos] offset = " + _offsetX + " from " + gameObject.name);
             var tween = Tween.UIAnchoredPosition(rectTransform, targetPos, duration, _ease);
             var seq = Sequence.Create().Group(tween);
             

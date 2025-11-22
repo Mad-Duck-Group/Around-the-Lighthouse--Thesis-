@@ -25,6 +25,12 @@ namespace Madduck.Shared
         TugOfWar ,
         Reeling
     }
+    public enum PointingDirection
+    {
+        None,
+        Left,
+        Right
+    }
     public enum InputIconType
     {
         X,
