@@ -1,6 +1,6 @@
 {
 "skeleton": {
-	"hash": "Z0MPEPlVePhys0GrBBBHrtaw2k4",
+	"hash": "fyQeW1xbTM4B/irCcgrBeVBbEmI",
 	"spine": "3.8.75",
 	"x": -86,
 	"y": -1,
@@ -126,19 +126,16 @@
 	}
 ],
 "events": {
-	"After_Throw": {}
+	"After_Throw": {},
+	"Ending": {}
 },
 "animations": {
 	"GotFish": {
 		"slots": {
-			"R_Hand": {
+			"Head_Normal": {
 				"attachment": [
-					{ "name": "R_Hand2" }
-				]
-			},
-			"L_Hand": {
-				"attachment": [
-					{ "name": null }
+					{ "name": "Head_TryHard" },
+					{ "time": 0.3333, "name": "Head_Normal" }
 				]
 			},
 			"Emot_Normal": {
@@ -147,10 +144,14 @@
 					{ "time": 0.3333, "name": "Emot_Huh_Fail" }
 				]
 			},
-			"Head_Normal": {
+			"L_Hand": {
 				"attachment": [
-					{ "name": "Head_TryHard" },
-					{ "time": 0.3333, "name": "Head_Normal" }
+					{ "name": null }
+				]
+			},
+			"R_Hand": {
+				"attachment": [
+					{ "name": "R_Hand2" }
 				]
 			}
 		},
@@ -335,7 +336,7 @@
 	},
 	"Idle1": {
 		"slots": {
-			"L_back_hand": {
+			"L_front_hand": {
 				"attachment": [
 					{ "name": null }
 				]
@@ -345,12 +346,12 @@
 					{ "name": null }
 				]
 			},
-			"Reel": {
+			"L_back_hand": {
 				"attachment": [
 					{ "name": null }
 				]
 			},
-			"L_front_hand": {
+			"Reel": {
 				"attachment": [
 					{ "name": null }
 				]
@@ -405,17 +406,12 @@
 	},
 	"Idle2": {
 		"slots": {
-			"L_back_hand": {
+			"L_front_hand": {
 				"attachment": [
 					{ "name": null }
 				]
 			},
 			"Rod": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
-			"Reel": {
 				"attachment": [
 					{ "name": null }
 				]
@@ -426,7 +422,12 @@
 					{ "time": 1.5, "name": "Emot_Normal" }
 				]
 			},
-			"L_front_hand": {
+			"L_back_hand": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"Reel": {
 				"attachment": [
 					{ "name": null }
 				]
@@ -615,15 +616,15 @@
 	},
 	"PullHookUp": {
 		"slots": {
+			"L_Hand": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
 			"R_Hand": {
 				"attachment": [
 					{ "name": "R_Hand2" },
 					{ "time": 1, "name": "R_Hand" }
-				]
-			},
-			"L_Hand": {
-				"attachment": [
-					{ "name": null }
 				]
 			}
 		},
@@ -813,19 +814,17 @@
 			}
 		},
 		"events": [
-			{ "time": 0.2, "name": "After_Throw" }
+			{ "time": 0.2, "name": "After_Throw" },
+			{ "time": 0.7, "name": "Ending" }
 		]
 	},
 	"Pulling": {
 		"slots": {
-			"R_Hand": {
+			"Head_Normal": {
 				"attachment": [
-					{ "name": "R_Hand2" }
-				]
-			},
-			"L_Hand": {
-				"attachment": [
-					{ "name": null }
+					{ "name": "Head_TryHard" },
+					{ "time": 0.0333, "name": "Head_Normal" },
+					{ "time": 0.4, "name": "Head_TryHard" }
 				]
 			},
 			"Emot_Normal": {
@@ -835,11 +834,14 @@
 					{ "time": 0.4, "name": "Emot_TryHard" }
 				]
 			},
-			"Head_Normal": {
+			"L_Hand": {
 				"attachment": [
-					{ "name": "Head_TryHard" },
-					{ "time": 0.0333, "name": "Head_Normal" },
-					{ "time": 0.4, "name": "Head_TryHard" }
+					{ "name": null }
+				]
+			},
+			"R_Hand": {
+				"attachment": [
+					{ "name": "R_Hand2" }
 				]
 			}
 		},
@@ -1101,14 +1103,14 @@
 	},
 	"Reeling": {
 		"slots": {
-			"R_Hand": {
-				"attachment": [
-					{ "name": "R_Hand2" }
-				]
-			},
 			"L_Hand": {
 				"attachment": [
 					{ "name": null }
+				]
+			},
+			"R_Hand": {
+				"attachment": [
+					{ "name": "R_Hand2" }
 				]
 			}
 		},
@@ -1449,14 +1451,14 @@
 	},
 	"Throw2": {
 		"slots": {
-			"L_Hand": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
 			"Emot_Normal": {
 				"attachment": [
 					{ "name": "Emot_TryHard" }
+				]
+			},
+			"L_Hand": {
+				"attachment": [
+					{ "name": null }
 				]
 			}
 		},
@@ -1550,15 +1552,15 @@
 	},
 	"Throw3": {
 		"slots": {
-			"L_Hand": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
 			"Emot_Normal": {
 				"attachment": [
 					{ "name": "Emot_TryHard" },
 					{ "time": 0.1667, "name": "Emot_Normal" }
+				]
+			},
+			"L_Hand": {
+				"attachment": [
+					{ "name": null }
 				]
 			}
 		},

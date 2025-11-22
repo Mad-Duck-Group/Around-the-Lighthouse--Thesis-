@@ -1,0 +1,69 @@
+
+Fish_Close.png
+size: 1423,386
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Head
+  rotate: false
+  xy: 864, 168
+  size: 418, 216
+  orig: 420, 218
+  offset: 1, 1
+  index: -1
+Inner_mouth
+  rotate: false
+  xy: 767, 2
+  size: 292, 123
+  orig: 294, 125
+  offset: 1, 1
+  index: -1
+L_Eye
+  rotate: false
+  xy: 1061, 5
+  size: 105, 161
+  orig: 108, 164
+  offset: 1, 1
+  index: -1
+L_Hand
+  rotate: false
+  xy: 1284, 224
+  size: 137, 160
+  orig: 139, 164
+  offset: 1, 2
+  index: -1
+Lower_Lip
+  rotate: false
+  xy: 375, 31
+  size: 390, 94
+  orig: 393, 96
+  offset: 2, 1
+  index: -1
+R_Eye
+  rotate: false
+  xy: 1168, 10
+  size: 100, 156
+  orig: 104, 158
+  offset: 2, 1
+  index: -1
+R_Hand
+  rotate: false
+  xy: 1284, 62
+  size: 137, 160
+  orig: 140, 164
+  offset: 1, 2
+  index: -1
+Tail
+  rotate: false
+  xy: 2, 9
+  size: 371, 375
+  orig: 371, 375
+  offset: 0, 0
+  index: -1
+Upper_Lip
+  rotate: false
+  xy: 375, 127
+  size: 487, 257
+  orig: 490, 267
+  offset: 2, 8
+  index: -1
