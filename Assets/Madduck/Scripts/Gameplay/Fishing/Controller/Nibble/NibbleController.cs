@@ -45,6 +45,7 @@ namespace Madduck.Fishing.Controller
         private CancellationTokenSource _transitionCts = new();
         private CancellationTokenSource _fishBiteCts = new();
         private const string ThrowEventName = "After_Throw";
+        private const string DestroyHookEventName = "Ending";
         private int _currentStageIndex;
         private bool _qteActive;
         private bool _fishBiting;
@@ -190,8 +191,9 @@ namespace Madduck.Fishing.Controller
             var track = _playerAnimator.Set(PlayerAnimationKey.PullHookUp, 0, false);
             await track.WaitUntilEvent(ThrowEventName);
             await UniTask.WhenAny(_hookFactory.Current.Return(), 
-                track.WaitUntilComplete());
+                track.WaitUntilEvent(DestroyHookEventName));
             _hookFactory.DestroyHook();
+            await track.WaitUntilComplete();
         }
         
         public async UniTask SetActive(bool active)
