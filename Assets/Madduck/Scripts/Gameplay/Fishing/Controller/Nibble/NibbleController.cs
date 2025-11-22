@@ -209,6 +209,7 @@ namespace Madduck.Fishing.Controller
                 _currentStageChance[1] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[1];
                 _currentStageIndex = 0;
                 _model.CatchChance.Value = _currentStageChance[0];
+                _model.CatchStage.Value = (uint)_currentStageIndex;
                 _fishBiting = false;
                 _qteActive = false;
                 Bind();
@@ -238,6 +239,7 @@ namespace Madduck.Fishing.Controller
             var qte = _qteButtonFactory.Create();
             qte.OnSuccess += OnQteSuccess;
             qte.OnFail += OnQteFail;
+            qte.TransitionInElement();
             qte.StartQuickTimeEvent();
             _qteActive = true;
         }
@@ -270,6 +272,7 @@ namespace Madduck.Fishing.Controller
                             DebugUtils.Log("Got Fish!");
                             _currentStageChance[_currentStageIndex] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[0];
                             _currentStageIndex++;
+                            _model.CatchStage.Value = (uint)_currentStageIndex;
                             _model.CatchChance.Value = _currentStageChance[_currentStageIndex];
                             _model.SetFishInstance(fish);
                             var fishEyes = _fishEyesFactory.Create();
@@ -289,9 +292,13 @@ namespace Madduck.Fishing.Controller
                     break;
                 case 1 when result:
                     _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
-                    _hookFactory.Current.Alert(true);
-                    _fishEyesFactory.Current.Bite();
-                    StartFishBiteTimer(_fishBiteCts.Token).Forget();
+                    _fishEyesFactory.Current.Bite()
+                        .ContinueWith(() =>
+                    {
+                        _fishEyesFactory.DestroyFishEyes();
+                        _hookFactory.Current.Alert(true);
+                        StartFishBiteTimer(_fishBiteCts.Token).Forget();
+                    });
                     return;
             }
             StartQteTimer();
@@ -316,6 +323,7 @@ namespace Madduck.Fishing.Controller
                 case 1 when _currentStageChance[_currentStageIndex] <= Percentage.Zero:
                     _currentStageChance[_currentStageIndex] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[1];
                     _currentStageIndex--;
+                    _model.CatchStage.Value = (uint)_currentStageIndex;
                     _model.CatchChance.Value = _currentStageChance[_currentStageIndex];
                     TransitionOutFishEyes();
                     break;

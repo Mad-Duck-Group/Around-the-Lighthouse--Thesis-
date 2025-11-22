@@ -20,13 +20,14 @@ namespace Madduck.Shared
         private readonly IFactory<IQuickTimeEvent> _qteElementFactory;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IQteElement _view;
-        private readonly List<IQuickTimeEvent> _elements = new();
-        private readonly CancellationTokenSource _qteCts = new();
-        private CancellationTokenSource _elementCts = new();
-        private UniTask _lastElementTask = UniTask.CompletedTask;
+        private readonly List<IQuickTimeEvent> _quickTimeEvents = new();
+        private readonly CancellationTokenSource _qteSequenceCts = new();
+        private CancellationTokenSource _qteCts = new();
+        private UniTask _lastQteTask = UniTask.CompletedTask;
         
         
-        private int _currentElementIndex;
+        private int _currentQteIndex;
+        private bool _transitionedIn;
         private DisposableBag _subscription;
        
 
@@ -43,34 +44,57 @@ namespace Madduck.Shared
             CurrentElement = view;
         }
         
+        public async UniTask TransitionInElement(CancellationToken cancellationToken = default)
+        {
+            if (_transitionedIn) return;
+            _transitionedIn = true;
+            await _view.TransitionIn(cancellationToken);
+        }
+        
         public void StartQuickTimeEvent()
         {
-            _currentElementIndex = 0;
+            _currentQteIndex = 0;
             for (var i = 0; i < _configInstance.CurrentSequenceLength; i++)
             {
-                var element = _qteElementFactory.Create();
-                _elements.Add(element);
-                _view.SetAsChild(element.CurrentElement);
-                element.ChangeInputActiveState(false); 
-                element.DestroyWhenFinished = false;
-                element.ChangeViewResultManually = true;
+                var qte = _qteElementFactory.Create();
+                _quickTimeEvents.Add(qte);
+                _view.SetAsChild(qte.CurrentElement);
+                qte.ChangeInputActiveState(false); 
+                qte.DestroyWhenFinished = false;
+                qte.ChangeViewResultManually = true;
             }
-            StartQuickTimeEventInternal(_qteCts.Token).Forget();
+            StartQuickTimeEventInternal(_qteSequenceCts.Token).Forget();
         }
 
         private async UniTaskVoid StartQuickTimeEventInternal(CancellationToken cancellationToken)
         {
-            await _view.TransitionIn(cancellationToken);
+            if (!_transitionedIn)
+                await TransitionInElement(cancellationToken);
             await UniTask.WaitForSeconds(_configInstance.CurrentStartDelay, cancellationToken: cancellationToken);
-            SubscribeElement(_currentElementIndex);
-            for (var i = 0; i < _elements.Count; i++)
+            ActivateElement(cancellationToken).Forget();
+            for (var i = 0; i < _quickTimeEvents.Count; i++)
             {
                 if (i > 0)
                 {
                     await UniTask.WaitForSeconds(_configInstance.CurrentInterval, cancellationToken: cancellationToken);
                 }
-                var element = _elements[i];
-                element.StartQuickTimeEvent();
+                var qte = _quickTimeEvents[i];
+                await qte.TransitionInElement(cancellationToken);
+            }
+        }
+
+        private async UniTaskVoid ActivateElement(CancellationToken cancellationToken)
+        {
+            await UniTask.WaitForSeconds(_configInstance.CurrentActivationDelay, cancellationToken: cancellationToken);
+            SubscribeElement(_currentQteIndex);
+            for (var i = 0; i < _quickTimeEvents.Count; i++)
+            {
+                if (i > 0)
+                {
+                    await UniTask.WaitForSeconds(_configInstance.CurrentInterval, cancellationToken: cancellationToken);
+                }
+                var qte = _quickTimeEvents[i];
+                qte.StartQuickTimeEvent();
             }
         }
 
@@ -79,15 +103,15 @@ namespace Madduck.Shared
 ;           _subscription.Dispose();
             _subscription.Clear();
             _subscription = new();
-            var current = _elements[index];
-            if (index > 0) _elements[index - 1].ChangeInputActiveState(false);
+            var current = _quickTimeEvents[index];
+            if (index > 0) _quickTimeEvents[index - 1].ChangeInputActiveState(false);
             current.ChangeInputActiveState(true);
             _subscription.Add(Observable.FromEvent(
                     h => current.OnFail += h,
                     h => current.OnFail -= h)
                 .Subscribe(_ =>
                 {
-                    _lastElementTask = current.ChangeViewResult(false, _elementCts.Token);
+                    _lastQteTask = current.ChangeViewResult(false, _qteCts.Token);
                     OnElementFail();
                 }));
             _subscription.Add(Observable.FromEvent(
@@ -95,19 +119,19 @@ namespace Madduck.Shared
                     h => current.OnSuccess -= h)
                 .Subscribe(_ =>
                 {
-                    _lastElementTask = current.ChangeViewResult(true, _elementCts.Token);
+                    _lastQteTask = current.ChangeViewResult(true, _qteCts.Token);
                     OnElementSuccess();
                 }));
         }
 
         public void CancelQuickTimeEvent(bool success)
         {
-            _qteCts.Cancel();
+            _qteSequenceCts.Cancel();
             if (success)
             {
-                foreach (var element in _elements)
+                foreach (var qte in _quickTimeEvents)
                 {
-                    element.CancelQuickTimeEvent(true);
+                    qte.CancelQuickTimeEvent(true);
                 }
                 Success();
             }
@@ -119,26 +143,26 @@ namespace Madduck.Shared
 
         public void Dispose()
         {
+            _qteSequenceCts.Cancel();
             _qteCts.Cancel();
-            _elementCts.Cancel();
             _subscription.Dispose();
-            foreach (var element in _elements)
+            foreach (var qte in _quickTimeEvents)
             {
-                ((IDisposable)element).Dispose();
+                ((IDisposable)qte).Dispose();
             }
         }
 
         private void OnElementSuccess()
         {
-            _currentElementIndex++;
-            if (_currentElementIndex >= _elements.Count)
+            _currentQteIndex++;
+            if (_currentQteIndex >= _quickTimeEvents.Count)
             {
                 Success();
             }
             else
             {
                 UniTask.WaitForEndOfFrame()
-                    .ContinueWith(() => SubscribeElement(_currentElementIndex));
+                    .ContinueWith(() => SubscribeElement(_currentQteIndex));
             }
         }
 
@@ -156,11 +180,11 @@ namespace Madduck.Shared
         
         private void Fail()
         {
-            _qteCts.Cancel();
+            _qteSequenceCts.Cancel();
             _subscription.Dispose();
-            foreach (var element in _elements)
+            foreach (var qte in _quickTimeEvents)
             {
-                element.CancelQuickTimeEvent(false);
+                qte.CancelQuickTimeEvent(false);
             }
             if (!ChangeViewResultManually) ChangeViewResult(false).Forget();
             OnFail?.Invoke();
@@ -168,9 +192,9 @@ namespace Madduck.Shared
         
         public async UniTask ChangeViewResult(bool result, CancellationToken cancellationToken = default)
         {
-            await _lastElementTask;
-            _elementCts.Cancel();
-            _elementCts = new();
+            await _lastQteTask;
+            _qteCts.Cancel();
+            _qteCts = new();
             if (result)
                 await _view.OnSuccess(cancellationToken);
             else
@@ -181,9 +205,9 @@ namespace Madduck.Shared
         
         public void ChangeInputActiveState(bool active)
         {
-            foreach (var element in _elements)
+            foreach (var qte in _quickTimeEvents)
             {
-                element.ChangeInputActiveState(active);
+                qte.ChangeInputActiveState(active);
             }
         }
 

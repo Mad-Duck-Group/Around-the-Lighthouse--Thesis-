@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.GameData.Bait;
 using Madduck.Utils;
 using PrimeTween;
 using R3;
@@ -20,7 +21,12 @@ namespace Madduck.Fishing.UI
         [Required,
          SerializeField] private Image catchChanceRadial;
         [Required,
+         SerializeField] private Image baitIconImage;
+        [Required,
          SerializeField] private TMP_Text catchChanceText;
+
+        [Title("Settings")] 
+        [SerializeField] private SerializableDictionary<uint, Color> catchStageColors = new();
         
         [Title("Tween")]
         [SerializeField] private TweenSettings catchChanceLerpTweenSettings;
@@ -39,8 +45,14 @@ namespace Madduck.Fishing.UI
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _viewModel.CatchChange
+            _viewModel.CatchChance
                 .Subscribe(OnCatchChanceChanged)
+                .AddTo(ref disposableBuilder);
+            _viewModel.CatchStage
+                .Subscribe(OnCatchStageChanged)
+                .AddTo(ref disposableBuilder);
+            _viewModel.CurrentBait
+                .Subscribe(OnBaitChanged)
                 .AddTo(ref disposableBuilder);
             pullHookButton.onClick
                 .AsObservable()
@@ -79,6 +91,8 @@ namespace Madduck.Fishing.UI
         {
             _bindings?.Dispose();
             catchChanceRadial.fillAmount = 0;
+            catchChanceRadial.color = catchStageColors[0];
+            baitIconImage.enabled = false;
             if (active)
             {
                 Bind();
@@ -96,6 +110,27 @@ namespace Madduck.Fishing.UI
         {
             TweenRadial(percentage);
             catchChanceText.text = percentage.ToPercentageString("F0");
+        }
+        
+        private void OnCatchStageChanged(uint stage)
+        {
+            if (catchStageColors.TryGetValue(stage, out var color))
+            {
+                catchChanceRadial.color = color;
+            }
+        }
+
+        private void OnBaitChanged(BaitItemInstance bait)
+        {
+            if (bait is null)
+            {
+                baitIconImage.enabled = false;
+            }
+            else
+            {
+                baitIconImage.enabled = true;
+                baitIconImage.sprite = bait.ItemData.BaitIcon;
+            }
         }
 
         private void TweenRadial(Percentage percentage)

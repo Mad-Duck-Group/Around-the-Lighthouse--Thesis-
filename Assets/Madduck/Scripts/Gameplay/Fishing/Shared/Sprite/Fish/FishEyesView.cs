@@ -4,6 +4,7 @@ using Madduck.Utils;
 using PrimeTween;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Madduck.Fishing.Shared
 {
@@ -17,13 +18,15 @@ namespace Madduck.Fishing.Shared
         [Title("References")]
         [Required,
          SerializeField] private SpriteRenderer spriteRenderer;
-
+        
         [Title("Settings")] 
-        [SerializeField] private Vector2 offset;
+        [SerializeField] private Vector2 spawnOffset;
+        [SerializeField] private Vector2 biteOffset;
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings<Vector2> positionTweenSettings;
         [SerializeField] private TweenSettings biteSettings;
+        [SerializeField] private TweenSettings<Vector2> biteTransitionOutSettings;
 
         private Transform _hook;
         private TweenSettings<Vector3> _relativeSettings; 
@@ -33,7 +36,7 @@ namespace Madduck.Fishing.Shared
         public void SetUp(Transform hook)
         {
             _hook = hook;
-            transform.position = hook.position + (Vector3)offset;
+            transform.position = hook.position + (Vector3)spawnOffset;
             _relativeSettings = positionTweenSettings.ToVector3().ToRelative(transform.position);
         }
         
@@ -64,9 +67,11 @@ namespace Madduck.Fishing.Shared
         public async UniTask Bite(CancellationToken cancellationToken = default)
         {
             cancellationToken.Register(() => _biteSequence.Complete());
+            var bitePosition = _hook.position + (Vector3)biteOffset;
             _biteSequence = Sequence.Create()
-                .Group(Tween.Position(transform, transform.position, _hook.position,
-                    biteSettings));
+                .Group(Tween.Position(transform, transform.position, bitePosition,
+                    biteSettings))
+                .Chain(Tween.Position(transform, biteTransitionOutSettings.ToVector3().ToRelative(bitePosition)));
             await _biteSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
     }

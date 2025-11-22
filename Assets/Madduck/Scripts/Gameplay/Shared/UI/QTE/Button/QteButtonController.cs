@@ -40,6 +40,7 @@ namespace Madduck.Shared
         private IDisposable _timer;
         private CancellationTokenSource _cts = new();
         private bool _timeFrameOpen;
+        private bool _transitionedIn;
         [ShowInInspector] private bool _active = true;
         private float _currentTime;
 
@@ -84,9 +85,20 @@ namespace Madduck.Shared
             _timer?.Dispose();
         }
 
+        public async UniTask TransitionInElement(CancellationToken cancellationToken = default)
+        {
+            if (_transitionedIn) return;
+            _transitionedIn = true;
+            _currentBinding.Value = _input.JerkBindings.GetRandomElement();
+            _remainingPercentage.Value = Percentage.Zero;
+            var duration = (float)_configInstance.CurrentClosingInDuration;
+            var timeFrame = (float)_configInstance.CurrentSuccessTimeFrame;
+            _timeFramePercentage.Value = Percentage.Clamp01(Percentage.FromFraction(timeFrame / duration));
+            await _view.TransitionIn(cancellationToken);
+        }
+
         public void StartQuickTimeEvent()
         {
-            _currentBinding.Value = _input.JerkBindings.GetRandomElement();
             _cts = new CancellationTokenSource();
             StartQuickTimeEventInternal(_cts.Token).Forget();
         }
@@ -100,7 +112,10 @@ namespace Madduck.Shared
             var timeFrame = (float)_configInstance.CurrentSuccessTimeFrame;
             var lateTimeFrame = (float)_configInstance.CurrentLateSuccessTimeFrame;
             _timeFramePercentage.Value = Percentage.Clamp01(Percentage.FromFraction(timeFrame / duration));
-            await _view.TransitionIn(cancellationToken);
+            if (!_transitionedIn)
+            {
+                await TransitionInElement(cancellationToken);
+            }
             await UniTask.WaitForSeconds(_configInstance.CurrentStartDelay, ignoreTimeScale: true, 
                 cancellationToken: cancellationToken);
             _timer = Observable.EveryUpdate()

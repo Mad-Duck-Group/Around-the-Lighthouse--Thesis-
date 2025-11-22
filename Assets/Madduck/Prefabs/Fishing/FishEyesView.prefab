@@ -159,7 +159,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Madduck.Fishing::Madduck.Fishing.Shared.FishEyesView
   spriteRenderer: {fileID: 8985041330226619419}
-  offset: {x: 3, y: -2}
+  spawnOffset: {x: 3, y: -2}
+  biteOffset: {x: 1, y: 0}
   positionTweenSettings:
     startFromCurrent: 0
     startValue: {x: 0, y: 0}
@@ -223,3 +224,50 @@ MonoBehaviour:
     useUnscaledTime: 0
     _useFixedUpdate: 0
     _updateType: 0
+  biteTransitionOutSettings:
+    startFromCurrent: 0
+    startValue: {x: 0, y: 0}
+    endValue: {x: 0, y: -2}
+    settings:
+      duration: 1
+      ease: 0
+      customEase:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.10733452
+        - serializedVersion: 3
+          time: 0.11677186
+          value: -0.04512481
+          inSlope: -1.9345868
+          outSlope: -1.9345868
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.054359615
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 1.6396296
+          outSlope: 1.6396296
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.06440079
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0

@@ -11,6 +11,8 @@ namespace Madduck.Shared
         [field: InlineProperty, 
                 SerializeField] public UFloat StartDelay { get; private set; }
         [field: InlineProperty, 
+                SerializeField] public UFloat ActivationDelay { get; private set; }
+        [field: InlineProperty, 
                 SerializeField] public UFloat Interval { get; private set; }
         [field: SerializeField] public uint SequenceLength { get; private set; }
     }
@@ -20,12 +22,14 @@ namespace Madduck.Shared
     {
         [field: DisplayAsString] public UFloat CurrentStartDelay { get; private set; }
         [field: DisplayAsString] public UFloat CurrentInterval { get; private set; }
+        [field: DisplayAsString] public UFloat CurrentActivationDelay { get; private set; }
         [field: DisplayAsString] public uint CurrentSequenceLength { get; private set; }
         
         public QteSequenceConfigInstance(QteSequenceConfig config)
         {
             CurrentStartDelay = config.StartDelay;
             CurrentInterval = config.Interval;
+            CurrentActivationDelay = config.ActivationDelay;
             CurrentSequenceLength = config.SequenceLength;
         }
 

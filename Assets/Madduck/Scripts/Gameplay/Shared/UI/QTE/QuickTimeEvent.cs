@@ -10,6 +10,7 @@ namespace Madduck.Shared
     {
         event Action OnSuccess;
         event Action OnFail;
+        UniTask TransitionInElement(CancellationToken cancellationToken = default);
         void StartQuickTimeEvent();
         void CancelQuickTimeEvent(bool success);
         void ChangeInputActiveState(bool active);
