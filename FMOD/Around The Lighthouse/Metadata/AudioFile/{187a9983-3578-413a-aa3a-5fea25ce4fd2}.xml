@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{13fd63c4-b407-4cdd-a9c2-a3e1138a17a0}">
+	<object class="AudioFile" id="{187a9983-3578-413a-aa3a-5fea25ce4fd2}">
 		<property name="assetPath">
-			<value>BGM/BGM_MainTheme_01.mp3</value>
+			<value>BGM/BGM_In_Game_4_boss,mp3</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>
@@ -14,7 +14,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>184.21551020408162</value>
+			<value>122.04408163265306</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{d0370551-250a-46b4-8fe4-9471cc918246}</destination>
