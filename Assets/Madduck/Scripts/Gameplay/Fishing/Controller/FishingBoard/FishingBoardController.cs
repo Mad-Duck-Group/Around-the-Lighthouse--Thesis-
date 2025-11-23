@@ -27,7 +27,7 @@ namespace Madduck.Fishing.Controller
         private readonly FishingBoardConfig _config;
         private readonly FishingSharedVariable _sharedVariables;
         private readonly IAudioManager _audioManager;
-        private readonly IPlayerInputHandler _playerInput;
+        private readonly IPlayerInputHandler _inputHandler;
         private readonly IFishingBoardAIController _aiController;
         private readonly IHookFactory _hookFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
@@ -50,7 +50,7 @@ namespace Madduck.Fishing.Controller
             FishingBoardConfig config,
             FishingSharedVariable sharedVariables,
             IAudioManager audioManager,
-            IPlayerInputHandler playerInput,
+            IPlayerInputHandler inputHandler,
             IFishingBoardAIController aiController,
             IHookFactory hookFactory,
             IFishSpriteFactory fishSpriteFactory,
@@ -59,7 +59,7 @@ namespace Madduck.Fishing.Controller
         {
             _model = model;
             _variables = variables;
-            _playerInput = playerInput;
+            _inputHandler = inputHandler;
             _config = config;
             _sharedVariables = sharedVariables;
             _hookFactory = hookFactory;
@@ -95,15 +95,18 @@ namespace Madduck.Fishing.Controller
                     _variables.HookPowerMultiplier = _variables.GetPowerMultiplier(_variables.HookUnitCirclePosition);
                 })
                 .AddTo(ref disposableBuilder);
-            _playerInput.MouseDelta
-                .Subscribe(x => MoveHook(x, false))
-                .AddTo(ref disposableBuilder);
-            _playerInput.LeftStickDelta
-                .EveryUpdateWhen(x => x != Vector2.zero)
-                .Select(_ => _playerInput.LeftStickDelta.CurrentValue)
-                .Subscribe(x =>
+            Observable.EveryUpdate(UnityFrameProvider.Update)
+                .Where(_ => _inputHandler.CurrentControlScheme == "Mouse & Keyboard")
+                .Subscribe(_ =>
                 {
-                    MoveHook(x, true);
+                    MoveHook(_inputHandler.MouseDelta.CurrentValue, false);
+                })
+                .AddTo(ref disposableBuilder);
+            Observable.EveryUpdate(UnityFrameProvider.Update)
+                .Where(_ => _inputHandler.CurrentControlScheme  == "Gamepad")
+                .Subscribe(_ =>
+                {
+                    MoveHook(_inputHandler.LeftStickDelta.CurrentValue, true);
                 })
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();

@@ -307,12 +307,12 @@ MonoBehaviour:
   skeletonAnimation: {fileID: 3363454012217936822}
   skeletonUtility: {fileID: 6138834243139567398}
   fatigueTimerView: {fileID: 2429478925280467818}
-  scaleTween:
+  spawnPositionTween:
     startFromCurrent: 0
-    startValue: {x: 0, y: 0, z: 0}
-    endValue: {x: 1, y: 1, z: 1}
+    startValue: {x: 0, y: -2}
+    endValue: {x: 0, y: 0}
     settings:
-      duration: 1
+      duration: 0.5
       ease: 0
       customEase:
         serializedVersion: 2
@@ -685,7 +685,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bcce18ff2c1ee49469f091a394a8a788, type: 2}
+  - {fileID: 2100000, guid: 1ca256ac9904c7b4c8f2388e5f8a2158, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

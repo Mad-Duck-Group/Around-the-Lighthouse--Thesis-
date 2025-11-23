@@ -28,12 +28,14 @@ namespace Madduck.Fishing.Shared
          SerializeField] private FishFatigueTimerView fatigueTimerView;
         
         [Title("Settings")] 
-        [SerializeField] private TweenSettings<Vector3> scaleTween;
+        [SerializeField] private TweenSettings<Vector2> spawnPositionTween;
 
         [Title("Debug")] 
         [InlineEditor, 
          SerializeField] 
         private FishItemData debugFish;
+
+        private TweenSettings<Vector2> _spawnRelativePositionTween;
        
         public ISpineAnimator<FishSpriteAnimationKey> Animator { get; private set; }
         public IFishFatigueTimerView FatigueTimerView => fatigueTimerView;
@@ -43,9 +45,10 @@ namespace Madduck.Fishing.Shared
         
         public void SetUp(Transform hook, FishItemInstance fishItemInstance)
         {
-            transform.localScale = scaleTween.startValue;
             transform.position = hook.position;
             transform.position -= (Vector3)fishItemInstance.ItemData.SpriteAnchorOffset;
+            _spawnRelativePositionTween = spawnPositionTween.ToRelative(transform.position);
+            transform.position = _spawnRelativePositionTween.startValue;
             var isBoss = fishItemInstance.ItemData.EnemyType is FishEnemyType.Boss;
             skeletonAnimation.initialSkinName = isBoss ? string.Empty : fishItemInstance.ItemData.FishSkin;
             skeletonAnimation.skeletonDataAsset = fishItemInstance.ItemData.FishSkeletonDataAsset;
@@ -70,6 +73,7 @@ namespace Madduck.Fishing.Shared
 
         public async UniTask TransitionOut(CancellationToken cancellationToken = default)
         {
+            _spawnRelativePositionTween = spawnPositionTween.ToRelative(transform.position);
             cancellationToken.Register(CancelTransition);
             await Transition(false);
         }
@@ -77,7 +81,7 @@ namespace Madduck.Fishing.Shared
         private async UniTask Transition(bool forward)
         {
             _transitionSequence = Sequence.Create()
-                .Group(Tween.Scale(transform, scaleTween.WithDirection(forward)));
+                .Group(Tween.Position(transform, _spawnRelativePositionTween.ToVector3().WithDirection(forward)));
             await _transitionSequence.ToYieldInstruction().ToUniTask();
         }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Madduck.Scripts.Input;
@@ -85,6 +86,8 @@ namespace Madduck.Input
         private PlayerInputAction _playerInputAction;
         private ReactiveProperty<string> _currentControlScheme = new("Mouse & Keyboard");
         private string _beforeDeactivateControlScheme = "Mouse & Keyboard";
+        private bool _activationJustChanged;
+        private List<string> _schemeRequest = new();
         private IDisposable _currentControlSchemeSubscription;
         private IDisposable _anyButtonPressListener;
 
@@ -154,24 +157,25 @@ namespace Madduck.Input
 
         private async UniTaskVoid OnAnyButton(InputControl inputControl)
         {
+            var scheme = _currentControlScheme.Value;
             switch (inputControl.device)
             {
                 case Mouse:
                 case Keyboard:
-                    _currentControlScheme.Value = "Mouse & Keyboard";
+                    scheme = "Mouse & Keyboard";
                     break;
                 case Gamepad:
-                    _currentControlScheme.Value  = "Gamepad";
+                    scheme  = "Gamepad";
                     break;
                 case Touchscreen:
-                    _currentControlScheme.Value  = "Touchscreen";
+                    scheme  = "Touchscreen";
                     break;
                 default:
-                    Debug.LogWarning("Unknown control scheme detected. Fallback to Mouse & Keyboard.");
-                    _currentControlScheme.Value  = "Mouse & Keyboard";
+                    Debug.LogWarning("Unknown control scheme detected. Using current scheme.");
                     break;
             }
-            _beforeDeactivateControlScheme = _currentControlScheme.Value;
+            _beforeDeactivateControlScheme = scheme;
+            _currentControlScheme.Value = scheme;
             AnyButtonPressed.Value = true;
             await UniTask.WaitForEndOfFrame();
             AnyButtonPressed.Value = false;
@@ -236,13 +240,13 @@ namespace Madduck.Input
 
         public void OnMouseDelta(InputAction.CallbackContext context)
         {
-            _currentControlScheme.Value = "Mouse & Keyboard";
+            HandleSchemeSwitch("Mouse & Keyboard");
             MouseDelta.Value = context.ReadValue<Vector2>();
         }
 
         public void OnMouseUnitCircle(InputAction.CallbackContext context)
         {
-            _currentControlScheme.Value = "Mouse & Keyboard";
+            HandleSchemeSwitch("Mouse & Keyboard");
             var position = context.ReadValue<Vector2>();
             Vector2 screenCenter = new(Screen.currentResolution.width / 2f, Screen.currentResolution.height / 2f);
             var delta = position - screenCenter;
@@ -251,18 +255,19 @@ namespace Madduck.Input
 
         public void OnRightStickDelta(InputAction.CallbackContext context)
         {
-            _currentControlScheme.Value = "Gamepad";
+            HandleSchemeSwitch("Gamepad");
             RightStickDelta.Value = context.ReadValue<Vector2>();
         }
         public void OnLeftStickDelta(InputAction.CallbackContext context)
         {
-            _currentControlScheme.Value = "Gamepad";
+            HandleSchemeSwitch("Gamepad");
             LeftStickDelta.Value = context.ReadValue<Vector2>();
         }
         #endregion
         
         public void SetActiveInput(bool active)
         {
+            _activationJustChanged = true;
             if (active)
             {
                 Subscribe();
@@ -272,11 +277,29 @@ namespace Madduck.Input
                 _beforeDeactivateControlScheme = _currentControlScheme.Value;
                 Unsubscribe();
             }
-            Observable.TimerFrame(1)
-                .Subscribe(_ => 
+        }
+
+        private void HandleSchemeSwitch(string scheme)
+        {
+            _schemeRequest.Add(scheme);
+            if (_schemeRequest.Count == 1)
+                ResolveScheme().Forget();
+        }
+
+        private async UniTaskVoid ResolveScheme()
+        {
+            await UniTask.WaitForEndOfFrame();
+            if (_activationJustChanged)
             {
                 _currentControlScheme.Value = _beforeDeactivateControlScheme;
-            });
+                _activationJustChanged = false;
+                _schemeRequest.Clear();
+                return;
+            }
+            var stack = new Stack<string>(_schemeRequest);
+            var resolvedScheme = stack.Pop();
+            _schemeRequest.Clear();
+            _currentControlScheme.Value = resolvedScheme;
         }
     }
 }

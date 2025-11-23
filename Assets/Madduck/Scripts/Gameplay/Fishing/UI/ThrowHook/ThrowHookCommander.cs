@@ -57,7 +57,7 @@ namespace Madduck.Fishing.UI
                 .Subscribe(x => _activeInputType = x)
                 .AddTo(ref disposableBuilder);
             ThrowHookFirstHeldCommand
-                .Where(_ => _activeInputType is null && !_hookThrown && !_isHolding)
+                .Where(_ => !_hookThrown && !_isHolding)
                 .Subscribe(x =>
                 {
                     _activeInputType = x;

@@ -38,6 +38,7 @@ namespace Madduck.GameData
         {
             _modifierSource = modifierSource ?? throw new ArgumentNullException(nameof(modifierSource));
             CurrentStats = new FishStats(itemData);
+            CurrentFishQuality = EnumUtils.RandomValue<FishQuality>(); //TODO: Replace with Weight Table later
             OnSubscribeModifierSource();
         }
 

@@ -125,8 +125,9 @@ namespace Madduck.GameData
         public async UniTask Hide(CancellationToken cancellationToken = default)
         {
             _bindings?.Dispose();
-            await TransitionOut(cancellationToken);
-            Destroy(gameObject);
+            await UniTask.CompletedTask; //NOTE: Skip destroying as it is the end game pop up
+            // await TransitionOut(cancellationToken);
+            // Destroy(gameObject);
             OnClose?.Invoke();
         }
 

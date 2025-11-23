@@ -44,7 +44,7 @@ namespace Madduck.GameData
 
         public IReadOnlyList<KeyValuePair<ModifierId, List<BaseModifierData>>> Modifiers => _currentModifiers.ToList();
 
-        public ReadOnlyReactiveProperty<BaitItemInstance> CurrentBaitView { get; }
+        public ReadOnlyReactiveProperty<BaitItemInstance> CurrentBaitView => CurrentBait.Select(x => x).ToReadOnlyReactiveProperty();
         public ReactiveCommand<Unit> NextBaitCommand { get; } = new();
         public ReactiveCommand<Unit> PreviousBaitCommand { get; } = new();
         public ReactiveCommand<BaitItemInstance> BaitChanged { get; } = new();
@@ -77,7 +77,6 @@ namespace Madduck.GameData
             CurrentCardsView = _currentCards.CreateView(x => x);
             ModifiersView = _currentModifiers.CreateView(x => x);
             CurrentBaitsView = _currentBaits.CreateView(x => x);
-            CurrentBaitView = CurrentBait.ToReadOnlyReactiveProperty();
             CurrentFishingRod = new FishingRodItemInstance(_config.FishingRod, modifierSource);
             Subscribe();
         }

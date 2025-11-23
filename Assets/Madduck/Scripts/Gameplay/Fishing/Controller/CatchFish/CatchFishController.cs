@@ -89,8 +89,12 @@ namespace Madduck.Fishing.Controller
             if (active)
             {
                 Bind();
-                if (_sharedVariable.CurrentFishable is FishItemInstance) return;
-                _isCatching = true;
+                _isCatching = true; //NOTE: Auto catch for all
+                if (_sharedVariable.CurrentFishable is FishItemInstance)
+                {
+                    DramaticReturn().Forget();
+                    return; 
+                }
                 Return().Forget();
             }
         }

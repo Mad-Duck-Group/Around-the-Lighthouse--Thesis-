@@ -19,44 +19,41 @@ namespace Madduck.Fishing.UI
         public Dictionary<FishZone, CircleBoardState> CircleBoardStates { get; }
         public void ResetCircleBoardSprite();
     }
+    
     public class FishingBoardView : MonoBehaviour, ITransitionable, ICircleBoard
     {
         #region Inspector
-        [Title("References")] 
-        [Required]
-        [SerializeField] private CanvasGroup canvasGroup;
-        [Required]
-        [SerializeField] private RectTransform hookObject;
-        [Required]
-        [SerializeField] private RectTransform hookIcon;
-        [Required]
-        [SerializeField] private RectTransform fishObject;
-        [Required]
-        [SerializeField] private RectTransform fishIcon;
-        [Required]
-        [SerializeField] private FishingLineHandler fishingLineHandler;
-        [Required]
-        [SerializeField] private SerializableDictionary<FishZone, CircleBoard> circleBoards = new();
-        [Required]
-        [SerializeField] private Slider fatigueSlider;
-        [Required]
-        [SerializeField] private Image fishFatigueImage;
-        [Required] 
-        [SerializeField] private Sprite fishCloseSprite;
-        [Required]
-        [SerializeField] private SerializableDictionary<Sprite, Percentage> fatigueImageDictionary = new();
+
+        [Title("References")]
+        [Required,
+         SerializeField] private RectTransform fishingBoard;
+        [Required, 
+         SerializeField] private CanvasGroup canvasGroup;
+        [Required, 
+         SerializeField] private RectTransform hookObject;
+        [Required, 
+         SerializeField] private RectTransform hookIcon;
+        [Required, 
+         SerializeField] private RectTransform fishObject;
+        [Required, 
+         SerializeField] private RectTransform fishIcon;
+        [Required, 
+         SerializeField] private FishingLineHandler fishingLineHandler;
+        [Required, 
+         SerializeField] private SerializableDictionary<FishZone, CircleBoard> circleBoards = new();
+        [Required, 
+         SerializeField] private Slider fatigueSlider;
 
         [Title("Tween")] 
-        [SerializeField] private TweenSettings<Vector3> fishingBoardScaleTweenSettings;
-        [SerializeField] private TweenSettings<float> fishingBoardAlphaTweenSettings;
+        [SerializeField] private TweenSettings<Vector2> fishingBoardPositionTweenSettings;
         [SerializeField] private ShakeSettings shakeTweenSettings;
         #endregion
+        
         public Dictionary<FishZone, CircleBoardState> CircleBoardStates => 
             circleBoards.ToDictionary(pair => pair.Key, pair => new CircleBoardState(pair.Value));
         
         #region Fields
         private Tween _reelingSliderShakeTween;
-        private List<KeyValuePair<Sprite, Percentage>> _sortedFatigueImageList = new();
         private FishingBoardViewModel _fishingBoardViewModel;
         private IDisposable _bindings;
         private Sequence _fishingBoardActivationSequence;
@@ -65,13 +62,13 @@ namespace Madduck.Fishing.UI
         #endregion
 
         #region Bindings
+        
         [Inject]
         public void SetUp(FishingBoardViewModel fishingBoardViewModel)
         {
             _fishingBoardViewModel = fishingBoardViewModel;
             canvasGroup.gameObject.SetActive(true);
-            canvasGroup.transform.localScale = fishingBoardScaleTweenSettings.startValue;
-            canvasGroup.alpha = fishingBoardAlphaTweenSettings.startValue;
+            fishingBoard.anchoredPosition = fishingBoardPositionTweenSettings.startValue;
         }   
         
         private void Bind()
@@ -135,8 +132,6 @@ namespace Madduck.Fishing.UI
             fatigueSlider.minValue = 0;
             fatigueSlider.maxValue = 1;
             fatigueSlider.value = 0;
-            var sortedDictionary = fatigueImageDictionary.OrderByDescending(pair => pair.Value).ToList();
-            _sortedFatigueImageList = sortedDictionary;
             foreach (var board in circleBoards)
             {
                 var rectTransform = board.Value.Circle;
@@ -151,13 +146,13 @@ namespace Madduck.Fishing.UI
         public void ResetCircleBoardSprite()
         {
             SetFatigue(Percentage.Zero);
-            fishFatigueImage.sprite = fishCloseSprite;
         }
         #endregion
         
         #region Transitions
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
+            gameObject.SetActive(true);
             cancellationToken.Register(CancelTransitions);
             await Transition(true);
             SetActive(true);
@@ -168,17 +163,13 @@ namespace Madduck.Fishing.UI
             cancellationToken.Register(CancelTransitions);
             await Transition(false);
             SetActive(false);
+            gameObject.SetActive(false);
         }
 
         private async UniTask Transition(bool active)
         {
             _fishingBoardActivationSequence = Sequence.Create()
-                .Group(Tween.Scale(canvasGroup.transform, fishingBoardScaleTweenSettings.WithDirection(active)))
-                .Group(Tween.Alpha(canvasGroup, fishingBoardAlphaTweenSettings.WithDirection(active)));
-                /*.OnComplete(() =>
-                { 
-                    if (!active) canvasGroup.gameObject.SetActive(false);
-                });*/
+                .Group(Tween.UIAnchoredPosition(fishingBoard, fishingBoardPositionTweenSettings.WithDirection(active)));
             await _fishingBoardActivationSequence.ToYieldInstruction().ToUniTask();
         }
 
@@ -196,6 +187,9 @@ namespace Madduck.Fishing.UI
         private void SetActive(bool active)
         {
             _bindings?.Dispose();
+            hookObject.localPosition = circleBoards[FishZone.Green].Circle.localPosition;
+            fishObject.localPosition = circleBoards[FishZone.Green].Circle.localPosition;
+            DrawFishLine();
             if (active)
             {
                 Bind();
@@ -255,12 +249,6 @@ namespace Madduck.Fishing.UI
         private void SetFatigue(Percentage fatiguePercent)
         {
             fatigueSlider.value = fatiguePercent.AsFraction;
-            foreach (var pair in _sortedFatigueImageList)
-            {
-                if (fatiguePercent < pair.Value) continue;
-                fishFatigueImage.sprite = pair.Key;
-                break;
-            }
         }
         #endregion
     }
