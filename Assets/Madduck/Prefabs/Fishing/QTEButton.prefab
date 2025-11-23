@@ -97,6 +97,17 @@ MonoBehaviour:
       bgColor: {r: 0.4862745, g: 0.5921569, b: 0.827451, a: 0.2}
     - ringColor: {r: 0.7254902, g: 0.023529412, b: 0, a: 1}
       bgColor: {r: 0.7882353, g: 0.48235294, b: 0.48235294, a: 0.2}
+  directionButtonMapping:
+    keys:
+    - down
+    - left
+    - right
+    - up
+    values:
+    - Down
+    - Left
+    - Right
+    - Up
   scaleTweenSettings:
     startFromCurrent: 0
     startValue: {x: 0, y: 0, z: 0}

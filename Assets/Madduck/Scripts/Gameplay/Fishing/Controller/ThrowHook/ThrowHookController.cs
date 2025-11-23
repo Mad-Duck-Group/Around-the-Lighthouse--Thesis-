@@ -30,6 +30,7 @@ namespace Madduck.Fishing.Controller
         private readonly ThrowHookCommander _commander;
         private readonly ThrowHookModel _model;
         private readonly BubbleManager _bubbleManager;
+        private readonly InputInstructionManager _inputInstructionManager;
         private readonly FishingSharedVariable _fishingSharedVariable;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
@@ -50,6 +51,7 @@ namespace Madduck.Fishing.Controller
             ThrowHookCommander commander,
             ThrowHookModel model,
             BubbleManager bubbleManager,
+            InputInstructionManager inputInstructionManager,
             FishingSharedVariable fishingSharedVariable,
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
@@ -61,6 +63,7 @@ namespace Madduck.Fishing.Controller
             _commander = commander;
             _model = model;
             _bubbleManager = bubbleManager;
+            _inputInstructionManager = inputInstructionManager;
             _fishingSharedVariable = fishingSharedVariable;
             _audioManager = audioManager;
             _hookFactory = hookFactory;
@@ -126,6 +129,7 @@ namespace Madduck.Fishing.Controller
 
         private void OnThrownHook()
         {
+            _inputInstructionManager.Show(Array.Empty<InputInstruction>(), stream: 0);
             OnHookThrown?.Invoke();
             _fishingLineCastReference = _audioManager.PlayAudio(_config.FishingLineCastSfx, Vector3.zero);
         }
@@ -142,6 +146,14 @@ namespace Madduck.Fishing.Controller
             if (active)
             {
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
+                _inputInstructionManager.Show(new[]
+                {
+                    new InputInstruction
+                    {
+                        key = "A",
+                        description = "Throw (Hold)",
+                    },
+                }, stream: 0);
                 Bind();
             }
             else

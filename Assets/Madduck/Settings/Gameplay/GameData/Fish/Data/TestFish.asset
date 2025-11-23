@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5f5ea7babc8264a8be61994ba02323, type: 3}
   m_Name: TestFish
   m_EditorClassIdentifier: 
-  <ItemType>k__BackingField: 0
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -25,6 +24,7 @@ MonoBehaviour:
     - Name: <Guid>k__BackingField
       Entry: 2
       Data: 73594529a4a1469eb069ff6b3196401a
+  <ItemType>k__BackingField: 0
   <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
   <EnemyType>k__BackingField: 0
   <Size>k__BackingField: 0
@@ -39,6 +39,26 @@ MonoBehaviour:
   <FishSkin>k__BackingField: Hermit
   <FatigueSliderOffset>k__BackingField: {x: 0, y: 390}
   <SpriteAnchorOffset>k__BackingField: {x: -0.24, y: -0.19}
+  <SpawnPositionTweenSettings>k__BackingField:
+    startFromCurrent: 0
+    startValue: {x: 0, y: -2}
+    endValue: {x: 0, y: 0}
+    settings:
+      duration: 1
+      ease: 0
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
   <BasePrice>k__BackingField: 10
   <Power>k__BackingField:
     value: 0

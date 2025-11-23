@@ -20,6 +20,7 @@ namespace Madduck.Fishing.Controller
         
         private readonly CatchFishConfig _config;
         private readonly FishingSharedVariable _sharedVariable;
+        private readonly InputInstructionManager _inputInstructionManager;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
@@ -39,6 +40,7 @@ namespace Madduck.Fishing.Controller
         public CatchFishController(
             CatchFishConfig config,
             FishingSharedVariable sharedVariable,
+            InputInstructionManager inputInstructionManager,
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
@@ -48,6 +50,7 @@ namespace Madduck.Fishing.Controller
         {
             _config = config;
             _sharedVariable = sharedVariable;
+            _inputInstructionManager = inputInstructionManager;
             _audioManager = audioManager;
             _inputHandler = inputHandler;
             _hookFactory = hookFactory;
@@ -96,6 +99,10 @@ namespace Madduck.Fishing.Controller
                     return; 
                 }
                 Return().Forget();
+            }
+            else
+            {
+                _inputInstructionManager.Show(Array.Empty<InputInstruction>(), stream: 0);
             }
         }
 
@@ -157,6 +164,15 @@ namespace Madduck.Fishing.Controller
         {
             var qte = _qteButtonFactory.Create();
             var tcs = new UniTaskCompletionSource();
+            await qte.TransitionInElement();
+            _inputInstructionManager.Show(new[]
+            {
+                new InputInstruction
+                {
+                    key = "ABXY",
+                    description = "QTE"
+                }
+            }, stream: 0);
             qte.StartQuickTimeEvent();
             _qteSubscription = new DisposableBag();
             Observable.FromEvent(

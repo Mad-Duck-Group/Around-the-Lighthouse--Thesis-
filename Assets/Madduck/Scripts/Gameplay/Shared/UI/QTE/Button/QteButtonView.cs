@@ -48,6 +48,7 @@ namespace Madduck.Shared
         [SerializeField] private Vector2 outerRingSize;
         [SerializeField] private Vector2 innerRingSize;
         [SerializeField] private SerializableDictionary<string, QteButtonColor> ringColors = new();
+        [SerializeField] private SerializableDictionary<string, string> directionButtonMapping = new();
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings<Vector3> scaleTweenSettings;
@@ -62,13 +63,7 @@ namespace Madduck.Shared
         private string _currentControlScheme;
         private IDisposable _bindings;
         private Sequence _transitionSequence;
-        private readonly Dictionary<string, string> _directionButtonMapping = new()
-        {
-            {"up", "Y"},
-            {"down", "A"},
-            {"left", "X"},
-            {"right", "B"}
-        };
+     
         
         [Inject]
         public void SetUp(QteButtonController controller)
@@ -151,12 +146,12 @@ namespace Madduck.Shared
                 Debug.LogWarning($"SpriteLibraryAsset for control scheme {scheme} not found!");
                 return;
             }
-            if (!_directionButtonMapping.TryGetValue(currentDirection, out var spriteKey))
+            if (!directionButtonMapping.TryGetValue(currentDirection, out var spriteKey))
             {
                 Debug.LogWarning($"Sprite key for direction {currentDirection} not found!");
                 return;
             }
-            buttonImage.sprite = libraryAsset.GetSprite("Control", spriteKey);
+            buttonImage.sprite = libraryAsset.GetSprite("QTE", spriteKey);
         }
 
         public async UniTask OnSuccess(CancellationToken cancellationToken = default)

@@ -23,6 +23,7 @@ namespace Madduck.Fishing.Controller
         private readonly TugOfWarModel _model;
         private readonly ReelingModel _reelingModel;
         private readonly FishingSharedVariable _sharedVariable;
+        private readonly InputInstructionManager _inputInstructionManager;
         private readonly IAudioManager _audioManager;
         private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
@@ -43,6 +44,7 @@ namespace Madduck.Fishing.Controller
             TugOfWarModel model,
             ReelingModel reelingModel,
             FishingSharedVariable sharedVariable,
+            InputInstructionManager inputInstructionManager,
             IAudioManager audioManager,
             IFishSpriteFactory fishSpriteFactory,
             ISpineAnimator<PlayerAnimationKey> playerAnimator,
@@ -54,6 +56,7 @@ namespace Madduck.Fishing.Controller
             _model = model;
             _audioManager = audioManager;
             _sharedVariable = sharedVariable;
+            _inputInstructionManager = inputInstructionManager;
             _reelingModel = reelingModel;
             _fishSpriteFactory = fishSpriteFactory;
             _playerAnimator = playerAnimator;
@@ -142,11 +145,20 @@ namespace Madduck.Fishing.Controller
                 _model.SetFishInstance(_sharedVariable.CurrentFishable as FishItemInstance);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 _inputActive = true;
+                _inputInstructionManager.Show(new[]
+                {
+                    new InputInstruction
+                    {
+                        key = "ABXY",
+                        description = "Tug (Spam)"
+                    }
+                }, stream: 0);
                 Bind();
                 StartDecaying();
             }
             else
             {
+                _inputInstructionManager.Show(Array.Empty<InputInstruction>(), stream: 0);
                 await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
             }
         }

@@ -17,11 +17,5 @@ namespace Madduck.GameData
     {
         public Sprite keyboardSprite;
         public Sprite gamepadSprite;
-        
-        public bool useAnimation;
-        [ShowIf("useAnimation")]
-        public AnimationClip keyboardAnimation;
-        [ShowIf("useAnimation")]
-        public AnimationClip gamepadAnimation;
     }
 }

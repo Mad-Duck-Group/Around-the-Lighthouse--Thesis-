@@ -29,6 +29,7 @@ namespace Madduck.Fishing.Controller
         private readonly NibbleConfig _config;
         private readonly NibbleModel _model;
         private readonly BubbleManager _bubbleManager;
+        private readonly InputInstructionManager _inputInstructionManager;
         private readonly FishingSharedVariable _sharedVariable;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
@@ -65,6 +66,7 @@ namespace Madduck.Fishing.Controller
             NibbleConfig config,
             NibbleModel model, 
             BubbleManager bubbleManager,
+            InputInstructionManager inputInstructionManager,
             FishingSharedVariable sharedVariable,
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
@@ -80,6 +82,7 @@ namespace Madduck.Fishing.Controller
             _inputHandler = inputHandler;
             _model = model;
             _bubbleManager = bubbleManager;
+            _inputInstructionManager = inputInstructionManager;
             _sharedVariable = sharedVariable;
             _audioManager = audioManager;
             _hookFactory = hookFactory;
@@ -144,6 +147,7 @@ namespace Madduck.Fishing.Controller
         
         private async UniTask OnPullHookResultChanged(Sign result)
         {
+            _inputInstructionManager.Show(Array.Empty<InputInstruction>(), stream: 0);
             TransitionOutFishEyes();
             _fishBiteCts.Cancel();
             _qteIntervalTimer?.Dispose();
@@ -207,6 +211,14 @@ namespace Madduck.Fishing.Controller
             if (active)
             {
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
+                _inputInstructionManager.Show(new[]
+                {
+                    new InputInstruction
+                    {
+                        key = "B",
+                        description = "Cancel",
+                    },
+                }, stream: 0);
                 _currentStageChance[0] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[0];
                 _currentStageChance[1] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[1];
                 _currentStageIndex = 0;
@@ -232,6 +244,14 @@ namespace Madduck.Fishing.Controller
         #region QTE
         private void StartQteTimer()
         {
+            _inputInstructionManager.Show(new[]
+            {
+                new InputInstruction
+                {
+                    key = "B",
+                    description = "Cancel",
+                },
+            }, stream: 0);
             _qteIntervalTimer = Observable.Timer(TimeSpan.FromSeconds(_config.QteIntervalRange.RandomBetweenRange()))
                 .Subscribe(_ => NewQte());
         }
@@ -241,9 +261,19 @@ namespace Madduck.Fishing.Controller
             var qte = _qteButtonFactory.Create();
             qte.OnSuccess += OnQteSuccess;
             qte.OnFail += OnQteFail;
-            qte.TransitionInElement();
-            qte.StartQuickTimeEvent();
-            _qteActive = true;
+            qte.TransitionInElement().ContinueWith(() =>
+            {
+                qte.StartQuickTimeEvent();
+                _qteActive = true;
+                _inputInstructionManager.Show(new[]
+                {
+                    new InputInstruction
+                    {
+                        key = "ABXY",
+                        description = "QTE",
+                    },
+                }, stream: 0);
+            });
         }
 
         private void OnQteSuccess()
@@ -339,6 +369,14 @@ namespace Madduck.Fishing.Controller
         private async UniTaskVoid StartFishBiteTimer(CancellationToken token)
         {
             _fishBiting = true;
+            _inputInstructionManager.Show(new[]
+            {
+                new InputInstruction
+                {
+                    key = "A",
+                    description = "Catch",
+                },
+            }, stream: 0);
             await UniTask.WaitForSeconds(_model.FishingRod.CurrentStats.CurrentFishBiteTimeFrame, cancellationToken: token);
             _fishBiting = false;
             DebugUtils.Log("Fish got away with the bait");

@@ -32,6 +32,7 @@ namespace Madduck.Fishing.Controller
         private readonly ReelingCommander _commander;
         private readonly ReelingModel _model;
         private readonly FishingSharedVariable _sharedVariable;
+        private readonly InputInstructionManager _inputInstructionManager;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
@@ -58,6 +59,7 @@ namespace Madduck.Fishing.Controller
             ReelingCommander commander,
             ReelingModel model,
             FishingSharedVariable sharedVariable,
+            InputInstructionManager inputInstructionManager,
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
@@ -69,6 +71,7 @@ namespace Madduck.Fishing.Controller
             _hookFactory = hookFactory;
             _inputHandler = inputHandler;
             _sharedVariable = sharedVariable;
+            _inputInstructionManager = inputInstructionManager;
             _audioManager = audioManager;
             _commander = commander;
             _model = model;
@@ -210,6 +213,14 @@ namespace Madduck.Fishing.Controller
                 _model.SetFishInstance(currentFishable as FishItemInstance);
                 if (!isFish) _model.SetMaxProgress(_hookFactory.Current.CurrentX.AsPercentage);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
+                _inputInstructionManager.Show(new[]
+                {
+                    new InputInstruction
+                    {
+                        key = "Analog Right",
+                        description = "Reel"
+                    }
+                }, stream: 0);
                 Bind();
                 if (isFish) StartFatigueTimer();
             }
@@ -223,6 +234,7 @@ namespace Madduck.Fishing.Controller
                     var fatigueSlider = _fishSpriteFactory.Current.FatigueTimerView;
                     fatigueSlider.TransitionOut().Forget();
                 }
+                _inputInstructionManager.Show(Array.Empty<InputInstruction>(), stream: 0);
                 await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
             }
         }

@@ -26,6 +26,7 @@ namespace Madduck.Room
         private readonly GameObject _uiBeforeTriggerBait;
         private readonly GameObject _uiAfterTriggerBait;
         private readonly CarouselController _carousel;
+        private readonly InputInstructionManager _inputInstructionManager;
         
         private BaitItemInstance _pendingBait;
         private bool _interactable = true;
@@ -39,7 +40,8 @@ namespace Madduck.Room
             PlayerInventory playerInventory,
             ISubscriber<FishingStateEvent> fishingStateSubscriber,
             BaitUITriggerConfig baitTriggerConfig,
-            CarouselController carousel)
+            CarouselController carousel,
+            InputInstructionManager inputInstructionManager)
         {
             _inputHandler = inputHandler;
             _playerInventory = playerInventory;
@@ -47,6 +49,7 @@ namespace Madduck.Room
             _uiBeforeTriggerBait = baitTriggerConfig.before;
             _uiAfterTriggerBait = baitTriggerConfig.after;
             _carousel = carousel;
+            _inputInstructionManager = inputInstructionManager;
         }
         
         public void Start()
@@ -142,10 +145,51 @@ namespace Madduck.Room
             _isActive = active;
             _uiBeforeTriggerBait.SetActive(!active);
             _uiAfterTriggerBait.SetActive(active);
+            if (active && _interactable)
+            {
+                _inputInstructionManager.Show(new []
+                {
+                    new InputInstruction
+                    {
+                        key = "Dpad",
+                        description = "Cycle Bait"
+                    },
+                    new InputInstruction
+                    {
+                        key = "X",
+                        description = "Confirm Bait"
+                    }
+                }, stream: 1);
+            }
+            else
+            {
+                _inputInstructionManager.RemoveStream(1);
+            }
         }
         private void OnFishingStateEvent(FishingStateEvent evt)
         {
             _interactable = evt.StateType is FishingStateType.ThrowHook;
+            switch (_interactable)
+            {
+                case true when _isActive:
+                    _inputInstructionManager.Show(new []
+                    {
+                        new InputInstruction
+                        {
+                            key = "Dpad",
+                            description = "Cycle Bait"
+                        },
+                        new InputInstruction
+                        {
+                            key = "X",
+                            description = "Confirm Bait"
+                        }
+                    }, stream: 1);
+                    break;
+                case false when _isActive:
+                    _inputInstructionManager.RemoveStream(1);
+                    break;
+            }
         }
         
         private void OnNextBait()

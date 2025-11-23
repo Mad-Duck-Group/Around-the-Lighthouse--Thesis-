@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a5f5ea7babc8264a8be61994ba02323, type: 3}
-  m_Name: TestBoss
+  m_Name: Blobfish
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -30,8 +30,8 @@ MonoBehaviour:
   <Size>k__BackingField: 2
   <WeatherType>k__BackingField: 63
   <DayPhaseType>k__BackingField: 3
-  <FishName>k__BackingField: Test Boss
-  <FishDescription>k__BackingField: For Test
+  <FishName>k__BackingField: Blobfish
+  <FishDescription>k__BackingField: Blobfish
   <FishIcon>k__BackingField: {fileID: 21300000, guid: b85dabca159f3a84bbf9b5a7275208c8, type: 3}
   <FishSprite>k__BackingField: {fileID: 21300000, guid: 929f03e5661698744bb82347b1955f0c, type: 3}
   <FishSpriteAnimatorConfig>k__BackingField: {fileID: 11400000, guid: 27e818c32360bb94fa38cd88fa750c87, type: 2}
@@ -39,6 +39,26 @@ MonoBehaviour:
   <FishSkin>k__BackingField: Hermit
   <FatigueSliderOffset>k__BackingField: {x: 0, y: 0}
   <SpriteAnchorOffset>k__BackingField: {x: -2.26, y: 1.83}
+  <SpawnPositionTweenSettings>k__BackingField:
+    startFromCurrent: 0
+    startValue: {x: 0, y: -5}
+    endValue: {x: 0, y: 0}
+    settings:
+      duration: 2
+      ease: 0
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
   <BasePrice>k__BackingField: 10
   <Power>k__BackingField:
     value: 11

@@ -38,7 +38,27 @@ MonoBehaviour:
   <FishSkeletonDataAsset>k__BackingField: {fileID: 11400000, guid: fc8f4bb8e4ab5da4eb4bad15f794307c, type: 2}
   <FishSkin>k__BackingField: Trimplets
   <FatigueSliderOffset>k__BackingField: {x: 0, y: 390}
-  <SpriteAnchorOffset>k__BackingField: {x: -0.24, y: -0.19}
+  <SpriteAnchorOffset>k__BackingField: {x: -0.23, y: 0.06}
+  <SpawnPositionTweenSettings>k__BackingField:
+    startFromCurrent: 0
+    startValue: {x: 0, y: -2}
+    endValue: {x: 0, y: 0}
+    settings:
+      duration: 1
+      ease: 0
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
   <BasePrice>k__BackingField: 10
   <Power>k__BackingField:
     value: 9

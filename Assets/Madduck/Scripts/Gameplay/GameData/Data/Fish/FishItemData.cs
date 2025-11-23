@@ -1,6 +1,7 @@
 using System;
 using Madduck.Shared;
 using Madduck.Utils;
+using PrimeTween;
 using Sirenix.OdinInspector;
 using Spine.Unity;
 using Unity.Behavior;
@@ -73,6 +74,7 @@ namespace Madduck.GameData
                 SerializeField] public string FishSkin { get; private set; }
         [field: SerializeField] public Vector2 FatigueSliderOffset { get; private set; }
         [field: SerializeField] public Vector2 SpriteAnchorOffset { get; private set; }
+        [field: SerializeField] public TweenSettings<Vector2> SpawnPositionTweenSettings { get; private set; }
         [field: SerializeField] public uint BasePrice { get; private set; } = 10;
         
         [Title("Fishing Board Settings"), 

@@ -1,28 +1,19 @@
 using System;
-using Madduck.GameData;
-using Madduck.Shared;
-using Madduck.Utils;
-using MessagePipe;
+using Madduck.Input;
 using R3;
-using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
-namespace Madduck.Input
+namespace Madduck.Shared
 {
     public class InputIconViewModel : IDisposable
     {
         public ReadOnlyReactiveProperty<string> CurrentScheme { get; private set; } 
         private readonly IPlayerInputHandler _input;
-        private readonly InputIconData _icondata;
         private IDisposable _disposables;
         
         [Inject]
-        public InputIconViewModel(
-            IPlayerInputHandler input, 
-            InputIconData data)
+        public InputIconViewModel(IPlayerInputHandler input)
         {
-            _icondata= data;
             _input = input;
             Bind();
         }
@@ -36,15 +27,6 @@ namespace Madduck.Input
                 .ToReadOnlyReactiveProperty(_input.CurrentControlScheme)
                 .AddTo(ref disposableBuilder);
             _disposables = disposableBuilder.Build();
-        }
-
-        
-        public Sprite GetIcon(InputIconType type, bool isGamepad)
-        {
-            if (!_icondata.iconMap.TryGetValue(type, out var data))
-                return null;
-
-            return isGamepad ? data.gamepadSprite : data.keyboardSprite;
         }
         
         public void Dispose()

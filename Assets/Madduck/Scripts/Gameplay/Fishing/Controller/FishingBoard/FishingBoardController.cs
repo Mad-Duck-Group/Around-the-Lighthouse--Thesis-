@@ -26,6 +26,7 @@ namespace Madduck.Fishing.Controller
         private readonly FishingBoardVariables _variables;
         private readonly FishingBoardConfig _config;
         private readonly FishingSharedVariable _sharedVariables;
+        private readonly InputInstructionManager _inputInstructionManager;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IFishingBoardAIController _aiController;
@@ -49,6 +50,7 @@ namespace Madduck.Fishing.Controller
             FishingBoardVariables variables,
             FishingBoardConfig config,
             FishingSharedVariable sharedVariables,
+            InputInstructionManager inputInstructionManager,
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IFishingBoardAIController aiController,
@@ -62,6 +64,7 @@ namespace Madduck.Fishing.Controller
             _inputHandler = inputHandler;
             _config = config;
             _sharedVariables = sharedVariables;
+            _inputInstructionManager = inputInstructionManager;
             _hookFactory = hookFactory;
             _audioManager = audioManager;
             _aiController = aiController;
@@ -132,6 +135,14 @@ namespace Madduck.Fishing.Controller
                 _aiController.SetFishPosition(Vector2.zero);
                 SetHookPosition(Vector2.zero);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
+                _inputInstructionManager.Show(new[]
+                {
+                    new InputInstruction
+                    {
+                        key = "Analog Left",
+                        description = "Move Hook"
+                    }
+                }, stream: 0);
                 _model.SetFishInstance(_sharedVariables.CurrentFishable as FishItemInstance);
                 Bind();
                 StartFishingBoard();
@@ -141,6 +152,7 @@ namespace Madduck.Fishing.Controller
             else
             {
                 StopFishingBoard();
+                _inputInstructionManager.Show(Array.Empty<InputInstruction>(), stream: 0);
                 await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
                 _aiController.SetFishPosition(Vector2.zero);
                 SetHookPosition(Vector2.zero);

@@ -6,11 +6,11 @@ namespace Madduck.Shared
     {
         Day = 1 << 0,
         Night = 1 << 1,
-        
         Both = Day | Night 
     }
     
-    public enum RoomHistoryState {
+    public enum RoomHistoryState 
+    {
         Past,
         Future     
     }
@@ -20,11 +20,7 @@ namespace Madduck.Shared
         Unselected,
         Selected,
     }
-    public enum IconAnimationEvent
-    {
-        TugOfWar ,
-        Reeling
-    }
+    
     public enum InputIconType
     {
         X,
@@ -42,12 +38,6 @@ namespace Madduck.Shared
         TugOfWar
     }
     
-    public enum InputControllerDevice
-    {
-        MouseKeyboard,
-        Gamepad,
-        Touch
-    }
     public enum WindDirection
     {
         Left,
