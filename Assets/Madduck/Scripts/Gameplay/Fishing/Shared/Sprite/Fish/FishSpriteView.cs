@@ -47,7 +47,7 @@ namespace Madduck.Fishing.Shared
             skeletonAnimation.AnimationName =
                 debugFish.FishSpriteAnimatorConfig.Animations[FishSpriteAnimationKey.Idle];
             skeletonAnimation.Initialize(true);
-            skeletonUtility.SpawnHierarchy(SkeletonUtilityBone.Mode.Follow, true, true, true);
+            //skeletonUtility.SpawnHierarchy(SkeletonUtilityBone.Mode.Follow, true, true, true);
         }
         
         public void SetUp(Transform hook, FishItemInstance fishItemInstance)
@@ -65,7 +65,7 @@ namespace Madduck.Fishing.Shared
             ((RectTransform)fatigueTimerView.transform).anchoredPosition -= fishItemInstance.ItemData.FatigueSliderOffset;
             skeletonAnimation.Initialize(true);
             Animator = new FishSpriteAnimator(fishItemInstance.ItemData.FishSpriteAnimatorConfig, skeletonAnimation);
-            skeletonUtility.SpawnHierarchy(SkeletonUtilityBone.Mode.Follow, true, true, true);
+            //skeletonUtility.SpawnHierarchy(SkeletonUtilityBone.Mode.Follow, true, true, true);
             transform.SetParent(hook);
         }
 
