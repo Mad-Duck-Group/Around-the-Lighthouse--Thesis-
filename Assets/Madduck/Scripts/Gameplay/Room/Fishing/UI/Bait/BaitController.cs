@@ -68,11 +68,11 @@ namespace Madduck.Room
                 .Where(x => x)
                 .Subscribe(_ => { SetActive(!_isActive);})
                 .AddTo(ref builder);
-            // _inputHandler.BaitButton.IsUpAfterHeld
-            //     .IgnoreFirstValueWhenSubscribe()
-            //     .Where(x => x)
-            //     .Subscribe(_ => { SetActive(false);})
-            //     .AddTo(ref builder);
+            _inputHandler.BaitButton.IsUpAfterHeld
+                .IgnoreFirstValueWhenSubscribe()
+                .Where(x => x)
+                .Subscribe(_ => { SetActive(false);})
+                .AddTo(ref builder);
             _inputHandler.BaitSelectInput
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()

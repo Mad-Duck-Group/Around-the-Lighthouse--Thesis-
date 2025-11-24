@@ -58,7 +58,6 @@ namespace HasanSadikin.Carousel
                 oldSeq.Stop();
             }
             Vector2 targetPos = new Vector2(endValue, rectTransform.anchoredPosition.y);
-            Debug.Log("[Pos] offset = " + _offsetX + " from " + gameObject.name);
             var tween = Tween.UIAnchoredPosition(rectTransform, targetPos, duration, _ease);
             var seq = Sequence.Create().Group(tween);
             
