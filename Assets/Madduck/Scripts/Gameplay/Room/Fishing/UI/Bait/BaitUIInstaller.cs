@@ -20,12 +20,18 @@ namespace Madduck.Room
 
         [Required,
          SerializeField]private PointingBaitView pointingBaitView;
+        
         [Required,
          SerializeField] private PointingBaitConfig pointingBaitConfig;
+        [Required,
+         SerializeField] private BaitDetailPanel _baitDetailPanel;
         [Required,
          SerializeField] private CarouselController _carouselController;
         [Required,
          SerializeField]private BaitUITriggerConfig baitUITriggerConfig;
+        [Required,
+        SerializeField] private HorizontalCarouselItemPositioner positioner;
+
         
         public void Install(IContainerBuilder builder)
         {
@@ -33,9 +39,13 @@ namespace Madduck.Room
                 .As<IFactory<BaitButtonView>>();
             builder.Register(_ => pointingBaitConfig, Lifetime.Singleton).As<PointingBaitConfig>();
             builder.Register(_ => baitUITriggerConfig, Lifetime.Singleton).As<BaitUITriggerConfig>();
+            builder.Register(_ => _baitDetailPanel, Lifetime.Singleton).As<BaitDetailPanel>();
+
             builder.Register<BaitSelectionViewModel>(Lifetime.Singleton);
+            builder.Register<PointingBaitViewModel>(Lifetime.Singleton);
             builder.RegisterEntryPoint<BaitController>(Lifetime.Singleton).AsSelf();
-            builder.Register<ICarouselItemPositioner, HorizontalCarouselItemPositioner>(Lifetime.Singleton);
+            builder.RegisterComponent(positioner)
+                .As<ICarouselItemPositioner>();
             builder.RegisterComponent(_carouselController);
             builder.RegisterComponent(pointingBaitView).As<PointingBaitView>();
             
@@ -43,6 +53,7 @@ namespace Madduck.Room
             builder.RegisterBuildCallback(x =>
             {
                 x.Resolve<BaitSelectionViewModel>();
+                x.Resolve<PointingBaitViewModel>();
                 x.Resolve<BaitController>();
 
             });

@@ -27,6 +27,7 @@ namespace Madduck.Room
         private readonly GameObject _uiAfterTriggerBait;
         private readonly CarouselController _carousel;
         private readonly InputInstructionManager _inputInstructionManager;
+        private readonly PointingBaitViewModel _pointingBaitViewModel;
         
         private BaitItemInstance _pendingBait;
         private bool _interactable = true;
@@ -41,7 +42,8 @@ namespace Madduck.Room
             ISubscriber<FishingStateEvent> fishingStateSubscriber,
             BaitUITriggerConfig baitTriggerConfig,
             CarouselController carousel,
-            InputInstructionManager inputInstructionManager)
+            InputInstructionManager inputInstructionManager,
+            PointingBaitViewModel pointingBaitViewModel)
         {
             _inputHandler = inputHandler;
             _playerInventory = playerInventory;
@@ -50,6 +52,7 @@ namespace Madduck.Room
             _uiAfterTriggerBait = baitTriggerConfig.after;
             _carousel = carousel;
             _inputInstructionManager = inputInstructionManager;
+            _pointingBaitViewModel = pointingBaitViewModel;
         }
         
         public void Start()
@@ -68,17 +71,18 @@ namespace Madduck.Room
                 .Where(x => x)
                 .Subscribe(_ => { SetActive(!_isActive);})
                 .AddTo(ref builder);
-            // _inputHandler.BaitButton.IsUpAfterHeld
-            //     .IgnoreFirstValueWhenSubscribe()
-            //     .Where(x => x)
-            //     .Subscribe(_ => { SetActive(false);})
-            //     .AddTo(ref builder);
+            _inputHandler.BaitButton.IsUpAfterHeld
+                .IgnoreFirstValueWhenSubscribe()
+                .Where(x => x)
+                .Subscribe(_ => { SetActive(false);})
+                .AddTo(ref builder);
             _inputHandler.BaitSelectInput
                 .IgnoreFirstValueWhenSubscribe()
-                .ThrottleFirst(TimeSpan.FromMilliseconds(100))//block spam
+                .DistinctUntilChanged()
                 .Where(_ => _interactable)
                 .Subscribe(value =>
                 {
+                    _pointingBaitViewModel.UpdateInput(value);
                     switch (value)
                     {
                         case > 0:
@@ -90,8 +94,8 @@ namespace Madduck.Room
                             _carousel.Previous();
                             break;
                     }
-                })
-                .AddTo(ref builder);
+                });
+            
             _carousel.OnInitialized
                 .Where(_ => _carousel.HasItems)
                 .Subscribe(_ =>

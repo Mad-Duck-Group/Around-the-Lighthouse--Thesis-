@@ -10,11 +10,14 @@ namespace Madduck.Room
         [Title("References")]
         [Required, 
          SerializeField] private Image icon;
+        [Required,
+         SerializeField] private Image aura;
         
         #region SetUp
-        public void SetUp(Sprite sprite)
+        public void SetUp(Sprite iconSprite,Sprite spriteAura)
         {
-            icon.sprite = sprite;
+            icon.sprite = iconSprite;
+            aura.sprite = spriteAura;
         }
 
         #endregion

@@ -6,7 +6,7 @@ namespace Madduck.Room
 {
     public class DayRoomSpriteConfig 
     {
-        public SerializableDictionary<DayRoomKey, Sprite> FutureSprites;
-        public SerializableDictionary<DayRoomKey, Sprite> PastSprites;
+        public SerializableDictionary<DayRoomKey, DayRoomSprite> FutureSprites;
+        public SerializableDictionary<DayRoomKey, DayRoomSprite> PastSprites;
     }
 }

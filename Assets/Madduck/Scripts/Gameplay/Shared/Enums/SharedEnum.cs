@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace Madduck.Shared
 {
     [Flags]
@@ -20,7 +20,12 @@ namespace Madduck.Shared
         Unselected,
         Selected,
     }
-    
+    public enum PointingDirection
+    {
+        None,
+        Left,
+        Right
+    }
     public enum InputIconType
     {
         X,

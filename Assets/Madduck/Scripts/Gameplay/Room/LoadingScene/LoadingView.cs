@@ -45,7 +45,7 @@ namespace Madduck.Room
         
         private void SetSea()
         {
-            seaText.text = $"Blue Sea ";
+            seaText.text = $"Seagull Bay";
         }
         
         private void OnDestroy()
