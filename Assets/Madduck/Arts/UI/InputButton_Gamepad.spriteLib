@@ -112,8 +112,13 @@ MonoBehaviour:
       m_Sprite: {fileID: 0}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 0}
+    - m_Name: LeftRight
+      m_Hash: 223924583
+      m_Sprite: {fileID: -8172280553134404228, guid: 710b370305b485c4983cf02cd7eaaef6, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -8172280553134404228, guid: 710b370305b485c4983cf02cd7eaaef6, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 19
+    m_EntryOverrideCount: 20
   - m_Name: QTE
     m_Hash: 173977818
     m_CategoryList: []
@@ -141,5 +146,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 4
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638995973651933887
+  m_ModificationHash: 638996140100647166
   m_Version: 1

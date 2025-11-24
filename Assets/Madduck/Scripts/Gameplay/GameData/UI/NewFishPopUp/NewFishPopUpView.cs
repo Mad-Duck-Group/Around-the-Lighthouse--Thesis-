@@ -82,15 +82,20 @@ namespace Madduck.GameData
         
         private void AnimateQualityStar(FishQuality fishQuality)
         {
+            if (fishQuality is FishQuality.None)
+            {
+                qualityStarAnimator.gameObject.SetActive(false);
+                return;
+            }
             switch (fishQuality)
             {
-                case FishQuality.Common:
+                case FishQuality.Copper:
                     qualityStarAnimator.Play("Copper");
                     break;
-                case FishQuality.Good:
+                case FishQuality.Silver:
                     qualityStarAnimator.Play("Silver");
                     break;
-                case FishQuality.Premium:
+                case FishQuality.Gold:
                     qualityStarAnimator.Play("Gold");
                     break;
                 default:

@@ -331,10 +331,12 @@ namespace Madduck.Fishing.Controller
         public async UniTask ReturnHook()
         {
             await _playerAnimator.Set(PlayerAnimationKey.GotFish, 0, false).WaitUntilEvent(ThrowEventName);
-            await UniTask.WhenAll(
-                _hookFactory.Current.Return(),
-                _fishSpriteFactory.Current.TransitionOut());
-            _fishSpriteFactory.DestroyFishSprite();
+            _fishSpriteFactory.Current.TransitionOut()
+                .ContinueWith(() =>
+            {
+                _fishSpriteFactory.DestroyFishSprite();
+            }).Forget();
+            await _hookFactory.Current.Return();
             _hookFactory.DestroyHook();
         }
         #endregion

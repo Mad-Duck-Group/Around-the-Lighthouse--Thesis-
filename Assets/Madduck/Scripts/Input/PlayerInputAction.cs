@@ -610,7 +610,7 @@ namespace Madduck.Scripts.Input
                 {
                     ""name"": """",
                     ""id"": ""1561da61-86c2-4212-9311-79f903b9037f"",
-                    ""path"": ""<Keyboard>/x"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Mouse & Keyboard"",

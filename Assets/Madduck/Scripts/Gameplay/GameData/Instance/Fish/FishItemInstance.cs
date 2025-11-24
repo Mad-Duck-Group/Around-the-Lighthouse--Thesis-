@@ -13,9 +13,10 @@ namespace Madduck.GameData
 {
     public enum FishQuality
     {
-        Common,
-        Good,
-        Premium
+        None,
+        Copper,
+        Silver,
+        Gold
     }
     
     [Serializable]

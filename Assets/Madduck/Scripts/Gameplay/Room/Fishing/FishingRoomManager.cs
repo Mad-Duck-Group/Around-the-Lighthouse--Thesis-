@@ -122,6 +122,8 @@ namespace Madduck.Room
                 .AddTo(ref disposableBuilder);
             _fishEmergedEventSubscriber.Subscribe(OnFishEmerged)
                 .AddTo(ref disposableBuilder);
+            _fishCaughtEventSubscriber.Subscribe(OnFishCaught)
+                .AddTo(ref disposableBuilder);
             _loadSceneStageEventSubscriber
                 .AsObservable().ToObservable()
                 .Where(x => x.Stage is LoadSceneStage.FinishLoading)

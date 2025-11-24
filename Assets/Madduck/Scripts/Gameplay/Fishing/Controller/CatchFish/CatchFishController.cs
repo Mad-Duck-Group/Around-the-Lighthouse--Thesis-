@@ -144,7 +144,13 @@ namespace Madduck.Fishing.Controller
                     _startSlowMo.Dispose();
                     StartSlowMo().Forget();
                 });
-            if (isBoss) sprite.TransitionOut().Forget();
+            if (isBoss)
+            {
+                sprite.TransitionOut().ContinueWith(() =>
+                {
+                    _fishSpriteFactory.DestroyFishSprite();
+                }).Forget();
+            }
             await hook.DramaticReturn();
             if (!isBoss)
             {

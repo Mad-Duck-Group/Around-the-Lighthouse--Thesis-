@@ -155,7 +155,7 @@ namespace Madduck.Room
                 {
                     new InputInstruction
                     {
-                        key = "Dpad",
+                        key = "LeftRight",
                         description = "Cycle Bait"
                     },
                     new InputInstruction

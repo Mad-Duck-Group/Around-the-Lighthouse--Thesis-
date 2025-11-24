@@ -167,9 +167,11 @@ namespace Madduck.Fishing.Controller
         {
             _fishSpriteFactory.Current.Detach();
             await _playerAnimator.Set(PlayerAnimationKey.GotFish, 0, false).WaitUntilEvent(ThrowEventName); 
-            await UniTask.WhenAll(
-                _hookFactory.Current.Return(),
-                _fishSpriteFactory.Current.TransitionOut());
+            _fishSpriteFactory.Current.TransitionOut().ContinueWith(() =>
+            {
+                _fishSpriteFactory.DestroyFishSprite();
+            }).Forget();
+            await _hookFactory.Current.Return();
             _fishSpriteFactory.DestroyFishSprite();
             _hookFactory.DestroyHook();
         }
