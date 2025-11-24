@@ -76,7 +76,7 @@ namespace Madduck.Input
         [Serializable]
         public record InputButton(InputAction InputAction)
         {
-            public InputAction InputAction { get; private set; } = InputAction;
+            public InputAction InputAction { get; internal set; } = InputAction;
 
             [ShowInInspector, DisplayAsString]
             public string ButtonName =>

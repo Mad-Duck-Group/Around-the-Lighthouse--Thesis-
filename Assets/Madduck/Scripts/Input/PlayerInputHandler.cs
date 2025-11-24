@@ -45,9 +45,9 @@ namespace Madduck.Input
         #region Buttons
 
         [field: ReadOnly, 
-                ShowInInspector] public InputButton InteractButton { get; private set; }
+                ShowInInspector] public InputButton InteractButton { get; private set; } = new(null);
         [field: ReadOnly, 
-                ShowInInspector] public InputButton JerkBaitButton { get; private set; }
+                ShowInInspector] public InputButton JerkBaitButton { get; private set; } = new(null);
         
         public InputBinding[] JerkBindings
         {
@@ -62,17 +62,17 @@ namespace Madduck.Input
         }
         
         [field: ReadOnly, 
-                ShowInInspector] public InputButton Action0Button { get; private set; }
+                ShowInInspector] public InputButton Action0Button { get; private set; } = new(null);
         [field: ReadOnly, 
-                ShowInInspector] public InputButton Action1Button { get; private set; }
+                ShowInInspector] public InputButton Action1Button { get; private set; } = new(null);
         [field: ReadOnly, 
-                ShowInInspector] public InputButton ReelingButton { get; private set; }
+                ShowInInspector] public InputButton ReelingButton { get; private set; } = new(null);
         [field: ReadOnly, 
-                ShowInInspector]public InputButton BaitButton { get; private set; }
+                ShowInInspector]public InputButton BaitButton { get; private set; } = new(null);
         [field: ReadOnly, 
-                ShowInInspector]public InputButton ConfirmBaitButton { get; private set; }
+                ShowInInspector]public InputButton ConfirmBaitButton { get; private set; } = new(null);
         [field: ReadOnly, 
-                ShowInInspector] public InputButton PauseGameButton { get; private set; }
+                ShowInInspector] public InputButton PauseGameButton { get; private set; } = new(null);
 
         #endregion
         
@@ -113,14 +113,14 @@ namespace Madduck.Input
 
         private void RegisterInputAction()
         {
-            InteractButton = new InputButton(_playerInputAction.Player.Interact);
-            JerkBaitButton = new InputButton(_playerInputAction.Player.JerkBait);
-            Action0Button = new InputButton(_playerInputAction.Player.Action0);
-            Action1Button = new InputButton(_playerInputAction.Player.Action1);
-            ReelingButton = new InputButton(_playerInputAction.Player.Reeling);
-            PauseGameButton = new InputButton(_playerInputAction.Player.PauseGame);
-            BaitButton = new InputButton(_playerInputAction.Player.ToggleBait);
-            ConfirmBaitButton = new InputButton(_playerInputAction.Player.ConfirmBait);
+            InteractButton.InputAction = _playerInputAction.Player.Interact;
+            JerkBaitButton.InputAction = _playerInputAction.Player.JerkBait;
+            Action0Button.InputAction = _playerInputAction.Player.Action0;
+            Action1Button.InputAction = _playerInputAction.Player.Action1;
+            ReelingButton.InputAction = _playerInputAction.Player.Reeling;
+            PauseGameButton.InputAction = _playerInputAction.Player.PauseGame;
+            BaitButton.InputAction = _playerInputAction.Player.ToggleBait;
+            ConfirmBaitButton.InputAction = _playerInputAction.Player.ConfirmBait;
         }
 
         #endregion

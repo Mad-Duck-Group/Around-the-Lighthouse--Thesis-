@@ -314,6 +314,13 @@ MonoBehaviour:
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
+  openingSfx:
+    Guid:
+      Data1: -835223768
+      Data2: 1204838244
+      Data3: 812211623
+      Data4: 333518328
+    Path: event:/SFX/NewFish
 --- !u!1 &3528193366047881869
 GameObject:
   m_ObjectHideFlags: 0

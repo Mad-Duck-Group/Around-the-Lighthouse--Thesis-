@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using FMODUnity;
+using Madduck.Audio;
 using Madduck.Input;
 using Madduck.Shared;
 using Madduck.Utils;
@@ -44,6 +46,9 @@ namespace Madduck.GameData
         [SerializeField] private TweenSettings<float> canvasAlphaTweenSettings;
         [SerializeField] private TweenSettings<float> backgroundAlphaTweenSettings;
         
+        [Title("Audio")]
+        [SerializeField] public EventReference openingSfx;
+        
         [Title("Debug")]
         [Button("Preview Transition")]
         private void PreviewTransition(bool active)
@@ -58,6 +63,7 @@ namespace Madduck.GameData
         public event Action OnOpen;
         public event Action OnClose;
         private IPlayerInputHandler _inputHandler;
+        private IAudioManager _audioManager;
         private readonly List<ItemIconView> _itemIconViews = new();
         private Sequence _transitionSequence;
         private IDisposable _bindings;
@@ -65,9 +71,12 @@ namespace Madduck.GameData
         #endregion
 
         #region Injection
-        public void SetUp(IPlayerInputHandler inputHandler)
+        public void SetUp(
+            IPlayerInputHandler inputHandler,
+            IAudioManager audioManager)
         {
             _inputHandler = inputHandler;
+            _audioManager = audioManager;
         }
         
         public void SetPopUpObject(FishableItemPopUpObject popUpObject)
@@ -124,6 +133,7 @@ namespace Madduck.GameData
 
         public async UniTask Show(CancellationToken cancellationToken = default)
         {
+            _audioManager.PlayAudioOneShot(openingSfx, Vector3.zero);
             await TransitionIn(cancellationToken);
             await _itemIconViews.Select(x => x.TransitionIn(cancellationToken));
             Bind();

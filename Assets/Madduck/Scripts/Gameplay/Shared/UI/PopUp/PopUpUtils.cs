@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.Audio;
 using Madduck.Input;
 using Madduck.Utils;
 using R3;
@@ -20,7 +21,7 @@ namespace Madduck.Shared
     public interface IPopUpView<in T> : IModal where T : IPopUpObject
     {
         public void SetPopUpObject(T popUpObject);
-        public void SetUp(IPlayerInputHandler inputHandler);
+        public void SetUp(IPlayerInputHandler inputHandler, IAudioManager audioManager);
     }
 
     public interface IPopUpFactory<in T> : IFactory<IPopUpView<T>>
@@ -48,6 +49,7 @@ namespace Madduck.Shared
         //protected IDisposable subscriptions;
         
         [Inject] private readonly IPlayerInputHandler _inputHandler;
+        [Inject] private readonly IAudioManager _audioManager;
         
         public virtual IPopUpView<T> Create()
         {
@@ -68,7 +70,7 @@ namespace Madduck.Shared
             //     h => Current.OnClose += h,
             //     h => Current.OnClose -= h)
             //     .Subscribe(_ => DestroyPopUp());
-            Current.SetUp(_inputHandler);
+            Current.SetUp(_inputHandler, _audioManager);
             return Current;
         }
         

@@ -7,6 +7,7 @@ using Madduck.Audio;
 using Madduck.Core;
 using Madduck.Day;
 using Madduck.GameData;
+using Madduck.Input;
 using Madduck.Shared;
 using Madduck.Utils;
 using MessagePipe;
@@ -49,6 +50,7 @@ namespace Madduck.Room
         private readonly MessagePackSaveManager _saveManager;
         private readonly LoadSceneManager _loadSceneManager;
         private readonly DayManager _dayManager;
+        private readonly IPlayerInputHandler _inputHandler;
         private readonly IAudioManager _audioManager;
         private readonly IFactory<WeatherItemInstance> _weatherFactory;
         private readonly IFactory<uint> _maxFishCountFactory;
@@ -80,6 +82,7 @@ namespace Madduck.Room
             MessagePackSaveManager saveManager,
             LoadSceneManager loadSceneManager,
             DayManager dayManager,
+            IPlayerInputHandler inputHandler,
             IAudioManager audioManager,
             IFactory<WeatherItemInstance> weatherFactory,
             [Key(DIConstants.MaxFishCountFactoryId)] IFactory<uint> maxFishCountFactory,
@@ -97,6 +100,7 @@ namespace Madduck.Room
             _saveManager = saveManager;
             _loadSceneManager = loadSceneManager;
             _dayManager = dayManager;
+            _inputHandler = inputHandler;
             _weatherFactory = weatherFactory;
             _maxFishCountFactory = maxFishCountFactory;
             _audioManager = audioManager;
@@ -118,6 +122,11 @@ namespace Madduck.Room
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
+            _inputHandler.PauseGameButton.IsDown
+                .IgnoreFirstValueWhenSubscribe()
+                .Where(x => x)
+                .Subscribe(_ => OnSecretReset())
+                .AddTo(ref disposableBuilder);
             _fishEscapedEventSubscriber.Subscribe(OnFishEscaped)
                 .AddTo(ref disposableBuilder);
             _fishEmergedEventSubscriber.Subscribe(OnFishEmerged)
@@ -170,6 +179,11 @@ namespace Madduck.Room
             _bgmCts = new();
             _audioManager.StopAudio(_bgm);
             _audioManager.StopAudio(_ambient);
+        }
+
+        private void OnSecretReset()
+        {
+            ToMainMenu();
         }
 
         [Button("To Main Menu")]

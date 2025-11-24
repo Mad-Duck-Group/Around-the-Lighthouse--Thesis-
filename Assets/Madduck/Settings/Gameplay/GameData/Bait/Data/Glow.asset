@@ -107,7 +107,7 @@ MonoBehaviour:
   <ItemType>k__BackingField: 4
   <BaitType>k__BackingField: 8
   <BaitName>k__BackingField: Glow Lure
-  <BaitDescription>k__BackingField: A bait coated with luminescent substance. Better
-    not touch it with your bare hands.
+  <BaitDescription>k__BackingField: A glowing lure from sea weed. Lure the fish that
+    is sensitive to light from the very deep sea.
   <BaitIcon>k__BackingField: {fileID: 21300000, guid: 5618cbbb0f7fe674c9c1c18b48c0636c, type: 3}
   <BaitSelectedIcon>k__BackingField: {fileID: 21300000, guid: 6bdc73ff0bcc02846975ef7f94171537, type: 3}

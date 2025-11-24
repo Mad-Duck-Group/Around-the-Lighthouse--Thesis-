@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using R3;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,11 +12,11 @@ namespace Madduck.Room
     {
         [Title("References")]
         [Required, 
-         SerializeField] private Button sailingButton;
+         SerializeField] private MainMenuButtonView sailingButton;
         [Required,
-         SerializeField] private Button settingsButton;
+         SerializeField] private MainMenuButtonView settingsButton;
         [Required,
-         SerializeField] private Button quitButton;
+         SerializeField] private MainMenuButtonView quitButton;
         
         private MainMenuViewModel _viewModel;
         private IDisposable _bindings;
@@ -27,19 +28,44 @@ namespace Madduck.Room
             Bind();
         }
 
+        private void Start()
+        {
+            sailingButton.TransitionIn().Forget();
+            settingsButton.TransitionIn().Forget();
+            quitButton.TransitionIn().Forget();
+        }
+
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            sailingButton.OnClickAsObservable()
-                .Subscribe(_ => _viewModel.SailingButtonCommand.Execute())
+            sailingButton.Button.OnClickAsObservable()
+                .SubscribeAwait((_, _) => OnSailingButtonClicked(), AwaitOperation.Drop)
                 .AddTo(ref disposableBuilder);
-            settingsButton.OnClickAsObservable()
-                .Subscribe(_ => _viewModel.SettingsButtonCommand.Execute())
+            settingsButton.Button.OnClickAsObservable()
+                .SubscribeAwait((_, _) => OnSettingsButtonClicked(), AwaitOperation.Drop)
                 .AddTo(ref disposableBuilder);
-            quitButton.OnClickAsObservable()
-                .Subscribe(_ => _viewModel.QuitButtonCommand.Execute())
+            quitButton.Button.OnClickAsObservable()
+                .SubscribeAwait((_, _) => OnQuitButtonClicked(), AwaitOperation.Drop)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
+        }
+        
+        private async UniTask OnSailingButtonClicked()
+        {
+            await sailingButton.TransitionOut();
+            _viewModel.SailingButtonCommand.Execute();
+        }
+
+        private async UniTask OnSettingsButtonClicked()
+        {
+            await settingsButton.TransitionOut();
+            _viewModel.SettingsButtonCommand.Execute();
+        }
+        
+        private async UniTask OnQuitButtonClicked()
+        {
+            await quitButton.TransitionOut();
+            _viewModel.QuitButtonCommand.Execute();
         }
 
         private void OnDestroy()

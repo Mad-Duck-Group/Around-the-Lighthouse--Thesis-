@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
 using Madduck.Input;
 using Madduck.Shared;
 using Madduck.Utils;
@@ -59,15 +60,19 @@ namespace Madduck.GameData
         public event Action OnOpen;
         public event Action OnClose;
         private IPlayerInputHandler _inputHandler;
+        private IAudioManager _audioManager;
         private Sequence _transitionSequence;
         private IDisposable _bindings;
         
         #endregion
 
         #region Injection
-        public void SetUp(IPlayerInputHandler inputHandler)
+        public void SetUp(
+            IPlayerInputHandler inputHandler,
+            IAudioManager audioManager)
         {
             _inputHandler = inputHandler;
+            _audioManager = audioManager;
         }
         
         public void SetPopUpObject(EndGamePopUpObject popUpObject)

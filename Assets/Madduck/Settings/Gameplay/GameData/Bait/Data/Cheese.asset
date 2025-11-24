@@ -107,7 +107,7 @@ MonoBehaviour:
   <ItemType>k__BackingField: 4
   <BaitType>k__BackingField: 1
   <BaitName>k__BackingField: Cheese
-  <BaitDescription>k__BackingField: Cheese from your own pantry. Sorry, rat, but
-    I need it for fishing.
+  <BaitDescription>k__BackingField: The hardest cheese from the best breed of cow.
+    Lure common fish around the sea.
   <BaitIcon>k__BackingField: {fileID: 21300000, guid: 4ee3414ec01581d4f9c4ccd62a40511b, type: 3}
   <BaitSelectedIcon>k__BackingField: {fileID: 21300000, guid: ffab6b88891b7614bb9f9a0a6eea6714, type: 3}

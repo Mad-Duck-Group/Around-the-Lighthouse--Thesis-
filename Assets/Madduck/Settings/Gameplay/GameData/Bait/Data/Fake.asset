@@ -107,7 +107,7 @@ MonoBehaviour:
   <ItemType>k__BackingField: 4
   <BaitType>k__BackingField: 4
   <BaitName>k__BackingField: Sock
-  <BaitDescription>k__BackingField: A smelly sock. Some fish might mistaken it for
-    a dead bait.
+  <BaitDescription>k__BackingField: An old rotten sock. Lure the fish that is sensitive
+    to strong smell.
   <BaitIcon>k__BackingField: {fileID: 21300000, guid: 34bcca6e6de6d9f4080a2b4980c3c361, type: 3}
   <BaitSelectedIcon>k__BackingField: {fileID: 21300000, guid: e65375ea1cd922e4a9b3e18ef582e35e, type: 3}

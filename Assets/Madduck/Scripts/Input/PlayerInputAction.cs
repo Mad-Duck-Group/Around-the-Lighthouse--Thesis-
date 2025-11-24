@@ -478,10 +478,10 @@ namespace Madduck.Scripts.Input
                 {
                     ""name"": """",
                     ""id"": ""fc061be7-b44e-4c5d-a80e-f102b06233d4"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""path"": ""<Keyboard>/f12"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse & Keyboard"",
+                    ""groups"": ""Mouse & Keyboard;Touchscreen"",
                     ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
