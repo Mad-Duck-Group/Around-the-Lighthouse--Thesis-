@@ -476,6 +476,83 @@ MonoBehaviour:
   zPosition: 1
   overrideAlpha: 1
   hierarchy: {fileID: 1049064795}
+--- !u!1 &43575292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 43575293}
+  - component: {fileID: 43575295}
+  - component: {fileID: 43575294}
+  m_Layer: 5
+  m_Name: BaitDetailPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &43575293
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43575292}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1736633984}
+  - {fileID: 1496673180}
+  m_Father: {fileID: 501662734}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 146.82149, y: 43.023438}
+  m_SizeDelta: {x: 293.653, y: 177.0468}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &43575294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43575292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c4c4c80e9611cc949817470283eea898, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &43575295
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43575292}
+  m_CullTransparentMesh: 1
 --- !u!1 &69890822
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &69890823
 RectTransform:
   m_ObjectHideFlags: 0
@@ -683,7 +760,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -791, y: -449}
+  m_AnchoredPosition: {x: -791, y: -392}
   m_SizeDelta: {x: 356, y: 206}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &109814196
@@ -1423,6 +1500,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: a315e08eedc32904ca2dfffe2a493cd4, type: 3}
     - {fileID: 21300000, guid: abaf9b718b9a0f945bdac09b41cc65fd, type: 3}
     - {fileID: 21300000, guid: f8036c9719961cb4fbcc59d6a495459d, type: 3}
+    - {fileID: 1736633985}
+    - {fileID: 1496673181}
     - {fileID: 1509513885}
     - {fileID: 1830195675}
     - {fileID: 501662733}
@@ -1670,36 +1749,48 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: _carouselController
+    - Name: _baitDetailPanel
+      Entry: 7
+      Data: 9|Madduck.Room.BaitDetailPanel, Madduck.Room
+    - Name: baitNameText
       Entry: 10
       Data: 12
+    - Name: baitDescriptionText
+      Entry: 10
+      Data: 13
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _carouselController
+      Entry: 10
+      Data: 14
     - Name: baitUITriggerConfig
       Entry: 7
       Data: Madduck.Room.BaitUITriggerConfig, Madduck.Room
     - Name: before
       Entry: 10
-      Data: 13
+      Data: 15
     - Name: after
       Entry: 10
-      Data: 14
+      Data: 16
     - Name: 
       Entry: 8
       Data: 
     - Name: positioner
       Entry: 10
-      Data: 15
+      Data: 17
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 9|Madduck.Room.CardUIInstaller, Madduck.Room
+      Data: 10|Madduck.Room.CardUIInstaller, Madduck.Room
     - Name: cardViewFactory
       Entry: 7
-      Data: 10|Madduck.Room.CardViewFactory, Madduck.Room
+      Data: 11|Madduck.Room.CardViewFactory, Madduck.Room
     - Name: cardViewPrefab
       Entry: 10
-      Data: 16
+      Data: 18
     - Name: parent
       Entry: 6
       Data: 
@@ -1717,76 +1808,34 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 11|Madduck.Room.FishCountUIInstaller, Madduck.Room
+      Data: 12|Madduck.Room.FishCountUIInstaller, Madduck.Room
     - Name: fishCountView
       Entry: 10
-      Data: 17
+      Data: 19
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 12|Madduck.Room.DayCountInstaller, Madduck.Room
+      Data: 13|Madduck.Room.DayCountInstaller, Madduck.Room
     - Name: dayCountView
       Entry: 10
-      Data: 18
+      Data: 20
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 13|Madduck.Room.ItemPopUpInstaller, Madduck.Room
+      Data: 14|Madduck.Room.ItemPopUpInstaller, Madduck.Room
     - Name: _fishableItemPopUpFactory
       Entry: 7
-      Data: 14|Madduck.GameData.FishableItemPopUpFactory, Madduck.GameData
+      Data: 15|Madduck.GameData.FishableItemPopUpFactory, Madduck.GameData
     - Name: popUpParent
-      Entry: 10
-      Data: 19
-    - Name: <PopUpCanvas>k__BackingField
-      Entry: 10
-      Data: 20
-    - Name: prefabMode
-      Entry: 5
-      Data: true
-    - Name: popUpView
-      Entry: 6
-      Data: 
-    - Name: popUpViewPrefab
       Entry: 10
       Data: 21
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: _newFishPopUpFactory
-      Entry: 7
-      Data: 15|Madduck.GameData.NewFishPopUpFactory, Madduck.GameData
-    - Name: popUpParent
-      Entry: 10
-      Data: 19
     - Name: <PopUpCanvas>k__BackingField
-      Entry: 10
-      Data: 20
-    - Name: prefabMode
-      Entry: 5
-      Data: true
-    - Name: popUpView
-      Entry: 6
-      Data: 
-    - Name: popUpViewPrefab
       Entry: 10
       Data: 22
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: _endGamePopUpFactory
-      Entry: 7
-      Data: 16|Madduck.GameData.EndGamePopUpFactory, Madduck.GameData
-    - Name: popUpParent
-      Entry: 10
-      Data: 19
-    - Name: <PopUpCanvas>k__BackingField
-      Entry: 10
-      Data: 20
     - Name: prefabMode
       Entry: 5
       Data: true
@@ -1799,45 +1848,87 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: _newFishPopUpFactory
+      Entry: 7
+      Data: 16|Madduck.GameData.NewFishPopUpFactory, Madduck.GameData
+    - Name: popUpParent
+      Entry: 10
+      Data: 21
+    - Name: <PopUpCanvas>k__BackingField
+      Entry: 10
+      Data: 22
+    - Name: prefabMode
+      Entry: 5
+      Data: true
+    - Name: popUpView
+      Entry: 6
+      Data: 
+    - Name: popUpViewPrefab
+      Entry: 10
+      Data: 24
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
+    - Name: _endGamePopUpFactory
       Entry: 7
-      Data: 17|Madduck.Room.RoomTrackUIInstaller, Madduck.Room
-    - Name: roomTrackFactory
-      Entry: 7
-      Data: 18|Madduck.Room.RoomTrackFactory, Madduck.Room
-    - Name: prefab
+      Data: 17|Madduck.GameData.EndGamePopUpFactory, Madduck.GameData
+    - Name: popUpParent
       Entry: 10
-      Data: 24
-    - Name: parent
+      Data: 21
+    - Name: <PopUpCanvas>k__BackingField
+      Entry: 10
+      Data: 22
+    - Name: prefabMode
+      Entry: 5
+      Data: true
+    - Name: popUpView
+      Entry: 6
+      Data: 
+    - Name: popUpViewPrefab
       Entry: 10
       Data: 25
     - Name: 
       Entry: 8
       Data: 
-    - Name: boatTrackViewFactory
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
-      Data: 19|Madduck.Room.BoatTrackViewFactory, Madduck.Room
+      Data: 18|Madduck.Room.RoomTrackUIInstaller, Madduck.Room
+    - Name: roomTrackFactory
+      Entry: 7
+      Data: 19|Madduck.Room.RoomTrackFactory, Madduck.Room
     - Name: prefab
       Entry: 10
       Data: 26
     - Name: parent
       Entry: 10
       Data: 27
-    - Name: defaultBoatSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: boatTrackViewFactory
+      Entry: 7
+      Data: 20|Madduck.Room.BoatTrackViewFactory, Madduck.Room
+    - Name: prefab
       Entry: 10
       Data: 28
+    - Name: parent
+      Entry: 10
+      Data: 29
+    - Name: defaultBoatSprite
+      Entry: 10
+      Data: 30
     - Name: 
       Entry: 8
       Data: 
     - Name: dayRoomSpriteConfig
       Entry: 7
-      Data: 20|Madduck.Room.DayRoomSpriteConfig, Madduck.Room
+      Data: 21|Madduck.Room.DayRoomSpriteConfig, Madduck.Room
     - Name: FutureSprites
       Entry: 7
-      Data: 21|Madduck.Utils.SerializableDictionary`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
+      Data: 22|Madduck.Utils.SerializableDictionary`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
         Madduck.Day]], Madduck.Utils
     - Name: 
       Entry: 12
@@ -1852,37 +1943,6 @@ MonoBehaviour:
     - Name: dayPhase
       Entry: 3
       Data: 1
-    - Name: room
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 22|Madduck.Day.DayRoomSprite, Madduck.Day
-    - Name: iconSprite
-      Entry: 10
-      Data: 29
-    - Name: auraSprite
-      Entry: 10
-      Data: 30
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
-        Madduck.Day]], mscorlib
-    - Name: 
-      Entry: 7
-      Data: Madduck.Day.DayRoomKey, Madduck.Day
-    - Name: dayPhase
-      Entry: 3
-      Data: 2
     - Name: room
       Entry: 3
       Data: 0
@@ -1913,10 +1973,10 @@ MonoBehaviour:
       Data: Madduck.Day.DayRoomKey, Madduck.Day
     - Name: dayPhase
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: room
       Entry: 3
-      Data: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -1936,6 +1996,37 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
+        Madduck.Day]], mscorlib
+    - Name: 
+      Entry: 7
+      Data: Madduck.Day.DayRoomKey, Madduck.Day
+    - Name: dayPhase
+      Entry: 3
+      Data: 3
+    - Name: room
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 25|Madduck.Day.DayRoomSprite, Madduck.Day
+    - Name: iconSprite
+      Entry: 10
+      Data: 35
+    - Name: auraSprite
+      Entry: 10
+      Data: 36
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -1943,7 +2034,7 @@ MonoBehaviour:
       Data: 
     - Name: PastSprites
       Entry: 7
-      Data: 25|Madduck.Utils.SerializableDictionary`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
+      Data: 26|Madduck.Utils.SerializableDictionary`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
         Madduck.Day]], Madduck.Utils
     - Name: 
       Entry: 12
@@ -1966,13 +2057,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 26|Madduck.Day.DayRoomSprite, Madduck.Day
+      Data: 27|Madduck.Day.DayRoomSprite, Madduck.Day
     - Name: iconSprite
       Entry: 10
-      Data: 35
+      Data: 37
     - Name: auraSprite
       Entry: 10
-      Data: 30
+      Data: 32
     - Name: 
       Entry: 8
       Data: 
@@ -1997,13 +2088,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 27|Madduck.Day.DayRoomSprite, Madduck.Day
+      Data: 28|Madduck.Day.DayRoomSprite, Madduck.Day
     - Name: iconSprite
       Entry: 10
-      Data: 36
+      Data: 38
     - Name: auraSprite
       Entry: 10
-      Data: 32
+      Data: 34
     - Name: 
       Entry: 8
       Data: 
@@ -2024,19 +2115,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 28|Madduck.Room.CardSelectionInstaller, Madduck.Room
+      Data: 29|Madduck.Room.CardSelectionInstaller, Madduck.Room
     - Name: cardSelectionScreenView
       Entry: 10
-      Data: 37
+      Data: 39
     - Name: cardSelectionFactory
       Entry: 7
-      Data: 29|Madduck.Room.CardSelectionFactory, Madduck.Room
+      Data: 30|Madduck.Room.CardSelectionFactory, Madduck.Room
     - Name: prefab
       Entry: 10
-      Data: 38
+      Data: 40
     - Name: parent
       Entry: 10
-      Data: 39
+      Data: 41
     - Name: 
       Entry: 8
       Data: 
@@ -2045,13 +2136,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 30|Madduck.Room.InputUIIconHandlerInstaller, Assembly-CSharp
+      Data: 31|Madduck.Room.InputUIIconHandlerInstaller, Assembly-CSharp
     - Name: inputUIIconView
       Entry: 10
-      Data: 40
+      Data: 42
     - Name: inputIconData
       Entry: 10
-      Data: 41
+      Data: 43
     - Name: 
       Entry: 8
       Data: 
@@ -2063,10 +2154,10 @@ MonoBehaviour:
       Data: 
     - Name: weatherFactoryMock
       Entry: 7
-      Data: 31|Madduck.GameData.WeatherFactoryMock, Madduck.GameData
+      Data: 32|Madduck.GameData.WeatherFactoryMock, Madduck.GameData
     - Name: fixedWeather
       Entry: 10
-      Data: 42
+      Data: 44
     - Name: spoofDirection
       Entry: 5
       Data: true
@@ -2084,7 +2175,7 @@ MonoBehaviour:
       Data: 
     - Name: maxFishCountFactoryMock
       Entry: 7
-      Data: 32|Madduck.GameData.MaxFishCountFactoryMock, Madduck.GameData
+      Data: 33|Madduck.GameData.MaxFishCountFactoryMock, Madduck.GameData
     - Name: fixedMaxFishCount
       Entry: 3
       Data: 1
@@ -2217,7 +2308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 537794496}
+  m_Material: {fileID: 1585065390}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2729,7 +2820,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240232159}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2738,7 +2829,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -897.92664, y: -472.48996}
+  m_AnchoredPosition: {x: -227.99994, y: 1.5100708}
   m_SizeDelta: {x: 141, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &240232161
@@ -3172,7 +3263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 1592505972}
+  m_Material: {fileID: 1599237209}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4225,7 +4316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &501662734
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4241,12 +4332,13 @@ RectTransform:
   - {fileID: 1256263080}
   - {fileID: 1763143594}
   - {fileID: 1804276446}
+  - {fileID: 43575293}
   m_Father: {fileID: 1156424391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -626, y: -275}
+  m_SizeDelta: {x: 650, y: 475}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &519420028
 GameObject:
@@ -4466,101 +4558,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 526190696}
   m_CullTransparentMesh: 1
---- !u!21 &537794496
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Shapes2D Material
-  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - FILL_SOLID_COLOR
-  - POLYGON_8
-  m_InvalidKeywords:
-  - _EMISSION
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _BumpScale: 1
-    - _ColorMask: 15
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _GlossyReflections: 1
-    - _Metallic: 0
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _Shapes2D_DstAlpha: 1
-    - _Shapes2D_DstBlend: 10
-    - _Shapes2D_SrcAlpha: 1
-    - _Shapes2D_SrcBlend: 1
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UVSec: 0
-    - _ZWrite: 1
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &538240976
 GameObject:
   m_ObjectHideFlags: 0
@@ -5565,7 +5562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -869, y: -317}
+  m_AnchoredPosition: {x: -869, y: -260}
   m_SizeDelta: {x: 85, y: 86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &819956080
@@ -7314,7 +7311,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 800, y: -449}
+  m_AnchoredPosition: {x: 800, y: -392}
   m_SizeDelta: {x: 356, y: 206}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1233464598
@@ -7340,7 +7337,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233464598}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7351,7 +7348,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -612, y: -457}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1243495074
@@ -7817,7 +7814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 626, y: 314}
   m_SizeDelta: {x: 1820, y: 980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1269731233
@@ -8906,6 +8903,144 @@ MonoBehaviour:
   zPosition: 1
   overrideAlpha: 1
   hierarchy: {fileID: 1049064795}
+--- !u!1 &1496673179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1496673180}
+  - component: {fileID: 1496673182}
+  - component: {fileID: 1496673181}
+  m_Layer: 5
+  m_Name: BaitDetail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1496673180
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496673179}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 43575293}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 6, y: 7}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1496673181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496673179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Bait Detail
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: daba658c6b385c845a653b9394d33cf7, type: 2}
+  m_sharedMaterial: {fileID: -3572854041219116181, guid: daba658c6b385c845a653b9394d33cf7, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 18
+  m_fontSizeBase: 18
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: -54.014404}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1496673182
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496673179}
+  m_CullTransparentMesh: 1
 --- !u!1 &1499076815
 GameObject:
   m_ObjectHideFlags: 0
@@ -9028,8 +9163,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -582, y: -454}
-  m_SizeDelta: {x: 390, y: 226.1}
+  m_AnchoredPosition: {x: 4.9537, y: 0}
+  m_SizeDelta: {x: 417.9503, y: 226.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1509513885
 MonoBehaviour:
@@ -9063,7 +9198,8 @@ MonoBehaviour:
   _isStatic: 0
   _duration: 0.25
   _offsetX: 0
-  _gap: 130
+  _spacing: 110
+  _gap: 150
   _visibleItem: 3
   _ease: 0
   _debugCarouselArea: 0
@@ -9237,7 +9373,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558810802}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9246,7 +9382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -329, y: -472.49}
+  m_AnchoredPosition: {x: 252, y: 1.5100098}
   m_SizeDelta: {x: 140, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1558810804
@@ -9433,6 +9569,101 @@ MonoBehaviour:
   zPosition: 1
   overrideAlpha: 1
   hierarchy: {fileID: 1049064795}
+--- !u!21 &1585065390
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shapes2D Material
+  m_Shader: {fileID: 4800000, guid: 44f74e30da9814584b2fdcdbe799e51a, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - FILL_SOLID_COLOR
+  - POLYGON_8
+  m_InvalidKeywords:
+  - _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BumpScale: 1
+    - _ColorMask: 15
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _Shapes2D_DstAlpha: 1
+    - _Shapes2D_DstBlend: 10
+    - _Shapes2D_SrcAlpha: 1
+    - _Shapes2D_SrcBlend: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1587318072
 GameObject:
   m_ObjectHideFlags: 0
@@ -9572,7 +9803,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!21 &1592505972
+--- !u!21 &1599237209
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -10433,6 +10664,144 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1736633983
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1736633984}
+  - component: {fileID: 1736633986}
+  - component: {fileID: 1736633985}
+  m_Layer: 5
+  m_Name: BaitName
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1736633984
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736633983}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 43575293}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 6, y: 46.8}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1736633985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736633983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Bait Name
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: daba658c6b385c845a653b9394d33cf7, type: 2}
+  m_sharedMaterial: {fileID: -3572854041219116181, guid: daba658c6b385c845a653b9394d33cf7, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1736633986
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736633983}
+  m_CullTransparentMesh: 1
 --- !u!1 &1740710829
 GameObject:
   m_ObjectHideFlags: 0
@@ -10785,7 +11154,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763143591}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10795,7 +11164,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -874, y: -246}
+  m_AnchoredPosition: {x: -248, y: 68}
   m_SizeDelta: {x: 94, y: 94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1784131830
@@ -10833,7 +11202,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 34.00006, y: 15}
+  m_AnchoredPosition: {x: -4, y: -2}
   m_SizeDelta: {x: 101.58, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1784131832
@@ -10906,7 +11275,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804276445}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10916,7 +11285,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -874, y: -316}
+  m_AnchoredPosition: {x: -248, y: -2}
   m_SizeDelta: {x: 86, y: 87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1804276447
@@ -11008,7 +11377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1830195676
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11046,7 +11415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1834387122
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11118,7 +11487,7 @@ RectTransform:
   m_Father: {fileID: 923138630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -15,15 +15,15 @@ namespace HasanSadikin.Carousel
         [SerializeField] bool _isStatic = false;
         [SerializeField] float _duration = .25f;
         [SerializeField] float _offsetX;
+        [SerializeField] private float _spacing;
         [SerializeField] float _gap ;
-        [SerializeField] int _visibleItem = 3;
+        [SerializeField] public int _visibleItem = 3;
         [SerializeField] Ease _ease;
 
 
         [Header("For Debugging")]
         [SerializeField] bool _debugCarouselArea;
-        [SerializeField]
-        Image _image;
+        [SerializeField]Image _image;
         bool _realIsStatic = false;
         private readonly SerializableDictionary<RectTransform, Sequence> _seqLookup = new();
 
@@ -42,7 +42,7 @@ namespace HasanSadikin.Carousel
                 return;
             }
 #if UNITY_EDITOR
-            EditorApplication.delayCall += UpdateSizeDelta;
+            //EditorApplication.delayCall += UpdateSizeDelta;
 #endif
         }
 
@@ -50,9 +50,9 @@ namespace HasanSadikin.Carousel
         {
              if(_realIsStatic) return;
 
-            float endValue = (index * _gap) + _offsetX;
+            float endValue = (index * _spacing) ;
 
-            float duration = Mathf.Abs(endValue - rectTransform.anchoredPosition.x) > _gap * _visibleItem ? 0 : _duration;
+            float duration = Mathf.Abs(endValue - rectTransform.anchoredPosition.x) > _spacing * _visibleItem ? 0 : _duration;
 
             if (_seqLookup.TryGetValue(rectTransform, out var oldSeq) && oldSeq.IsAlive) {
                 oldSeq.Stop();
@@ -69,27 +69,33 @@ namespace HasanSadikin.Carousel
             return a.anchoredPosition.x > b.anchoredPosition.x;
         }
 
-        private void UpdateSizeDelta()
+        public bool IsVisibleIndex(int visualIndex)
         {
-            if (_image != null && _image.rectTransform != null)
-            {
-                Vector2 newSize = new Vector2(_visibleItem * _gap, _image.rectTransform.sizeDelta.y);
+            return Mathf.Abs(visualIndex) <= _visibleItem / 2;
 
-                if (_image.rectTransform.sizeDelta != newSize)
-                {
-#if UNITY_EDITOR
-                    Undo.RecordObject(_image.rectTransform, "Update RectTransform SizeDelta");
-#endif
-                     _image.rectTransform.sizeDelta = newSize;
-
-#if UNITY_EDITOR
-                    EditorUtility.SetDirty(_image.rectTransform);
-#endif
-                }
-            }
-#if UNITY_EDITOR
-            EditorApplication.delayCall -= UpdateSizeDelta;
-#endif
         }
+
+        //         private void UpdateSizeDelta()
+//         {
+//             if (_image != null && _image.rectTransform != null)
+//             {
+//                 Vector2 newSize = new Vector2(_visibleItem * _spacing, _image.rectTransform.sizeDelta.y);
+//
+//                 if (_image.rectTransform.sizeDelta != newSize)
+//                 {
+// #if UNITY_EDITOR
+//                     Undo.RecordObject(_image.rectTransform, "Update RectTransform SizeDelta");
+// #endif
+//                      _image.rectTransform.sizeDelta = newSize;
+//
+// #if UNITY_EDITOR
+//                     EditorUtility.SetDirty(_image.rectTransform);
+// #endif
+//                 }
+//             }
+// #if UNITY_EDITOR
+//             EditorApplication.delayCall -= UpdateSizeDelta;
+// #endif
+//         }
     }
 }

@@ -67,16 +67,18 @@ namespace HasanSadikin.Carousel
         private PlayerInventory _playerInventory;
         private BaitItemInstance _confirmedBait;
         private BaitItemInstance _pointingBait;
+        private BaitDetailPanel _baitDetailPanel;
         
 
         [Inject]
-        public void Construct(ICarouselItemPositioner positioner,PlayerInventory playerInventory,PointingBaitConfig pointingBaitConfig)
+        public void Construct(ICarouselItemPositioner positioner,PlayerInventory playerInventory,PointingBaitConfig pointingBaitConfig , BaitDetailPanel baitDetailPanel)
         {
             
             _positioner = positioner;
             Debug.Log(_positioner);
             _playerInventory = playerInventory;
             _pointingBaitConfig = pointingBaitConfig;
+            _baitDetailPanel = baitDetailPanel;
             Bind();
             CreateCarouselItems();
             var baitList = BaitList;
@@ -233,8 +235,11 @@ namespace HasanSadikin.Carousel
                 {
                     _pointingBait = item.Data;
                     OnCurrentItemUpdated.Execute(item.Data);
+                    SetBaitDetailPanel();
                     //UpdatePointing();
                 }
+
+                
                 MoveItemToPositionAtIndex(item, _isInfinity ? GetCarouselIndex(i - _currentIndex) - baitList.Count * _indexRepeatOffset : i - _currentIndex);
             }
         }
@@ -290,7 +295,11 @@ namespace HasanSadikin.Carousel
                 item.SetSelected(isSelected);
             }
         }
-        
+        private void SetBaitDetailPanel()
+        {
+            _baitDetailPanel.baitNameText.text = _pointingBait.ItemData.BaitName;
+            _baitDetailPanel.baitDescriptionText.text = _pointingBait.ItemData.BaitDescription;
+        }
 
         protected virtual void AdjustIndexForClickedItem(CarouselItem<BaitItemInstance> clickedItem)
         {
