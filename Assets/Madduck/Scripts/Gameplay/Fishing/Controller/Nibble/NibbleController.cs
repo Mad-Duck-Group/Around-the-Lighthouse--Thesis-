@@ -10,6 +10,7 @@ using Madduck.GameData;
 using Madduck.Input;
 using Madduck.Shared;
 using Madduck.Utils;
+using MessagePipe;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -40,6 +41,7 @@ namespace Madduck.Fishing.Controller
         private readonly IFactory<IQuickTimeEvent> _qteButtonFactory;
         private readonly ITransitionable _viewTransition;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
+        private readonly IPublisher<FishEmergedEvent> _fishEmergedEventPublisher;
         
         private IDisposable _bindings;
         private IDisposable _qteIntervalTimer;
@@ -76,7 +78,8 @@ namespace Madduck.Fishing.Controller
             IFishEyesFactory fishEyesFactory,
             [Key(FishingStateType.Nibble)] IFactory<IQuickTimeEvent> qteButtonFactory,
             [Key(FishingStateType.Nibble)] ITransitionable viewTransition,
-            ISpineAnimator<PlayerAnimationKey> playerAnimator)
+            ISpineAnimator<PlayerAnimationKey> playerAnimator,
+            IPublisher<FishEmergedEvent> fishEmergedEventPublisher)
         {
             _config = config;
             _inputHandler = inputHandler;
@@ -92,6 +95,7 @@ namespace Madduck.Fishing.Controller
             _fishSpriteFactory = fishSpriteFactory;
             _viewTransition = viewTransition;
             _playerAnimator = playerAnimator;
+            _fishEmergedEventPublisher = fishEmergedEventPublisher;
         }
 
         #endregion
@@ -331,6 +335,12 @@ namespace Madduck.Fishing.Controller
                     {
                         _fishEyesFactory.DestroyFishEyes();
                         _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
+                        var currentFish = (FishItemInstance)_fishableFactory.Current;
+                        if (currentFish.ItemData.EnemyType is FishEnemyType.Boss)
+                        { 
+                            DebugUtils.Log("Boss fish emerged!");
+                            _fishEmergedEventPublisher.Publish(new FishEmergedEvent(currentFish));
+                        }
                         _hookFactory.Current.Alert(true);
                         StartFishBiteTimer(_fishBiteCts.Token).Forget();
                     });

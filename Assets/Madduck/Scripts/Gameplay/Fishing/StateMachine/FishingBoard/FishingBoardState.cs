@@ -16,6 +16,7 @@ namespace Madduck.Fishing.StateMachine
     public class FishingBoardState : FishingState
     {
         private readonly FishingBoardController _controller;
+        private readonly IFactory<IFishableItemInstance> _fishableFactory;
         private readonly IPublisher<FishEscapedEvent> _fishEscapedEventPublisher;
         private IDisposable _fishingBoardResultSubscription;
         private Sign _result;
@@ -23,11 +24,13 @@ namespace Madduck.Fishing.StateMachine
         public FishingBoardState(
             FishingStateMachine stateMachine,
             FishingBoardController controller,
+            IFactory<IFishableItemInstance> fishableFactory,
             IPublisher<FishEscapedEvent> fishEscapedEventPublisher)
             : base(stateMachine)
         {
             _controller = controller;
             _fishEscapedEventPublisher = fishEscapedEventPublisher;
+            _fishableFactory = fishableFactory;
         }
         
         public override async UniTask Enter()
@@ -68,7 +71,7 @@ namespace Madduck.Fishing.StateMachine
             {
                 case Sign.Negative:
                     DebugUtils.Log("Fish escaped, transitioning to NoneState");
-                    _fishEscapedEventPublisher.Publish(new FishEscapedEvent());
+                    _fishEscapedEventPublisher.Publish(new FishEscapedEvent(_fishableFactory.Current as FishItemInstance));
                     stateMachine.ChangeState(FishingStateType.None);
                     stateMachine.ResetState(FishingStateType.Reeling);
                     break;

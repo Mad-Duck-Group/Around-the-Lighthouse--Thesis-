@@ -56,9 +56,12 @@ namespace Madduck.Room
         private readonly IPublisher<FishingRoomEndedEvent> _fishingRoomEndedEventPublisher;
         private readonly IPublisher<WeatherChangedEvent> _weatherChangedPublisher;
         private readonly ISubscriber<FishingStateEvent> _fishingStateEventSubscriber;
+        private readonly ISubscriber<FishEmergedEvent> _fishEmergedEventSubscriber;
         private readonly ISubscriber<FishEscapedEvent> _fishEscapedEventSubscriber;
+        private readonly ISubscriber<FishableCaughtEvent> _fishCaughtEventSubscriber;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private CancellationTokenSource _bgmCts = new();
+        private AudioReference _previousBgm;
         private AudioReference _bgm;
         private AudioReference _ambient;
         private IDisposable _subscriptions;
@@ -84,7 +87,9 @@ namespace Madduck.Room
             IPublisher<FishingRoomEndedEvent> fishingRoomEndedEventPublisher,
             IPublisher<WeatherChangedEvent> weatherChangedPublisher,
             ISubscriber<FishingStateEvent> fishingStateEventSubscriber,
+            ISubscriber<FishEmergedEvent> fishEmergedEventSubscriber,
             ISubscriber<FishEscapedEvent> fishEscapedEventSubscriber,
+            ISubscriber<FishableCaughtEvent> fishCaughtEventSubscriber,
             ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
         {
             _fishableWeightTable = fishableWeightTable;
@@ -99,7 +104,9 @@ namespace Madduck.Room
             _fishingRoomEndedEventPublisher = fishingRoomEndedEventPublisher;
             _weatherChangedPublisher = weatherChangedPublisher;
             _fishingStateEventSubscriber = fishingStateEventSubscriber;
+            _fishEmergedEventSubscriber = fishEmergedEventSubscriber;
             _fishEscapedEventSubscriber = fishEscapedEventSubscriber;
+            _fishCaughtEventSubscriber = fishCaughtEventSubscriber;
             _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
             Subscribe();
         }
@@ -111,7 +118,9 @@ namespace Madduck.Room
         private void Subscribe()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _fishEscapedEventSubscriber.Subscribe(_ => OnFishEscaped())
+            _fishEscapedEventSubscriber.Subscribe(OnFishEscaped)
+                .AddTo(ref disposableBuilder);
+            _fishEmergedEventSubscriber.Subscribe(OnFishEmerged)
                 .AddTo(ref disposableBuilder);
             _loadSceneStageEventSubscriber
                 .AsObservable().ToObservable()
@@ -171,9 +180,17 @@ namespace Madduck.Room
             _loadSceneManager.LoadScene(SceneType.MainMenu, LoadSceneMode.Single, false).Forget();
         }
         
-        private void OnFishEscaped()
+        private void OnFishEscaped(FishEscapedEvent eventData)
         {
             ChangeFishCount(-1);
+            if (eventData.FishItemInstance.ItemData.EnemyType is FishEnemyType.Boss)
+            {
+                if (_previousBgm == null) return;
+                _audioManager.StopAudio(_bgm);
+                _bgm = _audioManager.PlayAudio(_previousBgm.eventReference, Vector3.zero);
+                _previousBgm = null;
+                return;
+            }
             if (CurrentFishCount.Value != 0) return;
             //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now
             _fishingStateEventSubscriber
@@ -181,6 +198,26 @@ namespace Madduck.Room
                 .Where(x => x.StateType is FishingStateType.None)
                 .Subscribe(_ => EndFishingRoom())
                 .AddTo(ref _disposables);
+        }
+        
+        private void OnFishEmerged(FishEmergedEvent eventData)
+        {
+            if (eventData.FishItemInstance.ItemData.EnemyType is not FishEnemyType.Boss) return;
+            _previousBgm = _bgm;
+            _audioManager.StopAudio(_bgm);
+            _bgm = _audioManager.PlayAudio(_config.BossBgm, Vector3.zero);
+        }
+        
+        private void OnFishCaught(FishableCaughtEvent eventData)
+        {
+            var anyBoss = eventData.FishableItemInstances
+                .OfType<FishItemInstance>()
+                .Any(x => x.ItemData.EnemyType is FishEnemyType.Boss);
+            if (!anyBoss) return;
+            if (_previousBgm == null) return;
+            _audioManager.StopAudio(_bgm);
+            _bgm = _audioManager.PlayAudio(_previousBgm.eventReference, Vector3.zero);
+            _previousBgm = null;
         }
 
         #endregion

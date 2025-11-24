@@ -7,51 +7,17 @@ using STOP_MODE = FMOD.Studio.STOP_MODE;
 namespace Madduck.Audio
 {
     #region Data Structures
-    public interface IAudioIdentifier
-    {
-        public Type GetIdentifierType();
-        public bool TryGetIdentifier<TId>(out TId identifier);
-    }
-
-    public interface IAudioIdentifier<T> : IAudioIdentifier
-    {
-        public T Identifier { get; set; }
-    }
-    
-    public record AudioIdentifier<T> : IAudioIdentifier<T>
-    {
-        public T Identifier { get; set; }
-        
-        public AudioIdentifier(T identifier)
-        {
-            Identifier = identifier;
-        }
-        
-        public Type GetIdentifierType()
-        {
-            return typeof(T);
-        }
-        
-        public bool TryGetIdentifier<TId>(out TId identifier)
-        {
-            if (typeof(TId) == GetIdentifierType())
-            {
-                identifier = (TId)(object)Identifier;
-                return true;
-            }
-            identifier = default;
-            return false;
-        }
-    }
     
     public record AudioReference
     {
         public EventInstance eventInstance;
-        public readonly IAudioIdentifier identifier;
+        public EventReference eventReference;
+        public readonly string identifier;
         
-        public AudioReference(EventInstance eventInstance, IAudioIdentifier identifier = null)
+        public AudioReference(EventInstance eventInstance, EventReference eventReference, string identifier = null)
         {
             this.eventInstance = eventInstance;
+            this.eventReference = eventReference;
             this.identifier = identifier;
         }
     }
@@ -60,19 +26,21 @@ namespace Madduck.Audio
     #region Interfaces
     public interface IAudioManager
     {
-        AudioReference PlayAudio(EventReference eventReference, Vector3 position, IAudioIdentifier id = null, Transform parent = null);
+        AudioReference PlayAudio(EventReference eventReference, Vector3 position, string id = null, Transform parent = null);
         void PlayAudioOneShot(EventReference eventReference, Vector3 position);
         void SetPauseAudio(AudioReference audioReference, bool pause);
-        void SetPauseAllAudioInIdentifier(IAudioIdentifier id, bool pause);
+        void SetPauseAllAudioInIdentifier(string id, bool pause);
         void SetPauseAllIndexedAudio(bool pause);
         void SetPauseAllWildAudio(bool pause);
         void SetPauseAllAudio(bool pause);
+        void RegisterAudioReference(AudioReference audioReference, string id);
+        void UnregisterAudioReference(string id);
         void StopAudio(AudioReference audioReference, STOP_MODE stopMode = STOP_MODE.ALLOWFADEOUT);
-        void StopAllAudioInIdentifier(IAudioIdentifier id);
+        void StopAllAudioInIdentifier(string id);
         void StopAllIndexedAudio();
         void StopAllWildAudio();
         void StopAllAudio();
-        bool TryFindAudioReference(IAudioIdentifier id, out AudioReference audioReference);
+        bool TryFindAudioReference(string id, out AudioReference audioReference);
     }
 
     public interface IAudioBusManager
@@ -90,22 +58,25 @@ namespace Madduck.Audio
     #region Mocks
     public class AudioManagerMock : IAudioManager
     {
-        public AudioReference PlayAudio(EventReference eventReference, Vector3 position, IAudioIdentifier id = null, Transform parent = null)
+        public AudioReference PlayAudio(EventReference eventReference, Vector3 position, string id = null, Transform parent = null)
         {
-            return new AudioReference(new EventInstance());
+            return new AudioReference(new EventInstance(), new EventReference());
         }
         public void PlayAudioOneShot(EventReference eventReference, Vector3 position){ }
         public void SetPauseAudio(AudioReference audioReference, bool pause){ }
-        public void SetPauseAllAudioInIdentifier(IAudioIdentifier id, bool pause){ }
+        public void SetPauseAllAudioInIdentifier(string id, bool pause){ }
         public void SetPauseAllIndexedAudio(bool pause){ }
         public void SetPauseAllWildAudio(bool pause){ }
         public void SetPauseAllAudio(bool pause){ }
+        public void RegisterAudioReference(AudioReference audioReference, string id){}
+        public void UnregisterAudioReference(string id){}
+
         public void StopAudio(AudioReference audioReference, STOP_MODE stopMode = STOP_MODE.ALLOWFADEOUT){ }
-        public void StopAllAudioInIdentifier(IAudioIdentifier id){ }
+        public void StopAllAudioInIdentifier(string id){ }
         public void StopAllIndexedAudio(){ }
         public void StopAllWildAudio(){ }
         public void StopAllAudio(){ }
-        public bool TryFindAudioReference(IAudioIdentifier id, out AudioReference audioReference)
+        public bool TryFindAudioReference(string id, out AudioReference audioReference)
         {
             audioReference = null;
             return false;

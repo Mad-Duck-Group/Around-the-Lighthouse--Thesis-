@@ -43,9 +43,10 @@ MonoBehaviour:
       Data3: -1389315712
       Data4: -1261012663
     Path: event:/BGM/InGameBGM2
-  - Guid:
-      Data1: 1720136588
-      Data2: 1316456403
-      Data3: 1804986558
-      Data4: -269740357
-    Path: event:/BGM/GameplayBGM
+  <BossBgm>k__BackingField:
+    Guid:
+      Data1: 2128152497
+      Data2: 1175995614
+      Data3: -1929720674
+      Data4: -71563123
+    Path: event:/BGM/InGameBGM4

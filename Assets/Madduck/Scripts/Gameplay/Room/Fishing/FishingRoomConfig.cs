@@ -20,5 +20,6 @@ namespace Madduck.Room
         [field: InlineProperty, 
                 SerializeField] public UFloat BgmDelay { get; private set; }
         [field: SerializeField] public List<EventReference> BgmPlaylist { get; private set; } = new();
+        [field: SerializeField] public EventReference BossBgm { get; private set; }
     }
 }

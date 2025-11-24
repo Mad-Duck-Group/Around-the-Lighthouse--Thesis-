@@ -19,7 +19,7 @@ namespace Madduck.Audio
         IInitializable, 
         IDisposable
     {
-        private readonly Dictionary<IAudioIdentifier, List<AudioReference>> _indexedAudioReferenceData = new();
+        private readonly Dictionary<string, List<AudioReference>> _indexedAudioReferenceData = new();
         private readonly List<AudioReference> _wildAudioReferenceData = new();
         private readonly AudioManagerConfig _audioManagerConfig;
         
@@ -57,7 +57,7 @@ namespace Madduck.Audio
         #endregion
 
         #region Play
-        public AudioReference PlayAudio(EventReference eventReference, Vector3 position, IAudioIdentifier id = null, Transform parent = null)
+        public AudioReference PlayAudio(EventReference eventReference, Vector3 position, string id = null, Transform parent = null)
         {
             if (_audioManagerConfig.LimitAudioCount && _wildAudioReferenceData.Count + 
                 _indexedAudioReferenceData.Values.Sum(references => references.Count) >= _audioManagerConfig.MaxAudioCount)
@@ -70,7 +70,7 @@ namespace Madduck.Audio
             eventInstance.start();
             if (parent)
                 RuntimeManager.AttachInstanceToGameObject(eventInstance, parent.gameObject);
-            var audioReference = new AudioReference(eventInstance, id);
+            var audioReference = new AudioReference(eventInstance, eventReference, id);
             if (id != null)
             {
                 if (_indexedAudioReferenceData.TryGetValue(id, out var audioReferences))
@@ -104,7 +104,7 @@ namespace Madduck.Audio
             eventInstance.setPaused(pause);
         }
         
-        public void SetPauseAllAudioInIdentifier(IAudioIdentifier id, bool pause)
+        public void SetPauseAllAudioInIdentifier(string id, bool pause)
         {
             if (!_indexedAudioReferenceData.TryGetValue(id, out var audioReferences)) return;
             foreach (var audioReference in audioReferences)
@@ -136,6 +136,7 @@ namespace Madduck.Audio
             SetPauseAllIndexedAudio(pause);
             SetPauseAllWildAudio(pause);
         }
+
         #endregion
         
         #region Stop
@@ -164,7 +165,7 @@ namespace Madduck.Audio
             eventInstance.release();
         }
 
-        public void StopAllAudioInIdentifier(IAudioIdentifier id)
+        public void StopAllAudioInIdentifier(string id)
         {
             if (!_indexedAudioReferenceData.TryGetValue(id, out var audioReferences)) return;
             foreach (var audioReference in audioReferences)
@@ -199,7 +200,7 @@ namespace Madduck.Audio
         #endregion
 
         #region Utils
-        public bool TryFindAudioReference(IAudioIdentifier id, out AudioReference audioReference)
+        public bool TryFindAudioReference(string id, out AudioReference audioReference)
         {
             if (_indexedAudioReferenceData.TryGetValue(id, out var audioReferences))
             {
@@ -208,6 +209,37 @@ namespace Madduck.Audio
             }
             audioReference = null;
             return false;
+        }
+        
+        public void RegisterAudioReference(AudioReference audioReference, string id)
+        {
+            if (id != null)
+            {
+                if (_indexedAudioReferenceData.TryGetValue(id, out var audioReferences))
+                {
+                    audioReferences.Add(audioReference);
+                }
+                else
+                {
+                    _indexedAudioReferenceData[id] = new List<AudioReference> { audioReference };
+                }
+            }
+            else
+            {
+                DebugUtils.LogError("Cannot add audio reference without identifier to indexed audio references.");
+            }
+        }
+        
+        public void UnregisterAudioReference(string id)
+        {
+            if (id != null)
+            {
+                _indexedAudioReferenceData.Remove(id);
+            }
+            else
+            {
+                DebugUtils.LogError("Cannot remove audio reference without identifier from indexed audio references.");
+            }
         }
         #endregion
 

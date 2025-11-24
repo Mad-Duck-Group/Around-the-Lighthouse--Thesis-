@@ -13,7 +13,25 @@ namespace Madduck.GameData
             FishableItemInstances = new List<IFishableItemInstance>(fishableItemInstances);
         }
     }
-    public struct FishEscapedEvent { }
+    public struct FishEmergedEvent
+    {
+        public FishItemInstance FishItemInstance { get; private set; }
+
+        public FishEmergedEvent(FishItemInstance fishableItemInstance)
+        {
+            FishItemInstance = fishableItemInstance;
+        }
+    }
+
+    public struct FishEscapedEvent
+    {
+        public FishItemInstance FishItemInstance { get; private set; }
+
+        public FishEscapedEvent(FishItemInstance fishableItemInstance)
+        {
+            FishItemInstance = fishableItemInstance;
+        }
+    }
 
     public struct FishingStateEvent
     {
