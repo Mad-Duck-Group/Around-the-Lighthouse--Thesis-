@@ -85,7 +85,11 @@ namespace Madduck.Fishing.DI
             }
 
             builder.Register<FishingSharedVariable>(Lifetime.Singleton).AsSelf();
-            builder.Register(_ => hookProjectileFactory, Lifetime.Singleton).As<IHookFactory>();
+            builder.Register(x =>
+            {
+                x.Inject(hookProjectileFactory);
+                return hookProjectileFactory;
+            }, Lifetime.Singleton).As<IHookFactory>();
             builder.Register(_ => fishSpriteFactory, Lifetime.Singleton).As<IFishSpriteFactory>();
             builder.Register(_ => fishEyesFactory, Lifetime.Singleton).As<IFishEyesFactory>();
             builder.Register<FishingNoneState>(Lifetime.Scoped).AsSelf();

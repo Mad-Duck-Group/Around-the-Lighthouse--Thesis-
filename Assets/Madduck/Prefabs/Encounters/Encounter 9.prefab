@@ -2214,10 +2214,8 @@ MonoBehaviour:
   - {fileID: 2197860862268810946}
   - {fileID: 8521002615447927864}
   environmentAnims:
-  - {fileID: 0}
   - {fileID: 2345172870719931163}
   - {fileID: 4102189765529242395}
-  - {fileID: 0}
   waveVariants:
   - {fileID: 21300000, guid: 13ca9289f8e9fba42a274397a1303e54, type: 3}
   - {fileID: 21300000, guid: feda78a13a985f54ca4b91bc70343cd1, type: 3}

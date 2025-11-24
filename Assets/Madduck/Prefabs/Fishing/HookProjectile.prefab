@@ -494,7 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01576b85c7d04ab0bf63db345dfa89e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Madduck.Fishing.UI::Madduck.Scripts.Fishing.UI.ThrowHook.ThrowHookProjectile
-  hookIcon: {fileID: 1710082700227665942}
+  hookIcon: {fileID: 7241767426394046689}
   line: {fileID: 3633826853592955727}
   splineContainer: {fileID: 1932579355175118353}
   alertSpriteRenderer: {fileID: 219675554166101858}

@@ -1,8 +1,10 @@
 ﻿using System;
+using Madduck.RoomPreset;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
+using VContainer;
 using Object = UnityEngine.Object;
 
 namespace Madduck.Fishing.Shared
@@ -21,6 +23,7 @@ namespace Madduck.Fishing.Shared
          SerializeField] private Transform parent;
         [Required, 
          SerializeField] private Transform landingPoint;
+        [Inject] private readonly RoomPresetManager _roomPresetManager;
         public IHookProjectile Current { get; private set; }
         public GameObject CurrentGameObject { get; private set; }
         
@@ -35,7 +38,10 @@ namespace Madduck.Fishing.Shared
             _currentObject.transform.position = parent.transform.position;
             if (Current is HookProjectile hook)
             {
-                hook.SetUp(parent, landingPoint);
+                hook.SetUp(
+                    parent, 
+                    landingPoint, 
+                    _roomPresetManager.CurrentRoomPreset.CurrentValue.WaveTweenSettings);
             }
             CurrentGameObject = _currentObject;
             return Current;

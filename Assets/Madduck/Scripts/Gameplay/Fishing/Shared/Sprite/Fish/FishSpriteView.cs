@@ -36,6 +36,7 @@ namespace Madduck.Fishing.Shared
         private TweenSettings<Vector2> _spawnRelativePositionTween;
         private Sequence _transitionSequence;
         private FishItemInstance _currentFish;
+        private Transform _hookTransform;
 
         private void OnDebugFishChanged()
         {
@@ -51,8 +52,10 @@ namespace Madduck.Fishing.Shared
         
         public void SetUp(Transform hook, FishItemInstance fishItemInstance)
         {
+            _hookTransform = hook;
             _currentFish = fishItemInstance;
-            transform.position = hook.position - (Vector3)fishItemInstance.ItemData.SpriteAnchorOffset;
+            var anchorPoint = _hookTransform.position - (Vector3)_currentFish.ItemData.SpriteAnchorOffset;
+            transform.position = anchorPoint;
             _spawnRelativePositionTween = _currentFish.ItemData.SpawnPositionTweenSettings.ToRelative(transform.position);
             transform.position = _spawnRelativePositionTween.startValue;
             var isBoss = fishItemInstance.ItemData.EnemyType is FishEnemyType.Boss;
@@ -62,8 +65,8 @@ namespace Madduck.Fishing.Shared
             ((RectTransform)fatigueTimerView.transform).anchoredPosition -= fishItemInstance.ItemData.FatigueSliderOffset;
             skeletonAnimation.Initialize(true);
             Animator = new FishSpriteAnimator(fishItemInstance.ItemData.FishSpriteAnimatorConfig, skeletonAnimation);
-            transform.SetParent(hook);
             skeletonUtility.SpawnHierarchy(SkeletonUtilityBone.Mode.Follow, true, true, true);
+            transform.SetParent(hook);
         }
 
         public void Detach()
@@ -74,6 +77,8 @@ namespace Madduck.Fishing.Shared
 
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
+            var anchorPoint = _hookTransform.position - (Vector3)_currentFish.ItemData.SpriteAnchorOffset;
+            _spawnRelativePositionTween.endValue = anchorPoint;
             cancellationToken.Register(CancelTransition);
             await Transition(true);
         }

@@ -1,19 +1,18 @@
 using System.Collections.Generic;
 using Madduck.Day;
 using Madduck.WeatherPreset;
+using R3;
 using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace Madduck.RoomPreset
 {
     public class RoomPresetManager : IStartable
     {
-        
         #region Inspector 
         
         [Title("Debug"),
@@ -21,10 +20,14 @@ namespace Madduck.RoomPreset
          HideLabel, Sirenix.OdinInspector.ReadOnly,
          ShowInInspector] private  List<RoomPreset> _presets;
 
+        public ReadOnlyReactiveProperty<RoomPreset> CurrentRoomPreset =>
+            _currentRoomPreset.Select(x => x).ToReadOnlyReactiveProperty();
+
         #endregion
         
+        private readonly ReactiveProperty<RoomPreset> _currentRoomPreset = new();
         private readonly DayManager _dayManager;
-        private readonly  WeatherPresetManager _weatherPresetManager;  
+        private readonly WeatherPresetManager _weatherPresetManager;  
         
         #region Inject
         [Inject]
@@ -58,6 +61,7 @@ namespace Madduck.RoomPreset
             instance.SetDynamicElements(_weatherPresetManager.CurrentWeather.Value);
             instance.ApplySprites();
             instance.ApplyAnimation();
+            _currentRoomPreset.Value = instance;
         }
 
         #endregion

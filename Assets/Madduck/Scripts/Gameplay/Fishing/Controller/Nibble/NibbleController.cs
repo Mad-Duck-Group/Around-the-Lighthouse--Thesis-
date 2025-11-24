@@ -161,9 +161,12 @@ namespace Madduck.Fishing.Controller
                     fishSprite.Animator.Set(FishSpriteAnimationKey.Idle, 0, true);
                     _hookFactory.Current.Alert(false).Forget();
                     _bubbleManager.PauseAllBubbles();
-                    await UniTask.WhenAll(
-                        fishSprite.TransitionIn(),
-                        _hookFactory.Current.MoveY(Percentage.Full));
+                    // await UniTask.WhenAll(
+                    //     fishSprite.TransitionIn(),
+                    //     _hookFactory.Current.MoveY(Percentage.Full));
+                    await _hookFactory.Current.MoveY(Percentage.Full);
+                    await fishSprite.TransitionIn();
+                    _hookFactory.Current.StopWave();
                     await _hookFactory.Current.MoveX(Percentage.Full);
                     break;
                 }
@@ -323,11 +326,11 @@ namespace Madduck.Fishing.Controller
                     }
                     break;
                 case 1 when result:
-                    _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
                     _fishEyesFactory.Current.Bite()
                         .ContinueWith(() =>
                     {
                         _fishEyesFactory.DestroyFishEyes();
+                        _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
                         _hookFactory.Current.Alert(true);
                         StartFishBiteTimer(_fishBiteCts.Token).Forget();
                     });

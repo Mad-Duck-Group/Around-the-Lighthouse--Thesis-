@@ -47,6 +47,8 @@ namespace Madduck.RoomPreset
         private DayPhaseType _currentDayPhase;
         private WeatherType _currentWeather;
 
+        public TweenSettings<float> WaveTweenSettings => waveTweenSettings;
+
         #endregion
 
         #region Set Up Room
@@ -126,13 +128,16 @@ namespace Madduck.RoomPreset
             relativeSettings.settings.startDelay = 0f; 
             await UniTask.WaitForSeconds(startDelay);
             var waveSequence = Sequence.Create(-1, CycleMode.Yoyo)
-                .Group(Tween.LocalPositionY(wave, relativeSettings));
+                .Group(Tween.PositionY(wave, relativeSettings));
         }
 
         private void SetSpeedTween()
         {
             float waveDuration;
-            if (waveDurationMultiplier.TryGetValue(_currentWeather, out var resultDuration)){ waveDuration = resultDuration;}
+            if (waveDurationMultiplier.TryGetValue(_currentWeather, out var resultDuration))
+            {
+                waveDuration = resultDuration;
+            }
             else
             {
                 waveDurationMultiplier.TryGetValue(WeatherType.Clear, out var defaultDuration);

@@ -167,6 +167,7 @@ namespace Madduck.Fishing.Controller
             var projectile = _hookFactory.Create();
             var throwPercent = _model.ThrowHookPercent.CurrentValue;
             await projectile.Throw(throwPercent);
+            projectile.StartWave();
             _audioManager.PlayAudioOneShot(_config.HookHitWaterSfx, Vector3.zero);
             _audioManager.StopAudio(_fishingLineCastReference);
             if (_bubbleManager.TryLandOnBubble(_hookFactory.CurrentGameObject.transform.position, out var bubble))

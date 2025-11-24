@@ -30,6 +30,8 @@ namespace Madduck.Fishing.Shared
         void SetPositionX(Percentage percent);
         void SetPositionY(Percentage percent);
         void StopNibble();
+        void StartWave();
+        void StopWave();
     }
     public class HookProjectile : MonoBehaviour, IHookProjectile
     {
@@ -73,9 +75,11 @@ namespace Madduck.Fishing.Shared
         private Transform _rodTip;
         private Transform _landingPoint;
         private bool _isThrown;
+        private TweenSettings<float> _waveTween;
         private Sequence _moveSequence;
         private Sequence _throwSequence;
         private Sequence _nibbleSequence;
+        private Sequence _waveSequence;
         private float _flightTime;
         private Rigidbody2D _rigidbody;
 
@@ -85,11 +89,14 @@ namespace Madduck.Fishing.Shared
 
         public void SetUp(
             Transform rodTip,
-            Transform landingPoint)
+            Transform landingPoint,
+            TweenSettings<float> waveTween)
+
         {
             _rodTip = rodTip;
             _landingPoint = landingPoint;
-            line.SetUp(rodTip, transform);
+            _waveTween = waveTween;
+            line.SetUp(rodTip, hookIcon);
         }
 
         #endregion
@@ -131,6 +138,7 @@ namespace Madduck.Fishing.Shared
         public async UniTask Return()
         {
             if (!_isThrown) return;
+            StopWave();
             _isThrown = false;
             _rigidbody.constraints = RigidbodyConstraints2D.None;
             var velocity = CalculateLaunchVelocity(transform.position, _rodTip.position);
@@ -144,6 +152,7 @@ namespace Madduck.Fishing.Shared
         public async UniTask DramaticReturn()
         {
             if (!_isThrown) return;
+            StopWave();
             splineContainer.transform.SetParent(null);
             splineContainer.transform.position = Vector3.zero;
             var spline = splineContainer[0];
@@ -194,10 +203,12 @@ namespace Madduck.Fishing.Shared
         /// <param name="cycle">Set to -1 for infinite cycles.</param>
         public async UniTask Nibble(int? cycle)
         {
+            StopWave();
             var finalCycle = cycle ?? 1;
             _nibbleSequence = Sequence.Create(finalCycle, CycleMode.Yoyo)
                 .Group(Tween.LocalPosition(hookIcon, nibbleTween.ToVector3().ToRelative(hookIcon.localPosition)));
             await _nibbleSequence.ToYieldInstruction().ToUniTask();
+            StartWave();
         }
 
         public async UniTask MoveX(Percentage percent)
@@ -316,7 +327,24 @@ namespace Madduck.Fishing.Shared
         {
             _nibbleSequence.Complete();
         }
-        
+
+        public void StartWave()
+        {
+            var startY = hookIcon.position.y; 
+            var relativeSettings = _waveTween.ToRelative(startY);
+            hookIcon.position = new Vector3(hookIcon.position.x, relativeSettings.startValue, hookIcon.position.z);
+            relativeSettings.settings.cycles = 1;
+            relativeSettings.settings.startDelay = 0f;
+            _waveSequence = Sequence.Create(-1, CycleMode.Yoyo)
+                .Group(Tween.PositionY(hookIcon, relativeSettings));
+        }
+
+        public void StopWave()
+        {
+            _waveSequence.Stop();
+            hookIcon.localPosition = Vector3.zero;
+        }
+
         void OnDrawGizmosSelected()
         {
             var startPos = (Vector2)transform.position;
@@ -394,5 +422,8 @@ namespace Madduck.Fishing.Shared
         public void SetPositionX(Percentage percent){}
         public void SetPositionY(Percentage percent){}
         public void StopNibble(){}
+        public void StartWave(){}
+
+        public void StopWave(){}
     }
 }

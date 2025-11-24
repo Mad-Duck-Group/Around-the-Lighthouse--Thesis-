@@ -58,6 +58,7 @@ namespace Madduck.Shared
                 Destroy(view.gameObject);
             }
             _iconViews.Clear();
+            if (_currentScheme is null) return;
             if (!spriteLibraryAssets.TryGetValue(_currentScheme, out var spriteLibraryAsset))
             {
                 DebugUtils.LogError($"No sprite library found for {_currentScheme}");
