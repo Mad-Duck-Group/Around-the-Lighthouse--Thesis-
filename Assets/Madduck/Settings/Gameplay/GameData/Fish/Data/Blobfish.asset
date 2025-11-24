@@ -44,7 +44,7 @@ MonoBehaviour:
     startValue: {x: 0, y: -5}
     endValue: {x: 0, y: 0}
     settings:
-      duration: 2
+      duration: 6
       ease: 0
       customEase:
         serializedVersion: 2

@@ -67,11 +67,14 @@ namespace Madduck.Fishing.Shared
         public async UniTask Bite(CancellationToken cancellationToken = default)
         {
             cancellationToken.Register(() => _biteSequence.Complete());
-            var bitePosition = _hook.position + (Vector3)biteOffset;
+            // var bitePosition = _hook.position + (Vector3)biteOffset;
+            // _biteSequence = Sequence.Create()
+            //     .Group(Tween.Position(transform, transform.position, bitePosition,
+            //         biteSettings))
+            //     .Chain(Tween.Position(transform, biteTransitionOutSettings.ToVector3().ToRelative(bitePosition)));
+            var bitePosition = _hook.position + (Vector3)biteTransitionOutSettings.endValue;
             _biteSequence = Sequence.Create()
-                .Group(Tween.Position(transform, transform.position, bitePosition,
-                    biteSettings))
-                .Chain(Tween.Position(transform, biteTransitionOutSettings.ToVector3().ToRelative(bitePosition)));
+                .Chain(Tween.Position(transform, bitePosition, biteTransitionOutSettings.settings));
             await _biteSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
     }

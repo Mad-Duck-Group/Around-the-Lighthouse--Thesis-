@@ -14,6 +14,7 @@ namespace Madduck.Fishing.Shared
     {
         void SetUp(Transform hook, FishItemInstance fishItemInstance);
         void Detach();
+        UniTask FadeOut(CancellationToken cancellationToken = default);
         ISpineAnimator<FishSpriteAnimationKey> Animator { get; }
         IFishFatigueTimerView FatigueTimerView { get; }
     }
@@ -26,11 +27,15 @@ namespace Madduck.Fishing.Shared
          SerializeField] private SkeletonUtility skeletonUtility;
         [Required,
          SerializeField] private FishFatigueTimerView fatigueTimerView;
+        
+        [Title("Tween")]
+        [Required,
+         SerializeField] private TweenSettings<float> fadeOutTweenSettings;
 
         [Title("Debug")] 
         [InlineEditor, OnValueChanged(nameof(OnDebugFishChanged)),
          SerializeField] private FishItemData debugFish;
-        
+
         public ISpineAnimator<FishSpriteAnimationKey> Animator { get; private set; }
         public IFishFatigueTimerView FatigueTimerView => fatigueTimerView;
         private TweenSettings<Vector2> _spawnRelativePositionTween;
@@ -100,6 +105,21 @@ namespace Madduck.Fishing.Shared
         private void CancelTransition()
         {
             _transitionSequence.Complete();
+        }
+        
+        public async UniTask FadeOut(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.Register(CancelTransition);
+            _transitionSequence = Sequence.Create()
+                .Group(Tween.Custom(fadeOutTweenSettings.startValue, fadeOutTweenSettings.endValue,
+                    fadeOutTweenSettings.settings,
+                    x =>
+                    {
+                        var color = skeletonAnimation.Skeleton.GetColor();
+                        color.a = x;
+                        skeletonAnimation.Skeleton.SetColor(color);
+                    }));
+            await _transitionSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
 
         private void OnDrawGizmosSelected()

@@ -209,7 +209,7 @@ MonoBehaviour:
       _useFixedUpdate: 0
       _updateType: 0
   biteSettings:
-    duration: 0.25
+    duration: 0.5
     ease: 0
     customEase:
       serializedVersion: 2

@@ -63,6 +63,7 @@ namespace Madduck.Fishing.Shared
         [SerializeField] private TweenSettings<Vector2> nibbleTween;
         [SerializeField] private TweenSettings dramaticReturnTween;
         [SerializeField] private TweenSettings<Vector3> alertScaleTweenSettings;
+        [SerializeField] private TweenSettings snapBackTweenSettings;
 
         #endregion
         
@@ -204,6 +205,7 @@ namespace Madduck.Fishing.Shared
         public async UniTask Nibble(int? cycle)
         {
             StopWave();
+            hookIcon.localPosition = Vector3.zero;
             var finalCycle = cycle ?? 1;
             _nibbleSequence = Sequence.Create(finalCycle, CycleMode.Yoyo)
                 .Group(Tween.LocalPosition(hookIcon, nibbleTween.ToVector3().ToRelative(hookIcon.localPosition)));
@@ -342,7 +344,8 @@ namespace Madduck.Fishing.Shared
         public void StopWave()
         {
             _waveSequence.Stop();
-            hookIcon.localPosition = Vector3.zero;
+            Tween.LocalPosition(hookIcon, Vector3.zero, snapBackTweenSettings);
+            //hookIcon.localPosition = Vector3.zero;
         }
 
         void OnDrawGizmosSelected()

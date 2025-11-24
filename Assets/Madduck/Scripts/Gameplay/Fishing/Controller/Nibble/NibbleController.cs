@@ -165,12 +165,18 @@ namespace Madduck.Fishing.Controller
                     fishSprite.Animator.Set(FishSpriteAnimationKey.Idle, 0, true);
                     _hookFactory.Current.Alert(false).Forget();
                     _bubbleManager.PauseAllBubbles();
+                    var currentFish = (FishItemInstance)_fishableFactory.Current;
+                    if (currentFish.ItemData.EnemyType is FishEnemyType.Boss)
+                    { 
+                        DebugUtils.Log("Boss fish emerged!");
+                        _fishEmergedEventPublisher.Publish(new FishEmergedEvent(currentFish));
+                    }
                     // await UniTask.WhenAll(
                     //     fishSprite.TransitionIn(),
                     //     _hookFactory.Current.MoveY(Percentage.Full));
-                    await _hookFactory.Current.MoveY(Percentage.Full);
-                    await fishSprite.TransitionIn();
                     _hookFactory.Current.StopWave();
+                    await fishSprite.TransitionIn();
+                    await _hookFactory.Current.MoveY(Percentage.Full);
                     await _hookFactory.Current.MoveX(Percentage.Full);
                     break;
                 }
@@ -335,12 +341,6 @@ namespace Madduck.Fishing.Controller
                     {
                         _fishEyesFactory.DestroyFishEyes();
                         _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
-                        var currentFish = (FishItemInstance)_fishableFactory.Current;
-                        if (currentFish.ItemData.EnemyType is FishEnemyType.Boss)
-                        { 
-                            DebugUtils.Log("Boss fish emerged!");
-                            _fishEmergedEventPublisher.Publish(new FishEmergedEvent(currentFish));
-                        }
                         _hookFactory.Current.Alert(true);
                         StartFishBiteTimer(_fishBiteCts.Token).Forget();
                     });

@@ -21,6 +21,8 @@ namespace Madduck.Fishing.Shared
         [Title("References")]
         [Required,
          SerializeField] private SpriteRenderer bubbleSpriteRenderer;
+        [Required,
+         SerializeField] private SpriteRenderer fishShadowSpriteRenderer;
         
         [Title("Settings")]
         [SerializeField] private Vector2 lengthRange;
@@ -29,7 +31,8 @@ namespace Madduck.Fishing.Shared
         [SerializeField] private TweenSettings<Vector2> relativePositionTweenSettings;
         [SerializeField] private TweenSettings<float> fadeOutTweenSettings;
 
-        private TweenSettings<Vector2> _relativePositionTweenSettings;
+        private TweenSettings<Vector2> _bubblePositionTweenSettings;
+        private TweenSettings<Vector2> _fishShadowPositionTweenSettings;
         
         [Title("Debug")]
         [Button("Preview Transition")]
@@ -65,15 +68,18 @@ namespace Madduck.Fishing.Shared
         {
             transform.position = position;
             BubbleType = bubbleType;
-            _relativePositionTweenSettings = relativePositionTweenSettings.ToRelative(bubbleSpriteRenderer.transform.localPosition);
+            _bubblePositionTweenSettings = relativePositionTweenSettings.ToRelative(bubbleSpriteRenderer.transform.localPosition);
+            _fishShadowPositionTweenSettings = relativePositionTweenSettings.ToRelative(fishShadowSpriteRenderer.transform.localPosition);
         }
         
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
-            bubbleSpriteRenderer.transform.localPosition = _relativePositionTweenSettings.startValue;
+            bubbleSpriteRenderer.transform.localPosition = _bubblePositionTweenSettings.startValue;
+            fishShadowSpriteRenderer.transform.localPosition = _fishShadowPositionTweenSettings.startValue;
             cancellationToken.Register(CancelTransition);
             _transitionSequence = Sequence.Create()
-                .Group(Tween.LocalPosition(bubbleSpriteRenderer.transform, _relativePositionTweenSettings.ToVector3()));
+                .Group(Tween.LocalPosition(bubbleSpriteRenderer.transform, _bubblePositionTweenSettings.ToVector3()))
+                .Group(Tween.LocalPosition(fishShadowSpriteRenderer.transform, _fishShadowPositionTweenSettings.ToVector3()));
             await _transitionSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
 
@@ -81,7 +87,8 @@ namespace Madduck.Fishing.Shared
         {
             cancellationToken.Register(CancelTransition);
             _transitionSequence = Sequence.Create()
-                .Group(Tween.Alpha(bubbleSpriteRenderer, fadeOutTweenSettings));
+                .Group(Tween.Alpha(bubbleSpriteRenderer, fadeOutTweenSettings))
+                .Group(Tween.Alpha(fishShadowSpriteRenderer, fadeOutTweenSettings));
             await _transitionSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
             Destroy(gameObject);
         }

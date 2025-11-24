@@ -41,7 +41,7 @@ MonoBehaviour:
   <SpriteAnchorOffset>k__BackingField: {x: -0.23, y: 0.06}
   <SpawnPositionTweenSettings>k__BackingField:
     startFromCurrent: 0
-    startValue: {x: 0, y: -2}
+    startValue: {x: 0, y: -3}
     endValue: {x: 0, y: 0}
     settings:
       duration: 1

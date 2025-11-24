@@ -152,7 +152,7 @@ namespace Madduck.Fishing.Controller
                 sprite.Detach();
                 _hookFactory.DestroyHook();
                 OnCatchFishCompleted?.Invoke();
-                await sprite.TransitionOut();
+                await sprite.FadeOut();
                 _fishSpriteFactory.DestroyFishSprite();
                 return;
             }
