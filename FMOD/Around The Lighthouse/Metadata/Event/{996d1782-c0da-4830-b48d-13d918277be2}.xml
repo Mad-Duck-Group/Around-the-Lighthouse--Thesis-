@@ -78,6 +78,12 @@
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{61a0111b-9084-4320-bafe-4ce031b37561}">
+		<property name="length">
+			<value>0.95999999999999996</value>
+		</property>
+		<property name="timelockedOffset">
+			<value>0.040000000000000001</value>
+		</property>
 		<relationship name="audioFile">
 			<destination>{ca62d58a-535e-46d2-ae90-e2b63084f1a4}</destination>
 		</relationship>
