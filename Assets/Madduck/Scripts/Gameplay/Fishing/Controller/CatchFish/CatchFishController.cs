@@ -144,9 +144,8 @@ namespace Madduck.Fishing.Controller
                     _startSlowMo.Dispose();
                     StartSlowMo().Forget();
                 });
-            await UniTask.WhenAll(
-                hook.DramaticReturn(),
-                isBoss ? sprite.TransitionOut() : UniTask.CompletedTask);
+            if (isBoss) sprite.TransitionOut().Forget();
+            await hook.DramaticReturn();
             if (!isBoss)
             {
                 sprite.Detach();
