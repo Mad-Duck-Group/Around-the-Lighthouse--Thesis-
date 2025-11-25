@@ -1,4 +1,5 @@
 ﻿using FMODUnity;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -27,5 +28,16 @@ namespace Madduck.Fishing.Config
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _audioTitle;
         [field: SerializeField] public EventReference ReelingSfx { get; private set; }
+        
+        [Title("Input Instructions"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _inputInstructionsTitle;
+        [field: SerializeField] public InputInstruction[] ReelingInputInstructions { get; private set; } = {
+                new()
+                {
+                        key = "Analog Right",
+                        description = "Reel"
+                }
+        };
     }
 }

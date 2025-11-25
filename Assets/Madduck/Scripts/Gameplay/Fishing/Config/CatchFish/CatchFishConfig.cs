@@ -1,4 +1,5 @@
 ﻿using FMODUnity;
+using Madduck.Shared;
 using Madduck.Utils;
 using PrimeTween;
 using Sirenix.OdinInspector;
@@ -21,5 +22,16 @@ namespace Madduck.Fishing.Config
          ShowInInspector] private InspectorPlaceholder _audioTitle;
         [field: SerializeField] public EventReference PullHookUpSfx { get; private set; }
         [field: SerializeField] public EventReference FishFlopSfx { get; private set; }
+        
+        [Title("Input Instructions"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _inputInstructionsTitle;
+        [field: SerializeField] public InputInstruction[] QteInputInstructions { get; private set; } = {
+            new()
+            {
+                key = "ABXY",
+                description = "QTE"
+            }
+        };
     }
 }

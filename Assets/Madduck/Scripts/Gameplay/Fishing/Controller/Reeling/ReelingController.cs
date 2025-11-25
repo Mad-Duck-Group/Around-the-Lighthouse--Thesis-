@@ -213,14 +213,7 @@ namespace Madduck.Fishing.Controller
                 _model.SetFishInstance(currentFishable as FishItemInstance);
                 if (!isFish) _model.SetMaxProgress(_hookFactory.Current.CurrentX.AsPercentage);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
-                _inputInstructionManager.Show(new[]
-                {
-                    new InputInstruction
-                    {
-                        key = "Analog Right",
-                        description = "Reel"
-                    }
-                }, stream: 0);
+                _inputInstructionManager.Show(_config.ReelingInputInstructions, stream: 0);
                 Bind();
                 if (isFish) StartFatigueTimer();
             }

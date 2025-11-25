@@ -135,14 +135,7 @@ namespace Madduck.Fishing.Controller
                 _aiController.SetFishPosition(Vector2.zero);
                 SetHookPosition(Vector2.zero);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
-                _inputInstructionManager.Show(new[]
-                {
-                    new InputInstruction
-                    {
-                        key = "Analog Left",
-                        description = "Move Hook"
-                    }
-                }, stream: 0);
+                _inputInstructionManager.Show(_config.MoveHookInputInstructions, stream: 0);
                 _model.SetFishInstance(_sharedVariables.CurrentFishable as FishItemInstance);
                 Bind();
                 StartFishingBoard();

@@ -1,4 +1,5 @@
 ﻿using FMODUnity;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -24,5 +25,16 @@ namespace Madduck.Fishing.Config
         [Title("Audio")]
         [PropertyTooltip("Sound effect played when there is tension on the fishing line.")]
         [field: SerializeField] public EventReference FishingLineTensionSfx { get; private set; }
+        
+        [Title("Input Instructions"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _inputInstructionsTitle;
+        [field: SerializeField] public InputInstruction[] MoveHookInputInstructions { get; private set; } = {
+            new()
+            {
+                key = "Analog Left",
+                description = "Move Hook"
+            }
+        };
     }
 }

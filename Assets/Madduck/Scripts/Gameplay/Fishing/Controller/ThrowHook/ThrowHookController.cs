@@ -146,14 +146,7 @@ namespace Madduck.Fishing.Controller
             if (active)
             {
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
-                _inputInstructionManager.Show(new[]
-                {
-                    new InputInstruction
-                    {
-                        key = "A",
-                        description = "Throw (Hold)",
-                    },
-                }, stream: 0);
+                _inputInstructionManager.Show(_config.ThrowHookInputInstructions, stream: 0);
                 Bind();
             }
             else

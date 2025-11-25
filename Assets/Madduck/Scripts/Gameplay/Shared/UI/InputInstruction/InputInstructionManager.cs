@@ -1,15 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Madduck.Utils;
 using R3;
+using Sirenix.OdinInspector;
+using UnityEngine;
 using VContainer;
 
 namespace Madduck.Shared
 {
+    [Serializable]
     public struct InputInstruction
     {
-        public string key;
-        public string description;
+        [ValueDropdown("@InputInstructionConstants.Keys")]
+        [SerializeField] public string key;
+        [SerializeField] public string description;
     }
     
     public class InputInstructionManager
@@ -71,5 +76,32 @@ namespace Madduck.Shared
             var current = _streams.AsEnumerable().OrderByDescending(x => x.Key).First().Value;
             _currentInstructions.Value = current;
         }
+    }
+
+    public static class InputInstructionConstants
+    {
+        public static string[] Keys =
+        {
+            "A",
+            "B",
+            "X",
+            "Y",
+            "Lb",
+            "Rb",
+            "Lt",
+            "Rt",
+            "Analog Left",
+            "Analog Right",
+            "Dpad",
+            "Left",
+            "Right",
+            "Up",
+            "Down",
+            "Start",
+            "Back",
+            "ABXY",
+            "Esc",
+            "LeftRight",
+        };
     }
 }

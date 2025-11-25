@@ -145,14 +145,7 @@ namespace Madduck.Fishing.Controller
                 _model.SetFishInstance(_sharedVariable.CurrentFishable as FishItemInstance);
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 _inputActive = true;
-                _inputInstructionManager.Show(new[]
-                {
-                    new InputInstruction
-                    {
-                        key = "ABXY",
-                        description = "Tug (Spam)"
-                    }
-                }, stream: 0);
+                _inputInstructionManager.Show(_config.TugInputInstructions, stream: 0);
                 _audioManager.PlayAudioOneShot(_config.FishAngrySfx, Vector3.zero);
                 Bind();
                 StartDecaying();

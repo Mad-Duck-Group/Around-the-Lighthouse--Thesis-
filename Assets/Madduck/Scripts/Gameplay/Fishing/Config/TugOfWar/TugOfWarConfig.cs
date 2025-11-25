@@ -1,4 +1,5 @@
 ﻿using FMODUnity;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -12,5 +13,16 @@ namespace Madduck.Fishing.Config
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _audioTitle;
         [field: SerializeField] public EventReference FishAngrySfx { get; private set; }
+        
+        [Title("Input Instructions"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _inputInstructionsTitle;
+        [field: SerializeField] public InputInstruction[] TugInputInstructions { get; private set; } = {
+            new()
+            {
+                key = "ABXY",
+                description = "Tug (Spam)"
+            }
+        };
     }
 }

@@ -157,19 +157,7 @@ namespace Madduck.Room
             _baitTriggerConfig.after.SetActive(active);
             if (active && _interactable)
             {
-                _inputInstructionManager.Show(new []
-                {
-                    new InputInstruction
-                    {
-                        key = "LeftRight",
-                        description = "Cycle Bait"
-                    },
-                    new InputInstruction
-                    {
-                        key = "X",
-                        description = "Confirm Bait"
-                    }
-                }, stream: 1);
+                _inputInstructionManager.Show(_baitControllerConfig.BaitInputInstructions, stream: 1);
             }
             else
             {
@@ -182,19 +170,7 @@ namespace Madduck.Room
             switch (_interactable)
             {
                 case true when _isActive:
-                    _inputInstructionManager.Show(new []
-                    {
-                        new InputInstruction
-                        {
-                            key = "Dpad",
-                            description = "Cycle Bait"
-                        },
-                        new InputInstruction
-                        {
-                            key = "X",
-                            description = "Confirm Bait"
-                        }
-                    }, stream: 1);
+                    _inputInstructionManager.Show(_baitControllerConfig.BaitInputInstructions, stream: 1);
                     break;
                 case false when _isActive:
                     _inputInstructionManager.RemoveStream(1);

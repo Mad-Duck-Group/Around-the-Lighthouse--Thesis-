@@ -171,14 +171,7 @@ namespace Madduck.Fishing.Controller
             var qte = _qteButtonFactory.Create();
             var tcs = new UniTaskCompletionSource();
             await qte.TransitionInElement();
-            _inputInstructionManager.Show(new[]
-            {
-                new InputInstruction
-                {
-                    key = "ABXY",
-                    description = "QTE"
-                }
-            }, stream: 0);
+            _inputInstructionManager.Show(_config.QteInputInstructions, stream: 0);
             qte.StartQuickTimeEvent();
             _qteSubscription = new DisposableBag();
             Observable.FromEvent(

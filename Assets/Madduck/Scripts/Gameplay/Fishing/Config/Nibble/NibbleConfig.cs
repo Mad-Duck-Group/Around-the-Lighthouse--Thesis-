@@ -1,4 +1,5 @@
 ﻿using FMODUnity;
+using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -20,5 +21,30 @@ namespace Madduck.Fishing.Config
         [field: SerializeField] public EventReference PullHookSfx { get; private set; }
         [field: SerializeField] public EventReference FishBiteSfx { get; private set; }
         [field: SerializeField] public EventReference FishEmergedSfx { get; private set; }
+        
+        [Title("Input Instructions"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _inputInstructionsTitle;
+        [field: SerializeField] public InputInstruction[] CancelInputInstructions { get; private set; } = {
+            new()
+            {
+                key = "B",
+                description = "Cancel",
+            },
+        };
+        [field: SerializeField] public InputInstruction[] QteInputInstructions { get; private set; } = {
+            new()
+            {
+                key = "ABXY",
+                description = "QTE",
+            },
+        };
+        [field: SerializeField] public InputInstruction[] CatchInputInstructions { get; private set; } = {
+            new()
+            {
+                key = "A",
+                description = "Catch",
+            },
+        };
     }
 }
