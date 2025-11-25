@@ -24,7 +24,12 @@ namespace Madduck.WeatherPreset
         [ShowIf(nameof(isStormy))]
         public ParticleSystem StormParticleSystem;
         [ShowIf(nameof(isStormy))]
+        public List<WeatherParticlesSettings> windsStormyParticle;
+        [ShowIf(nameof(isStormy))]
         public Vector2 StormPositionOffset;
+        public bool isRainy;
+        [ShowIf(nameof(isRainy))]
+        public List<WeatherParticlesSettings> windsRainyParticle;
     }
     [System.Serializable]
     public class WeatherPresetConfig 

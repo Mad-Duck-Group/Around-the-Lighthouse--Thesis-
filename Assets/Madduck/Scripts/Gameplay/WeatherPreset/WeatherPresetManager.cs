@@ -102,6 +102,8 @@ namespace Madduck.WeatherPreset
                 Debug.LogWarning($"No particle config found for {_currentWeather}");
                 return;
             }
+            List<WeatherParticlesSettings> selectedList = null;
+            
             var windDirection = _currentWindDirection;
             var particleSetting = particleGroup.ParticlesSettings
                 .Find(p => p.WindDirections == windDirection);
@@ -137,6 +139,38 @@ namespace Madduck.WeatherPreset
                     var pos = (Vector2)instance.transform.position + particleSetting.PositionOffset;
                     var particleInstance = Object.Instantiate(ps, pos,ps.transform.rotation, instance.transform);
                     particleInstance.Play();
+                }
+            }
+            if (particleGroup.isStormy && particleGroup.windsStormyParticle != null)
+            {
+                foreach (var w in particleGroup.windsStormyParticle)
+                {
+                    if (w.WindDirections != windDirection) continue;
+
+                    foreach (var ps in w.ParticleSystem)
+                    {
+                        if (!ps) continue;
+                        var pos = (Vector2)instance.transform.position + w.PositionOffset;
+                        var particleInstance = Object.Instantiate(ps, pos, ps.transform.rotation, instance.transform);
+                        particleInstance.Play();
+                    }
+                }
+            }
+
+            
+            if (particleGroup.isRainy && particleGroup.windsRainyParticle != null)
+            {
+                foreach (var w in particleGroup.windsRainyParticle)
+                {
+                    if (w.WindDirections != windDirection) continue;
+
+                    foreach (var ps in w.ParticleSystem)
+                    {
+                        if (!ps) continue;
+                        var pos = (Vector2)instance.transform.position + w.PositionOffset;
+                        var particleInstance = Object.Instantiate(ps, pos, ps.transform.rotation, instance.transform);
+                        particleInstance.Play();
+                    }
                 }
             }
             instance.SetUpWeatherParticles();
