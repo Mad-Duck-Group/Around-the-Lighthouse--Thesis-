@@ -52,6 +52,7 @@ namespace Madduck.Fishing.Controller
         private int _currentStageIndex;
         private bool _qteActive;
         private bool _fishBiting;
+        private bool _hookPulled;
 
         private readonly Dictionary<int, Percentage> _currentStageChance = new()
         {
@@ -118,7 +119,7 @@ namespace Madduck.Fishing.Controller
                 .Subscribe(_ => OnCancel())
                 .AddTo(ref disposableBuilder);
             _model.PullHookResult
-                .Where(x => x is not Sign.Zero)
+                .Where(x => x is not Sign.Zero && !_hookPulled)
                 .SubscribeAwait((result, _) => OnPullHookResultChanged(result), AwaitOperation.Drop)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
@@ -136,6 +137,7 @@ namespace Madduck.Fishing.Controller
 
         private void OnPullHook()
         {
+            _hookPulled = true;
             if (_sharedVariable.CurrentFishable is not FishItemInstance)
             {
                 OnPullHookResultChanged(Sign.Zero).Forget();
@@ -229,6 +231,7 @@ namespace Madduck.Fishing.Controller
                 _model.CatchStage.Value = (uint)_currentStageIndex;
                 _fishBiting = false;
                 _qteActive = false;
+                _hookPulled = false;
                 Bind();
                 StartQteTimer();
             }

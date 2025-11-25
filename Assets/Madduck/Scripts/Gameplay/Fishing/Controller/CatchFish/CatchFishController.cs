@@ -102,6 +102,8 @@ namespace Madduck.Fishing.Controller
             }
             else
             {
+                _slowMoSequence.Complete();
+                Time.timeScale = 1f; 
                 _inputInstructionManager.Show(Array.Empty<InputInstruction>(), stream: 0);
             }
         }
@@ -109,6 +111,7 @@ namespace Madduck.Fishing.Controller
         public void Reset()
         {
             _isCatching = false;
+            _slowMoSequence.Complete();
             Time.timeScale = 1f;  
         }
 

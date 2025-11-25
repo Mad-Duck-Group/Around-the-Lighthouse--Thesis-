@@ -72,8 +72,8 @@ namespace Madduck.Room
         {
             if (active)
             { 
-                Initialize();
                 IsActive.Value = true;
+                OnReset();
             }
             else
             {
@@ -89,28 +89,24 @@ namespace Madduck.Room
         private void Initialize()
         {
             var masterMute = _audioManager.AudioSettings.BusData[BusType.Master].IsMuted;
-            MasterMute.Value = masterMute;
             MasterMute.OnNext(masterMute);
             var masterVolume = Percentage.FromFraction(
                 Mathf.InverseLerp(
                     0,
                     1,
                     _audioManager.AudioSettings.BusData[BusType.Master].Decibel01Volume));
-            MasterVolume.Value = masterVolume;
             MasterVolume.OnNext(masterVolume);
             var mouseSensitivity = Percentage.FromFraction(
                 Mathf.InverseLerp(
                     _config.MouseSensitivityRange.x,
                     _config.MouseSensitivityRange.y,
                     _gameSettingsManager.ControlSettings.FishingBoardMouseSensitivity));
-            MouseSensitivity.Value = mouseSensitivity;
             MouseSensitivity.OnNext(mouseSensitivity);
             var gamepadSensitivity = Percentage.FromFraction(
                 Mathf.InverseLerp(
                     _config.GamepadSensitivityRange.x,
                     _config.GamepadSensitivityRange.y,
                     _gameSettingsManager.ControlSettings.FishingBoardGamepadSensitivity));
-            GamepadSensitivity.Value = gamepadSensitivity;
             GamepadSensitivity.OnNext(gamepadSensitivity);
         }
         

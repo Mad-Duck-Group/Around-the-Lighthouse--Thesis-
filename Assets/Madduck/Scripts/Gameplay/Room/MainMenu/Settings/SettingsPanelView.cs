@@ -77,27 +77,21 @@ namespace Madduck.Room
                 .Subscribe(OnMasterMuteChanged)
                 .AddTo(ref disposableBuilder);
             masterVolumeSlider.OnValueChangedAsObservable()
-                .AsObservable()
                 .Subscribe(OnMasterVolumeSliderChanged)
                 .AddTo(ref disposableBuilder);
             mouseSensitivitySlider.OnValueChangedAsObservable()
-                .AsObservable()
                 .Subscribe(OnMouseSensitivitySliderChanged)
                 .AddTo(ref disposableBuilder);
             gamepadSensitivitySlider.OnValueChangedAsObservable()
-                .AsObservable()
                 .Subscribe(OnGamepadSensitivitySliderChanged)
                 .AddTo(ref disposableBuilder);
-            saveButton.onClick
-                .AsObservable()
+            saveButton.OnClickAsObservable()
                 .Subscribe(_ => OnSaveButtonClicked())
                 .AddTo(ref disposableBuilder);
-            resetButton.onClick
-                .AsObservable()
+            resetButton.OnClickAsObservable()
                 .Subscribe(_ => OnResetButtonClicked())
                 .AddTo(ref disposableBuilder);
-            backButton.onClick
-                .AsObservable()
+            backButton.OnClickAsObservable()
                 .Subscribe(_ => OnBackButtonClicked())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
@@ -112,7 +106,7 @@ namespace Madduck.Room
         {
             if (active)
             {
-                EventSystem.current.SetSelectedGameObject(mouseSensitivitySlider.gameObject);
+                EventSystem.current.SetSelectedGameObject(masterVolumeSlider.gameObject);
                 TransitionIn().Forget();
             }
             else
@@ -123,7 +117,7 @@ namespace Madduck.Room
         
         private void OnInitializeMasterMute(bool isMuted)
         {
-            masterMuteToggle.SetIsOnWithoutNotify(!isMuted);
+            masterMuteToggle.isOn = !isMuted;
             masterVolumeSlider.interactable = !isMuted;
         }
         

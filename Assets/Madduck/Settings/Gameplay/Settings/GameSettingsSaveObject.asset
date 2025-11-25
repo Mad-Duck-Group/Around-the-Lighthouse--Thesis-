@@ -32,7 +32,7 @@ MonoBehaviour:
       Data: 1|Madduck.GameData.ControlSettingsSaveData, Madduck.GameData
     - Name: <FishingBoardMouseSensitivity>k__BackingField
       Entry: 4
-      Data: 500
+      Data: 1500
     - Name: <FishingBoardGamepadSensitivity>k__BackingField
       Entry: 4
       Data: 500
