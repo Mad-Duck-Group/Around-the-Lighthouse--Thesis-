@@ -91,7 +91,7 @@ MonoBehaviour:
       Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 5
+      Data: 1.5
     - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -108,6 +108,15 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: <StepValues>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierContextProvider>k__BackingField
       Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
@@ -163,7 +172,7 @@ MonoBehaviour:
       Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 10
+      Data: 3
     - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -180,6 +189,15 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: <StepValues>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierContextProvider>k__BackingField
       Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
@@ -235,7 +253,7 @@ MonoBehaviour:
       Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 15
+      Data: 5
     - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -252,6 +270,15 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: <StepValues>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierContextProvider>k__BackingField
       Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
@@ -439,7 +466,7 @@ MonoBehaviour:
       Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 5
+      Data: 1.5
     - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -456,6 +483,15 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: <StepValues>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierContextProvider>k__BackingField
       Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
@@ -520,7 +556,7 @@ MonoBehaviour:
       Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 10
+      Data: 3
     - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -537,6 +573,15 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: <StepValues>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierContextProvider>k__BackingField
       Entry: 6
       Data: 
     - Name: <Keys>k__BackingField
@@ -601,7 +646,7 @@ MonoBehaviour:
       Data: 0
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 15
+      Data: 5
     - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -618,6 +663,15 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: <StepValues>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierContextProvider>k__BackingField
       Entry: 6
       Data: 
     - Name: <Keys>k__BackingField

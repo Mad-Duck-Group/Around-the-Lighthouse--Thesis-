@@ -16,7 +16,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 09e05137d53d8d74882aa881f15e2984, type: 2}
+    - {fileID: 11400000, guid: 9ff94b87bda43b24e974304fcdf3c11f, type: 2}
+    - {fileID: 11400000, guid: 414009192fb13fd4abdef422c59e89e8, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -31,7 +32,7 @@ MonoBehaviour:
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 1|Madduck.GameData.FishWeightModifierData, Madduck.GameData
@@ -88,13 +89,79 @@ MonoBehaviour:
       Data: 
     - Name: <ModifierType>k__BackingField
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: <FishSize>k__BackingField
       Entry: 3
       Data: 0
     - Name: <FishItemData>k__BackingField
       Entry: 10
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|Madduck.GameData.FishWeightModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 4
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 1
+    - Name: <ModifierCurveRange>k__BackingField
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierContextProvider>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 1
+      Data: Fishable
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierType>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <FishSize>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishItemData>k__BackingField
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

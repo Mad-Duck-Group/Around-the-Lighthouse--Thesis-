@@ -16,7 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 826ca38ca0eeb7e4fa2e023df6f586a0, type: 2}
+    - {fileID: 11400000, guid: c272284a26889c94cb0ccfb2fc87b14d, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -88,7 +88,7 @@ MonoBehaviour:
       Data: 
     - Name: <ModifierType>k__BackingField
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: <FishSize>k__BackingField
       Entry: 3
       Data: 2

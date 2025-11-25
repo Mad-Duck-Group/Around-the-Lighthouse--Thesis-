@@ -19,3 +19,8 @@ MonoBehaviour:
       Data3: 1102097064
       Data4: 999091871
     Path: event:/SFX/SlideBait
+  <BaitInputInstructions>k__BackingField:
+  - key: LeftRight
+    description: Select Bait
+  - key: X
+    description: Use

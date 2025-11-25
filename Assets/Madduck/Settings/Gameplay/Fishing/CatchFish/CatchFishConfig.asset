@@ -48,3 +48,6 @@ MonoBehaviour:
       Data3: -18098766
       Data4: 1007214722
     Path: event:/SFX/DropFish
+  <QteInputInstructions>k__BackingField:
+  - key: ABXY
+    description: Catch Fish

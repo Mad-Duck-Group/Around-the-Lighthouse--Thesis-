@@ -21,15 +21,15 @@ MonoBehaviour:
     values:
     - <BaseCount>k__BackingField: 2
       <IncrementPerRoom>k__BackingField: 2
+    - <BaseCount>k__BackingField: 3
+      <IncrementPerRoom>k__BackingField: 2
     - <BaseCount>k__BackingField: 4
       <IncrementPerRoom>k__BackingField: 2
-    - <BaseCount>k__BackingField: 6
+    - <BaseCount>k__BackingField: 5
       <IncrementPerRoom>k__BackingField: 2
     - <BaseCount>k__BackingField: 6
       <IncrementPerRoom>k__BackingField: 2
-    - <BaseCount>k__BackingField: 6
-      <IncrementPerRoom>k__BackingField: 2
-    - <BaseCount>k__BackingField: 8
+    - <BaseCount>k__BackingField: 7
       <IncrementPerRoom>k__BackingField: 2
     - <BaseCount>k__BackingField: 8
       <IncrementPerRoom>k__BackingField: 4

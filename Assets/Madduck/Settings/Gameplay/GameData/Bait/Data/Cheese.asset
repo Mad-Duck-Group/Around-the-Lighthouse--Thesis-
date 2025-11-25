@@ -16,7 +16,9 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: fe2409ffe21a66f489b88b6cf7b663eb, type: 2}
+    - {fileID: 11400000, guid: 826ca38ca0eeb7e4fa2e023df6f586a0, type: 2}
+    - {fileID: 11400000, guid: 58aa97495a1b5224bbeb8e172a9c99a5, type: 2}
+    - {fileID: 11400000, guid: 67e234dcd7f137d4691e225c850b6590, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -31,7 +33,7 @@ MonoBehaviour:
         Madduck.Utils]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 7
       Data: 1|Madduck.GameData.FishWeightModifierData, Madduck.GameData
@@ -88,13 +90,145 @@ MonoBehaviour:
       Data: 
     - Name: <ModifierType>k__BackingField
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: <FishSize>k__BackingField
       Entry: 3
       Data: 0
     - Name: <FishItemData>k__BackingField
       Entry: 10
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|Madduck.GameData.FishWeightModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 4
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 1
+    - Name: <ModifierCurveRange>k__BackingField
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierContextProvider>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 1
+      Data: Fishable
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierType>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <FishSize>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishItemData>k__BackingField
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|Madduck.GameData.FishWeightModifierData, Madduck.GameData
+    - Name: <ModifierMethod>k__BackingField
+      Entry: 3
+      Data: 4
+    - Name: <ModifierValueType>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierValue>k__BackingField
+      Entry: 4
+      Data: 1
+    - Name: <ModifierCurveRange>k__BackingField
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierCurve>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <StepValues>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <HasMaxIncrementCount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: <MaxIncrementCount>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <ModifierContextProvider>k__BackingField
+      Entry: 6
+      Data: 
+    - Name: <Keys>k__BackingField
+      Entry: 7
+      Data: 6|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 1
+      Data: Fishable
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <ModifierType>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <FishSize>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <FishItemData>k__BackingField
+      Entry: 10
+      Data: 2
     - Name: 
       Entry: 8
       Data: 

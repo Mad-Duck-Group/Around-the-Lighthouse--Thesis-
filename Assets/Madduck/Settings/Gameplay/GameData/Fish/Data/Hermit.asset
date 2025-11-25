@@ -25,10 +25,10 @@ MonoBehaviour:
       Entry: 2
       Data: 24c55428fc8d4e70b8dd4f3706dd202c
   <ItemType>k__BackingField: 0
-  <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 39dfbaa59d62b0048875307e817ae247, type: 2}
   <EnemyType>k__BackingField: 0
   <Size>k__BackingField: 0
-  <WeatherType>k__BackingField: 63
+  <WeatherType>k__BackingField: 6
   <DayPhaseType>k__BackingField: 2
   <FishName>k__BackingField: Hermit
   <FishDescription>k__BackingField: A calm hermit amidst the storm. Sorry to interrupt
@@ -62,14 +62,14 @@ MonoBehaviour:
       _updateType: 0
   <BasePrice>k__BackingField: 10
   <Power>k__BackingField:
-    value: 9
+    value: 8
   <Resistance>k__BackingField:
-    value: 1
+    value: 0
   <FishWeight>k__BackingField:
-    value: 2
+    value: 8
   <FatigueDuration>k__BackingField:
-    value: 10
+    value: 4
   <TugOfWarDecayRate>k__BackingField:
-    value: 25
+    value: 30
   <TugOfWarRegression>k__BackingField:
-    value: 20
+    value: 25

@@ -34,37 +34,37 @@ MonoBehaviour:
   bubbleNibbleBonuses:
     keys: 000000000100000002000000
     values:
-    - value: 5
+    - value: 100
     - value: 10
     - value: 10
   bubbleNibblePenalties:
     keys: 000000000100000002000000
     values:
-    - value: 10
-    - value: 10
-    - value: 10
+    - value: 5
+    - value: 7
+    - value: 7
   nibbleBaseSuccessChances:
     keys: 0000000001000000
     values:
-    - value: 20
-    - value: 30
+    - value: 0
+    - value: 0
   <FishBiteTimeFrame>k__BackingField:
     value: 3
   <Power>k__BackingField:
-    value: 8
+    value: 10
   <Resistance>k__BackingField:
-    value: 1
+    value: 0
   <FishingBoardDecayThreshold>k__BackingField:
     value: 5
   <HookToCenterForce>k__BackingField:
     value: 200
   <FishingLineDurability>k__BackingField:
-    value: 10
+    value: 100
   <FishingLineRegenFactor>k__BackingField:
-    value: 14
+    value: 25
   <ReelingSpeed>k__BackingField:
     value: 30
   <TugOfWarDecayThreshold>k__BackingField:
     value: 5
   <TugOfWarGainRate>k__BackingField:
-    value: 5
+    value: 2

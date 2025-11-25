@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19948f8ca49d40d4a695c5061f0081ef, type: 3}
   m_Name: FishingBoardConfig
   m_EditorClassIdentifier: Madduck.UI::Madduck.Scripts.UI.FishingBoard.FishingBoardConfig
-  <MouseSensitivity>k__BackingField:
-    value: 500
-  <GamepadSensitivity>k__BackingField:
-    value: 500
   <MaxFatigueLevel>k__BackingField:
     value: 100
   <FishingLineTensionSfx>k__BackingField:
@@ -25,3 +21,6 @@ MonoBehaviour:
       Data3: 53463223
       Data4: 2043922664
     Path: event:/SFX/FishingLineTension
+  <MoveHookInputInstructions>k__BackingField:
+  - key: Analog Left
+    description: Move Line

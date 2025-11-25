@@ -19,3 +19,6 @@ MonoBehaviour:
       Data3: -739449683
       Data4: -2041028436
     Path: event:/SFX/AngryFish
+  <TugInputInstructions>k__BackingField:
+  - key: ABXY
+    description: (Mash) Pull
