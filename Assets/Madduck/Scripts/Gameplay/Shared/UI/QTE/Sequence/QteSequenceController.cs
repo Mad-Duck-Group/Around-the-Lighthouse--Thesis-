@@ -5,6 +5,8 @@ using Cysharp.Threading.Tasks;
 using Madduck.Input;
 using Madduck.Utils;
 using R3;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Madduck.Shared
 {
@@ -53,6 +55,11 @@ namespace Madduck.Shared
         
         public void StartQuickTimeEvent()
         {
+            StartQuickTimeEventInternal(_qteSequenceCts.Token).Forget();
+        }
+
+        private async UniTaskVoid StartQuickTimeEventInternal(CancellationToken cancellationToken)
+        {
             _currentQteIndex = 0;
             for (var i = 0; i < _configInstance.CurrentSequenceLength; i++)
             {
@@ -62,12 +69,7 @@ namespace Madduck.Shared
                 qte.ChangeInputActiveState(false); 
                 qte.DestroyWhenFinished = false;
                 qte.ChangeViewResultManually = true;
-            }
-            StartQuickTimeEventInternal(_qteSequenceCts.Token).Forget();
-        }
-
-        private async UniTaskVoid StartQuickTimeEventInternal(CancellationToken cancellationToken)
-        {
+            } 
             if (!_transitionedIn)
                 await TransitionInElement(cancellationToken);
             await UniTask.WaitForSeconds(_configInstance.CurrentStartDelay, cancellationToken: cancellationToken);

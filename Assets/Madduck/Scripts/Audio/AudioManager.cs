@@ -4,6 +4,7 @@ using System.Linq;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+using Madduck.Save;
 using Madduck.Utils;
 using Redcode.Extensions;
 using UnityEngine;
@@ -22,12 +23,16 @@ namespace Madduck.Audio
         private readonly Dictionary<string, List<AudioReference>> _indexedAudioReferenceData = new();
         private readonly List<AudioReference> _wildAudioReferenceData = new();
         private readonly AudioManagerConfig _audioManagerConfig;
+        private readonly MessagePackSaveManager _saveManager;
         
         #region Constructor
         [Inject]
-        public AudioManager(AudioManagerConfig config)
+        public AudioManager(
+            AudioManagerConfig config,
+            MessagePackSaveManager saveManager)
         {
             _audioManagerConfig = config;
+            _saveManager = saveManager;
         }
         #endregion
 
@@ -35,6 +40,7 @@ namespace Madduck.Audio
         public void Initialize()
         {
             _audioManagerConfig.AudioSettings.BusData.Values.ForEach(busData => busData.Initialize());
+            Load();
             Subscribe();
         }
 
@@ -306,6 +312,27 @@ namespace Madduck.Audio
                     _indexedAudioReferenceData.Remove(key);
                 }
             } 
+        }
+        #endregion
+        
+        #region Save/Load
+
+        public void Load()
+        {
+            var audioSaveObject = _saveManager.GetFirstSaveObjectOfType<AudioSaveObject>();
+            if (!audioSaveObject) return;
+            var audioSaveData = audioSaveObject.GetSaveData<AudioSaveData>();
+            if (audioSaveData == null) return;
+            _audioManagerConfig.AudioSettings.LoadFromSaveData(audioSaveData);
+        }
+
+        public void Save()
+        {
+            var audioSaveObject = _saveManager.GetFirstSaveObjectOfType<AudioSaveObject>();
+            if (!audioSaveObject) return;
+            var audioSaveData = audioSaveObject.GetSaveData<AudioSaveData>();
+            _audioManagerConfig.AudioSettings.SaveToSaveData(audioSaveData);
+            _saveManager.Save(audioSaveObject);
         }
         #endregion
     }

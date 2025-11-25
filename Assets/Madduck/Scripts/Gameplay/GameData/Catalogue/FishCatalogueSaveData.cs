@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Madduck.Core;
+using Madduck.Save;
 using MessagePack;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;

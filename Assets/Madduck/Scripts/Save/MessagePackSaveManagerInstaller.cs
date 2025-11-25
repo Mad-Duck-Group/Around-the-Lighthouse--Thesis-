@@ -5,7 +5,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Madduck.Core
+namespace Madduck.Save
 {
     [Serializable]
     public record MessagePackDebugData : IDebugData

@@ -1,12 +1,16 @@
 ﻿using System;
 using FMOD.Studio;
 using FMODUnity;
+using Madduck.Save;
 using Madduck.Utils;
+using MessagePack;
+using MessagePack.Formatters;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Madduck.Audio
 {
+    [MessagePackFormatter(typeof(EnumAsStringFormatter<BusType>))]
     public enum BusType
     {
         Master,
@@ -58,6 +62,7 @@ namespace Madduck.Audio
             }
             Bus = bus;
             SetVolume(LinearVolume);
+            LinearChanged();
             SetMute(IsMuted);
         }
         
@@ -153,6 +158,31 @@ namespace Madduck.Audio
             { BusType.BGM, new BusData("bus:/BGM") },
             { BusType.SFX, new BusData("bus:/SFX") },
         };
+        
+        public void LoadFromSaveData(AudioSaveData saveData)
+        {
+            foreach (var busEntry in BusData)
+            {
+                if (!saveData.BusSaveData.TryGetValue(busEntry.Key, out var busSaveData)) continue;
+                busEntry.Value.SetVolume(busSaveData.LinearVolume);
+                busEntry.Value.SetMute(busSaveData.IsMuted);
+            }
+        }
+        
+        public void SaveToSaveData(AudioSaveData saveData)
+        {
+            saveData ??= new AudioSaveData();
+            foreach (var busEntry in BusData)
+            {
+                if (!saveData.BusSaveData.ContainsKey(busEntry.Key))
+                {
+                    saveData.BusSaveData[busEntry.Key] = new BusSaveData();
+                }
+                var busSaveData = saveData.BusSaveData[busEntry.Key];
+                busSaveData.LinearVolume = busEntry.Value.LinearVolume;
+                busSaveData.IsMuted = busEntry.Value.IsMuted;
+            }
+        }
     }
 
     public static class AudioSettingsUtils

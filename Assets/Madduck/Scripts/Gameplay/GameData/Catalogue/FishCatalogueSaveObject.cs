@@ -1,4 +1,4 @@
-﻿using Madduck.Core;
+﻿using Madduck.Save;
 using UnityEngine;
 
 namespace Madduck.GameData

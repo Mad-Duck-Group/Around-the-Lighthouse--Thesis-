@@ -23,10 +23,10 @@ MonoBehaviour:
     SerializationNodes:
     - Name: saveData
       Entry: 7
-      Data: 0|Madduck.Core.TestMessagePackSaveData, Madduck.Core
+      Data: 0|Madduck.Save.TestMessagePackSaveData, Madduck.Save
     - Name: <Version>k__BackingField
       Entry: 1
-      Data: 0.6.0-alpha.1+windows
+      Data: 0.7.0-alpha.1+windows
     - Name: testInt
       Entry: 3
       Data: 0
@@ -35,56 +35,11 @@ MonoBehaviour:
       Data: 
     - Name: migrationResolvers
       Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[Madduck.Core.ISaveMigrationResolver`1[[Madduck.Core.TestMessagePackSaveData,
-        Madduck.Core]], Madduck.Core]], mscorlib
+      Data: 1|System.Collections.Generic.List`1[[Madduck.Save.ISaveMigrationResolver`1[[Madduck.Save.TestMessagePackSaveData,
+        Madduck.Save]], Madduck.Save]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 2|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
-    - Name: <SourceVersion>k__BackingField
-      Entry: 1
       Data: 0
-    - Name: <TargetVersion>k__BackingField
-      Entry: 1
-      Data: 0
-    - Name: additionalTestInt
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 3|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
-    - Name: <SourceVersion>k__BackingField
-      Entry: 1
-      Data: 0
-    - Name: <TargetVersion>k__BackingField
-      Entry: 1
-      Data: 0
-    - Name: additionalTestInt
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 4|Madduck.Core.TestMessagePackMigrationResolver, Madduck.Core
-    - Name: <SourceVersion>k__BackingField
-      Entry: 1
-      Data: 0
-    - Name: <TargetVersion>k__BackingField
-      Entry: 1
-      Data: 0
-    - Name: additionalTestInt
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 13
       Data: 

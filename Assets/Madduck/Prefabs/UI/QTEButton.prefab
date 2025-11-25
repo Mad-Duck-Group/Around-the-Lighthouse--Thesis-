@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5859295336173629624}
   - component: {fileID: 6812006178108880672}
   - component: {fileID: 6287220142038263176}
+  - component: {fileID: 4305195368774107050}
   m_Layer: 5
   m_Name: QTEButton
   m_TagString: Untagged
@@ -208,6 +209,26 @@ MonoBehaviour:
     useUnscaledTime: 0
     _useFixedUpdate: 0
     _updateType: 0
+--- !u!114 &4305195368774107050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226846183328812913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 250
+  m_PreferredHeight: 250
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &2239663728689755513
 GameObject:
   m_ObjectHideFlags: 0

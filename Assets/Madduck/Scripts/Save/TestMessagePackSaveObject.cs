@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using MessagePack;
-using Semver;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Madduck.Core
+namespace Madduck.Save
 {
     [MessagePackObject]
     [Serializable]

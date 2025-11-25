@@ -15,13 +15,88 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 747b038e3c0e379438e327ab4af92b4f, type: 2}
+    - {fileID: 11400000, guid: e985a9c675429984aabd2ef08c60514b, type: 2}
+    - {fileID: 11400000, guid: d1d3cd4fd266f4d42b60ad4700b01afe, type: 2}
+    - {fileID: 11400000, guid: 4b036a0bd3d0b3242b07beb7773aaa7f, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
     - Name: _saveManager
-      Entry: 6
+      Entry: 7
+      Data: 0|Madduck.Save.MessagePackSaveManager, Madduck.Save
+    - Name: _saveObjects
+      Entry: 7
+      Data: 1|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Madduck.Save.MessagePackSaveObject,
+        Madduck.Save]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 2|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
       Data: 
-  saveConfig: {fileID: 0}
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Test
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: FishCatalogue
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Audio
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: GameSettings
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  saveConfig: {fileID: 11400000, guid: 13d8b8b81d81e7f418e3dd81901938ff, type: 2}

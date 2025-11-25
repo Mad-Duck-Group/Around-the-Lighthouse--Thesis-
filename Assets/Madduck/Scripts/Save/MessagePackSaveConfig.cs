@@ -3,7 +3,7 @@ using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Madduck.Core
+namespace Madduck.Save
 {
     [CreateAssetMenu(fileName = "MessagePackSaveConfig", menuName = "Madduck/Save/MessagePackSaveConfig", order = 0)]
     public class MessagePackSaveConfig : SerializedScriptableObject

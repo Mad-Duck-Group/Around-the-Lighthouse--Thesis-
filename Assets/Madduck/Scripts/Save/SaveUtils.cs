@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using MessagePack;
 using Newtonsoft.Json.Linq;
 using Sirenix.OdinInspector;
 
-namespace Madduck.Core
+namespace Madduck.Save
 {
     public enum SaveLocation
     {

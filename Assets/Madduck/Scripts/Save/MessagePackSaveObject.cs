@@ -11,7 +11,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 
-namespace Madduck.Core
+namespace Madduck.Save
 {
     [Union(0, typeof(TestMessagePackSaveData))]
     public interface IMessagePackSaveData

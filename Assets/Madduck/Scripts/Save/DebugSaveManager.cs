@@ -3,7 +3,7 @@ using Sirenix.Serialization;
 using UnityEditor;
 using UnityEngine;
 
-namespace Madduck.Core
+namespace Madduck.Save
 {
     [CreateAssetMenu(fileName = "DebugSaveManager", menuName = "Madduck/Core/DebugSaveManager", order = 0)]
     [ShowOdinSerializedPropertiesInInspector]

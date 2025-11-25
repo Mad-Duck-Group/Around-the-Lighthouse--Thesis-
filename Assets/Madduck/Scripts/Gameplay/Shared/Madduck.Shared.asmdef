@@ -2,6 +2,7 @@
     "name": "Madduck.Shared",
     "rootNamespace": "Madduck.Shared",
     "references": [
+        "GUID:24b580ab6157dfa49bb8a3454de77db6",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
         "GUID:5b07139c813055a45b749292fa7fbcdd",
         "GUID:5ecb2f6dbf140e440bfa9b64e27a2d48",

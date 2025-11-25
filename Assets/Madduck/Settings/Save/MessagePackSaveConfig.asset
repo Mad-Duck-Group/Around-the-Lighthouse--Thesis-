@@ -26,15 +26,19 @@ MonoBehaviour:
     keys:
     - Test
     - FishCatalogue
+    - Audio
+    - GameSettings
     values:
     - {fileID: 11400000, guid: 747b038e3c0e379438e327ab4af92b4f, type: 2}
     - {fileID: 11400000, guid: e985a9c675429984aabd2ef08c60514b, type: 2}
+    - {fileID: 11400000, guid: d1d3cd4fd266f4d42b60ad4700b01afe, type: 2}
+    - {fileID: 11400000, guid: 4b036a0bd3d0b3242b07beb7773aaa7f, type: 2}
   debugMode: 1
   debugSaveSettings:
-    saveLocation: 2
+    saveLocation: 1
     encryptSave: 0
     encryptionKey: 
-    saveDirectory: C:/Users/thesi/Downloads
+    saveDirectory: TestSave
     saveFileName: PlayerData
   releaseSaveSettings:
     saveLocation: 0

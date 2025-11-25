@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b14797a95604b938a76b712b0314598, type: 3}
+  m_Name: GameSettingsSaveObject
+  m_EditorClassIdentifier: Madduck.GameData::Madduck.GameData.GameSettingsSaveObject
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: saveData
+      Entry: 7
+      Data: 0|Madduck.GameData.GameSettingsSaveData, Madduck.GameData
+    - Name: <Version>k__BackingField
+      Entry: 1
+      Data: 0.7.0-alpha.1+windows
+    - Name: <ControlSettings>k__BackingField
+      Entry: 7
+      Data: 1|Madduck.GameData.ControlSettingsSaveData, Madduck.GameData
+    - Name: <FishingBoardMouseSensitivity>k__BackingField
+      Entry: 4
+      Data: 500
+    - Name: <FishingBoardGamepadSensitivity>k__BackingField
+      Entry: 4
+      Data: 500
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: migrationResolvers
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[Madduck.Save.ISaveMigrationResolver`1[[Madduck.GameData.GameSettingsSaveData,
+        Madduck.GameData]], Madduck.Save]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  <SaveSeparately>k__BackingField: 1
+  saveAsJson: 1
+  debugMode: 1
+  debugSaveSettings:
+    saveLocation: 1
+    encryptSave: 0
+    encryptionKey: 
+    saveDirectory: TestSave
+    saveFileName: GameSettings.json
+  releaseSaveSettings:
+    saveLocation: 0
+    encryptSave: 0
+    encryptionKey: 
+    saveDirectory: Settings
+    saveFileName: GameSettings.json

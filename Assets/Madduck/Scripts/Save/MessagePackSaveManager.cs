@@ -10,7 +10,7 @@ using VContainer;
 using VContainer.Unity;
 using CompressionLevel = System.IO.Compression.CompressionLevel;
 
-namespace Madduck.Core
+namespace Madduck.Save
 {
     [Serializable]
     public class MessagePackSaveManager : IPostInitializable

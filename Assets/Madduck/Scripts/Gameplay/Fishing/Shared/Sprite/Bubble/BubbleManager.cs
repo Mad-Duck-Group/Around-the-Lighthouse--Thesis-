@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
+using Madduck.Core;
 using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
@@ -42,6 +43,7 @@ namespace Madduck.Fishing.Shared
         private readonly IAudioManager _audioManager;
         private readonly IBubbleViewFactory _bubbleFactory;
         private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
+        private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
 
         private readonly ObservableDictionary<IBubbleView, BubbleSpawnInfo> _bubbles = new();
         private bool _isPaused;
@@ -56,13 +58,15 @@ namespace Madduck.Fishing.Shared
             PlayerInventory playerInventory,
             IAudioManager audioManager,
             IBubbleViewFactory bubbleFactory,
-            ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventSubscriber)
+            ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventSubscriber,
+            ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber)
         {
             _config = config;
             _playerInventory = playerInventory;
             _audioManager = audioManager;
             _bubbleFactory = bubbleFactory;
             _fishingRoomStartedEventSubscriber = fishingRoomStartedEventSubscriber;
+            _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
             Subscribe();
         }
         
@@ -76,6 +80,14 @@ namespace Madduck.Fishing.Shared
                     StartSpawnTimer();
                 })
                 .AddTo(ref disposableBuilder);
+            _loadSceneStageEventSubscriber
+                .AsObservable().ToObservable()
+                .Where(x => x.Stage is LoadSceneStage.StartFadeOut)
+                .Subscribe(_ =>
+                {
+                    _audioManager.StopAudio(_bubbleSfx);
+                })
+                .AddTo(ref disposableBuilder);
             _bubbles.ObserveCountChanged()
                 .Prepend(0)
                 .Pairwise()
@@ -86,7 +98,6 @@ namespace Madduck.Fishing.Shared
         
         public void Dispose()
         {
-            _audioManager.StopAudio(_bubbleSfx);
             _subscription?.Dispose();
             _bubbleSpawnTimer?.Dispose();
             foreach (var bubbleInfo in _bubbles.Select(x => x.Value))

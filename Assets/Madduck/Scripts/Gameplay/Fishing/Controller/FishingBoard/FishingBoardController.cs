@@ -27,6 +27,7 @@ namespace Madduck.Fishing.Controller
         private readonly FishingBoardConfig _config;
         private readonly FishingSharedVariable _sharedVariables;
         private readonly InputInstructionManager _inputInstructionManager;
+        private readonly GameSettingsManager _gameSettingsManager;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IFishingBoardAIController _aiController;
@@ -51,6 +52,7 @@ namespace Madduck.Fishing.Controller
             FishingBoardConfig config,
             FishingSharedVariable sharedVariables,
             InputInstructionManager inputInstructionManager,
+            GameSettingsManager gameSettingsManager,
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IFishingBoardAIController aiController,
@@ -65,6 +67,7 @@ namespace Madduck.Fishing.Controller
             _config = config;
             _sharedVariables = sharedVariables;
             _inputInstructionManager = inputInstructionManager;
+            _gameSettingsManager = gameSettingsManager;
             _hookFactory = hookFactory;
             _audioManager = audioManager;
             _aiController = aiController;
@@ -344,7 +347,9 @@ namespace Madduck.Fishing.Controller
         private void MoveHook(Vector2 delta, bool gamepad)
         {
             var hookPosition = _model.HookPosition.Value;
-            var sensitivity = gamepad ? _config.GamepadSensitivity : _config.MouseSensitivity;
+            var sensitivity = gamepad
+                ? _gameSettingsManager.ControlSettings.FishingBoardGamepadSensitivity
+                : _gameSettingsManager.ControlSettings.FishingBoardMouseSensitivity;
             var mouseDelta = delta * sensitivity;
             var circleCenter = _variables.RedBoard.Center;
             hookPosition += mouseDelta * Time.deltaTime;
