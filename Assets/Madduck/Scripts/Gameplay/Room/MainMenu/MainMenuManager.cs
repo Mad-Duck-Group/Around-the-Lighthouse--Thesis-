@@ -1,6 +1,7 @@
 ﻿using System;
 using Madduck.Audio;
 using Madduck.Core;
+using R3;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;
@@ -13,19 +14,23 @@ namespace Madduck.Room
     {
         private readonly MainMenuConfig _config;
         private readonly LoadSceneManager _loadSceneManager;
+        private readonly SettingsPanelViewModel _settingsPanelViewModel;
         private readonly IAudioManager _audioManager;
 
         private AudioReference _bgm;
         private bool _isSwitchingScene;
+        private IDisposable _bindings;
         
         [Inject]
         public MainMenuManager(
             MainMenuConfig config,
             LoadSceneManager loadSceneManager,
+            SettingsPanelViewModel settingsPanelViewModel,
             IAudioManager audioManager)
         {
             _config = config;
             _loadSceneManager = loadSceneManager;
+            _settingsPanelViewModel = settingsPanelViewModel;
             _audioManager = audioManager;
         }
         
@@ -46,7 +51,7 @@ namespace Madduck.Room
 
         public void OpenSettings()
         {
-            //TODO: Implement settings menu
+            _settingsPanelViewModel.SetActive(true);
         }
 
         public void QuitGame()

@@ -17,34 +17,32 @@ namespace Madduck.Room
          SerializeField] private Animator animator;
         [Required, 
          SerializeField] private TMP_Text buttonText;
-        
-        private Sprite _initialSprite;
+        [Required, 
+         SerializeField] private Sprite initialSprite;
         
         public Button Button => button;
-
-        private void Awake()
-        {
-            _initialSprite = button.image.sprite;
-        }
         
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
             button.gameObject.SetActive(true);
             buttonText.gameObject.SetActive(false);
+            animator.enabled = true;
             animator.Play("In");
             await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f, cancellationToken: cancellationToken);
             animator.Play("Empty");
+            animator.enabled = false;
             buttonText.gameObject.SetActive(true);
-            button.image.sprite = _initialSprite;
+            button.image.sprite = initialSprite;
         }
 
         public async UniTask TransitionOut(CancellationToken cancellationToken = default)
         {
+            animator.enabled = true;
             animator.Play("Out");
-            animator.speed = 1;
             buttonText.gameObject.SetActive(false);
             await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f, cancellationToken: cancellationToken);
             animator.Play("Empty");
+            animator.enabled = false;
             button.gameObject.SetActive(false);
         }
     }

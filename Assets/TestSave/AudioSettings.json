@@ -2,7 +2,7 @@
   "Version": "0.7.0-alpha.1+windows",
   "BusData": {
     "Master": {
-      "LinearVolume": 1,
+      "LinearVolume": 1.01157928,
       "IsMuted": false
     },
     "BGM": {

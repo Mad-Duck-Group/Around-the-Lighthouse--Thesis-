@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: bea2bb94bb8415743bc2f161229708b5
+guid: 71fdfca904bb9be4781bddfd0ac75065
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2650692497508392964
-    second: Button_2_None_0
-  - first:
-      213: -1211275243217042079
-    second: Button_2_None_1
+      213: -2272638341103920032
+    second: Checked_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -99,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Button_2_None_0
+      name: Checked_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 6
         y: 0
-        width: 491
-        height: 175
+        width: 80
+        height: 107
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cff183da739d63bd0800000000000000
-      internalID: -2650692497508392964
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Button_2_None_1
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 170
-        width: 6
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 165c2da759fa03fe0800000000000000
-      internalID: -1211275243217042079
+      spriteID: 06c519f3877f570e0800000000000000
+      internalID: -2272638341103920032
       vertices: []
       indices: 
       edges: []
@@ -173,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Button_2_None_0: -2650692497508392964
-      Button_2_None_1: -1211275243217042079
+      Checked_0: -2272638341103920032
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

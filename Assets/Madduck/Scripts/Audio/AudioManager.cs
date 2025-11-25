@@ -25,6 +25,8 @@ namespace Madduck.Audio
         private readonly AudioManagerConfig _audioManagerConfig;
         private readonly MessagePackSaveManager _saveManager;
         
+        public AudioSettings AudioSettings => _audioManagerConfig.AudioSettings;
+        
         #region Constructor
         [Inject]
         public AudioManager(

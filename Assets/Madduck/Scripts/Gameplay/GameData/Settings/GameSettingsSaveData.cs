@@ -1,6 +1,7 @@
 ﻿using System;
 using Madduck.Save;
 using MessagePack;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Madduck.GameData
@@ -27,10 +28,11 @@ namespace Madduck.GameData
         [field: SerializeField] public float FishingBoardGamepadSensitivity { get; set; } = 300f;
     }
     
+    [Serializable]
     public class ControlSettings
     {
-        public float FishingBoardMouseSensitivity { get; private set; } = 500f;
-        public float FishingBoardGamepadSensitivity { get; private set; } = 500f;
+        [ShowInInspector] public float FishingBoardMouseSensitivity { get; set; } = 500f;
+        [ShowInInspector] public float FishingBoardGamepadSensitivity { get; set; } = 500f;
         
         public void LoadFromSaveData(ControlSettingsSaveData saveData)
         {

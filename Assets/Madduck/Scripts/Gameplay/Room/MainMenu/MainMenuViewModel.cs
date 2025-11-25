@@ -1,7 +1,7 @@
 ﻿using System;
 using R3;
 using VContainer;
-using ReactiveCommand = Reactive.Bindings.ReactiveCommand;
+using ReactiveCommand = R3.ReactiveCommand;
 
 namespace Madduck.Room
 {
@@ -9,30 +9,39 @@ namespace Madduck.Room
     {
         private readonly MainMenuManager _mainMenuManager;
         
+        public ReactiveProperty<Unit> SettingClosed { get; } = new();
         public ReactiveCommand SailingButtonCommand { get; } = new();
         public ReactiveCommand SettingsButtonCommand { get; } = new();
         public ReactiveCommand QuitButtonCommand { get; } = new();
 
+        private SettingsPanelViewModel _settingsPanelViewModel;
         private IDisposable _bindings;
         
         [Inject]
-        public MainMenuViewModel(MainMenuManager mainMenuManager)
+        public MainMenuViewModel(
+            MainMenuManager mainMenuManager,
+            SettingsPanelViewModel settingsPanelViewModel)
         {
             _mainMenuManager = mainMenuManager;
+            _settingsPanelViewModel = settingsPanelViewModel;
             Bind();
         }
 
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
+            _settingsPanelViewModel.IsActive
+                .Where(x => !x)
+                .Subscribe(_ => OnSettingsClosed())
+                .AddTo(ref disposableBuilder);
             SailingButtonCommand
-                .Subscribe(onNext: OnSailingButtonClicked)
+                .Subscribe(_ => OnSailingButtonClicked())
                 .AddTo(ref disposableBuilder);
             SettingsButtonCommand
-                .Subscribe(onNext: OnSettingsButtonClicked)
+                .Subscribe(_ => OnSettingsButtonClicked())
                 .AddTo(ref disposableBuilder);
             QuitButtonCommand
-                .Subscribe(onNext: OnQuitButtonClicked)
+                .Subscribe(_ => OnQuitButtonClicked())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -40,6 +49,11 @@ namespace Madduck.Room
         public void Dispose()
         {
             _bindings.Dispose();
+        }
+
+        private void OnSettingsClosed()
+        {
+            SettingClosed.OnNext(Unit.Default);
         }
         
         private void OnSailingButtonClicked()

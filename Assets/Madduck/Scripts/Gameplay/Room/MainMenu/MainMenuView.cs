@@ -4,6 +4,7 @@ using R3;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using VContainer;
 
@@ -36,12 +37,16 @@ namespace Madduck.Room
             settingsButton.TransitionIn().Forget();
             quitButton.TransitionIn().Forget();
             versionText.text = $"{Application.version}";
+            EventSystem.current.SetSelectedGameObject(sailingButton.gameObject);
             Bind();
         }
 
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
+            _viewModel.SettingClosed
+                .Subscribe(_ => OnSettingsClosed())
+                .AddTo(ref disposableBuilder);
             sailingButton.Button.OnClickAsObservable()
                 .SubscribeAwait((_, _) => OnSailingButtonClicked(), AwaitOperation.Drop)
                 .AddTo(ref disposableBuilder);
@@ -54,22 +59,28 @@ namespace Madduck.Room
             _bindings = disposableBuilder.Build();
         }
         
+        private void OnSettingsClosed()
+        {
+            settingsButton.TransitionIn().Forget();
+            EventSystem.current.SetSelectedGameObject(sailingButton.gameObject);
+        }
+        
         private async UniTask OnSailingButtonClicked()
         {
             await sailingButton.TransitionOut();
-            _viewModel.SailingButtonCommand.Execute();
+            _viewModel.SailingButtonCommand.Execute(Unit.Default);
         }
 
         private async UniTask OnSettingsButtonClicked()
         {
             await settingsButton.TransitionOut();
-            _viewModel.SettingsButtonCommand.Execute();
+            _viewModel.SettingsButtonCommand.Execute(Unit.Default);
         }
         
         private async UniTask OnQuitButtonClicked()
         {
             await quitButton.TransitionOut();
-            _viewModel.QuitButtonCommand.Execute();
+            _viewModel.QuitButtonCommand.Execute(Unit.Default);
         }
 
         private void OnDestroy()

@@ -1,7 +1,7 @@
 {
   "Version": "0.7.0-alpha.1+windows",
   "ControlSettings": {
-    "FishingBoardMouseSensitivity": 500,
-    "FishingBoardGamepadSensitivity": 500
+    "FishingBoardMouseSensitivity": 1100,
+    "FishingBoardGamepadSensitivity": 590
   }
 }

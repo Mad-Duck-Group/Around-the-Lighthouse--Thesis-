@@ -1,16 +1,19 @@
-﻿using Madduck.Save;
+﻿using System;
+using Madduck.Save;
+using Sirenix.OdinInspector;
 using VContainer;
 using VContainer.Unity;
 
 namespace Madduck.GameData
 {
+    [Serializable]
     public class GameSettingsManager : IPostInitializable
     {
         private readonly MessagePackSaveManager _saveManager;
         
         private GameSettingsSaveObject _gameSettingsSaveObject;
         
-        public ControlSettings ControlSettings { get; } = new();
+        [ShowInInspector] public ControlSettings ControlSettings { get; } = new();
         
         [Inject]
         public GameSettingsManager(MessagePackSaveManager saveManager)
