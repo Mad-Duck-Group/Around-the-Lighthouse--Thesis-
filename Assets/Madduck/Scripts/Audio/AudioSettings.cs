@@ -102,6 +102,7 @@ namespace Madduck.Audio
                     break;
             }
             var linear = volume.ConvertUnit(unit, VolumeUnit.Linear);
+            Debug.Log("Linear volume set: " + volume);
             SetVolumeLinear(linear);
         }
 
@@ -161,6 +162,7 @@ namespace Madduck.Audio
         
         public void LoadFromSaveData(AudioSaveData saveData)
         {
+            Debug.Log("Loading audio settings from save data.");
             foreach (var busEntry in BusData)
             {
                 if (!saveData.BusSaveData.TryGetValue(busEntry.Key, out var busSaveData)) continue;

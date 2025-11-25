@@ -10,6 +10,7 @@ using Redcode.Extensions;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Debug = UnityEngine.Debug;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Madduck.Audio
@@ -18,6 +19,7 @@ namespace Madduck.Audio
         IAudioManager,
         IAudioBusManager,
         IInitializable, 
+        IPostInitializable,
         IDisposable
     {
         private readonly Dictionary<string, List<AudioReference>> _indexedAudioReferenceData = new();
@@ -42,8 +44,12 @@ namespace Madduck.Audio
         public void Initialize()
         {
             _audioManagerConfig.AudioSettings.BusData.Values.ForEach(busData => busData.Initialize());
-            Load();
             Subscribe();
+        }
+        
+        public void PostInitialize()
+        {
+            Load();
         }
 
         public void Dispose()
@@ -321,6 +327,7 @@ namespace Madduck.Audio
 
         public void Load()
         {
+            Debug.Log("Loading Audio Manager Settings...");
             var audioSaveObject = _saveManager.GetFirstSaveObjectOfType<AudioSaveObject>();
             if (!audioSaveObject) return;
             var audioSaveData = audioSaveObject.GetSaveData<AudioSaveData>();

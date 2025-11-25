@@ -15,7 +15,7 @@ MonoBehaviour:
   <SlowMoSettings>k__BackingField:
     startFromCurrent: 0
     startValue: 0.5
-    endValue: 0.2
+    endValue: 0.3
     settings:
       duration: 1
       ease: 8
@@ -48,3 +48,6 @@ MonoBehaviour:
       Data3: -18098766
       Data4: 1007214722
     Path: event:/SFX/DropFish
+  <QteInputInstructions>k__BackingField:
+  - key: ABXY
+    description: QTE

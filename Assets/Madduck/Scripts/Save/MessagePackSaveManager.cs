@@ -13,7 +13,7 @@ using CompressionLevel = System.IO.Compression.CompressionLevel;
 namespace Madduck.Save
 {
     [Serializable]
-    public class MessagePackSaveManager : IPostInitializable
+    public class MessagePackSaveManager : IInitializable
     {
         private readonly MessagePackSaveConfig _config;
         [OdinSerialize, ReadOnly] private Dictionary<string, MessagePackSaveObject> _saveObjects = new();
@@ -45,12 +45,14 @@ namespace Madduck.Save
                 RegisterSaveObject(saveObject.Key, saveObject.Value);
             }
         }
-        
-        public void PostInitialize()
+
+        public void Initialize()
         {
             if (!_config.LoadAtStart) return;
+            Debug.Log("SaveManager: Loading all save objects at start.");
             LoadAll();
         }
+        
         
         public void RegisterSaveObject(string key, MessagePackSaveObject saveObject)
         {

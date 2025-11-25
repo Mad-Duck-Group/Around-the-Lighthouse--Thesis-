@@ -45,15 +45,19 @@ namespace Madduck.Room
         {
             var disposableBuilder = Disposable.CreateBuilder();
             ChangeMasterMute
+                .IgnoreFirstValueWhenSubscribe()
                 .Subscribe(OnMasterMuteChanged)
                 .AddTo(ref disposableBuilder);
             ChangeMasterVolumeCommand
+                .IgnoreFirstValueWhenSubscribe()
                 .Subscribe(OnMasterVolumeChanged)
                 .AddTo(ref disposableBuilder);
             ChangeMouseSensitivityCommand
+                .IgnoreFirstValueWhenSubscribe()
                 .Subscribe(OnMouseSensitivityChanged)
                 .AddTo(ref disposableBuilder);
             ChangeGamepadSensitivityCommand
+                .IgnoreFirstValueWhenSubscribe()
                 .Subscribe(OnGamepadSensitivityChanged)
                 .AddTo(ref disposableBuilder);
             SaveCommand

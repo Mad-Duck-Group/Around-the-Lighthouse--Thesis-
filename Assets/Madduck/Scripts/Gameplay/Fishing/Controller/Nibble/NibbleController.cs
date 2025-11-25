@@ -109,7 +109,7 @@ namespace Madduck.Fishing.Controller
             _inputHandler.Action0Button.IsDown
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
-                .Where(x => x && !_qteActive && _fishBiting)
+                .Where(x => x && !_qteActive && _fishBiting && !_hookPulled)
                 .Subscribe(_ => OnPullHook())
                 .AddTo(ref disposableBuilder);
             _inputHandler.Action1Button.IsDown
@@ -119,7 +119,7 @@ namespace Madduck.Fishing.Controller
                 .Subscribe(_ => OnCancel())
                 .AddTo(ref disposableBuilder);
             _model.PullHookResult
-                .Where(x => x is not Sign.Zero && !_hookPulled)
+                .Where(x => x is not Sign.Zero)
                 .SubscribeAwait((result, _) => OnPullHookResultChanged(result), AwaitOperation.Drop)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
