@@ -16,7 +16,7 @@ MonoBehaviour:
     value: 30
   <BubbleStayDuration>k__BackingField:
     value: 180
-  <BubbleGuaranteeCount>k__BackingField: 1
+  <BubbleGuaranteeCount>k__BackingField: 0
   <BubbleMaxLimits>k__BackingField: 3
   <BubbleSpawnRange>k__BackingField: {x: -4, y: 6.5}
   <BubbleYOffset>k__BackingField: -0.8

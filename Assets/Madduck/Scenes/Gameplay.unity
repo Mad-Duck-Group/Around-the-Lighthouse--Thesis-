@@ -7644,7 +7644,7 @@ MonoBehaviour:
     TypeName: Madduck.Room.FishingRoomManagerLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
-  spoofFishable: 0
+  spoofFishable: 1
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -7678,7 +7678,7 @@ MonoBehaviour:
     - {fileID: 1803546237}
     - {fileID: 658641432408402773, guid: a011265d6ab40e44987577687831d7d5, type: 3}
     - {fileID: 1988614740023824033, guid: 6b6add0aa732e0042ba1301afebaf536, type: 3}
-    - {fileID: 11400000, guid: c272284a26889c94cb0ccfb2fc87b14d, type: 2}
+    - {fileID: 11400000, guid: 9ff94b87bda43b24e974304fcdf3c11f, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []

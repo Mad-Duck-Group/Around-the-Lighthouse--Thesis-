@@ -33,3 +33,6 @@ MonoBehaviour:
       Data3: 741671611
       Data4: -1920945036
     Path: event:/SFX/HookHitWater
+  <ThrowHookInputInstructions>k__BackingField:
+  - key: A
+    description: (Hold) Cast

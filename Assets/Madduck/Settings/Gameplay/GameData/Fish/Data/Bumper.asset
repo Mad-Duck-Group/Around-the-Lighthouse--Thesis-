@@ -25,9 +25,9 @@ MonoBehaviour:
       Entry: 2
       Data: 42781fbf8e4c4383862725ebdd846fee
   <ItemType>k__BackingField: 0
-  <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 354d7cba26574944ea32bf74e884b2c5, type: 2}
   <EnemyType>k__BackingField: 0
-  <Size>k__BackingField: 1
+  <Size>k__BackingField: 0
   <WeatherType>k__BackingField: 63
   <DayPhaseType>k__BackingField: 1
   <FishName>k__BackingField: Bumper
@@ -61,14 +61,14 @@ MonoBehaviour:
       _updateType: 0
   <BasePrice>k__BackingField: 10
   <Power>k__BackingField:
-    value: 9
+    value: 5
   <Resistance>k__BackingField:
-    value: 1
+    value: 0
   <FishWeight>k__BackingField:
-    value: 2
+    value: 3
   <FatigueDuration>k__BackingField:
-    value: 10
+    value: 8
   <TugOfWarDecayRate>k__BackingField:
-    value: 25
-  <TugOfWarRegression>k__BackingField:
     value: 20
+  <TugOfWarRegression>k__BackingField:
+    value: 15

@@ -50,4 +50,4 @@ MonoBehaviour:
     Path: event:/SFX/DropFish
   <QteInputInstructions>k__BackingField:
   - key: ABXY
-    description: QTE
+    description: Catch Fish

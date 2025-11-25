@@ -25,11 +25,11 @@ MonoBehaviour:
       Entry: 2
       Data: c4337b776ec34a6081df151c6dafadd4
   <ItemType>k__BackingField: 0
-  <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 9e075ba085819564ea8340443fd76500, type: 2}
+  <BehaviorGraph>k__BackingField: {fileID: 3951992564940476020, guid: 39dfbaa59d62b0048875307e817ae247, type: 2}
   <EnemyType>k__BackingField: 0
   <Size>k__BackingField: 0
-  <WeatherType>k__BackingField: 63
-  <DayPhaseType>k__BackingField: 3
+  <WeatherType>k__BackingField: 6
+  <DayPhaseType>k__BackingField: 2
   <FishName>k__BackingField: Drifty
   <FishDescription>k__BackingField: Drrr
   <FishIcon>k__BackingField: {fileID: 21300000, guid: 54f8a3feaeb2bf64c8defb9caf599250, type: 3}
@@ -61,13 +61,13 @@ MonoBehaviour:
       _updateType: 0
   <BasePrice>k__BackingField: 10
   <Power>k__BackingField:
-    value: 9
+    value: 7
   <Resistance>k__BackingField:
-    value: 1
+    value: 0
   <FishWeight>k__BackingField:
-    value: 2
+    value: 6
   <FatigueDuration>k__BackingField:
-    value: 10
+    value: 6
   <TugOfWarDecayRate>k__BackingField:
     value: 25
   <TugOfWarRegression>k__BackingField:

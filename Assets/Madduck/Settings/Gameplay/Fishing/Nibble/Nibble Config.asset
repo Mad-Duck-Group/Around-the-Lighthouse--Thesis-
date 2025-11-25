@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865137586210436fb705fec6cb903e0e, type: 3}
   m_Name: Nibble Config
   m_EditorClassIdentifier: Madduck.Fishing::Madduck.Fishing.Config.NibbleConfig
-  <QteIntervalRange>k__BackingField: {x: 3, y: 8}
+  <QteIntervalRange>k__BackingField: {x: 3, y: 10}
   <ReelingSfx>k__BackingField:
     Guid:
       Data1: -1326929951
@@ -41,3 +41,12 @@ MonoBehaviour:
       Data3: 1625879987
       Data4: 1691277222
     Path: event:/SFX/HiIamFish
+  <CancelInputInstructions>k__BackingField:
+  - key: B
+    description: Cancel
+  <QteInputInstructions>k__BackingField:
+  - key: ABXY
+    description: Jigging
+  <CatchInputInstructions>k__BackingField:
+  - key: A
+    description: Hook
