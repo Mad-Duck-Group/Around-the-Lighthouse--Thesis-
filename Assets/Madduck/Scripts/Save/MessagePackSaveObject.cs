@@ -363,6 +363,10 @@ namespace Madduck.Save
         protected virtual void WriteToFile(byte[] bytes)
         {
             var fullPath = CurrentSaveSettings.GetFullSavePath();
+            if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath)!);
+            }
             if (saveAsJson) 
             {
                 var json = MessagePackSerializer.ConvertToJson(bytes);
