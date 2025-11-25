@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using HasanSadikin.Carousel;
+using Madduck.Audio;
 using Madduck.GameData;
 using Madduck.GameData.Bait;
 using Madduck.Input;
@@ -21,10 +22,11 @@ namespace Madduck.Room
         public ReactiveCommand<BaitItemInstance> OnBaitChanged { get; } = new();
         
         private readonly IPlayerInputHandler _inputHandler;
+        private readonly IAudioManager _audioManager;
         private readonly PlayerInventory _playerInventory;
         private readonly ISubscriber<FishingStateEvent> _fishingStateSubscriber;
-        private readonly GameObject _uiBeforeTriggerBait;
-        private readonly GameObject _uiAfterTriggerBait;
+        private readonly BaitControllerConfig _baitControllerConfig;
+        private readonly BaitUITriggerConfig _baitTriggerConfig;
         private readonly CarouselController _carousel;
         private readonly InputInstructionManager _inputInstructionManager;
         private readonly PointingBaitViewModel _pointingBaitViewModel;
@@ -38,8 +40,10 @@ namespace Madduck.Room
         [Inject]
         public BaitController(
             IPlayerInputHandler inputHandler,
+            IAudioManager audioManager,
             PlayerInventory playerInventory,
             ISubscriber<FishingStateEvent> fishingStateSubscriber,
+            BaitControllerConfig baitControllerConfig,
             BaitUITriggerConfig baitTriggerConfig,
             CarouselController carousel,
             InputInstructionManager inputInstructionManager,
@@ -47,9 +51,10 @@ namespace Madduck.Room
         {
             _inputHandler = inputHandler;
             _playerInventory = playerInventory;
+            _audioManager = audioManager;
             _fishingStateSubscriber = fishingStateSubscriber;
-            _uiBeforeTriggerBait = baitTriggerConfig.before;
-            _uiAfterTriggerBait = baitTriggerConfig.after;
+            _baitControllerConfig = baitControllerConfig;
+            _baitTriggerConfig = baitTriggerConfig;
             _carousel = carousel;
             _inputInstructionManager = inputInstructionManager;
             _pointingBaitViewModel = pointingBaitViewModel;
@@ -83,6 +88,7 @@ namespace Madduck.Room
                 .Subscribe(value =>
                 {
                     _pointingBaitViewModel.UpdateInput(value);
+                    if (value != 0) _audioManager.PlayAudioOneShot(_baitControllerConfig.CycleBaitSfx, Vector3.zero);
                     switch (value)
                     {
                         case > 0:
@@ -105,7 +111,7 @@ namespace Madduck.Room
                     _confirmDisposables = new DisposableBag();
 
                     _inputHandler.ConfirmBaitButton.IsDown
-                        .Where(x => x && _interactable && _uiAfterTriggerBait.activeSelf)
+                        .Where(x => x && _interactable && _baitTriggerConfig.after.activeSelf)
                         .Subscribe(__ =>
                         {
                             var bait = _carousel.GetCurrentBaitVisual();
@@ -147,8 +153,8 @@ namespace Madduck.Room
         private void SetActive(bool active)
         {
             _isActive = active;
-            _uiBeforeTriggerBait.SetActive(!active);
-            _uiAfterTriggerBait.SetActive(active);
+            _baitTriggerConfig.before.SetActive(!active);
+            _baitTriggerConfig.after.SetActive(active);
             if (active && _interactable)
             {
                 _inputInstructionManager.Show(new []

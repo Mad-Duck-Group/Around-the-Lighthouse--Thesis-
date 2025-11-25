@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
 using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
@@ -38,6 +39,7 @@ namespace Madduck.Fishing.Shared
         
         private readonly BubbleManagerConfig _config;
         private readonly PlayerInventory _playerInventory;
+        private readonly IAudioManager _audioManager;
         private readonly IBubbleViewFactory _bubbleFactory;
         private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
 
@@ -46,16 +48,19 @@ namespace Madduck.Fishing.Shared
         private int _currentGuaranteeCount;
         private IDisposable _subscription;
         private IDisposable _bubbleSpawnTimer;
+        private AudioReference _bubbleSfx;
 
         [Inject]
         public BubbleManager(
             BubbleManagerConfig config,
             PlayerInventory playerInventory,
+            IAudioManager audioManager,
             IBubbleViewFactory bubbleFactory,
             ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventSubscriber)
         {
             _config = config;
             _playerInventory = playerInventory;
+            _audioManager = audioManager;
             _bubbleFactory = bubbleFactory;
             _fishingRoomStartedEventSubscriber = fishingRoomStartedEventSubscriber;
             Subscribe();
@@ -72,6 +77,7 @@ namespace Madduck.Fishing.Shared
                 })
                 .AddTo(ref disposableBuilder);
             _bubbles.ObserveCountChanged()
+                .Prepend(0)
                 .Pairwise()
                 .Subscribe(x => OnBubbleCountChanged(x.Previous, x.Current))
                 .AddTo(ref disposableBuilder);
@@ -80,6 +86,7 @@ namespace Madduck.Fishing.Shared
         
         public void Dispose()
         {
+            _audioManager.StopAudio(_bubbleSfx);
             _subscription?.Dispose();
             _bubbleSpawnTimer?.Dispose();
             foreach (var bubbleInfo in _bubbles.Select(x => x.Value))
@@ -90,6 +97,16 @@ namespace Madduck.Fishing.Shared
         
         private void OnBubbleCountChanged(int oldCount, int newCount)
         {
+            DebugUtils.Log("[BubbleManager] Bubble count changed from " + oldCount + " to " + newCount);
+            if (newCount > 0)
+            {
+                if (!_bubbleSfx.IsPlaying()) 
+                    _bubbleSfx = _audioManager.PlayAudio(_config.BubbleSfx, Vector3.zero);
+            }
+            else
+            {
+                _audioManager.StopAudio(_bubbleSfx);
+            }
             if (newCount >= _config.BubbleMaxLimits)
             {
                 _bubbleSpawnTimer?.Dispose();

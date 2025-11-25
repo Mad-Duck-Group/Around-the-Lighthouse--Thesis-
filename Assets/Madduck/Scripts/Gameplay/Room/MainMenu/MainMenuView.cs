@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using R3;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -17,6 +18,8 @@ namespace Madduck.Room
          SerializeField] private MainMenuButtonView settingsButton;
         [Required,
          SerializeField] private MainMenuButtonView quitButton;
+        [Required,
+         SerializeField] private TMP_Text versionText;
         
         private MainMenuViewModel _viewModel;
         private IDisposable _bindings;
@@ -25,7 +28,6 @@ namespace Madduck.Room
         public void SetUp(MainMenuViewModel viewModel)
         {
             _viewModel = viewModel;
-            Bind();
         }
 
         private void Start()
@@ -33,6 +35,8 @@ namespace Madduck.Room
             sailingButton.TransitionIn().Forget();
             settingsButton.TransitionIn().Forget();
             quitButton.TransitionIn().Forget();
+            versionText.text = $"{Application.version}";
+            Bind();
         }
 
         private void Bind()

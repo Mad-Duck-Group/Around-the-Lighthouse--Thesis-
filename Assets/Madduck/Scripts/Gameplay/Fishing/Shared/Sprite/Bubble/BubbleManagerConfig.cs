@@ -1,4 +1,5 @@
-﻿using Madduck.Utils;
+﻿using FMODUnity;
+using Madduck.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ namespace Madduck.Fishing.Shared
     [CreateAssetMenu(fileName = "BubbleManagerConfig", menuName = "Madduck/Fishing/Bubble/BubbleManagerConfig")]
     public class BubbleManagerConfig : ScriptableObject
     {
+        [Title("Bubble Manager Config"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _title;
         [field: InlineProperty,
                 SerializeField] public UFloat BubbleSpawnInterval { get; private set; }
 
@@ -19,5 +23,10 @@ namespace Madduck.Fishing.Shared
         [field: InlineProperty, 
                 SerializeField] public float BubbleYOffset { get; private set; }
         [field: SerializeField] public uint RangeSubdivision { get; private set; } = 2;
+        
+        [Title("Audio"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _audioTitle;
+        [field: SerializeField] public EventReference BubbleSfx { get; private set; }
     }
 }

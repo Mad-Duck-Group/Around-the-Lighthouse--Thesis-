@@ -16,17 +16,15 @@ namespace Madduck.Room
     {
         [Title("Bait")]
         [Required,
-         SerializeField] private BaitButtonViewFactory baitButtonViewFactory;
-
-        [Required,
          SerializeField]private PointingBaitView pointingBaitView;
-        
         [Required,
          SerializeField] private PointingBaitConfig pointingBaitConfig;
         [Required,
          SerializeField] private BaitDetailPanel _baitDetailPanel;
         [Required,
          SerializeField] private CarouselController _carouselController;
+        [Required,
+         SerializeField] private BaitControllerConfig baitControllerConfig;
         [Required,
          SerializeField]private BaitUITriggerConfig baitUITriggerConfig;
         [Required,
@@ -35,13 +33,10 @@ namespace Madduck.Room
         
         public void Install(IContainerBuilder builder)
         {
-            builder.Register(_ => baitButtonViewFactory, Lifetime.Singleton)
-                .As<IFactory<BaitButtonView>>();
             builder.Register(_ => pointingBaitConfig, Lifetime.Singleton).As<PointingBaitConfig>();
             builder.Register(_ => baitUITriggerConfig, Lifetime.Singleton).As<BaitUITriggerConfig>();
             builder.Register(_ => _baitDetailPanel, Lifetime.Singleton).As<BaitDetailPanel>();
-
-            builder.Register<BaitSelectionViewModel>(Lifetime.Singleton);
+            builder.Register(_ => baitControllerConfig, Lifetime.Singleton).As<BaitControllerConfig>();
             builder.Register<PointingBaitViewModel>(Lifetime.Singleton);
             builder.RegisterEntryPoint<BaitController>(Lifetime.Singleton).AsSelf();
             builder.RegisterComponent(positioner)
@@ -49,13 +44,10 @@ namespace Madduck.Room
             builder.RegisterComponent(_carouselController);
             builder.RegisterComponent(pointingBaitView).As<PointingBaitView>();
             
-            
             builder.RegisterBuildCallback(x =>
             {
-                x.Resolve<BaitSelectionViewModel>();
                 x.Resolve<PointingBaitViewModel>();
                 x.Resolve<BaitController>();
-
             });
         }
     }

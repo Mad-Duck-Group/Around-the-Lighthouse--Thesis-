@@ -166,16 +166,13 @@ namespace Madduck.Fishing.Controller
                     _hookFactory.Current.Alert(false).Forget();
                     _bubbleManager.PauseAllBubbles();
                     var currentFish = (FishItemInstance)_fishableFactory.Current;
-                    if (currentFish.ItemData.EnemyType is FishEnemyType.Boss)
-                    { 
-                        DebugUtils.Log("Boss fish emerged!");
-                        _fishEmergedEventPublisher.Publish(new FishEmergedEvent(currentFish));
-                    }
+                    _fishEmergedEventPublisher.Publish(new FishEmergedEvent(currentFish));
                     // await UniTask.WhenAll(
                     //     fishSprite.TransitionIn(),
                     //     _hookFactory.Current.MoveY(Percentage.Full));
                     _hookFactory.Current.StopWave();
                     await fishSprite.TransitionIn();
+                    _audioManager.PlayAudioOneShot(_config.FishEmergedSfx, Vector3.zero);
                     await _hookFactory.Current.MoveY(Percentage.Full);
                     await _hookFactory.Current.MoveX(Percentage.Full);
                     break;

@@ -153,6 +153,7 @@ namespace Madduck.Fishing.Controller
                         description = "Tug (Spam)"
                     }
                 }, stream: 0);
+                _audioManager.PlayAudioOneShot(_config.FishAngrySfx, Vector3.zero);
                 Bind();
                 StartDecaying();
             }

@@ -151,7 +151,7 @@ namespace Madduck.Shared
         
         private void OnQteButtonDown(InputButton button)
         {
-            _audioManager.PlayAudioOneShot(_configInstance.BaseConfig.QtePressSfx, Vector3.zero);
+            
             if (!_timeFrameOpen)
             {
                 Fail();
@@ -172,6 +172,7 @@ namespace Madduck.Shared
 
         private void Success()
         {
+            _audioManager.PlayAudioOneShot(_configInstance.BaseConfig.QteSuccessSfx, Vector3.zero);
             DebugUtils.Log($"Success {_currentBinding.Value.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions)}");
             _cts.Cancel();
             _timer?.Dispose();
@@ -182,6 +183,7 @@ namespace Madduck.Shared
 
         private void Fail()
         {
+            _audioManager.PlayAudioOneShot(_configInstance.BaseConfig.QteFailSfx, Vector3.zero);
             DebugUtils.Log($"Fail {_currentBinding.Value.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions)}");
             _cts.Cancel();
             _timer?.Dispose();

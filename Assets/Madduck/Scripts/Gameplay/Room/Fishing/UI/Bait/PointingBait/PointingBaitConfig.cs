@@ -11,7 +11,6 @@ namespace Madduck.Room
         public SerializableDictionary<SelectionIcon, Sprite> pointintLeftBaitIconSprites;
         public SerializableDictionary<SelectionIcon, Sprite> pointintRightBaitIconSprites;
         public float iconSwitchDelay = 0.1f;
-
         
         public Sprite GetRightSelectedIcon(SelectionIcon icon)
         {

@@ -36,8 +36,15 @@ MonoBehaviour:
     value: 20
   <PullHookUpSfx>k__BackingField:
     Guid:
-      Data1: -2058507790
-      Data2: 1171866810
-      Data3: -1659544414
-      Data4: -1419514041
-    Path: event:/SFX/FishingRod
+      Data1: -1720903806
+      Data2: 1211154650
+      Data3: -653029964
+      Data4: -495245544
+    Path: event:/SFX/JumpFish
+  <FishFlopSfx>k__BackingField:
+    Guid:
+      Data1: -450684668
+      Data2: 1138810119
+      Data3: -18098766
+      Data4: 1007214722
+    Path: event:/SFX/DropFish

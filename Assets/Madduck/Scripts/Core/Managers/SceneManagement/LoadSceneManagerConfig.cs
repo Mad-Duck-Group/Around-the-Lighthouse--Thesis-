@@ -1,4 +1,5 @@
-﻿using Madduck.Utils;
+﻿using FMODUnity;
+using Madduck.Utils;
 using Redcode.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -20,5 +21,6 @@ namespace Madduck.Core
         [field: SerializeField] public bool MinimumLoadingScreenDuration { get; private set; } = true;
         [field: ShowIf(nameof(MinimumLoadingScreenDuration)),
                 SerializeField] public float LoadingScreenDuration { get; private set; } = 1f;
+        [field: SerializeField] public EventReference TransitionSfx { get; private set; }
     }
 }

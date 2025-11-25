@@ -21,3 +21,10 @@ MonoBehaviour:
   <BubbleSpawnRange>k__BackingField: {x: -4, y: 6.5}
   <BubbleYOffset>k__BackingField: -0.8
   <RangeSubdivision>k__BackingField: 4
+  <BubbleSfx>k__BackingField:
+    Guid:
+      Data1: 1125599006
+      Data2: 1181839750
+      Data3: -1674169170
+      Data4: -1639834643
+    Path: event:/SFX/WaterBubble

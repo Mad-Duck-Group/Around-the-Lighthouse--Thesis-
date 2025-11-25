@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
 using Madduck.Utils;
 using MessagePipe;
 using PrimeTween;
@@ -88,6 +89,7 @@ namespace Madduck.Core
         
         #region Fields
         private readonly LoadSceneManagerConfig _config;
+        private readonly IAudioManager _audioManager;
         private readonly ITransitionable _currentTransitionScreen;
         private readonly ISubscriber<LoadSceneEvent> _loadSceneEventSubscriber;
         private readonly IPublisher<LoadSceneStageEvent> _loadSceneStageEventPublisher;
@@ -103,11 +105,13 @@ namespace Madduck.Core
         [Inject]
         public LoadSceneManager(
             LoadSceneManagerConfig config,
+            IAudioManager audioManager,
             ITransitionable transitionScreen,
             ISubscriber<LoadSceneEvent> loadSceneEventSubscriber,
             IPublisher<LoadSceneStageEvent> loadSceneStageEventPublisher)
         {
             _config = config;
+            _audioManager = audioManager;
             _loadSceneEventSubscriber = loadSceneEventSubscriber;
             _loadSceneStageEventPublisher = loadSceneStageEventPublisher;
             _currentTransitionScreen = transitionScreen;
@@ -184,6 +188,7 @@ namespace Madduck.Core
             NextScene = sceneName;
             LoadSceneMode = loadSceneMode;
             _loadSceneStageEventPublisher.Publish(new LoadSceneStageEvent(LoadSceneStage.StartFadeOut));
+            _audioManager.PlayAudioOneShot(_config.TransitionSfx, Vector3.zero);
             await _currentTransitionScreen.TransitionIn();
             OnFadeOutComplete(useLoadingScene);
         }

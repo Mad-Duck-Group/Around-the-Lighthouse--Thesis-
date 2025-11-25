@@ -8,9 +8,9 @@ namespace Madduck.Fishing.Config
     [CreateAssetMenu(fileName = "TugOfWarConfig", menuName = "Madduck/Fishing/TugOfWarConfig", order = 5)]
     public class TugOfWarConfig : ScriptableObject
     {
-        // [Title("Audio"),
-        //  HideLabel,
-        //  ShowInInspector] private InspectorPlaceholder _audioTitle;
-        // [field: SerializeField] public EventReference ReelingSfx { get; private set; }
+        [Title("Audio"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _audioTitle;
+        [field: SerializeField] public EventReference FishAngrySfx { get; private set; }
     }
 }

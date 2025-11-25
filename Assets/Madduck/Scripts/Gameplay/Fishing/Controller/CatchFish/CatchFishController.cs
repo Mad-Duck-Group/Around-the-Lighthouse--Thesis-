@@ -157,6 +157,7 @@ namespace Madduck.Fishing.Controller
                 sprite.Detach();
                 _hookFactory.DestroyHook();
                 OnCatchFishCompleted?.Invoke();
+                _audioManager.PlayAudioOneShot(_config.FishFlopSfx, Vector3.zero);
                 await sprite.FadeOut();
                 _fishSpriteFactory.DestroyFishSprite();
                 return;

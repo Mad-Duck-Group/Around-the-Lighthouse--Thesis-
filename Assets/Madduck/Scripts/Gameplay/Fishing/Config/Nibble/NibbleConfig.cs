@@ -19,5 +19,6 @@ namespace Madduck.Fishing.Config
         [field: SerializeField] public EventReference ReelingSfx { get; private set; }
         [field: SerializeField] public EventReference PullHookSfx { get; private set; }
         [field: SerializeField] public EventReference FishBiteSfx { get; private set; }
+        [field: SerializeField] public EventReference FishEmergedSfx { get; private set; }
     }
 }

@@ -34,10 +34,10 @@ MonoBehaviour:
       Data3: -1544861012
       Data4: -1182722561
     Path: event:/SFX/FishBitten
-  <BossBgm>k__BackingField:
+  <FishEmergedSfx>k__BackingField:
     Guid:
-      Data1: 2128152497
-      Data2: 1175995614
-      Data3: -1929720674
-      Data4: -71563123
-    Path: event:/BGM/InGameBGM4
+      Data1: 1740097401
+      Data2: 1271210966
+      Data3: 1625879987
+      Data4: 1691277222
+    Path: event:/SFX/HiIamFish

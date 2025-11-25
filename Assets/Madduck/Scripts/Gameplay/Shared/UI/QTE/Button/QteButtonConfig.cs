@@ -26,7 +26,8 @@ namespace Madduck.Shared
         [Title("Audio"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _audioTitle;
-        [field: SerializeField] public EventReference QtePressSfx { get; private set; }
+        [field: SerializeField] public EventReference QteSuccessSfx { get; private set; }
+        [field: SerializeField] public EventReference QteFailSfx { get; private set; }
     }
     
     [Serializable]

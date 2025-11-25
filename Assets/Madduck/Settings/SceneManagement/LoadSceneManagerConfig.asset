@@ -23,3 +23,10 @@ MonoBehaviour:
       _path: Assets/Madduck/Scenes/MainMenu.unity
   <MinimumLoadingScreenDuration>k__BackingField: 1
   <LoadingScreenDuration>k__BackingField: 1
+  <TransitionSfx>k__BackingField:
+    Guid:
+      Data1: -475133089
+      Data2: 1303092932
+      Data3: 13195153
+      Data4: 88493768
+    Path: event:/SFX/Transition

@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102ec55c6780489a9263c4893ed97e35, type: 3}
   m_Name: TugOfWarConfig
   m_EditorClassIdentifier: Madduck.Fishing::Madduck.Fishing.Config.TugOfWarConfig
+  <FishAngrySfx>k__BackingField:
+    Guid:
+      Data1: -1184529279
+      Data2: 1180455370
+      Data3: -739449683
+      Data4: -2041028436
+    Path: event:/SFX/AngryFish
