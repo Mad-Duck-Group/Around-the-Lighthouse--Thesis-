@@ -1,621 +1,697 @@
 
 Boss_BlopFish.png
-size: 2017,1922
+size: 2047,2002
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+B_WaterSplash_L_F1
+  rotate: true
+  xy: 2, 712
+  size: 232, 270
+  orig: 232, 270
+  offset: 0, 0
+  index: -1
+B_WaterSplash_L_F2
+  rotate: true
+  xy: 2, 140
+  size: 316, 347
+  orig: 317, 347
+  offset: 0, 0
+  index: -1
+B_WaterSplash_L_F4
+  rotate: true
+  xy: 693, 342
+  size: 292, 305
+  orig: 292, 305
+  offset: 0, 0
+  index: -1
+B_WaterSplash_L_F5
+  rotate: false
+  xy: 556, 636
+  size: 442, 237
+  orig: 442, 237
+  offset: 0, 0
+  index: -1
+B_WaterSplash_R_F1
+  rotate: true
+  xy: 1139, 1247
+  size: 167, 315
+  orig: 167, 315
+  offset: 0, 0
+  index: -1
+B_WaterSplash_R_F2
+  rotate: true
+  xy: 2, 458
+  size: 248, 385
+  orig: 248, 386
+  offset: 0, 1
+  index: -1
+B_WaterSplash_R_F3
+  rotate: true
+  xy: 1000, 320
+  size: 295, 458
+  orig: 295, 460
+  offset: 0, 1
+  index: -1
+B_WaterSplash_R_F4
+  rotate: false
+  xy: 1460, 296
+  size: 298, 319
+  orig: 298, 319
+  offset: 0, 0
+  index: -1
+B_WaterSplash_R_F5
+  rotate: false
+  xy: 389, 386
+  size: 302, 248
+  orig: 303, 248
+  offset: 0, 0
+  index: -1
 L_Bow_Seaweed
   rotate: false
-  xy: 1814, 863
+  xy: 1846, 1912
   size: 171, 88
   orig: 172, 88
   offset: 0, 0
   index: -1
 L_Coral
   rotate: false
-  xy: 1734, 519
+  xy: 294, 1933
   size: 96, 67
   orig: 98, 69
   offset: 1, 1
   index: -1
 L_Seaweed
-  rotate: false
-  xy: 1637, 282
+  rotate: true
+  xy: 996, 1823
   size: 95, 139
   orig: 95, 139
   offset: 0, 0
   index: -1
 L_Shell
-  rotate: true
-  xy: 1883, 168
+  rotate: false
+  xy: 888, 1830
   size: 106, 94
   orig: 106, 94
   offset: 0, 0
   index: -1
 R_Bow_Seaweed
-  rotate: true
-  xy: 1734, 388
+  rotate: false
+  xy: 93, 1858
   size: 129, 89
   orig: 129, 89
   offset: 0, 0
   index: -1
 R_Coral
-  rotate: false
-  xy: 1841, 57
+  rotate: true
+  xy: 1228, 1919
   size: 81, 91
   orig: 83, 93
   offset: 1, 1
   index: -1
 R_Seaweed
   rotate: false
-  xy: 1832, 515
+  xy: 736, 1833
   size: 150, 91
   orig: 150, 91
   offset: 0, 0
   index: -1
 R_Shell
   rotate: false
-  xy: 1750, 60
+  xy: 2, 1876
   size: 89, 88
   orig: 89, 88
   offset: 0, 0
   index: -1
-S1_Body
-  rotate: true
-  xy: 2, 486
-  size: 866, 524
-  orig: 866, 524
-  offset: 0, 0
-  index: -1
 S1_L_Bow_Seaweed
   rotate: false
-  xy: 1492, 8
+  xy: 968, 1716
   size: 151, 105
   orig: 152, 105
   offset: 0, 0
   index: -1
 S1_L_Close_Eye
   rotate: false
-  xy: 528, 405
+  xy: 1737, 1031
   size: 211, 180
   orig: 213, 182
   offset: 1, 1
   index: -1
 S1_L_Coral
-  rotate: true
-  xy: 740, 601
+  rotate: false
+  xy: 634, 1835
   size: 100, 90
   orig: 102, 92
   offset: 1, 1
   index: -1
 S1_L_Eyebag
-  rotate: true
-  xy: 650, 191
+  rotate: false
+  xy: 1368, 1562
   size: 212, 135
   orig: 214, 137
   offset: 1, 1
   index: -1
 S1_L_Hand
   rotate: false
-  xy: 1288, 552
+  xy: 1354, 1057
   size: 178, 175
   orig: 178, 175
   offset: 0, 0
   index: -1
 S1_L_Open_Eye
-  rotate: true
-  xy: 474, 3
+  rotate: false
+  xy: 1830, 1213
   size: 190, 171
   orig: 192, 173
   offset: 1, 1
   index: -1
 S1_L_Open_Eyeball
   rotate: false
-  xy: 1978, 708
+  xy: 65, 1966
   size: 34, 34
   orig: 34, 34
   offset: 0, 0
   index: -1
 S1_L_Open_Eyelash
-  rotate: true
-  xy: 1272, 1223
+  rotate: false
+  xy: 953, 1576
   size: 211, 132
   orig: 213, 134
   offset: 1, 1
   index: -1
 S1_L_Seaweed
-  rotate: false
-  xy: 916, 2
+  rotate: true
+  xy: 1904, 1810
   size: 100, 141
   orig: 100, 141
   offset: 0, 0
   index: -1
 S1_L_Shell
-  rotate: false
-  xy: 1734, 292
+  rotate: true
+  xy: 383, 1842
   size: 89, 94
   orig: 89, 94
   offset: 0, 0
   index: -1
 S1_Mouth
   rotate: false
-  xy: 1406, 1736
+  xy: 2, 946
   size: 595, 184
   orig: 595, 184
   offset: 0, 0
   index: -1
 S1_Nose
   rotate: false
-  xy: 2, 146
+  xy: 351, 2
   size: 441, 338
   orig: 441, 338
   offset: 0, 0
   index: -1
 S1_R_Bow_Seaweed
   rotate: false
-  xy: 1825, 276
+  xy: 369, 1735
   size: 139, 100
   orig: 139, 100
   offset: 0, 0
   index: -1
 S1_R_Close_Eye
   rotate: false
-  xy: 1468, 573
+  xy: 2, 1305
   size: 164, 162
   orig: 166, 164
   offset: 1, 1
   index: -1
 S1_R_Coral
-  rotate: true
-  xy: 1169, 7
+  rotate: false
+  xy: 1137, 1820
   size: 114, 97
   orig: 116, 99
   offset: 1, 1
   index: -1
 S1_R_Eyebag
   rotate: false
-  xy: 1300, 165
+  xy: 1272, 1703
   size: 193, 112
   orig: 195, 114
   offset: 1, 1
   index: -1
 S1_R_Hand
-  rotate: true
-  xy: 922, 246
+  rotate: false
+  xy: 1572, 1403
   size: 180, 155
   orig: 180, 155
   offset: 0, 0
   index: -1
 S1_R_Open_Eye
-  rotate: true
-  xy: 1471, 409
+  rotate: false
+  xy: 1754, 1386
   size: 162, 156
   orig: 164, 158
   offset: 1, 1
   index: -1
 S1_R_Open_Eyeball
   rotate: false
-  xy: 1978, 674
+  xy: 31, 1968
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 S1_R_Open_Eyelash
-  rotate: true
-  xy: 817, 3
+  rotate: false
+  xy: 2, 1759
   size: 209, 97
   orig: 211, 99
   offset: 1, 1
   index: -1
 S1_R_Seaweed
-  rotate: false
-  xy: 1648, 134
+  rotate: true
+  xy: 510, 1733
   size: 100, 146
   orig: 100, 146
   offset: 0, 0
   index: -1
 S1_R_Shell
   rotate: false
-  xy: 1648, 49
+  xy: 1321, 1917
   size: 100, 83
   orig: 100, 83
   offset: 0, 0
   index: -1
 S1_Tail
-  rotate: false
-  xy: 1495, 115
+  rotate: true
+  xy: 993, 1423
   size: 151, 165
   orig: 151, 165
   offset: 0, 0
   index: -1
 S1_Wrinkle
-  rotate: true
-  xy: 740, 703
+  rotate: false
+  xy: 1253, 1817
   size: 649, 93
   orig: 651, 95
   offset: 1, 1
   index: -1
 S2_Bouy
   rotate: false
-  xy: 1482, 282
+  xy: 337, 1608
   size: 153, 125
   orig: 156, 128
   offset: 1, 1
   index: -1
 S2_Cheek
-  rotate: false
-  xy: 1474, 960
+  rotate: true
+  xy: 1534, 1038
   size: 176, 201
   orig: 176, 201
   offset: 0, 0
   index: -1
 S2_Forehead
   rotate: false
-  xy: 835, 1269
+  xy: 2, 1136
   size: 435, 165
   orig: 437, 168
   offset: 1, 1
   index: -1
 S2_L_Eyebag
   rotate: false
-  xy: 1647, 739
+  xy: 1814, 1687
   size: 171, 121
   orig: 173, 123
   offset: 1, 1
   index: -1
 S2_L_Hand_1
   rotate: false
-  xy: 916, 428
+  xy: 1456, 1234
   size: 183, 167
   orig: 183, 167
   offset: 0, 0
   index: -1
 S2_L_Hand_2
-  rotate: true
-  xy: 787, 214
+  rotate: false
+  xy: 1166, 1568
   size: 200, 133
   orig: 201, 134
   offset: 1, 0
   index: -1
 S2_L_Hand_3
   rotate: false
-  xy: 1079, 192
+  xy: 1423, 1915
   size: 219, 85
   orig: 220, 87
   offset: 1, 1
   index: -1
 S2_L_Hand_4
-  rotate: true
-  xy: 1895, 1383
+  rotate: false
+  xy: 1644, 1913
   size: 200, 87
   orig: 200, 87
   offset: 0, 0
   index: -1
 S2_L_Lower_Eye
-  rotate: true
-  xy: 647, 2
+  rotate: false
+  xy: 1641, 1216
   size: 187, 168
   orig: 187, 168
   offset: 0, 0
   index: -1
 S2_L_Upper_Eye
-  rotate: true
-  xy: 1652, 967
+  rotate: false
+  xy: 936, 1256
   size: 201, 165
   orig: 201, 165
   offset: 0, 0
   index: -1
 S2_Mouth
   rotate: false
-  xy: 1406, 1585
+  xy: 168, 1303
   size: 582, 149
   orig: 582, 150
   offset: 0, 1
   index: -1
 S2_Nose
-  rotate: true
-  xy: 1117, 583
+  rotate: false
+  xy: 439, 1132
   size: 256, 169
   orig: 256, 169
   offset: 0, 0
   index: -1
 S2_Pointy
-  rotate: true
-  xy: 1247, 1240
+  rotate: false
+  xy: 2, 1977
   size: 27, 23
   orig: 30, 26
   offset: 1, 2
   index: -1
 S2_R_Eyebag
   rotate: false
-  xy: 1846, 1096
+  xy: 706, 1927
   size: 169, 73
   orig: 171, 75
   offset: 1, 1
   index: -1
 S2_R_Hand_1
   rotate: false
-  xy: 1750, 150
+  xy: 204, 1616
   size: 131, 124
   orig: 131, 124
   offset: 0, 0
   index: -1
 S2_R_Hand_2
   rotate: false
-  xy: 1654, 862
+  xy: 658, 1728
   size: 158, 103
   orig: 158, 103
   offset: 0, 0
   index: -1
 S2_R_Hand_3
   rotate: false
-  xy: 1474, 884
+  xy: 877, 1926
   size: 178, 74
   orig: 178, 74
   offset: 0, 0
   index: -1
 S2_R_Hand_4
   rotate: false
-  xy: 1846, 1171
+  xy: 1057, 1920
   size: 169, 80
   orig: 169, 80
   offset: 0, 0
   index: -1
 S2_R_Lower_Eye
   rotate: false
-  xy: 1846, 1253
+  xy: 492, 1598
   size: 169, 128
   orig: 169, 128
   offset: 0, 0
   index: -1
 S2_R_Upper_Eye
   rotate: false
-  xy: 1101, 417
+  xy: 752, 1260
   size: 182, 164
   orig: 182, 164
   offset: 0, 0
   index: -1
 S2_Wrinkle
-  rotate: true
-  xy: 528, 587
+  rotate: false
+  xy: 1000, 617
   size: 765, 210
   orig: 767, 212
   offset: 1, 1
   index: -1
-S3_Body
-  rotate: false
-  xy: 2, 1354
-  size: 827, 566
-  orig: 827, 566
-  offset: 0, 0
-  index: -1
 S3_Eyebrow
   rotate: false
-  xy: 2, 8
+  xy: 335, 1454
   size: 470, 136
   orig: 470, 136
   offset: 0, 0
   index: -1
 S3_L_Eye
-  rotate: true
-  xy: 1288, 729
+  rotate: false
+  xy: 878, 1080
   size: 192, 174
   orig: 192, 174
   offset: 0, 0
   index: -1
 S3_L_Eyelash_1
   rotate: false
-  xy: 1825, 378
+  xy: 809, 1588
   size: 142, 135
   orig: 144, 137
   offset: 1, 1
   index: -1
 S3_L_Eyelash_2
   rotate: false
-  xy: 1018, 5
+  xy: 1467, 1699
   size: 149, 116
   orig: 151, 118
   offset: 1, 1
   index: -1
 S3_L_Eyelash_3
-  rotate: true
-  xy: 1634, 582
+  rotate: false
+  xy: 479, 1837
   size: 153, 89
   orig: 155, 91
   offset: 1, 1
   index: -1
 S3_L_Eyelash_4
-  rotate: true
-  xy: 1629, 423
+  rotate: false
+  xy: 818, 1725
   size: 148, 103
   orig: 150, 105
   offset: 1, 1
   index: -1
 S3_L_Eyelash_5
   rotate: false
-  xy: 1832, 608
+  xy: 663, 1592
   size: 144, 134
   orig: 146, 136
   offset: 1, 1
   index: -1
 S3_L_Hand
   rotate: false
-  xy: 1268, 20
+  xy: 2, 1491
   size: 148, 143
   orig: 148, 143
   offset: 0, 0
   index: -1
 S3_L_Smoke_F1
   rotate: false
-  xy: 1406, 1163
+  xy: 1239, 837
   size: 218, 218
   orig: 220, 220
   offset: 1, 1
   index: -1
 S3_L_Smoke_F2
-  rotate: false
-  xy: 445, 195
+  rotate: true
+  xy: 809, 875
   size: 203, 208
   orig: 205, 211
   offset: 1, 2
   index: -1
 S3_L_Stunt_1
   rotate: false
-  xy: 1280, 279
+  xy: 2, 1636
   size: 200, 121
   orig: 202, 123
   offset: 1, 1
   index: -1
 S3_L_Stunt_2
   rotate: false
-  xy: 1820, 744
+  xy: 1618, 1698
   size: 194, 117
   orig: 196, 119
   offset: 1, 1
   index: -1
 S3_L_Stunt_3
   rotate: false
-  xy: 1079, 279
+  xy: 1582, 1560
   size: 199, 136
   orig: 201, 138
   offset: 1, 1
   index: -1
 S3_Mascara
-  rotate: true
-  xy: 1097, 841
+  rotate: false
+  xy: 1072, 1074
   size: 280, 171
   orig: 280, 171
   offset: 0, 0
   index: -1
 S3_Mirror
   rotate: false
-  xy: 835, 835
+  xy: 1767, 541
   size: 260, 286
   orig: 262, 288
   offset: 1, 1
   index: -1
 S3_Mirror_Reflection_1
   rotate: true
-  xy: 1078, 123
+  xy: 392, 1933
   size: 67, 158
   orig: 69, 161
   offset: 1, 1
   index: -1
 S3_Mirror_Reflection_2
-  rotate: false
-  xy: 1418, 11
+  rotate: true
+  xy: 552, 1928
   size: 72, 152
   orig: 74, 154
   offset: 1, 1
   index: -1
 S3_Mouth
   rotate: false
-  xy: 1406, 1383
+  xy: 1459, 829
   size: 487, 200
   orig: 489, 202
   offset: 1, 1
   index: -1
 S3_Mouth_BG
   rotate: false
-  xy: 835, 1123
+  xy: 1160, 1416
   size: 410, 144
   orig: 412, 146
   offset: 1, 1
   index: -1
 S3_Nose
   rotate: true
-  xy: 835, 597
+  xy: 274, 708
   size: 236, 280
   orig: 236, 280
   offset: 0, 0
   index: -1
 S3_R_Arm
   rotate: true
-  xy: 1247, 1133
+  xy: 224, 1843
   size: 88, 157
   orig: 88, 157
   offset: 0, 0
   index: -1
 S3_R_Eye
-  rotate: false
-  xy: 741, 416
+  rotate: true
+  xy: 697, 1085
   size: 173, 179
   orig: 173, 180
   offset: 0, 0
   index: -1
 S3_R_Eyelash
-  rotate: true
-  xy: 1725, 588
+  rotate: false
+  xy: 1121, 1710
   size: 149, 105
   orig: 151, 107
   offset: 1, 1
   index: -1
 S3_R_Hand
   rotate: false
-  xy: 922, 145
+  xy: 213, 1742
   size: 154, 99
   orig: 154, 99
   offset: 0, 0
   index: -1
 S3_R_Smoke_F1
   rotate: false
-  xy: 1626, 1170
+  xy: 1019, 861
   size: 218, 211
   orig: 220, 213
   offset: 1, 1
   index: -1
 S3_R_Smoke_F2
-  rotate: false
-  xy: 1270, 923
+  rotate: true
+  xy: 599, 881
   size: 202, 208
   orig: 204, 211
   offset: 1, 2
   index: -1
 S3_R_Stunt_1
   rotate: false
-  xy: 1285, 402
+  xy: 807, 1426
   size: 184, 148
   orig: 186, 150
   offset: 1, 1
   index: -1
 S3_R_Stunt_2
   rotate: false
-  xy: 1819, 953
+  xy: 1783, 1544
   size: 186, 141
   orig: 188, 143
   offset: 1, 1
   index: -1
 S3_R_Stunt_3
   rotate: false
-  xy: 1464, 737
+  xy: 152, 1469
   size: 181, 145
   orig: 183, 147
   offset: 1, 1
   index: -1
 S3_Tooth_1
-  rotate: true
-  xy: 1924, 104
+  rotate: false
+  xy: 101, 1949
   size: 62, 51
   orig: 64, 54
   offset: 1, 1
   index: -1
 S3_Tooth_2
   rotate: false
-  xy: 445, 424
+  xy: 226, 1940
   size: 66, 60
   orig: 68, 62
   offset: 1, 1
   index: -1
 S3_Tooth_3
   rotate: false
-  xy: 1924, 51
+  xy: 165, 1949
   size: 59, 51
   orig: 61, 53
   offset: 1, 1
   index: -1
-S3_Wrinkle
+
+Boss_BlopFish2.png
+size: 1317,1103
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+B_WaterSplash_L_F3
+  rotate: true
+  xy: 870, 711
+  size: 390, 376
+  orig: 391, 377
+  offset: 1, 0
+  index: -1
+S1_Body
   rotate: false
-  xy: 831, 1436
+  xy: 2, 577
+  size: 866, 524
+  orig: 866, 524
+  offset: 0, 0
+  index: -1
+S3_Body
+  rotate: false
+  xy: 2, 9
+  size: 827, 566
+  orig: 827, 566
+  offset: 0, 0
+  index: -1
+S3_Wrinkle
+  rotate: true
+  xy: 831, 2
   size: 573, 484
   orig: 575, 486
   offset: 1, 1
