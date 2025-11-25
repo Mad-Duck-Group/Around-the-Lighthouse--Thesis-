@@ -7644,7 +7644,7 @@ MonoBehaviour:
     TypeName: Madduck.Room.FishingRoomManagerLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
-  spoofFishable: 1
+  spoofFishable: 0
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

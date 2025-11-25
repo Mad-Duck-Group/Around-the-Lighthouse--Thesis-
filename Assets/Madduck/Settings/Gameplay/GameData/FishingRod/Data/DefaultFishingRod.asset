@@ -34,7 +34,7 @@ MonoBehaviour:
   bubbleNibbleBonuses:
     keys: 000000000100000002000000
     values:
-    - value: 100
+    - value: 7
     - value: 10
     - value: 10
   bubbleNibblePenalties:

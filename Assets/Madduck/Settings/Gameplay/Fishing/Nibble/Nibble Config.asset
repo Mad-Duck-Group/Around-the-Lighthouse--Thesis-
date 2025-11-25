@@ -46,7 +46,7 @@ MonoBehaviour:
     description: Cancel
   <QteInputInstructions>k__BackingField:
   - key: ABXY
-    description: Jigging
+    description: Jig
   <CatchInputInstructions>k__BackingField:
   - key: A
     description: Hook

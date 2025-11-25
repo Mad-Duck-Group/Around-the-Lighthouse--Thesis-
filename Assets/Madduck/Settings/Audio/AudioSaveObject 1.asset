@@ -58,7 +58,7 @@ MonoBehaviour:
       Data: 3|Madduck.Audio.BusSaveData, Madduck.Audio
     - Name: <LinearVolume>k__BackingField
       Entry: 4
-      Data: 1
+      Data: 0.5
     - Name: <IsMuted>k__BackingField
       Entry: 5
       Data: false

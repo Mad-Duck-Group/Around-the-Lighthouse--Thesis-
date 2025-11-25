@@ -174,7 +174,8 @@ namespace Madduck.Fishing.Controller
                     //     _hookFactory.Current.MoveY(Percentage.Full));
                     _hookFactory.Current.StopWave();
                     await fishSprite.TransitionIn();
-                    _audioManager.PlayAudioOneShot(_config.FishEmergedSfx, Vector3.zero);
+                    if (currentFish.ItemData.EnemyType is not FishEnemyType.Boss) 
+                        _audioManager.PlayAudioOneShot(_config.FishEmergedSfx, Vector3.zero);
                     await _hookFactory.Current.MoveY(Percentage.Full);
                     await _hookFactory.Current.MoveX(Percentage.Full);
                     break;

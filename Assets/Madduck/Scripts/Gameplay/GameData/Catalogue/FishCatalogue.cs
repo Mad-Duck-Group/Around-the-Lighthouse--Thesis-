@@ -50,7 +50,10 @@ namespace Madduck.GameData
         {
             var disposableBuilder = Disposable.CreateBuilder();
             _fishingRoomStartedEventPublisher
-                .Subscribe(_ => Load())
+                .Subscribe(_ =>
+                {
+                    Load();
+                })
                 .AddTo(ref disposableBuilder);
             _disposables = disposableBuilder.Build();
         }
@@ -82,6 +85,14 @@ namespace Madduck.GameData
                 {
                     _fishCatalogueEntries[kvp.Key] = kvp.Value;
                 }
+            }
+        }
+
+        public void Reset()
+        {
+            foreach (var entry in _fishCatalogueEntries.Values)
+            {
+                entry.IsCaught = false;
             }
         }
 

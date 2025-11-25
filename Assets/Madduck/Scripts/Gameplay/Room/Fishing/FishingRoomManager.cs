@@ -51,6 +51,7 @@ namespace Madduck.Room
         private readonly MessagePackSaveManager _saveManager;
         private readonly LoadSceneManager _loadSceneManager;
         private readonly DayManager _dayManager;
+        private readonly FishCatalogue _fishCatalogue;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IAudioManager _audioManager;
         private readonly IFactory<WeatherItemInstance> _weatherFactory;
@@ -83,6 +84,7 @@ namespace Madduck.Room
             MessagePackSaveManager saveManager,
             LoadSceneManager loadSceneManager,
             DayManager dayManager,
+            FishCatalogue fishCatalogue,
             IPlayerInputHandler inputHandler,
             IAudioManager audioManager,
             IFactory<WeatherItemInstance> weatherFactory,
@@ -101,6 +103,7 @@ namespace Madduck.Room
             _saveManager = saveManager;
             _loadSceneManager = loadSceneManager;
             _dayManager = dayManager;
+            _fishCatalogue = fishCatalogue;
             _inputHandler = inputHandler;
             _weatherFactory = weatherFactory;
             _maxFishCountFactory = maxFishCountFactory;
@@ -193,6 +196,7 @@ namespace Madduck.Room
             DebugUtils.Log("Returning to Main Menu...");
             _saveManager.ResetAll();
             _saveManager.SaveAll();
+            _fishCatalogue.Reset();
             _dayManager.SetDayIndex(0);
             _loadSceneManager.LoadScene(SceneType.MainMenu, LoadSceneMode.Single, false).Forget();
         }

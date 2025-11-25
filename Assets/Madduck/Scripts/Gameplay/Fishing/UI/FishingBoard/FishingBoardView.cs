@@ -153,14 +153,17 @@ namespace Madduck.Fishing.UI
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
             gameObject.SetActive(true);
+            fatigueSlider.gameObject.SetActive(false);
             cancellationToken.Register(CancelTransitions);
             await Transition(true);
+            fatigueSlider.gameObject.SetActive(true);
             SetActive(true);
         }
 
         public async UniTask TransitionOut(CancellationToken cancellationToken = default)
         {
             cancellationToken.Register(CancelTransitions);
+            fatigueSlider.gameObject.SetActive(false);
             await Transition(false);
             SetActive(false);
             gameObject.SetActive(false);
