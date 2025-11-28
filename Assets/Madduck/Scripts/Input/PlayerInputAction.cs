@@ -153,7 +153,7 @@ namespace Madduck.Scripts.Input
                     ""type"": ""Value"",
                     ""id"": ""4b2945ad-866f-479f-a81a-b530976598a2"",
                     ""expectedControlType"": ""Delta"",
-                    ""processors"": ""NormalizeVector2"",
+                    ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },

@@ -16,6 +16,12 @@ namespace Madduck.Fishing.Config
         [PropertyTooltip("Max fatigue level, when reached the fish is caught.")]
         [field: InlineProperty,
                 SerializeField] public UFloat MaxFatigueLevel { get; private set; } = 100;
+        [field: InlineProperty,
+                SerializeField] public UFloat IdleMagnitudeThreshold { get; private set; } = 0.3f;
+        [field: InlineProperty,
+                SerializeField] public UFloat MaxIdleTime { get; private set; } = 2f;
+        [field: InlineProperty,
+                SerializeField] public AnimationCurve IdleDecayCurve { get; private set; } = AnimationCurve.Linear(0, 1, 1, 0);
         
         [Title("Audio")]
         [PropertyTooltip("Sound effect played when there is tension on the fishing line.")]

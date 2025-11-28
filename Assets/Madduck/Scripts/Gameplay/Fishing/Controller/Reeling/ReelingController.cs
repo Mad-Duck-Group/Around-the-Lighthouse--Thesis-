@@ -98,7 +98,7 @@ namespace Madduck.Fishing.Controller
                 .Where(_ => _inputHandler.CurrentControlScheme  == "Gamepad")
                 .Subscribe(_ =>
                 {
-                    OnRotate(_inputHandler.RightStickDelta.CurrentValue, true);
+                    OnRotate(_inputHandler.RightStickUnitCircle.CurrentValue, true);
                     
                 })
                 .AddTo(ref disposableBuilder);

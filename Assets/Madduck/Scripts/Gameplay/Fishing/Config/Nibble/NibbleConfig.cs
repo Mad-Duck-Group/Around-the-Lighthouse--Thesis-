@@ -1,4 +1,5 @@
-﻿using FMODUnity;
+﻿using System.Collections.Generic;
+using FMODUnity;
 using Madduck.Shared;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
@@ -46,5 +47,24 @@ namespace Madduck.Fishing.Config
                 description = "Catch",
             },
         };
+        
+        [Title("Debug"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _debugTitle;
+
+        [SerializeField] private bool spoofNibbleChance;
+        public bool SpoofNibbleChance
+        {
+            get
+            {
+#if UNITY_EDITOR
+                return spoofNibbleChance;
+#else
+                return false;
+#endif
+            }
+        }
+        [SerializeField] private SerializableDictionary<uint, Percentage> spoofNibbleChances = new();
+        public IReadOnlyDictionary<uint, Percentage> SpoofNibbleChances => (Dictionary<uint, Percentage>)spoofNibbleChances;
     }
 }

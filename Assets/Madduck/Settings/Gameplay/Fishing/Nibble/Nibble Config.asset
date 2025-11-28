@@ -50,3 +50,9 @@ MonoBehaviour:
   <CatchInputInstructions>k__BackingField:
   - key: A
     description: Hook
+  spoofNibbleChance: 1
+  spoofNibbleChances:
+    keys: 0000000001000000
+    values:
+    - value: 100
+    - value: 100

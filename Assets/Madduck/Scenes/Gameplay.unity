@@ -1372,7 +1372,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 11
+      Data: 12
     - Name: 
       Entry: 7
       Data: 1|Madduck.Utils.ModalManagerInstaller, Madduck.Shared
@@ -1951,6 +1951,15 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 31|Madduck.Utils.FramerateLimiterInstaller, Madduck.Utils
+    - Name: targetFramerate
+      Entry: 3
+      Data: 120
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -1958,7 +1967,7 @@ MonoBehaviour:
       Data: 
     - Name: weatherFactoryMock
       Entry: 7
-      Data: 31|Madduck.GameData.WeatherFactoryMock, Madduck.GameData
+      Data: 32|Madduck.GameData.WeatherFactoryMock, Madduck.GameData
     - Name: fixedWeather
       Entry: 10
       Data: 42
@@ -1979,7 +1988,7 @@ MonoBehaviour:
       Data: 
     - Name: maxFishCountFactoryMock
       Entry: 7
-      Data: 32|Madduck.GameData.MaxFishCountFactoryMock, Madduck.GameData
+      Data: 33|Madduck.GameData.MaxFishCountFactoryMock, Madduck.GameData
     - Name: fixedMaxFishCount
       Entry: 3
       Data: 1
@@ -7644,7 +7653,7 @@ MonoBehaviour:
     TypeName: Madduck.Room.FishingRoomManagerLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
-  spoofFishable: 0
+  spoofFishable: 1
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -7678,7 +7687,7 @@ MonoBehaviour:
     - {fileID: 1803546237}
     - {fileID: 658641432408402773, guid: a011265d6ab40e44987577687831d7d5, type: 3}
     - {fileID: 1988614740023824033, guid: 6b6add0aa732e0042ba1301afebaf536, type: 3}
-    - {fileID: 11400000, guid: 9ff94b87bda43b24e974304fcdf3c11f, type: 2}
+    - {fileID: 11400000, guid: 0369377454aa07a4181e2aeccae60320, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []

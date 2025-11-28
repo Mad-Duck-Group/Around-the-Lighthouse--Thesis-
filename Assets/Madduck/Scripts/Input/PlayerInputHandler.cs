@@ -35,9 +35,9 @@ namespace Madduck.Input
         [field: ReadOnly, 
                 ShowInInspector] public SerializableReactiveProperty<Vector2> MouseUnitCircle { get; private set; } = new();
         [field: ReadOnly, 
-                ShowInInspector] public SerializableReactiveProperty<Vector2> RightStickDelta { get; private set; } = new();
+                ShowInInspector] public SerializableReactiveProperty<Vector2> RightStickUnitCircle { get; private set; } = new();
         [field: ReadOnly, 
-                ShowInInspector] public SerializableReactiveProperty<Vector2> LeftStickDelta { get; private set; } = new();
+                ShowInInspector] public SerializableReactiveProperty<Vector2> LeftStickUnitCircle { get; private set; } = new();
         [field: ReadOnly, 
                 ShowInInspector] public SerializableReactiveProperty<float> BaitSelectInput { get; private set; } = new();
         #endregion
@@ -88,6 +88,7 @@ namespace Madduck.Input
         private string _beforeDeactivateControlScheme = "Mouse & Keyboard";
         private bool _activationJustChanged;
         private List<string> _schemeRequest = new();
+        private Vector2 _lastLeftStickValue;
         private IDisposable _currentControlSchemeSubscription;
         private IDisposable _anyButtonPressListener;
 
@@ -256,12 +257,12 @@ namespace Madduck.Input
         public void OnRightStickDelta(InputAction.CallbackContext context)
         {
             HandleSchemeSwitch("Gamepad");
-            RightStickDelta.Value = context.ReadValue<Vector2>();
+            RightStickUnitCircle.Value = context.ReadValue<Vector2>();
         }
         public void OnLeftStickDelta(InputAction.CallbackContext context)
         {
             HandleSchemeSwitch("Gamepad");
-            LeftStickDelta.Value = context.ReadValue<Vector2>();
+            LeftStickUnitCircle.Value = context.ReadValue<Vector2>();
         }
         #endregion
         

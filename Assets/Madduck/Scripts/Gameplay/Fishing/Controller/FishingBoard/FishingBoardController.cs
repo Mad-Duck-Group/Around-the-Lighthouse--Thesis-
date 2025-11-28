@@ -41,6 +41,8 @@ namespace Madduck.Fishing.Controller
         private AudioReference _fishingLineTensionSfx;
         private CancellationTokenSource _transitionCts = new();
         private bool _thresholdReached;
+        private float _gamepadIdleTime;
+        private Vector2 _lastGamepadInputAnchor;
         private const string ThrowEventName = "After_Throw";
         #endregion
 
@@ -105,17 +107,35 @@ namespace Madduck.Fishing.Controller
                 .Where(_ => _inputHandler.CurrentControlScheme == "Mouse & Keyboard")
                 .Subscribe(_ =>
                 {
-                    MoveHook(_inputHandler.MouseDelta.CurrentValue, false);
+                    MoveHook(HandleIdleDecay(_inputHandler.MouseDelta.CurrentValue.normalized), false);
                 })
                 .AddTo(ref disposableBuilder);
             Observable.EveryUpdate(UnityFrameProvider.Update)
                 .Where(_ => _inputHandler.CurrentControlScheme  == "Gamepad")
                 .Subscribe(_ =>
                 {
-                    MoveHook(_inputHandler.LeftStickDelta.CurrentValue, true);
+                    MoveHook(HandleIdleDecay(_inputHandler.LeftStickUnitCircle.CurrentValue), true);
                 })
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
+        }
+
+        private Vector2 HandleIdleDecay(Vector2 current)
+        {
+            var difference = current - _lastGamepadInputAnchor;
+            var decayFactor = 1f;
+            if (difference.magnitude >= _config.IdleMagnitudeThreshold.Value)
+            {
+                _lastGamepadInputAnchor = current;
+                _gamepadIdleTime = 0f;
+            }
+            else
+            {
+                _gamepadIdleTime += Time.deltaTime;
+                decayFactor =
+                    _config.IdleDecayCurve.Evaluate(Mathf.Clamp01(_gamepadIdleTime / _config.MaxIdleTime));
+            }
+            return current * decayFactor;
         }
         #endregion
         
@@ -278,6 +298,7 @@ namespace Madduck.Fishing.Controller
 
         private void UpdateHookToCenter()
         {
+            if (_model.HookPosition.Value.magnitude < 1f) return; //avoid NaN rotation
             var hookPosition = _model.HookPosition.Value;
             var circleCenter = _variables.RedBoard.Center;
             var hookToCenter = (circleCenter - hookPosition).normalized;
@@ -354,6 +375,7 @@ namespace Madduck.Fishing.Controller
             var circleCenter = _variables.RedBoard.Center;
             hookPosition += mouseDelta * Time.deltaTime;
             _model.HookPosition.Value = ClampPosition(hookPosition);
+            if (_model.HookPosition.Value.magnitude < 1f) return; //avoid NaN rotation
             //rotate toward the center
             var centerToHook = (circleCenter - hookPosition).normalized;
             var angle = Mathf.Atan2(centerToHook.y, centerToHook.x) * Mathf.Rad2Deg + 90f;

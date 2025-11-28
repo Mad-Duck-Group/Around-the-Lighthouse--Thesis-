@@ -227,6 +227,11 @@ namespace Madduck.Fishing.Controller
                 _inputInstructionManager.Show(_config.CancelInputInstructions, stream: 0);
                 _currentStageChance[0] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[0];
                 _currentStageChance[1] = _model.FishingRod.CurrentStats.CurrentNibbleBaseSuccessChances[1];
+                if (_config.SpoofNibbleChance)
+                {
+                    _currentStageChance[0] = _config.SpoofNibbleChances[0];
+                    _currentStageChance[1] = _config.SpoofNibbleChances[1];
+                }
                 _currentStageIndex = 0;
                 _model.CatchChance.Value = _currentStageChance[0];
                 _model.CatchStage.Value = (uint)_currentStageIndex;
