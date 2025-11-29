@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
 using Madduck.Fishing.Config;
@@ -17,7 +18,7 @@ namespace Madduck.Fishing.Controller
     public class CatchFishController : IDisposable
     {
         public event Action OnCatchFishCompleted;
-        
+
         private readonly CatchFishConfig _config;
         private readonly FishingSharedVariable _sharedVariable;
         private readonly InputInstructionManager _inputInstructionManager;
@@ -27,15 +28,17 @@ namespace Madduck.Fishing.Controller
         private readonly IFactory<IQuickTimeEvent> _qteButtonFactory;
         private readonly IFishSpriteFactory _fishSpriteFactory;
         private readonly ISpineAnimator<PlayerAnimationKey> _playerAnimator;
-        
+
         private IDisposable _bindings;
         private IDisposable _startSlowMo;
+        private IDisposable _slowMoTimer;
+        private float _slowMoProgress;
         private DisposableBag _qteSubscription;
-        private Sequence _slowMoSequence;
+        private CancellationTokenSource _slowMoCts = new();
         private bool _isCatching;
         private const string ThrowEventName = "After_Throw";
-        
-        
+
+
         [Inject]
         public CatchFishController(
             CatchFishConfig config,
@@ -70,13 +73,14 @@ namespace Madduck.Fishing.Controller
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
-        
+
         public void Dispose()
         {
             _bindings?.Dispose();
             _startSlowMo?.Dispose();
             _qteSubscription.Dispose();
-            _slowMoSequence.Complete();
+            _slowMoCts.Cancel();
+            _slowMoTimer.Dispose();
             Time.timeScale = 1f;
         }
 
@@ -85,7 +89,7 @@ namespace Madduck.Fishing.Controller
             _isCatching = true;
             DramaticReturn().Forget();
         }
-        
+
         public void SetActive(bool active)
         {
             _bindings?.Dispose();
@@ -96,14 +100,17 @@ namespace Madduck.Fishing.Controller
                 if (_sharedVariable.CurrentFishable is FishItemInstance)
                 {
                     DramaticReturn().Forget();
-                    return; 
+                    return;
                 }
+
                 Return().Forget();
             }
             else
             {
-                _slowMoSequence.Complete();
-                Time.timeScale = 1f; 
+                _slowMoCts.Cancel();
+                _slowMoCts = new CancellationTokenSource();
+                _slowMoTimer.Dispose();
+                Time.timeScale = 1f;
                 _inputInstructionManager.Show(Array.Empty<InputInstruction>(), stream: 0);
             }
         }
@@ -111,8 +118,10 @@ namespace Madduck.Fishing.Controller
         public void Reset()
         {
             _isCatching = false;
-            _slowMoSequence.Complete();
-            Time.timeScale = 1f;  
+            _slowMoCts.Cancel();
+            _slowMoCts = new CancellationTokenSource();
+            _slowMoTimer.Dispose();
+            Time.timeScale = 1f;
         }
 
         private async UniTask Return()
@@ -124,7 +133,7 @@ namespace Madduck.Fishing.Controller
             _hookFactory.DestroyHook();
             OnCatchFishCompleted?.Invoke();
         }
-        
+
         private async UniTask DramaticReturn()
         {
             if (_sharedVariable.CurrentFishable is not FishItemInstance currentFish)
@@ -132,6 +141,7 @@ namespace Madduck.Fishing.Controller
                 DebugUtils.LogError("Current fish is null or not a FishItemInstance!");
                 return;
             }
+
             var isBoss = currentFish.ItemData.EnemyType is FishEnemyType.Boss;
             var sprite = _fishSpriteFactory.Current;
             if (isBoss) sprite.Detach();
@@ -145,15 +155,13 @@ namespace Madduck.Fishing.Controller
                 .Subscribe(_ =>
                 {
                     _startSlowMo.Dispose();
-                    StartSlowMo().Forget();
+                    StartSlowMo(_slowMoCts.Token).Forget();
                 });
             if (isBoss)
             {
-                sprite.TransitionOut().ContinueWith(() =>
-                {
-                    _fishSpriteFactory.DestroyFishSprite();
-                }).Forget();
+                sprite.TransitionOut().ContinueWith(() => { _fishSpriteFactory.DestroyFishSprite(); }).Forget();
             }
+
             await hook.DramaticReturn();
             if (!isBoss)
             {
@@ -165,17 +173,30 @@ namespace Madduck.Fishing.Controller
                 _fishSpriteFactory.DestroyFishSprite();
                 return;
             }
+
             _hookFactory.DestroyHook();
             OnCatchFishCompleted?.Invoke();
         }
 
-        private async UniTaskVoid StartSlowMo()
+        private async UniTask StartSlowMo(CancellationToken cancellationToken)
         {
             var qte = _qteButtonFactory.Create();
             var tcs = new UniTaskCompletionSource();
-            await qte.TransitionInElement();
+            await qte.TransitionInElement(cancellationToken);
             _inputInstructionManager.Show(_config.QteInputInstructions, stream: 0);
             qte.StartQuickTimeEvent();
+            SubscribeQte(qte, tcs); 
+            var settings = _config.SlowMoSettings;
+            CreateSlowMoTimer(settings.startValue, settings.endValue);
+            await tcs.Task;
+            _qteSubscription.Dispose();
+            _slowMoTimer.Dispose();
+            if (cancellationToken.IsCancellationRequested) return;
+            CreateSlowMoTimer(Time.timeScale, 1f);
+        }
+
+        private void SubscribeQte(IQuickTimeEvent qte, UniTaskCompletionSource tcs) 
+        {
             _qteSubscription = new DisposableBag();
             Observable.FromEvent(
                     h => qte.OnSuccess += h,
@@ -205,13 +226,23 @@ namespace Madduck.Fishing.Controller
                     tcs.TrySetResult();
                 })
                 .AddTo(ref _qteSubscription);
-            var settings = _config.SlowMoSettings;   
-            _slowMoSequence = Sequence.Create(useUnscaledTime: true)   
-                .Group(Tween.GlobalTimeScale(settings));
-            await tcs.Task;
-            _qteSubscription.Dispose();
-            _slowMoSequence = Sequence.Create(useUnscaledTime: true)                              
-                .Group(Tween.GlobalTimeScale(settings.WithDirection(false)));
+        }
+
+        private void CreateSlowMoTimer(float start, float end)
+        {
+            var settings = _config.SlowMoSettings;
+            _slowMoTimer = Observable.EveryUpdate(UnityFrameProvider.Update)
+                .Where(_ => GameConstants.CurrentGameState.CurrentValue is not GameState.Paused)
+                .Subscribe(_ =>
+                {
+                    _slowMoProgress += Time.unscaledDeltaTime;
+                    Time.timeScale = Mathf.Lerp(start, end,
+                        Easing.Evaluate(Mathf.Clamp01(_slowMoProgress / settings.settings.duration),
+                            settings.settings.ease));
+                    if (_slowMoProgress < settings.settings.duration) return;
+                    _slowMoProgress = 0f;
+                    _slowMoTimer.Dispose();
+                });
         }
     }
 }

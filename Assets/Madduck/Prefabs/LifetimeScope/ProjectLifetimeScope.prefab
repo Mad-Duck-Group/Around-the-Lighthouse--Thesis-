@@ -316,7 +316,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 7
+      Data: 8
     - Name: 
       Entry: 7
       Data: 1|Madduck.Save.MessagePackSaveManagerInstaller, Madduck.Save
@@ -328,13 +328,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 2|Madduck.GameData.GameSettingsInstaller, Madduck.GameData
+      Data: 2|Madduck.Utils.FramerateLimiterInstaller, Madduck.Utils
+    - Name: targetFramerate
+      Entry: 3
+      Data: 120
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|Madduck.Core.LoadSceneManagerInstaller, Madduck.Core
+      Data: 3|Madduck.GameData.GameSettingsInstaller, Madduck.GameData
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|Madduck.Core.LoadSceneManagerInstaller, Madduck.Core
     - Name: config
       Entry: 10
       Data: 1
@@ -346,7 +355,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|Madduck.Audio.AudioManagerInstaller, Madduck.Audio
+      Data: 5|Madduck.Audio.AudioManagerInstaller, Madduck.Audio
     - Name: audioManagerConfig
       Entry: 10
       Data: 3
@@ -355,7 +364,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 5|Madduck.Input.PlayerInputHandlerInstaller, Madduck.Input
+      Data: 6|Madduck.Input.PlayerInputHandlerInstaller, Madduck.Input
     - Name: playerInputHandler
       Entry: 10
       Data: 4
@@ -364,7 +373,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 6|Madduck.Day.DayManagerInstaller, Madduck.Day
+      Data: 7|Madduck.Day.DayManagerInstaller, Madduck.Day
     - Name: dayManagerConfig
       Entry: 10
       Data: 5
@@ -388,7 +397,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 7|Madduck.GameData.FishCatalogueInstaller, Madduck.GameData
+      Data: 8|Madduck.GameData.FishCatalogueInstaller, Madduck.GameData
     - Name: fishCatalogueConfig
       Entry: 10
       Data: 11

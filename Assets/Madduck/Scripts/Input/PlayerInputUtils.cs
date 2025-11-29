@@ -31,6 +31,7 @@ namespace Madduck.Input
         public InputButton Action1Button { get; }
         public InputButton ReelingButton { get; }
         public InputButton PauseGameButton { get; }
+        public InputButton SecretResetButton { get; }
         public InputButton BaitButton { get; }
         public InputButton ConfirmBaitButton { get; }
         #endregion
@@ -58,6 +59,7 @@ namespace Madduck.Input
         public InputButton Action1Button { get; set; }
         public InputButton ReelingButton { get; set; }
         public InputButton PauseGameButton { get; set; }
+        public InputButton SecretResetButton { get; }
         public InputButton BaitButton { get; set; }
         public InputButton ConfirmBaitButton { get; set; }
         public event Action<string> OnControlSchemeChanged;

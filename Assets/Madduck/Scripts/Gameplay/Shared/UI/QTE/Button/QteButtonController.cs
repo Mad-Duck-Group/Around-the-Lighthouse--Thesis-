@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Madduck.Audio;
@@ -37,7 +38,8 @@ namespace Madduck.Shared
         private readonly ReactiveProperty<Percentage> _remainingPercentage = new();
         private readonly ReactiveProperty<Percentage> _timeFramePercentage = new();
         private IDisposable _bindings;
-        private IDisposable _timer;
+        private IDisposable _closingInTimer;
+        private readonly List<PausableTimer> _qteAwaitTimers = new();
         private CancellationTokenSource _cts = new();
         private bool _timeFrameOpen;
         private bool _transitionedIn;
@@ -76,13 +78,33 @@ namespace Madduck.Shared
                 .Select(_ => _input.JerkBaitButton)
                 .Subscribe(OnQteButtonDown)
                 .AddTo(ref disposableBuilder);
+            GameConstants.CurrentGameState
+                .IgnoreFirstValueWhenSubscribe()
+                .DistinctUntilChanged()
+                .Subscribe(OnGameStateChanged)
+                .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
         
         public void Dispose()
         {
             _bindings.Dispose();
-            _timer?.Dispose();
+            DisposeInternal();
+        }
+
+        private void OnGameStateChanged(GameState gameState)
+        {
+            switch (gameState)
+            {
+                case GameState.Normal:
+                    _qteAwaitTimers.ForEach(x => x.Start());
+                    break;
+                case GameState.Paused:
+                    _qteAwaitTimers.ForEach(x => x.Pause());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gameState), gameState, null);
+            }
         }
 
         public async UniTask TransitionInElement(CancellationToken cancellationToken = default)
@@ -116,29 +138,38 @@ namespace Madduck.Shared
             {
                 await TransitionInElement(cancellationToken);
             }
-            await UniTask.WaitForSeconds(_configInstance.CurrentStartDelay, ignoreTimeScale: true, 
-                cancellationToken: cancellationToken);
-            _timer = Observable.EveryUpdate()
+            await CreateTimer(_configInstance.CurrentStartDelay);
+            _closingInTimer = Observable.EveryUpdate()
+                .Where(_ => GameConstants.CurrentGameState.CurrentValue is not GameState.Paused)
                 .Subscribe(_ =>
                 {
                     _currentTime += Time.unscaledDeltaTime;
                     _remainingPercentage.Value = Percentage.FromFraction(_currentTime / duration);
                 });
-            await UniTask.WaitForSeconds(duration - (timeFrame + earlyTimeFrame), ignoreTimeScale: true, 
-                cancellationToken: cancellationToken);
+            await CreateTimer(duration - (timeFrame + earlyTimeFrame));
             _timeFrameOpen = true;
-            await UniTask.WaitForSeconds(earlyTimeFrame + timeFrame + lateTimeFrame, ignoreTimeScale: true, 
-                cancellationToken: cancellationToken);
+            await CreateTimer(earlyTimeFrame + timeFrame + lateTimeFrame);
             _timeFrameOpen = false;
             _remainingPercentage.Value = Percentage.Full;
-            _timer.Dispose();
+            _closingInTimer.Dispose();
             Fail();
+        }
+
+        private UniTask CreateTimer(float duration)
+        {
+            var timer = new PausableTimer(TimeSpan.FromSeconds(duration),
+                ignoreTimeScale: true);
+            _qteAwaitTimers.Add(timer);
+            return timer.ToUniTask().ContinueWith(() =>
+            {
+                timer.Dispose();
+                _qteAwaitTimers.Remove(timer);
+            });
         }
 
         public void CancelQuickTimeEvent(bool success)
         {
-            _cts.Cancel();
-            _timer?.Dispose();
+            DisposeInternal();
             if (success)
             {
                 Success();
@@ -147,6 +178,13 @@ namespace Madduck.Shared
             {
                 Fail();
             }
+        }
+
+        private void DisposeInternal()
+        {
+            _cts.Cancel();
+            _closingInTimer?.Dispose();
+            _qteAwaitTimers.ForEach(x => x.Dispose());
         }
         
         private void OnQteButtonDown(InputButton button)
@@ -174,8 +212,7 @@ namespace Madduck.Shared
         {
             _audioManager.PlayAudioOneShot(_configInstance.BaseConfig.QteSuccessSfx, Vector3.zero);
             DebugUtils.Log($"Success {_currentBinding.Value.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions)}");
-            _cts.Cancel();
-            _timer?.Dispose();
+            DisposeInternal();
             if (!ChangeViewResultManually) ChangeViewResult(true).Forget();
             OnSuccess?.Invoke();
             _active = false;
@@ -185,8 +222,7 @@ namespace Madduck.Shared
         {
             _audioManager.PlayAudioOneShot(_configInstance.BaseConfig.QteFailSfx, Vector3.zero);
             DebugUtils.Log($"Fail {_currentBinding.Value.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions)}");
-            _cts.Cancel();
-            _timer?.Dispose();
+            DisposeInternal();
             if (!ChangeViewResultManually) ChangeViewResult(false).Forget();
             OnFail?.Invoke();
             _active = false;

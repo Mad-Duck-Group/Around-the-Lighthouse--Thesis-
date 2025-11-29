@@ -29,7 +29,7 @@ MonoBehaviour:
       cycleMode: 0
       startDelay: 0
       endDelay: 0
-      useUnscaledTime: 1
+      useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
   <SlowMoThreshold>k__BackingField:

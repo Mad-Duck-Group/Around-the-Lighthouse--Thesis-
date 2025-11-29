@@ -64,7 +64,8 @@ namespace Madduck.Fishing.Config
 #endif
             }
         }
-        [SerializeField] private SerializableDictionary<uint, Percentage> spoofNibbleChances = new();
+        [ShowIf(nameof(spoofNibbleChance)), 
+         SerializeField] private SerializableDictionary<uint, Percentage> spoofNibbleChances = new();
         public IReadOnlyDictionary<uint, Percentage> SpoofNibbleChances => (Dictionary<uint, Percentage>)spoofNibbleChances;
     }
 }

@@ -97,9 +97,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "PauseGame",
+                    "name": "SecretReset",
                     "type": "Button",
-                    "id": "8f5eee3a-7c05-43f2-8a11-28fab006cfd4",
+                    "id": "adca9aa8-c7c5-49c2-9f44-bf4a342e875d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -389,12 +389,12 @@
                 },
                 {
                     "name": "",
-                    "id": "fc061be7-b44e-4c5d-a80e-f102b06233d4",
+                    "id": "17e1d29b-a722-4401-a82a-7658bc59a773",
                     "path": "<Keyboard>/f12",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse & Keyboard;Touchscreen",
-                    "action": "PauseGame",
+                    "action": "SecretReset",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -538,6 +538,45 @@
                     "processors": "",
                     "groups": ";Mouse & Keyboard",
                     "action": "MouseUnitCircle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "87a9e57a-e9a5-4f38-b6d1-ea7fc01e8919",
+            "actions": [
+                {
+                    "name": "PauseGame",
+                    "type": "Button",
+                    "id": "8ac26b19-15b3-48ab-9143-b3e35283c1c6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "49d44236-9951-4cbc-a574-a53c66fc8418",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse & Keyboard",
+                    "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c75535a5-de1e-49e8-a0a3-af155320b237",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "PauseGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

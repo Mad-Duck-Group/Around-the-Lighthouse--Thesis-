@@ -19,6 +19,7 @@ namespace Madduck.Input
     public class PlayerInputHandler : 
         MonoBehaviour, 
         PlayerInputAction.IPlayerActions, 
+        PlayerInputAction.IUIActions,
         IPlayerInputHandler
     {
         #region Inspector
@@ -73,6 +74,8 @@ namespace Madduck.Input
                 ShowInInspector]public InputButton ConfirmBaitButton { get; private set; } = new(null);
         [field: ReadOnly, 
                 ShowInInspector] public InputButton PauseGameButton { get; private set; } = new(null);
+        [field: ReadOnly, 
+                ShowInInspector] public InputButton SecretResetButton { get; private set; } = new(null);
 
         #endregion
         
@@ -119,7 +122,8 @@ namespace Madduck.Input
             Action0Button.InputAction = _playerInputAction.Player.Action0;
             Action1Button.InputAction = _playerInputAction.Player.Action1;
             ReelingButton.InputAction = _playerInputAction.Player.Reeling;
-            PauseGameButton.InputAction = _playerInputAction.Player.PauseGame;
+            PauseGameButton.InputAction = _playerInputAction.UI.PauseGame;
+            SecretResetButton.InputAction = _playerInputAction.Player.SecretReset;
             BaitButton.InputAction = _playerInputAction.Player.ToggleBait;
             ConfirmBaitButton.InputAction = _playerInputAction.Player.ConfirmBait;
         }
@@ -134,9 +138,11 @@ namespace Madduck.Input
             {
                 _playerInputAction = new PlayerInputAction();
                 _playerInputAction.Player.SetCallbacks(this);
+                _playerInputAction.UI.SetCallbacks(this);
             }
             
             _playerInputAction.Player.Enable();
+            _playerInputAction.UI.Enable();
         }
 
         private void Unsubscribe()
@@ -148,6 +154,7 @@ namespace Madduck.Input
         private void OnDestroy()
         {
             _playerInputAction.Player.Disable();
+            _playerInputAction.UI.Disable();
             _playerInputAction?.Dispose();
             _anyButtonPressListener?.Dispose();
         }
@@ -190,6 +197,11 @@ namespace Madduck.Input
         public void OnPauseGame(InputAction.CallbackContext context)
         {
             PauseGameButton.BindPressButton(context);
+        }
+
+        public void OnSecretReset(InputAction.CallbackContext context)
+        {
+            SecretResetButton.BindPressButton(context);
         }
 
         public void OnToggleBait(InputAction.CallbackContext context)

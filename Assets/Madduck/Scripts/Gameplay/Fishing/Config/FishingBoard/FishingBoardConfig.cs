@@ -17,10 +17,14 @@ namespace Madduck.Fishing.Config
         [field: InlineProperty,
                 SerializeField] public UFloat MaxFatigueLevel { get; private set; } = 100;
         [field: InlineProperty,
+                SerializeField] public UFloat MinimumMovingForce { get; private set; } = 250f;
+        [field: InlineProperty,
+                SerializeField] public bool EnableIdleDecayProcessor { get; private set; }
+        [field: InlineProperty, ShowIf(nameof(EnableIdleDecayProcessor)),
                 SerializeField] public UFloat IdleMagnitudeThreshold { get; private set; } = 0.3f;
-        [field: InlineProperty,
+        [field: InlineProperty, ShowIf(nameof(EnableIdleDecayProcessor)),
                 SerializeField] public UFloat MaxIdleTime { get; private set; } = 2f;
-        [field: InlineProperty,
+        [field: InlineProperty, ShowIf(nameof(EnableIdleDecayProcessor)),
                 SerializeField] public AnimationCurve IdleDecayCurve { get; private set; } = AnimationCurve.Linear(0, 1, 1, 0);
         
         [Title("Audio")]
@@ -30,7 +34,8 @@ namespace Madduck.Fishing.Config
         [Title("Input Instructions"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _inputInstructionsTitle;
-        [field: SerializeField] public InputInstruction[] MoveHookInputInstructions { get; private set; } = {
+        [field: SerializeField] public InputInstruction[] MoveHookInputInstructions { get; private set; } = 
+        {
             new()
             {
                 key = "Analog Left",

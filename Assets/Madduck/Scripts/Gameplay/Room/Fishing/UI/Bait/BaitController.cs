@@ -84,7 +84,7 @@ namespace Madduck.Room
             _inputHandler.BaitSelectInput
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
-                .Where(_ => _interactable)
+                .Where(_ => _interactable && _isActive)
                 .Subscribe(value =>
                 {
                     _pointingBaitViewModel.UpdateInput(value);

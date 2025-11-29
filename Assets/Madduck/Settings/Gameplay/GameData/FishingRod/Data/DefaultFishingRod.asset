@@ -57,7 +57,7 @@ MonoBehaviour:
   <FishingBoardDecayThreshold>k__BackingField:
     value: 5
   <HookToCenterForce>k__BackingField:
-    value: 500
+    value: 650
   <FishingLineDurability>k__BackingField:
     value: 100
   <FishingLineRegenFactor>k__BackingField:

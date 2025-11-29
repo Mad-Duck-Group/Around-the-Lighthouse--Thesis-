@@ -380,8 +380,9 @@ MonoBehaviour:
   autoInjectGameObjects: []
   mainMenuConfig: {fileID: 11400000, guid: 4cc775b937c395b499fa7e80ccb59760, type: 2}
   mainMenuView: {fileID: 1905323774}
-  settingsPanelConfig: {fileID: 11400000, guid: 658d89f254411144b962d388a78d5660, type: 2}
-  settingsPanelView: {fileID: 1097634390}
+  settingsPanelInstaller:
+    settingsPanelConfig: {fileID: 11400000, guid: 658d89f254411144b962d388a78d5660, type: 2}
+    settingsPanelView: {fileID: 1097634390}
 --- !u!1 &281119386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2419,6 +2420,7 @@ MonoBehaviour:
   saveButton: {fileID: 760278163}
   resetButton: {fileID: 2073451502}
   backButton: {fileID: 1933587931}
+  backToMainMenuButton: {fileID: 0}
 --- !u!1 &1100531776
 GameObject:
   m_ObjectHideFlags: 0

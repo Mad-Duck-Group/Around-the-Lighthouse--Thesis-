@@ -35,6 +35,8 @@ namespace Madduck.Room
          SerializeField] private Button resetButton;
         [Required, 
          SerializeField] private Button backButton;
+        [Optional,
+         SerializeField] private Button backToMainMenuButton;
         
         private SettingsPanelViewModel _viewModel;
         private IDisposable _bindings;
@@ -94,6 +96,12 @@ namespace Madduck.Room
             backButton.OnClickAsObservable()
                 .Subscribe(_ => OnBackButtonClicked())
                 .AddTo(ref disposableBuilder);
+            if (backToMainMenuButton)
+            {
+                backToMainMenuButton.OnClickAsObservable()
+                    .Subscribe(_ => OnBackToMainMenuButtonClicked())
+                    .AddTo(ref disposableBuilder);
+            }
             _bindings = disposableBuilder.Build();
         }
 
@@ -179,6 +187,11 @@ namespace Madduck.Room
         private void OnBackButtonClicked()
         {
             _viewModel.BackCommand.Execute(Unit.Default);
+        }
+        
+        private void OnBackToMainMenuButtonClicked()
+        {
+            _viewModel.BackToMainMenuCommand.Execute(Unit.Default);
         }
 
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)

@@ -13,6 +13,7 @@ namespace Madduck.Room
         public ReactiveCommand SaveCommand { get; } = new();
         public ReactiveCommand BackCommand { get; } = new();
         public ReactiveCommand ResetCommand { get; } = new();
+        public ReactiveCommand BackToMainMenuCommand { get; } = new();
         
         public ReactiveProperty<bool> IsActive { get; } = new();
         public ReactiveProperty<bool> MasterMute { get; } = new();
@@ -24,10 +25,13 @@ namespace Madduck.Room
         public ReactiveProperty<Percentage> GamepadSensitivity { get; } = new();
         public ReactiveCommand<Percentage> ChangeGamepadSensitivityCommand { get; } = new();
         
+        public event Action OnRequestBackToMainMenu;
+        
         private readonly SettingsPanelConfig _config;
         private readonly AudioManager _audioManager;
         private readonly GameSettingsManager _gameSettingsManager;
         private IDisposable _bindings;
+        private bool _changeDetected;
         
         [Inject]
         public SettingsPanelViewModel(
@@ -68,6 +72,9 @@ namespace Madduck.Room
                 .AddTo(ref disposableBuilder);
             BackCommand
                 .Subscribe(_ => OnBack())
+                .AddTo(ref disposableBuilder);
+            BackToMainMenuCommand
+                .Subscribe(_ => OnBackToMainMenu())
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -116,23 +123,27 @@ namespace Madduck.Room
         
         private void OnMasterMuteChanged(bool isMuted)
         {
+            _changeDetected = true;
             _audioManager.AudioSettings.BusData[BusType.Master].SetMute(isMuted);
         }
         
         private void OnMasterVolumeChanged(Percentage newValue)
         {
+            _changeDetected = true;
             var final = Mathf.Lerp(0, 1, newValue.AsFraction);
             _audioManager.AudioSettings.BusData[BusType.Master].SetVolume(final, VolumeUnit.Decibel01);
         }
         
         private void OnMouseSensitivityChanged(Percentage newValue)
         {
+            _changeDetected = true;
             var final = Mathf.Lerp(_config.MouseSensitivityRange.x, _config.MouseSensitivityRange.y, newValue.AsFraction);
             _gameSettingsManager.ControlSettings.FishingBoardMouseSensitivity = final;
         }
 
         private void OnGamepadSensitivityChanged(Percentage newValue)
         {
+            _changeDetected = true;
             var final = Mathf.Lerp(_config.GamepadSensitivityRange.x, _config.GamepadSensitivityRange.y, newValue.AsFraction);
             _gameSettingsManager.ControlSettings.FishingBoardGamepadSensitivity = final;
         }
@@ -152,7 +163,18 @@ namespace Madduck.Room
         
         private void OnBack()
         {
+            if (_changeDetected)
+            {
+                _gameSettingsManager.Load();
+                _audioManager.Load();
+            }
+            _changeDetected = false;
             SetActive(false);
+        }
+        
+        private void OnBackToMainMenu()
+        {
+            OnRequestBackToMainMenu?.Invoke();
         }
     }
 }

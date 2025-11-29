@@ -85,9 +85,13 @@ namespace Madduck.Room
             spoofWeather = false;
             spoofMaxFishCount = false;
 #endif
-            builder.RegisterInstance(fishingRoomConfig).AsSelf();
-            builder.RegisterInstance(weatherWeightTable).As<IWeightTable<WeatherWeightRecord>>();
-            builder.Register<WeatherWeightTableInstance>(Lifetime.Singleton).AsSelf();
+            // Weight Tables
+            builder.RegisterInstance(weatherWeightTable)
+                .As<IWeightTable<WeatherWeightRecord>>();
+            builder.Register<WeatherWeightTableInstance>(Lifetime.Singleton)
+                .AsSelf();
+            
+            // Factories
             if (spoofWeather && weatherFactoryMock != null)
             {
                 builder.Register(x =>
@@ -114,23 +118,45 @@ namespace Madduck.Room
                     .As<IFactory<uint>>()
                     .Keyed(DIConstants.MaxFishCountFactoryId);
             }
+            
+            // Room Presets
             builder.RegisterInstance(roomPresets).As<List<RoomPreset.RoomPreset>>();
+            builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
+            
+            // Weather Presets
             builder.RegisterInstance(weatherPresetConfig).AsSelf();
-            builder.Register<FishingRoomManager>(Lifetime.Singleton)
-                .As<IRequestHandler<CanContinueFishingRequest, bool>>()
+            builder.Register<WeatherPresetManager>(Lifetime.Singleton).AsSelf();
+            
+            // Handlers and Managers
+            builder.Register<FishingRoomMessageCenter>(Lifetime.Singleton)
                 .AsSelf();
             builder.Register<FishingRoomPopUpHandler>(Lifetime.Singleton)
                 .AsSelf();
-            builder.RegisterEntryPoint<RoomPresetManager>().AsSelf();
-            builder.Register<WeatherPresetManager>(Lifetime.Singleton).AsSelf();
+            builder.Register<FishingRoomSecretResetHandler>(Lifetime.Singleton)
+                .AsSelf();
+            builder.Register<FishingRoomWeatherHandler>(Lifetime.Singleton)
+                .AsSelf();
+            builder.Register<FishingRoomPauseHandler>(Lifetime.Singleton)
+                .AsSelf();
+            builder.RegisterInstance(fishingRoomConfig).AsSelf();
+            builder.Register<FishingRoomManager>(Lifetime.Singleton)
+                .As<IRequestHandler<CanContinueFishingRequest, bool>>()
+                .AsSelf();
+            
+            // UI Installers
             playerAnimatorInstaller?.Install(builder);
             foreach (var uiInstaller in uiInstallers)
             {   
                 uiInstaller.Install(builder);
             }
+            
             builder.RegisterBuildCallback(x =>
             {
+                x.Resolve<FishingRoomMessageCenter>();
                 x.Resolve<FishingRoomPopUpHandler>();
+                x.Resolve<FishingRoomWeatherHandler>();
+                x.Resolve<FishingRoomSecretResetHandler>();
+                x.Resolve<FishingRoomPauseHandler>();
 #if UNITY_EDITOR
                 var fishingRoomManager = x.Resolve<FishingRoomManager>();
                 var table = x.Resolve<WeatherWeightTableInstance>();

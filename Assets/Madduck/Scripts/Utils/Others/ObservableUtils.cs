@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Org.BouncyCastle.Asn1.X509;
 using R3;
 using Time = UnityEngine.Time;
@@ -49,8 +50,9 @@ namespace Madduck.Utils
         
         private bool _isRunning;
         private TimeSpan _elapsedTime;
+        private UniTaskCompletionSource _tcs;
         
-        public PausableTimer(TimeSpan duration, Action callback, FrameProvider frameProvider = null, bool ignoreTimeScale = false)
+        public PausableTimer(TimeSpan duration, Action callback = null, FrameProvider frameProvider = null, bool ignoreTimeScale = false)
         {
             _duration = duration;
             _elapsedTime = TimeSpan.Zero;
@@ -61,11 +63,13 @@ namespace Madduck.Utils
             _updateSubscription = Observable.EveryUpdate(_frameProvider) 
                 .Where(_ => _isRunning)
                 .Subscribe(_ => Update());
+            _tcs = new UniTaskCompletionSource();
         }
         
         public void Dispose()
         {
             _isRunning = false;
+            _tcs.TrySetCanceled();
             _updateSubscription.Dispose();
         }
         
@@ -83,6 +87,12 @@ namespace Madduck.Utils
         {
             _elapsedTime = TimeSpan.Zero;
             _isRunning = false;
+            _tcs = new UniTaskCompletionSource();
+        }
+        
+        public UniTask ToUniTask()
+        {
+            return _tcs.Task;
         }
         
         private void Update()
@@ -96,6 +106,7 @@ namespace Madduck.Utils
             if (_elapsedTime < _duration) return;
             _isRunning = false;
             _callback?.Invoke();
+            _tcs.TrySetResult();
         }
     }
 }

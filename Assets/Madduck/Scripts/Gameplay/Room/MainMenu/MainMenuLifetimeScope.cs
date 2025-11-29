@@ -15,20 +15,15 @@ namespace Madduck.Room
         [Required,
          SerializeField] private MainMenuView mainMenuView;
         [Required,
-         SerializeField] private SettingsPanelConfig settingsPanelConfig;
-        [Required,
-         SerializeField] private SettingsPanelView settingsPanelView;
+         SerializeField] private SettingsPanelInstaller settingsPanelInstaller;
 
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(mainMenuConfig).AsSelf();
-            builder.RegisterEntryPoint<MainMenuManager>(Lifetime.Singleton).AsSelf();
+            builder.RegisterEntryPoint<MainMenuManager>().AsSelf();
             builder.RegisterComponent(mainMenuView).AsSelf();
             builder.Register<MainMenuViewModel>(Lifetime.Singleton).AsSelf();
-            
-            builder.RegisterInstance(settingsPanelConfig).AsSelf();
-            builder.RegisterComponent(settingsPanelView).AsSelf();
-            builder.Register<SettingsPanelViewModel>(Lifetime.Singleton).AsSelf();
+            settingsPanelInstaller.Install(builder);
             builder.RegisterBuildCallback(x =>
             {
                 x.Resolve<MainMenuViewModel>();

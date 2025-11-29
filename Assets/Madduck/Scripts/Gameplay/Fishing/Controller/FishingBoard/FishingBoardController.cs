@@ -107,14 +107,20 @@ namespace Madduck.Fishing.Controller
                 .Where(_ => _inputHandler.CurrentControlScheme == "Mouse & Keyboard")
                 .Subscribe(_ =>
                 {
-                    MoveHook(HandleIdleDecay(_inputHandler.MouseDelta.CurrentValue.normalized), false);
+                    var direction = _config.EnableIdleDecayProcessor
+                        ? HandleIdleDecay(_inputHandler.MouseDelta.CurrentValue.normalized)
+                        : _inputHandler.MouseDelta.CurrentValue.normalized;
+                    MoveHook(direction, false);
                 })
                 .AddTo(ref disposableBuilder);
             Observable.EveryUpdate(UnityFrameProvider.Update)
                 .Where(_ => _inputHandler.CurrentControlScheme  == "Gamepad")
                 .Subscribe(_ =>
                 {
-                    MoveHook(HandleIdleDecay(_inputHandler.LeftStickUnitCircle.CurrentValue), true);
+                    var direction = _config.EnableIdleDecayProcessor
+                        ? HandleIdleDecay(_inputHandler.LeftStickUnitCircle.CurrentValue)
+                        : _inputHandler.LeftStickUnitCircle.CurrentValue;
+                    MoveHook(direction, true);
                 })
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
@@ -205,7 +211,7 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private void Update()
         {
-            UpdateHookToCenter();
+            //UpdateHookToCenter();
             UpdateFatigueLevel();
             UpdateFishingLineDurability();
             _aiController.UpdateBehaviourGraphVariables();
@@ -363,23 +369,38 @@ namespace Madduck.Fishing.Controller
         /// <summary>
         /// Move the hook based on mouse delta input.
         /// </summary>
-        /// <param name="delta">Mouse delta input.</param>
+        /// <param name="direction"></param>
         /// <param name="gamepad"></param>
-        private void MoveHook(Vector2 delta, bool gamepad)
+        private void MoveHook(Vector2 direction, bool gamepad)
         {
+            if (direction == Vector2.zero) return;
             var hookPosition = _model.HookPosition.Value;
             var sensitivity = gamepad
                 ? _gameSettingsManager.ControlSettings.FishingBoardGamepadSensitivity
                 : _gameSettingsManager.ControlSettings.FishingBoardMouseSensitivity;
-            var mouseDelta = delta * sensitivity;
-            var circleCenter = _variables.RedBoard.Center;
-            hookPosition += mouseDelta * Time.deltaTime;
+            var movingForce = sensitivity;
+            var inertiaForce = GetInertiaForce();
+            var finalForce = movingForce - inertiaForce;
+            //prevent moving in opposite direction of the moving force
+            finalForce = Mathf.Max(_config.MinimumMovingForce, finalForce);
+            hookPosition += finalForce * (direction * Time.deltaTime);
             _model.HookPosition.Value = ClampPosition(hookPosition);
             if (_model.HookPosition.Value.magnitude < 1f) return; //avoid NaN rotation
+            var circleCenter = _variables.RedBoard.Center;
             //rotate toward the center
             var centerToHook = (circleCenter - hookPosition).normalized;
             var angle = Mathf.Atan2(centerToHook.y, centerToHook.x) * Mathf.Rad2Deg + 90f;
             _model.HookRotation.Value = Quaternion.Euler(0, 0, angle);
+        }
+        
+        private float GetInertiaForce()
+        {
+            var fishUnitCirclePosition = _variables.FishUnitCirclePosition;
+            var hookUnitCirclePosition = _variables.HookUnitCirclePosition;
+            // var inertiaForce = _model.FishingLineDurabilityPercent.CurrentValue.AsInverseFraction * (float)_config.Inertia;
+            var inertiaForce = Vector2.Distance(fishUnitCirclePosition, hookUnitCirclePosition) / 2f 
+                               * (float)_model.FishingRodItemInstance.CurrentStats.CurrentHookToCenterForce;
+            return inertiaForce;
         }
         
         /// <summary>

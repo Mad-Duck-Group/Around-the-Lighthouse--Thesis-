@@ -185,9 +185,9 @@ namespace Madduck.Scripts.Input
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""PauseGame"",
+                    ""name"": ""SecretReset"",
                     ""type"": ""Button"",
-                    ""id"": ""8f5eee3a-7c05-43f2-8a11-28fab006cfd4"",
+                    ""id"": ""adca9aa8-c7c5-49c2-9f44-bf4a342e875d"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -477,12 +477,12 @@ namespace Madduck.Scripts.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""fc061be7-b44e-4c5d-a80e-f102b06233d4"",
+                    ""id"": ""17e1d29b-a722-4401-a82a-7658bc59a773"",
                     ""path"": ""<Keyboard>/f12"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse & Keyboard;Touchscreen"",
-                    ""action"": ""PauseGame"",
+                    ""action"": ""SecretReset"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -630,6 +630,45 @@ namespace Madduck.Scripts.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""87a9e57a-e9a5-4f38-b6d1-ea7fc01e8919"",
+            ""actions"": [
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""8ac26b19-15b3-48ab-9143-b3e35283c1c6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""49d44236-9951-4cbc-a574-a53c66fc8418"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse & Keyboard"",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c75535a5-de1e-49e8-a0a3-af155320b237"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -685,15 +724,19 @@ namespace Madduck.Scripts.Input
             m_Player_MouseUnitCircle = m_Player.FindAction("MouseUnitCircle", throwIfNotFound: true);
             m_Player_RightStickDelta = m_Player.FindAction("RightStickDelta", throwIfNotFound: true);
             m_Player_LeftStickDelta = m_Player.FindAction("LeftStickDelta", throwIfNotFound: true);
-            m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
+            m_Player_SecretReset = m_Player.FindAction("SecretReset", throwIfNotFound: true);
             m_Player_ToggleBait = m_Player.FindAction("ToggleBait", throwIfNotFound: true);
             m_Player_SelectBait = m_Player.FindAction("SelectBait", throwIfNotFound: true);
             m_Player_ConfirmBait = m_Player.FindAction("ConfirmBait", throwIfNotFound: true);
+            // UI
+            m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+            m_UI_PauseGame = m_UI.FindAction("PauseGame", throwIfNotFound: true);
         }
 
         ~@PlayerInputAction()
         {
             UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInputAction.Player.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInputAction.UI.Disable() has not been called.");
         }
 
         /// <summary>
@@ -779,7 +822,7 @@ namespace Madduck.Scripts.Input
         private readonly InputAction m_Player_MouseUnitCircle;
         private readonly InputAction m_Player_RightStickDelta;
         private readonly InputAction m_Player_LeftStickDelta;
-        private readonly InputAction m_Player_PauseGame;
+        private readonly InputAction m_Player_SecretReset;
         private readonly InputAction m_Player_ToggleBait;
         private readonly InputAction m_Player_SelectBait;
         private readonly InputAction m_Player_ConfirmBait;
@@ -835,9 +878,9 @@ namespace Madduck.Scripts.Input
             /// </summary>
             public InputAction @LeftStickDelta => m_Wrapper.m_Player_LeftStickDelta;
             /// <summary>
-            /// Provides access to the underlying input action "Player/PauseGame".
+            /// Provides access to the underlying input action "Player/SecretReset".
             /// </summary>
-            public InputAction @PauseGame => m_Wrapper.m_Player_PauseGame;
+            public InputAction @SecretReset => m_Wrapper.m_Player_SecretReset;
             /// <summary>
             /// Provides access to the underlying input action "Player/ToggleBait".
             /// </summary>
@@ -906,9 +949,9 @@ namespace Madduck.Scripts.Input
                 @LeftStickDelta.started += instance.OnLeftStickDelta;
                 @LeftStickDelta.performed += instance.OnLeftStickDelta;
                 @LeftStickDelta.canceled += instance.OnLeftStickDelta;
-                @PauseGame.started += instance.OnPauseGame;
-                @PauseGame.performed += instance.OnPauseGame;
-                @PauseGame.canceled += instance.OnPauseGame;
+                @SecretReset.started += instance.OnSecretReset;
+                @SecretReset.performed += instance.OnSecretReset;
+                @SecretReset.canceled += instance.OnSecretReset;
                 @ToggleBait.started += instance.OnToggleBait;
                 @ToggleBait.performed += instance.OnToggleBait;
                 @ToggleBait.canceled += instance.OnToggleBait;
@@ -959,9 +1002,9 @@ namespace Madduck.Scripts.Input
                 @LeftStickDelta.started -= instance.OnLeftStickDelta;
                 @LeftStickDelta.performed -= instance.OnLeftStickDelta;
                 @LeftStickDelta.canceled -= instance.OnLeftStickDelta;
-                @PauseGame.started -= instance.OnPauseGame;
-                @PauseGame.performed -= instance.OnPauseGame;
-                @PauseGame.canceled -= instance.OnPauseGame;
+                @SecretReset.started -= instance.OnSecretReset;
+                @SecretReset.performed -= instance.OnSecretReset;
+                @SecretReset.canceled -= instance.OnSecretReset;
                 @ToggleBait.started -= instance.OnToggleBait;
                 @ToggleBait.performed -= instance.OnToggleBait;
                 @ToggleBait.canceled -= instance.OnToggleBait;
@@ -1004,6 +1047,102 @@ namespace Madduck.Scripts.Input
         /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
         /// </summary>
         public PlayerActions @Player => new PlayerActions(this);
+
+        // UI
+        private readonly InputActionMap m_UI;
+        private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+        private readonly InputAction m_UI_PauseGame;
+        /// <summary>
+        /// Provides access to input actions defined in input action map "UI".
+        /// </summary>
+        public struct UIActions
+        {
+            private @PlayerInputAction m_Wrapper;
+
+            /// <summary>
+            /// Construct a new instance of the input action map wrapper class.
+            /// </summary>
+            public UIActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "UI/PauseGame".
+            /// </summary>
+            public InputAction @PauseGame => m_Wrapper.m_UI_PauseGame;
+            /// <summary>
+            /// Provides access to the underlying input action map instance.
+            /// </summary>
+            public InputActionMap Get() { return m_Wrapper.m_UI; }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+            public void Enable() { Get().Enable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+            public void Disable() { Get().Disable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+            public bool enabled => Get().enabled;
+            /// <summary>
+            /// Implicitly converts an <see ref="UIActions" /> to an <see ref="InputActionMap" /> instance.
+            /// </summary>
+            public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+            /// <summary>
+            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <param name="instance">Callback instance.</param>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+            /// </remarks>
+            /// <seealso cref="UIActions" />
+            public void AddCallbacks(IUIActions instance)
+            {
+                if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+                @PauseGame.started += instance.OnPauseGame;
+                @PauseGame.performed += instance.OnPauseGame;
+                @PauseGame.canceled += instance.OnPauseGame;
+            }
+
+            /// <summary>
+            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <remarks>
+            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+            /// </remarks>
+            /// <seealso cref="UIActions" />
+            private void UnregisterCallbacks(IUIActions instance)
+            {
+                @PauseGame.started -= instance.OnPauseGame;
+                @PauseGame.performed -= instance.OnPauseGame;
+                @PauseGame.canceled -= instance.OnPauseGame;
+            }
+
+            /// <summary>
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="UIActions.UnregisterCallbacks(IUIActions)" />.
+            /// </summary>
+            /// <seealso cref="UIActions.UnregisterCallbacks(IUIActions)" />
+            public void RemoveCallbacks(IUIActions instance)
+            {
+                if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            /// <summary>
+            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+            /// </summary>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+            /// </remarks>
+            /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
+            /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
+            /// <seealso cref="UIActions.UnregisterCallbacks(IUIActions)" />
+            public void SetCallbacks(IUIActions instance)
+            {
+                foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        /// <summary>
+        /// Provides a new <see cref="UIActions" /> instance referencing this action map.
+        /// </summary>
+        public UIActions @UI => new UIActions(this);
         private int m_MouseKeyboardSchemeIndex = -1;
         /// <summary>
         /// Provides access to the input control scheme.
@@ -1121,12 +1260,12 @@ namespace Madduck.Scripts.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnLeftStickDelta(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "PauseGame" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "SecretReset" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnPauseGame(InputAction.CallbackContext context);
+            void OnSecretReset(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "ToggleBait" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
@@ -1148,6 +1287,21 @@ namespace Madduck.Scripts.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnConfirmBait(InputAction.CallbackContext context);
+        }
+        /// <summary>
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
+        /// </summary>
+        /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
+        /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
+        public interface IUIActions
+        {
+            /// <summary>
+            /// Method invoked when associated input action "PauseGame" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPauseGame(InputAction.CallbackContext context);
         }
     }
 }
