@@ -1,5 +1,8 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using FMODUnity;
+using Madduck.Audio;
+using Madduck.Utils;
 using R3;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -23,20 +26,33 @@ namespace Madduck.Room
          SerializeField] private TMP_Text versionText;
         
         private MainMenuViewModel _viewModel;
+       
         private IDisposable _bindings;
 
         [Inject]
-        public void SetUp(MainMenuViewModel viewModel)
+        public void SetUp(
+            MainMenuViewModel viewModel,
+            IAudioManager audioManager)
         {
             _viewModel = viewModel;
+            sailingButton.SetUp(audioManager);
+            settingsButton.SetUp(audioManager);
+            quitButton.SetUp(audioManager);
         }
 
         private void Start()
         {
-            sailingButton.TransitionIn().Forget();
-            settingsButton.TransitionIn().Forget();
-            quitButton.TransitionIn().Forget();
             versionText.text = $"{Application.version}";
+            TransitionInButtons().Forget();
+        }
+
+        private async UniTaskVoid TransitionInButtons()
+        {
+            sailingButton.TransitionIn().Forget();
+            await UniTask.WaitForSeconds(0.25f);
+            settingsButton.TransitionIn().Forget();
+            await UniTask.WaitForSeconds(0.25f);
+            await quitButton.TransitionIn();
             EventSystem.current.SetSelectedGameObject(sailingButton.gameObject);
             Bind();
         }
@@ -45,6 +61,7 @@ namespace Madduck.Room
         {
             var disposableBuilder = Disposable.CreateBuilder();
             _viewModel.SettingClosed
+                .IgnoreFirstValueWhenSubscribe()
                 .Subscribe(_ => OnSettingsClosed())
                 .AddTo(ref disposableBuilder);
             sailingButton.Button.OnClickAsObservable()

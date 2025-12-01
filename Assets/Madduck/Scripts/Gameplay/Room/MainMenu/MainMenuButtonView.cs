@@ -1,5 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
+using FMODUnity;
+using Madduck.Audio;
 using Madduck.Utils;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -20,7 +22,20 @@ namespace Madduck.Room
         [Required, 
          SerializeField] private Sprite initialSprite;
         
+        [Title("Audio")]
+        [Required, 
+         SerializeField] private EventReference buttonClickSound;
+        
         public Button Button => button;
+        
+        private IAudioManager _audioManager;
+        
+        public void SetUp(IAudioManager audioManager)
+        {
+            _audioManager = audioManager;
+            button.gameObject.SetActive(false);
+            buttonText.gameObject.SetActive(false);
+        }
         
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
@@ -28,8 +43,8 @@ namespace Madduck.Room
             buttonText.gameObject.SetActive(false);
             animator.enabled = true;
             animator.Play("In");
+            _audioManager.PlayAudioOneShot(buttonClickSound, Vector3.zero);
             await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f, cancellationToken: cancellationToken);
-            animator.Play("Empty");
             animator.enabled = false;
             buttonText.gameObject.SetActive(true);
             button.image.sprite = initialSprite;
@@ -40,8 +55,8 @@ namespace Madduck.Room
             animator.enabled = true;
             animator.Play("Out");
             buttonText.gameObject.SetActive(false);
+            _audioManager.PlayAudioOneShot(buttonClickSound, Vector3.zero);
             await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f, cancellationToken: cancellationToken);
-            animator.Play("Empty");
             animator.enabled = false;
             button.gameObject.SetActive(false);
         }

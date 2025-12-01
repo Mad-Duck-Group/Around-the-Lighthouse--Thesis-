@@ -3978,6 +3978,13 @@ MonoBehaviour:
   animator: {fileID: 1678427125}
   buttonText: {fileID: 952508306}
   initialSprite: {fileID: 4335798066420169510, guid: 5fa1c2fb5b93a60489869e02e02e24ae, type: 3}
+  buttonClickSound:
+    Guid:
+      Data1: 600821349
+      Data2: 1115608559
+      Data3: 558520713
+      Data4: -1332162269
+    Path: event:/SFX/UIClickSquish
 --- !u!1 &1684552620
 GameObject:
   m_ObjectHideFlags: 0
@@ -4561,6 +4568,13 @@ MonoBehaviour:
   animator: {fileID: 1876152462}
   buttonText: {fileID: 969684003}
   initialSprite: {fileID: -5131738081514180423, guid: 416738e3439fb97488f6ac6253fa9990, type: 3}
+  buttonClickSound:
+    Guid:
+      Data1: 600821349
+      Data2: 1115608559
+      Data3: 558520713
+      Data4: -1332162269
+    Path: event:/SFX/UIClickSquish
 --- !u!1 &1889521624
 GameObject:
   m_ObjectHideFlags: 0
@@ -4759,6 +4773,13 @@ MonoBehaviour:
   animator: {fileID: 1892855469}
   buttonText: {fileID: 1977410253}
   initialSprite: {fileID: 1957461029618701759, guid: 1e75c08255ea27847af34bf73c5c2147, type: 3}
+  buttonClickSound:
+    Guid:
+      Data1: 600821349
+      Data2: 1115608559
+      Data3: 558520713
+      Data4: -1332162269
+    Path: event:/SFX/UIClickSquish
 --- !u!1 &1905323772
 GameObject:
   m_ObjectHideFlags: 0

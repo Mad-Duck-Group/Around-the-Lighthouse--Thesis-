@@ -31,6 +31,7 @@ namespace Madduck.Shared
         
         public TrackEntry Set(PlayerAnimationKey key, int index, bool loop)
         {
+            if (!_skeletonAnimation) return null;
             if (!_config.Animations.TryGetValue(key, out var animation))
             {
                 return null;
@@ -40,6 +41,7 @@ namespace Madduck.Shared
 
         public TrackEntry Add(PlayerAnimationKey key, int index, bool loop, float delay)
         {
+            if (!_skeletonAnimation) return null;
             if (!_config.Animations.TryGetValue(key, out var animation))
             {
                 return null;
@@ -49,31 +51,37 @@ namespace Madduck.Shared
 
         public TrackEntry SetEmpty(int index, float mixDuration)
         {
+            if (!_skeletonAnimation) return null;
             return _skeletonAnimation.AnimationState.SetEmptyAnimation(index, mixDuration);
         }
 
         public void SetEmptyAll(float mixDuration)
         {
+            if (!_skeletonAnimation) return;
             _skeletonAnimation.AnimationState.SetEmptyAnimations(mixDuration);
         }
 
         public TrackEntry AddEmpty(int index, float mixDuration, float delay)
         {
+            if (!_skeletonAnimation) return null;
             return _skeletonAnimation.AnimationState.AddEmptyAnimation(index, mixDuration, delay);
         }
 
         public void ClearTrack(int index)
         {
+            if (!_skeletonAnimation) return;
             _skeletonAnimation.AnimationState.ClearTrack(index);
         }
 
         public void ClearTracks()
         {
+            if (!_skeletonAnimation) return;
             _skeletonAnimation.AnimationState.ClearTracks();
         }
 
         public TrackEntry GetCurrent(int index)
         {
+            if (!_skeletonAnimation) return null;
             return _skeletonAnimation.AnimationState.GetCurrent(index);
         }
 
