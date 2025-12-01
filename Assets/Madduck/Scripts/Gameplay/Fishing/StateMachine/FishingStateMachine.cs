@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Madduck.Core;
 using Madduck.GameData;
 using Madduck.Shared;
 using Madduck.Utils;
@@ -26,15 +27,19 @@ namespace Madduck.Fishing.StateMachine
         private void TestPreviousState() => PreviousState();
         
         private readonly ISubscriber<FishingRoomStartedEvent> _fishingRoomStartedEventSubscriber;
+        private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private readonly IPublisher<FishingStateEvent> _fishingStateEventPublisher;
+        
         private IDisposable _subscriptions;
 
         [Inject]
         public FishingStateMachine(
             ISubscriber<FishingRoomStartedEvent> fishingRoomStartedEventSubscriber,
+            ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber,
             IPublisher<FishingStateEvent> fishingStateEventPublisher)
         {
             _fishingRoomStartedEventSubscriber = fishingRoomStartedEventSubscriber;
+            _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
             _fishingStateEventPublisher = fishingStateEventPublisher;
             Subscribe();
         }
@@ -44,6 +49,9 @@ namespace Madduck.Fishing.StateMachine
             var disposableBuilder = Disposable.CreateBuilder();
             _fishingRoomStartedEventSubscriber
                 .Subscribe(_ => StartStateMachine())
+                .AddTo(ref disposableBuilder);
+            _loadSceneStageEventSubscriber
+                .Subscribe(OnLoadSceneStageEvent)
                 .AddTo(ref disposableBuilder);
             _subscriptions = disposableBuilder.Build();
         }
@@ -117,6 +125,12 @@ namespace Madduck.Fishing.StateMachine
             {
                 DebugUtils.LogError($"State {stateType} does not exist in FishingStateMachine.");
             }
+        }
+
+        private void OnLoadSceneStageEvent(LoadSceneStageEvent evt)
+        {
+            if (evt.Stage is not LoadSceneStage.StartFadeOut) return;
+            ChangeState(FishingStateType.None);
         }
     }
 }

@@ -65,13 +65,16 @@ namespace Madduck.Fishing.DI
             builder.Register<ThrowHookCommander>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookViewModel>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookModel>(Lifetime.Scoped).AsSelf();
+            builder.Register<PrepareBaitState>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowHookState>(Lifetime.Scoped).AsSelf();
             builder.Register<ThrowingHookState>(Lifetime.Scoped).AsSelf();
             builder.RegisterBuildCallback(x =>
             {
                 var stateMachine = x.Resolve<FishingStateMachine>();
+                var prepareBaitState = x.Resolve<PrepareBaitState>();
                 var throwHookState = x.Resolve<ThrowHookState>();
                 var throwingHookState = x.Resolve<ThrowingHookState>();
+                stateMachine.AddState(FishingStateType.PrepareBait, prepareBaitState);
                 stateMachine.AddState(FishingStateType.ThrowHook, throwHookState);
                 stateMachine.AddState(FishingStateType.ThrowingHook, throwingHookState);
 #if UNITY_EDITOR

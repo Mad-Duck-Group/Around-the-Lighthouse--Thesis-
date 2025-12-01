@@ -8,7 +8,7 @@ namespace Madduck.Room
 {
     public class WeatherHUDViewModel : IDisposable
     {
-        public ReactiveProperty<WeatherType> CurrentWeather { get; } = new();
+        public ReactiveProperty<WeatherItemInstance> CurrentWeather { get; } = new();
         
         private readonly ISubscriber<WeatherChangedEvent> _weatherChangedSubscriber;
         private IDisposable _bindings;
@@ -24,12 +24,12 @@ namespace Madduck.Room
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _weatherChangedSubscriber.Subscribe(e => OnWeatherChanged(e.Weather.ItemData.WeatherType))
+            _weatherChangedSubscriber.Subscribe(e => OnWeatherChanged(e.Weather))
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
 
-        private void OnWeatherChanged(WeatherType newWeather)
+        private void OnWeatherChanged(WeatherItemInstance newWeather)
         {
             CurrentWeather.Value = newWeather;
         }

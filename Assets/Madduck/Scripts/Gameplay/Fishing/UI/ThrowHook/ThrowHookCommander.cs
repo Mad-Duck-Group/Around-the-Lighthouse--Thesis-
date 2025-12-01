@@ -26,6 +26,7 @@ namespace Madduck.Fishing.UI
         private readonly IIdleAnimator _playerIdleAnimator;
         
         private bool _hookThrown;
+        private bool _isDown;
         private bool _isHolding;
         private CancellationTokenSource _chargeCts = new();
         private InputType? _activeInputType;
@@ -61,18 +62,29 @@ namespace Madduck.Fishing.UI
                 .Subscribe(x =>
                 {
                     _activeInputType = x;
-                    _isHolding = true;
+                    _isDown = true;
                     OnThrowHookFirstHeld(_chargeCts.Token).Forget();
                 })
                 .AddTo(ref disposableBuilder);
             ThrowHookHeldCommand
-                .Where(x=> x == _activeInputType && !_hookThrown && _isHolding)
-                .Subscribe(_ => OnThrowHookHeld())
-                .AddTo(ref disposableBuilder);
-            ThrowHookReleaseCommand
-                .Where(x => x == _activeInputType && !_hookThrown && _isHolding)
+                .Where(x=> x == _activeInputType && !_hookThrown && _isDown)
                 .Subscribe(_ =>
                 {
+                    if (!_isHolding) _model.HookThrownFirstHeld.Value = true;
+                    _isHolding = true;
+                    OnThrowHookHeld();
+                })
+                .AddTo(ref disposableBuilder);
+            ThrowHookReleaseCommand
+                .Where(x => x == _activeInputType && !_hookThrown && _isDown)
+                .Subscribe(_ =>
+                {
+                    _isDown = false;
+                    if (!_isHolding)
+                    {
+                        CancelCharge(); // premature release
+                        return;
+                    }
                     _isHolding = false;
                     OnThrowHookReleased().Forget();
                     _activeInputType = null;
@@ -83,7 +95,6 @@ namespace Madduck.Fishing.UI
 
         private async UniTaskVoid OnThrowHookFirstHeld(CancellationToken token)
         {
-            _model.HookThrownFirstHeld.Value = true;
             _playerIdleAnimator.StopIdle();
             await _playerAnimator.Set(PlayerAnimationKey.PrepareThrow, 0, false).WaitUntilComplete(cancellationToken: token);
             _playerAnimator.Set(PlayerAnimationKey.ChargingThrow, 0, true);
@@ -117,10 +128,19 @@ namespace Madduck.Fishing.UI
             _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
         }
 
+        private void CancelCharge()
+        {
+            _model.HookThrownFirstHeld.OnNext(false);
+            _isHolding = false;
+            _chargeCts.Cancel();
+            _playerIdleAnimator.StartIdle();
+        }
+
         public void Reset()
         {
             _chargeCts = new();
             _hookThrown = false;
+            _isDown = false;
             _isHolding = false;
             _activeInputType = null;
         }

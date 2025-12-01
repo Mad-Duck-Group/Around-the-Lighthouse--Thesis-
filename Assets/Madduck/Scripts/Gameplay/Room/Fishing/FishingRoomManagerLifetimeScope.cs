@@ -57,6 +57,8 @@ namespace Madduck.Room
          SerializeField] private WeatherPresetConfig weatherPresetConfig;
         [Required,
          SerializeField] private PlayerAnimatorInstaller playerAnimatorInstaller;
+        [Required,
+         SerializeField] private OrthographicCameraManagerInstaller orthographicCameraManagerInstaller;
         [HideReferenceObjectPicker,
          OdinSerialize] private List<IInstaller> uiInstallers = new();
         
@@ -126,6 +128,9 @@ namespace Madduck.Room
             // Weather Presets
             builder.RegisterInstance(weatherPresetConfig).AsSelf();
             builder.Register<WeatherPresetManager>(Lifetime.Singleton).AsSelf();
+            
+            // Camera Manager
+            orthographicCameraManagerInstaller?.Install(builder);
             
             // Handlers and Managers
             builder.Register<FishingRoomMessageCenter>(Lifetime.Singleton)

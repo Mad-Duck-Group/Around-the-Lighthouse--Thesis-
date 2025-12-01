@@ -42,13 +42,6 @@ namespace Madduck.Shared
         Reeling,
         TugOfWar
     }
-    
-    public enum WindDirection
-    {
-        Left,
-        Middle,
-        Right
-    }
 
     public enum RoomType
     {
@@ -61,13 +54,14 @@ namespace Madduck.Shared
     public enum FishingStateType
     {
         None = 0,
-        ThrowHook = 1,
-        ThrowingHook = 2,
-        Nibble = 3,
-        FishingBoard = 4,
-        Reeling = 5,
-        TugOfWar = 6,
-        CatchFish = 7,
+        PrepareBait = 1,
+        ThrowHook = 2,
+        ThrowingHook = 3,
+        Nibble = 4,
+        FishingBoard = 5,
+        Reeling = 6,
+        TugOfWar = 7,
+        CatchFish = 8,
     }
 
     public enum BubbleType

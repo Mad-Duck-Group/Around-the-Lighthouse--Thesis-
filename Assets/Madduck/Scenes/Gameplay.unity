@@ -1083,14 +1083,17 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 981671263}
   - {fileID: 1149584318}
+  - {fileID: 296616812}
+  - {fileID: 2084067392}
   m_Father: {fileID: 1715890124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 825, y: 337}
-  m_SizeDelta: {x: 160, y: 160}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 263.5544, y: 250.7872}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &133227194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,7 +1106,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67538825a5b93a942a3ce3e0859f7824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Madduck.Room::Madduck.Room.WeatherView
-  icon: {fileID: 1149584319}
+  weatherIcon: {fileID: 1149584319}
+  windDirectionIcon: {fileID: 2084067393}
+  noWindSprite: {fileID: 21300000, guid: 3406500c5d414c04aad3475d7e53245c, type: 3}
+  hasWindSprite: {fileID: 21300000, guid: 8c70a25da4e2b57458c59bf3beefcf8a, type: 3}
 --- !u!1 &137340419
 GameObject:
   m_ObjectHideFlags: 0
@@ -1537,6 +1543,8 @@ MonoBehaviour:
   playerAnimatorInstaller:
     playerAnimatorConfig: {fileID: 11400000, guid: 1d814246706a77647beec3da1d34cf01, type: 2}
     skeletonAnimation: {fileID: 1049064791}
+  orthographicCameraManagerInstaller:
+    mainCamera: {fileID: 519420031}
   spoofWeather: 0
   spoofMaxFishCount: 0
   serializationData:
@@ -1546,9 +1554,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 658d89f254411144b962d388a78d5660, type: 2}
     - {fileID: 289869269}
     - {fileID: 133227194}
-    - {fileID: 21300000, guid: ce9d94ee4807958409c4c165d3d757db, type: 3}
-    - {fileID: -8536865405641108581, guid: 1fd36a5f1e4128542abce98ddd70fd26, type: 3}
-    - {fileID: -1180009021010713374, guid: ae004065e13fa0a42a74b4217f8888f5, type: 3}
+    - {fileID: 21300000, guid: 838716bc677a22e498dd7f30a0910644, type: 3}
+    - {fileID: 21300000, guid: 62686ecb0f6de7c45997f85c6bb93f11, type: 3}
+    - {fileID: 21300000, guid: 0262b61f2a9153e4a9afa61f284fedbb, type: 3}
     - {fileID: 1235853877}
     - {fileID: 21300000, guid: d430421c07da09d45b30c326ea3909b3, type: 3}
     - {fileID: 21300000, guid: a315e08eedc32904ca2dfffe2a493cd4, type: 3}
@@ -1560,6 +1568,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 683e962ff1273804aaa69634c9a48e8d, type: 2}
     - {fileID: 663653862}
     - {fileID: 721815035}
+    - {fileID: 931019380}
     - {fileID: 47859240}
     - {fileID: 2127747453}
     - {fileID: 7677508}
@@ -1825,12 +1834,15 @@ MonoBehaviour:
     - Name: after
       Entry: 10
       Data: 16
+    - Name: baitUICanvasGroup
+      Entry: 10
+      Data: 17
     - Name: 
       Entry: 8
       Data: 
     - Name: positioner
       Entry: 10
-      Data: 17
+      Data: 18
     - Name: 
       Entry: 8
       Data: 
@@ -1839,7 +1851,7 @@ MonoBehaviour:
       Data: 10|Madduck.Room.FishCountUIInstaller, Madduck.Room
     - Name: fishCountView
       Entry: 10
-      Data: 18
+      Data: 19
     - Name: 
       Entry: 8
       Data: 
@@ -1848,7 +1860,7 @@ MonoBehaviour:
       Data: 11|Madduck.Room.DayCountInstaller, Madduck.Room
     - Name: dayCountView
       Entry: 10
-      Data: 19
+      Data: 20
     - Name: 
       Entry: 8
       Data: 
@@ -1860,31 +1872,10 @@ MonoBehaviour:
       Data: 13|Madduck.GameData.FishableItemPopUpFactory, Madduck.GameData
     - Name: popUpParent
       Entry: 10
-      Data: 20
-    - Name: <PopUpCanvas>k__BackingField
-      Entry: 10
       Data: 21
-    - Name: prefabMode
-      Entry: 5
-      Data: true
-    - Name: popUpView
-      Entry: 6
-      Data: 
-    - Name: popUpViewPrefab
+    - Name: <PopUpCanvas>k__BackingField
       Entry: 10
       Data: 22
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: _newFishPopUpFactory
-      Entry: 7
-      Data: 14|Madduck.GameData.NewFishPopUpFactory, Madduck.GameData
-    - Name: popUpParent
-      Entry: 10
-      Data: 20
-    - Name: <PopUpCanvas>k__BackingField
-      Entry: 10
-      Data: 21
     - Name: prefabMode
       Entry: 5
       Data: true
@@ -1897,15 +1888,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: _endGamePopUpFactory
+    - Name: _newFishPopUpFactory
       Entry: 7
-      Data: 15|Madduck.GameData.EndGamePopUpFactory, Madduck.GameData
+      Data: 14|Madduck.GameData.NewFishPopUpFactory, Madduck.GameData
     - Name: popUpParent
       Entry: 10
-      Data: 20
+      Data: 21
     - Name: <PopUpCanvas>k__BackingField
       Entry: 10
-      Data: 21
+      Data: 22
     - Name: prefabMode
       Entry: 5
       Data: true
@@ -1915,6 +1906,27 @@ MonoBehaviour:
     - Name: popUpViewPrefab
       Entry: 10
       Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _endGamePopUpFactory
+      Entry: 7
+      Data: 15|Madduck.GameData.EndGamePopUpFactory, Madduck.GameData
+    - Name: popUpParent
+      Entry: 10
+      Data: 21
+    - Name: <PopUpCanvas>k__BackingField
+      Entry: 10
+      Data: 22
+    - Name: prefabMode
+      Entry: 5
+      Data: true
+    - Name: popUpView
+      Entry: 6
+      Data: 
+    - Name: popUpViewPrefab
+      Entry: 10
+      Data: 25
     - Name: 
       Entry: 8
       Data: 
@@ -1929,10 +1941,10 @@ MonoBehaviour:
       Data: 17|Madduck.Room.RoomTrackFactory, Madduck.Room
     - Name: prefab
       Entry: 10
-      Data: 25
+      Data: 26
     - Name: parent
       Entry: 10
-      Data: 26
+      Data: 27
     - Name: 
       Entry: 8
       Data: 
@@ -1941,13 +1953,13 @@ MonoBehaviour:
       Data: 18|Madduck.Room.BoatTrackViewFactory, Madduck.Room
     - Name: prefab
       Entry: 10
-      Data: 27
+      Data: 28
     - Name: parent
       Entry: 10
-      Data: 28
+      Data: 29
     - Name: defaultBoatSprite
       Entry: 10
-      Data: 29
+      Data: 30
     - Name: 
       Entry: 8
       Data: 
@@ -1982,10 +1994,10 @@ MonoBehaviour:
       Data: 21|Madduck.Day.DayRoomSprite, Madduck.Day
     - Name: iconSprite
       Entry: 10
-      Data: 30
+      Data: 31
     - Name: auraSprite
       Entry: 10
-      Data: 31
+      Data: 32
     - Name: 
       Entry: 8
       Data: 
@@ -2013,10 +2025,10 @@ MonoBehaviour:
       Data: 22|Madduck.Day.DayRoomSprite, Madduck.Day
     - Name: iconSprite
       Entry: 10
-      Data: 32
+      Data: 33
     - Name: auraSprite
       Entry: 10
-      Data: 33
+      Data: 34
     - Name: 
       Entry: 8
       Data: 
@@ -2044,10 +2056,10 @@ MonoBehaviour:
       Data: 23|Madduck.Day.DayRoomSprite, Madduck.Day
     - Name: iconSprite
       Entry: 10
-      Data: 34
+      Data: 35
     - Name: auraSprite
       Entry: 10
-      Data: 35
+      Data: 36
     - Name: 
       Entry: 8
       Data: 
@@ -2088,10 +2100,10 @@ MonoBehaviour:
       Data: 25|Madduck.Day.DayRoomSprite, Madduck.Day
     - Name: iconSprite
       Entry: 10
-      Data: 36
+      Data: 37
     - Name: auraSprite
       Entry: 10
-      Data: 31
+      Data: 32
     - Name: 
       Entry: 8
       Data: 
@@ -2119,10 +2131,10 @@ MonoBehaviour:
       Data: 26|Madduck.Day.DayRoomSprite, Madduck.Day
     - Name: iconSprite
       Entry: 10
-      Data: 37
+      Data: 38
     - Name: auraSprite
       Entry: 10
-      Data: 33
+      Data: 34
     - Name: 
       Entry: 8
       Data: 
@@ -2146,16 +2158,16 @@ MonoBehaviour:
       Data: 27|Madduck.Room.CardSelectionInstaller, Madduck.Room
     - Name: cardSelectionScreenView
       Entry: 10
-      Data: 38
+      Data: 39
     - Name: cardSelectionFactory
       Entry: 7
       Data: 28|Madduck.Room.CardSelectionFactory, Madduck.Room
     - Name: prefab
       Entry: 10
-      Data: 39
+      Data: 40
     - Name: parent
       Entry: 10
-      Data: 40
+      Data: 41
     - Name: 
       Entry: 8
       Data: 
@@ -2167,7 +2179,7 @@ MonoBehaviour:
       Data: 29|Madduck.Shared.InputUIIconHandlerInstaller, Madduck.Shared
     - Name: inputUIIconView
       Entry: 10
-      Data: 41
+      Data: 42
     - Name: 
       Entry: 8
       Data: 
@@ -2176,7 +2188,7 @@ MonoBehaviour:
       Data: 30|Madduck.Shared.InputInstructionInstaller, Madduck.Shared
     - Name: instructionView
       Entry: 10
-      Data: 42
+      Data: 43
     - Name: 
       Entry: 8
       Data: 
@@ -2185,7 +2197,7 @@ MonoBehaviour:
       Data: 31|Madduck.Room.BoatSpriteInstaller, Madduck.Room
     - Name: boatSpriteView
       Entry: 10
-      Data: 43
+      Data: 44
     - Name: 
       Entry: 8
       Data: 
@@ -2200,16 +2212,16 @@ MonoBehaviour:
       Data: 32|Madduck.GameData.WeatherFactoryMock, Madduck.GameData
     - Name: fixedWeather
       Entry: 10
-      Data: 44
+      Data: 45
     - Name: spoofDirection
       Entry: 5
-      Data: false
+      Data: true
     - Name: fixedWindDirection
       Entry: 3
       Data: 2
     - Name: spoofStrength
       Entry: 5
-      Data: false
+      Data: true
     - Name: fixedWindStrength
       Entry: 3
       Data: 3
@@ -3570,6 +3582,81 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 12
   m_TargetDisplay: 0
+--- !u!1 &296616811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 296616812}
+  - component: {fileID: 296616814}
+  - component: {fileID: 296616813}
+  m_Layer: 5
+  m_Name: WindStand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &296616812
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296616811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 133227193}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -85.2, y: 68.4}
+  m_SizeDelta: {x: 42, y: 57}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &296616813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296616811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 245549e70343d6c448a912c8fc143c36, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &296616814
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296616811}
+  m_CullTransparentMesh: 1
 --- !u!1 &310800300
 GameObject:
   m_ObjectHideFlags: 0
@@ -8446,7 +8533,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 55, y: 38}
-  m_SizeDelta: {x: 152, y: 131}
+  m_SizeDelta: {x: 153, y: 129}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &894357260
 MonoBehaviour:
@@ -8468,9 +8555,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 95f2dbe85e08c6b4eb3f88435d8336f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44378047affdbbe49b25b94fead4eec3, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -8898,6 +8985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 931019376}
   - component: {fileID: 931019379}
+  - component: {fileID: 931019380}
   - component: {fileID: 931019378}
   m_Layer: 5
   m_Name: buttonLB
@@ -8967,6 +9055,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931019375}
   m_CullTransparentMesh: 1
+--- !u!225 &931019380
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931019375}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &938476391
 GameObject:
   m_ObjectHideFlags: 0
@@ -9179,6 +9279,81 @@ MonoBehaviour:
   zPosition: 1
   overrideAlpha: 1
   hierarchy: {fileID: 1049064795}
+--- !u!1 &981671262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 981671263}
+  - component: {fileID: 981671265}
+  - component: {fileID: 981671264}
+  m_Layer: 5
+  m_Name: Board
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &981671263
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981671262}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 133227193}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 30.394}
+  m_SizeDelta: {x: 196, y: 190}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &981671264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981671262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b44458d3098830b428fc94fa44de9f57, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &981671265
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981671262}
+  m_CullTransparentMesh: 1
 --- !u!1 &1049064790
 GameObject:
   m_ObjectHideFlags: 0
@@ -9647,8 +9822,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 119, y: 83}
+  m_AnchoredPosition: {x: -19, y: -16.9}
+  m_SizeDelta: {x: 96, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1149584319
 MonoBehaviour:
@@ -9670,9 +9845,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ce9d94ee4807958409c4c165d3d757db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 838716bc677a22e498dd7f30a0910644, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -9729,8 +9904,8 @@ MonoBehaviour:
     - Mouse & Keyboard
     - Gamepad
     values:
-    - {fileID: 7108339969198208228, guid: 6db27f354a8328649885299244ce3aee, type: 3}
-    - {fileID: 7108339969198208228, guid: 19cb0f2ce4ca3904399cf792937cf1a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 6b781cd2d2248f44099d5700d8a15b75, type: 3}
+    - {fileID: 7108339969198208228, guid: c3ef689dc358d3b46ac27eff805eb535, type: 3}
 --- !u!224 &1156424391
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13862,10 +14037,10 @@ RectTransform:
   - {fileID: 133227193}
   m_Father: {fileID: 1156424391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1740710829
 GameObject:
@@ -16447,6 +16622,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2084067391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2084067392}
+  - component: {fileID: 2084067394}
+  - component: {fileID: 2084067393}
+  m_Layer: 5
+  m_Name: Bird
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2084067392
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084067391}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 133227193}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -85.2, y: 90.9}
+  m_SizeDelta: {x: 69, y: 59}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2084067393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084067391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 8c70a25da4e2b57458c59bf3beefcf8a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2084067394
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084067391}
+  m_CullTransparentMesh: 1
 --- !u!1 &2087532310
 GameObject:
   m_ObjectHideFlags: 0
@@ -17023,7 +17273,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122947340}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 106cc6db968359f4bae564661cbfa573, type: 3}
   m_Name: 
@@ -17077,7 +17327,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -175, y: -139}
+  m_AnchoredPosition: {x: -150, y: -138}
   m_SizeDelta: {x: 200, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2127747453

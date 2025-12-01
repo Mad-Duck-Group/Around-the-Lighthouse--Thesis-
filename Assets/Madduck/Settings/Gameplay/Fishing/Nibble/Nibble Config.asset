@@ -13,6 +13,27 @@ MonoBehaviour:
   m_Name: Nibble Config
   m_EditorClassIdentifier: Madduck.Fishing::Madduck.Fishing.Config.NibbleConfig
   <QteIntervalRange>k__BackingField: {x: 3, y: 10}
+  <CameraShakeSettings>k__BackingField:
+    strength: {x: 0, y: 0, z: 0}
+    duration: 0.5
+    frequency: 20
+    enableFalloff: 0
+    falloffEase: 0
+    strengthOverTime:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    asymmetry: 0
+    easeBetweenShakes: 0
+    cycles: 1
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  <CameraShakeStrengthFactor>k__BackingField: 0.5
   <ReelingSfx>k__BackingField:
     Guid:
       Data1: -1326929951

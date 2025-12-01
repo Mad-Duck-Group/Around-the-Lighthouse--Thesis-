@@ -80,7 +80,7 @@ namespace Madduck.Fishing.Controller
             _startSlowMo?.Dispose();
             _qteSubscription.Dispose();
             _slowMoCts.Cancel();
-            _slowMoTimer.Dispose();
+            _slowMoTimer?.Dispose();
             Time.timeScale = 1f;
         }
 

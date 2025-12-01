@@ -24,3 +24,5 @@ MonoBehaviour:
     description: Select Bait
   - key: X
     description: Use
+  - key: Lb
+    description: Close

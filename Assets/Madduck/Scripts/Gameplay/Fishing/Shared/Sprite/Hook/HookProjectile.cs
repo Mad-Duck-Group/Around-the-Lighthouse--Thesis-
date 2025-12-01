@@ -27,6 +27,8 @@ namespace Madduck.Fishing.Shared
         UniTask MoveY(Percentage percent);
         UniTask Nibble(int? cycle);
         UniTask Alert(bool active, CancellationToken cancellationToken = default);
+        UniTask Hit(CancellationToken cancellationToken = default);
+        UniTask Missed(CancellationToken cancellationToken = default);
         void SetPositionX(Percentage percent);
         void SetPositionY(Percentage percent);
         void StopNibble();
@@ -46,6 +48,10 @@ namespace Madduck.Fishing.Shared
          SerializeField] private SplineContainer splineContainer;
         [Required,
          SerializeField] private SpriteRenderer alertSpriteRenderer;
+        [Required,
+         SerializeField] private SpriteRenderer hitSpriteRenderer;
+        [Required,
+         SerializeField] private SpriteRenderer missedSpriteRenderer;
         
         [Title("Settings")]
         [PropertyTooltip("Range of the throw distance when the throw hook value is between 0 and max."), 
@@ -63,6 +69,10 @@ namespace Madduck.Fishing.Shared
         [SerializeField] private TweenSettings<Vector2> nibbleTween;
         [SerializeField] private TweenSettings dramaticReturnTween;
         [SerializeField] private TweenSettings<Vector3> alertScaleTweenSettings;
+        [SerializeField] private TweenSettings<Vector3> hitScaleTweenSettings;
+        [SerializeField] private float hitStayDuration = 0.5f;
+        [SerializeField] private TweenSettings<Vector3> missedScaleTweenSettings;
+        [SerializeField] private float missedStayDuration = 0.5f;
         [SerializeField] private TweenSettings snapBackTweenSettings;
 
         #endregion
@@ -108,6 +118,8 @@ namespace Madduck.Fishing.Shared
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             alertSpriteRenderer.transform.localScale = alertScaleTweenSettings.startValue;
+            hitSpriteRenderer.transform.localScale = hitScaleTweenSettings.startValue;
+            missedSpriteRenderer.transform.localScale = missedScaleTweenSettings.startValue;
         }
 
         #endregion
@@ -324,6 +336,24 @@ namespace Madduck.Fishing.Shared
                 .Group(Tween.Scale(alertSpriteRenderer.transform, alertScaleTweenSettings.WithDirection(active)));
             return sequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
         }
+        
+        public UniTask Hit(CancellationToken cancellationToken = default)
+        {
+            var sequence = Sequence.Create()
+                .Group(Tween.Scale(hitSpriteRenderer.transform, hitScaleTweenSettings))
+                .ChainDelay(hitStayDuration)
+                .Chain(Tween.Scale(hitSpriteRenderer.transform, hitScaleTweenSettings.WithDirection(false)));
+            return sequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
+        }
+        
+        public UniTask Missed(CancellationToken cancellationToken = default)
+        {
+            var sequence = Sequence.Create()
+                .Group(Tween.Scale(missedSpriteRenderer.transform, missedScaleTweenSettings))
+                .ChainDelay(missedStayDuration)
+                .Chain(Tween.Scale(missedSpriteRenderer.transform, missedScaleTweenSettings.WithDirection(false)));
+            return sequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
+        }
 
         public void StopNibble()
         {
@@ -421,6 +451,8 @@ namespace Madduck.Fishing.Shared
 
         public UniTask Nibble(int? cycle) => UniTask.CompletedTask;
         public UniTask Alert(bool active, CancellationToken cancellationToken = default) => UniTask.CompletedTask;
+        public UniTask Hit(CancellationToken cancellationToken = default) => UniTask.CompletedTask;
+        public UniTask Missed(CancellationToken cancellationToken = default) => UniTask.CompletedTask;
 
         public void SetPositionX(Percentage percent){}
         public void SetPositionY(Percentage percent){}

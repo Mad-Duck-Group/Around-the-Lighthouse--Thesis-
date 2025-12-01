@@ -18,6 +18,8 @@ namespace Madduck.Fishing.Shared
         [Title("References")]
         [Required,
          SerializeField] private SpriteRenderer spriteRenderer;
+        [Required,
+         SerializeField] private SpriteRenderer questionMarkSpriteRenderer;
         
         [Title("Settings")] 
         [SerializeField] private Vector2 spawnOffset;
@@ -25,12 +27,13 @@ namespace Madduck.Fishing.Shared
 
         [Title("Tween")] 
         [SerializeField] private TweenSettings<Vector2> positionTweenSettings;
-        [SerializeField] private TweenSettings biteSettings;
+        [SerializeField] private TweenSettings<Vector3> questionMarkScaleTweenSettings;
         [SerializeField] private TweenSettings<Vector2> biteTransitionOutSettings;
 
         private Transform _hook;
         private TweenSettings<Vector3> _relativeSettings; 
         private Sequence _transitionSequence;
+        private Sequence _questionMarkSequence;
         private Sequence _biteSequence;
         
         public void SetUp(Transform hook)
@@ -38,18 +41,21 @@ namespace Madduck.Fishing.Shared
             _hook = hook;
             transform.position = hook.position + (Vector3)spawnOffset;
             _relativeSettings = positionTweenSettings.ToVector3().ToRelative(transform.position);
+            questionMarkSpriteRenderer.transform.localScale = questionMarkScaleTweenSettings.startValue;
         }
         
         public async UniTask TransitionIn(CancellationToken cancellationToken = default)
         {
             cancellationToken.Register(CancelTransition);
             await Transition(true);
+            QuestionMark(true, cancellationToken).Forget();
         }
 
         public async UniTask TransitionOut(CancellationToken cancellationToken = default)
         {
             cancellationToken.Register(CancelTransition);
-            await UniTask.WhenAll(Transition(false));
+            QuestionMark(false, cancellationToken).Forget();
+            await Transition(false);
         }
 
         private async UniTask Transition(bool forward)
@@ -64,14 +70,18 @@ namespace Madduck.Fishing.Shared
             _transitionSequence.Complete();
         }
 
+        private async UniTask QuestionMark(bool active, CancellationToken cancellationToken = default)
+        {
+            cancellationToken.Register(() => _questionMarkSequence.Complete());
+            _questionMarkSequence = Sequence.Create()
+                .Group(Tween.Scale(questionMarkSpriteRenderer.transform, questionMarkScaleTweenSettings.WithDirection(active)));
+            await _questionMarkSequence.ToYieldInstruction().ToUniTask(cancellationToken: cancellationToken);
+        }
+
         public async UniTask Bite(CancellationToken cancellationToken = default)
         {
             cancellationToken.Register(() => _biteSequence.Complete());
-            // var bitePosition = _hook.position + (Vector3)biteOffset;
-            // _biteSequence = Sequence.Create()
-            //     .Group(Tween.Position(transform, transform.position, bitePosition,
-            //         biteSettings))
-            //     .Chain(Tween.Position(transform, biteTransitionOutSettings.ToVector3().ToRelative(bitePosition)));
+            QuestionMark(false, cancellationToken).Forget();
             var bitePosition = _hook.position + (Vector3)biteTransitionOutSettings.endValue;
             _biteSequence = Sequence.Create()
                 .Chain(Tween.Position(transform, bitePosition, biteTransitionOutSettings.settings));

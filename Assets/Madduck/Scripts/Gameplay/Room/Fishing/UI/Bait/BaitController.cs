@@ -6,6 +6,7 @@ using Madduck.GameData;
 using Madduck.GameData.Bait;
 using Madduck.Input;
 using Madduck.Shared;
+using Madduck.Shared.Events;
 using Madduck.Utils;
 using MessagePipe;
 using R3;
@@ -21,15 +22,16 @@ namespace Madduck.Room
     {
         public ReactiveCommand<BaitItemInstance> OnBaitChanged { get; } = new();
         
-        private readonly IPlayerInputHandler _inputHandler;
-        private readonly IAudioManager _audioManager;
-        private readonly PlayerInventory _playerInventory;
-        private readonly ISubscriber<FishingStateEvent> _fishingStateSubscriber;
         private readonly BaitControllerConfig _baitControllerConfig;
         private readonly BaitUITriggerConfig _baitTriggerConfig;
         private readonly CarouselController _carousel;
         private readonly InputInstructionManager _inputInstructionManager;
         private readonly PointingBaitViewModel _pointingBaitViewModel;
+        private readonly PlayerInventory _playerInventory;
+        private readonly IPlayerInputHandler _inputHandler;
+        private readonly IAudioManager _audioManager;
+        private readonly ISubscriber<FishingStateEvent> _fishingStateSubscriber;
+        private readonly IPublisher<BaitSelectionActivationEvent> _baitSelectionActivationPublisher;
         
         private BaitItemInstance _pendingBait;
         private bool _interactable = true;
@@ -39,25 +41,27 @@ namespace Madduck.Room
 
         [Inject]
         public BaitController(
-            IPlayerInputHandler inputHandler,
-            IAudioManager audioManager,
-            PlayerInventory playerInventory,
-            ISubscriber<FishingStateEvent> fishingStateSubscriber,
             BaitControllerConfig baitControllerConfig,
             BaitUITriggerConfig baitTriggerConfig,
             CarouselController carousel,
             InputInstructionManager inputInstructionManager,
-            PointingBaitViewModel pointingBaitViewModel)
+            PointingBaitViewModel pointingBaitViewModel,
+            PlayerInventory playerInventory,
+            IPlayerInputHandler inputHandler,
+            IAudioManager audioManager,
+            ISubscriber<FishingStateEvent> fishingStateSubscriber,
+            IPublisher<BaitSelectionActivationEvent> baitSelectionActivationPublisher)
         {
-            _inputHandler = inputHandler;
-            _playerInventory = playerInventory;
-            _audioManager = audioManager;
-            _fishingStateSubscriber = fishingStateSubscriber;
             _baitControllerConfig = baitControllerConfig;
             _baitTriggerConfig = baitTriggerConfig;
             _carousel = carousel;
             _inputInstructionManager = inputInstructionManager;
             _pointingBaitViewModel = pointingBaitViewModel;
+            _playerInventory = playerInventory;
+            _inputHandler = inputHandler;
+            _audioManager = audioManager;
+            _fishingStateSubscriber = fishingStateSubscriber;
+            _baitSelectionActivationPublisher = baitSelectionActivationPublisher;
         }
         
         public void Start()
@@ -73,8 +77,11 @@ namespace Madduck.Room
                 .AddTo(ref builder);
             _inputHandler.BaitButton.IsDown
                 .IgnoreFirstValueWhenSubscribe()
-                .Where(x => x)
-                .Subscribe(_ => { SetActive(!_isActive);})
+                .Where(x => x && _interactable)
+                .Subscribe(_ =>
+                {
+                    SetActive(!_isActive);
+                })
                 .AddTo(ref builder);
             // _inputHandler.BaitButton.IsUpAfterHeld
             //     .IgnoreFirstValueWhenSubscribe()
@@ -131,27 +138,12 @@ namespace Madduck.Room
                         .AddTo(ref _confirmDisposables);
                 })
                 .AddTo(ref builder);
-            
-             // _carousel.OnCurrentItemUpdated
-             //     .Where(_ => _uiAfterTriggerBait.activeSelf)
-             //     .Subscribe(data =>
-             //     {
-             //         //
-             //     })
-             //     .AddTo(ref builder);
-             //
-             // _carousel.OnItemSelected
-             //     .Where(_ => _interactable)
-             //     .Subscribe(data =>
-             //     {
-             //         // DebugUtils.Log($"Selected bait from carousel: {data.sprite}");
-             //     })
-             //     .AddTo(ref builder);
              _bindings = builder.Build();
         }
 
         private void SetActive(bool active)
         {
+            _baitSelectionActivationPublisher.Publish(new BaitSelectionActivationEvent(active));
             _isActive = active;
             _baitTriggerConfig.before.SetActive(!active);
             _baitTriggerConfig.after.SetActive(active);
@@ -166,7 +158,8 @@ namespace Madduck.Room
         }
         private void OnFishingStateEvent(FishingStateEvent evt)
         {
-            _interactable = evt.StateType is FishingStateType.ThrowHook;
+            _interactable = evt.StateType is FishingStateType.PrepareBait;
+            _baitTriggerConfig.baitUICanvasGroup.alpha = _interactable ? 1f : 0.3f;
             switch (_interactable)
             {
                 case true when _isActive:
@@ -174,6 +167,7 @@ namespace Madduck.Room
                     break;
                 case false when _isActive:
                     _inputInstructionManager.RemoveStream(1);
+                    SetActive(false);
                     break;
             }
         }

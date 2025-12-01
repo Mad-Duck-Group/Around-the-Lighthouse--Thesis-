@@ -10,5 +10,6 @@ namespace Madduck.Room
     {
         public GameObject before;
         public GameObject after;
+        public CanvasGroup baitUICanvasGroup;
     }
 }

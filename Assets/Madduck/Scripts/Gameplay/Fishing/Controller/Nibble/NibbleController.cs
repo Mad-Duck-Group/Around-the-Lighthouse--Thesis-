@@ -32,6 +32,7 @@ namespace Madduck.Fishing.Controller
         private readonly BubbleManager _bubbleManager;
         private readonly InputInstructionManager _inputInstructionManager;
         private readonly FishingSharedVariable _sharedVariable;
+        private readonly OrthographicCameraManager _cameraManager;
         private readonly IAudioManager _audioManager;
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
@@ -71,6 +72,7 @@ namespace Madduck.Fishing.Controller
             BubbleManager bubbleManager,
             InputInstructionManager inputInstructionManager,
             FishingSharedVariable sharedVariable,
+            OrthographicCameraManager cameraManager,
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
@@ -88,6 +90,7 @@ namespace Madduck.Fishing.Controller
             _bubbleManager = bubbleManager;
             _inputInstructionManager = inputInstructionManager;
             _sharedVariable = sharedVariable;
+            _cameraManager = cameraManager;
             _audioManager = audioManager;
             _hookFactory = hookFactory;
             _fishableFactory = fishableFactory;
@@ -165,7 +168,9 @@ namespace Madduck.Fishing.Controller
                     var fishSprite = _fishSpriteFactory.Create();
                     fishSprite.SetUp(_hookFactory.CurrentGameObject.transform, _sharedVariable.CurrentFishable as FishItemInstance);
                     fishSprite.Animator.Set(FishSpriteAnimationKey.Idle, 0, true);
-                    _hookFactory.Current.Alert(false).Forget();
+                    var hook = _hookFactory.Current;
+                    hook.Alert(false).Forget();
+                    hook.Hit().Forget();
                     _bubbleManager.PauseAllBubbles();
                     var currentFish = (FishItemInstance)_fishableFactory.Current;
                     _fishEmergedEventPublisher.Publish(new FishEmergedEvent(currentFish));
@@ -323,12 +328,13 @@ namespace Madduck.Fishing.Controller
                 case 1 when result:
                     _fishEyesFactory.Current.Bite()
                         .ContinueWith(() =>
-                    {
-                        _fishEyesFactory.DestroyFishEyes();
-                        _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
-                        _hookFactory.Current.Alert(true);
-                        StartFishBiteTimer(_fishBiteCts.Token).Forget();
-                    });
+                        { 
+                            _cameraManager.Shake(_config.CameraShakeSettings, _config.CameraShakeStrengthFactor);
+                            _fishEyesFactory.DestroyFishEyes();
+                            _audioManager.PlayAudioOneShot(_config.FishBiteSfx, Vector3.zero);
+                            _hookFactory.Current.Alert(true);
+                            StartFishBiteTimer(_fishBiteCts.Token).Forget();
+                        });
                     return;
             }
             StartQteTimer();
@@ -371,7 +377,9 @@ namespace Madduck.Fishing.Controller
             await UniTask.WaitForSeconds(_model.FishingRod.CurrentStats.CurrentFishBiteTimeFrame, cancellationToken: token);
             _fishBiting = false;
             DebugUtils.Log("Fish got away with the bait");
-            _hookFactory.Current.Alert(false, token).Forget();
+            var hook =  _hookFactory.Current;
+            hook.Alert(false, token).Forget();
+            await hook.Missed(token);
             OnPullHookResultChanged(Sign.Negative).Forget();
         }
 

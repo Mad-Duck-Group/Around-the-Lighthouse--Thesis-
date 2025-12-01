@@ -2,6 +2,7 @@
 using FMODUnity;
 using Madduck.Shared;
 using Madduck.Utils;
+using PrimeTween;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -14,6 +15,12 @@ namespace Madduck.Fishing.Config
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _qteTitle;
         [field: SerializeField] public Vector2 QteIntervalRange { get; private set; } = new(3, 8);
+        
+        [Title("Juiciness"),
+         HideLabel,
+         ShowInInspector] private InspectorPlaceholder _juicinessTitle;
+        [field: SerializeField] public ShakeSettings CameraShakeSettings { get; private set; }
+        [field: SerializeField] public float CameraShakeStrengthFactor { get; private set; } = 0.5f;
         
         [Title("Audio"),
          HideLabel,

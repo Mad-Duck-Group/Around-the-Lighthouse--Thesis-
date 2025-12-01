@@ -10,7 +10,7 @@ namespace Madduck.Fishing.StateMachine
     public class ThrowHookState : FishingState
     {
         private readonly ThrowHookController _controller;
-        private IDisposable _hookThrownSubscription;
+        private DisposableBag _subscriptions;
         
         [Inject]
         public ThrowHookState(
@@ -24,11 +24,24 @@ namespace Madduck.Fishing.StateMachine
         public override async UniTask Enter()
         {
             await base.Enter();
-            await _controller.SetActive(true);
-            _hookThrownSubscription = Observable.FromEvent(
+            _subscriptions = new DisposableBag();
+            Observable.FromEvent(
                     h => _controller.OnHookThrown += h,
                     h => _controller.OnHookThrown -= h)
-                .Subscribe(_ => OnHookThrown());
+                .Subscribe(_ => OnHookThrown())
+                .AddTo(ref _subscriptions);
+            Observable.FromEvent(
+                    h => _controller.OnThrowHookCanceled += h,
+                    h => _controller.OnThrowHookCanceled -= h)
+                .Subscribe(_ => OnThrowHookCanceled())
+                .AddTo(ref _subscriptions);
+        }
+        
+        public override async UniTask Exit()
+        {
+            await base.Exit();
+            _subscriptions.Dispose();
+            _controller.SetActive(false).Forget();
         }
         
         private void OnHookThrown()
@@ -36,12 +49,11 @@ namespace Madduck.Fishing.StateMachine
             DebugUtils.Log("Hook thrown, transitioning to ThrowingHookState");
             stateMachine.NextState();
         }
-
-        public override async UniTask Exit()
+        
+        private void OnThrowHookCanceled()
         {
-            await base.Exit();
-            _hookThrownSubscription.Dispose();
-            _controller.SetActive(false).Forget();
+            DebugUtils.Log("Throw hook canceled, transitioning to PrepareBaitState");
+            stateMachine.PreviousState();
         }
     }
 }

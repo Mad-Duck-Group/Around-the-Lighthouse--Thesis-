@@ -15,7 +15,13 @@ namespace Madduck.Room
     {
         [Title("References")]
         [Required, 
-         SerializeField] private Image icon;
+         SerializeField] private Image weatherIcon;
+        [Required, 
+         SerializeField] private Image windDirectionIcon;
+        [Required, 
+         SerializeField] private Sprite noWindSprite;
+        [Required, 
+         SerializeField] private Sprite hasWindSprite;
 
         private WeatherHUDViewModel _viewModel;
         private SerializableDictionary<WeatherType, Sprite> _weatherIcons;
@@ -44,12 +50,19 @@ namespace Madduck.Room
             _bindings.Dispose();
         }
 
-        private void SetWeatherIcon(WeatherType weatherType)
+        private void SetWeatherIcon(WeatherItemInstance weather)
         {
-            if (_weatherIcons.TryGetValue(weatherType, out var weatherIcon))
+            if (_weatherIcons.TryGetValue(weather.ItemData.WeatherType, out var icon))
             {
-                icon.sprite = weatherIcon;
+                weatherIcon.sprite = icon;
             }
+
+            var hasWind = weather.CurrentWindDirection.CurrentValue is not WindDirection.Middle
+                           && weather.CurrentWindStrength.CurrentValue is not WindStrength.None;
+            windDirectionIcon.sprite = hasWind ? hasWindSprite : noWindSprite;
+            if (!hasWind) return;
+            var isLeft = weather.CurrentWindDirection.CurrentValue is WindDirection.Left;
+            windDirectionIcon.transform.rotation = Quaternion.Euler(0f, isLeft ? 0f : 180f, 0f);
         }
     }
 }

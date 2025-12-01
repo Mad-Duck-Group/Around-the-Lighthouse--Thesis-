@@ -5,11 +5,11 @@ using Madduck.Audio;
 using Madduck.Fishing.Config;
 using Madduck.Fishing.Shared;
 using Madduck.Fishing.UI;
-using Madduck.GameData;
 using Madduck.Input;
-using Madduck.Scripts.Input;
 using Madduck.Shared;
+using Madduck.Shared.Events;
 using Madduck.Utils;
+using MessagePipe;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -20,6 +20,8 @@ namespace Madduck.Fishing.Controller
     {
         #region Events
 
+        public event Action OnThrowHookStarted;
+        public event Action OnThrowHookCanceled;
         public event Action OnHookThrown;
 
         #endregion
@@ -36,10 +38,14 @@ namespace Madduck.Fishing.Controller
         private readonly IPlayerInputHandler _inputHandler;
         private readonly IHookFactory _hookFactory;
         private readonly ITransitionable _viewTransition;
+        private readonly ISubscriber<BaitSelectionActivationEvent> _baitSelectionActivationSubscriber;
         
+        private IDisposable _subscriptions;
         private IDisposable _bindings;
         private CancellationTokenSource _transitionCts = new();
         private AudioReference _fishingLineCastReference;
+        private bool _baitSelectionActive;
+        private bool _isActive;
 
         #endregion
 
@@ -56,7 +62,8 @@ namespace Madduck.Fishing.Controller
             IAudioManager audioManager,
             IPlayerInputHandler inputHandler,
             IHookFactory hookFactory,
-            [Key(FishingStateType.ThrowHook)] ITransitionable viewTransition)
+            [Key(FishingStateType.ThrowHook)] ITransitionable viewTransition,
+            ISubscriber<BaitSelectionActivationEvent> baitSelectionActivationSubscriber)
         {
             _config = config;
             _inputHandler = inputHandler;
@@ -68,11 +75,22 @@ namespace Madduck.Fishing.Controller
             _audioManager = audioManager;
             _hookFactory = hookFactory;
             _viewTransition = viewTransition;
+            _baitSelectionActivationSubscriber = baitSelectionActivationSubscriber;
+            Subscribe();
         }
 
         #endregion
 
         #region Bindings
+
+        private void Subscribe()
+        {
+            var disposableBuilder = Disposable.CreateBuilder();
+            _baitSelectionActivationSubscriber
+                .Subscribe(OnBaitSelectionActivationEvent)
+                .AddTo(ref disposableBuilder);
+            _subscriptions = disposableBuilder.Build();
+        }
 
         private void Bind()
         {
@@ -80,7 +98,7 @@ namespace Madduck.Fishing.Controller
             _inputHandler.Action0Button.IsDown
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
-                .Where(x => x)
+                .Where(x => x && !_baitSelectionActive)
                 .Subscribe(_ => OnHookFirstHeld())
                 .AddTo(ref disposableBuilder);
             _inputHandler.Action0Button.IsHeld
@@ -100,11 +118,17 @@ namespace Madduck.Fishing.Controller
                 .Where(x => x)
                 .Subscribe(_ => OnThrownHook())
                 .AddTo(ref disposableBuilder);
+            _model.HookThrownFirstHeld
+                .Where(x => !x)
+                .Subscribe(_ => OnThrowHookCanceled?.Invoke())
+                .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
         
         public void Dispose()
         {
+            _audioManager.StopAudio(_fishingLineCastReference);
+            _subscriptions.Dispose();
             _bindings?.Dispose();
         }
 
@@ -115,6 +139,7 @@ namespace Madduck.Fishing.Controller
         private void OnHookFirstHeld()
         {
             _commander.ThrowHookFirstHeldCommand.Execute(InputType.NonUI);
+            OnThrowHookStarted?.Invoke();
         }
 
         private void OnHookHeld()
@@ -133,6 +158,11 @@ namespace Madduck.Fishing.Controller
             OnHookThrown?.Invoke();
             _fishingLineCastReference = _audioManager.PlayAudio(_config.FishingLineCastSfx, Vector3.zero);
         }
+        
+        private void OnBaitSelectionActivationEvent(BaitSelectionActivationEvent eventData)
+        { 
+            _baitSelectionActive = eventData.isActive;
+        }
 
         #endregion
 
@@ -145,12 +175,16 @@ namespace Madduck.Fishing.Controller
             _transitionCts = new CancellationTokenSource();
             if (active)
             {
+                if (_isActive) return;
+                _isActive = true;
                 await _viewTransition.TransitionIn(cancellationToken: _transitionCts.Token);
                 _inputInstructionManager.Show(_config.ThrowHookInputInstructions, stream: 0);
                 Bind();
             }
             else
             {
+                if (!_isActive) return;
+                _isActive = false;
                 await _viewTransition.TransitionOut(cancellationToken: _transitionCts.Token);
             }
         }
