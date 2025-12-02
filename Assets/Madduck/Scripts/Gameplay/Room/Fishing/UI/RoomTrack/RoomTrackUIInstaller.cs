@@ -19,7 +19,7 @@ namespace Madduck.Room
         [Required,
          SerializeField] private BoatTrackViewFactory boatTrackViewFactory;
         [Required,
-         SerializeField] private DayRoomSpriteConfig dayRoomSpriteConfig;
+         SerializeField] private RoomTrackConfig roomTrackConfig;
 
         public void Install(IContainerBuilder builder)
         {
@@ -29,13 +29,13 @@ namespace Madduck.Room
             
             builder.Register(_ => boatTrackViewFactory, Lifetime.Singleton)
                 .As<IFactory<BoatTrackView>>();
-            builder.RegisterInstance(dayRoomSpriteConfig).AsSelf();
+            builder.RegisterInstance(roomTrackConfig).AsSelf();
             builder.Register<RoomTrackViewModel>(Lifetime.Singleton);
-            builder.Register<RoomTrackColumnViewModel>(Lifetime.Singleton);
+            builder.Register<RoomTrackColumnController>(Lifetime.Singleton);
             builder.RegisterBuildCallback(x =>
             {
                 x.Resolve<RoomTrackViewModel>();
-                x.Resolve<RoomTrackColumnViewModel>();
+                x.Resolve<RoomTrackColumnController>();
             });
         }
     }

@@ -37,7 +37,6 @@ namespace Madduck.Room
         private bool _interactable = true;
         private bool _isActive = false;
         private IDisposable _bindings;
-        private DisposableBag _confirmDisposables;
 
         [Inject]
         public BaitController(
@@ -92,53 +91,20 @@ namespace Madduck.Room
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
                 .Where(_ => _interactable && _isActive)
-                .Subscribe(value =>
-                {
-                    _pointingBaitViewModel.UpdateInput(value);
-                    if (value != 0) _audioManager.PlayAudioOneShot(_baitControllerConfig.CycleBaitSfx, Vector3.zero);
-                    switch (value)
-                    {
-                        case > 0:
-                            OnNextBait();
-                            _carousel.Next();
-                            break;
-                        case < 0:
-                            OnPreviousBait();
-                            _carousel.Previous();
-                            break;
-                    }
-                });
-            
-            _carousel.OnInitialized
-                .Where(_ => _carousel.HasItems)
-                .Subscribe(_ =>
-                {
-                    _confirmDisposables.Dispose();
-                    _confirmDisposables.Clear(); // กัน double bind
-                    _confirmDisposables = new DisposableBag();
-
-                    _inputHandler.ConfirmBaitButton.IsDown
-                        .Where(x => x && _interactable && _baitTriggerConfig.after.activeSelf)
-                        .Subscribe(__ =>
-                        {
-                            var bait = _carousel.GetCurrentBaitVisual();
-                            _carousel.ToggleSelection(bait);
-                            if (!_carousel.HasConfirmedItem)
-                            {
-                                _pendingBait = null;
-                                _playerInventory.SetCurrentBait(BaitType.None);
-                                OnBaitChanged.Execute(null);
-                                return;
-                            }
-                            _pendingBait = bait;
-                            _playerInventory.SetCurrentBait(bait.ItemData.BaitType);
-                            OnBaitChanged.Execute(bait);
-                            
-                        })
-                        .AddTo(ref _confirmDisposables);
-                })
+                .Subscribe(OnCycleBait);
+            _inputHandler.ConfirmBaitButton.IsDown
+                .Where(x => x 
+                            && _interactable 
+                            && _baitTriggerConfig.after.activeSelf 
+                            && _carousel.HasItems)
+                .Subscribe(_ => OnSelectBait())
                 .AddTo(ref builder);
              _bindings = builder.Build();
+        }
+        
+        public void Dispose()
+        {
+            _bindings?.Dispose();
         }
 
         private void SetActive(bool active)
@@ -171,6 +137,23 @@ namespace Madduck.Room
                     break;
             }
         }
+
+        private void OnCycleBait(float value)
+        {
+            _pointingBaitViewModel.UpdateInput(value);
+            if (value != 0) _audioManager.PlayAudioOneShot(_baitControllerConfig.CycleBaitSfx, Vector3.zero);
+            switch (value)
+            {
+                case > 0:
+                    OnNextBait();
+                    _carousel.Next();
+                    break;
+                case < 0:
+                    OnPreviousBait();
+                    _carousel.Previous();
+                    break;
+            }
+        }
         
         private void OnNextBait()
         {
@@ -199,10 +182,22 @@ namespace Madduck.Room
             _pendingBait = baitList[prevIndex];
 
         }
-        public void Dispose()
+
+        private void OnSelectBait()
         {
-            _bindings?.Dispose();
+            var bait = _carousel.GetCurrentBaitVisual();
+            _carousel.ToggleSelection(bait);
+            if (!_carousel.HasConfirmedItem)
+            {
+                _pendingBait = null;
+                _playerInventory.SetCurrentBait(BaitType.None);
+                OnBaitChanged.Execute(null);
+                return;
+            }
+            _audioManager.PlayAudioOneShot(_baitControllerConfig.SelectBaitSfx, Vector3.zero);
+            _pendingBait = bait;
+            _playerInventory.SetCurrentBait(bait.ItemData.BaitType);
+            OnBaitChanged.Execute(bait);
         }
     }
-    
 }

@@ -18,7 +18,7 @@ MonoBehaviour:
       Data2: 1105820072
       Data3: -1059403628
       Data4: 651846255
-    Path: event:/SFX/ShipEngine
+    Path: event:/SFX/ShipEngineLoadingScene
   <SeaAmbient>k__BackingField:
     Guid:
       Data1: -113828124

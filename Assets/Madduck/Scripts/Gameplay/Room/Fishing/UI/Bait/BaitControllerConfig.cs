@@ -13,6 +13,7 @@ namespace Madduck.Room
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _audioTitle;
         [field: SerializeField] public EventReference CycleBaitSfx { get; private set; }
+        [field: SerializeField] public EventReference SelectBaitSfx { get; private set; }
         
         [Title("Input Instructions"),
          HideLabel,

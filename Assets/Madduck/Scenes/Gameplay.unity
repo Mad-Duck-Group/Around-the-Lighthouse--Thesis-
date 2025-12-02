@@ -1582,14 +1582,7 @@ MonoBehaviour:
     - {fileID: -870817957565304975, guid: 407117ad6923fcf4ea77d2d987602397, type: 3}
     - {fileID: 2142108072}
     - {fileID: 21300000, guid: 345ac025f293c2e45a33f50f5629c2c2, type: 3}
-    - {fileID: 21300000, guid: 7079b2b5158821141b2adf256bc8cfbf, type: 3}
-    - {fileID: 21300000, guid: 52517e323b8c5b047af080960fc230e2, type: 3}
-    - {fileID: 21300000, guid: b44228c0dd2f80c4d882ebacf94b3fc3, type: 3}
-    - {fileID: 21300000, guid: 2c51b11e5ad393145b7f2dcdc2012848, type: 3}
-    - {fileID: 21300000, guid: ef55895ee2fffa54a8a71641d5c808d8, type: 3}
-    - {fileID: 21300000, guid: 30d76c0925667bd4f9b79019d81370f3, type: 3}
-    - {fileID: 21300000, guid: 6e399dc45f540f943bba60c344dfe030, type: 3}
-    - {fileID: 21300000, guid: 6ebc84fcac5c45d47b6a77f54cdac7c2, type: 3}
+    - {fileID: 11400000, guid: 5e84b147dbe856943a6e27d6ea17e377, type: 2}
     - {fileID: 1100514717}
     - {fileID: 8124344020347496695, guid: b6304eb062cfd994e94ee54b9af8bba2, type: 3}
     - {fileID: 137340420}
@@ -1963,70 +1956,25 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: dayRoomSpriteConfig
-      Entry: 7
-      Data: 19|Madduck.Room.DayRoomSpriteConfig, Madduck.Room
-    - Name: FutureSprites
-      Entry: 7
-      Data: 20|Madduck.Utils.SerializableDictionary`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
-        Madduck.Day]], Madduck.Utils
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
-        Madduck.Day]], mscorlib
-    - Name: 
-      Entry: 7
-      Data: Madduck.Day.DayRoomKey, Madduck.Day
-    - Name: dayPhase
-      Entry: 3
-      Data: 1
-    - Name: room
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 21|Madduck.Day.DayRoomSprite, Madduck.Day
-    - Name: iconSprite
+    - Name: roomTrackConfig
       Entry: 10
       Data: 31
-    - Name: auraSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 19|Madduck.Room.CardSelectionInstaller, Madduck.Room
+    - Name: cardSelectionScreenView
       Entry: 10
       Data: 32
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
+    - Name: cardSelectionFactory
       Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
-        Madduck.Day]], mscorlib
-    - Name: 
-      Entry: 7
-      Data: Madduck.Day.DayRoomKey, Madduck.Day
-    - Name: dayPhase
-      Entry: 3
-      Data: 2
-    - Name: room
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 22|Madduck.Day.DayRoomSprite, Madduck.Day
-    - Name: iconSprite
+      Data: 20|Madduck.Room.CardSelectionFactory, Madduck.Room
+    - Name: prefab
       Entry: 10
       Data: 33
-    - Name: auraSprite
+    - Name: parent
       Entry: 10
       Data: 34
     - Name: 
@@ -2037,167 +1985,28 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
-        Madduck.Day]], mscorlib
-    - Name: 
-      Entry: 7
-      Data: Madduck.Day.DayRoomKey, Madduck.Day
-    - Name: dayPhase
-      Entry: 3
-      Data: 3
-    - Name: room
-      Entry: 3
-      Data: 3
+      Data: 21|Madduck.Shared.InputUIIconHandlerInstaller, Madduck.Shared
+    - Name: inputUIIconView
+      Entry: 10
+      Data: 35
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 23|Madduck.Day.DayRoomSprite, Madduck.Day
-    - Name: iconSprite
-      Entry: 10
-      Data: 35
-    - Name: auraSprite
+      Data: 22|Madduck.Shared.InputInstructionInstaller, Madduck.Shared
+    - Name: instructionView
       Entry: 10
       Data: 36
     - Name: 
       Entry: 8
       Data: 
     - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: PastSprites
       Entry: 7
-      Data: 24|Madduck.Utils.SerializableDictionary`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
-        Madduck.Day]], Madduck.Utils
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
-        Madduck.Day]], mscorlib
-    - Name: 
-      Entry: 7
-      Data: Madduck.Day.DayRoomKey, Madduck.Day
-    - Name: dayPhase
-      Entry: 3
-      Data: 1
-    - Name: room
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 25|Madduck.Day.DayRoomSprite, Madduck.Day
-    - Name: iconSprite
-      Entry: 10
-      Data: 37
-    - Name: auraSprite
-      Entry: 10
-      Data: 32
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: System.Collections.Generic.KeyValuePair`2[[Madduck.Day.DayRoomKey, Madduck.Day],[Madduck.Day.DayRoomSprite,
-        Madduck.Day]], mscorlib
-    - Name: 
-      Entry: 7
-      Data: Madduck.Day.DayRoomKey, Madduck.Day
-    - Name: dayPhase
-      Entry: 3
-      Data: 2
-    - Name: room
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 26|Madduck.Day.DayRoomSprite, Madduck.Day
-    - Name: iconSprite
-      Entry: 10
-      Data: 38
-    - Name: auraSprite
-      Entry: 10
-      Data: 34
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 27|Madduck.Room.CardSelectionInstaller, Madduck.Room
-    - Name: cardSelectionScreenView
-      Entry: 10
-      Data: 39
-    - Name: cardSelectionFactory
-      Entry: 7
-      Data: 28|Madduck.Room.CardSelectionFactory, Madduck.Room
-    - Name: prefab
-      Entry: 10
-      Data: 40
-    - Name: parent
-      Entry: 10
-      Data: 41
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 29|Madduck.Shared.InputUIIconHandlerInstaller, Madduck.Shared
-    - Name: inputUIIconView
-      Entry: 10
-      Data: 42
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 30|Madduck.Shared.InputInstructionInstaller, Madduck.Shared
-    - Name: instructionView
-      Entry: 10
-      Data: 43
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 31|Madduck.Room.BoatSpriteInstaller, Madduck.Room
+      Data: 23|Madduck.Room.BoatSpriteInstaller, Madduck.Room
     - Name: boatSpriteView
       Entry: 10
-      Data: 44
+      Data: 37
     - Name: 
       Entry: 8
       Data: 
@@ -2209,10 +2018,10 @@ MonoBehaviour:
       Data: 
     - Name: weatherFactoryMock
       Entry: 7
-      Data: 32|Madduck.GameData.WeatherFactoryMock, Madduck.GameData
+      Data: 24|Madduck.GameData.WeatherFactoryMock, Madduck.GameData
     - Name: fixedWeather
       Entry: 10
-      Data: 45
+      Data: 38
     - Name: spoofDirection
       Entry: 5
       Data: true
@@ -2230,7 +2039,7 @@ MonoBehaviour:
       Data: 
     - Name: maxFishCountFactoryMock
       Entry: 7
-      Data: 33|Madduck.GameData.MaxFishCountFactoryMock, Madduck.GameData
+      Data: 25|Madduck.GameData.MaxFishCountFactoryMock, Madduck.GameData
     - Name: fixedMaxFishCount
       Entry: 3
       Data: 1

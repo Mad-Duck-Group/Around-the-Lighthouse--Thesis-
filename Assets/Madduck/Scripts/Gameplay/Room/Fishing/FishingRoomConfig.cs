@@ -13,7 +13,7 @@ namespace Madduck.Room
         [Title("Audio"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _audioTitle;
-        [field: SerializeField] public EventReference BoatSfx { get; private set; }
+        //[field: SerializeField] public EventReference BoatSfx { get; private set; }
         [field: SerializeField] public EventReference SeaAmbient { get; private set; }
         [field: InlineProperty, 
                 SerializeField] public Percentage BgmChance { get; private set; }

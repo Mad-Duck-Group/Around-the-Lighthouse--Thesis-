@@ -18,10 +18,11 @@ namespace Madduck.Room
 
 
         [Inject]
-        public PointingBaitViewModel(IPlayerInputHandler playerInputHandler)
+        public PointingBaitViewModel()
         {
             Bind();
         }
+        
         private void Bind()
         {
             var builder = Disposable.CreateBuilder();

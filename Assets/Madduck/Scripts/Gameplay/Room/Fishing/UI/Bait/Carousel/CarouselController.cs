@@ -71,7 +71,11 @@ namespace HasanSadikin.Carousel
         
 
         [Inject]
-        public void Construct(ICarouselItemPositioner positioner,PlayerInventory playerInventory,PointingBaitConfig pointingBaitConfig , BaitDetailPanel baitDetailPanel)
+        public void Construct(
+            ICarouselItemPositioner positioner,
+            PlayerInventory playerInventory,
+            PointingBaitConfig pointingBaitConfig,
+            BaitDetailPanel baitDetailPanel)
         {
             
             _positioner = positioner;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Madduck.Audio;
 using Madduck.Core;
 using Madduck.Day;
 using Madduck.Shared;
@@ -13,46 +14,48 @@ using VContainer;
 
 namespace Madduck.Room
 {
-    public class RoomTrackColumnViewModel : IDisposable
+    public class RoomTrackColumnController : IDisposable
     {
         #region Fields
         
-        private readonly List<RoomTrackView> _rooms = new();
+        private readonly RoomTrackConfig _roomTrackConfig;
         private readonly DayManagerConfig _dayManagerConfig;
-        private readonly ReadOnlyReactiveProperty<uint> _currentRoomIndex;
         private readonly LoadSceneManager _loadSceneManager;
+        private readonly IAudioManager _audioManager;
         private readonly IFactory<RoomTrackView> _roomTrackFactory;
         private readonly IFactory<BoatTrackView> _boatTrackFactory;
         private readonly ISubscriber<LoadSceneStageEvent> _loadSceneStageEventSubscriber;
         private readonly IPublisher<LoadingSceneAnimationFinishedEvent> _loadingSceneAnimationFinishedPublisher;
-        private readonly SerializableDictionary<DayRoomKey, DayRoomSprite> _futureSprites;
-        private readonly SerializableDictionary<DayRoomKey, DayRoomSprite> _pastSprites;
+        
+        private readonly ReadOnlyReactiveProperty<uint> _currentRoomIndex;
+        private readonly List<RoomTrackView> _rooms = new();
         private BoatTrackView _boatTrackView;
         private IDisposable _binding;
+        private AudioReference _boatEngineAudioRef;
         #endregion
 
         #region Inject
 
         [Inject]
-        public RoomTrackColumnViewModel(
-            DayRoomSpriteConfig spriteMap,
+        public RoomTrackColumnController(
+            RoomTrackConfig roomTrackConfig,
             DayManagerConfig dayManagerConfig,
             RoomTrackViewModel roomTrackViewModel,
             LoadSceneManager loadSceneManager,
+            IAudioManager audioManager,
             IFactory<RoomTrackView> roomTrackFactory,
             IFactory<BoatTrackView> boatTrackFactory,
             ISubscriber<LoadSceneStageEvent> loadSceneStageEventSubscriber,
-            IPublisher<LoadingSceneAnimationFinishedEvent> loadingSceneAnimationFinishedPublisher
-            )
+            IPublisher<LoadingSceneAnimationFinishedEvent> loadingSceneAnimationFinishedPublisher)
         {
+            _roomTrackConfig = roomTrackConfig;
             _dayManagerConfig = dayManagerConfig;
             _boatTrackFactory = boatTrackFactory;
             _roomTrackFactory = roomTrackFactory;
             _loadSceneManager = loadSceneManager;
+            _audioManager = audioManager;
             _loadSceneStageEventSubscriber = loadSceneStageEventSubscriber;
             _loadingSceneAnimationFinishedPublisher = loadingSceneAnimationFinishedPublisher;
-            _futureSprites = spriteMap.FutureSprites;
-            _pastSprites = spriteMap.PastSprites;
             _currentRoomIndex = roomTrackViewModel.CurrentRoomIndex.ToReadOnlyReactiveProperty();
             Bind();
         }
@@ -74,6 +77,7 @@ namespace Madduck.Room
 
         public void Dispose()
         {
+            _audioManager.StopAudio(_boatEngineAudioRef);
             _binding.Dispose();
         }
         #endregion
@@ -109,9 +113,9 @@ namespace Madduck.Room
             var state = CalculateRoomState(index);
             DayRoomSprite sprite = null;
             if (state == RoomHistoryState.Past)
-                _pastSprites.TryGetValue(roomKey, out sprite);
+                _roomTrackConfig.PastSprites.TryGetValue(roomKey, out sprite);
             else
-                _futureSprites.TryGetValue(roomKey, out sprite);
+                _roomTrackConfig.FutureSprites.TryGetValue(roomKey, out sprite);
             var view = _roomTrackFactory.Create();
             view.SetUp(sprite.iconSprite, sprite.auraSprite);
             _rooms.Add(view);
@@ -153,7 +157,9 @@ namespace Madduck.Room
             var previousPos = _rooms[(int)_currentRoomIndex.CurrentValue - 1].transform.position;
             var currentPos = _rooms[(int)_currentRoomIndex.CurrentValue].transform.position;
             boatRectTransform.anchoredPosition = boatRectTransform.parent.InverseTransformPoint(previousPos);
+            _boatEngineAudioRef = _audioManager.PlayAudio(_roomTrackConfig.BoatEngineSound, Vector3.zero);
             await _boatTrackView.AnimateBoatTrack(currentPos);
+            _audioManager.StopAudio(_boatEngineAudioRef);
             if (shouldNotify) 
                 _loadingSceneAnimationFinishedPublisher.Publish(new LoadingSceneAnimationFinishedEvent());
         }

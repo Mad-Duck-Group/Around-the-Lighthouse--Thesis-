@@ -43,7 +43,7 @@ namespace Madduck.Room
             buttonText.gameObject.SetActive(false);
             animator.enabled = true;
             animator.Play("In");
-            _audioManager.PlayAudioOneShot(buttonClickSound, Vector3.zero);
+            _audioManager.PlayAudio(buttonClickSound, Vector3.zero).eventInstance.setParameterByNameWithLabel("TransitionDirection", "In");
             await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f, cancellationToken: cancellationToken);
             animator.enabled = false;
             buttonText.gameObject.SetActive(true);
@@ -55,7 +55,7 @@ namespace Madduck.Room
             animator.enabled = true;
             animator.Play("Out");
             buttonText.gameObject.SetActive(false);
-            _audioManager.PlayAudioOneShot(buttonClickSound, Vector3.zero);
+            _audioManager.PlayAudio(buttonClickSound, Vector3.zero).eventInstance.setParameterByNameWithLabel("TransitionDirection", "Out");
             await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f, cancellationToken: cancellationToken);
             animator.enabled = false;
             button.gameObject.SetActive(false);

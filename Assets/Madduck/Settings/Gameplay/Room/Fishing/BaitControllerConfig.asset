@@ -19,6 +19,13 @@ MonoBehaviour:
       Data3: 1102097064
       Data4: 999091871
     Path: event:/SFX/SlideBait
+  <SelectBaitSfx>k__BackingField:
+    Guid:
+      Data1: -568417040
+      Data2: 1326979185
+      Data3: 723218589
+      Data4: 989023436
+    Path: event:/SFX/FishBait
   <BaitInputInstructions>k__BackingField:
   - key: LeftRight
     description: Select Bait
