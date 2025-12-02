@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{9fe3469c-f1fe-44ea-afe4-1c74c52fb040}">
+	<object class="AudioFile" id="{f19f6769-87a4-4a1c-95c6-e521e4219c25}">
 		<property name="assetPath">
-			<value>SFX/SFX_pickup_bait.mp3</value>
-		</property>
-		<property name="isStreaming">
-			<value>true</value>
+			<value>SFX/SFX_Water_Splash.mp3</value>
 		</property>
 		<property name="frequencyInKHz">
-			<value>24</value>
+			<value>44.0999985</value>
 		</property>
 		<property name="channelCount">
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>24.312000000000001</value>
+			<value>3.0563265306122447</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{d0370551-250a-46b4-8fe4-9471cc918246}</destination>
