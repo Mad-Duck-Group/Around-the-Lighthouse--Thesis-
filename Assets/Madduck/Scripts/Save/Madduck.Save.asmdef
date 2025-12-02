@@ -4,7 +4,10 @@
     "references": [
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
         "GUID:5ecb2f6dbf140e440bfa9b64e27a2d48",
-        "GUID:034c977408447714e91237bd5f97c1ff"
+        "GUID:034c977408447714e91237bd5f97c1ff",
+        "Extensions",
+        "FMODUnity",
+        "spine-unity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

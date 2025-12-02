@@ -11,7 +11,12 @@
         "Extensions",
         "UniTask",
         "Madduck.GameData",
-        "spine-unity"
+        "spine-unity",
+        "FMODUnity",
+        "Madduck.Audio",
+        "Madduck.Core",
+        "Madduck.Input",
+        "Madduck.Save"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
