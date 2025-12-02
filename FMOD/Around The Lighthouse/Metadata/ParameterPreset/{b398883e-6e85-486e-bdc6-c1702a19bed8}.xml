@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{b398883e-6e85-486e-bdc6-c1702a19bed8}">
+		<property name="name">
+			<value>TugOfWarProgress</value>
+		</property>
+		<relationship name="folder">
+			<destination>{531a3ae1-0047-4477-8f6d-5fb14e7a1b66}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{08245364-7e88-4b77-a3a5-d3d0744b9e1b}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{08245364-7e88-4b77-a3a5-d3d0744b9e1b}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
