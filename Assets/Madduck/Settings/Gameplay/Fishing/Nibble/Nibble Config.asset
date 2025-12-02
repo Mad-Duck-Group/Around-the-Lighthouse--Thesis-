@@ -55,6 +55,13 @@ MonoBehaviour:
       Data3: -1544861012
       Data4: -1182722561
     Path: event:/SFX/FishBitten
+  <FishHitSfx>k__BackingField:
+    Guid:
+      Data1: 1506853850
+      Data2: 1163798234
+      Data3: 1815331220
+      Data4: -866535053
+    Path: event:/SFX/FishHooked
   <FishEmergedSfx>k__BackingField:
     Guid:
       Data1: 1740097401

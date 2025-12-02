@@ -171,6 +171,8 @@ namespace Madduck.Fishing.Controller
                     var hook = _hookFactory.Current;
                     hook.Alert(false).Forget();
                     hook.Hit().Forget();
+                    _cameraManager.Shake(_config.CameraShakeSettings, _config.CameraShakeStrengthFactor).Forget();
+                    _audioManager.PlayAudioOneShot(_config.FishHitSfx, Vector3.zero);
                     _bubbleManager.PauseAllBubbles();
                     var currentFish = (FishItemInstance)_fishableFactory.Current;
                     _fishEmergedEventPublisher.Publish(new FishEmergedEvent(currentFish));
