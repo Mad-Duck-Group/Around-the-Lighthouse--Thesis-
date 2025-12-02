@@ -2,10 +2,10 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Madduck.Room
+namespace Madduck.GameData
 {
-    [CreateAssetMenu(fileName = "SettingsPanelConfig", menuName = "Madduck/Room/SettingsPanelConfig")]
-    public class SettingsPanelConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "GameSettingsManagerConfig", menuName = "Madduck/Settings/Game Settings Manager Config")]
+    public class GameSettingsManagerConfig : ScriptableObject
     {
         [Title("Settings"),
             HideLabel,

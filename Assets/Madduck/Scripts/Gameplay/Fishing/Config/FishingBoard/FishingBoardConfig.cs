@@ -19,6 +19,10 @@ namespace Madduck.Fishing.Config
         [field: InlineProperty,
                 SerializeField] public UFloat MinimumMovingForce { get; private set; } = 250f;
         [field: InlineProperty,
+                SerializeField] public Vector2 InertiaRange { get; private set; } = new(100f, 1000f);
+        [field: InlineProperty,
+                SerializeField] public AnimationCurve InertiaCurve { get; private set; } = AnimationCurve.Linear(0, 0, 1, 1);
+        [field: InlineProperty,
                 SerializeField] public bool EnableIdleDecayProcessor { get; private set; }
         [field: InlineProperty, ShowIf(nameof(EnableIdleDecayProcessor)),
                 SerializeField] public UFloat IdleMagnitudeThreshold { get; private set; } = 0.3f;

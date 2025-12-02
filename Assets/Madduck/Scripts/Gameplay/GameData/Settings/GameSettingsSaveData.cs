@@ -1,5 +1,6 @@
 ﻿using System;
 using Madduck.Save;
+using Madduck.Utils;
 using MessagePack;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -31,8 +32,38 @@ namespace Madduck.GameData
     [Serializable]
     public class ControlSettings
     {
+        private GameSettingsManagerConfig _gameSettingsManagerConfig;
         [ShowInInspector] public float FishingBoardMouseSensitivity { get; set; } = 500f;
         [ShowInInspector] public float FishingBoardGamepadSensitivity { get; set; } = 500f;
+
+        public Percentage FishingBoardMouseSensitivityPercentage
+        {
+            get
+            {
+                var reverseLerp = Mathf.InverseLerp(
+                    _gameSettingsManagerConfig.MouseSensitivityRange.x,
+                    _gameSettingsManagerConfig.MouseSensitivityRange.y,
+                    FishingBoardMouseSensitivity);
+                return Percentage.FromFraction(reverseLerp);
+            }
+        }
+        
+        public Percentage FishingBoardGamepadSensitivityPercentage
+        {
+            get
+            {
+                var reverseLerp = Mathf.InverseLerp(
+                    _gameSettingsManagerConfig.GamepadSensitivityRange.x,
+                    _gameSettingsManagerConfig.GamepadSensitivityRange.y,
+                    FishingBoardGamepadSensitivity);
+                return Percentage.FromFraction(reverseLerp);
+            }
+        }
+        
+        public void SetUp(GameSettingsManagerConfig gameSettingsManagerConfig)
+        {
+            _gameSettingsManagerConfig = gameSettingsManagerConfig;
+        }
         
         public void LoadFromSaveData(ControlSettingsSaveData saveData)
         {

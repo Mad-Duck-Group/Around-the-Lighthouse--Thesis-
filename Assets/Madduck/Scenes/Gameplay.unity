@@ -1611,7 +1611,7 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 2|Madduck.Room.SettingsPanelInstaller, Madduck.Room
-    - Name: settingsPanelConfig
+    - Name: gameSettingsManagerConfig
       Entry: 10
       Data: 0
     - Name: settingsPanelView
@@ -16151,7 +16151,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c4c4c80e9611cc949817470283eea898, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb469e636d03d5e47a7908c54eba25d2, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

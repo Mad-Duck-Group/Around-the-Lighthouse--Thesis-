@@ -43,6 +43,7 @@ namespace Madduck.Shared
         private CancellationTokenSource _cts = new();
         private bool _timeFrameOpen;
         private bool _transitionedIn;
+        private bool _attempted;
         [ShowInInspector] private bool _active = true;
         private float _currentTime;
 
@@ -74,7 +75,7 @@ namespace Madduck.Shared
             _input.JerkBaitButton.IsDown
                 .IgnoreFirstValueWhenSubscribe()
                 .DistinctUntilChanged()
-                .Where(x => x && _active)
+                .Where(x => x && _active && !_attempted)
                 .Select(_ => _input.JerkBaitButton)
                 .Subscribe(OnQteButtonDown)
                 .AddTo(ref disposableBuilder);
@@ -210,6 +211,7 @@ namespace Madduck.Shared
 
         private void Success()
         {
+            _attempted = true;
             _audioManager.PlayAudioOneShot(_configInstance.BaseConfig.QteSuccessSfx, Vector3.zero);
             DebugUtils.Log($"Success {_currentBinding.Value.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions)}");
             DisposeInternal();
@@ -220,6 +222,7 @@ namespace Madduck.Shared
 
         private void Fail()
         {
+            _attempted = true;
             _audioManager.PlayAudioOneShot(_configInstance.BaseConfig.QteFailSfx, Vector3.zero);
             DebugUtils.Log($"Fail {_currentBinding.Value.ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions)}");
             DisposeInternal();

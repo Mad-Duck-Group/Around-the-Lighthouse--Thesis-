@@ -9,6 +9,7 @@ namespace Madduck.GameData
     [Serializable]
     public class GameSettingsManager : IPostInitializable
     {
+        private readonly GameSettingsManagerConfig _config;
         private readonly MessagePackSaveManager _saveManager;
         
         private GameSettingsSaveObject _gameSettingsSaveObject;
@@ -16,9 +17,13 @@ namespace Madduck.GameData
         [ShowInInspector] public ControlSettings ControlSettings { get; } = new();
         
         [Inject]
-        public GameSettingsManager(MessagePackSaveManager saveManager)
+        public GameSettingsManager(
+            GameSettingsManagerConfig config,
+            MessagePackSaveManager saveManager)
         {
+            _config = config;
             _saveManager = saveManager;
+            ControlSettings.SetUp(_config);
         }
         
         public void PostInitialize()

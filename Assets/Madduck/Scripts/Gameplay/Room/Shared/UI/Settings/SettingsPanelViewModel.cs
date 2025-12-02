@@ -27,7 +27,7 @@ namespace Madduck.Room
         
         public event Action OnRequestBackToMainMenu;
         
-        private readonly SettingsPanelConfig _config;
+        private readonly GameSettingsManagerConfig _config;
         private readonly AudioManager _audioManager;
         private readonly GameSettingsManager _gameSettingsManager;
         private IDisposable _bindings;
@@ -35,7 +35,7 @@ namespace Madduck.Room
         
         [Inject]
         public SettingsPanelViewModel(
-            SettingsPanelConfig config,
+            GameSettingsManagerConfig config,
             AudioManager audioManager, 
             GameSettingsManager gameSettingsManager)
         {

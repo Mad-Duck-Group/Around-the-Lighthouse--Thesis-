@@ -381,7 +381,7 @@ MonoBehaviour:
   mainMenuConfig: {fileID: 11400000, guid: 4cc775b937c395b499fa7e80ccb59760, type: 2}
   mainMenuView: {fileID: 1905323774}
   settingsPanelInstaller:
-    settingsPanelConfig: {fileID: 11400000, guid: 658d89f254411144b962d388a78d5660, type: 2}
+    gameSettingsManagerConfig: {fileID: 11400000, guid: 658d89f254411144b962d388a78d5660, type: 2}
     settingsPanelView: {fileID: 1097634390}
 --- !u!1 &281119386
 GameObject:
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7186f7a2a548bd243b5761f3d3feaeb3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 85e9eab89767b6e43a93d4f5537e37cf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3151,7 +3151,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 43a2d61b1a3ed0748961b32e8b5a91bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d170aca06cb2f9448f860d47bbfb0cd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3922,7 +3922,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4335798066420169510, guid: 5fa1c2fb5b93a60489869e02e02e24ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b0339bcb3b9645409b7e8356ab5e20b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3977,7 +3977,7 @@ MonoBehaviour:
   button: {fileID: 1678427122}
   animator: {fileID: 1678427125}
   buttonText: {fileID: 952508306}
-  initialSprite: {fileID: 4335798066420169510, guid: 5fa1c2fb5b93a60489869e02e02e24ae, type: 3}
+  initialSprite: {fileID: 21300000, guid: 9b0339bcb3b9645409b7e8356ab5e20b, type: 3}
   buttonClickSound:
     Guid:
       Data1: 600821349
@@ -4178,7 +4178,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 047b1c0ef553b1e4c99e7be8ada5b71b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2dfdbe01e565c6d4b9a3c622353f4f80, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4512,7 +4512,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5131738081514180423, guid: 416738e3439fb97488f6ac6253fa9990, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 48faf6dc30de2d44487b4bae010a6217, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4567,7 +4567,7 @@ MonoBehaviour:
   button: {fileID: 1876152459}
   animator: {fileID: 1876152462}
   buttonText: {fileID: 969684003}
-  initialSprite: {fileID: -5131738081514180423, guid: 416738e3439fb97488f6ac6253fa9990, type: 3}
+  initialSprite: {fileID: 21300000, guid: 48faf6dc30de2d44487b4bae010a6217, type: 3}
   buttonClickSound:
     Guid:
       Data1: 600821349
@@ -4717,7 +4717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1957461029618701759, guid: 1e75c08255ea27847af34bf73c5c2147, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de6ba940fe1e8264a8ac2aab7f5566ad, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4772,7 +4772,7 @@ MonoBehaviour:
   button: {fileID: 1892855466}
   animator: {fileID: 1892855469}
   buttonText: {fileID: 1977410253}
-  initialSprite: {fileID: 1957461029618701759, guid: 1e75c08255ea27847af34bf73c5c2147, type: 3}
+  initialSprite: {fileID: 21300000, guid: de6ba940fe1e8264a8ac2aab7f5566ad, type: 3}
   buttonClickSound:
     Guid:
       Data1: 600821349
@@ -4900,7 +4900,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 990d522f1a316bf40bf9cb1de0fdf797, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 85fa10c678611b34fb151fd3a71d17e1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

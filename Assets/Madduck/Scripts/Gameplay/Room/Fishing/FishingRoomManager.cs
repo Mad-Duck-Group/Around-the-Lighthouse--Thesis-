@@ -139,13 +139,11 @@ namespace Madduck.Room
         internal void FishEscaped(FishEscapedEvent eventData)
         {
             ChangeFishCount(-1);
-            if (eventData.FishItemInstance.ItemData.EnemyType is FishEnemyType.Boss)
+            if (eventData.FishItemInstance.ItemData.EnemyType is FishEnemyType.Boss && _previousBgm != null)
             {
-                if (_previousBgm == null) return;
                 _audioManager.StopAudio(_bgm);
                 _bgm = _audioManager.PlayAudio(_previousBgm.eventReference, Vector3.zero);
                 _previousBgm = null;
-                return;
             }
             if (CurrentFishCount.Value != 0) return;
             //_modalManager.Queue(_cardSelectionController); //NOTE: Disable for now

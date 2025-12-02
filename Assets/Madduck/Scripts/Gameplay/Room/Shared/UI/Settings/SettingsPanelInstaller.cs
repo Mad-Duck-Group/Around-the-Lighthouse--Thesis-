@@ -1,4 +1,5 @@
 ﻿using System;
+using Madduck.GameData;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
@@ -11,13 +12,13 @@ namespace Madduck.Room
     {
         [Title("Settings Panel")]
         [Required,
-         SerializeField] private SettingsPanelConfig settingsPanelConfig;
+         SerializeField] private GameSettingsManagerConfig gameSettingsManagerConfig;
         [Required,
          SerializeField] private SettingsPanelView settingsPanelView;
         
         public void Install(IContainerBuilder builder)
         {
-            builder.RegisterInstance(settingsPanelConfig).AsSelf();
+            builder.RegisterInstance(gameSettingsManagerConfig).AsSelf();
             builder.RegisterComponent(settingsPanelView).AsSelf();
             builder.Register<SettingsPanelViewModel>(Lifetime.Singleton).AsSelf();
             builder.RegisterBuildCallback(x =>

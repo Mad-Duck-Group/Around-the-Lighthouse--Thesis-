@@ -30,6 +30,8 @@ namespace Madduck.GameData
             HideLabel,
             ShowInInspector]
         private InspectorPlaceholder _placeholder;
+        [Required, 
+         SerializeField] private GameSettingsManagerConfig gameSettingsManagerConfig;
         
 #if UNITY_EDITOR
         [Title("Debug")]
@@ -45,6 +47,7 @@ namespace Madduck.GameData
         
         public void Install(IContainerBuilder builder)
         {
+            builder.RegisterInstance(gameSettingsManagerConfig).AsSelf();
             builder.RegisterEntryPoint<GameSettingsManager>()
                 .AsSelf();
             

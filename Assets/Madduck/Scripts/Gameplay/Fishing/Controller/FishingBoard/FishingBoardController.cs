@@ -379,7 +379,7 @@ namespace Madduck.Fishing.Controller
                 ? _gameSettingsManager.ControlSettings.FishingBoardGamepadSensitivity
                 : _gameSettingsManager.ControlSettings.FishingBoardMouseSensitivity;
             var movingForce = sensitivity;
-            var inertiaForce = GetInertiaForce();
+            var inertiaForce = GetInertiaForce(gamepad);
             var finalForce = movingForce - inertiaForce;
             //prevent moving in opposite direction of the moving force
             finalForce = Mathf.Max(_config.MinimumMovingForce, finalForce);
@@ -393,13 +393,21 @@ namespace Madduck.Fishing.Controller
             _model.HookRotation.Value = Quaternion.Euler(0, 0, angle);
         }
         
-        private float GetInertiaForce()
+        private float GetInertiaForce(bool gamepad)
         {
             var fishUnitCirclePosition = _variables.FishUnitCirclePosition;
             var hookUnitCirclePosition = _variables.HookUnitCirclePosition;
-            // var inertiaForce = _model.FishingLineDurabilityPercent.CurrentValue.AsInverseFraction * (float)_config.Inertia;
-            var inertiaForce = Vector2.Distance(fishUnitCirclePosition, hookUnitCirclePosition) / 2f 
-                               * (float)_model.FishingRodItemInstance.CurrentStats.CurrentHookToCenterForce;
+            var distancePercent = Vector2.Distance(fishUnitCirclePosition, hookUnitCirclePosition) / 2f;
+            // var inertiaForce = distancePercent * (float)_model.FishingRodItemInstance.CurrentStats.CurrentHookToCenterForce;
+            var sensitivityPercent = gamepad
+                ? _gameSettingsManager.ControlSettings.FishingBoardGamepadSensitivityPercentage
+                : _gameSettingsManager.ControlSettings.FishingBoardMouseSensitivityPercentage;
+            var inertiaCurveValue = _config.InertiaCurve.Evaluate(sensitivityPercent.AsFraction);
+            var lerpedInertia = Mathf.Lerp(
+                _config.InertiaRange.x,
+                _config.InertiaRange.y,
+                inertiaCurveValue);
+            var inertiaForce = distancePercent * lerpedInertia;
             return inertiaForce;
         }
         
