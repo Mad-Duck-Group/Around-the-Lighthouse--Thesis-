@@ -1,6 +1,6 @@
 {
 "skeleton": {
-	"hash": "hsoBoOI9nXCqv6nHz/U+Jam1CgU",
+	"hash": "IB7ipfkisRUFHO4PGulLIOv5tEE",
 	"spine": "3.8.75",
 	"x": -86,
 	"y": -1,
@@ -2438,7 +2438,10 @@
 					{ "time": 0.1667, "angle": 11.17 }
 				]
 			}
-		}
+		},
+		"events": [
+			{ "time": 0.1667, "name": "After_Throw" }
+		]
 	}
 }
 }
