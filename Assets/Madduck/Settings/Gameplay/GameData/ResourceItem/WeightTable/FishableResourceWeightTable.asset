@@ -15,40 +15,40 @@ MonoBehaviour:
   <Records>k__BackingField:
   - <Item>k__BackingField: {fileID: 11400000, guid: 61b6e687d0d62ae4b93157fa7481485d, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: 8e6b773d723bc284a967592a3a910559, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: 74f49619f60709e47a1db29441baf490, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: 36fb1accd2b985c41b31616699bb3062, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: c816768179bc3604abe3b9a2e22631c2, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: 7faa80d326504034fb537522a1fb1e6e, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: 95a06d512b18f2542906824d9661fb26, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: 6618ea15c06fa3046a92187016f2bbe5, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: bc4f81a99809b3746a2c1070f86ca813, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: 05f7057e28c87564c86985b8722ac736, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: f096820a50dea344e9286290b522f416, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: b0fcb550cab02974080457863993bf7b, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25
   - <Item>k__BackingField: {fileID: 11400000, guid: de4c11965ada9f74cbf588b5e6263f6e, type: 2}
     <Weight>k__BackingField:
-      value: 0.5
+      value: 0.25

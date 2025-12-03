@@ -46,8 +46,8 @@ MonoBehaviour:
   nibbleBaseSuccessChances:
     keys: 0000000001000000
     values:
-    - value: 0
-    - value: 0
+    - value: 35
+    - value: 35
   <FishBiteTimeFrame>k__BackingField:
     value: 3
   <Power>k__BackingField:
@@ -65,6 +65,6 @@ MonoBehaviour:
   <ReelingSpeed>k__BackingField:
     value: 30
   <TugOfWarDecayThreshold>k__BackingField:
-    value: 5
+    value: 15
   <TugOfWarGainRate>k__BackingField:
-    value: 2
+    value: 6
