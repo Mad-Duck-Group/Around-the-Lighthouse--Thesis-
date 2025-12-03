@@ -48,6 +48,7 @@ namespace Madduck.Fishing.Controller
         private IDisposable _qteIntervalTimer;
         private CancellationTokenSource _transitionCts = new();
         private CancellationTokenSource _fishBiteCts = new();
+        private CancellationTokenSource _jerkBaitAnimationCts = new();
         private const string ThrowEventName = "After_Throw";
         private const string DestroyHookEventName = "Ending";
         private int _currentStageIndex;
@@ -158,6 +159,7 @@ namespace Madduck.Fishing.Controller
         {
             _inputInstructionManager.Show(Array.Empty<InputInstruction>(), stream: 0);
             TransitionOutFishEyes();
+            _jerkBaitAnimationCts?.Cancel();
             _fishBiteCts.Cancel();
             _qteIntervalTimer?.Dispose();
             _hookFactory.Current.StopNibble();
@@ -202,6 +204,7 @@ namespace Madduck.Fishing.Controller
 
         public void Reset()
         {
+            _jerkBaitAnimationCts?.Cancel();
             _model.Reset();
         }
 
@@ -289,6 +292,8 @@ namespace Madduck.Fishing.Controller
             });
             _qteButtonFactory.Current.OnSuccess -= OnQteSuccess;
             _hookFactory.Current.Nibble(2);
+            _jerkBaitAnimationCts = new CancellationTokenSource();
+            JerkBaitAnimation(_jerkBaitAnimationCts.Token).Forget();
             var bubbleType = _sharedVariable.CurrentBubbleType.CurrentValue;
             _currentStageChance[_currentStageIndex] +=
                 _model.FishingRod.CurrentStats.CurrentBubbleNibbleBonuses[bubbleType];
@@ -367,6 +372,13 @@ namespace Madduck.Fishing.Controller
                     break;
             }
             StartQteTimer();
+        }
+
+        private async UniTaskVoid JerkBaitAnimation(CancellationToken token)
+        {
+            await _playerAnimator.Set(PlayerAnimationKey.JerkBait, 0, false)
+                .WaitUntilComplete(cancellationToken: token);
+            _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
         }
         #endregion
 

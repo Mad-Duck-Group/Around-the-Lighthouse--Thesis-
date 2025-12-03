@@ -183,7 +183,7 @@ namespace Madduck.Fishing.Controller
         private void OnWinReeling()
         {
             _audioManager.StopAudio(_reelingAudioReference);
-            _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
+            _playerAnimator.Set(PlayerAnimationKey.IdleRod2H, 0, true);
             _model.Inventory.ChangeCurrentBaitAmount(-1);
             UniTask.WaitForEndOfFrame()
                 .ContinueWith(() => OnReelingResult?.Invoke(Sign.Positive)); // Delay to avoid race condition

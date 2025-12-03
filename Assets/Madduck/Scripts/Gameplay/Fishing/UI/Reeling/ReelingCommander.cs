@@ -83,7 +83,7 @@ namespace Madduck.Fishing.UI
         private void OnReelingReleased()
         {
             _isHolding = false;
-            _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
+            _playerAnimator.Set(PlayerAnimationKey.IdleRod2H, 0, true);
         }
 
         public void Reset()

@@ -14,47 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Madduck.Shared::Madduck.Shared.PlayerAnimatorConfig
   skeletonDataAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
   <Animations>k__BackingField:
-    keys: 00000000010000000300000004000000050000000800000009000000020000000600000007000000
+    keys: 000000000100000003000000040000000500000008000000090000000200000006000000070000000a0000000b000000
     values:
     - Idle1
     - Idle2
-    - Throw1
-    - Throw2
-    - Throw3
+    - Idle_Rod_2H
+    - Throw1_2H
+    - Throw2_2H
+    - PullHookUp
+    - Reeling_Pull
+    - Idle_Rod
+    - Throw3_2H
+    - Jerking_2H
     - Pulling
     - GotFish
-    - Idle_Rod
-    - PullHookUp
-    - Reeling
-  deconstructedAnimations:
-  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
-    key: 0
-    animation: Idle1
-  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
-    key: 1
-    animation: Idle2
-  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
-    key: 3
-    animation: Throw1
-  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
-    key: 4
-    animation: Throw2
-  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
-    key: 5
-    animation: Throw3
-  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
-    key: 8
-    animation: Pulling
-  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
-    key: 9
-    animation: GotFish
-  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
-    key: 2
-    animation: Idle_Rod
-  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
-    key: 6
-    animation: PullHookUp
-  - refAsset: {fileID: 11400000, guid: 9afa53f4d65ac9a4ab97a6a05dfe39a8, type: 2}
-    key: 7
-    animation: Reeling
+  deconstructedAnimations: []
   <IdleSwitchInterval>k__BackingField: {x: 5, y: 10}
