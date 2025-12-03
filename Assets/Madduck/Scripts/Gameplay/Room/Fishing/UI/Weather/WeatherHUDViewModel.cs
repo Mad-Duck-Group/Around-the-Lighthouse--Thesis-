@@ -24,7 +24,8 @@ namespace Madduck.Room
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _weatherChangedSubscriber.Subscribe(e => OnWeatherChanged(e.Weather))
+            _weatherChangedSubscriber
+                .Subscribe(e => OnWeatherChanged(e.Weather))
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }

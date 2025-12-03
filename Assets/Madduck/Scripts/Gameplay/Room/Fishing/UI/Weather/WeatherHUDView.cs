@@ -40,7 +40,8 @@ namespace Madduck.Room
         private void Bind()
         {
             var disposableBuilder = Disposable.CreateBuilder();
-            _viewModel.CurrentWeather.Subscribe(SetWeatherIcon)
+            _viewModel.CurrentWeather
+                .Subscribe(SetWeatherIcon)
                 .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
@@ -52,6 +53,7 @@ namespace Madduck.Room
 
         private void SetWeatherIcon(WeatherItemInstance weather)
         {
+            if (weather == null) return;
             if (_weatherIcons.TryGetValue(weather.ItemData.WeatherType, out var icon))
             {
                 weatherIcon.sprite = icon;

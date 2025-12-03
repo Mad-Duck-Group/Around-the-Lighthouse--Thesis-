@@ -109,7 +109,7 @@ namespace Madduck.Fishing.Controller
             {
                 _slowMoCts.Cancel();
                 _slowMoCts = new CancellationTokenSource();
-                _slowMoTimer.Dispose();
+                _slowMoTimer?.Dispose();
                 Time.timeScale = 1f;
                 _inputInstructionManager.Show(Array.Empty<InputInstruction>(), stream: 0);
             }
@@ -120,7 +120,7 @@ namespace Madduck.Fishing.Controller
             _isCatching = false;
             _slowMoCts.Cancel();
             _slowMoCts = new CancellationTokenSource();
-            _slowMoTimer.Dispose();
+            _slowMoTimer?.Dispose();
             Time.timeScale = 1f;
         }
 
