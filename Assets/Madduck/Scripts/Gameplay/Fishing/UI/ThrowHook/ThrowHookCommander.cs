@@ -32,6 +32,8 @@ namespace Madduck.Fishing.UI
         private InputType? _activeInputType;
         private Sign _throwHookSliderDirection = Sign.Positive;
         private IDisposable _bindings;
+        private AudioReference _throwChargingAudioRef;
+        private const string ThrowHookProgressParameter = "ThrowHookProgress";
         private const string ThrowEventName = "After_Throw";
         
         [Inject]
@@ -63,14 +65,17 @@ namespace Madduck.Fishing.UI
                 {
                     _activeInputType = x;
                     _isDown = true;
-                    OnThrowHookFirstHeld(_chargeCts.Token).Forget();
+                    OnThrowHookDown(_chargeCts.Token).Forget();
                 })
                 .AddTo(ref disposableBuilder);
             ThrowHookHeldCommand
                 .Where(x=> x == _activeInputType && !_hookThrown && _isDown)
                 .Subscribe(_ =>
                 {
-                    if (!_isHolding) _model.HookThrownFirstHeld.Value = true;
+                    if (!_isHolding)
+                    {
+                        OnThrowHookFirstHeld();
+                    }
                     _isHolding = true;
                     OnThrowHookHeld();
                 })
@@ -90,14 +95,27 @@ namespace Madduck.Fishing.UI
                     _activeInputType = null;
                 })
                 .AddTo(ref disposableBuilder);
+            _model.ThrowHookPercent
+                .Subscribe(x =>
+                {
+                    if (_throwChargingAudioRef == null) return;
+                    _throwChargingAudioRef.eventInstance.setParameterByName(ThrowHookProgressParameter, x.AsFraction);
+                })
+                .AddTo(ref disposableBuilder);
             _bindings = disposableBuilder.Build();
         }
 
-        private async UniTaskVoid OnThrowHookFirstHeld(CancellationToken token)
+        private async UniTaskVoid OnThrowHookDown(CancellationToken token)
         {
             _playerIdleAnimator.StopIdle();
             await _playerAnimator.Set(PlayerAnimationKey.PrepareThrow, 0, false).WaitUntilComplete(cancellationToken: token);
             _playerAnimator.Set(PlayerAnimationKey.ChargingThrow, 0, true);
+        }
+
+        private void OnThrowHookFirstHeld()
+        {
+            _model.HookThrownFirstHeld.Value = true;
+            _throwChargingAudioRef = _audioManager.PlayAudio(_config.ChargingSfx, Vector3.zero);
         }
         
         private void OnThrowHookHeld()
@@ -112,12 +130,14 @@ namespace Madduck.Fishing.UI
             {
                 _throwHookSliderDirection = Sign.Positive;
             }
-            _model.ThrowHookCurrentValue.Value = currentValue + (int)_throwHookSliderDirection 
+            var finalValue = currentValue + (int)_throwHookSliderDirection 
                 * ((float)_model.FishingRod.CurrentStats.CurrentThrowSliderSpeed * Time.deltaTime);
+            _model.ThrowHookCurrentValue.Value = finalValue;
         }
         
         private async UniTaskVoid OnThrowHookReleased()
         {
+            _audioManager.StopAudio(_throwChargingAudioRef);
             _chargeCts.Cancel();
             _hookThrown = true;
             var track = _playerAnimator.Set(PlayerAnimationKey.ReleaseThrow, 0, false);
@@ -130,6 +150,7 @@ namespace Madduck.Fishing.UI
 
         private void CancelCharge()
         {
+            _audioManager.StopAudio(_throwChargingAudioRef);
             _model.HookThrownFirstHeld.OnNext(false);
             _isHolding = false;
             _chargeCts.Cancel();
@@ -138,6 +159,7 @@ namespace Madduck.Fishing.UI
 
         public void Reset()
         {
+            _audioManager.StopAudio(_throwChargingAudioRef);
             _chargeCts = new();
             _hookThrown = false;
             _isDown = false;

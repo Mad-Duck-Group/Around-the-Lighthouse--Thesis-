@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="ParameterPreset" id="{6b98bca3-dd2d-43fc-9a90-361a3a61765f}">
 		<property name="name">
-			<value>ThrowProgress</value>
+			<value>ThrowHookProgress</value>
 		</property>
 		<relationship name="folder">
 			<destination>{531a3ae1-0047-4477-8f6d-5fb14e7a1b66}</destination>

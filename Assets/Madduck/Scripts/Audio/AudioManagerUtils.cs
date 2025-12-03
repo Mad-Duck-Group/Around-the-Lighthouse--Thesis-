@@ -26,7 +26,8 @@ namespace Madduck.Audio
     #region Interfaces
     public interface IAudioManager
     {
-        AudioReference PlayAudio(EventReference eventReference, Vector3 position, string id = null, Transform parent = null);
+        AudioReference PlayAudio(EventReference eventReference, Vector3 position, string id = null,
+            Transform parent = null, bool addToWildIfNotId = true);
         void PlayAudioOneShot(EventReference eventReference, Vector3 position);
         void SetPauseAudio(AudioReference audioReference, bool pause);
         void SetPauseAllAudioInIdentifier(string id, bool pause);
@@ -58,7 +59,7 @@ namespace Madduck.Audio
     #region Mocks
     public class AudioManagerMock : IAudioManager
     {
-        public AudioReference PlayAudio(EventReference eventReference, Vector3 position, string id = null, Transform parent = null)
+        public AudioReference PlayAudio(EventReference eventReference, Vector3 position, string id = null, Transform parent = null, bool addToWildIfNotId = true)
         {
             return new AudioReference(new EventInstance(), new EventReference());
         }

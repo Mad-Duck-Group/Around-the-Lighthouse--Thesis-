@@ -36,6 +36,7 @@ namespace Madduck.Fishing.Controller
         private CancellationTokenSource _transitionCts = new();
         private bool _thresholdReached;
         private bool _inputActive;
+        private const string TugOfWarProgressParameter = "TugOfWarProgress";
         private const string ThrowEventName = "After_Throw";
         
         [Inject]
@@ -97,6 +98,8 @@ namespace Madduck.Fishing.Controller
         private void OnTugButtonDown()
         {
             _model.CurrentTugOfWarProgress.Value += _model.FishingRodInstance.CurrentStats.CurrentTugOfWarGainRate;
+            _audioManager.PlayAudio(_config.TugSfx, Vector3.zero, addToWildIfNotId: false).eventInstance
+                .setParameterByName(TugOfWarProgressParameter, _model.TugOfWarPercent.CurrentValue.AsFraction);
         }
         
         

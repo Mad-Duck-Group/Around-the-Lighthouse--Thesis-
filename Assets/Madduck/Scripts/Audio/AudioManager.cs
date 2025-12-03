@@ -71,7 +71,7 @@ namespace Madduck.Audio
         #endregion
 
         #region Play
-        public AudioReference PlayAudio(EventReference eventReference, Vector3 position, string id = null, Transform parent = null)
+        public AudioReference PlayAudio(EventReference eventReference, Vector3 position, string id = null, Transform parent = null, bool addToWildIfNotId = true)
         {
             if (_audioManagerConfig.LimitAudioCount && _wildAudioReferenceData.Count + 
                 _indexedAudioReferenceData.Values.Sum(references => references.Count) >= _audioManagerConfig.MaxAudioCount)
@@ -96,7 +96,7 @@ namespace Madduck.Audio
                     _indexedAudioReferenceData[id] = new List<AudioReference> { audioReference };
                 }
             }
-            else
+            else if (addToWildIfNotId)
             {
                 _wildAudioReferenceData.Add(audioReference);
             }

@@ -64,9 +64,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{6ed943e2-96f6-4cd9-89b2-739aeba9345d}">
-		<property name="volume">
-			<value>-6</value>
-		</property>
 		<relationship name="effectChain">
 			<destination>{25f4fc1d-16b7-4f70-8dba-56d9898b7b5f}</destination>
 		</relationship>
@@ -84,6 +81,9 @@
 		<property name="timelockedOffset">
 			<value>0.46000000000000008</value>
 		</property>
+		<property name="volume">
+			<value>5</value>
+		</property>
 		<relationship name="audioFile">
 			<destination>{71048e99-59f5-4a49-9d4c-635084927a3c}</destination>
 		</relationship>
@@ -98,6 +98,7 @@
 		<relationship name="effects">
 			<destination>{dd260203-5ec9-4b21-93ac-46630c3f420b}</destination>
 			<destination>{f66c2591-d1fc-4b2d-a2c1-d008eae226ea}</destination>
+			<destination>{f0a3bdb2-d774-4593-9861-7f5f9183657d}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{e791643f-bc9c-40be-acec-a7bcd23dfdfc}" />
@@ -111,4 +112,5 @@
 			<value>2.82758594</value>
 		</property>
 	</object>
+	<object class="LoudnessMeter" id="{f0a3bdb2-d774-4593-9861-7f5f9183657d}" />
 </objects>

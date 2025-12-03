@@ -12,6 +12,7 @@ namespace Madduck.Fishing.Config
         [Title("Audio"),
          HideLabel,
          ShowInInspector] private InspectorPlaceholder _audioTitle;
+        [field: SerializeField] public EventReference ChargingSfx { get; private set; }
         [field: SerializeField] public EventReference ThrowHookSfx { get; private set; }
         [field: SerializeField] public EventReference FishingLineCastSfx { get; private set; }
         [field: SerializeField] public EventReference HookHitWaterSfx { get; private set; }

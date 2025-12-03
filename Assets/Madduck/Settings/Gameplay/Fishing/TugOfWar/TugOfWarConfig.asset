@@ -19,6 +19,13 @@ MonoBehaviour:
       Data3: -739449683
       Data4: -2041028436
     Path: event:/SFX/AngryFish
+  <TugSfx>k__BackingField:
+    Guid:
+      Data1: 1573593314
+      Data2: 1246003690
+      Data3: 1256839611
+      Data4: -1884103360
+    Path: event:/SFX/WasdFishingBar
   <TugInputInstructions>k__BackingField:
   - key: ABXY
     description: (Mash) Pull

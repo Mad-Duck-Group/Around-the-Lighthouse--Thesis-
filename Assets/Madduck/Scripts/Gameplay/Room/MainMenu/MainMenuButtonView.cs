@@ -29,6 +29,7 @@ namespace Madduck.Room
         public Button Button => button;
         
         private IAudioManager _audioManager;
+        private const string TransitionDirectionParameter = "TransitionDirection";
         
         public void SetUp(IAudioManager audioManager)
         {
@@ -43,7 +44,8 @@ namespace Madduck.Room
             buttonText.gameObject.SetActive(false);
             animator.enabled = true;
             animator.Play("In");
-            _audioManager.PlayAudio(buttonClickSound, Vector3.zero).eventInstance.setParameterByNameWithLabel("TransitionDirection", "In");
+            _audioManager.PlayAudio(buttonClickSound, Vector3.zero, addToWildIfNotId: false)
+                .eventInstance.setParameterByNameWithLabel(TransitionDirectionParameter, "In");
             await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f, cancellationToken: cancellationToken);
             animator.enabled = false;
             buttonText.gameObject.SetActive(true);
@@ -55,7 +57,8 @@ namespace Madduck.Room
             animator.enabled = true;
             animator.Play("Out");
             buttonText.gameObject.SetActive(false);
-            _audioManager.PlayAudio(buttonClickSound, Vector3.zero).eventInstance.setParameterByNameWithLabel("TransitionDirection", "Out");
+            _audioManager.PlayAudio(buttonClickSound, Vector3.zero, addToWildIfNotId: false)
+                .eventInstance.setParameterByNameWithLabel(TransitionDirectionParameter, "Out");
             await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f, cancellationToken: cancellationToken);
             animator.enabled = false;
             button.gameObject.SetActive(false);
