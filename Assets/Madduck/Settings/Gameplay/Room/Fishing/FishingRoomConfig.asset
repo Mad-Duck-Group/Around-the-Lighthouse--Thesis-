@@ -12,20 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05168f1c06554f21a62af60c17286c67, type: 3}
   m_Name: FishingRoomConfig
   m_EditorClassIdentifier: Madduck.Room::Madduck.Room.FishingRoomConfig
-  <BoatSfx>k__BackingField:
-    Guid:
-      Data1: -1230577726
-      Data2: 1105820072
-      Data3: -1059403628
-      Data4: 651846255
-    Path: event:/SFX/ShipEngineLoadingScene
   <SeaAmbient>k__BackingField:
     Guid:
-      Data1: -113828124
-      Data2: 1293948671
-      Data3: -55899514
-      Data4: 1695925833
-    Path: event:/Ambient/GameplayAmbient
+      Data1: 335499099
+      Data2: 1301200895
+      Data3: -1019916906
+      Data4: -293460352
+    Path: event:/Ambient/OceanWave_Thunder
   <BgmChance>k__BackingField:
     value: 100
   <BgmDelay>k__BackingField:

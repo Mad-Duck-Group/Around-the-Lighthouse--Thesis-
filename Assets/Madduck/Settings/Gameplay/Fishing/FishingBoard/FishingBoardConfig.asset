@@ -15,7 +15,7 @@ MonoBehaviour:
   <MaxFatigueLevel>k__BackingField:
     value: 100
   <MinimumMovingForce>k__BackingField:
-    value: 500
+    value: 380
   <InertiaRange>k__BackingField: {x: 110, y: 2200}
   <InertiaCurve>k__BackingField:
     serializedVersion: 2

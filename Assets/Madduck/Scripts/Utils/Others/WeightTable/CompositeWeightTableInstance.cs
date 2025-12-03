@@ -138,6 +138,7 @@ namespace Madduck.Utils
             var cumulativeWeight = 0f;
             foreach (var record in allRecords)
             {
+                if (record.Weight == 0) continue;
                 cumulativeWeight += record.Weight;
                 if (randomValue > cumulativeWeight) continue;
                 if (record.Item is T item)

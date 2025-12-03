@@ -61,7 +61,7 @@ MonoBehaviour:
       _updateType: 0
   <BasePrice>k__BackingField: 10
   <Power>k__BackingField:
-    value: 8.25
+    value: 9
   <Resistance>k__BackingField:
     value: 0
   <FishWeight>k__BackingField:

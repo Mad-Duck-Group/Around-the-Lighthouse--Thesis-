@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: 0|Madduck.GameData.GameSettingsSaveData, Madduck.GameData
     - Name: <Version>k__BackingField
       Entry: 1
-      Data: 0.8.1-alpha.1+windows
+      Data: 0.9.0-alpha.3+windows
     - Name: <ControlSettings>k__BackingField
       Entry: 7
       Data: 1|Madduck.GameData.ControlSettingsSaveData, Madduck.GameData
@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: 600
     - Name: <FishingBoardGamepadSensitivity>k__BackingField
       Entry: 4
-      Data: 500
+      Data: 600
     - Name: 
       Entry: 8
       Data: 
