@@ -34,20 +34,20 @@ MonoBehaviour:
   bubbleNibbleBonuses:
     keys: 000000000100000002000000
     values:
-    - value: 7
-    - value: 10
-    - value: 10
+    - value: 33
+    - value: 50
+    - value: 50
   bubbleNibblePenalties:
     keys: 000000000100000002000000
     values:
-    - value: 5
-    - value: 7
-    - value: 7
+    - value: 11
+    - value: 20
+    - value: 20
   nibbleBaseSuccessChances:
     keys: 0000000001000000
     values:
-    - value: 35
-    - value: 35
+    - value: 0
+    - value: 0
   <FishBiteTimeFrame>k__BackingField:
     value: 3
   <Power>k__BackingField:

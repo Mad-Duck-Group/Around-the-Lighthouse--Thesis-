@@ -346,7 +346,7 @@ namespace Madduck.Fishing.Controller
         /// </summary>
         private void WinFishingBoard()
         {
-            _playerAnimator.Set(PlayerAnimationKey.IdleRod, 0, true);
+            _playerAnimator.Set(PlayerAnimationKey.IdleRod2H, 0, true);
             _fishSpriteFactory.Current.Animator.Set(FishSpriteAnimationKey.Exhausted, 0, true);
             OnFishingBoardResult?.Invoke(Sign.Positive);
         }
