@@ -43,7 +43,7 @@ MonoBehaviour:
       Data: 3
     - Name: <ModifierValue>k__BackingField
       Entry: 4
-      Data: 0.5
+      Data: 3
     - Name: <ModifierCurveRange>k__BackingField
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule

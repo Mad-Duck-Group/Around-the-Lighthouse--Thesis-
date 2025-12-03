@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865137586210436fb705fec6cb903e0e, type: 3}
   m_Name: Nibble Config
   m_EditorClassIdentifier: Madduck.Fishing::Madduck.Fishing.Config.NibbleConfig
-  <QteIntervalRange>k__BackingField: {x: 3, y: 10}
+  <QteIntervalRange>k__BackingField: {x: 3, y: 6}
   <CameraShakeSettings>k__BackingField:
     strength: {x: 0, y: 0, z: 0}
     duration: 0.5
